@@ -68,11 +68,24 @@ class InculvaWidget {
   }
 
   private init(): void {
+    void this.bootstrap();
+  }
+
+  /**
+   * Fetch remote config first — only render the widget if the site-id is valid
+   * and the domain is authorized. On 404/403 we abort silently; on network
+   * errors we fail open (render with defaults) so customer sites aren't broken
+   * by a transient API outage.
+   */
+  private async bootstrap(): Promise<void> {
+    const authorized = await this.fetchRemoteConfig();
+    if (!authorized) return;
+
     this.injectStyles();
     this.applyTheme();
     this.renderWidget();
     this.restorePrefs();
-    this.fetchRemoteConfig();
+    this.applyConfigToDOM();
   }
 
   private injectStyles(): void {
@@ -302,12 +315,32 @@ class InculvaWidget {
     }
   }
 
-  private async fetchRemoteConfig(): Promise<void> {
+  /**
+   * Fetches remote config and merges it into this.config / this.labels.
+   * Returns false when the widget must NOT render (404 = unknown site-id,
+   * 403 = domain not authorized). Returns true on success or on transient
+   * network/server errors so customer sites degrade gracefully.
+   *
+   * Intentionally performs NO DOM operations — all DOM work happens in
+   * applyConfigToDOM() after the widget is rendered.
+   */
+  private async fetchRemoteConfig(): Promise<boolean> {
     try {
       const res = await fetch(
         `${this.apiBase}/widget/config/${this.config.siteId}`
       );
-      if (!res.ok) return;
+
+      if (res.status === 404 || res.status === 403) {
+        console.warn(
+          `[Inculva] Widget disabled — ${res.status === 404 ? "site not found" : "domain not authorized"}.`
+        );
+        return false;
+      }
+
+      if (!res.ok) {
+        // Transient server error — fail open, render with defaults
+        return true;
+      }
 
       const body = (await res.json()) as {
         success?: boolean;
@@ -321,85 +354,64 @@ class InculvaWidget {
         accessibilityStatementUrl?: string;
       });
 
-      if (remote.primaryColor) {
-        this.config.primaryColor = remote.primaryColor;
-        this.btn.style.backgroundColor = remote.primaryColor;
-        document.documentElement.style.setProperty(
-          "--inculva-primary",
-          remote.primaryColor
-        );
-      }
+      if (remote.primaryColor) this.config.primaryColor = remote.primaryColor;
+      if (remote.features) this.config.features = { ...this.config.features, ...remote.features };
+      if (remote.language) this.config.language = remote.language;
+      if (remote.position) this.config.position = remote.position;
+      if (remote.theme) this.config.theme = remote.theme;
+      if (remote.accessibilityStatementUrl !== undefined) this.config.accessibilityStatementUrl = remote.accessibilityStatementUrl;
+      if (remote.whiteLabelText !== undefined) this.config.whiteLabelText = remote.whiteLabelText;
+      if (remote.borderRadius !== undefined) this.config.borderRadius = remote.borderRadius;
+      if (remote.buttonSize !== undefined) this.config.buttonSize = remote.buttonSize;
+      if (remote.fontFamily !== undefined) this.config.fontFamily = remote.fontFamily;
+      if (remote.labels) this.labels = remote.labels;
 
-      if (remote.features) {
-        this.config.features = { ...this.config.features, ...remote.features };
-      }
+      return true;
+    } catch {
+      // Network unavailable — fail open, render with defaults
+      return true;
+    }
+  }
 
-      if (remote.language) {
-        this.config.language = remote.language;
-      }
+  /**
+   * Applies remote config values that require DOM access.
+   * Called after renderWidget() so this.btn and this.panel are guaranteed to exist.
+   */
+  private applyConfigToDOM(): void {
+    // Business plan visual customization CSS vars
+    if (this.config.borderRadius !== undefined) {
+      document.documentElement.style.setProperty(
+        "--inculva-border-radius",
+        `${this.config.borderRadius}px`
+      );
+    }
+    if (this.config.buttonSize !== undefined) {
+      document.documentElement.style.setProperty(
+        "--inculva-button-size",
+        this.config.buttonSize === "small" ? "44px" : this.config.buttonSize === "large" ? "64px" : "52px"
+      );
+    }
+    // Set the CSS custom property only — no external font request is made.
+    // If the font is already present on the customer's site it will render;
+    // otherwise the stack falls back to sans-serif. This keeps the widget
+    // fully compatible with strict font-src CSP policies.
+    if (this.config.fontFamily !== undefined && this.config.fontFamily !== "system") {
+      document.documentElement.style.setProperty(
+        "--inculva-font",
+        this.getFontStack(this.config.fontFamily)
+      );
+    }
 
-      if (remote.position) {
-        this.config.position = remote.position;
-        applyPosition(this.btn, this.config.position);
-        applyPosition(this.panel, this.config.position);
-      }
-
-      if (remote.theme) {
-        this.config.theme = remote.theme;
-        this.applyTheme();
-      }
-
-      if (remote.accessibilityStatementUrl !== undefined) {
-        this.config.accessibilityStatementUrl = remote.accessibilityStatementUrl;
-      }
-
-      if (remote.whiteLabelText !== undefined) {
-        this.config.whiteLabelText = remote.whiteLabelText;
-      }
-
-      // Visual customization (Business plan only)
-      if (remote.borderRadius !== undefined) {
-        this.config.borderRadius = remote.borderRadius;
-        document.documentElement.style.setProperty(
-          "--inculva-border-radius",
-          `${remote.borderRadius}px`
-        );
-      }
-      if (remote.buttonSize !== undefined) {
-        this.config.buttonSize = remote.buttonSize;
-        document.documentElement.style.setProperty(
-          "--inculva-button-size",
-          remote.buttonSize === "small" ? "44px" : remote.buttonSize === "large" ? "64px" : "52px"
-        );
-      }
-      if (remote.fontFamily !== undefined && remote.fontFamily !== "system") {
-        this.config.fontFamily = remote.fontFamily;
-        // Set the CSS custom property only — no external font request is made.
-        // If the font is already present on the customer's site it will render;
-        // otherwise the stack falls back to sans-serif. This keeps the widget
-        // fully compatible with strict font-src CSP policies.
-        document.documentElement.style.setProperty(
-          "--inculva-font",
-          this.getFontStack(remote.fontFamily)
-        );
-      }
-
-      // Store labels for aria-live announcements
-      if (remote.labels) {
-        this.labels = remote.labels;
-      }
-
-      // Update panel with new features, language, labels, a11y statement URL, and white-label text
+    // Apply remote labels to panel text (localization strings from API)
+    if (Object.keys(this.labels).length > 0) {
       updatePanel(
         this.panel,
         this.config.features,
         this.config.language,
-        remote.labels,
+        this.labels,
         this.config.accessibilityStatementUrl,
         this.config.whiteLabelText,
       );
-    } catch {
-      // Network unavailable — use defaults
     }
   }
 

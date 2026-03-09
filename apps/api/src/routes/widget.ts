@@ -20,6 +20,27 @@ function isLocalhost(domain: string): boolean {
   return domain === "localhost" || domain === "127.0.0.1" || domain === "::1";
 }
 
+/**
+ * Returns true when `requestDomain` is permitted to embed the widget.
+ *
+ * Allowed if the request domain:
+ *  - exactly matches `primaryDomain` or any entry in `allowedDomains`, OR
+ *  - is a subdomain of `primaryDomain` or any entry in `allowedDomains`
+ *    (e.g. www.example.com and shop.example.com are subdomains of example.com)
+ */
+function isDomainAllowed(
+  requestDomain: string,
+  primaryDomain: string,
+  allowedDomains: string[],
+): boolean {
+  const req = requestDomain.toLowerCase();
+  const matchesEntry = (entry: string): boolean => {
+    const e = entry.toLowerCase();
+    return req === e || req.endsWith(`.${e}`);
+  };
+  return matchesEntry(primaryDomain) || allowedDomains.some(matchesEntry);
+}
+
 async function sendUsageAlert(
   ownerId: string,
   level: 80 | 100,
@@ -133,7 +154,7 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
 
       const config = await db.widgetConfig.findUnique({
         where: { siteId },
-        include: { site: { select: { owner: { select: { plan: true } } } } },
+        include: { site: { select: { domain: true, owner: { select: { plan: true } } } } },
       });
 
       if (!config) {
@@ -142,10 +163,12 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
 
       const ownerPlan = config.site.owner.plan;
 
-      // Domain enforcement — block unauthorized origins if allowlist is set
+      // Domain enforcement — request origin/referer must match the site's registered
+      // domain (or a subdomain of it) or one of the explicit allowedDomains entries.
+      // Localhost is always permitted for local development.
       const domain = extractDomain(request);
-      if (config.allowedDomains.length > 0 && domain && !isLocalhost(domain)) {
-        if (!config.allowedDomains.includes(domain)) {
+      if (!isLocalhost(domain ?? "")) {
+        if (!domain || !isDomainAllowed(domain, config.site.domain, config.allowedDomains)) {
           return reply.status(403).send({ success: false, error: "Domain not authorized" });
         }
       }
@@ -269,14 +292,32 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
         return reply.status(429).send({ success: false, error: "Rate limit exceeded for this site" });
       }
 
-      // Validate the site exists and fetch owner's plan for quota check
+      // Validate the site exists and fetch owner's plan + domain info for quota + auth checks
       const site = await db.site.findUnique({
         where: { id: siteId },
-        select: { id: true, ownerId: true, owner: { select: { plan: true } } },
+        select: {
+          id: true,
+          domain: true,
+          ownerId: true,
+          owner: { select: { plan: true } },
+          widgetConfig: { select: { allowedDomains: true } },
+        },
       });
 
       if (!site) {
         return reply.status(404).send({ success: false, error: "Unknown site" });
+      }
+
+      // Domain enforcement — same rules as /config: origin must match the site's
+      // registered domain (or a subdomain) or one of the explicit allowedDomains.
+      const eventDomain = extractDomain(request);
+      if (!isLocalhost(eventDomain ?? "")) {
+        if (
+          !eventDomain ||
+          !isDomainAllowed(eventDomain, site.domain, site.widgetConfig?.allowedDomains ?? [])
+        ) {
+          return reply.status(403).send({ success: false, error: "Domain not authorized" });
+        }
       }
 
       // Enforce monthly event quota per plan — atomically to prevent concurrent bypasses
