@@ -1,0 +1,60 @@
+name: Deploy Widget to CDN
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - "packages/widget/src/**"
+      - "packages/widget/vite.config.ts"
+      - "packages/widget/package.json"
+      - ".github/workflows/deploy-widget.yml"
+
+jobs:
+  deploy:
+    name: Build & Upload to Cloudflare R2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build widget
+        run: pnpm --filter @inculva/widget build:cdn
+
+      - name: Upload widget.js to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          aws s3 cp packages/widget/dist/widget.iife.js \
+            s3://${{ secrets.R2_BUCKET_NAME }}/widget.js \
+            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            --content-type "application/javascript; charset=utf-8" \
+            --cache-control "public, max-age=300"
+
+      - name: Upload source map to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          aws s3 cp packages/widget/dist/widget.iife.js.map \
+            s3://${{ secrets.R2_BUCKET_NAME }}/widget.iife.js.map \
+            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            --content-type "application/json" \
+            --cache-control "public, max-age=300"

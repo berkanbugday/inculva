@@ -1,0 +1,356 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Auth (Better Auth compatible) ───────────────────────────────────────────
+
+model User {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  emailVerified    Boolean   @default(false)
+  name             String?
+  image            String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  // Role
+  role             String    @default("user")  // "user" | "admin"
+
+  // Billing
+  plan             String    @default("free")  // "free" | "pro" | "business"
+  lsCustomerId     String?   @unique
+
+  // Usage alerts — track when monthly threshold emails were last sent
+  usageAlertSent80  DateTime?
+  usageAlertSent100 DateTime?
+
+  // Referral
+  referralCode String? @unique
+
+  // Email drip flags
+  dripDay3Sent  Boolean @default(false)
+  dripDay7Sent  Boolean @default(false)
+  dripDay30Sent Boolean @default(false)
+
+  // Moderation
+  bannedAt DateTime?
+
+  sessions         Session[]
+  accounts         Account[]
+  sites            Site[]
+  apiKeys          ApiKey[]
+  subscription     Subscription?
+  ownedTeams       Team[]         @relation("TeamOwner")
+  teamMemberships  TeamMember[]
+  notifications    Notification[]
+  webhooks         Webhook[]
+  auditLogs        AuditLog[]
+  referrals        Referral[]     @relation("ReferralReferrer")
+  referredBy       Referral[]     @relation("ReferralReferred")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, accountId])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, value])
+}
+
+// ─── Billing ─────────────────────────────────────────────────────────────────
+
+model Subscription {
+  id                   String    @id @default(cuid())
+  userId               String    @unique
+  lsSubscriptionId     String    @unique
+  lsVariantId          String
+  plan                 String    // "pro" | "business"
+  status               String    // "active" | "past_due" | "canceled" | "paused"
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  canceledAt           DateTime?
+  lsCustomerPortalUrl  String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ─── Core Domain ─────────────────────────────────────────────────────────────
+
+model Site {
+  id        String   @id @default(cuid())
+  name      String
+  domain    String   @unique
+  ownerId   String
+  teamId    String?  // optional — site can belong to a team
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Health monitoring
+  lastHealthCheck DateTime?
+  healthStatus    String?   // "healthy" | "degraded"
+
+  owner         User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  team          Team?         @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  widgetConfig  WidgetConfig?
+  widgetEvents  WidgetEvent[]
+  widgetLoads   WidgetLoad[]
+}
+
+model WidgetConfig {
+  id           String   @id @default(cuid())
+  siteId       String   @unique
+  position     String   @default("bottom-right")
+  theme        String   @default("auto")
+  primaryColor String   @default("#0066cc")
+  language     String   @default("en")
+
+  // Features
+  textResizing       Boolean @default(true)
+  highContrast       Boolean @default(true)
+  dyslexiaFont       Boolean @default(true)
+  cursorEnhancement  Boolean @default(true)
+  keyboardNavigation Boolean @default(true)
+  readingGuide       Boolean @default(true)
+  screenReader       Boolean @default(true)
+  pauseAnimations    Boolean @default(true)
+  // WCAG 2.1 / 2.2 additions
+  textSpacing        Boolean @default(true)
+  highlightLinks     Boolean @default(true)
+  colorBlindMode     Boolean @default(true)
+  largeClickTargets  Boolean @default(true)
+  focusHighlight     Boolean @default(true)
+  grayscale          Boolean @default(true)
+  // WCAG 2.4.1 A + 1.4.2 A (ADA/EAA)
+  skipNavigation     Boolean @default(true)
+  muteMedia          Boolean @default(true)
+  // P1 — additional accessibility aids
+  readingMask        Boolean @default(true)
+  textAlign          Boolean @default(true)
+  saturation         Boolean @default(true)
+  // EAA Article 13 — accessibility statement URL
+  accessibilityStatementUrl String?
+
+  // White-label (Business plan only) — null=show "Powered by Inculva", ""=hide, custom string=show that
+  whiteLabelText String?
+
+  // Visual customization (Business plan only)
+  borderRadius Int    @default(8)      // 0–50 px
+  buttonSize   String @default("medium") // "small" | "medium" | "large"
+  fontFamily   String @default("system") // "system" | "inter" | "roboto" | "opensans"
+
+  // Domain allowlist — empty array means all domains are allowed
+  allowedDomains String[] @default([])
+
+  // Last WCAG scan result — persisted so the badge can reflect actual state
+  lastScanViolations Int?
+  lastScanAt         DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+}
+
+model WidgetEvent {
+  id        String   @id @default(cuid())
+  siteId    String
+  sessionId String
+  event     String
+  feature   String?
+  createdAt DateTime @default(now())
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+  @@index([siteId, createdAt])
+}
+
+// Daily aggregated domain load counts — tracks which hostnames embed the widget
+model WidgetLoad {
+  id      String   @id @default(cuid())
+  siteId  String
+  domain  String
+  date    DateTime // truncated to UTC day
+  count   Int      @default(1)
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([siteId, domain, date])
+  @@index([siteId, date])
+}
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  userId      String
+  name        String
+  keyHash     String    @unique
+  keyPrefix   String
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  revokedAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─── Notifications ────────────────────────────────────────────────────────────
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  type      String    // "team_invite" | "plan_upgraded" | "usage_warning" | "usage_limit" | "payment_failed"
+  title     String
+  body      String
+  href      String?
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt])
+}
+
+// ─── Webhooks ─────────────────────────────────────────────────────────────────
+
+// Outbound webhooks — POST to customer URLs on platform events
+model Webhook {
+  id        String   @id @default(cuid())
+  userId    String
+  url       String   // destination URL (max 500 chars)
+  secret    String   // HMAC-SHA256 signing secret (stored plaintext, used to sign outgoing payloads)
+  events    String[] // subscribed types: "site.config_updated" | "usage.warning" | "usage.limit" | "payment.failed"
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─── Audit Log ────────────────────────────────────────────────────────────────
+
+// Immutable record of user-initiated changes to resources
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  action     String   // e.g. "site.config_updated" | "site.created" | "site.deleted" | "site.renamed" | "api_key.created" | "api_key.revoked"
+  resource   String   // "site" | "api_key" | "webhook"
+  resourceId String?  // ID of the affected resource
+  meta       Json?    // extra context: diff, domain, name, etc.
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+// ─── Teams ────────────────────────────────────────────────────────────────────
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner   User         @relation("TeamOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members TeamMember[]
+  invites TeamInvite[]
+  sites   Site[]
+
+  @@index([ownerId])
+}
+
+model TeamMember {
+  id         String    @id @default(cuid())
+  teamId     String
+  userId     String
+  role       String    @default("member") // "admin" | "member"
+  joinedAt   DateTime  @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@index([userId])
+}
+
+// ─── Referrals ────────────────────────────────────────────────────────────────
+
+model Referral {
+  id         String   @id @default(cuid())
+  referrerId String
+  referredId String   @unique
+  converted  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  referrer User @relation("ReferralReferrer", fields: [referrerId], references: [id], onDelete: Cascade)
+  referred User @relation("ReferralReferred", fields: [referredId], references: [id], onDelete: Cascade)
+
+  @@index([referrerId])
+}
+
+model TeamInvite {
+  id        String    @id @default(cuid())
+  teamId    String
+  email     String
+  role      String    @default("member") // "admin" | "member"
+  token     String    @unique
+  expiresAt DateTime
+  acceptedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([teamId])
+}

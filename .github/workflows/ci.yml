@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+env:
+  # Dummy values so Prisma / Next.js build steps don't fail on env validation
+  DATABASE_URL: postgresql://postgres:password@localhost:5432/inculva
+  BETTER_AUTH_SECRET: ci-secret-not-real
+  BETTER_AUTH_URL: http://localhost:3000
+  NEXT_PUBLIC_APP_URL: http://localhost:3000
+  NEXT_PUBLIC_API_URL: http://localhost:3001
+  NEXT_PUBLIC_WIDGET_URL: http://localhost:3000/widget.js
+  RESEND_API_KEY: re_ci_placeholder
+  EMAIL_FROM: "Inculva <noreply@inculva.com>"
+  LEMONSQUEEZY_API_KEY: eyJ_ci_placeholder
+  LEMONSQUEEZY_STORE_ID: "12345"
+  LEMONSQUEEZY_WEBHOOK_SECRET: ci_webhook_secret_placeholder
+  LS_PRO_VARIANT_ID: "111111"
+  LS_BUSINESS_VARIANT_ID: "222222"
+  API_PORT: "3001"
+  API_HOST: "0.0.0.0"
+  CORS_ORIGIN: http://localhost:3000
+
+jobs:
+  ci:
+    name: Typecheck & Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter @inculva/db db:generate
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter @inculva/db db:generate
+
+      - name: Build all packages
+        run: pnpm build
