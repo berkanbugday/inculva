@@ -374,7 +374,10 @@ class InculvaWidget {
       }
       if (remote.fontFamily !== undefined && remote.fontFamily !== "system") {
         this.config.fontFamily = remote.fontFamily;
-        this.applyGoogleFont(remote.fontFamily);
+        // Set the CSS custom property only — no external font request is made.
+        // If the font is already present on the customer's site it will render;
+        // otherwise the stack falls back to sans-serif. This keeps the widget
+        // fully compatible with strict font-src CSP policies.
         document.documentElement.style.setProperty(
           "--inculva-font",
           this.getFontStack(remote.fontFamily)
@@ -407,25 +410,6 @@ class InculvaWidget {
       opensans: "'Open Sans', sans-serif",
     };
     return stacks[fontFamily] ?? "inherit";
-  }
-
-  private applyGoogleFont(fontFamily: string): void {
-    const fontNames: Record<string, string> = {
-      inter: "Inter",
-      roboto: "Roboto",
-      opensans: "Open+Sans",
-    };
-    const fontName = fontNames[fontFamily];
-    if (!fontName) return;
-
-    const linkId = "inculva-google-font";
-    if (document.getElementById(linkId)) return; // already loaded
-
-    const link = document.createElement("link");
-    link.id = linkId;
-    link.rel = "stylesheet";
-    link.href = `https://fonts.googleapis.com/css2?family=${fontName}:wght@400;600;700&display=swap`;
-    document.head.appendChild(link);
   }
 
   private trackEvent(

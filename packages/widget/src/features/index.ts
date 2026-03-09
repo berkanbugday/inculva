@@ -1,12 +1,55 @@
 import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
+import { OPENDYSLEXIC_REGULAR_B64, OPENDYSLEXIC_BOLD_B64 } from "virtual:opendyslexic-fonts";
 
 type FeatureHandler = {
   enable: () => void;
   disable: () => void;
 };
 
-const DYSLEXIA_FONT_URL =
-  "https://fonts.googleapis.com/css2?family=OpenDyslexic&display=swap";
+// ── OpenDyslexic font loading ────────────────────────────────────────────────
+//
+// We use the FontFace JavaScript API with raw ArrayBuffer data rather than CSS
+// @font-face with a URL or data: URI. When a FontFace is constructed from
+// binary (not a URL string), the browser performs NO network request and does
+// NOT consult font-src CSP — there is simply no URL to check. This makes the
+// dyslexia font work on any customer site regardless of how strict their CSP is.
+
+/** Decode a base64 string into an ArrayBuffer without any URL or fetch. */
+function b64ToBuffer(b64: string): ArrayBuffer {
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes.buffer;
+}
+
+const dyslexiaFaces: FontFace[] = [];
+
+function loadDyslexiaFonts(): void {
+  if (dyslexiaFaces.length > 0) return; // already loaded
+
+  const specs = [
+    { b64: OPENDYSLEXIC_REGULAR_B64, weight: "400" },
+    { b64: OPENDYSLEXIC_BOLD_B64,    weight: "700" },
+  ] as const;
+
+  for (const { b64, weight } of specs) {
+    const face = new FontFace("OpenDyslexic", b64ToBuffer(b64), {
+      weight,
+      style: "normal",
+      display: "swap",
+    });
+    // .load() on binary data resolves immediately (no network round-trip)
+    face.load().then((loaded) => {
+      document.fonts.add(loaded);
+      dyslexiaFaces.push(loaded);
+    });
+  }
+}
+
+function unloadDyslexiaFonts(): void {
+  for (const face of dyslexiaFaces) document.fonts.delete(face);
+  dyslexiaFaces.length = 0;
+}
 
 function injectStyle(id: string, css: string): void {
   if (document.getElementById(id)) return;
@@ -84,18 +127,17 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
   dyslexiaFont: {
     enable: () => {
-      injectStyle(
-        "inculva-dyslexia-font-link",
-        `@import url('${DYSLEXIA_FONT_URL}');`
-      );
+      // Register the font via the JS FontFace API (ArrayBuffer path — no URL,
+      // no font-src CSP check), then apply it via a plain CSS font-family rule.
+      loadDyslexiaFonts();
       injectStyle(
         "inculva-dyslexia-font",
         `* { font-family: 'OpenDyslexic', sans-serif !important; }`
       );
     },
     disable: () => {
-      removeStyle("inculva-dyslexia-font-link");
       removeStyle("inculva-dyslexia-font");
+      unloadDyslexiaFonts();
     },
   },
 

@@ -118,11 +118,12 @@ export default function RootLayout({
         )}
         <script
           src={
-            process.env.NODE_ENV === "development"
+            process.env.NEXT_PUBLIC_WIDGET_URL ??
+            (process.env.NODE_ENV === "development"
               ? "http://localhost:3000/widget.js"
-              : "https://cdn.inculva.com/widget.js"
+              : "https://cdn.inculva.com/widget.js")
           }
-          data-site-id="cmmj03q420001i3cfz4p4epvq"
+          data-site-id="cmmjb1jzv0001i3jiilvu3xp5"
           defer
         />
       </body>

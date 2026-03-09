@@ -2,9 +2,19 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
-// In dev: widget is served from the manage app (port 3000).
-// In prod: widget is served from the CDN.
-const widgetSrc = isDev ? "http://localhost:3000" : "https://cdn.inculva.com";
+const CDN = "https://cdn.inculva.com";
+
+// Derive widget origin from NEXT_PUBLIC_WIDGET_URL when set (staging / prod overrides).
+// Falls back to the CDN in production and localhost in dev.
+function widgetOrigin(): string {
+  const envUrl = process.env.NEXT_PUBLIC_WIDGET_URL;
+  if (envUrl) {
+    try { return new URL(envUrl).origin; } catch { /* fall through */ }
+  }
+  return isDev ? "http://localhost:3000" : CDN;
+}
+
+const widgetSrc = widgetOrigin();
 const apiSrc = isDev ? "http://localhost:3001" : "https://api.inculva.com";
 
 const securityHeaders = [
@@ -23,8 +33,10 @@ const securityHeaders = [
       "default-src 'self'",
       // unsafe-eval is required by Next.js webpack in development (HMR/eval source maps)
       `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} ${widgetSrc}`.trimEnd(),
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
+      "style-src 'self' 'unsafe-inline'",
+      // data: allows the base64 WOFF2 data URIs the widget inlines for OpenDyslexic.
+      // 'self' + widgetSrc cover static .woff2 files served from the CDN/manage app.
+      `font-src 'self' ${widgetSrc} data:`,
       "img-src 'self' data:",
       // always allow the production API (widget defaults to it); also allow local in dev
       // widgetSrc is also needed in dev so browser can fetch source maps for widget.iife.js

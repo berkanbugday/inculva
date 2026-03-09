@@ -301,15 +301,20 @@ Alert deduplication uses `User.usageAlertSent80` and `User.usageAlertSent100` �
 ```
 packages/widget/src/
   └── vite build → dist/widget.iife.js (IIFE, ES2018, minified)
+                    dist/fonts/*.woff2  (copied from public/fonts/)
 
-On build: cp dist/widget.iife.js ../../apps/web/public/widget.js
-         (local dev fallback — served from Next.js public dir)
+On build: cp dist/widget.iife.js → apps/manage/public/widget.js
+          cp dist/fonts/         → apps/manage/public/fonts/
+          (local dev fallback — served from Next.js manage public dir at localhost:3000)
 
 On push to main (GitHub Actions):
   1. Build widget (build:cdn script)
-  2. Upload to Cloudflare R2 bucket as widget.js
-     Cache-Control: public, max-age=300 (5 min CDN TTL)
-  3. Upload source map
+  2. Upload widget.js  → cdn.inculva.com/widget.js
+     Cache-Control: public, max-age=300, stale-while-revalidate=60
+  3. Upload source map → cdn.inculva.com/widget.iife.js.map
+  4. Upload fonts/     → cdn.inculva.com/fonts/*.woff2 + *.otf
+     Cache-Control: public, max-age=31536000, immutable
+     (fonts are content-addressed by filename and never change)
 ```
 
 **Embed snippet** (shown in dashboard):

@@ -22,6 +22,7 @@ export interface WidgetConfig {
 }
 
 export interface WidgetFeatures {
+  // Core
   textResizing: boolean;
   highContrast: boolean;
   dyslexiaFont: boolean;
@@ -44,6 +45,29 @@ export interface WidgetFeatures {
   readingMask: boolean;
   textAlign: boolean;
   saturation: boolean;
+  // Phase 2 — extended feature set
+  blueLightFilter: boolean;
+  hideImages: boolean;
+  darkMode: boolean;
+  contentMagnifier: boolean;
+  toolTips: boolean;
+  sustainabilityMode: boolean;
+  slowCursor: boolean;
+  dictionary: boolean;
+  lineHeight: boolean;
+  highlightTitles: boolean;
+}
+
+export interface WidgetProfiles {
+  profileAdhd: boolean;
+  profileBlind: boolean;
+  profileLowVision: boolean;
+  profileColorBlind: boolean;
+  profileDyslexia: boolean;
+  profileMotorImpaired: boolean;
+  profileCognitive: boolean;
+  profileSeizure: boolean;
+  profileParkinson: boolean;
 }
 
 export interface WidgetEvent {

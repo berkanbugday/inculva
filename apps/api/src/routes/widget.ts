@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "@inculva/db";
-import type { WidgetEvent } from "@inculva/types";
+import type { WidgetEvent, WidgetProfiles } from "@inculva/types";
 import { getLabels } from "../i18n/labels.js";
 import { sendEmail, usageWarningTemplate, usageLimitTemplate } from "@inculva/email";
 
@@ -191,7 +191,29 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
             readingMask: config.readingMask,
             textAlign: config.textAlign,
             saturation: config.saturation,
+            // Phase 2
+            blueLightFilter: config.blueLightFilter,
+            hideImages: config.hideImages,
+            darkMode: config.darkMode,
+            contentMagnifier: config.contentMagnifier,
+            toolTips: config.toolTips,
+            sustainabilityMode: config.sustainabilityMode,
+            slowCursor: config.slowCursor,
+            dictionary: config.dictionary,
+            lineHeight: config.lineHeight,
+            highlightTitles: config.highlightTitles,
           },
+          profiles: {
+            profileAdhd: config.profileAdhd,
+            profileBlind: config.profileBlind,
+            profileLowVision: config.profileLowVision,
+            profileColorBlind: config.profileColorBlind,
+            profileDyslexia: config.profileDyslexia,
+            profileMotorImpaired: config.profileMotorImpaired,
+            profileCognitive: config.profileCognitive,
+            profileSeizure: config.profileSeizure,
+            profileParkinson: config.profileParkinson,
+          } satisfies WidgetProfiles,
           ...(config.accessibilityStatementUrl
             ? { accessibilityStatementUrl: config.accessibilityStatementUrl }
             : {}),

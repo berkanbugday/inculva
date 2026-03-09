@@ -22,13 +22,14 @@ try {
 const devApiUrl =
   process.env["NODE_ENV"] !== "production" ? "http://localhost:3001" : "";
 
+// CDN origin where self-hosted fonts (and widget.js) live in production
+const cdnOrigin = widgetScriptOrigin || "https://cdn.inculva.com";
+
 const scriptSrc = [
   "'self'",
   "'unsafe-inline'",
   "'unsafe-eval'", // required by Next.js
   widgetScriptOrigin, // CDN origin for widget.js (empty string is ignored by join filter)
-  // Widget may pull Google Fonts stylesheet from the preview iframe
-  "https://fonts.googleapis.com",
 ]
   .filter(Boolean)
   .join(" ");
@@ -37,9 +38,6 @@ const connectSrc = [
   "'self'",
   apiUrl,
   devApiUrl,
-  // Google Fonts API called by widget for custom font loading
-  "https://fonts.googleapis.com",
-  "https://fonts.gstatic.com",
 ]
   .filter(Boolean)
   .join(" ");
@@ -59,10 +57,12 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       `script-src ${scriptSrc}`,
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "style-src 'self' 'unsafe-inline'",
       // Allow badge SVGs served from the API origin
       `img-src 'self' data: https://www.gravatar.com ${apiUrl}`,
-      "font-src 'self' https://fonts.gstatic.com",
+      // data: allows the base64 WOFF2 data URIs the widget inlines for OpenDyslexic.
+      // 'self' + cdnOrigin cover static .woff2 files served from the CDN / manage public dir.
+      `font-src 'self' ${cdnOrigin} data:`,
       // Allow dashboard API calls + widget preview fetch
       `connect-src ${connectSrc}`,
       // srcdoc iframes don't require a frame-src entry, but 'self' keeps the fallback tidy
@@ -86,6 +86,16 @@ const nextConfig: NextConfig = {
           { key: "Access-Control-Allow-Methods", value: "GET, OPTIONS" },
           { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
           { key: "Cache-Control", value: "public, max-age=300, stale-while-revalidate=60" },
+        ],
+      },
+      {
+        // OpenDyslexic fonts must be loadable cross-origin from any site that embeds the widget
+        source: "/fonts/:file*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET, OPTIONS" },
+          { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
       {

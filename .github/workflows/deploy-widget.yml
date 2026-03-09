@@ -5,6 +5,7 @@ on:
     branches: [master, main]
     paths:
       - "packages/widget/src/**"
+      - "packages/widget/public/fonts/**"
       - "packages/widget/vite.config.ts"
       - "packages/widget/package.json"
       - ".github/workflows/deploy-widget.yml"
@@ -13,6 +14,13 @@ jobs:
   deploy:
     name: Build & Upload to Cloudflare R2
     runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: auto
+      R2_ENDPOINT: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      R2_BUCKET: ${{ secrets.R2_BUCKET_NAME }}
 
     steps:
       - name: Checkout
@@ -35,26 +43,45 @@ jobs:
       - name: Build widget
         run: pnpm --filter @inculva/widget build:cdn
 
+      # ── widget.js ────────────────────────────────────────────────────────────
+      # Short TTL (5 min) so updates propagate quickly after each deploy.
       - name: Upload widget.js to R2
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
         run: |
           aws s3 cp packages/widget/dist/widget.iife.js \
-            s3://${{ secrets.R2_BUCKET_NAME }}/widget.js \
-            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            s3://${{ env.R2_BUCKET }}/widget.js \
+            --endpoint-url ${{ env.R2_ENDPOINT }} \
             --content-type "application/javascript; charset=utf-8" \
-            --cache-control "public, max-age=300"
+            --cache-control "public, max-age=300, stale-while-revalidate=60"
 
       - name: Upload source map to R2
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
         run: |
           aws s3 cp packages/widget/dist/widget.iife.js.map \
-            s3://${{ secrets.R2_BUCKET_NAME }}/widget.iife.js.map \
-            --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            s3://${{ env.R2_BUCKET }}/widget.iife.js.map \
+            --endpoint-url ${{ env.R2_ENDPOINT }} \
             --content-type "application/json" \
             --cache-control "public, max-age=300"
+
+      # ── fonts/ ───────────────────────────────────────────────────────────────
+      # Fonts are content-addressed by filename and never mutate, so they use an
+      # immutable TTL.  CORS headers allow any embedded site to load them.
+      - name: Upload WOFF2 fonts to R2 (cdn.inculva.com/fonts/*)
+        run: |
+          for f in packages/widget/public/fonts/*.woff2; do
+            aws s3 cp "$f" \
+              s3://${{ env.R2_BUCKET }}/fonts/$(basename "$f") \
+              --endpoint-url ${{ env.R2_ENDPOINT }} \
+              --content-type "font/woff2" \
+              --cache-control "public, max-age=31536000, immutable" \
+              --metadata "Access-Control-Allow-Origin=*"
+          done
+
+      - name: Upload OTF fonts to R2 (cdn.inculva.com/fonts/*)
+        run: |
+          for f in packages/widget/public/fonts/*.otf; do
+            aws s3 cp "$f" \
+              s3://${{ env.R2_BUCKET }}/fonts/$(basename "$f") \
+              --endpoint-url ${{ env.R2_ENDPOINT }} \
+              --content-type "font/otf" \
+              --cache-control "public, max-age=31536000, immutable" \
+              --metadata "Access-Control-Allow-Origin=*"
+          done
