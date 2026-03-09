@@ -269,11 +269,16 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
         return reply.status(400).send({ success: false, error: "Invalid request body" });
       }
       const VALID_FEATURES = new Set([
+        // Phase 1
         "textResizing", "highContrast", "dyslexiaFont", "cursorEnhancement",
         "keyboardNavigation", "readingGuide", "screenReader", "pauseAnimations",
         "textSpacing", "highlightLinks", "colorBlindMode", "largeClickTargets",
         "focusHighlight", "grayscale", "skipNavigation", "muteMedia",
         "readingMask", "textAlign", "saturation",
+        // Phase 2
+        "blueLightFilter", "hideImages", "darkMode", "contentMagnifier",
+        "lineHeight", "highlightTitles", "toolTips", "sustainabilityMode",
+        "slowCursor", "dictionary",
       ]);
       if (feature !== undefined && feature !== null) {
         if (typeof feature !== "string" || !VALID_FEATURES.has(feature)) {
@@ -381,10 +386,12 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
     const { from, to, limit: limitStr, offset: offsetStr } = request.query;
 
     // IDOR prevention: verify the API key owner also owns this site
-    const ownedSite = await db.site.findFirst({
-      where: { id: siteId, ownerId: request.apiKeyUserId },
-      select: { id: true },
-    });
+    const ownedSite = request.apiKeyUserId
+      ? await db.site.findFirst({
+          where: { id: siteId, ownerId: request.apiKeyUserId },
+          select: { id: true },
+        })
+      : null;
     if (!ownedSite) {
       return reply.status(403).send({ success: false, error: "Access denied" });
     }
@@ -425,10 +432,12 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
     const { siteId } = request.params;
 
     // IDOR prevention: verify the API key owner also owns this site
-    const ownedSite = await db.site.findFirst({
-      where: { id: siteId, ownerId: request.apiKeyUserId },
-      select: { id: true },
-    });
+    const ownedSite = request.apiKeyUserId
+      ? await db.site.findFirst({
+          where: { id: siteId, ownerId: request.apiKeyUserId },
+          select: { id: true },
+        })
+      : null;
     if (!ownedSite) {
       return reply.status(403).send({ success: false, error: "Access denied" });
     }

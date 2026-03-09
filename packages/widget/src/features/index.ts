@@ -2,7 +2,8 @@ import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
 import { OPENDYSLEXIC_REGULAR_B64, OPENDYSLEXIC_BOLD_B64 } from "virtual:opendyslexic-fonts";
 
 type FeatureHandler = {
-  enable: () => void;
+  /** level is 1-based (1 = minimum, N = maximum). Omit for binary features. */
+  enable: (level?: number) => void;
   disable: () => void;
 };
 
@@ -59,11 +60,80 @@ function injectStyle(id: string, css: string): void {
   document.head.appendChild(style);
 }
 
+/** Like injectStyle but always overwrites existing content (needed for leveled features). */
+function replaceStyle(id: string, css: string): void {
+  let el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement("style");
+    el.id = id;
+    document.head.appendChild(el);
+  }
+  el.textContent = css;
+}
+
 function removeStyle(id: string): void {
   document.getElementById(id)?.remove();
 }
 
-// --- Color blind mode state & helpers ---
+// ── Feature level counts ──────────────────────────────────────────────────────
+// Features listed here support incremental levels (1 = min, N = max).
+// Clicking the button cycles 0 → 1 → 2 → … → N → 0 (off).
+export const FEATURE_LEVELS: Partial<Record<keyof WidgetFeatures, number>> = {
+  textResizing:     4,
+  lineHeight:       4,
+  textSpacing:      4,
+  contentMagnifier: 4,
+  saturation:       4,
+  colorBlindMode:   4,  // L1=deuteranopia L2=protanopia L3=tritanopia L4=achromatopsia
+};
+
+/** Level → ColorBlindType mapping (exported so index.ts can derive display labels). */
+export const CBM_CYCLE_TYPES: ColorBlindType[] = [
+  "deuteranopia", "protanopia", "tritanopia", "achromatopsia",
+];
+
+// ── Composited html-level filter manager ─────────────────────────────────────
+//
+// Multiple features can all want to set a CSS `filter` on <html>.  Because only
+// ONE `filter` declaration wins per element (even with !important, the last
+// injected <style> wins in cascade order), enabling a second filter would
+// silently overwrite the first.
+//
+// Solution: every feature that touches html's filter goes through this registry.
+// The registry re-builds a single <style id="inculva-html-filter"> whose value
+// is the space-joined list of all active filter functions.  Adding or removing
+// any entry re-flushes the merged rule in place.
+
+const _htmlFilters = new Map<string, string>();
+
+function _flushHtmlFilter(): void {
+  const id = "inculva-html-filter";
+  const parts = [..._htmlFilters.values()];
+
+  let el = document.getElementById(id);
+  if (parts.length === 0) {
+    el?.remove();
+    return;
+  }
+  if (!el) {
+    el = document.createElement("style");
+    el.id = id;
+    document.head.appendChild(el);
+  }
+  el.textContent = `body { filter: ${parts.join(" ")} !important; }`;
+}
+
+function setHtmlFilter(key: string, value: string): void {
+  _htmlFilters.set(key, value);
+  _flushHtmlFilter();
+}
+
+function removeHtmlFilter(key: string): void {
+  _htmlFilters.delete(key);
+  _flushHtmlFilter();
+}
+
+// ── Color blind mode state & helpers ─────────────────────────────────────────
 
 let activeColorBlindType: ColorBlindType = "deuteranopia";
 
@@ -75,7 +145,8 @@ const COLOR_BLIND_FILTERS: Record<ColorBlindType, string> = {
   achromatopsia:  "0.299 0.587  0.114 0 0  0.299 0.587  0.114 0 0  0.299 0.587  0.114 0 0  0 0 0 1 0",
 };
 
-function applyColorBlindFilter(type: ColorBlindType): void {
+/** Create / update the hidden SVG <filter> element used by colorBlindMode. */
+function _applyColorBlindSvg(type: ColorBlindType): void {
   injectStyle(
     "inculva-color-blind-filter-def",
     `body::before { content: ''; position: fixed; width: 0; height: 0; }`
@@ -84,45 +155,54 @@ function applyColorBlindFilter(type: ColorBlindType): void {
   if (!svg) {
     svg = document.createElementNS("http://www.w3.org/2000/svg", "svg") as unknown as HTMLElement;
     svg.id = "inculva-color-blind-svg";
-    (svg as unknown as SVGElement).setAttribute("style", "position:absolute;width:0;height:0;overflow:hidden");
+    (svg as unknown as SVGElement).setAttribute(
+      "style",
+      "position:absolute;width:0;height:0;overflow:hidden"
+    );
     document.body.insertBefore(svg, document.body.firstChild);
   }
   svg.innerHTML = `<defs><filter id="inculva-cbf"><feColorMatrix type="matrix" values="${COLOR_BLIND_FILTERS[type]}"/></filter></defs>`;
-  // Remove previous style so re-inject fires
-  removeStyle("inculva-color-blind");
-  injectStyle("inculva-color-blind", `html { filter: url(#inculva-cbf) !important; }`);
 }
 
 export function getColorBlindType(): ColorBlindType { return activeColorBlindType; }
 
 export function setColorBlindType(type: ColorBlindType): void {
   activeColorBlindType = type;
-  if (document.getElementById("inculva-color-blind")) {
-    applyColorBlindFilter(type);
+  // Only update SVG if colorBlindMode is currently active
+  if (_htmlFilters.has("colorBlind")) {
+    _applyColorBlindSvg(type);
+    // url(#inculva-cbf) reference in the compositor never changes — no flush needed
   }
 }
 
+// Runtime scale value read by the contentMagnifier move handler on every event,
+// so changing the level takes effect immediately without recreating the lens.
+let _magnifierScale = 1.25;
+
 export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
+  // 4 incremental levels: 110% → 125% → 140% → 155%
   textResizing: {
-    enable: () => {
-      const current = parseFloat(document.documentElement.style.fontSize || "16");
-      document.documentElement.style.fontSize = `${current * 1.15}px`;
+    enable: (level = 1) => {
+      const sizes = ["110%", "125%", "140%", "155%"];
+      replaceStyle(
+        "inculva-text-resize",
+        `html { font-size: ${sizes[level - 1] ?? "110%"} !important; }`
+      );
     },
-    disable: () => {
-      document.documentElement.style.fontSize = "";
-    },
+    disable: () => removeStyle("inculva-text-resize"),
   },
 
+  // Contrast filter goes on <html> (not body) so position:fixed widget keeps
+  // the viewport as its containing block. body-level filter breaks fixed pos.
   highContrast: {
-    enable: () =>
-      injectStyle(
-        "inculva-high-contrast",
-        `
-        body { filter: contrast(1.5) !important; }
-        a { color: #ffff00 !important; }
-      `
-      ),
-    disable: () => removeStyle("inculva-high-contrast"),
+    enable: () => {
+      setHtmlFilter("highContrast", "contrast(1.55)");
+      injectStyle("inculva-high-contrast-links", `body a { color: #ffff00 !important; }`);
+    },
+    disable: () => {
+      removeHtmlFilter("highContrast");
+      removeStyle("inculva-high-contrast-links");
+    },
   },
 
   dyslexiaFont: {
@@ -132,7 +212,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       loadDyslexiaFonts();
       injectStyle(
         "inculva-dyslexia-font",
-        `* { font-family: 'OpenDyslexic', sans-serif !important; }`
+        `body * { font-family: 'OpenDyslexic', sans-serif !important; }`
       );
     },
     disable: () => {
@@ -145,7 +225,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     enable: () =>
       injectStyle(
         "inculva-cursor",
-        `* { cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="black" stroke="white" stroke-width="2"/></svg>') 16 16, auto !important; }`
+        `body * { cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="black" stroke="white" stroke-width="2"/></svg>') 16 16, auto !important; }`
       ),
     disable: () => removeStyle("inculva-cursor"),
   },
@@ -161,16 +241,20 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
   readingGuide: {
     enable: () => {
+      if (document.getElementById("inculva-reading-guide")) return;
+      // A thin glowing horizontal ruler-line that marks the current reading position.
+      // Subtle: only 3 px tall so it doesn't obscure surrounding content.
       const guide = document.createElement("div");
       guide.id = "inculva-reading-guide";
-      guide.style.cssText = `
-        position: fixed; left: 0; right: 0; height: 32px;
-        background: rgba(255, 255, 0, 0.2); pointer-events: none;
-        z-index: 999998; top: 0; transition: top 0.05s;
-      `;
-      document.body.appendChild(guide);
+      guide.style.cssText = [
+        "position:fixed", "left:0", "right:0", "height:3px",
+        "background:rgba(245,158,11,0.9)",
+        "box-shadow:0 0 10px rgba(245,158,11,0.7),0 2px 6px rgba(245,158,11,0.4)",
+        "pointer-events:none", "z-index:2147483642", "top:0",
+      ].join(";");
+      document.documentElement.appendChild(guide);
       const move = (e: MouseEvent) => {
-        guide.style.top = `${e.clientY - 16}px`;
+        guide.style.top = `${e.clientY}px`;
       };
       document.addEventListener("mousemove", move);
       (guide as HTMLElement & { _moveHandler?: (e: MouseEvent) => void })._moveHandler = move;
@@ -202,19 +286,27 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     enable: () =>
       injectStyle(
         "inculva-pause-animations",
-        `*, *::before, *::after { animation-play-state: paused !important; transition: none !important; }`
+        `body *, body *::before, body *::after { animation-play-state: paused !important; transition: none !important; }`
       ),
     disable: () => removeStyle("inculva-pause-animations"),
   },
 
-  // WCAG 2.1 — 1.4.12 Text Spacing
+  // WCAG 2.1 — 1.4.12 Text Spacing — 4 levels of increasing spacing
   textSpacing: {
-    enable: () =>
-      injectStyle(
+    enable: (level = 1) => {
+      const cfg = [
+        { lh: "1.5",  ls: "0.06em", ws: "0.10em" },
+        { lh: "1.7",  ls: "0.12em", ws: "0.16em" },
+        { lh: "1.9",  ls: "0.16em", ws: "0.20em" },
+        { lh: "2.1",  ls: "0.20em", ws: "0.24em" },
+      ];
+      const { lh, ls, ws } = cfg[level - 1] ?? cfg[0]!;
+      replaceStyle(
         "inculva-text-spacing",
-        `* { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; }
-         p { margin-bottom: 2em !important; }`
-      ),
+        `body * { line-height: ${lh} !important; letter-spacing: ${ls} !important; word-spacing: ${ws} !important; }
+         body p { margin-bottom: 2em !important; }`
+      );
+    },
     disable: () => removeStyle("inculva-text-spacing"),
   },
 
@@ -223,18 +315,24 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     enable: () =>
       injectStyle(
         "inculva-highlight-links",
-        `a, a:visited { text-decoration: underline !important; font-weight: bold !important; outline: 2px solid currentColor !important; outline-offset: 1px !important; }`
+        `body a, body a:visited { text-decoration: underline !important; font-weight: bold !important; outline: 2px solid currentColor !important; outline-offset: 1px !important; }`
       ),
     disable: () => removeStyle("inculva-highlight-links"),
   },
 
-  // WCAG 2.0 — 1.4.1 Color Blind Mode (SVG filter, type set via setColorBlindType)
+  // WCAG 2.0 — 1.4.1 Color Blind Mode — 4 levels, one per filter type
   colorBlindMode: {
-    enable: () => applyColorBlindFilter(activeColorBlindType),
+    enable: (level = 1) => {
+      const type = CBM_CYCLE_TYPES[level - 1] ?? "deuteranopia";
+      activeColorBlindType = type;
+      _applyColorBlindSvg(type);
+      setHtmlFilter("colorBlind", "url(#inculva-cbf)");
+    },
     disable: () => {
+      removeHtmlFilter("colorBlind");
       removeStyle("inculva-color-blind-filter-def");
-      removeStyle("inculva-color-blind");
       document.getElementById("inculva-color-blind-svg")?.remove();
+      activeColorBlindType = "deuteranopia";
     },
   },
 
@@ -269,12 +367,8 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
   // WCAG 1.4.3 / photosensitivity — Grayscale
   grayscale: {
-    enable: () =>
-      injectStyle(
-        "inculva-grayscale",
-        `html { filter: grayscale(100%) !important; }`
-      ),
-    disable: () => removeStyle("inculva-grayscale"),
+    enable: () => setHtmlFilter("grayscale", "grayscale(100%)"),
+    disable: () => removeHtmlFilter("grayscale"),
   },
 
   // WCAG 2.4.1 A — Skip Navigation (Bypass Blocks)
@@ -307,20 +401,26 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     },
   },
 
-  // Reading Mask — horizontal semi-transparent band that follows cursor
+  // Reading Mask — dims the entire page except a clear "window" around the cursor.
+  // Unlike readingGuide (a thin pointer line), this is a full-page focus overlay
+  // that eliminates distractions by darkening everything outside the reading window.
   readingMask: {
     enable: () => {
       if (document.getElementById("inculva-reading-mask")) return;
       const mask = document.createElement("div");
       mask.id = "inculva-reading-mask";
+      // The div itself is transparent (the "window"). box-shadow creates the dark overlay
+      // that fills the rest of the viewport — a CSS-only approach with no extra elements.
       mask.style.cssText = [
-        "position:fixed", "left:0", "right:0", "height:40px",
-        "background:rgba(255,255,0,0.25)", "border-top:2px solid rgba(200,180,0,0.4)",
-        "border-bottom:2px solid rgba(200,180,0,0.4)",
-        "pointer-events:none", "z-index:999998", "top:0", "transition:top 0.04s linear",
+        "position:fixed", "left:0", "right:0", "height:80px",
+        "background:transparent",
+        "border-top:3px solid #3b82f6",
+        "border-bottom:3px solid #3b82f6",
+        "box-shadow:0 0 0 9999px rgba(0,0,0,0.65)",
+        "pointer-events:none", "z-index:2147483640", "top:0",
       ].join(";");
-      document.body.appendChild(mask);
-      const move = (e: MouseEvent) => { mask.style.top = `${e.clientY - 20}px`; };
+      document.documentElement.appendChild(mask);
+      const move = (e: MouseEvent) => { mask.style.top = `${e.clientY - 40}px`; };
       document.addEventListener("mousemove", move);
       (mask as HTMLElement & { _moveHandler?: (e: MouseEvent) => void })._moveHandler = move;
     },
@@ -343,14 +443,13 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     disable: () => removeStyle("inculva-text-align"),
   },
 
-  // Saturation — boosts colour saturation to aid low-vision users
+  // Saturation — boosts colour saturation — 4 levels
   saturation: {
-    enable: () =>
-      injectStyle(
-        "inculva-saturation",
-        `html { filter: saturate(2) !important; }`
-      ),
-    disable: () => removeStyle("inculva-saturation"),
+    enable: (level = 1) => {
+      const vals = [1.4, 1.8, 2.4, 3.0];
+      setHtmlFilter("saturation", `saturate(${vals[level - 1] ?? 1.4})`);
+    },
+    disable: () => removeHtmlFilter("saturation"),
   },
 
   // WCAG 1.4.2 A — Audio Control (mute autoplaying media)
@@ -382,4 +481,144 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       delete (window as Window & { __inculvaMuteObserver?: MutationObserver }).__inculvaMuteObserver;
     },
   },
+
+  // ── Fully implemented Phase 2 features ─────────────────────────────────────
+
+  // Blue Light Filter — warm sepia tint reduces blue channel fatigue
+  blueLightFilter: {
+    enable: () => setHtmlFilter("blueLight", "sepia(0.25) saturate(0.85) brightness(0.95)"),
+    disable: () => removeHtmlFilter("blueLight"),
+  },
+
+  // Hide Images — makes images invisible while preserving page layout
+  hideImages: {
+    enable: () => injectStyle(
+      "inculva-hide-images",
+      `img, picture, [role="img"]:not(svg):not(#inculva-widget-btn svg) {
+         visibility: hidden !important;
+       }
+       #inculva-widget-btn img, #inculva-widget-panel img { visibility: visible !important; }`
+    ),
+    disable: () => removeStyle("inculva-hide-images"),
+  },
+
+  // Dark Mode — CSS invert + hue-rotate trick; media elements are counter-inverted
+  // so photos/videos keep their original colours on the dark background.
+  darkMode: {
+    enable: () => {
+      setHtmlFilter("darkMode", "invert(1) hue-rotate(180deg)");
+      injectStyle(
+        "inculva-dark-mode-media",
+        `img, video, iframe, canvas { filter: invert(1) hue-rotate(180deg) !important; }`
+      );
+    },
+    disable: () => {
+      removeHtmlFilter("darkMode");
+      removeStyle("inculva-dark-mode-media");
+    },
+  },
+
+  // Content Magnifier — circular lens that scales hovered elements — 4 levels
+  contentMagnifier: {
+    enable: (level = 1) => {
+      const scales = [1.15, 1.25, 1.35, 1.5];
+      _magnifierScale = scales[level - 1] ?? 1.15;
+
+      // If lens already exists, only the scale variable needs updating —
+      // the mousemove closure reads _magnifierScale on every event.
+      if (document.getElementById("inculva-magnifier")) return;
+
+      injectStyle(
+        "inculva-magnifier-cursor",
+        `:not([id^="inculva"]):not([class*="inculva"]) { cursor: zoom-in !important; }`
+      );
+
+      const lens = document.createElement("div");
+      lens.id = "inculva-magnifier";
+      lens.style.cssText = [
+        "position:fixed", "width:200px", "height:200px", "border-radius:50%",
+        "border:3px solid rgba(0,102,204,0.85)",
+        "box-shadow:0 0 0 3px rgba(255,255,255,0.85),0 8px 28px rgba(0,0,0,0.3)",
+        "pointer-events:none", "z-index:2147483643",
+        "top:-9999px", "left:-9999px",
+        "background:rgba(200,220,255,0.06)",
+      ].join(";");
+      document.documentElement.appendChild(lens);
+
+      let prevEl: HTMLElement | null = null;
+
+      const move = (e: MouseEvent) => {
+        lens.style.left = `${e.clientX - 100}px`;
+        lens.style.top  = `${e.clientY - 100}px`;
+
+        const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+        if (!target || target === lens || target.closest?.("#inculva-widget-panel,#inculva-widget-btn")) return;
+
+        if (prevEl && prevEl !== target) {
+          prevEl.style.removeProperty("transform");
+          prevEl.style.removeProperty("z-index");
+          prevEl.style.removeProperty("transition");
+          prevEl.style.removeProperty("position");
+        }
+        if (target !== prevEl) {
+          // Read _magnifierScale dynamically so level changes take effect immediately
+          target.style.setProperty("transform", `scale(${_magnifierScale})`, "important");
+          target.style.setProperty("z-index", "99998", "important");
+          target.style.setProperty("transition", "transform 0.12s ease", "important");
+          target.style.setProperty("position", "relative", "important");
+          prevEl = target;
+        }
+      };
+
+      document.addEventListener("mousemove", move);
+      (lens as HTMLElement & { _moveHandler?: typeof move })._moveHandler = move;
+    },
+    disable: () => {
+      removeStyle("inculva-magnifier-cursor");
+      const lens = document.getElementById("inculva-magnifier") as
+        | (HTMLElement & { _moveHandler?: (e: MouseEvent) => void })
+        | null;
+      if (lens?._moveHandler) document.removeEventListener("mousemove", lens._moveHandler);
+      lens?.remove();
+      for (const el of document.querySelectorAll<HTMLElement>("[style]")) {
+        if (el.style.transform?.startsWith("scale(")) {
+          el.style.removeProperty("transform");
+          el.style.removeProperty("z-index");
+          el.style.removeProperty("transition");
+          el.style.removeProperty("position");
+        }
+      }
+    },
+  },
+
+  // Line Height — WCAG 1.4.12 — 4 increasing levels
+  lineHeight: {
+    enable: (level = 1) => {
+      const vals = [1.6, 1.9, 2.2, 2.6];
+      replaceStyle(
+        "inculva-line-height",
+        `body * { line-height: ${vals[level - 1] ?? 1.6} !important; }`
+      );
+    },
+    disable: () => removeStyle("inculva-line-height"),
+  },
+
+  // Highlight Titles — outlines all headings to help users identify page structure
+  highlightTitles: {
+    enable: () => injectStyle(
+      "inculva-highlight-titles",
+      `h1, h2, h3, h4, h5, h6 {
+         outline: 2px solid currentColor !important;
+         outline-offset: 3px !important;
+         padding: 2px 6px !important;
+       }`
+    ),
+    disable: () => removeStyle("inculva-highlight-titles"),
+  },
+
+  // ── Hidden stubs (not shown in grid, reserved for future phases) ─────────────
+  toolTips:          { enable: () => {}, disable: () => {} },
+  sustainabilityMode:{ enable: () => {}, disable: () => {} },
+  slowCursor:        { enable: () => {}, disable: () => {} },
+  dictionary:        { enable: () => {}, disable: () => {} },
 };

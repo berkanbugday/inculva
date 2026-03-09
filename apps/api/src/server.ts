@@ -37,7 +37,7 @@ async function bootstrap(): Promise<void> {
   });
 
   // Global error handler — returns consistent JSON shape instead of HTML error pages
-  app.setErrorHandler((err, _request, reply) => {
+  app.setErrorHandler((err: Error & { statusCode?: number }, _request, reply) => {
     const statusCode = err.statusCode ?? 500;
     app.log.error(err);
     return reply.status(statusCode).send({
