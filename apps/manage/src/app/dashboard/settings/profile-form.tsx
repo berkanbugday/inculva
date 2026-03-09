@@ -7,12 +7,10 @@ import { cn } from "@inculva/ui";
 interface Props {
   name: string | null;
   email: string;
-  gravatarUrl?: string;
 }
 
-export function ProfileForm({ name, email, gravatarUrl }: Props) {
+export function ProfileForm({ name, email }: Props) {
   const [displayName, setDisplayName] = useState(name ?? "");
-  const [avatarError, setAvatarError] = useState(false);
   const [saving, setSaving] = useState(false);
   const [nameSaved, setNameSaved] = useState(false);
   const [nameError, setNameError] = useState<string | null>(null);
@@ -68,35 +66,6 @@ export function ProfileForm({ name, email, gravatarUrl }: Props) {
       {/* Name & email */}
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
         <h3 className="font-semibold text-gray-900 mb-4">Profile</h3>
-
-        {/* Avatar */}
-        <div className="flex items-center gap-4 mb-5">
-          <div className="w-16 h-16 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xl font-bold overflow-hidden shrink-0">
-            {gravatarUrl && !avatarError ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={gravatarUrl}
-                alt={name ?? email}
-                width={64}
-                height={64}
-                className="w-full h-full object-cover"
-                onError={() => setAvatarError(true)}
-              />
-            ) : (
-              (name ?? email)[0]?.toUpperCase() ?? "?"
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-medium text-gray-800">{name ?? email}</p>
-            <p className="text-xs text-gray-400 mt-0.5">
-              Profile photo from{" "}
-              <a href="https://gravatar.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
-                Gravatar
-              </a>{" "}
-              — linked to your email address
-            </p>
-          </div>
-        </div>
 
         <form onSubmit={(e) => void handleNameSave(e)} className="space-y-4">
           <div>

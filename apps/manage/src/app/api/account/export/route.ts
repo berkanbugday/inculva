@@ -12,7 +12,7 @@ export async function GET(): Promise<NextResponse> {
   const userId = session.user.id;
   const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
 
-  const [user, sites, apiKeys, teamMemberships, subscription] = await Promise.all([
+  const [user, sites, apiKeys, subscription] = await Promise.all([
     db.user.findUnique({
       where: { id: userId },
       select: {
@@ -81,14 +81,6 @@ export async function GET(): Promise<NextResponse> {
         expiresAt: true,
       },
     }),
-    db.teamMember.findMany({
-      where: { userId },
-      select: {
-        role: true,
-        joinedAt: true,
-        team: { select: { id: true, name: true } },
-      },
-    }),
     db.subscription.findUnique({
       where: { userId },
       select: {
@@ -115,12 +107,6 @@ export async function GET(): Promise<NextResponse> {
       eventsLast90Days: s._count.widgetEvents,
     })),
     apiKeys,
-    teamMemberships: teamMemberships.map((m) => ({
-      teamId: m.team.id,
-      teamName: m.team.name,
-      role: m.role,
-      joinedAt: m.joinedAt,
-    })),
   };
 
   return new NextResponse(JSON.stringify(exportData, null, 2), {

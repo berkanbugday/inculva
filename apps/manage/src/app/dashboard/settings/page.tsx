@@ -6,8 +6,6 @@ import { ProfileForm } from "./profile-form";
 import { DeleteAccount } from "./delete-account";
 import { WebhooksManager } from "./webhooks-manager";
 import { ReferralBanner } from "@/components/referral-banner";
-import crypto from "crypto";
-
 export default async function SettingsPage() {
   const session = await auth.api.getSession({ headers: await headers() });
 
@@ -27,12 +25,6 @@ export default async function SettingsPage() {
     select: { id: true, url: true, events: true, enabled: true, createdAt: true },
     orderBy: { createdAt: "desc" },
   })]);
-
-  const emailHash = crypto
-    .createHash("sha256")
-    .update(session!.user.email.trim().toLowerCase())
-    .digest("hex");
-  const gravatarUrl = `https://www.gravatar.com/avatar/${emailHash}?s=160&d=404`;
 
   return (
     <main className="max-w-3xl mx-auto px-6 py-8 space-y-8">
@@ -63,7 +55,6 @@ export default async function SettingsPage() {
       <ProfileForm
         name={session!.user.name ?? null}
         email={session!.user.email}
-        gravatarUrl={gravatarUrl}
       />
 
       <ReferralBanner />
@@ -77,7 +68,7 @@ export default async function SettingsPage() {
         <div>
           <h3 className="text-base font-semibold text-gray-900 dark:text-white">Export Your Data</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Download a copy of all personal data we hold about you — your profile, sites, API keys, and team memberships. This satisfies your GDPR Article 20 right to data portability.
+            Download a copy of all personal data we hold about you — your profile, sites, and API keys. This satisfies your GDPR Article 20 right to data portability.
           </p>
         </div>
         <a

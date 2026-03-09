@@ -2,8 +2,7 @@
 
 import { signOut } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { getMessages } from "@/i18n/messages";
+import { useState, useRef, useEffect } from "react";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
 import { NotificationBell } from "./notification-bell";
@@ -13,16 +12,13 @@ interface Props {
   name: string | null;
   locale: string;
   isAdmin?: boolean;
-  gravatarUrl?: string;
-  pendingInviteCount?: number;
 }
 
-export function DashboardHeader({ email, name, locale, isAdmin, gravatarUrl, pendingInviteCount = 0 }: Props) {
+export function DashboardHeader({ email, name, locale }: Props) {
   const router = useRouter();
   const [signingOut, setSigningOut] = useState(false);
-  const [avatarError, setAvatarError] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const t = getMessages(locale);
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   async function handleSignOut() {
     setSigningOut(true);
@@ -30,150 +26,106 @@ export function DashboardHeader({ email, name, locale, isAdmin, gravatarUrl, pen
     router.push("/login");
   }
 
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
   const initials = name
     ? name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
     : email[0]?.toUpperCase() ?? "?";
 
-  const showGravatar = gravatarUrl && !avatarError;
-
   return (
-    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-3 sticky top-0 z-40">
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <a href="/dashboard" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white text-xs font-bold">A</span>
-          </div>
-          <span className="text-base font-bold text-gray-900 dark:text-white">Inculva</span>
+    <header className="h-[49px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 flex items-center justify-between sticky top-0 z-40 shrink-0">
+      {/* Logo */}
+      <a href="/dashboard" className="flex items-center gap-2">
+        <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
+          <span className="text-white text-xs font-bold">I</span>
+        </div>
+        <div className="leading-none">
+          <p className="text-sm font-bold text-gray-900 dark:text-white leading-none">Inculva</p>
+          <p className="text-[9px] text-gray-400 mt-0.5 leading-none">All in one smart solution</p>
+        </div>
+      </a>
+
+      {/* Right side */}
+      <div className="flex items-center gap-2">
+        <a
+          href="/dashboard/sites/new"
+          className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-full transition-colors"
+        >
+          Add new site +
         </a>
 
-        {/* Desktop nav */}
-        <nav className="hidden sm:flex items-center gap-1">
-          <a href="/dashboard" className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            {t.nav.sites}
-          </a>
-          <a href="/dashboard/teams" className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            {t.nav.teams}
-          </a>
-          <a href="/dashboard/invites" className="relative px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            Invites
-            {pendingInviteCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 bg-blue-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
-                {pendingInviteCount > 9 ? "9+" : pendingInviteCount}
-              </span>
-            )}
-          </a>
-          <a href="/dashboard/settings" className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            {t.nav.settings}
-          </a>
-          <a href="/dashboard/settings/billing" className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            {t.nav.pricing}
-          </a>
-          <a href="mailto:support@inculva.com" className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            Help
-          </a>
-          {isAdmin && (
-            <a href="/admin" className="px-3 py-1.5 text-sm text-amber-600 dark:text-amber-400 hover:text-amber-900 dark:hover:text-amber-200 hover:bg-amber-50 dark:hover:bg-amber-950 rounded-lg transition-colors font-medium">
-              Admin
-            </a>
-          )}
-        </nav>
+        <ThemeToggle />
+        <LanguageSwitcher locale={locale} />
+        <NotificationBell />
 
-        {/* Mobile hamburger */}
-        <button
-          className="sm:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          aria-label="Open menu"
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          {mobileOpen ? (
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          ) : (
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M2 4h14M2 9h14M2 14h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          )}
-        </button>
-
-        {/* User menu */}
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <LanguageSwitcher locale={locale} />
-          <NotificationBell />
-
-          <div className="flex items-center gap-2 ml-1">
-            <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 flex items-center justify-center text-xs font-bold overflow-hidden shrink-0">
-              {showGravatar ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={gravatarUrl}
-                  alt={name ?? email}
-                  width={32}
-                  height={32}
-                  className="w-full h-full object-cover"
-                  onError={() => setAvatarError(true)}
-                />
-              ) : (
-                initials
-              )}
-            </div>
-            <div className="hidden sm:block text-right">
-              {name && <p className="text-sm font-medium text-gray-800 dark:text-gray-200 leading-none">{name}</p>}
-              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{email}</p>
-            </div>
-          </div>
-
+        {/* User dropdown */}
+        <div ref={dropdownRef} className="relative ml-1">
           <button
-            onClick={() => void handleSignOut()}
-            disabled={signingOut}
-            className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors disabled:opacity-50"
+            onClick={() => setOpen((v) => !v)}
+            className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-700 hover:opacity-80 transition-opacity"
           >
-            {signingOut ? t.header.signingOut : t.header.signOut}
+            <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">
+              {initials}
+            </div>
+            <p className="text-xs font-medium text-gray-800 dark:text-gray-200 hidden sm:block">My account</p>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`text-gray-400 transition-transform ${open ? "rotate-180" : ""}`}>
+              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
+
+          {open && (
+            <div className="absolute right-0 top-full mt-2 w-52 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-lg py-1 z-50">
+              <div className="px-4 py-2.5 border-b border-gray-100 dark:border-gray-800">
+                {name && <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{name}</p>}
+                <p className="text-xs text-gray-400 dark:text-gray-500 truncate mt-0.5">{email}</p>
+              </div>
+              <a
+                href="/dashboard/settings"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+                Settings
+              </a>
+              <a
+                href="/dashboard/settings/billing"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M1 6.5h14" stroke="currentColor" strokeWidth="1.5" />
+                  <rect x="3" y="9" width="3" height="1.5" rx="0.75" fill="currentColor" />
+                </svg>
+                Billing
+              </a>
+              <div className="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
+                <button
+                  onClick={() => void handleSignOut()}
+                  disabled={signingOut}
+                  className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 transition-colors disabled:opacity-50"
+                >
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {signingOut ? "Signing out…" : "Sign out"}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Mobile nav drawer */}
-      {mobileOpen && (
-        <nav className="sm:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 space-y-1">
-          {[
-            { href: "/dashboard", label: t.nav.sites },
-            { href: "/dashboard/teams", label: t.nav.teams },
-            { href: "/dashboard/invites", label: pendingInviteCount > 0 ? `Invites (${pendingInviteCount})` : "Invites" },
-            { href: "/dashboard/settings", label: t.nav.settings },
-            { href: "/dashboard/settings/billing", label: t.nav.pricing },
-            { href: "mailto:support@inculva.com", label: "Help & Support" },
-          ].map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
-          {isAdmin && (
-            <a
-              href="/admin"
-              onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 rounded-lg text-sm text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950 font-medium transition-colors"
-            >
-              Admin
-            </a>
-          )}
-          <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
-            <button
-              onClick={() => void handleSignOut()}
-              disabled={signingOut}
-              className="w-full text-left px-3 py-2 rounded-lg text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950 transition-colors disabled:opacity-50"
-            >
-              {signingOut ? t.header.signingOut : t.header.signOut}
-            </button>
-          </div>
-        </nav>
-      )}
     </header>
   );
 }

@@ -14,7 +14,6 @@ type Notification = {
 
 const TYPE_ICON: Record<string, string> = {
   plan_upgraded: "⬆️",
-  team_invite: "👥",
   usage_warning: "⚠️",
   usage_limit: "🚫",
 };

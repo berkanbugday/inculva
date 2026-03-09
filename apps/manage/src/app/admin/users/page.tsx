@@ -1,6 +1,6 @@
 import { db } from "@inculva/db";
 import { ChangePlanForm } from "./change-plan-form";
-import { BanButton } from "../../user-actions";
+import { BanButton } from "../user-actions";
 
 export const metadata = { title: "Admin — Users — Inculva" };
 

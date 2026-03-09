@@ -56,7 +56,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
   since.setDate(since.getDate() - days);
   since.setUTCHours(0, 0, 0, 0);
 
-  const [events, domainLoads] = await Promise.all([
+  const [events, domainLoads, widgetLoadAggregate] = await Promise.all([
     db.widgetEvent.findMany({
       where: { siteId: id, createdAt: { gte: since } },
       orderBy: { createdAt: "desc" },
@@ -71,7 +71,12 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       orderBy: { _sum: { count: "desc" } },
       take: 20,
     }),
+    db.widgetLoad.aggregate({
+      where: { siteId: id, date: { gte: since } },
+      _sum: { count: true },
+    }),
   ]);
+  const widgetLoads = widgetLoadAggregate._sum.count ?? 0;
 
   // Aggregate
   const dailyMap: Record<string, number> = {};
@@ -110,10 +115,10 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
     .sort((a, b) => b.count - a.count);
 
   const statCards = [
-    { label: "Widget Opens", value: openCount, color: "blue" },
-    { label: "Unique Sessions", value: uniqueSessions, color: "purple" },
-    { label: "Feature Activations", value: totalActivations, color: "green" },
-    { label: "Total Events", value: events.length, color: "gray" },
+    { label: "Widget Loads", value: widgetLoads, color: "blue" },
+    { label: "Widget Opens", value: openCount, color: "purple" },
+    { label: "Unique Sessions", value: uniqueSessions, color: "green" },
+    { label: "Feature Activations", value: totalActivations, color: "gray" },
   ] as const;
 
   const colorMap: Record<string, string> = {

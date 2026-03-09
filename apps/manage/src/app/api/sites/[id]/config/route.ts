@@ -53,6 +53,27 @@ export async function PUT(request: NextRequest, { params }: Params) {
     readingMask?: boolean;
     textAlign?: boolean;
     saturation?: boolean;
+    // New features
+    blueLightFilter?: boolean;
+    hideImages?: boolean;
+    darkMode?: boolean;
+    contentMagnifier?: boolean;
+    toolTips?: boolean;
+    sustainabilityMode?: boolean;
+    slowCursor?: boolean;
+    dictionary?: boolean;
+    lineHeight?: boolean;
+    highlightTitles?: boolean;
+    // Accessibility Profiles
+    profileAdhd?: boolean;
+    profileBlind?: boolean;
+    profileLowVision?: boolean;
+    profileColorBlind?: boolean;
+    profileDyslexia?: boolean;
+    profileMotorImpaired?: boolean;
+    profileCognitive?: boolean;
+    profileSeizure?: boolean;
+    profileParkinson?: boolean;
     // Visual customization (Business plan only)
     borderRadius?: number;
     buttonSize?: string;
@@ -147,6 +168,25 @@ export async function PUT(request: NextRequest, { params }: Params) {
       ...(body.readingMask !== undefined && { readingMask: body.readingMask }),
       ...(body.textAlign !== undefined && { textAlign: body.textAlign }),
       ...(body.saturation !== undefined && { saturation: body.saturation }),
+      ...(body.blueLightFilter !== undefined && { blueLightFilter: body.blueLightFilter }),
+      ...(body.hideImages !== undefined && { hideImages: body.hideImages }),
+      ...(body.darkMode !== undefined && { darkMode: body.darkMode }),
+      ...(body.contentMagnifier !== undefined && { contentMagnifier: body.contentMagnifier }),
+      ...(body.toolTips !== undefined && { toolTips: body.toolTips }),
+      ...(body.sustainabilityMode !== undefined && { sustainabilityMode: body.sustainabilityMode }),
+      ...(body.slowCursor !== undefined && { slowCursor: body.slowCursor }),
+      ...(body.dictionary !== undefined && { dictionary: body.dictionary }),
+      ...(body.lineHeight !== undefined && { lineHeight: body.lineHeight }),
+      ...(body.highlightTitles !== undefined && { highlightTitles: body.highlightTitles }),
+      ...(body.profileAdhd !== undefined && { profileAdhd: body.profileAdhd }),
+      ...(body.profileBlind !== undefined && { profileBlind: body.profileBlind }),
+      ...(body.profileLowVision !== undefined && { profileLowVision: body.profileLowVision }),
+      ...(body.profileColorBlind !== undefined && { profileColorBlind: body.profileColorBlind }),
+      ...(body.profileDyslexia !== undefined && { profileDyslexia: body.profileDyslexia }),
+      ...(body.profileMotorImpaired !== undefined && { profileMotorImpaired: body.profileMotorImpaired }),
+      ...(body.profileCognitive !== undefined && { profileCognitive: body.profileCognitive }),
+      ...(body.profileSeizure !== undefined && { profileSeizure: body.profileSeizure }),
+      ...(body.profileParkinson !== undefined && { profileParkinson: body.profileParkinson }),
     },
   });
 

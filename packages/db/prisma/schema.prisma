@@ -40,18 +40,16 @@ model User {
   // Moderation
   bannedAt DateTime?
 
-  sessions         Session[]
-  accounts         Account[]
-  sites            Site[]
-  apiKeys          ApiKey[]
-  subscription     Subscription?
-  ownedTeams       Team[]         @relation("TeamOwner")
-  teamMemberships  TeamMember[]
-  notifications    Notification[]
-  webhooks         Webhook[]
-  auditLogs        AuditLog[]
-  referrals        Referral[]     @relation("ReferralReferrer")
-  referredBy       Referral[]     @relation("ReferralReferred")
+  sessions      Session[]
+  accounts      Account[]
+  sites         Site[]
+  apiKeys       ApiKey[]
+  subscription  Subscription?
+  notifications Notification[]
+  webhooks      Webhook[]
+  auditLogs     AuditLog[]
+  referrals     Referral[]     @relation("ReferralReferrer")
+  referredBy    Referral[]     @relation("ReferralReferred")
 }
 
 model Session {
@@ -124,7 +122,6 @@ model Site {
   name      String
   domain    String   @unique
   ownerId   String
-  teamId    String?  // optional — site can belong to a team
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -132,11 +129,10 @@ model Site {
   lastHealthCheck DateTime?
   healthStatus    String?   // "healthy" | "degraded"
 
-  owner         User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  team          Team?         @relation(fields: [teamId], references: [id], onDelete: SetNull)
-  widgetConfig  WidgetConfig?
-  widgetEvents  WidgetEvent[]
-  widgetLoads   WidgetLoad[]
+  owner        User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  widgetConfig WidgetConfig?
+  widgetEvents WidgetEvent[]
+  widgetLoads  WidgetLoad[]
 }
 
 model WidgetConfig {
@@ -170,6 +166,29 @@ model WidgetConfig {
   readingMask        Boolean @default(true)
   textAlign          Boolean @default(true)
   saturation         Boolean @default(true)
+  // New features (from UserWay/Corpowid research)
+  blueLightFilter    Boolean @default(true)
+  hideImages         Boolean @default(true)
+  darkMode           Boolean @default(true)
+  contentMagnifier   Boolean @default(true)
+  toolTips           Boolean @default(true)
+  sustainabilityMode Boolean @default(false)
+  slowCursor         Boolean @default(true)
+  dictionary         Boolean @default(false)
+  lineHeight         Boolean @default(true)
+  highlightTitles    Boolean @default(true)
+
+  // Accessibility Profiles — control which one-click profiles appear in widget
+  profileAdhd          Boolean @default(true)
+  profileBlind         Boolean @default(true)
+  profileLowVision     Boolean @default(true)
+  profileColorBlind    Boolean @default(true)
+  profileDyslexia      Boolean @default(true)
+  profileMotorImpaired Boolean @default(true)
+  profileCognitive     Boolean @default(true)
+  profileSeizure       Boolean @default(true)
+  profileParkinson     Boolean @default(true)
+
   // EAA Article 13 — accessibility statement URL
   accessibilityStatementUrl String?
 
@@ -177,7 +196,7 @@ model WidgetConfig {
   whiteLabelText String?
 
   // Visual customization (Business plan only)
-  borderRadius Int    @default(8)      // 0–50 px
+  borderRadius Int    @default(8)        // 0–50 px
   buttonSize   String @default("medium") // "small" | "medium" | "large"
   fontFamily   String @default("system") // "system" | "inter" | "roboto" | "opensans"
 
@@ -243,7 +262,7 @@ model ApiKey {
 model Notification {
   id        String    @id @default(cuid())
   userId    String
-  type      String    // "team_invite" | "plan_upgraded" | "usage_warning" | "usage_limit" | "payment_failed"
+  type      String    // "plan_upgraded" | "usage_warning" | "usage_limit" | "payment_failed"
   title     String
   body      String
   href      String?
@@ -292,38 +311,6 @@ model AuditLog {
   @@index([userId, createdAt])
 }
 
-// ─── Teams ────────────────────────────────────────────────────────────────────
-
-model Team {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String   @unique
-  ownerId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  owner   User         @relation("TeamOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  members TeamMember[]
-  invites TeamInvite[]
-  sites   Site[]
-
-  @@index([ownerId])
-}
-
-model TeamMember {
-  id         String    @id @default(cuid())
-  teamId     String
-  userId     String
-  role       String    @default("member") // "admin" | "member"
-  joinedAt   DateTime  @default(now())
-
-  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([teamId, userId])
-  @@index([userId])
-}
-
 // ─── Referrals ────────────────────────────────────────────────────────────────
 
 model Referral {
@@ -337,20 +324,4 @@ model Referral {
   referred User @relation("ReferralReferred", fields: [referredId], references: [id], onDelete: Cascade)
 
   @@index([referrerId])
-}
-
-model TeamInvite {
-  id        String    @id @default(cuid())
-  teamId    String
-  email     String
-  role      String    @default("member") // "admin" | "member"
-  token     String    @unique
-  expiresAt DateTime
-  acceptedAt DateTime?
-  createdAt DateTime  @default(now())
-
-  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
-
-  @@index([token])
-  @@index([teamId])
 }

@@ -4,7 +4,7 @@ import { db } from "@inculva/db";
 import { headers, cookies } from "next/headers";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { VerificationBanner } from "@/components/verification-banner";
-import crypto from "crypto";
+import { Sidebar } from "@/components/sidebar";
 
 export default async function DashboardLayout({
   children,
@@ -17,33 +17,32 @@ export default async function DashboardLayout({
   const { email, name, emailVerified } = session.user;
   const locale = (await cookies()).get("locale")?.value ?? "en";
 
-  const [user, pendingInviteCount] = await Promise.all([
+  const [user, sites] = await Promise.all([
     db.user.findUnique({
       where: { id: session.user.id },
       select: { role: true, bannedAt: true },
     }),
-    db.teamInvite.count({
-      where: {
-        email: { equals: email, mode: "insensitive" },
-        acceptedAt: null,
-        expiresAt: { gt: new Date() },
-      },
+    db.site.findMany({
+      where: { ownerId: session.user.id },
+      select: { id: true, name: true, domain: true },
+      orderBy: { createdAt: "desc" },
+      take: 20,
     }),
   ]);
+
   if (user?.bannedAt) redirect("/banned");
   const isAdmin = user?.role === "admin";
 
-  const emailHash = crypto
-    .createHash("sha256")
-    .update(email.trim().toLowerCase())
-    .digest("hex");
-  const gravatarUrl = `https://www.gravatar.com/avatar/${emailHash}?s=80&d=404`;
-
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <DashboardHeader email={email} name={name ?? null} locale={locale} isAdmin={isAdmin} gravatarUrl={gravatarUrl} pendingInviteCount={pendingInviteCount} />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+      <DashboardHeader email={email} name={name ?? null} locale={locale} isAdmin={isAdmin} />
       {!emailVerified && <VerificationBanner email={email} />}
-      {children}
+      <div className="flex flex-1">
+        <Sidebar sites={sites} isAdmin={isAdmin} />
+        <div className="flex-1 min-w-0 overflow-auto">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

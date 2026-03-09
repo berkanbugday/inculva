@@ -24,34 +24,8 @@ export async function DELETE(_req: NextRequest): Promise<NextResponse> {
     }
   }
 
-  // Notify team members of teams this user owns — their team will be deleted by cascade
-  const ownedTeams = await db.team.findMany({
-    where: { ownerId: userId },
-    include: {
-      members: {
-        where: { userId: { not: userId } }, // exclude the owner themselves
-        select: { userId: true },
-      },
-    },
-  });
-
-  for (const team of ownedTeams) {
-    if (team.members.length > 0) {
-      await db.notification.createMany({
-        data: team.members.map((m) => ({
-          userId: m.userId,
-          type: "info",
-          title: `Team "${team.name}" has been dissolved`,
-          body: "The team owner has deleted their account. The team and all associated data have been removed.",
-          href: "/dashboard/teams",
-        })),
-        skipDuplicates: true,
-      });
-    }
-  }
-
   // Cascade deletes handle: Session, Account, Site, WidgetConfig, WidgetEvent,
-  // ApiKey, Subscription, ownedTeams, teamMemberships
+  // ApiKey, Subscription
   await db.user.delete({ where: { id: userId } });
 
   // Sign out — invalidate cookies

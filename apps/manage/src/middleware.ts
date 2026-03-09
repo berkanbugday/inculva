@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 
-const PUBLIC_PATHS = ["/login", "/register", "/forgot-password", "/reset-password", "/api/auth", "/invites", "/banned", "/s/"];
+const PUBLIC_PATHS = ["/login", "/register", "/forgot-password", "/reset-password", "/api/auth", "/banned", "/s/"];
 
 // Per-IP rate limiter for auth endpoints: 20 attempts per 15 minutes
 // Protects against brute-force on sign-in and password reset

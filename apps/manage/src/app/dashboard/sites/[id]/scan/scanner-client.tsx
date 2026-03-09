@@ -30,6 +30,22 @@ function impactCount(violations: ScanViolation[], impact: ImpactLevel): number {
   return violations.filter((v) => v.impact === impact).length;
 }
 
+function computeScore(violations: number, passes: number): number {
+  const total = violations + passes;
+  if (total === 0) return 100;
+  return Math.max(0, Math.round(100 - violations * (100 / total)));
+}
+
+function scoreLabel(score: number): { text: string; color: string } {
+  if (score >= 95) return { text: "Excellent", color: "text-green-600 dark:text-green-400" };
+  if (score >= 80) return { text: "Good", color: "text-blue-600 dark:text-blue-400" };
+  if (score >= 60) return { text: "Fair", color: "text-amber-600 dark:text-amber-400" };
+  return { text: "Needs work", color: "text-red-600 dark:text-red-400" };
+}
+
+const CRITICAL_IMPACTS: ImpactLevel[] = ["critical", "serious"];
+const WARNING_IMPACTS: ImpactLevel[] = ["moderate", "minor"];
+
 function ViolationCard({ v }: { v: ScanViolation }) {
   const [open, setOpen] = useState(false);
   const style = IMPACT_STYLES[v.impact];
@@ -189,30 +205,79 @@ export function ScannerClient({ siteId, domain }: Props) {
       {/* Results */}
       {result && (
         <div className="space-y-4">
-          {/* Summary bar */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-            <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-                  {result.violations.length === 0
-                    ? "No violations found"
-                    : `${result.violations.length} violation${result.violations.length !== 1 ? "s" : ""} found`}
-                </h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  {result.passCount} checks passed · scanned {new Date(result.scannedAt).toLocaleTimeString()}
-                </p>
-              </div>
-              <a
-                href={result.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-blue-600 dark:text-blue-400 hover:underline truncate max-w-[240px]"
-              >
-                {result.url}
-              </a>
-            </div>
+          {/* Compliance Score Card */}
+          {(() => {
+            const score = computeScore(result.violations.length, result.passCount);
+            const { text: scoreText, color: scoreColor } = scoreLabel(score);
+            const criticalCount = CRITICAL_IMPACTS.reduce((sum, imp) => sum + impactCount(result.violations, imp), 0);
+            const warningCount = WARNING_IMPACTS.reduce((sum, imp) => sum + impactCount(result.violations, imp), 0);
+            const simulatedScore = computeScore(warningCount, result.passCount + criticalCount);
+            return (
+              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+                <div className="flex items-center justify-between flex-wrap gap-4">
+                  {/* Score */}
+                  <div className="flex items-center gap-4">
+                    <div className="text-center">
+                      <div className={`text-5xl font-bold tabular-nums ${scoreColor}`}>{score}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Compliance Score</div>
+                    </div>
+                    <div>
+                      <p className={`text-lg font-semibold ${scoreColor}`}>{scoreText}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                        {result.violations.length} violation{result.violations.length !== 1 ? "s" : ""} · {result.passCount} checks passed
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">
+                        Scanned {new Date(result.scannedAt).toLocaleTimeString()}
+                      </p>
+                    </div>
+                  </div>
+                  <a
+                    href={result.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-blue-600 dark:text-blue-400 hover:underline truncate max-w-[240px]"
+                  >
+                    {result.url}
+                  </a>
+                </div>
 
-            {/* Impact breakdown */}
+                {/* Severity split */}
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="rounded-xl border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/30 px-4 py-3 flex items-center gap-3">
+                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">{criticalCount}</div>
+                    <div>
+                      <div className="text-sm font-medium text-red-700 dark:text-red-300">Critical</div>
+                      <div className="text-xs text-red-500 dark:text-red-500">Serious / Critical — WCAG AA failures</div>
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/30 px-4 py-3 flex items-center gap-3">
+                    <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{warningCount}</div>
+                    <div>
+                      <div className="text-sm font-medium text-amber-700 dark:text-amber-300">Warning</div>
+                      <div className="text-xs text-amber-500 dark:text-amber-500">Moderate / Minor — best practice issues</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Score simulation */}
+                {criticalCount > 0 && (
+                  <div className="mt-3 rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/30 px-4 py-3">
+                    <p className="text-sm font-medium text-blue-700 dark:text-blue-300">Score Simulation</p>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">
+                      Fix all {criticalCount} critical issue{criticalCount !== 1 ? "s" : ""} → score improves from{" "}
+                      <span className="font-bold">{score}</span> to{" "}
+                      <span className="font-bold">{simulatedScore}</span>{" "}
+                      (+{simulatedScore - score} points)
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
+          {/* Detailed impact breakdown */}
+          <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Breakdown by Severity</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {(["critical", "serious", "moderate", "minor"] as ImpactLevel[]).map((impact) => {
                 const count = impactCount(result.violations, impact);

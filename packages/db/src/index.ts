@@ -9,7 +9,4 @@ export type {
   Account,
   ApiKey,
   Subscription,
-  Team,
-  TeamMember,
-  TeamInvite,
 } from "@prisma/client";
