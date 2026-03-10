@@ -67,7 +67,7 @@ export const widgetStyles = `
   #inculva-widget-panel {
     position: fixed !important;
     z-index: 2147483645 !important;
-    width: 420px;
+    width: 520px;
     max-height: calc(100vh - 110px);
     display: flex;
     flex-direction: column;
@@ -281,9 +281,9 @@ export const widgetStyles = `
     font-weight: 700;
   }
 
-  /* ── Profile Section ─────────────────────────────────────────────────── */
+  /* ── Profile Section (accordion + card grid) ────────────────────────── */
   .inculva-profiles-section {
-    margin: 10px 12px 10px;
+    margin: 10px 12px 0;
     border: 1px solid rgba(0,0,0,0.09);
     border-radius: 14px;
     overflow: hidden;
@@ -301,17 +301,17 @@ export const widgetStyles = `
     border: none;
     cursor: pointer;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
-    color: #000;
+    color: #111;
     text-align: left;
     -webkit-tap-highlight-color: transparent;
     outline: none;
     transition: background 0.12s;
   }
+  .inculva-profiles-toggle > span:nth-child(2) { flex: 1; }
   .inculva-profiles-toggle:hover { background: #f9fafb; }
   .inculva-profiles-toggle:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: -2px; }
-  .inculva-profiles-toggle > span:nth-child(2) { flex: 1; }
   .inculva-profiles-arrow {
     display: flex;
     align-items: center;
@@ -321,83 +321,68 @@ export const widgetStyles = `
   .inculva-profiles-toggle[aria-expanded="true"] .inculva-profiles-arrow {
     transform: rotate(180deg);
   }
-
-  /* ── Profile List (on/off toggle rows) ───────────────────────────────── */
-  .inculva-profiles-list {
+  .inculva-profiles-grid {
     border-top: 1px solid rgba(0,0,0,0.07);
-    background: #fafafa;
+    padding: 10px;
   }
-  .inculva-profile-row {
+  /* Override — grid is the display when visible (hidden attr removed by JS) */
+  .inculva-profiles-grid:not([hidden]) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  .inculva-profile-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 9px 14px;
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    justify-content: center;
+    gap: 5px;
+    padding: 11px 6px 9px;
+    background: #fff;
+    border: 1.5px solid rgba(0,0,0,0.10);
+    border-radius: 13px;
     cursor: pointer;
     font-family: inherit;
-    font-size: 13px;
-    font-weight: 500;
-    color: #000;
-    text-align: left;
-    -webkit-tap-highlight-color: transparent;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #374151;
+    line-height: 1.25;
+    text-align: center;
+    transition: border-color 0.12s, background 0.12s, box-shadow 0.12s, transform 0.1s;
     outline: none;
-    transition: background 0.1s;
+    -webkit-tap-highlight-color: transparent;
+    word-break: break-word;
+    hyphens: auto;
   }
-  .inculva-profile-row:last-child { border-bottom: none; }
-  .inculva-profile-row:hover { background: rgba(0,0,0,0.03); }
-  .inculva-profile-row:active { background: rgba(0,0,0,0.06); }
-  .inculva-profile-row:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: -2px; }
-  .inculva-profile-row-icon {
+  @media (min-width: 785px) {
+    .inculva-profile-card:hover {
+      border-color: var(--inculva-primary, #0066cc);
+      background: color-mix(in srgb, var(--inculva-primary, #0066cc) 5%, #fff);
+    }
+  }
+  .inculva-profile-card:active { transform: scale(0.95); }
+  .inculva-profile-card:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 1px; }
+  .inculva-profile-card.active {
+    background: var(--inculva-primary, #0066cc) !important;
+    border-color: var(--inculva-primary, #0066cc) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,102,204,0.28) !important;
+  }
+  .inculva-profile-card-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: rgba(0,0,0,0.06);
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    background: rgba(0,0,0,0.06);
     color: #374151;
     transition: background 0.15s, color 0.15s;
-  }
-  .inculva-profile-row.active .inculva-profile-row-icon {
-    background: color-mix(in srgb, var(--inculva-primary, #0066cc) 14%, transparent);
-    color: var(--inculva-primary, #0066cc);
-  }
-  .inculva-profile-label {
-    flex: 1;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.25;
-    color: #000;
-  }
-  .inculva-profile-switch {
-    position: relative;
-    width: 36px;
-    height: 20px;
-    border-radius: 100px;
-    background: #e4e4e7;
     flex-shrink: 0;
-    transition: background 0.2s;
   }
-  .inculva-profile-row.active .inculva-profile-switch {
-    background: var(--inculva-primary, #0066cc);
-  }
-  .inculva-profile-switch-thumb {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.22);
-    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  .inculva-profile-row.active .inculva-profile-switch-thumb {
-    transform: translateX(16px);
+  .inculva-profile-card.active .inculva-profile-card-icon {
+    background: rgba(255,255,255,0.22);
+    color: #fff;
   }
 
   /* ── Panel Body (scrollable) ─────────────────────────────────────────── */
@@ -654,9 +639,6 @@ export const widgetStyles = `
   }
 
   /* ── Large Mode ──────────────────────────────────────────────────────── */
-  #inculva-widget-panel[data-size="large"] {
-    width: 520px !important;
-  }
   #inculva-widget-panel[data-size="large"] .inculva-feature-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
@@ -713,36 +695,30 @@ export const widgetStyles = `
   }
   /* Large mode — profiles section */
   #inculva-widget-panel[data-size="large"] .inculva-profiles-section {
-    margin: 12px 14px 12px !important;
+    margin: 12px 14px 0 !important;
   }
   #inculva-widget-panel[data-size="large"] .inculva-profiles-toggle {
     height: 48px !important;
     font-size: 15px !important;
     padding: 0 16px !important;
   }
-  #inculva-widget-panel[data-size="large"] .inculva-profile-row {
-    padding: 11px 16px !important;
-    font-size: 14px !important;
-    gap: 12px !important;
+  #inculva-widget-panel[data-size="large"] .inculva-profiles-grid {
+    gap: 9px !important;
+    padding: 12px !important;
   }
-  #inculva-widget-panel[data-size="large"] .inculva-profile-row-icon {
-    width: 34px !important;
-    height: 34px !important;
-    border-radius: 9px !important;
+  #inculva-widget-panel[data-size="large"] .inculva-profile-card {
+    padding: 13px 8px 11px !important;
+    font-size: 12.5px !important;
+    border-radius: 15px !important;
   }
-  #inculva-widget-panel[data-size="large"] .inculva-profile-label {
-    font-size: 14px !important;
+  #inculva-widget-panel[data-size="large"] .inculva-profile-card-icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 11px !important;
   }
-  #inculva-widget-panel[data-size="large"] .inculva-profile-switch {
-    width: 42px !important;
-    height: 24px !important;
-  }
-  #inculva-widget-panel[data-size="large"] .inculva-profile-switch-thumb {
-    width: 20px !important;
-    height: 20px !important;
-  }
-  #inculva-widget-panel[data-size="large"] .inculva-profile-row.active .inculva-profile-switch-thumb {
-    transform: translateX(18px) !important;
+  #inculva-widget-panel[data-size="large"] .inculva-profile-card-icon svg {
+    width: 22px !important;
+    height: 22px !important;
   }
   /* Large mode — prefooter */
   #inculva-widget-panel[data-size="large"] .inculva-prefooter {
@@ -936,7 +912,7 @@ export const widgetStyles = `
   /* ── RTL Support ─────────────────────────────────────────────────────── */
   #inculva-widget-panel[dir="rtl"] .inculva-panel-header   { flex-direction: row-reverse; }
   #inculva-widget-panel[dir="rtl"] .inculva-header-actions { flex-direction: row-reverse; }
-  #inculva-widget-panel[dir="rtl"] .inculva-profiles-toggle { flex-direction: row-reverse; }
+  #inculva-widget-panel[dir="rtl"] .inculva-profiles-header { flex-direction: row-reverse; }
   #inculva-widget-panel[dir="rtl"] .inculva-controls-bar   { flex-direction: row-reverse; }
 
   /* ── Reduced Motion ──────────────────────────────────────────────────── */

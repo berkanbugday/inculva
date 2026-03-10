@@ -182,7 +182,7 @@ export const PROFILES: ProfileDef[] = [
   },
   {
     key: "lowVision",
-    label: "Low vision",
+    label: "Low Vision",
     icon: ICON_P_LOW_VISION,
     features: [
       "textResizing",
@@ -192,46 +192,28 @@ export const PROFILES: ProfileDef[] = [
     ],
   },
   {
-    key: "colorBlind",
-    label: "Color blind",
-    icon: ICON_P_COLOR_BLIND,
-    features: ["colorBlindMode"],
-  },
-  {
     key: "dyslexia",
-    label: "Dyslexia mode",
+    label: "Dyslexia",
     icon: ICON_P_DYSLEXIA,
     features: ["dyslexiaFont", "textSpacing", "readingGuide"],
   },
   {
-    key: "motorImpaired",
-    label: "Motor impaired",
-    icon: ICON_P_MOTOR,
-    features: ["keyboardNavigation", "largeClickTargets", "cursorEnhancement"],
+    key: "colorBlind",
+    label: "Color Blind",
+    icon: ICON_P_COLOR_BLIND,
+    features: ["colorBlindMode"],
   },
   {
-    key: "cognitive",
-    label: "Cognitive impairment",
-    icon: ICON_P_COGNITIVE,
-    features: ["readingMask", "pauseAnimations", "textSpacing"],
+    key: "motorImpaired",
+    label: "Motor",
+    icon: ICON_P_MOTOR,
+    features: ["keyboardNavigation", "largeClickTargets", "focusHighlight"],
   },
   {
     key: "attention",
-    label: "Attention disorder",
+    label: "ADHD",
     icon: ICON_P_ATTENTION,
-    features: ["readingGuide", "pauseAnimations", "textAlign"],
-  },
-  {
-    key: "epilepsy",
-    label: "Photosensitive epilepsy",
-    icon: ICON_P_EPILEPSY,
-    features: ["pauseAnimations", "grayscale"],
-  },
-  {
-    key: "parkinsons",
-    label: "Parkinson's disease",
-    icon: ICON_P_PARKINSONS,
-    features: ["largeClickTargets", "keyboardNavigation", "textResizing"],
+    features: ["readingGuide", "pauseAnimations", "readingMask"],
   },
 ];
 
@@ -287,14 +269,11 @@ const EN_LABELS: Record<string, string> = {
   achromatopsia: "Achromatopsia",
   // Profile labels
   profile_blind: "Blind",
-  profile_lowVision: "Low vision",
-  profile_colorBlind: "Color blind",
+  profile_lowVision: "Low Vision",
+  profile_colorBlind: "Color Blind",
   profile_dyslexia: "Dyslexia",
   profile_motorImpaired: "Motor",
-  profile_cognitive: "Cognitive",
-  profile_attention: "Attention",
-  profile_epilepsy: "Epilepsy",
-  profile_parkinsons: "Parkinson's",
+  profile_attention: "ADHD",
 };
 
 const COLOR_BLIND_TYPES: ColorBlindType[] = [
@@ -417,7 +396,7 @@ function _buildControlsBar(
   ];
   for (const [sizeVal, sizeLabel] of sizeDefs) {
     const btn = document.createElement("button");
-    btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "regular" ? " active" : ""}`;
+    btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "large" ? " active" : ""}`;
     btn.setAttribute("type", "button");
     btn.setAttribute("aria-label", `${sizeLabel} size`);
     btn.dataset["size"] = sizeVal;
@@ -434,6 +413,7 @@ function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
   const section = document.createElement("div");
   section.className = "inculva-profiles-section";
 
+  // Accordion toggle button
   const toggle = document.createElement("button");
   toggle.className = "inculva-profiles-toggle";
   toggle.setAttribute("type", "button");
@@ -442,41 +422,32 @@ function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
   toggle.innerHTML = `${ICON_PERSON}<span>${labels["profilesTitle"] ?? "Profiles"}</span><span class="inculva-profiles-arrow">${ICON_ARROW_DOWN}</span>`;
   section.appendChild(toggle);
 
-  // Profile list with on/off toggles (hidden by default)
-  const list = document.createElement("div");
-  list.className = "inculva-profiles-list";
-  list.hidden = true;
+  // Card grid — hidden until accordion is opened
+  const grid = document.createElement("div");
+  grid.className = "inculva-profiles-grid";
+  grid.hidden = true;
 
   for (const profile of PROFILES) {
-    const row = document.createElement("button");
-    row.className = "inculva-profile-row";
-    row.setAttribute("type", "button");
-    row.setAttribute("aria-pressed", "false");
-    row.dataset["profile"] = profile.key;
+    const card = document.createElement("button");
+    card.className = "inculva-profile-card";
+    card.setAttribute("type", "button");
+    card.setAttribute("aria-pressed", "false");
+    card.dataset["profile"] = profile.key;
 
-    const iconSpan = document.createElement("span");
-    iconSpan.className = "inculva-profile-row-icon";
-    iconSpan.setAttribute("aria-hidden", "true");
-    iconSpan.innerHTML = profile.icon;
+    const iconWrap = document.createElement("span");
+    iconWrap.className = "inculva-profile-card-icon";
+    iconWrap.setAttribute("aria-hidden", "true");
+    iconWrap.innerHTML = profile.icon;
 
     const labelSpan = document.createElement("span");
-    labelSpan.className = "inculva-profile-label";
     labelSpan.textContent = labels[`profile_${profile.key}`] ?? profile.label;
 
-    const switchTrack = document.createElement("span");
-    switchTrack.className = "inculva-profile-switch";
-    switchTrack.setAttribute("aria-hidden", "true");
-    const thumb = document.createElement("span");
-    thumb.className = "inculva-profile-switch-thumb";
-    switchTrack.appendChild(thumb);
-
-    row.appendChild(iconSpan);
-    row.appendChild(labelSpan);
-    row.appendChild(switchTrack);
-    list.appendChild(row);
+    card.appendChild(iconWrap);
+    card.appendChild(labelSpan);
+    grid.appendChild(card);
   }
 
-  section.appendChild(list);
+  section.appendChild(grid);
   return section;
 }
 
@@ -621,7 +592,7 @@ function _buildMiniActions(): HTMLDivElement {
   expandBtn.className = "inculva-mini-btn";
   expandBtn.setAttribute("type", "button");
   expandBtn.setAttribute("aria-label", "Expand widget");
-  expandBtn.dataset["size"] = "regular";
+  expandBtn.dataset["size"] = "large";
   expandBtn.innerHTML = ICON_EXPAND;
 
   const resetBtn = document.createElement("button");
@@ -752,7 +723,7 @@ export function createPanel(
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "false");
   panel.setAttribute("aria-label", labels["title"] ?? "Accessibility");
-  panel.dataset["size"] = "regular";
+  panel.dataset["size"] = "large";
   if (RTL_LANGS.has(language)) panel.setAttribute("dir", "rtl");
 
   panel.appendChild(_buildHeader(labels));
@@ -830,21 +801,25 @@ export function updatePanel(
     }
   }
 
-  // Update profile row labels
+  // Update profile card labels
   for (const profile of PROFILES) {
-    const labelEl = panel.querySelector<HTMLElement>(
-      `[data-profile="${profile.key}"] .inculva-profile-label`,
+    const card = panel.querySelector<HTMLElement>(
+      `[data-profile="${profile.key}"]`,
     );
-    if (labelEl)
+    if (!card) continue;
+    // The last span in the card is the text label
+    const spans = card.querySelectorAll<HTMLElement>("span");
+    const labelEl = spans[spans.length - 1];
+    if (labelEl && !labelEl.classList.contains("inculva-profile-card-icon"))
       labelEl.textContent = labels[`profile_${profile.key}`] ?? profile.label;
   }
 
-  // Update profiles toggle label
-  const profilesToggle = panel.querySelector<HTMLElement>(
-    ".inculva-profiles-toggle span:nth-child(2)",
+  // Update profiles accordion toggle label
+  const profilesToggleLabel = panel.querySelector<HTMLElement>(
+    ".inculva-profiles-toggle > span:nth-child(2)",
   );
-  if (profilesToggle)
-    profilesToggle.textContent = labels["profilesTitle"] ?? "Profiles";
+  if (profilesToggleLabel)
+    profilesToggleLabel.textContent = labels["profilesTitle"] ?? "Profiles";
 
   // Update pre-footer — rebuild with current state
   const prePre = panel.querySelector<HTMLElement>(".inculva-prefooter");

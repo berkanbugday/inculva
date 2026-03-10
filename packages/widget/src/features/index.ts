@@ -92,6 +92,7 @@ export const FEATURE_LEVELS: Partial<Record<keyof WidgetFeatures, number>> = {
   readingGuide: 3,   // L1=thin(3px) L2=medium(6px) L3=thick(12px)
   cursorEnhancement: 3, // L1=medium(32px) L2=large(48px) L3=XL(64px)
   slowCursor: 3,     // L1=slight(α=0.25) L2=medium(α=0.15) L3=heavy(α=0.08)
+  screenReader: 3,   // L1=alt hints  L2=read on hover  L3=read on tap
 };
 
 /** Level → ColorBlindType mapping (exported so index.ts can derive display labels). */
@@ -194,6 +195,105 @@ export function setColorBlindType(type: ColorBlindType): void {
   }
 }
 
+// ── Screen Reader / TTS helpers ───────────────────────────────────────────────
+//
+// Resolves the most readable text for a given DOM element by walking up the
+// ancestor chain: aria-label → aria-labelledby → img alt → form label/placeholder
+// → innerText.  Stops after 4 hops so we never read the whole page body.
+
+function _getReadableText(target: Element): string {
+  let el: Element | null = target;
+  for (let i = 0; i < 4 && el && el !== document.documentElement; i++) {
+    const htmlEl = el as HTMLElement;
+    // Skip widget own UI
+    if (htmlEl.id?.startsWith("inculva") || htmlEl.className?.includes?.("inculva")) return "";
+
+    const ariaLabel = el.getAttribute("aria-label");
+    if (ariaLabel?.trim()) return ariaLabel.trim();
+
+    const labelledBy = el.getAttribute("aria-labelledby");
+    if (labelledBy) {
+      const lbText = document.getElementById(labelledBy)?.textContent?.trim();
+      if (lbText) return lbText;
+    }
+
+    if (el instanceof HTMLImageElement) {
+      return el.alt?.trim() || "Image with no description";
+    }
+
+    if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+      const elId = htmlEl.id;
+      const lblText = elId
+        ? document.querySelector<HTMLElement>(`label[for="${elId}"]`)?.textContent?.trim()
+        : undefined;
+      if (lblText) return lblText;
+      if (el instanceof HTMLInputElement && el.placeholder) return el.placeholder;
+    }
+
+    const text = (htmlEl.innerText ?? "").trim();
+    if (text.length >= 2 && text.length <= 500) return text;
+    el = el.parentElement;
+  }
+  return "";
+}
+
+let _srHoverTimer: ReturnType<typeof setTimeout> | null = null;
+let _srLang = "";
+
+/** Map widget 2-letter language codes → BCP 47 tags for natural TTS voice selection. */
+const LANG_BCP47: Record<string, string> = {
+  en: "en-US", tr: "tr-TR", de: "de-DE", fr: "fr-FR", es: "es-ES",
+  it: "it-IT", pt: "pt-PT", nl: "nl-NL", ar: "ar-SA", he: "he-IL",
+  zh: "zh-CN", ja: "ja-JP", ko: "ko-KR", ru: "ru-RU", pl: "pl-PL",
+};
+
+/** Called by the widget when the user changes the language selector. */
+export function setSrLang(lang: string): void {
+  _srLang = lang;
+}
+
+function _speak(text: string): void {
+  if (!("speechSynthesis" in window) || !text.trim()) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text.trim().slice(0, 350));
+  utt.rate = 1.05;
+  if (_srLang) utt.lang = LANG_BCP47[_srLang] ?? _srLang;
+  window.speechSynthesis.speak(utt);
+}
+
+/** Tears down all screen-reader state for any level (called before switching levels or on disable). */
+function _cleanupScreenReader(): void {
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  if (_srHoverTimer !== null) { clearTimeout(_srHoverTimer); _srHoverTimer = null; }
+
+  // Run the per-level cleanup closure (removes event listeners)
+  const w = window as Window & { __inculvaSrCleanup?: () => void };
+  w.__inculvaSrCleanup?.();
+  delete w.__inculvaSrCleanup;
+
+  removeStyle("inculva-screen-reader");
+
+  // Remove TTS outline markers
+  for (const el of document.querySelectorAll<HTMLElement>("[data-inculva-tts-hover],[data-inculva-tts-tap]")) {
+    delete el.dataset["inculvaTtsHover"];
+    delete el.dataset["inculvaTtsTap"];
+  }
+  // Unwrap alt-badge wrappers, restoring <img> to original position
+  for (const wrap of document.querySelectorAll<HTMLElement>("[data-inculva-sr-wrap]")) {
+    const img = wrap.querySelector("img");
+    if (img) wrap.parentNode?.insertBefore(img, wrap);
+    wrap.remove();
+  }
+  // Remove alt-hint markers and red outlines
+  for (const img of document.querySelectorAll<HTMLImageElement>("[data-inculva-sr]")) {
+    img.classList.remove("inculva-no-alt");
+    delete img.dataset["inculvaSr"];
+  }
+}
+
+/** Exported so index.ts can build per-level button label strings. */
+export const SR_MODE_LABELS = ["", "Alt hints", "Read on hover", "Read on tap"] as const;
+
 // Runtime scale value read by the contentMagnifier move handler on every event,
 // so changing the level takes effect immediately without recreating the lens.
 let _magnifierScale = 1.25;
@@ -290,7 +390,6 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
       const heights = [3, 6, 12];
       const h = heights[level - 1] ?? 3;
-      const blur = h * 3;
 
       const guide = document.createElement("div");
       guide.id = "inculva-reading-guide";
@@ -299,8 +398,8 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         "left:0",
         "right:0",
         `height:${h}px`,
-        "background:rgba(245,158,11,0.9)",
-        `box-shadow:0 0 ${blur}px rgba(245,158,11,0.7),0 2px 6px rgba(245,158,11,0.4)`,
+        "background:var(--inculva-primary,#0066cc)",
+        "opacity:0.85",
         "pointer-events:none",
         "z-index:2147483642",
         "top:0",
@@ -325,16 +424,151 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     },
   },
 
+  // Screen Reader — 3 levels:
+  //   L1: Alt hints   — red outline on images with missing alt; badge showing alt text on others
+  //   L2: Read on hover — Web Speech API reads element text ~400 ms after cursor settles
+  //   L3: Read on tap  — Web Speech API reads element text on click/tap
   screenReader: {
-    enable: () =>
-      injectStyle(
-        "inculva-screen-reader",
-        `
-        img:not([alt]) { outline: 3px solid red !important; }
-        img[alt]::after { content: attr(alt); }
-      `,
-      ),
-    disable: () => removeStyle("inculva-screen-reader"),
+    enable: (level = 1) => {
+      // Always tear down the previous level before re-applying
+      _cleanupScreenReader();
+
+      if (level === 1) {
+        // ── L1: Alt text hints ───────────────────────────────────────────────
+        injectStyle(
+          "inculva-screen-reader",
+          `img.inculva-no-alt { outline: 3px solid #dc2626 !important; outline-offset: 3px !important; }
+           .inculva-alt-wrap { position: relative !important; display: inline-block !important; vertical-align: bottom; }
+           .inculva-alt-badge {
+             position: absolute; bottom: 0; left: 0; right: 0;
+             background: rgba(0,0,0,0.78); color: #fff;
+             font-size: 10px; line-height: 1.3; font-family: system-ui, sans-serif;
+             padding: 2px 5px; pointer-events: none; z-index: 2147483640;
+             overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+             border-top: 2px solid var(--inculva-primary, #0066cc);
+           }`,
+        );
+
+        function processImg(img: HTMLImageElement): void {
+          if (img.dataset["inculvaSr"]) return;
+          if (img.closest("#inculva-widget-panel,#inculva-widget-btn")) return;
+          img.dataset["inculvaSr"] = "1";
+          const alt = img.getAttribute("alt");
+          const hasAlt = alt !== null && alt.trim() !== "";
+          if (!hasAlt) { img.classList.add("inculva-no-alt"); return; }
+          const parent = img.parentNode;
+          if (!parent) return;
+          const wrap = document.createElement("span");
+          wrap.className = "inculva-alt-wrap";
+          wrap.setAttribute("data-inculva-sr-wrap", "1");
+          parent.insertBefore(wrap, img);
+          wrap.appendChild(img);
+          const badge = document.createElement("span");
+          badge.className = "inculva-alt-badge";
+          badge.textContent = alt;
+          wrap.appendChild(badge);
+        }
+
+        for (const img of document.querySelectorAll<HTMLImageElement>("img")) processImg(img);
+
+        const observer = new MutationObserver((mutations) => {
+          for (const m of mutations) {
+            for (const node of m.addedNodes) {
+              if (node instanceof HTMLImageElement) processImg(node);
+              else if (node instanceof HTMLElement) {
+                for (const img of node.querySelectorAll<HTMLImageElement>("img")) processImg(img);
+              }
+            }
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        (window as Window & { __inculvaSrCleanup?: () => void }).__inculvaSrCleanup = () => observer.disconnect();
+
+      } else if (level === 2) {
+        // ── L2: Read on hover ────────────────────────────────────────────────
+        // A dashed primary-colour outline appears on the element being read.
+        injectStyle(
+          "inculva-screen-reader",
+          `[data-inculva-tts-hover] {
+             outline: 2px dashed var(--inculva-primary, #0066cc) !important;
+             outline-offset: 3px !important;
+           }`,
+        );
+
+        let lastEl: Element | null = null;
+
+        const onOver = (e: MouseEvent): void => {
+          const target = e.target as Element | null;
+          if (!target || target === lastEl) return;
+          if (target.closest("#inculva-widget-panel,#inculva-widget-btn")) return;
+          lastEl = target;
+          // Clear any pending timer and remove the previous outline
+          if (_srHoverTimer !== null) { clearTimeout(_srHoverTimer); _srHoverTimer = null; }
+          for (const el of document.querySelectorAll<HTMLElement>("[data-inculva-tts-hover]")) {
+            delete el.dataset["inculvaTtsHover"];
+          }
+          // Wait 400 ms of stillness before reading — avoids reading every element
+          // as the cursor sweeps across the page.
+          _srHoverTimer = setTimeout(() => {
+            const text = _getReadableText(target);
+            if (text) {
+              (target as HTMLElement).dataset["inculvaTtsHover"] = "1";
+              _speak(text);
+            }
+          }, 400);
+        };
+
+        const onOut = (): void => {
+          if (_srHoverTimer !== null) { clearTimeout(_srHoverTimer); _srHoverTimer = null; }
+        };
+
+        document.addEventListener("mouseover", onOver);
+        document.addEventListener("mouseout", onOut);
+        (window as Window & { __inculvaSrCleanup?: () => void }).__inculvaSrCleanup = () => {
+          document.removeEventListener("mouseover", onOver);
+          document.removeEventListener("mouseout", onOut);
+        };
+
+      } else {
+        // ── L3: Read on tap / click ──────────────────────────────────────────
+        // A solid primary-colour outline briefly marks the element just read.
+        injectStyle(
+          "inculva-screen-reader",
+          `[data-inculva-tts-tap] {
+             outline: 2px solid var(--inculva-primary, #0066cc) !important;
+             outline-offset: 3px !important;
+           }`,
+        );
+
+        let lastTapEl: Element | null = null;
+
+        const onTap = (e: MouseEvent): void => {
+          const target = e.target as Element | null;
+          if (!target) return;
+          if (target.closest("#inculva-widget-panel,#inculva-widget-btn")) return;
+          // Remove outline from previously tapped element
+          if (lastTapEl) { delete (lastTapEl as HTMLElement).dataset["inculvaTtsTap"]; }
+          const text = _getReadableText(target);
+          if (!text) return;
+          lastTapEl = target;
+          (target as HTMLElement).dataset["inculvaTtsTap"] = "1";
+          _speak(text);
+          // Auto-remove the outline after ~2.5 s (generous for long phrases)
+          setTimeout(() => {
+            if (lastTapEl === target) {
+              delete (target as HTMLElement).dataset["inculvaTtsTap"];
+              lastTapEl = null;
+            }
+          }, 2500);
+        };
+
+        document.addEventListener("click", onTap);
+        (window as Window & { __inculvaSrCleanup?: () => void }).__inculvaSrCleanup = () => {
+          document.removeEventListener("click", onTap);
+        };
+      }
+    },
+    disable: () => _cleanupScreenReader(),
   },
 
   pauseAnimations: {
@@ -487,8 +721,8 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         "right:0",
         "height:80px",
         "background:transparent",
-        "border-top:3px solid #3b82f6",
-        "border-bottom:3px solid #3b82f6",
+        "border-top:3px solid var(--inculva-primary,#0066cc)",
+        "border-bottom:3px solid var(--inculva-primary,#0066cc)",
         "box-shadow:0 0 0 9999px rgba(0,0,0,0.65)",
         "pointer-events:none",
         "z-index:2147483640",

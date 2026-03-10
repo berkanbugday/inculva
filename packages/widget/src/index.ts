@@ -9,6 +9,8 @@ import {
   setColorBlindType,
   FEATURE_LEVELS,
   CBM_CYCLE_TYPES,
+  SR_MODE_LABELS,
+  setSrLang,
 } from "./features/index.js";
 import {
   createPanel,
@@ -118,6 +120,7 @@ class InculvaWidget {
     this.injectStyles();
     this.applyTheme();
     this.renderWidget();
+    setSrLang(this.config.language);
     this.restorePrefs();
     this.applyConfigToDOM();
   }
@@ -511,13 +514,26 @@ class InculvaWidget {
       }
     }
 
+    // screenReader: update button label to show the active mode name
+    if (feature === "screenReader" && btn) {
+      const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
+      if (labelEl) {
+        labelEl.textContent =
+          nextLevel > 0
+            ? (SR_MODE_LABELS[nextLevel] ?? "Screen reader")
+            : (this.labels["screenReader"] ?? "Screen reader");
+      }
+    }
+
     const featureName = this.labels[feature] ?? feature;
     const announcement =
       feature === "colorBlindMode" && nextLevel > 0
         ? `${featureName}: ${this._cbmTypeName(nextLevel)}`
-        : nextLevel > 0
-          ? `${featureName} level ${nextLevel} of ${maxLevels}`
-          : `${featureName} disabled`;
+        : feature === "screenReader" && nextLevel > 0
+          ? `${featureName}: ${SR_MODE_LABELS[nextLevel] ?? "level " + String(nextLevel)}`
+          : nextLevel > 0
+            ? `${featureName} level ${nextLevel} of ${maxLevels}`
+            : `${featureName} disabled`;
     this.announce(announcement);
 
     this.updateActiveBadge();
@@ -545,6 +561,15 @@ class InculvaWidget {
           if (labelEl)
             labelEl.textContent =
               this.labels["colorBlindMode"] ?? "Color Blind";
+        }
+        // Restore screenReader label to default
+        if (feature === "screenReader") {
+          const labelEl = btn.querySelector<HTMLElement>(
+            ".inculva-feature-label",
+          );
+          if (labelEl)
+            labelEl.textContent =
+              this.labels["screenReader"] ?? "Screen reader";
         }
       }
     }
@@ -601,6 +626,7 @@ class InculvaWidget {
   /** Switch the panel language (RTL/LTR + update select value). */
   private _setLanguage(lang: string): void {
     this.config.language = lang;
+    setSrLang(lang);
     const RTL = new Set(["ar", "he", "fa", "ur"]);
     if (RTL.has(lang)) {
       this.panel.setAttribute("dir", "rtl");
@@ -645,18 +671,18 @@ class InculvaWidget {
     this.saveCurrentPrefs();
   }
 
-  /** Show / hide the profiles list. */
+  /** Show / hide the profiles accordion. */
   private toggleProfiles(): void {
     const toggle = this.panel.querySelector<HTMLElement>(
       ".inculva-profiles-toggle",
     );
-    const list = this.panel.querySelector<HTMLElement>(
-      ".inculva-profiles-list",
+    const grid = this.panel.querySelector<HTMLElement>(
+      ".inculva-profiles-grid",
     );
-    if (!toggle || !list) return;
+    if (!toggle || !grid) return;
     const expanded = toggle.getAttribute("aria-expanded") === "true";
     toggle.setAttribute("aria-expanded", String(!expanded));
-    list.hidden = expanded;
+    grid.hidden = expanded;
   }
 
   /** Activate or deactivate an accessibility profile (preset feature combo). */
@@ -836,6 +862,15 @@ class InculvaWidget {
               ".inculva-feature-label",
             );
             if (labelEl) labelEl.textContent = this._cbmTypeName(value);
+          }
+          // Restore screenReader mode label
+          if (feat === "screenReader") {
+            const labelEl = btn.querySelector<HTMLElement>(
+              ".inculva-feature-label",
+            );
+            if (labelEl)
+              labelEl.textContent =
+                SR_MODE_LABELS[value] ?? (this.labels["screenReader"] ?? "Screen reader");
           }
         }
       } else if (value === true || (typeof value === "number" && value >= 1)) {

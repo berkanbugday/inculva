@@ -1,11 +1,4 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Widget Feature Test — Inculva",
-  description:
-    "Comprehensive test page to verify all Inculva accessibility widget features.",
-  robots: { index: false, follow: false },
-};
+"use client";
 
 export default function WidgetTestPage() {
   return (
@@ -183,16 +176,32 @@ export default function WidgetTestPage() {
 
       {/* ── Navigation ─────────────────────────────────────────────────── */}
       <nav className="wt-nav">
-        <a href="/" className="wt-nav-logo">Inculva</a>
+        <a href="/" className="wt-nav-logo">
+          Inculva
+        </a>
         <span className="wt-nav-badge">Widget Test Page</span>
         <div className="wt-nav-links">
-          <a href="#typography" className="wt-nav-link">Typography</a>
-          <a href="#images" className="wt-nav-link">Images</a>
-          <a href="#media" className="wt-nav-link">Media</a>
-          <a href="#animations" className="wt-nav-link">Animations</a>
-          <a href="#colors" className="wt-nav-link">Colors</a>
-          <a href="#forms" className="wt-nav-link">Forms</a>
-          <a href="#interactive" className="wt-nav-link">Interactive</a>
+          <a href="#typography" className="wt-nav-link">
+            Typography
+          </a>
+          <a href="#images" className="wt-nav-link">
+            Images
+          </a>
+          <a href="#media" className="wt-nav-link">
+            Media
+          </a>
+          <a href="#animations" className="wt-nav-link">
+            Animations
+          </a>
+          <a href="#colors" className="wt-nav-link">
+            Colors
+          </a>
+          <a href="#forms" className="wt-nav-link">
+            Forms
+          </a>
+          <a href="#interactive" className="wt-nav-link">
+            Interactive
+          </a>
         </div>
       </nav>
 
@@ -205,22 +214,27 @@ export default function WidgetTestPage() {
             accessibility feature. Open the widget and try each control.
           </p>
           <div className="wt-hero-cta">
-            <a href="#typography" className="wt-btn-primary">Explore Content</a>
-            <a href="/" className="wt-btn-outline">Back to Home</a>
+            <a href="#typography" className="wt-btn-primary">
+              Explore Content
+            </a>
+            <a href="/" className="wt-btn-outline">
+              Back to Home
+            </a>
           </div>
         </div>
       </section>
 
       <main id="main" className="wt-container">
-
         {/* ── Info box ───────────────────────────────────────────────── */}
         <div style={{ marginTop: 32 }}>
           <div className="wt-info-box">
             <span className="wt-info-icon">♿</span>
             <p className="wt-info-text">
-              <strong>Testing guide:</strong> Open the accessibility widget (bottom-right button), then try each
-              feature category. This page has typography, images, videos, CSS animations, color swatches,
-              forms and interactive elements specifically designed to test every widget feature.
+              <strong>Testing guide:</strong> Open the accessibility widget
+              (bottom-right button), then try each feature category. This page
+              has typography, images, videos, CSS animations, color swatches,
+              forms and interactive elements specifically designed to test every
+              widget feature.
             </p>
           </div>
         </div>
@@ -231,35 +245,142 @@ export default function WidgetTestPage() {
             Feature Overview
             <span className="wt-section-badge">26 features</span>
           </h2>
-          <p className="wt-section-desc">Quick reference: what each feature does and where to observe its effect.</p>
+          <p className="wt-section-desc">
+            Quick reference: what each feature does and where to observe its
+            effect.
+          </p>
           <div className="wt-guide-grid">
             {[
-              { icon: "🔆", title: "High Contrast", desc: "Boosts contrast across all elements. Observe headings and body text change." },
-              { icon: "🌙", title: "Dark Mode", desc: "Inverts page colours. Images get counter-inverted. Check the image section." },
-              { icon: "💙", title: "Blue Light Filter", desc: "Applies warm overlay. Observe colour shift on white backgrounds." },
-              { icon: "🔤", title: "Larger Text", desc: "Increases font size up to 4 levels. Watch paragraphs and headings grow." },
-              { icon: "↔", title: "Text Alignment", desc: "Cycles Left → Centre → Right. Observe all paragraph text reflow." },
-              { icon: "📏", title: "Line Height", desc: "Increases line spacing. Long paragraphs become more readable." },
-              { icon: "🔡", title: "Text Spacing", desc: "Increases letter and word spacing. Check the dense paragraph text." },
-              { icon: "👁", title: "Screen Reader", desc: "Outlines images with missing alt text. Observe dashed red borders on images below." },
-              { icon: "A", title: "Dyslexia Font", desc: "Switches to OpenDyslexic. All paragraph and heading text changes font." },
-              { icon: "📖", title: "Reading Mask", desc: "Dims page above/below a horizontal window. Move your mouse." },
-              { icon: "—", title: "Reading Guide", desc: "Highlights current line with an amber bar following your cursor." },
-              { icon: "🔍", title: "Magnifier", desc: "Circular zoom lens follows your cursor. Move over text and images." },
-              { icon: "🔗", title: "Highlight Links", desc: "Underlines all links with bold colour. Check paragraph links below." },
-              { icon: "H", title: "Highlight Titles", desc: "Underlines headings. Check the typography section." },
-              { icon: "🖼", title: "Hide Images", desc: "Replaces images with blank boxes. Check the image grid." },
-              { icon: "⏸", title: "Stop Animations", desc: "Pauses all CSS animations. Check the animations section." },
-              { icon: "🖱", title: "Cursor", desc: "Enlarges the cursor. Move your mouse around the page." },
-              { icon: "👁‍🗨", title: "Color Blind", desc: "Applies colour-blindness simulation. Check the colour swatches." },
-              { icon: "◑", title: "Grayscale", desc: "Removes all colour. Observe the gradient hero and swatches." },
-              { icon: "💧", title: "Saturation", desc: "Boosts colour saturation. Swatches and gradients become vivid." },
-              { icon: "⬚", title: "Focus Indicator", desc: "Shows visible focus ring. Tab through form elements." },
-              { icon: "⊕", title: "Large Targets", desc: "Enlarges click areas. Observe button spacing change." },
-              { icon: "🐢", title: "Slow Cursor", desc: "Smoothly lags cursor movement. Move mouse quickly." },
-              { icon: "⏭", title: "Skip to Main", desc: "Injects a skip link. Press Tab to reveal it." },
-              { icon: "🔇", title: "Mute Media", desc: "Mutes all audio/video. Open the media section and check." },
-              { icon: "⌨", title: "Keyboard Nav", desc: "Enables custom keyboard navigation hints." },
+              {
+                icon: "🔆",
+                title: "High Contrast",
+                desc: "Boosts contrast across all elements. Observe headings and body text change.",
+              },
+              {
+                icon: "🌙",
+                title: "Dark Mode",
+                desc: "Inverts page colours. Images get counter-inverted. Check the image section.",
+              },
+              {
+                icon: "💙",
+                title: "Blue Light Filter",
+                desc: "Applies warm overlay. Observe colour shift on white backgrounds.",
+              },
+              {
+                icon: "🔤",
+                title: "Larger Text",
+                desc: "Increases font size up to 4 levels. Watch paragraphs and headings grow.",
+              },
+              {
+                icon: "↔",
+                title: "Text Alignment",
+                desc: "Cycles Left → Centre → Right. Observe all paragraph text reflow.",
+              },
+              {
+                icon: "📏",
+                title: "Line Height",
+                desc: "Increases line spacing. Long paragraphs become more readable.",
+              },
+              {
+                icon: "🔡",
+                title: "Text Spacing",
+                desc: "Increases letter and word spacing. Check the dense paragraph text.",
+              },
+              {
+                icon: "👁",
+                title: "Screen Reader",
+                desc: "Outlines images with missing alt text. Observe dashed red borders on images below.",
+              },
+              {
+                icon: "A",
+                title: "Dyslexia Font",
+                desc: "Switches to OpenDyslexic. All paragraph and heading text changes font.",
+              },
+              {
+                icon: "📖",
+                title: "Reading Mask",
+                desc: "Dims page above/below a horizontal window. Move your mouse.",
+              },
+              {
+                icon: "—",
+                title: "Reading Guide",
+                desc: "Highlights current line with an amber bar following your cursor.",
+              },
+              {
+                icon: "🔍",
+                title: "Magnifier",
+                desc: "Circular zoom lens follows your cursor. Move over text and images.",
+              },
+              {
+                icon: "🔗",
+                title: "Highlight Links",
+                desc: "Underlines all links with bold colour. Check paragraph links below.",
+              },
+              {
+                icon: "H",
+                title: "Highlight Titles",
+                desc: "Underlines headings. Check the typography section.",
+              },
+              {
+                icon: "🖼",
+                title: "Hide Images",
+                desc: "Replaces images with blank boxes. Check the image grid.",
+              },
+              {
+                icon: "⏸",
+                title: "Stop Animations",
+                desc: "Pauses all CSS animations. Check the animations section.",
+              },
+              {
+                icon: "🖱",
+                title: "Cursor",
+                desc: "Enlarges the cursor. Move your mouse around the page.",
+              },
+              {
+                icon: "👁‍🗨",
+                title: "Color Blind",
+                desc: "Applies colour-blindness simulation. Check the colour swatches.",
+              },
+              {
+                icon: "◑",
+                title: "Grayscale",
+                desc: "Removes all colour. Observe the gradient hero and swatches.",
+              },
+              {
+                icon: "💧",
+                title: "Saturation",
+                desc: "Boosts colour saturation. Swatches and gradients become vivid.",
+              },
+              {
+                icon: "⬚",
+                title: "Focus Indicator",
+                desc: "Shows visible focus ring. Tab through form elements.",
+              },
+              {
+                icon: "⊕",
+                title: "Large Targets",
+                desc: "Enlarges click areas. Observe button spacing change.",
+              },
+              {
+                icon: "🐢",
+                title: "Slow Cursor",
+                desc: "Smoothly lags cursor movement. Move mouse quickly.",
+              },
+              {
+                icon: "⏭",
+                title: "Skip to Main",
+                desc: "Injects a skip link. Press Tab to reveal it.",
+              },
+              {
+                icon: "🔇",
+                title: "Mute Media",
+                desc: "Mutes all audio/video. Open the media section and check.",
+              },
+              {
+                icon: "⌨",
+                title: "Keyboard Nav",
+                desc: "Enables custom keyboard navigation hints.",
+              },
             ].map((item) => (
               <div key={item.title} className="wt-guide-card">
                 <div className="wt-guide-icon">{item.icon}</div>
@@ -276,7 +397,10 @@ export default function WidgetTestPage() {
             Typography
             <span className="wt-section-badge">Text features</span>
           </h2>
-          <p className="wt-section-desc">Test text resizing, alignment, line height, text spacing, dyslexia font, and link highlighting.</p>
+          <p className="wt-section-desc">
+            Test text resizing, alignment, line height, text spacing, dyslexia
+            font, and link highlighting.
+          </p>
           <div className="wt-card wt-prose">
             <h1>H1 — Main Page Heading</h1>
             <h2>H2 — Section Level Heading</h2>
@@ -287,29 +411,36 @@ export default function WidgetTestPage() {
 
             <h3>Long-form paragraph (test text spacing &amp; line height)</h3>
             <p>
-              The Web Content Accessibility Guidelines (WCAG) are part of a series of web accessibility guidelines
-              published by the Web Accessibility Initiative (WAI) of the World Wide Web Consortium (W3C), the main
-              international standards organisation for the internet. They consist of a set of recommendations for
-              making web content more accessible, primarily to people with disabilities—but also to all user agents,
-              including highly limited devices, such as mobile phones.
+              The Web Content Accessibility Guidelines (WCAG) are part of a
+              series of web accessibility guidelines published by the Web
+              Accessibility Initiative (WAI) of the World Wide Web Consortium
+              (W3C), the main international standards organisation for the
+              internet. They consist of a set of recommendations for making web
+              content more accessible, primarily to people with disabilities—but
+              also to all user agents, including highly limited devices, such as
+              mobile phones.
             </p>
             <p>
-              Accessibility is not just about people with disabilities — it benefits everyone. Good accessibility
-              practices improve usability, SEO rankings, legal compliance, and the overall user experience. When
-              you build accessible websites, you are also building{" "}
-              <a href="#typography">better websites for everyone</a>, including elderly users, users on slow
-              connections, and users in noisy or bright environments.
+              Accessibility is not just about people with disabilities — it
+              benefits everyone. Good accessibility practices improve usability,
+              SEO rankings, legal compliance, and the overall user experience.
+              When you build accessible websites, you are also building{" "}
+              <a href="#typography">better websites for everyone</a>, including
+              elderly users, users on slow connections, and users in noisy or
+              bright environments.
             </p>
 
             <blockquote>
-              "The power of the Web is in its universality. Access by everyone regardless of disability is an
-              essential aspect." — Tim Berners-Lee, W3C Director and inventor of the World Wide Web.
+              "The power of the Web is in its universality. Access by everyone
+              regardless of disability is an essential aspect." — Tim
+              Berners-Lee, W3C Director and inventor of the World Wide Web.
             </blockquote>
 
             <h3>Code and preformatted text</h3>
             <p>
-              Use <code>aria-label</code> to provide accessible names for elements that lack visible text.
-              The <code>role="button"</code> attribute tells assistive technology this element is interactive.
+              Use <code>aria-label</code> to provide accessible names for
+              elements that lack visible text. The <code>role="button"</code>{" "}
+              attribute tells assistive technology this element is interactive.
             </p>
             <pre>{`// Accessible button example
 <button
@@ -322,32 +453,68 @@ export default function WidgetTestPage() {
 
             <h3>Lists</h3>
             <ul>
-              <li>Screen readers announce list items with position context (e.g., "item 1 of 5")</li>
-              <li>Semantic list markup improves navigation for keyboard and AT users</li>
-              <li><strong>Bold text</strong> draws attention to key information</li>
-              <li><em>Italic text</em> is used for emphasis and foreign words</li>
-              <li><mark>Highlighted text</mark> can mark search results or important terms</li>
+              <li>
+                Screen readers announce list items with position context (e.g.,
+                "item 1 of 5")
+              </li>
+              <li>
+                Semantic list markup improves navigation for keyboard and AT
+                users
+              </li>
+              <li>
+                <strong>Bold text</strong> draws attention to key information
+              </li>
+              <li>
+                <em>Italic text</em> is used for emphasis and foreign words
+              </li>
+              <li>
+                <mark>Highlighted text</mark> can mark search results or
+                important terms
+              </li>
             </ul>
             <ol>
-              <li>Perceivable — information must be presentable to users in ways they can perceive</li>
-              <li>Operable — interface components and navigation must be operable</li>
-              <li>Understandable — information and operation must be understandable</li>
-              <li>Robust — content must be interpretable by a wide variety of assistive technologies</li>
+              <li>
+                Perceivable — information must be presentable to users in ways
+                they can perceive
+              </li>
+              <li>
+                Operable — interface components and navigation must be operable
+              </li>
+              <li>
+                Understandable — information and operation must be
+                understandable
+              </li>
+              <li>
+                Robust — content must be interpretable by a wide variety of
+                assistive technologies
+              </li>
             </ol>
 
             <h3>More links (test link highlighting)</h3>
             <p>
               Visit the{" "}
-              <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.w3.org/WAI/standards-guidelines/wcag/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WCAG guidelines
               </a>{" "}
               for the full specification. The{" "}
-              <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.w3.org/TR/WCAG22/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WCAG 2.2 document
               </a>{" "}
-              was published in October 2023 and adds 9 new success criteria to the existing standard. You can
-              also read about the{" "}
-              <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">
+              was published in October 2023 and adds 9 new success criteria to
+              the existing standard. You can also read about the{" "}
+              <a
+                href="https://www.w3.org/TR/WCAG21/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WCAG 2.1 additions
               </a>
               .
@@ -359,11 +526,14 @@ export default function WidgetTestPage() {
         <section id="images" className="wt-section">
           <h2 className="wt-section-title">
             Images
-            <span className="wt-section-badge">Hide Images · Screen Reader</span>
+            <span className="wt-section-badge">
+              Hide Images · Screen Reader
+            </span>
           </h2>
           <p className="wt-section-desc">
-            Enable <strong>Hide Images</strong> to replace all images with placeholders.
-            Enable <strong>Screen Reader</strong> to see dashed red borders on images missing alt text.
+            Enable <strong>Hide Images</strong> to replace all images with
+            placeholders. Enable <strong>Screen Reader</strong> to see dashed
+            red borders on images missing alt text.
           </p>
           <div className="wt-img-grid">
             <div className="wt-img-item">
@@ -401,17 +571,17 @@ export default function WidgetTestPage() {
             <div className="wt-img-item missing-alt">
               {/* Intentionally missing alt — for Screen Reader feature test */}
               {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-              <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='240'%3E%3Crect width='320' height='240' fill='%23ef4444'/%3E%3Ctext x='160' y='110' text-anchor='middle' font-size='16' fill='white' font-family='system-ui'%3ENo Alt Text!%3C/text%3E%3Ctext x='160' y='140' text-anchor='middle' font-size='13' fill='rgba(255,255,255,0.8)' font-family='system-ui'%3EScreen Reader test%3C/text%3E%3C/svg%3E"
-              />
-              <p className="wt-img-caption">Missing alt (Screen Reader shows border)</p>
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='240'%3E%3Crect width='320' height='240' fill='%23ef4444'/%3E%3Ctext x='160' y='110' text-anchor='middle' font-size='16' fill='white' font-family='system-ui'%3ENo Alt Text!%3C/text%3E%3Ctext x='160' y='140' text-anchor='middle' font-size='13' fill='rgba(255,255,255,0.8)' font-family='system-ui'%3EScreen Reader test%3C/text%3E%3C/svg%3E" />
+              <p className="wt-img-caption">
+                Missing alt (Screen Reader shows border)
+              </p>
             </div>
             <div className="wt-img-item missing-alt">
               {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-              <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='240'%3E%3Crect width='320' height='240' fill='%23dc2626'/%3E%3Ctext x='160' y='110' text-anchor='middle' font-size='16' fill='white' font-family='system-ui'%3ENo Alt Text!%3C/text%3E%3Ctext x='160' y='140' text-anchor='middle' font-size='13' fill='rgba(255,255,255,0.8)' font-family='system-ui'%3ESR border test%3C/text%3E%3C/svg%3E"
-              />
-              <p className="wt-img-caption">Missing alt (Screen Reader shows border)</p>
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='240'%3E%3Crect width='320' height='240' fill='%23dc2626'/%3E%3Ctext x='160' y='110' text-anchor='middle' font-size='16' fill='white' font-family='system-ui'%3ENo Alt Text!%3C/text%3E%3Ctext x='160' y='140' text-anchor='middle' font-size='13' fill='rgba(255,255,255,0.8)' font-family='system-ui'%3ESR border test%3C/text%3E%3C/svg%3E" />
+              <p className="wt-img-caption">
+                Missing alt (Screen Reader shows border)
+              </p>
             </div>
           </div>
         </section>
@@ -422,7 +592,10 @@ export default function WidgetTestPage() {
             Video &amp; Audio
             <span className="wt-section-badge">Mute Media</span>
           </h2>
-          <p className="wt-section-desc">Enable <strong>Mute Media</strong> to silence all video and audio. Use <strong>Pause Animations</strong> to pause video playback.</p>
+          <p className="wt-section-desc">
+            Enable <strong>Mute Media</strong> to silence all video and audio.
+            Use <strong>Pause Animations</strong> to pause video playback.
+          </p>
 
           <div className="wt-video-grid" style={{ marginBottom: 24 }}>
             <div className="wt-video-wrap">
@@ -433,14 +606,27 @@ export default function WidgetTestPage() {
                 loop
                 playsInline
                 aria-label="Animated gradient loop — autoplay test video"
-                style={{ width: "100%", height: 200, background: "linear-gradient(135deg, #0066cc, #7c3aed)" }}
+                style={{
+                  width: "100%",
+                  height: 200,
+                  background: "linear-gradient(135deg, #0066cc, #7c3aed)",
+                }}
               >
                 <source src="/sample-video.mp4" type="video/mp4" />
-                <p style={{ padding: 16, color: "#fff", fontSize: 13, textAlign: "center" }}>
+                <p
+                  style={{
+                    padding: 16,
+                    color: "#fff",
+                    fontSize: 13,
+                    textAlign: "center",
+                  }}
+                >
                   Autoplay muted video — browser support or test file required
                 </p>
               </video>
-              <div className="wt-video-label">Autoplay + Muted — loops continuously</div>
+              <div className="wt-video-label">
+                Autoplay + Muted — loops continuously
+              </div>
             </div>
             <div className="wt-video-wrap">
               {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -450,27 +636,54 @@ export default function WidgetTestPage() {
                 style={{ width: "100%", height: 200, background: "#1a1a2e" }}
               >
                 <source src="/sample-video.mp4" type="video/mp4" />
-                <p style={{ padding: 16, color: "#888", fontSize: 13, textAlign: "center" }}>
+                <p
+                  style={{
+                    padding: 16,
+                    color: "#888",
+                    fontSize: 13,
+                    textAlign: "center",
+                  }}
+                >
                   Manual video with controls — press play to test mute feature
                 </p>
               </video>
-              <div className="wt-video-label">Manual play — click to play then test Mute Media</div>
+              <div className="wt-video-label">
+                Manual play — click to play then test Mute Media
+              </div>
             </div>
           </div>
 
           <div className="wt-card">
-            <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 700, color: "#374151" }}>
+            <h3
+              style={{
+                margin: "0 0 12px",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#374151",
+              }}
+            >
               Audio Player
             </h3>
             <div className="wt-audio-wrap">
               {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-              <audio controls aria-label="Test audio player for Mute Media feature">
+              <audio
+                controls
+                aria-label="Test audio player for Mute Media feature"
+              >
                 <source src="/sample-audio.mp3" type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
             </div>
-            <p style={{ fontSize: 13, color: "#6b7280", marginTop: 10, marginBottom: 0 }}>
-              Enable <strong>Mute Media</strong> in the widget to instantly silence this audio player.
+            <p
+              style={{
+                fontSize: 13,
+                color: "#6b7280",
+                marginTop: 10,
+                marginBottom: 0,
+              }}
+            >
+              Enable <strong>Mute Media</strong> in the widget to instantly
+              silence this audio player.
             </p>
           </div>
         </section>
@@ -481,39 +694,70 @@ export default function WidgetTestPage() {
             Animations
             <span className="wt-section-badge">Pause Animations</span>
           </h2>
-          <p className="wt-section-desc">Enable <strong>Stop Animation</strong> in the widget — all CSS animations below should freeze instantly.</p>
+          <p className="wt-section-desc">
+            Enable <strong>Stop Animation</strong> in the widget — all CSS
+            animations below should freeze instantly.
+          </p>
           <div className="wt-card">
             <div className="wt-anim-grid">
               <div className="wt-anim-item">
                 <div className="wt-spin" aria-hidden="true" />
-                <span className="wt-anim-label">Spinning<br />gradient box</span>
+                <span className="wt-anim-label">
+                  Spinning
+                  <br />
+                  gradient box
+                </span>
               </div>
               <div className="wt-anim-item">
                 <div className="wt-bounce" aria-hidden="true" />
-                <span className="wt-anim-label">Bouncing<br />ball</span>
+                <span className="wt-anim-label">
+                  Bouncing
+                  <br />
+                  ball
+                </span>
               </div>
               <div className="wt-anim-item">
                 <div className="wt-pulse" aria-hidden="true" />
-                <span className="wt-anim-label">Pulsing<br />circle</span>
+                <span className="wt-anim-label">
+                  Pulsing
+                  <br />
+                  circle
+                </span>
               </div>
               <div className="wt-anim-item">
                 <div className="wt-shake" aria-hidden="true" />
-                <span className="wt-anim-label">Shaking<br />box</span>
+                <span className="wt-anim-label">
+                  Shaking
+                  <br />
+                  box
+                </span>
               </div>
               <div className="wt-anim-item">
                 <div className="wt-colorshift" aria-hidden="true" />
-                <span className="wt-anim-label">Colour<br />shifting</span>
+                <span className="wt-anim-label">
+                  Colour
+                  <br />
+                  shifting
+                </span>
               </div>
               <div className="wt-anim-item">
                 <div className="wt-float" aria-hidden="true" />
-                <span className="wt-anim-label">Floating<br />card</span>
+                <span className="wt-anim-label">
+                  Floating
+                  <br />
+                  card
+                </span>
               </div>
               <div className="wt-anim-item">
                 <div className="wt-orbit-wrap" aria-hidden="true">
                   <div className="wt-orbit-center" />
                   <div className="wt-orbit-dot" />
                 </div>
-                <span className="wt-anim-label">Orbiting<br />dot</span>
+                <span className="wt-anim-label">
+                  Orbiting
+                  <br />
+                  dot
+                </span>
               </div>
               <div className="wt-anim-item">
                 <div className="wt-wave-wrap" aria-hidden="true">
@@ -523,14 +767,25 @@ export default function WidgetTestPage() {
                   <div className="wt-wave-bar" />
                   <div className="wt-wave-bar" />
                 </div>
-                <span className="wt-anim-label">Audio<br />wave bars</span>
+                <span className="wt-anim-label">
+                  Audio
+                  <br />
+                  wave bars
+                </span>
               </div>
             </div>
           </div>
 
           {/* CSS transition test */}
           <div className="wt-card" style={{ marginTop: 16 }}>
-            <h3 style={{ margin: "0 0 12px", fontSize: 16, fontWeight: 700, color: "#374151" }}>
+            <h3
+              style={{
+                margin: "0 0 12px",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#374151",
+              }}
+            >
               CSS Transitions (hover to activate)
             </h3>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -560,36 +815,87 @@ export default function WidgetTestPage() {
         <section id="colors" className="wt-section">
           <h2 className="wt-section-title">
             Colours &amp; Contrast
-            <span className="wt-section-badge">Color Blind · Grayscale · Saturation</span>
+            <span className="wt-section-badge">
+              Color Blind · Grayscale · Saturation
+            </span>
           </h2>
-          <p className="wt-section-desc">Test colour-blindness simulation, grayscale, and saturation boost on these swatches.</p>
+          <p className="wt-section-desc">
+            Test colour-blindness simulation, grayscale, and saturation boost on
+            these swatches.
+          </p>
           <div className="wt-card">
-            <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 700, color: "#374151" }}>Solid colour swatches</h3>
+            <h3
+              style={{
+                margin: "0 0 16px",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#374151",
+              }}
+            >
+              Solid colour swatches
+            </h3>
             <div className="wt-color-grid">
               {[
-                { bg: "#ef4444", label: "Red" }, { bg: "#f97316", label: "Orange" },
-                { bg: "#f59e0b", label: "Amber" }, { bg: "#eab308", label: "Yellow" },
-                { bg: "#84cc16", label: "Lime" }, { bg: "#22c55e", label: "Green" },
-                { bg: "#10b981", label: "Emerald" }, { bg: "#14b8a6", label: "Teal" },
-                { bg: "#06b6d4", label: "Cyan" }, { bg: "#3b82f6", label: "Blue" },
-                { bg: "#6366f1", label: "Indigo" }, { bg: "#8b5cf6", label: "Violet" },
-                { bg: "#a855f7", label: "Purple" }, { bg: "#ec4899", label: "Pink" },
-                { bg: "#f43f5e", label: "Rose" }, { bg: "#78716c", label: "Stone" },
+                { bg: "#ef4444", label: "Red" },
+                { bg: "#f97316", label: "Orange" },
+                { bg: "#f59e0b", label: "Amber" },
+                { bg: "#eab308", label: "Yellow" },
+                { bg: "#84cc16", label: "Lime" },
+                { bg: "#22c55e", label: "Green" },
+                { bg: "#10b981", label: "Emerald" },
+                { bg: "#14b8a6", label: "Teal" },
+                { bg: "#06b6d4", label: "Cyan" },
+                { bg: "#3b82f6", label: "Blue" },
+                { bg: "#6366f1", label: "Indigo" },
+                { bg: "#8b5cf6", label: "Violet" },
+                { bg: "#a855f7", label: "Purple" },
+                { bg: "#ec4899", label: "Pink" },
+                { bg: "#f43f5e", label: "Rose" },
+                { bg: "#78716c", label: "Stone" },
               ].map((s) => (
-                <div key={s.label} className="wt-color-swatch" style={{ background: s.bg }}>
+                <div
+                  key={s.label}
+                  className="wt-color-swatch"
+                  style={{ background: s.bg }}
+                >
                   {s.label}
                 </div>
               ))}
             </div>
-            <h3 style={{ margin: "24px 0 16px", fontSize: 16, fontWeight: 700, color: "#374151" }}>Gradient cards</h3>
+            <h3
+              style={{
+                margin: "24px 0 16px",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#374151",
+              }}
+            >
+              Gradient cards
+            </h3>
             <div className="wt-gradient-grid">
               {[
-                { bg: "linear-gradient(135deg, #0066cc, #7c3aed)", label: "Blue → Purple" },
-                { bg: "linear-gradient(135deg, #f59e0b, #ef4444)", label: "Amber → Red" },
-                { bg: "linear-gradient(135deg, #10b981, #3b82f6)", label: "Green → Blue" },
-                { bg: "linear-gradient(135deg, #ec4899, #f97316)", label: "Pink → Orange" },
+                {
+                  bg: "linear-gradient(135deg, #0066cc, #7c3aed)",
+                  label: "Blue → Purple",
+                },
+                {
+                  bg: "linear-gradient(135deg, #f59e0b, #ef4444)",
+                  label: "Amber → Red",
+                },
+                {
+                  bg: "linear-gradient(135deg, #10b981, #3b82f6)",
+                  label: "Green → Blue",
+                },
+                {
+                  bg: "linear-gradient(135deg, #ec4899, #f97316)",
+                  label: "Pink → Orange",
+                },
               ].map((g) => (
-                <div key={g.label} className="wt-gradient-card" style={{ background: g.bg }}>
+                <div
+                  key={g.label}
+                  className="wt-gradient-card"
+                  style={{ background: g.bg }}
+                >
                   {g.label}
                 </div>
               ))}
@@ -601,23 +907,43 @@ export default function WidgetTestPage() {
         <section id="forms" className="wt-section">
           <h2 className="wt-section-title">
             Form Elements
-            <span className="wt-section-badge">Focus · Large Targets · Keyboard Nav</span>
+            <span className="wt-section-badge">
+              Focus · Large Targets · Keyboard Nav
+            </span>
           </h2>
-          <p className="wt-section-desc">Test focus indicator, large click targets, and keyboard navigation on these form controls.</p>
+          <p className="wt-section-desc">
+            Test focus indicator, large click targets, and keyboard navigation
+            on these form controls.
+          </p>
           <div className="wt-card">
             <form onSubmit={(e) => e.preventDefault()} noValidate>
               <div className="wt-form-grid" style={{ marginBottom: 20 }}>
                 <div className="wt-field">
                   <label htmlFor="wt-name">Full name</label>
-                  <input id="wt-name" type="text" placeholder="Jane Smith" autoComplete="name" />
+                  <input
+                    id="wt-name"
+                    type="text"
+                    placeholder="Jane Smith"
+                    autoComplete="name"
+                  />
                 </div>
                 <div className="wt-field">
                   <label htmlFor="wt-email">Email address</label>
-                  <input id="wt-email" type="email" placeholder="jane@example.com" autoComplete="email" />
+                  <input
+                    id="wt-email"
+                    type="email"
+                    placeholder="jane@example.com"
+                    autoComplete="email"
+                  />
                 </div>
                 <div className="wt-field">
                   <label htmlFor="wt-phone">Phone number</label>
-                  <input id="wt-phone" type="tel" placeholder="+1 (555) 000-0000" autoComplete="tel" />
+                  <input
+                    id="wt-phone"
+                    type="tel"
+                    placeholder="+1 (555) 000-0000"
+                    autoComplete="tel"
+                  />
                 </div>
                 <div className="wt-field">
                   <label htmlFor="wt-date">Date of birth</label>
@@ -635,35 +961,77 @@ export default function WidgetTestPage() {
                 </div>
                 <div className="wt-field">
                   <label htmlFor="wt-website">Website URL</label>
-                  <input id="wt-website" type="url" placeholder="https://example.com" />
+                  <input
+                    id="wt-website"
+                    type="url"
+                    placeholder="https://example.com"
+                  />
                 </div>
               </div>
 
               <div className="wt-field" style={{ marginBottom: 20 }}>
                 <label htmlFor="wt-message">Message</label>
-                <textarea id="wt-message" placeholder="Describe your accessibility needs or feedback…" rows={4} />
+                <textarea
+                  id="wt-message"
+                  placeholder="Describe your accessibility needs or feedback…"
+                  rows={4}
+                />
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 20 }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 24,
+                  marginBottom: 20,
+                }}
+              >
                 <div className="wt-field">
-                  <span style={{ fontSize: 13, fontWeight: 600, color: "#374151", display: "block", marginBottom: 8 }}>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "#374151",
+                      display: "block",
+                      marginBottom: 8,
+                    }}
+                  >
                     Preferred contact
                   </span>
                   <div className="wt-radio-group">
-                    {["Email", "Phone", "Video call", "In-person"].map((opt) => (
-                      <label key={opt} className="wt-radio-label">
-                        <input type="radio" name="wt-contact" value={opt.toLowerCase()} />
-                        {opt}
-                      </label>
-                    ))}
+                    {["Email", "Phone", "Video call", "In-person"].map(
+                      (opt) => (
+                        <label key={opt} className="wt-radio-label">
+                          <input
+                            type="radio"
+                            name="wt-contact"
+                            value={opt.toLowerCase()}
+                          />
+                          {opt}
+                        </label>
+                      ),
+                    )}
                   </div>
                 </div>
                 <div className="wt-field">
-                  <span style={{ fontSize: 13, fontWeight: 600, color: "#374151", display: "block", marginBottom: 8 }}>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "#374151",
+                      display: "block",
+                      marginBottom: 8,
+                    }}
+                  >
                     Accessibility features needed
                   </span>
                   <div className="wt-checkbox-group">
-                    {["Screen reader support", "Keyboard navigation", "High contrast mode", "Large text"].map((opt) => (
+                    {[
+                      "Screen reader support",
+                      "Keyboard navigation",
+                      "High contrast mode",
+                      "Large text",
+                    ].map((opt) => (
                       <label key={opt} className="wt-checkbox-label">
                         <input type="checkbox" value={opt.toLowerCase()} />
                         {opt}
@@ -674,7 +1042,9 @@ export default function WidgetTestPage() {
               </div>
 
               <div className="wt-field" style={{ marginBottom: 24 }}>
-                <label htmlFor="wt-satisfaction">Satisfaction level: <strong>7 / 10</strong></label>
+                <label htmlFor="wt-satisfaction">
+                  Satisfaction level: <strong>7 / 10</strong>
+                </label>
                 <input
                   id="wt-satisfaction"
                   type="range"
@@ -686,8 +1056,18 @@ export default function WidgetTestPage() {
               </div>
 
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <button type="submit" className="wt-button wt-button-md wt-button-blue">Submit Form</button>
-                <button type="reset" className="wt-button wt-button-md wt-button-outline-dark">Reset</button>
+                <button
+                  type="submit"
+                  className="wt-button wt-button-md wt-button-blue"
+                >
+                  Submit Form
+                </button>
+                <button
+                  type="reset"
+                  className="wt-button wt-button-md wt-button-outline-dark"
+                >
+                  Reset
+                </button>
               </div>
             </form>
           </div>
@@ -697,56 +1077,142 @@ export default function WidgetTestPage() {
         <section id="interactive" className="wt-section">
           <h2 className="wt-section-title">
             Interactive Elements
-            <span className="wt-section-badge">Large Targets · Cursor · Focus</span>
+            <span className="wt-section-badge">
+              Large Targets · Cursor · Focus
+            </span>
           </h2>
-          <p className="wt-section-desc">Test cursor enlargement, large click targets, focus highlighting, and keyboard navigation on these elements.</p>
+          <p className="wt-section-desc">
+            Test cursor enlargement, large click targets, focus highlighting,
+            and keyboard navigation on these elements.
+          </p>
 
           <div className="wt-card" style={{ marginBottom: 16 }}>
-            <h3 style={{ margin: "0 0 16px", fontSize: 16, fontWeight: 700, color: "#374151" }}>Button sizes (test Large Targets)</h3>
+            <h3
+              style={{
+                margin: "0 0 16px",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#374151",
+              }}
+            >
+              Button sizes (test Large Targets)
+            </h3>
             <div className="wt-btn-grid">
-              <button className="wt-button wt-button-xs wt-button-blue">XS Button</button>
-              <button className="wt-button wt-button-sm wt-button-green">Small Button</button>
-              <button className="wt-button wt-button-md wt-button-blue">Medium Button</button>
-              <button className="wt-button wt-button-lg wt-button-purple">Large Button</button>
-              <button className="wt-button wt-button-xl wt-button-red">XL Button</button>
+              <button className="wt-button wt-button-xs wt-button-blue">
+                XS Button
+              </button>
+              <button className="wt-button wt-button-sm wt-button-green">
+                Small Button
+              </button>
+              <button className="wt-button wt-button-md wt-button-blue">
+                Medium Button
+              </button>
+              <button className="wt-button wt-button-lg wt-button-purple">
+                Large Button
+              </button>
+              <button className="wt-button wt-button-xl wt-button-red">
+                XL Button
+              </button>
             </div>
             <div className="wt-btn-grid" style={{ marginTop: 14 }}>
-              <button className="wt-button wt-button-md wt-button-outline-blue">Outlined Blue</button>
-              <button className="wt-button wt-button-md wt-button-outline-dark">Outlined Dark</button>
-              <button className="wt-button wt-button-md" style={{ background: "#f3f4f6", color: "#374151" }}>Ghost</button>
-              <button className="wt-button wt-button-md" style={{ background: "linear-gradient(135deg, #0066cc, #7c3aed)", color: "#fff" }}>Gradient</button>
+              <button className="wt-button wt-button-md wt-button-outline-blue">
+                Outlined Blue
+              </button>
+              <button className="wt-button wt-button-md wt-button-outline-dark">
+                Outlined Dark
+              </button>
+              <button
+                className="wt-button wt-button-md"
+                style={{ background: "#f3f4f6", color: "#374151" }}
+              >
+                Ghost
+              </button>
+              <button
+                className="wt-button wt-button-md"
+                style={{
+                  background: "linear-gradient(135deg, #0066cc, #7c3aed)",
+                  color: "#fff",
+                }}
+              >
+                Gradient
+              </button>
             </div>
           </div>
 
           <div className="wt-card" style={{ marginBottom: 16 }}>
-            <h3 style={{ margin: "0 0 14px", fontSize: 16, fontWeight: 700, color: "#374151" }}>Focusable elements (Tab through)</h3>
+            <h3
+              style={{
+                margin: "0 0 14px",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#374151",
+              }}
+            >
+              Focusable elements (Tab through)
+            </h3>
             <div className="wt-focus-items">
-              {["Link element", "Button 1", "Button 2", "Button 3", "Input field", "Anchor tag"].map((item, i) =>
+              {[
+                "Link element",
+                "Button 1",
+                "Button 2",
+                "Button 3",
+                "Input field",
+                "Anchor tag",
+              ].map((item, i) =>
                 item.includes("Link") || item.includes("Anchor") ? (
-                  <a key={i} href="#interactive" className="wt-focus-item">{item}</a>
+                  <a key={i} href="#interactive" className="wt-focus-item">
+                    {item}
+                  </a>
                 ) : item.includes("Input") ? (
-                  <input key={i} type="text" placeholder="Input field" className="wt-focus-item" style={{ cursor: "text" }} />
+                  <input
+                    key={i}
+                    type="text"
+                    placeholder="Input field"
+                    className="wt-focus-item"
+                    style={{ cursor: "text" }}
+                  />
                 ) : (
-                  <button key={i} className="wt-focus-item">{item}</button>
-                )
+                  <button key={i} className="wt-focus-item">
+                    {item}
+                  </button>
+                ),
               )}
             </div>
           </div>
 
           <div className="wt-card">
-            <h3 style={{ margin: "0 0 14px", fontSize: 16, fontWeight: 700, color: "#374151" }}>Icon buttons (test cursor size)</h3>
+            <h3
+              style={{
+                margin: "0 0 14px",
+                fontSize: 16,
+                fontWeight: 700,
+                color: "#374151",
+              }}
+            >
+              Icon buttons (test cursor size)
+            </h3>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               {[
-                { icon: "🏠", label: "Home" }, { icon: "🔍", label: "Search" }, { icon: "⚙️", label: "Settings" },
-                { icon: "🔔", label: "Notifications" }, { icon: "📧", label: "Email" }, { icon: "❤️", label: "Like" },
-                { icon: "⭐", label: "Favourite" }, { icon: "🗑️", label: "Delete" },
+                { icon: "🏠", label: "Home" },
+                { icon: "🔍", label: "Search" },
+                { icon: "⚙️", label: "Settings" },
+                { icon: "🔔", label: "Notifications" },
+                { icon: "📧", label: "Email" },
+                { icon: "❤️", label: "Like" },
+                { icon: "⭐", label: "Favourite" },
+                { icon: "🗑️", label: "Delete" },
               ].map((b) => (
                 <button
                   key={b.label}
                   aria-label={b.label}
                   title={b.label}
                   className="wt-button wt-button-md"
-                  style={{ background: "#f3f4f6", color: "#374151", minWidth: 48, justifyContent: "center" }}
+                  style={{
+                    background: "#f3f4f6",
+                    color: "#374151",
+                    minWidth: 48,
+                    justifyContent: "center",
+                  }}
                 >
                   {b.icon}
                 </button>
@@ -758,11 +1224,22 @@ export default function WidgetTestPage() {
         {/* ── Data Table ──────────────────────────────────────────────── */}
         <section className="wt-section">
           <h2 className="wt-section-title">Data Table</h2>
-          <p className="wt-section-desc">A structured data table — test how text features affect table content.</p>
+          <p className="wt-section-desc">
+            A structured data table — test how text features affect table
+            content.
+          </p>
           <div className="wt-card">
             <div className="wt-table-wrap">
               <table className="wt-table">
-                <caption style={{ textAlign: "left", fontWeight: 700, marginBottom: 12, color: "#374151", captionSide: "top" }}>
+                <caption
+                  style={{
+                    textAlign: "left",
+                    fontWeight: 700,
+                    marginBottom: 12,
+                    color: "#374151",
+                    captionSide: "top",
+                  }}
+                >
                   WCAG 2.2 New Success Criteria
                 </caption>
                 <thead>
@@ -775,26 +1252,77 @@ export default function WidgetTestPage() {
                 </thead>
                 <tbody>
                   {[
-                    { id: "2.4.11", level: "AA", desc: "Focus Not Obscured (Minimum) — focused element not entirely hidden", status: "new" },
-                    { id: "2.4.12", level: "AAA", desc: "Focus Not Obscured (Enhanced) — focused element fully visible", status: "new" },
-                    { id: "2.4.13", level: "AAA", desc: "Focus Appearance — focus indicator meets size and contrast requirements", status: "new" },
-                    { id: "2.5.7", level: "AA", desc: "Dragging Movements — all drag actions have a single-pointer alternative", status: "new" },
-                    { id: "2.5.8", level: "AA", desc: "Target Size (Minimum) — interactive targets at least 24×24 CSS pixels", status: "new" },
-                    { id: "3.2.6", level: "A", desc: "Consistent Help — help mechanisms appear in consistent location", status: "new" },
-                    { id: "3.3.7", level: "A", desc: "Redundant Entry — previously entered info auto-populated or selectable", status: "new" },
-                    { id: "3.3.8", level: "AA", desc: "Accessible Authentication (Minimum) — no cognitive function test required", status: "new" },
-                    { id: "3.3.9", level: "AAA", desc: "Accessible Authentication (Enhanced) — stronger version of 3.3.8", status: "new" },
+                    {
+                      id: "2.4.11",
+                      level: "AA",
+                      desc: "Focus Not Obscured (Minimum) — focused element not entirely hidden",
+                      status: "new",
+                    },
+                    {
+                      id: "2.4.12",
+                      level: "AAA",
+                      desc: "Focus Not Obscured (Enhanced) — focused element fully visible",
+                      status: "new",
+                    },
+                    {
+                      id: "2.4.13",
+                      level: "AAA",
+                      desc: "Focus Appearance — focus indicator meets size and contrast requirements",
+                      status: "new",
+                    },
+                    {
+                      id: "2.5.7",
+                      level: "AA",
+                      desc: "Dragging Movements — all drag actions have a single-pointer alternative",
+                      status: "new",
+                    },
+                    {
+                      id: "2.5.8",
+                      level: "AA",
+                      desc: "Target Size (Minimum) — interactive targets at least 24×24 CSS pixels",
+                      status: "new",
+                    },
+                    {
+                      id: "3.2.6",
+                      level: "A",
+                      desc: "Consistent Help — help mechanisms appear in consistent location",
+                      status: "new",
+                    },
+                    {
+                      id: "3.3.7",
+                      level: "A",
+                      desc: "Redundant Entry — previously entered info auto-populated or selectable",
+                      status: "new",
+                    },
+                    {
+                      id: "3.3.8",
+                      level: "AA",
+                      desc: "Accessible Authentication (Minimum) — no cognitive function test required",
+                      status: "new",
+                    },
+                    {
+                      id: "3.3.9",
+                      level: "AAA",
+                      desc: "Accessible Authentication (Enhanced) — stronger version of 3.3.8",
+                      status: "new",
+                    },
                   ].map((row) => (
                     <tr key={row.id}>
-                      <td><strong>{row.id}</strong></td>
                       <td>
-                        <span className={`wt-table-badge ${row.level === "A" ? "wt-badge-green" : row.level === "AA" ? "wt-badge-yellow" : "wt-badge-red"}`}>
+                        <strong>{row.id}</strong>
+                      </td>
+                      <td>
+                        <span
+                          className={`wt-table-badge ${row.level === "A" ? "wt-badge-green" : row.level === "AA" ? "wt-badge-yellow" : "wt-badge-red"}`}
+                        >
                           {row.level}
                         </span>
                       </td>
                       <td>{row.desc}</td>
                       <td>
-                        <span className="wt-table-badge wt-badge-green">New in 2.2</span>
+                        <span className="wt-table-badge wt-badge-green">
+                          New in 2.2
+                        </span>
                       </td>
                     </tr>
                   ))}
@@ -807,7 +1335,10 @@ export default function WidgetTestPage() {
         {/* ── Progress Bars ────────────────────────────────────────────── */}
         <section className="wt-section">
           <h2 className="wt-section-title">Progress Indicators</h2>
-          <p className="wt-section-desc">Visual progress bars — test high contrast, grayscale and colour blind modes.</p>
+          <p className="wt-section-desc">
+            Visual progress bars — test high contrast, grayscale and colour
+            blind modes.
+          </p>
           <div className="wt-card">
             <div className="wt-progress-list">
               {[
@@ -823,7 +1354,10 @@ export default function WidgetTestPage() {
                     <span>{item.pct}%</span>
                   </div>
                   <div className="wt-progress-track">
-                    <div className="wt-progress-bar" style={{ width: `${item.pct}%`, background: item.color }} />
+                    <div
+                      className="wt-progress-bar"
+                      style={{ width: `${item.pct}%`, background: item.color }}
+                    />
                   </div>
                 </div>
               ))}
@@ -834,61 +1368,225 @@ export default function WidgetTestPage() {
         {/* ── Long scrollable content ─────────────────────────────────── */}
         <section className="wt-section">
           <h2 className="wt-section-title">Long-form Article Content</h2>
-          <p className="wt-section-desc">Dense article text for testing reading guide, reading mask and magnifier.</p>
+          <p className="wt-section-desc">
+            Dense article text for testing reading guide, reading mask and
+            magnifier.
+          </p>
           <div className="wt-card wt-prose">
             <h2>The History of Web Accessibility</h2>
             <p>
-              Web accessibility has evolved significantly since the earliest days of the internet. In the 1990s,
-              when the web was in its infancy, websites were largely text-based and inherently accessible to
-              screen readers. As graphical browsers emerged and web design became more complex, accessibility
-              concerns grew alongside the technology.
+              Web accessibility has evolved significantly since the earliest
+              days of the internet. In the 1990s, when the web was in its
+              infancy, websites were largely text-based and inherently
+              accessible to screen readers. As graphical browsers emerged and
+              web design became more complex, accessibility concerns grew
+              alongside the technology.
             </p>
             <p>
-              The World Wide Web Consortium (W3C) established the Web Accessibility Initiative (WAI) in 1997,
-              recognising that the web had the potential to remove barriers that many people with disabilities
-              faced in their daily lives. However, this potential could only be realised if websites were
-              designed with accessibility in mind from the outset.
+              The World Wide Web Consortium (W3C) established the Web
+              Accessibility Initiative (WAI) in 1997, recognising that the web
+              had the potential to remove barriers that many people with
+              disabilities faced in their daily lives. However, this potential
+              could only be realised if websites were designed with
+              accessibility in mind from the outset.
             </p>
             <h3>WCAG 1.0 — The First Standard</h3>
             <p>
-              The first Web Content Accessibility Guidelines were published in 1999. WCAG 1.0 provided 14
-              guidelines with 65 checkpoints, organised into three priority levels. While groundbreaking at
-              the time, the guidelines were difficult to interpret and apply consistently across different
-              technologies and contexts.
+              The first Web Content Accessibility Guidelines were published in
+              1999. WCAG 1.0 provided 14 guidelines with 65 checkpoints,
+              organised into three priority levels. While groundbreaking at the
+              time, the guidelines were difficult to interpret and apply
+              consistently across different technologies and contexts.
             </p>
             <h3>WCAG 2.0 — A Technology-Neutral Approach</h3>
             <p>
-              WCAG 2.0, published in 2008, took a fundamentally different approach. Rather than prescribing
-              specific technologies, it focused on underlying principles: content must be perceivable, operable,
-              understandable, and robust. This POUR framework remains the foundation of modern web accessibility
-              standards.
+              WCAG 2.0, published in 2008, took a fundamentally different
+              approach. Rather than prescribing specific technologies, it
+              focused on underlying principles: content must be perceivable,
+              operable, understandable, and robust. This POUR framework remains
+              the foundation of modern web accessibility standards.
             </p>
             <h3>WCAG 2.1 and 2.2 — Keeping Pace with Technology</h3>
             <p>
-              As mobile devices and touch interfaces became dominant, WCAG 2.1 was published in 2018 to address
-              gaps in coverage for mobile users, people with cognitive disabilities, and people with low vision.
-              WCAG 2.2, published in October 2023, added further criteria focused on cognitive accessibility
-              and target size requirements.
+              As mobile devices and touch interfaces became dominant, WCAG 2.1
+              was published in 2018 to address gaps in coverage for mobile
+              users, people with cognitive disabilities, and people with low
+              vision. WCAG 2.2, published in October 2023, added further
+              criteria focused on cognitive accessibility and target size
+              requirements.
             </p>
             <blockquote>
-              "Accessibility is not a feature, it is a social trend." — Antonio Santos
+              "Accessibility is not a feature, it is a social trend." — Antonio
+              Santos
             </blockquote>
             <p>
-              Today, accessibility is increasingly treated as a legal requirement rather than a nice-to-have.
-              The European Accessibility Act 2025, the Americans with Disabilities Act, and similar legislation
-              worldwide have transformed accessibility from a voluntary best practice into a compliance obligation
-              for millions of organisations.
+              Today, accessibility is increasingly treated as a legal
+              requirement rather than a nice-to-have. The European Accessibility
+              Act 2025, the Americans with Disabilities Act, and similar
+              legislation worldwide have transformed accessibility from a
+              voluntary best practice into a compliance obligation for millions
+              of organisations.
             </p>
           </div>
         </section>
-
       </main>
 
+        {/* ── Multilingual Screen Reader Test ─────────────────────── */}
+        <section className="wt-section">
+          <h2 className="wt-section-title">
+            Screen Reader — Multilingual Test
+            <span className="wt-section-badge">TTS</span>
+          </h2>
+          <p className="wt-section-desc">
+            Hover or tap any element below to test the screen reader feature
+            with different languages. Enable &ldquo;Screen Reader&rdquo; in
+            the widget, choose&nbsp;<em>Read on hover</em> or&nbsp;<em>Read on
+            tap</em>, then interact with the blocks.
+          </p>
+
+          {/* English */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇬🇧 English</h3>
+            <p>Welcome to the Inculva accessibility widget test page. This paragraph tests the screen reader&apos;s ability to read English text aloud with natural intonation.</p>
+            <p>The quick brown fox jumps over the lazy dog. Accessibility is about creating digital experiences that everyone can use, regardless of their abilities.</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Click me</button>
+            <a href="#" style={{ color: "#0066cc" }}>Visit our accessibility guide →</a>
+          </div>
+
+          {/* Turkish */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇹🇷 Türkçe</h3>
+            <p>İnculva erişilebilirlik widget&apos;ının test sayfasına hoş geldiniz. Bu paragraf, ekran okuyucunun Türkçe metni doğal tonlama ile sesli okuma yeteneğini test etmektedir.</p>
+            <p>Dijital erişilebilirlik, her kullanıcının yeteneklerinden bağımsız olarak web sitelerini ve uygulamaları kullanabilmesi anlamına gelir. Herkes için tasarım, daha iyi bir dünya yaratır.</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Bana tıkla</button>
+            <a href="#" style={{ color: "#0066cc" }}>Erişilebilirlik rehberimizi ziyaret edin →</a>
+          </div>
+
+          {/* German */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇩🇪 Deutsch</h3>
+            <p>Willkommen auf der Testseite des Inculva-Barrierefreiheits-Widgets. Dieser Absatz testet die Fähigkeit des Bildschirmlesers, deutschen Text mit natürlicher Intonation vorzulesen.</p>
+            <p>Digitale Barrierefreiheit bedeutet, dass alle Menschen unabhängig von ihren Fähigkeiten Websites und Apps nutzen können. Inklusive Gestaltung schafft eine bessere Zukunft für alle.</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Klick mich</button>
+            <a href="#" style={{ color: "#0066cc" }}>Barrierefreiheitsleitfaden ansehen →</a>
+          </div>
+
+          {/* French */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇫🇷 Français</h3>
+            <p>Bienvenue sur la page de test du widget d&apos;accessibilité Inculva. Ce paragraphe teste la capacité du lecteur d&apos;écran à lire du texte français à voix haute avec une intonation naturelle.</p>
+            <p>L&apos;accessibilité numérique consiste à créer des expériences en ligne utilisables par tous, quelles que soient leurs capacités. Une conception inclusive améliore la vie de chacun.</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Cliquez-moi</button>
+            <a href="#" style={{ color: "#0066cc" }}>Voir notre guide d&apos;accessibilité →</a>
+          </div>
+
+          {/* Spanish */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇪🇸 Español</h3>
+            <p>Bienvenido a la página de prueba del widget de accesibilidad de Inculva. Este párrafo prueba la capacidad del lector de pantalla para leer texto en español en voz alta con entonación natural.</p>
+            <p>La accesibilidad digital significa crear experiencias en línea que todos puedan usar, independientemente de sus capacidades. El diseño inclusivo mejora la vida de todas las personas.</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Hazme clic</button>
+            <a href="#" style={{ color: "#0066cc" }}>Ver nuestra guía de accesibilidad →</a>
+          </div>
+
+          {/* Arabic — RTL */}
+          <div className="wt-card wt-prose" dir="rtl" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇸🇦 العربية</h3>
+            <p>مرحباً بكم في صفحة اختبار أداة إمكانية الوصول من Inculva. تختبر هذه الفقرة قدرة قارئ الشاشة على قراءة النص العربي بصوت عالٍ بنبرة طبيعية.</p>
+            <p>إمكانية الوصول الرقمية تعني إنشاء تجارب رقمية يمكن للجميع استخدامها بغض النظر عن قدراتهم. التصميم الشامل يحسّن حياة الجميع ويصنع عالماً أفضل للجميع.</p>
+            <button style={{ marginLeft: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>انقر هنا</button>
+            <a href="#" style={{ color: "#0066cc" }}>← زيارة دليل إمكانية الوصول</a>
+          </div>
+
+          {/* Hebrew — RTL */}
+          <div className="wt-card wt-prose" dir="rtl" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇮🇱 עברית</h3>
+            <p>ברוכים הבאים לדף הבדיקה של ווידג&apos;ט הנגישות של Inculva. פסקה זו בודקת את יכולת קורא המסך לקרוא טקסט עברי בקול עם נסירה טבעית.</p>
+            <p>נגישות דיגיטלית פירושה יצירת חוויות מקוונות שכולם יכולים להשתמש בהן, ללא קשר ליכולותיהם. עיצוב כוללני משפר את חיי כולם.</p>
+            <button style={{ marginLeft: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>לחץ עלי</button>
+            <a href="#" style={{ color: "#0066cc" }}>← בקר במדריך הנגישות שלנו</a>
+          </div>
+
+          {/* Japanese */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇯🇵 日本語</h3>
+            <p>Inculvaアクセシビリティウィジェットのテストページへようこそ。この段落は、スクリーンリーダーが自然なイントネーションで日本語のテキストを読み上げる機能をテストするものです。</p>
+            <p>デジタルアクセシビリティとは、能力に関わらずすべての人がウェブサイトやアプリを利用できるようにすることです。インクルーシブデザインはより良い社会を作ります。</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>クリックしてください</button>
+            <a href="#" style={{ color: "#0066cc" }}>アクセシビリティガイドを見る →</a>
+          </div>
+
+          {/* Chinese */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇨🇳 中文</h3>
+            <p>欢迎来到 Inculva 无障碍访问小部件测试页面。本段测试屏幕阅读器以自然语调朗读中文文本的能力。</p>
+            <p>数字无障碍意味着创建所有人都能使用的在线体验，无论其能力如何。包容性设计让每个人的生活都更美好，并为所有人打造更友好的数字世界。</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>点击我</button>
+            <a href="#" style={{ color: "#0066cc" }}>查看我们的无障碍指南 →</a>
+          </div>
+
+          {/* Korean */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇰🇷 한국어</h3>
+            <p>Inculva 접근성 위젯 테스트 페이지에 오신 것을 환영합니다. 이 단락은 스크린 리더가 자연스러운 억양으로 한국어 텍스트를 소리 내어 읽는 기능을 테스트합니다.</p>
+            <p>디지털 접근성이란 모든 사람이 능력에 관계없이 웹사이트와 앱을 사용할 수 있도록 하는 것을 의미합니다. 포용적 디자인은 모든 사람의 삶을 개선합니다.</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>클릭하세요</button>
+            <a href="#" style={{ color: "#0066cc" }}>접근성 가이드 보기 →</a>
+          </div>
+
+          {/* Russian */}
+          <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇷🇺 Русский</h3>
+            <p>Добро пожаловать на тестовую страницу виджета доступности Inculva. Этот абзац проверяет способность программы чтения с экрана читать русский текст вслух с естественной интонацией.</p>
+            <p>Цифровая доступность означает создание онлайн-опыта, которым могут пользоваться все люди, независимо от их способностей. Инклюзивный дизайн улучшает жизнь каждого человека.</p>
+            <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Нажмите меня</button>
+            <a href="#" style={{ color: "#0066cc" }}>Просмотр нашего руководства по доступности →</a>
+          </div>
+
+          {/* Images with alt text — for Alt Hints mode */}
+          <div className="wt-card" style={{ marginBottom: 12 }}>
+            <h3 style={{ margin: "0 0 12px", fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🖼️ Alt Hints Mode — Images</h3>
+            <p style={{ fontSize: 14, color: "#6b7280", margin: "0 0 14px" }}>
+              Switch screen reader to <strong>level 1 (Alt hints)</strong> to see overlays on images with alt text and red outlines on images without.
+            </p>
+            <div className="wt-img-grid">
+              <div className="wt-img-item">
+                <img src="https://picsum.photos/seed/a11y1/300/225" alt="A scenic mountain landscape with snow-capped peaks" />
+                <p className="wt-img-caption">Has alt text ✓</p>
+              </div>
+              <div className="wt-img-item">
+                <img src="https://picsum.photos/seed/a11y2/300/225" alt="A colorful bird perched on a tree branch in a tropical forest" />
+                <p className="wt-img-caption">Has alt text ✓</p>
+              </div>
+              <div className="wt-img-item missing-alt">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://picsum.photos/seed/a11y3/300/225" alt="" />
+                <p className="wt-img-caption">Empty alt — decorative</p>
+              </div>
+              <div className="wt-img-item missing-alt">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://picsum.photos/seed/a11y4/300/225" alt={undefined as unknown as string} />
+                <p className="wt-img-caption">No alt — missing ✗</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
       {/* ── Footer ─────────────────────────────────────────────────────── */}
-      <footer style={{ background: "#1a1a2e", color: "rgba(255,255,255,0.6)", padding: "32px 24px", textAlign: "center", fontSize: 13 }}>
+      <footer
+        style={{
+          background: "#1a1a2e",
+          color: "rgba(255,255,255,0.6)",
+          padding: "32px 24px",
+          textAlign: "center",
+          fontSize: 13,
+        }}
+      >
         <p style={{ margin: 0 }}>
           Inculva Widget Test Page — for development and QA purposes only.{" "}
-          <a href="/" style={{ color: "#0066cc" }}>← Back to home</a>
+          <a href="/" style={{ color: "#0066cc" }}>
+            ← Back to home
+          </a>
         </p>
       </footer>
     </>

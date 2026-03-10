@@ -13,14 +13,37 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
             <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
                 <circle cx="12" cy="4.5" r="2.2" fill="white" />
-                <path d="M5.5 10h13" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <path d="M12 8.5v5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <path d="M9 20l2-5.5M15 20l-2-5.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M5.5 10h13"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M12 8.5v5"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M9 20l2-5.5M15 20l-2-5.5"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
-            <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">Inculva</span>
+            <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+              Inculva
+            </span>
           </a>
 
           <nav className="hidden md:flex items-center gap-1 text-sm">
@@ -47,6 +70,12 @@ export default function HomePage() {
               className="px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               FAQ
+            </a>
+            <a
+              href="/widget-test"
+              className="px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              Widget Test
             </a>
           </nav>
 
@@ -211,22 +240,61 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
-              {["#3b82f6","#8b5cf6","#10b981","#f59e0b","#ef4444"].map((c, i) => (
-                <div key={i} style={{ background: c }} className="w-7 h-7 rounded-full border-2 border-white dark:border-gray-950 flex items-center justify-center text-white text-[9px] font-bold">{String.fromCharCode(65 + i)}</div>
-              ))}
+              {["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b", "#ef4444"].map(
+                (c, i) => (
+                  <div
+                    key={i}
+                    style={{ background: c }}
+                    className="w-7 h-7 rounded-full border-2 border-white dark:border-gray-950 flex items-center justify-center text-white text-[9px] font-bold"
+                  >
+                    {String.fromCharCode(65 + i)}
+                  </div>
+                ),
+              )}
             </div>
-            <span>Trusted by <strong className="text-gray-700 dark:text-gray-200">1,200+</strong> sites</span>
+            <span>
+              Trusted by{" "}
+              <strong className="text-gray-700 dark:text-gray-200">
+                1,200+
+              </strong>{" "}
+              sites
+            </span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-gray-200 dark:bg-gray-700" />
           <div className="flex items-center gap-1.5">
-            {[1,2,3,4,5].map((s) => (
-              <svg key={s} width="14" height="14" viewBox="0 0 14 14" fill="#f59e0b"><path d="M7 1l1.8 3.6 4 .6-2.9 2.8.7 4L7 10l-3.6 1.9.7-4L1.2 5.2l4-.6L7 1z"/></svg>
+            {[1, 2, 3, 4, 5].map((s) => (
+              <svg
+                key={s}
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="#f59e0b"
+              >
+                <path d="M7 1l1.8 3.6 4 .6-2.9 2.8.7 4L7 10l-3.6 1.9.7-4L1.2 5.2l4-.6L7 1z" />
+              </svg>
             ))}
-            <span><strong className="text-gray-700 dark:text-gray-200">4.9</strong> / 5 avg rating</span>
+            <span>
+              <strong className="text-gray-700 dark:text-gray-200">4.9</strong>{" "}
+              / 5 avg rating
+            </span>
           </div>
           <div className="hidden sm:block w-px h-4 bg-gray-200 dark:bg-gray-700" />
           <div className="flex items-center gap-1.5">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-green-500"><path d="M2 8l4 4 8-8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="text-green-500"
+            >
+              <path
+                d="M2 8l4 4 8-8"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
             <span>EAA 2025 &amp; WCAG 2.1 AA ready</span>
           </div>
         </div>
@@ -285,32 +353,142 @@ export default function HomePage() {
             <div>
               <div className="flex items-center gap-2 mb-5">
                 <div className="w-5 h-5 rounded-md bg-violet-100 dark:bg-violet-950 flex items-center justify-center">
-                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" className="text-violet-600 dark:text-violet-400"><path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5"/></svg>
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="text-violet-600 dark:text-violet-400"
+                  >
+                    <path
+                      d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="8"
+                      cy="8"
+                      r="2"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
                 </div>
-                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Vision</p>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
+                  Vision
+                </p>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8"/><path d="M12 3v18M3 12h9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="9"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M12 3v18M3 12h9"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ),
                     title: "High Contrast",
                     desc: "Boosts contrast ratio beyond 7:1 for severe low vision",
                     wcag: "1.4.3",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8"/><path d="M12 3a9 9 0 0 1 0 18" stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.15"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="9"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M12 3a9 9 0 0 1 0 18"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          fill="currentColor"
+                          fillOpacity="0.15"
+                        />
+                      </svg>
+                    ),
                     title: "Grayscale",
                     desc: "Removes all color to reduce visual noise and fatigue",
                     wcag: "1.4.3",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="8" r="4" stroke="currentColor" strokeWidth="1.8"/><circle cx="16" cy="8" r="4" stroke="currentColor" strokeWidth="1.8" strokeOpacity="0.5"/><circle cx="12" cy="15" r="4" stroke="currentColor" strokeWidth="1.8" strokeOpacity="0.25"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <circle
+                          cx="8"
+                          cy="8"
+                          r="4"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <circle
+                          cx="16"
+                          cy="8"
+                          r="4"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeOpacity="0.5"
+                        />
+                        <circle
+                          cx="12"
+                          cy="15"
+                          r="4"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeOpacity="0.25"
+                        />
+                      </svg>
+                    ),
                     title: "Color Blind Mode",
                     desc: "4 modes: deuteranopia, protanopia, tritanopia, achromatopsia",
                     wcag: "1.4.1",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 8h16M4 12h10M4 16h13" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M4 8h16M4 12h10M4 16h13"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ),
                     title: "Highlight Links",
                     desc: "Forces underline + bold on every link regardless of CSS",
                     wcag: "1.4.1",
@@ -325,31 +503,134 @@ export default function HomePage() {
             <div>
               <div className="flex items-center gap-2 mb-5">
                 <div className="w-5 h-5 rounded-md bg-blue-100 dark:bg-blue-950 flex items-center justify-center">
-                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" className="text-blue-600 dark:text-blue-400"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5"/><path d="M5 6h6M5 9h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="text-blue-600 dark:text-blue-400"
+                  >
+                    <rect
+                      x="2"
+                      y="3"
+                      width="12"
+                      height="10"
+                      rx="1.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M5 6h6M5 9h4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </div>
-                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Reading &amp; Text</p>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
+                  Reading &amp; Text
+                </p>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><path d="M16 17l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M4 6h16M4 10h16M4 14h8"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M16 17l2 2 4-4"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    ),
                     title: "Text Resizing",
                     desc: "Scales fonts up to 200% without breaking the layout",
                     wcag: "1.4.4",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><text x="2" y="17" fontSize="16" fontWeight="bold" fill="currentColor" fontFamily="serif">A</text></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <text
+                          x="2"
+                          y="17"
+                          fontSize="16"
+                          fontWeight="bold"
+                          fill="currentColor"
+                          fontFamily="serif"
+                        >
+                          A
+                        </text>
+                      </svg>
+                    ),
                     title: "Dyslexia Font",
                     desc: "OpenDyslexic — weighted bottoms reduce letter confusion",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h16M4 18h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ),
                     title: "Text Spacing",
                     desc: "Line height, letter spacing, and word spacing — all adjustable",
                     wcag: "1.4.12",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="10" width="20" height="4" rx="1" fill="currentColor" fillOpacity="0.25" stroke="currentColor" strokeWidth="1.5"/><path d="M4 6h16M4 18h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.4"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <rect
+                          x="2"
+                          y="10"
+                          width="20"
+                          height="4"
+                          rx="1"
+                          fill="currentColor"
+                          fillOpacity="0.25"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
+                        <path
+                          d="M4 6h16M4 18h16"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeOpacity="0.4"
+                        />
+                      </svg>
+                    ),
                     title: "Reading Guide",
                     desc: "Horizontal highlight bar tracks where you are on the page",
                   },
@@ -363,32 +644,157 @@ export default function HomePage() {
             <div>
               <div className="flex items-center gap-2 mb-5">
                 <div className="w-5 h-5 rounded-md bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center">
-                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" className="text-emerald-600 dark:text-emerald-400"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5"/><rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5"/><rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5"/><rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.5"/></svg>
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="text-emerald-600 dark:text-emerald-400"
+                  >
+                    <rect
+                      x="2"
+                      y="2"
+                      width="5"
+                      height="5"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <rect
+                      x="9"
+                      y="2"
+                      width="5"
+                      height="5"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <rect
+                      x="2"
+                      y="9"
+                      width="5"
+                      height="5"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <rect
+                      x="9"
+                      y="9"
+                      width="5"
+                      height="5"
+                      rx="1"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
                 </div>
-                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Motor &amp; Keyboard</p>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
+                  Motor &amp; Keyboard
+                </p>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" strokeWidth="1.8"/><path d="M7 9h2M11 9h2M15 9h2M7 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <rect
+                          x="2"
+                          y="4"
+                          width="20"
+                          height="16"
+                          rx="3"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M7 9h2M11 9h2M15 9h2M7 13h10"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ),
                     title: "Keyboard Navigation",
                     desc: "3px focus outline on every interactive element",
                     wcag: "2.1.1",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.8" strokeDasharray="3 2"/><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <rect
+                          x="4"
+                          y="4"
+                          width="16"
+                          height="16"
+                          rx="3"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeDasharray="3 2"
+                        />
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="3"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                      </svg>
+                    ),
                     title: "Focus Highlight",
                     desc: "High-visibility orange focus ring — impossible to miss",
                     wcag: "2.4.11",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="10" rx="2" stroke="currentColor" strokeWidth="1.8"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <rect
+                          x="3"
+                          y="7"
+                          width="18"
+                          height="10"
+                          rx="2"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <circle cx="12" cy="12" r="2" fill="currentColor" />
+                      </svg>
+                    ),
                     title: "Large Click Targets",
                     desc: "Enforces 44×44px minimum touch target size",
                     wcag: "2.5.8",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3l12 9-5 1-3 5L6 3z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M6 3l12 9-5 1-3 5L6 3z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    ),
                     title: "Cursor Enhancement",
                     desc: "Enlarged SVG cursor for motor control difficulties",
                   },
@@ -402,31 +808,141 @@ export default function HomePage() {
             <div>
               <div className="flex items-center gap-2 mb-5">
                 <div className="w-5 h-5 rounded-md bg-amber-100 dark:bg-amber-950 flex items-center justify-center">
-                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" className="text-amber-600 dark:text-amber-400"><circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5"/><path d="M6 7h4M6 9h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    className="text-amber-600 dark:text-amber-400"
+                  >
+                    <circle
+                      cx="8"
+                      cy="8"
+                      r="6"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M6 7h4M6 9h4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </div>
-                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Cognitive &amp; Sensory</p>
+                <p className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
+                  Cognitive &amp; Sensory
+                </p>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="6" y="4" width="4" height="16" rx="2" fill="currentColor" fillOpacity="0.8"/><rect x="14" y="4" width="4" height="16" rx="2" fill="currentColor" fillOpacity="0.8"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <rect
+                          x="6"
+                          y="4"
+                          width="4"
+                          height="16"
+                          rx="2"
+                          fill="currentColor"
+                          fillOpacity="0.8"
+                        />
+                        <rect
+                          x="14"
+                          y="4"
+                          width="4"
+                          height="16"
+                          rx="2"
+                          fill="currentColor"
+                          fillOpacity="0.8"
+                        />
+                      </svg>
+                    ),
                     title: "Pause Animations",
                     desc: "Stops all CSS animations — critical for vestibular disorders",
                     wcag: "2.3.3",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M1 12s3.5-7 11-7 11 7 11 7-3.5 7-11 7S1 12 1 12z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8"/><path d="M3 3l18 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M1 12s3.5-7 11-7 11 7 11 7-3.5 7-11 7S1 12 1 12z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinejoin="round"
+                        />
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="3"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M3 3l18 18"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ),
                     title: "Screen Reader Hints",
                     desc: "Flags images with missing alt text so they can be fixed",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M5 12h14M14 7l5 5-5 5"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    ),
                     title: "Skip Navigation",
                     desc: "Jump directly to main content — standard keyboard UX",
                     wcag: "2.4.1",
                   },
                   {
-                    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H2v6h4l5 4V5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/><path d="M17 9l-4 6M13 9l4 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>,
+                    icon: (
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M11 5L6 9H2v6h4l5 4V5z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M17 9l-4 6M13 9l4 6"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    ),
                     title: "Mute Media",
                     desc: "Silences all autoplaying audio and video instantly",
                     wcag: "1.4.2",
@@ -778,14 +1294,37 @@ export default function HomePage() {
             <div>
               <div className="mb-2 flex items-center gap-2">
                 <div className="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
                     <circle cx="12" cy="4.5" r="2.2" fill="white" />
-                    <path d="M5.5 10h13" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                    <path d="M12 8.5v5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                    <path d="M9 20l2-5.5M15 20l-2-5.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                    <path
+                      d="M5.5 10h13"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M12 8.5v5"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M9 20l2-5.5M15 20l-2-5.5"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 </div>
-                <span className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">Inculva</span>
+                <span className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">
+                  Inculva
+                </span>
               </div>
               <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
                 Web accessibility tools for developers and teams who care about
