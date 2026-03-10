@@ -37,9 +37,34 @@ function openDyslexicFontsPlugin(): Plugin {
   };
 }
 
+/**
+ * Loads brand-logo.png at build time, encodes it as a base64 data URI, and
+ * exposes it via a virtual module. Keeps the widget fully self-contained —
+ * no external URL is ever needed at runtime on customer sites.
+ */
+function brandSvgPlugin(): Plugin {
+  const VIRTUAL_ID  = "virtual:brand-svg";
+  const RESOLVED_ID = "\0" + VIRTUAL_ID;
+  const pngSrc      = resolve(__dirname, "../../apps/landing/public/brand-logo.png");
+
+  return {
+    name: "brand-svg",
+    resolveId(id) {
+      if (id === VIRTUAL_ID) return RESOLVED_ID;
+    },
+    load(id) {
+      if (id !== RESOLVED_ID) return;
+      const b64 = readFileSync(pngSrc).toString("base64");
+      const dataUri = `data:image/png;base64,${b64}`;
+      return `export const BRAND_LOGO_PNG = ${JSON.stringify(dataUri)};`;
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     openDyslexicFontsPlugin(),
+    brandSvgPlugin(),
     {
       name: "copy-to-manage-public",
       closeBundle() {

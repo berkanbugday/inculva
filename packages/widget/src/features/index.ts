@@ -85,6 +85,8 @@ export const FEATURE_LEVELS: Partial<Record<keyof WidgetFeatures, number>> = {
   contentMagnifier: 4,
   saturation:       4,
   colorBlindMode:   4,  // L1=deuteranopia L2=protanopia L3=tritanopia L4=achromatopsia
+  textAlign:        3,  // L1=left L2=center L3=right
+  readingGuide:     3,  // L1=thin(3px) L2=medium(6px) L3=thick(12px)
 };
 
 /** Level → ColorBlindType mapping (exported so index.ts can derive display labels). */
@@ -240,21 +242,31 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   },
 
   readingGuide: {
-    enable: () => {
-      if (document.getElementById("inculva-reading-guide")) return;
-      // A thin glowing horizontal ruler-line that marks the current reading position.
-      // Subtle: only 3 px tall so it doesn't obscure surrounding content.
+    // 3 levels of prominence: thin (3 px) / medium (6 px) / thick (12 px).
+    // The element is always recreated on enable so level changes take effect immediately.
+    enable: (level = 1) => {
+      // Clean up any existing guide before (re-)creating at new level
+      const prev = document.getElementById("inculva-reading-guide") as
+        | (HTMLElement & { _moveHandler?: (e: MouseEvent) => void })
+        | null;
+      if (prev?._moveHandler) document.removeEventListener("mousemove", prev._moveHandler);
+      prev?.remove();
+
+      const heights = [3, 6, 12];
+      const h = heights[(level - 1)] ?? 3;
+      const blur = h * 3;
+
       const guide = document.createElement("div");
       guide.id = "inculva-reading-guide";
       guide.style.cssText = [
-        "position:fixed", "left:0", "right:0", "height:3px",
+        "position:fixed", "left:0", "right:0", `height:${h}px`,
         "background:rgba(245,158,11,0.9)",
-        "box-shadow:0 0 10px rgba(245,158,11,0.7),0 2px 6px rgba(245,158,11,0.4)",
+        `box-shadow:0 0 ${blur}px rgba(245,158,11,0.7),0 2px 6px rgba(245,158,11,0.4)`,
         "pointer-events:none", "z-index:2147483642", "top:0",
       ].join(";");
       document.documentElement.appendChild(guide);
       const move = (e: MouseEvent) => {
-        guide.style.top = `${e.clientY}px`;
+        guide.style.top = `${e.clientY - Math.floor(h / 2)}px`;
       };
       document.addEventListener("mousemove", move);
       (guide as HTMLElement & { _moveHandler?: (e: MouseEvent) => void })._moveHandler = move;
@@ -433,13 +445,16 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     },
   },
 
-  // Text Alignment — cycles through left / center / right
+  // Text Alignment — 3 levels: left / center / right
   textAlign: {
-    enable: () =>
-      injectStyle(
+    enable: (level = 1) => {
+      const aligns = ["left", "center", "right"] as const;
+      const align  = aligns[(level - 1)] ?? "left";
+      replaceStyle(
         "inculva-text-align",
-        `p, li, td, th, label, h1, h2, h3, h4, h5, h6 { text-align: left !important; }`
-      ),
+        `p, li, td, th, label, h1, h2, h3, h4, h5, h6 { text-align: ${align} !important; }`
+      );
+    },
     disable: () => removeStyle("inculva-text-align"),
   },
 

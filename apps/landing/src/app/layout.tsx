@@ -10,8 +10,8 @@ export const metadata: Metadata = {
     "Add 19 real accessibility features to any website in under 5 minutes. WCAG 2.1 AA, EAA 2025, ADA compliant. One script tag.",
   metadataBase: new URL(siteUrl),
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/brand-logo.png",
+    shortcut: "/brand-logo.png",
   },
   openGraph: {
     type: "website",
@@ -55,7 +55,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 name: "Inculva",
                 url: siteUrl,
-                logo: `${siteUrl}/favicon.svg`,
+                logo: `${siteUrl}/brand-logo.png`,
                 description:
                   "Web accessibility widget for any website. 19 features, WCAG 2.1 AA compliant, one script tag.",
                 contactPoint: {

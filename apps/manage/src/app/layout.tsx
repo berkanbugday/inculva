@@ -6,6 +6,10 @@ import { CookieBanner } from "@/components/cookie-banner";
 export const metadata: Metadata = {
   title: "Inculva — Accessibility Dashboard",
   description: "Manage your web accessibility widget settings and analytics.",
+  icons: {
+    icon: "/assets/icons/universal-access.svg",
+    shortcut: "/assets/icons/universal-access.svg",
+  },
 };
 
 export default async function RootLayout({

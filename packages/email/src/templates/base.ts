@@ -20,8 +20,8 @@ export function baseTemplate(content: string, previewText = ""): string {
     body { margin: 0; padding: 0; background: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     .wrapper { max-width: 560px; margin: 40px auto; }
     .card { background: #ffffff; border-radius: 16px; overflow: hidden; }
-    .header { background: #1d4ed8; padding: 28px 36px; }
-    .header h1 { color: #ffffff; margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+    .header { background: #ffffff; padding: 24px 36px; border-bottom: 3px solid #1d4ed8; }
+    .header img { height: 36px; width: auto; display: block; }
     .body { padding: 36px; color: #374151; }
     .body h2 { margin: 0 0 12px; font-size: 20px; color: #111827; }
     .body p { margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: #4b5563; }
@@ -35,7 +35,7 @@ export function baseTemplate(content: string, previewText = ""): string {
   <div class="wrapper">
     <div class="card">
       <div class="header">
-        <h1>Inculva</h1>
+        <img src="https://inculva.com/brand-logo.svg" alt="Inculva" />
       </div>
       <div class="body">
         ${content}

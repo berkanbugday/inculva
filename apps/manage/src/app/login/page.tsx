@@ -45,8 +45,12 @@ function LoginForm() {
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg dark:shadow-gray-950 p-8 border border-transparent dark:border-gray-800">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Inculva</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">Sign in to your dashboard</p>
+            <img
+              src="/assets/icons/universal-access.svg"
+              alt="Inculva"
+              className="h-10 w-auto mx-auto mb-5 dark:invert"
+            />
+            <p className="text-gray-500 dark:text-gray-400">Sign in to your dashboard</p>
           </div>
 
           <OAuthButtons callbackURL={callbackUrl} />

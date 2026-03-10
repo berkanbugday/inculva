@@ -43,14 +43,12 @@ export function DashboardHeader({ email, name, locale }: Props) {
   return (
     <header className="h-[49px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 flex items-center justify-between sticky top-0 z-40 shrink-0">
       {/* Logo */}
-      <a href="/dashboard" className="flex items-center gap-2">
-        <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-          <span className="text-white text-xs font-bold">I</span>
-        </div>
-        <div className="leading-none">
-          <p className="text-sm font-bold text-gray-900 dark:text-white leading-none">Inculva</p>
-          <p className="text-[9px] text-gray-400 mt-0.5 leading-none">All in one smart solution</p>
-        </div>
+      <a href="/dashboard" className="flex items-center">
+        <img
+          src="/assets/icons/universal-access.svg"
+          alt="Inculva"
+          className="h-6 w-auto dark:invert"
+        />
       </a>
 
       {/* Right side */}

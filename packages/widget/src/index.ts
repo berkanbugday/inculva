@@ -7,6 +7,7 @@ import {
   applyPosition,
   applyPanelPosition,
   PROFILES,
+  FEATURE_CATEGORIES,
 } from "./ui/panel.js";
 import { widgetStyles } from "./ui/styles.js";
 import { savePrefs, loadPrefs } from "./utils/storage.js";
@@ -186,6 +187,12 @@ class InculvaWidget {
       ) as HTMLElement | null;
       if (sizeTarget?.dataset["size"]) {
         this.switchSize(sizeTarget.dataset["size"] as "mini" | "regular" | "xl");
+        return;
+      }
+      // Category tab switch
+      const tabTarget = (e.target as HTMLElement).closest("[data-inculva-tab]") as HTMLElement | null;
+      if (tabTarget?.dataset["inculvaTab"]) {
+        this.switchTab(tabTarget.dataset["inculvaTab"]);
         return;
       }
       // Profile activation
@@ -437,7 +444,19 @@ class InculvaWidget {
     this.announce("All accessibility features reset");
   }
 
-  /** Switch between Mini / Regular / XL size modes. */
+  /** Switch the active category tab and update the feature grid. */
+  private switchTab(tab: string): void {
+    for (const btn of this.panel.querySelectorAll<HTMLElement>(".inculva-tab-btn")) {
+      const isActive = btn.dataset["inculvaTab"] === tab;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-selected", String(isActive));
+    }
+    const grid = this.panel.querySelector<HTMLElement>(".inculva-feature-grid");
+    if (grid) grid.dataset["activeTab"] = tab;
+    applyPanelPosition(this.panel, this.btn, this.config.position);
+  }
+
+  /** Switch between Mini / Regular size modes. */
   private switchSize(size: "mini" | "regular" | "xl"): void {
     this.panel.dataset["size"] = size;
     for (const btn of this.panel.querySelectorAll<HTMLElement>("[data-size]")) {
@@ -450,14 +469,14 @@ class InculvaWidget {
     applyPanelPosition(this.panel, this.btn, this.config.position);
   }
 
-  /** Show / hide the profiles list. */
+  /** Show / hide the profiles grid. */
   private toggleProfiles(): void {
     const toggle = this.panel.querySelector<HTMLElement>(".inculva-profiles-toggle");
-    const list   = this.panel.querySelector<HTMLElement>(".inculva-profiles-list");
-    if (!toggle || !list) return;
+    const grid   = this.panel.querySelector<HTMLElement>(".inculva-profiles-grid");
+    if (!toggle || !grid) return;
     const expanded = toggle.getAttribute("aria-expanded") === "true";
     toggle.setAttribute("aria-expanded", String(!expanded));
-    list.hidden = expanded;
+    grid.hidden = expanded;
   }
 
   /** Activate or deactivate an accessibility profile (preset feature combo). */
@@ -493,7 +512,7 @@ class InculvaWidget {
     this.announce(`Profile ${profile.label} ${!isActive ? "activated" : "deactivated"}`);
   }
 
-  /** Sync the red badge count on the trigger button. */
+  /** Sync the red badge count on the trigger button, header pill, and per-tab counts. */
   private updateActiveBadge(): void {
     const count = this.activeFeatures.size;
     if (this.badge) {
@@ -505,6 +524,19 @@ class InculvaWidget {
     if (countEl) {
       countEl.textContent = `${count} active`;
       countEl.hidden = count === 0;
+    }
+    // Sync per-tab count badges
+    for (const [tabKey, feats] of Object.entries(FEATURE_CATEGORIES)) {
+      const tabCount = (feats as readonly string[]).filter(
+        (f) => this.activeFeatures.has(f as keyof WidgetFeatures)
+      ).length;
+      const tabBtn = this.panel.querySelector<HTMLElement>(`[data-inculva-tab="${tabKey}"]`);
+      if (!tabBtn) continue;
+      const tabCountEl = tabBtn.querySelector<HTMLElement>(".inculva-tab-count");
+      if (tabCountEl) {
+        tabCountEl.textContent = String(tabCount);
+        tabCountEl.hidden = tabCount === 0;
+      }
     }
   }
 
