@@ -247,17 +247,35 @@ const LANG_BCP47: Record<string, string> = {
   zh: "zh-CN", ja: "ja-JP", ko: "ko-KR", ru: "ru-RU", pl: "pl-PL",
 };
 
-/** Called by the widget when the user changes the language selector. */
+/** Called by the widget on init and when the user changes the language selector (fallback only). */
 export function setSrLang(lang: string): void {
   _srLang = lang;
 }
 
-function _speak(text: string): void {
+/**
+ * Walk up the DOM from `el` looking for a `lang` attribute.
+ * Falls back to document.documentElement.lang, then to the widget language.
+ * Returns a BCP 47 tag ready to assign to SpeechSynthesisUtterance.lang.
+ */
+function _detectLang(el: Element): string {
+  let node: Element | null = el;
+  while (node && node !== document.documentElement) {
+    const lang = node.getAttribute("lang");
+    if (lang) return LANG_BCP47[lang.toLowerCase().slice(0, 2)] ?? lang;
+    node = node.parentElement;
+  }
+  // Fall back to page-level lang, then widget UI language
+  const pageLang = document.documentElement.lang;
+  const fallback = pageLang || _srLang || "en";
+  return LANG_BCP47[fallback.toLowerCase().slice(0, 2)] ?? fallback;
+}
+
+function _speak(text: string, fromEl?: Element): void {
   if (!("speechSynthesis" in window) || !text.trim()) return;
   window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(text.trim().slice(0, 350));
   utt.rate = 1.05;
-  if (_srLang) utt.lang = LANG_BCP47[_srLang] ?? _srLang;
+  utt.lang = fromEl ? _detectLang(fromEl) : (LANG_BCP47[_srLang] ?? _srLang ?? "en-US");
   window.speechSynthesis.speak(utt);
 }
 
@@ -513,7 +531,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
             const text = _getReadableText(target);
             if (text) {
               (target as HTMLElement).dataset["inculvaTtsHover"] = "1";
-              _speak(text);
+              _speak(text, target);
             }
           }, 400);
         };
@@ -552,7 +570,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
           if (!text) return;
           lastTapEl = target;
           (target as HTMLElement).dataset["inculvaTtsTap"] = "1";
-          _speak(text);
+          _speak(text, target);
           // Auto-remove the outline after ~2.5 s (generous for long phrases)
           setTimeout(() => {
             if (lastTapEl === target) {
