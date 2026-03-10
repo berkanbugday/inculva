@@ -91,6 +91,7 @@ export const FEATURE_LEVELS: Partial<Record<keyof WidgetFeatures, number>> = {
   textAlign: 3,      // L1=left L2=center L3=right
   readingGuide: 3,   // L1=thin(3px) L2=medium(6px) L3=thick(12px)
   cursorEnhancement: 3, // L1=medium(32px) L2=large(48px) L3=XL(64px)
+  slowCursor: 3,     // L1=slight(α=0.25) L2=medium(α=0.15) L3=heavy(α=0.08)
 };
 
 /** Level → ColorBlindType mapping (exported so index.ts can derive display labels). */
@@ -733,9 +734,99 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     disable: () => removeStyle("inculva-highlight-titles"),
   },
 
+  // Slow Cursor — smooths cursor movement via lerp for users with motor tremors.
+  // Creates a virtual cursor element that follows the real mouse with exponential
+  // moving average (EMA): vX += alpha * (realX - vX) per animation frame.
+  // Lower alpha = more smoothing = slower apparent cursor motion.
+  // Level 1=slight(α=0.25) Level 2=medium(α=0.15) Level 3=heavy(α=0.08)
+  slowCursor: {
+    enable: (level = 1) => {
+      const alphas = [0.25, 0.15, 0.08];
+      const alpha = alphas[(level - 1)] ?? 0.25;
+
+      // Update alpha dynamically — frame loop reads it on every tick,
+      // so changing levels takes effect immediately without recreating everything.
+      (window as Window & { __inculvaSlowAlpha?: number }).__inculvaSlowAlpha = alpha;
+
+      // If virtual cursor already exists just updating alpha is sufficient.
+      if (document.getElementById("inculva-slow-cursor")) return;
+
+      // Hide the OS cursor on all page elements (but keep it on widget itself).
+      injectStyle(
+        "inculva-slow-cursor-hide",
+        `body *:not([id^="inculva"]):not([class*="inculva"]) { cursor: none !important; }`
+      );
+
+      // Virtual cursor element — classic white-fill / black-stroke arrow.
+      const sz = 36;
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${sz}" height="${sz}" viewBox="0 0 24 24">` +
+        `<path d="M5 2 L5 20 L9 16 L12 22.5 L15 21 L12 14.5 L18.5 14.5 Z" ` +
+        `fill="white" stroke="black" stroke-width="1.8" stroke-linejoin="round" paint-order="stroke fill"/>` +
+        `</svg>`;
+
+      const cursor = document.createElement("div");
+      cursor.id = "inculva-slow-cursor";
+      cursor.style.cssText = [
+        "position:fixed",
+        "pointer-events:none",
+        "z-index:2147483647",
+        "top:0",
+        "left:0",
+        `width:${sz}px`,
+        `height:${sz}px`,
+        "will-change:left,top",
+        "transition:none",
+      ].join(";");
+      cursor.innerHTML = svg;
+      document.documentElement.appendChild(cursor);
+
+      // Separate real pointer position (updated instantly) from virtual/rendered position.
+      let realX = window.innerWidth / 2;
+      let realY = window.innerHeight / 2;
+      let vX = realX;
+      let vY = realY;
+
+      const onMove = (e: MouseEvent) => {
+        realX = e.clientX;
+        realY = e.clientY;
+      };
+      document.addEventListener("mousemove", onMove);
+
+      let rafId = 0;
+      const el = document.getElementById("inculva-slow-cursor");
+
+      function frame() {
+        const a = (window as Window & { __inculvaSlowAlpha?: number }).__inculvaSlowAlpha ?? 0.25;
+        // Hotspot offset: top-left of SVG arrow is at ~(6px, 3px) within the 36px viewbox.
+        const hx = 6 * (sz / 24);
+        const hy = 3 * (sz / 24);
+        vX += (realX - vX) * a;
+        vY += (realY - vY) * a;
+        if (el) {
+          el.style.left = `${vX - hx}px`;
+          el.style.top = `${vY - hy}px`;
+        }
+        rafId = requestAnimationFrame(frame);
+      }
+      rafId = requestAnimationFrame(frame);
+
+      (window as Window & { __inculvaSlowCursorCleanup?: () => void }).__inculvaSlowCursorCleanup = () => {
+        document.removeEventListener("mousemove", onMove);
+        cancelAnimationFrame(rafId);
+      };
+    },
+    disable: () => {
+      removeStyle("inculva-slow-cursor-hide");
+      (window as Window & { __inculvaSlowCursorCleanup?: () => void }).__inculvaSlowCursorCleanup?.();
+      delete (window as Window & { __inculvaSlowCursorCleanup?: () => void }).__inculvaSlowCursorCleanup;
+      delete (window as Window & { __inculvaSlowAlpha?: number }).__inculvaSlowAlpha;
+      document.getElementById("inculva-slow-cursor")?.remove();
+    },
+  },
+
   // ── Hidden stubs (not shown in grid, reserved for future phases) ─────────────
   toolTips: { enable: () => {}, disable: () => {} },
   sustainabilityMode: { enable: () => {}, disable: () => {} },
-  slowCursor: { enable: () => {}, disable: () => {} },
   dictionary: { enable: () => {}, disable: () => {} },
 };

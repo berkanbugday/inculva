@@ -1,8 +1,19 @@
-import type { ColorBlindType, WidgetConfig, WidgetFeatures } from "@inculva/types";
-import { featureHandlers, getColorBlindType, setColorBlindType, FEATURE_LEVELS, CBM_CYCLE_TYPES } from "./features/index.js";
+import type {
+  ColorBlindType,
+  WidgetConfig,
+  WidgetFeatures,
+} from "@inculva/types";
+import {
+  featureHandlers,
+  getColorBlindType,
+  setColorBlindType,
+  FEATURE_LEVELS,
+  CBM_CYCLE_TYPES,
+} from "./features/index.js";
 import {
   createPanel,
   updatePanel,
+  updatePreFooterSide,
   createTriggerButton,
   applyPosition,
   applyPanelPosition,
@@ -51,7 +62,7 @@ const DEFAULT_CONFIG: Omit<WidgetConfig, "siteId"> = {
     contentMagnifier: true,
     toolTips: false,
     sustainabilityMode: false,
-    slowCursor: false,
+    slowCursor: true,
     dictionary: false,
     lineHeight: true,
     highlightTitles: true,
@@ -116,22 +127,25 @@ class InculvaWidget {
     style.id = "inculva-styles";
     style.textContent = widgetStyles.replace(
       /var\(--inculva-primary,\s*#0066cc\)/g,
-      `var(--inculva-primary, ${this.config.primaryColor})`
+      `var(--inculva-primary, ${this.config.primaryColor})`,
     );
     document.head.appendChild(style);
 
     document.documentElement.style.setProperty(
       "--inculva-primary",
-      this.config.primaryColor
+      this.config.primaryColor,
     );
   }
 
   private applyTheme(): void {
     // Widget uses its own visual style (corpowid-style light panel).
     // data-inculva-theme is still set for any custom theme overrides.
-    const theme = this.config.theme === "auto"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-      : this.config.theme;
+    const theme =
+      this.config.theme === "auto"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light"
+        : this.config.theme;
     document.documentElement.setAttribute("data-inculva-theme", theme);
 
     // Apply panel-side hint so border-radius flips correctly
@@ -142,13 +156,16 @@ class InculvaWidget {
   private renderWidget(): void {
     this.btn = createTriggerButton(this.config.primaryColor);
     // Badge is injected into the button by createTriggerButton
-    this.badge = this.btn.querySelector<HTMLSpanElement>("#inculva-widget-badge")!;
+    this.badge = this.btn.querySelector<HTMLSpanElement>(
+      "#inculva-widget-badge",
+    )!;
 
     this.panel = createPanel(
       this.config.features,
       this.config.language,
       this.config.accessibilityStatementUrl,
       this.config.whiteLabelText,
+      this.config.position.includes("left"),
     );
 
     // Transparent backdrop — captures click-outside-to-close without dimming
@@ -179,44 +196,71 @@ class InculvaWidget {
       }
     });
     this.panel.addEventListener("click", (e) => {
-      const actionTarget = (e.target as HTMLElement).closest("[data-inculva-action]") as HTMLElement | null;
+      const actionTarget = (e.target as HTMLElement).closest(
+        "[data-inculva-action]",
+      ) as HTMLElement | null;
       if (actionTarget) {
         const action = actionTarget.dataset["inculvaAction"];
-        if (action === "close") { this.closePanel(); return; }
-        if (action === "reset") { this.resetAll(); return; }
-        if (action === "toggle-profiles") { this.toggleProfiles(); return; }
+        if (action === "close") {
+          this.closePanel();
+          return;
+        }
+        if (action === "reset") {
+          this.resetAll();
+          return;
+        }
+        if (action === "toggle-profiles") {
+          this.toggleProfiles();
+          return;
+        }
+        if (action === "switch-side") {
+          this.switchSide();
+          return;
+        }
       }
       // Size mode switch (Mini / Regular / XL)
       // Must match ONLY the size-bar pills or mini-expand button — NOT the panel
       // itself, which carries data-size="regular" as a layout flag and would
       // intercept every click via closest() if used as the selector.
       const sizeTarget = (e.target as HTMLElement).closest(
-        ".inculva-ctrl-btn.inculva-size-btn, .inculva-mini-btn"
+        ".inculva-ctrl-btn.inculva-size-btn, .inculva-mini-btn",
       ) as HTMLElement | null;
       if (sizeTarget?.dataset["size"]) {
-        this.switchSize(sizeTarget.dataset["size"] as "mini" | "regular" | "xl");
+        this.switchSize(
+          sizeTarget.dataset["size"] as "mini" | "regular" | "xl",
+        );
         return;
       }
       // Category tab switch
-      const tabTarget = (e.target as HTMLElement).closest("[data-inculva-tab]") as HTMLElement | null;
+      const tabTarget = (e.target as HTMLElement).closest(
+        "[data-inculva-tab]",
+      ) as HTMLElement | null;
       if (tabTarget?.dataset["inculvaTab"]) {
         this.switchTab(tabTarget.dataset["inculvaTab"]);
         return;
       }
       // Profile activation
-      const profileTarget = (e.target as HTMLElement).closest("[data-profile]") as HTMLElement | null;
+      const profileTarget = (e.target as HTMLElement).closest(
+        "[data-profile]",
+      ) as HTMLElement | null;
       if (profileTarget?.dataset["profile"]) {
         this.activateProfile(profileTarget.dataset["profile"]);
         return;
       }
       // Color blind type selector click
-      const cbmTypeTarget = (e.target as HTMLElement).closest("[data-cbm-type]") as HTMLElement | null;
+      const cbmTypeTarget = (e.target as HTMLElement).closest(
+        "[data-cbm-type]",
+      ) as HTMLElement | null;
       if (cbmTypeTarget?.dataset["cbmType"]) {
-        this.selectColorBlindType(cbmTypeTarget.dataset["cbmType"] as ColorBlindType);
+        this.selectColorBlindType(
+          cbmTypeTarget.dataset["cbmType"] as ColorBlindType,
+        );
         return;
       }
       // Feature toggle / cycle click
-      const target = (e.target as HTMLElement).closest("[data-feature]") as HTMLElement | null;
+      const target = (e.target as HTMLElement).closest(
+        "[data-feature]",
+      ) as HTMLElement | null;
       if (target?.dataset["feature"]) {
         const feat = target.dataset["feature"] as keyof WidgetFeatures;
         if (FEATURE_LEVELS[feat]) {
@@ -246,11 +290,15 @@ class InculvaWidget {
 
     // Tooltip hover delegation on the panel
     this.panel.addEventListener("mouseover", (e) => {
-      const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-tooltip]");
+      const btn = (e.target as HTMLElement).closest<HTMLElement>(
+        "[data-tooltip]",
+      );
       if (btn) this._showTooltip(btn);
     });
     this.panel.addEventListener("mouseout", (e) => {
-      const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-tooltip]");
+      const btn = (e.target as HTMLElement).closest<HTMLElement>(
+        "[data-tooltip]",
+      );
       if (btn) this._hideTooltip();
     });
 
@@ -314,7 +362,7 @@ class InculvaWidget {
     // Move focus to first interactive element after the panel is visible
     requestAnimationFrame(() => {
       const first = this.panel.querySelector<HTMLElement>(
-        'button:not([disabled]), [href]:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        'button:not([disabled]), [href]:not([disabled]), [tabindex]:not([tabindex="-1"])',
       );
       first?.focus();
     });
@@ -335,8 +383,8 @@ class InculvaWidget {
   private trapFocus(e: KeyboardEvent): void {
     const focusable = Array.from(
       this.panel.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
-      )
+        'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
+      ),
     ).filter((el) => el.offsetParent !== null); // visible only
 
     if (focusable.length === 0) return;
@@ -383,7 +431,9 @@ class InculvaWidget {
       this.trackEvent("feature_enabled", feature);
     }
 
-    const btn = this.panel.querySelector<HTMLElement>(`[data-feature="${feature}"]`);
+    const btn = this.panel.querySelector<HTMLElement>(
+      `[data-feature="${feature}"]`,
+    );
     if (btn) {
       btn.classList.toggle("active", !isActive);
       btn.setAttribute("aria-pressed", String(!isActive));
@@ -416,7 +466,10 @@ class InculvaWidget {
   /** Cycle a leveled feature: Off → L1 → L2 → … → Lmax → Off */
   private cycleFeatureLevel(feature: keyof WidgetFeatures): void {
     const maxLevels = FEATURE_LEVELS[feature];
-    if (!maxLevels) { this.toggleFeature(feature); return; }
+    if (!maxLevels) {
+      this.toggleFeature(feature);
+      return;
+    }
 
     const handler = featureHandlers[feature];
     const currentLevel = this.featureLevels.get(feature) ?? 0;
@@ -434,7 +487,9 @@ class InculvaWidget {
       this.trackEvent("feature_enabled", feature);
     }
 
-    const btn = this.panel.querySelector<HTMLElement>(`[data-feature="${feature}"]`);
+    const btn = this.panel.querySelector<HTMLElement>(
+      `[data-feature="${feature}"]`,
+    );
     if (btn) {
       btn.classList.toggle("active", nextLevel > 0);
       btn.setAttribute("aria-pressed", String(nextLevel > 0));
@@ -449,18 +504,20 @@ class InculvaWidget {
     if (feature === "colorBlindMode" && btn) {
       const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
       if (labelEl) {
-        labelEl.textContent = nextLevel > 0
-          ? this._cbmTypeName(nextLevel)
-          : (this.labels["colorBlindMode"] ?? "Color Blind");
+        labelEl.textContent =
+          nextLevel > 0
+            ? this._cbmTypeName(nextLevel)
+            : (this.labels["colorBlindMode"] ?? "Color Blind");
       }
     }
 
     const featureName = this.labels[feature] ?? feature;
-    const announcement = feature === "colorBlindMode" && nextLevel > 0
-      ? `${featureName}: ${this._cbmTypeName(nextLevel)}`
-      : nextLevel > 0
-        ? `${featureName} level ${nextLevel} of ${maxLevels}`
-        : `${featureName} disabled`;
+    const announcement =
+      feature === "colorBlindMode" && nextLevel > 0
+        ? `${featureName}: ${this._cbmTypeName(nextLevel)}`
+        : nextLevel > 0
+          ? `${featureName} level ${nextLevel} of ${maxLevels}`
+          : `${featureName} disabled`;
     this.announce(announcement);
 
     this.updateActiveBadge();
@@ -473,15 +530,21 @@ class InculvaWidget {
       const handler = featureHandlers[feature];
       handler.disable();
       this.activeFeatures.delete(feature);
-      const btn = this.panel.querySelector<HTMLElement>(`[data-feature="${feature}"]`);
+      const btn = this.panel.querySelector<HTMLElement>(
+        `[data-feature="${feature}"]`,
+      );
       if (btn) {
         btn.classList.remove("active");
         btn.setAttribute("aria-pressed", "false");
         delete btn.dataset["level"];
         // Restore colorBlindMode label to default
         if (feature === "colorBlindMode") {
-          const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
-          if (labelEl) labelEl.textContent = this.labels["colorBlindMode"] ?? "Color Blind";
+          const labelEl = btn.querySelector<HTMLElement>(
+            ".inculva-feature-label",
+          );
+          if (labelEl)
+            labelEl.textContent =
+              this.labels["colorBlindMode"] ?? "Color Blind";
         }
       }
     }
@@ -489,14 +552,18 @@ class InculvaWidget {
 
     // Clear active profiles
     for (const profileKey of [...this.activeProfiles]) {
-      const item = this.panel.querySelector<HTMLElement>(`[data-profile="${profileKey}"]`);
+      const item = this.panel.querySelector<HTMLElement>(
+        `[data-profile="${profileKey}"]`,
+      );
       item?.classList.remove("active");
       item?.setAttribute("aria-pressed", "false");
     }
     this.activeProfiles.clear();
 
     // Hide color blind sub-selector
-    const selector = this.panel.querySelector<HTMLElement>(".inculva-cbm-selector");
+    const selector = this.panel.querySelector<HTMLElement>(
+      ".inculva-cbm-selector",
+    );
     selector?.classList.remove("visible");
 
     this.updateActiveBadge();
@@ -506,7 +573,9 @@ class InculvaWidget {
 
   /** Switch the active category tab and update the feature grid. */
   private switchTab(tab: string): void {
-    for (const btn of this.panel.querySelectorAll<HTMLElement>(".inculva-tab-btn")) {
+    for (const btn of this.panel.querySelectorAll<HTMLElement>(
+      ".inculva-tab-btn",
+    )) {
       const isActive = btn.dataset["inculvaTab"] === tab;
       btn.classList.toggle("active", isActive);
       btn.setAttribute("aria-selected", String(isActive));
@@ -520,10 +589,13 @@ class InculvaWidget {
   private switchSize(size: "mini" | "regular" | "large" | "xl"): void {
     const normalized = size === "xl" ? "large" : size;
     this.panel.dataset["size"] = normalized;
-    for (const btn of this.panel.querySelectorAll<HTMLElement>(".inculva-size-btn")) {
+    for (const btn of this.panel.querySelectorAll<HTMLElement>(
+      ".inculva-size-btn",
+    )) {
       btn.classList.toggle("active", btn.dataset["size"] === normalized);
     }
     applyPanelPosition(this.panel, this.btn, this.config.position);
+    this.saveCurrentPrefs();
   }
 
   /** Switch the panel language (RTL/LTR + update select value). */
@@ -536,18 +608,55 @@ class InculvaWidget {
       this.panel.removeAttribute("dir");
     }
     // Sync select in case called programmatically
-    const select = this.panel.querySelector<HTMLSelectElement>(".inculva-lang-select");
+    const select = this.panel.querySelector<HTMLSelectElement>(
+      ".inculva-lang-select",
+    );
     if (select && select.value !== lang) select.value = lang;
   }
 
-  /** Show / hide the profiles grid. */
+  /** Toggle the widget between left-side and right-side of the viewport. */
+  private switchSide(): void {
+    const pos = this.config.position;
+    const isLeft = pos.includes("left");
+    const newPos = isLeft
+      ? (pos.replace("left", "right") as typeof this.config.position)
+      : (pos.replace("right", "left") as typeof this.config.position);
+
+    this.config.position = newPos;
+
+    // Re-apply trigger button and panel positions
+    applyPosition(this.btn, newPos);
+    applyPosition(this.panel, newPos);
+
+    const nowLeft = newPos.includes("left");
+    if (nowLeft) {
+      this.panel.setAttribute("data-panel-side", "left");
+    } else {
+      this.panel.removeAttribute("data-panel-side");
+    }
+
+    // Re-position the open panel immediately
+    if (this.isOpen) {
+      applyPanelPosition(this.panel, this.btn, newPos);
+    }
+
+    // Update pre-footer switch label + toggle state
+    updatePreFooterSide(this.panel, nowLeft, this.labels);
+    this.saveCurrentPrefs();
+  }
+
+  /** Show / hide the profiles list. */
   private toggleProfiles(): void {
-    const toggle = this.panel.querySelector<HTMLElement>(".inculva-profiles-toggle");
-    const grid   = this.panel.querySelector<HTMLElement>(".inculva-profiles-grid");
-    if (!toggle || !grid) return;
+    const toggle = this.panel.querySelector<HTMLElement>(
+      ".inculva-profiles-toggle",
+    );
+    const list = this.panel.querySelector<HTMLElement>(
+      ".inculva-profiles-list",
+    );
+    if (!toggle || !list) return;
     const expanded = toggle.getAttribute("aria-expanded") === "true";
     toggle.setAttribute("aria-expanded", String(!expanded));
-    grid.hidden = expanded;
+    list.hidden = expanded;
   }
 
   /** Activate or deactivate an accessibility profile (preset feature combo). */
@@ -576,11 +685,15 @@ class InculvaWidget {
     }
 
     // Update profile item active state
-    const item = this.panel.querySelector<HTMLElement>(`[data-profile="${profileKey}"]`);
+    const item = this.panel.querySelector<HTMLElement>(
+      `[data-profile="${profileKey}"]`,
+    );
     item?.classList.toggle("active", !isActive);
     item?.setAttribute("aria-pressed", String(!isActive));
 
-    this.announce(`Profile ${profile.label} ${!isActive ? "activated" : "deactivated"}`);
+    this.announce(
+      `Profile ${profile.label} ${!isActive ? "activated" : "deactivated"}`,
+    );
   }
 
   /** Sync the red badge count on the trigger button, header pill, and per-tab counts. */
@@ -591,19 +704,24 @@ class InculvaWidget {
       this.badge.classList.toggle("visible", count > 0);
     }
     // Sync header active-count pill
-    const countEl = this.panel.querySelector<HTMLElement>(".inculva-active-count");
+    const countEl = this.panel.querySelector<HTMLElement>(
+      ".inculva-active-count",
+    );
     if (countEl) {
       countEl.textContent = `${count} active`;
       countEl.hidden = count === 0;
     }
     // Sync per-tab count badges
     for (const [tabKey, feats] of Object.entries(FEATURE_CATEGORIES)) {
-      const tabCount = (feats as readonly string[]).filter(
-        (f) => this.activeFeatures.has(f as keyof WidgetFeatures)
+      const tabCount = (feats as readonly string[]).filter((f) =>
+        this.activeFeatures.has(f as keyof WidgetFeatures),
       ).length;
-      const tabBtn = this.panel.querySelector<HTMLElement>(`[data-inculva-tab="${tabKey}"]`);
+      const tabBtn = this.panel.querySelector<HTMLElement>(
+        `[data-inculva-tab="${tabKey}"]`,
+      );
       if (!tabBtn) continue;
-      const tabCountEl = tabBtn.querySelector<HTMLElement>(".inculva-tab-count");
+      const tabCountEl =
+        tabBtn.querySelector<HTMLElement>(".inculva-tab-count");
       if (tabCountEl) {
         tabCountEl.textContent = String(tabCount);
         tabCountEl.hidden = tabCount === 0;
@@ -615,7 +733,7 @@ class InculvaWidget {
   private _cbmTypeName(level: number): string {
     const key = CBM_CYCLE_TYPES[level - 1];
     if (!key) return this.labels["colorBlindMode"] ?? "Color Blind";
-    return this.labels[key] ?? (key.charAt(0).toUpperCase() + key.slice(1));
+    return this.labels[key] ?? key.charAt(0).toUpperCase() + key.slice(1);
   }
 
   private selectColorBlindType(type: ColorBlindType): void {
@@ -630,7 +748,9 @@ class InculvaWidget {
     // Update active state on type buttons
     const selector = this.panel.querySelector(".inculva-cbm-selector");
     if (selector) {
-      for (const btn of selector.querySelectorAll<HTMLElement>("[data-cbm-type]")) {
+      for (const btn of selector.querySelectorAll<HTMLElement>(
+        "[data-cbm-type]",
+      )) {
         const isThis = btn.dataset["cbmType"] === type;
         btn.classList.toggle("active", isThis);
         btn.setAttribute("aria-pressed", String(isThis));
@@ -648,30 +768,73 @@ class InculvaWidget {
       prefs[feature] = this.featureLevels.get(feature) ?? true;
     }
     prefs["colorBlindType"] = getColorBlindType();
+    // Persist UI state: widget size and position
+    prefs["widgetSize"] = this.panel.dataset["size"] ?? "regular";
+    prefs["widgetPosition"] = this.config.position;
     savePrefs(prefs);
   }
 
   private restorePrefs(): void {
     const prefs = loadPrefs();
+
+    // Restore position FIRST — so that when switchSize() calls saveCurrentPrefs()
+    // it serialises the correct position rather than the default.
+    const savedPos = prefs["widgetPosition"];
+    if (
+      typeof savedPos === "string" &&
+      ["bottom-right", "bottom-left", "top-right", "top-left"].includes(
+        savedPos,
+      )
+    ) {
+      this.config.position = savedPos as typeof this.config.position;
+      applyPosition(this.btn, this.config.position);
+      applyPosition(this.panel, this.config.position);
+      const nowLeft = this.config.position.includes("left");
+      if (nowLeft) {
+        this.panel.setAttribute("data-panel-side", "left");
+      } else {
+        this.panel.removeAttribute("data-panel-side");
+      }
+      updatePreFooterSide(this.panel, nowLeft, this.labels);
+    }
+
+    // Restore widget size (after position is set so saveCurrentPrefs() captures both)
+    if (
+      typeof prefs["widgetSize"] === "string" &&
+      ["mini", "regular", "large"].includes(prefs["widgetSize"] as string)
+    ) {
+      this.switchSize(prefs["widgetSize"] as "mini" | "regular" | "large");
+    }
+
     for (const [feature, value] of Object.entries(prefs)) {
-      if (feature === "colorBlindType") continue; // legacy key — ignored; type is now baked into level
+      if (feature === "colorBlindType") continue; // legacy key — ignored
+      if (feature === "widgetSize" || feature === "widgetPosition") continue;
       if (!(feature in featureHandlers)) continue;
       const feat = feature as keyof WidgetFeatures;
       const maxLevels = FEATURE_LEVELS[feat];
 
-      if (maxLevels && typeof value === "number" && value >= 1 && value <= maxLevels) {
+      if (
+        maxLevels &&
+        typeof value === "number" &&
+        value >= 1 &&
+        value <= maxLevels
+      ) {
         // Restore leveled feature at its saved level
         featureHandlers[feat].enable(value);
         this.activeFeatures.add(feat);
         this.featureLevels.set(feat, value);
-        const btn = this.panel.querySelector<HTMLElement>(`[data-feature="${feat}"]`);
+        const btn = this.panel.querySelector<HTMLElement>(
+          `[data-feature="${feat}"]`,
+        );
         if (btn) {
           btn.classList.add("active");
           btn.setAttribute("aria-pressed", "true");
           btn.dataset["level"] = String(value);
           // Restore colorBlindMode type label
           if (feat === "colorBlindMode") {
-            const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
+            const labelEl = btn.querySelector<HTMLElement>(
+              ".inculva-feature-label",
+            );
             if (labelEl) labelEl.textContent = this._cbmTypeName(value);
           }
         }
@@ -695,12 +858,12 @@ class InculvaWidget {
   private async fetchRemoteConfig(): Promise<boolean> {
     try {
       const res = await fetch(
-        `${this.apiBase}/widget/config/${this.config.siteId}`
+        `${this.apiBase}/widget/config/${this.config.siteId}`,
       );
 
       if (res.status === 404 || res.status === 403) {
         console.warn(
-          `[Inculva] Widget disabled — ${res.status === 404 ? "site not found" : "domain not authorized"}.`
+          `[Inculva] Widget disabled — ${res.status === 404 ? "site not found" : "domain not authorized"}.`,
         );
         return false;
       }
@@ -717,23 +880,38 @@ class InculvaWidget {
           accessibilityStatementUrl?: string;
         };
       };
-      const remote = body.data ?? (body as Partial<WidgetConfig> & {
-        labels?: Record<string, string>;
-        accessibilityStatementUrl?: string;
-      });
+      const remote =
+        body.data ??
+        (body as Partial<WidgetConfig> & {
+          labels?: Record<string, string>;
+          accessibilityStatementUrl?: string;
+        });
 
       if (remote.primaryColor) this.config.primaryColor = remote.primaryColor;
-      if (remote.features) this.config.features = { ...this.config.features, ...remote.features };
+      if (remote.features)
+        this.config.features = { ...this.config.features, ...remote.features };
       if (remote.language) this.config.language = remote.language;
       if (remote.position) this.config.position = remote.position;
       if (remote.theme) this.config.theme = remote.theme;
-      if (remote.accessibilityStatementUrl !== undefined) this.config.accessibilityStatementUrl = remote.accessibilityStatementUrl;
-      if (remote.whiteLabelText !== undefined) this.config.whiteLabelText = remote.whiteLabelText;
-      if (remote.borderRadius !== undefined) this.config.borderRadius = remote.borderRadius;
-      if (remote.buttonSize !== undefined) this.config.buttonSize = remote.buttonSize;
-      if (remote.fontFamily !== undefined) this.config.fontFamily = remote.fontFamily;
-      if ((remote as Partial<WidgetConfig>).headerBgColor !== undefined) this.config.headerBgColor = (remote as Partial<WidgetConfig>).headerBgColor;
-      if ((remote as Partial<WidgetConfig>).footerBgColor !== undefined) this.config.footerBgColor = (remote as Partial<WidgetConfig>).footerBgColor;
+      if (remote.accessibilityStatementUrl !== undefined)
+        this.config.accessibilityStatementUrl =
+          remote.accessibilityStatementUrl;
+      if (remote.whiteLabelText !== undefined)
+        this.config.whiteLabelText = remote.whiteLabelText;
+      if (remote.borderRadius !== undefined)
+        this.config.borderRadius = remote.borderRadius;
+      if (remote.buttonSize !== undefined)
+        this.config.buttonSize = remote.buttonSize;
+      if (remote.fontFamily !== undefined)
+        this.config.fontFamily = remote.fontFamily;
+      if ((remote as Partial<WidgetConfig>).headerBgColor !== undefined)
+        this.config.headerBgColor = (
+          remote as Partial<WidgetConfig>
+        ).headerBgColor!;
+      if ((remote as Partial<WidgetConfig>).footerBgColor !== undefined)
+        this.config.footerBgColor = (
+          remote as Partial<WidgetConfig>
+        ).footerBgColor!;
       if (remote.labels) this.labels = remote.labels;
 
       return true;
@@ -752,35 +930,42 @@ class InculvaWidget {
     if (this.config.borderRadius !== undefined) {
       document.documentElement.style.setProperty(
         "--inculva-border-radius",
-        `${this.config.borderRadius}px`
+        `${this.config.borderRadius}px`,
       );
     }
     if (this.config.buttonSize !== undefined) {
       document.documentElement.style.setProperty(
         "--inculva-button-size",
-        this.config.buttonSize === "small" ? "44px" : this.config.buttonSize === "large" ? "64px" : "52px"
+        this.config.buttonSize === "small"
+          ? "44px"
+          : this.config.buttonSize === "large"
+            ? "64px"
+            : "52px",
       );
     }
     // Set the CSS custom property only — no external font request is made.
     // If the font is already present on the customer's site it will render;
     // otherwise the stack falls back to sans-serif. This keeps the widget
     // fully compatible with strict font-src CSP policies.
-    if (this.config.fontFamily !== undefined && this.config.fontFamily !== "system") {
+    if (
+      this.config.fontFamily !== undefined &&
+      this.config.fontFamily !== "system"
+    ) {
       document.documentElement.style.setProperty(
         "--inculva-font",
-        this.getFontStack(this.config.fontFamily)
+        this.getFontStack(this.config.fontFamily),
       );
     }
     if (this.config.headerBgColor) {
       document.documentElement.style.setProperty(
         "--inculva-header-bg",
-        this.config.headerBgColor
+        this.config.headerBgColor,
       );
     }
     if (this.config.footerBgColor) {
       document.documentElement.style.setProperty(
         "--inculva-footer-bg",
-        this.config.footerBgColor
+        this.config.footerBgColor,
       );
     }
 
@@ -795,6 +980,13 @@ class InculvaWidget {
         this.config.whiteLabelText,
       );
     }
+
+    // Sync panel side attribute with final config position (remote may override it)
+    if (this.config.position.includes("left")) {
+      this.panel.setAttribute("data-panel-side", "left");
+    } else {
+      this.panel.removeAttribute("data-panel-side");
+    }
   }
 
   private getFontStack(fontFamily: string): string {
@@ -808,7 +1000,7 @@ class InculvaWidget {
 
   private trackEvent(
     event: "opened" | "closed" | "feature_enabled" | "feature_disabled",
-    feature?: keyof WidgetFeatures
+    feature?: keyof WidgetFeatures,
   ): void {
     const payload = {
       siteId: this.config.siteId,
@@ -842,10 +1034,8 @@ function autoInit(): void {
     _selfScript?.getAttribute("data-site-id") ??
     // Fallback: dashboard preview iframe injects __INCULVA_PREVIEW_CONFIG__
     // with the siteId when the script is loaded via srcdoc (no currentScript).
-    (
-      (window as Window & { __INCULVA_PREVIEW_CONFIG__?: PreviewConfig })
-        .__INCULVA_PREVIEW_CONFIG__?.siteId
-    );
+    (window as Window & { __INCULVA_PREVIEW_CONFIG__?: PreviewConfig })
+      .__INCULVA_PREVIEW_CONFIG__?.siteId;
 
   if (!siteId) {
     console.warn("[Inculva] Missing data-site-id attribute on script tag.");
@@ -866,4 +1056,5 @@ if (document.readyState === "loading") {
 }
 
 // Allow manual init
-(window as unknown as { InculvaWidget: typeof InculvaWidget }).InculvaWidget = InculvaWidget;
+(window as unknown as { InculvaWidget: typeof InculvaWidget }).InculvaWidget =
+  InculvaWidget;

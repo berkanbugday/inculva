@@ -22,11 +22,40 @@ export type ProfileDef = {
 // ---------------------------------------------------------------------------
 // Feature categories — maps each feature to a panel tab
 // ---------------------------------------------------------------------------
-export const FEATURE_CATEGORIES: Readonly<Record<string, readonly (keyof WidgetFeatures)[]>> = {
-  vision:  ["highContrast", "darkMode", "blueLightFilter", "grayscale", "colorBlindMode", "saturation", "highlightLinks", "highlightTitles", "hideImages"],
-  reading: ["textResizing", "textSpacing", "textAlign", "lineHeight", "dyslexiaFont", "readingGuide", "readingMask", "contentMagnifier", "screenReader"],
-  motor:   ["keyboardNavigation", "focusHighlight", "largeClickTargets", "cursorEnhancement", "skipNavigation"],
-  calm:    ["pauseAnimations", "muteMedia"],
+export const FEATURE_CATEGORIES: Readonly<
+  Record<string, readonly (keyof WidgetFeatures)[]>
+> = {
+  vision: [
+    "highContrast",
+    "darkMode",
+    "blueLightFilter",
+    "grayscale",
+    "colorBlindMode",
+    "saturation",
+    "highlightLinks",
+    "highlightTitles",
+    "hideImages",
+  ],
+  reading: [
+    "textResizing",
+    "textSpacing",
+    "textAlign",
+    "lineHeight",
+    "dyslexiaFont",
+    "readingGuide",
+    "readingMask",
+    "contentMagnifier",
+    "screenReader",
+  ],
+  motor: [
+    "keyboardNavigation",
+    "focusHighlight",
+    "largeClickTargets",
+    "cursorEnhancement",
+    "slowCursor",
+    "skipNavigation",
+  ],
+  calm: ["pauseAnimations", "muteMedia"],
 };
 
 export function getFeatureCategory(feature: keyof WidgetFeatures): string {
@@ -44,17 +73,17 @@ const ICON_TRIGGER = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none
 // ---------------------------------------------------------------------------
 // Tab icons (14×14)
 // ---------------------------------------------------------------------------
-const ICON_TAB_VISION  = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>`;
+const ICON_TAB_VISION = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>`;
 const ICON_TAB_READING = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="12" height="14" rx="1.5"/><path d="M7 8h6M7 11h5M7 14h4"/></svg>`;
-const ICON_TAB_MOTOR   = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="6" r="2"/><path d="M10 9v4l-2.5 4M10 13l2.5 4M6 11h3M11 11h3"/></svg>`;
-const ICON_TAB_CALM    = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 12c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0M3 7c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0"/></svg>`;
+const ICON_TAB_MOTOR = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="6" r="2"/><path d="M10 9v4l-2.5 4M10 13l2.5 4M6 11h3M11 11h3"/></svg>`;
+const ICON_TAB_CALM = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 12c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0M3 7c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0"/></svg>`;
 
 // Size mode icons
 const ICON_COMPRESS = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 3v14"/><path d="M13 7l-4 3 4 3"/></svg>`;
-const ICON_SIZE_MINI    = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="6" width="8" height="8" rx="1.5"/></svg>`;
+const ICON_SIZE_MINI = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="6" width="8" height="8" rx="1.5"/></svg>`;
 const ICON_SIZE_REGULAR = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2"/></svg>`;
-const ICON_SIZE_LARGE   = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="1" y="1" width="18" height="18" rx="3"/><path d="M1 1h18v18H1z" fill="currentColor" opacity="0.07"/></svg>`;
-const ICON_GLOBE        = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 2.5c-2.5 2.5-2.5 12.5 0 15M10 2.5c2.5 2.5 2.5 12.5 0 15M2.5 10h15"/></svg>`;
+const ICON_SIZE_LARGE = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="1" y="1" width="18" height="18" rx="3"/><path d="M1 1h18v18H1z" fill="currentColor" opacity="0.07"/></svg>`;
+const ICON_GLOBE = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 2.5c-2.5 2.5-2.5 12.5 0 15M10 2.5c2.5 2.5 2.5 12.5 0 15M2.5 10h15"/></svg>`;
 
 // ---------------------------------------------------------------------------
 // SVG icon set — stroke-based (20×20 or 18×18), aria-hidden
@@ -76,6 +105,7 @@ const ICON_HIGHLIGHT_TITLES = `<svg width="20" height="20" viewBox="0 0 20 20" f
 const ICON_HIDE_IMAGES = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="14" height="10" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="M3 14l4-4 3 3 2-2 5 5"/><path d="M2.5 2.5l15 15"/></svg>`;
 const ICON_PAUSE = `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="5.5" y="4.5" width="3" height="11" rx="1.5" fill="currentColor" data-fill="1"/><rect x="11.5" y="4.5" width="3" height="11" rx="1.5" fill="currentColor" data-fill="1"/></svg>`;
 const ICON_CURSOR = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M5 3l10 6.5-4.5 1.5-2 5L5 3z"/></svg>`;
+const ICON_SLOW_CURSOR = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 2l9 6-4 1.5-1.5 4.5L4 2z"/><circle cx="15.5" cy="14.5" r="3"/><path d="M15.5 13v1.5l1 1"/></svg>`;
 const ICON_COLOR_BLIND = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/><path d="M3.5 3.5l13 13"/></svg>`;
 const ICON_GRAYSCALE = `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 3a7 7 0 0 0 0 14z" fill="currentColor" opacity="0.45" data-fill="1"/></svg>`;
 const ICON_SATURATION = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M10 2l6.5 9.5a6.5 6.5 0 0 1-13 0L10 2z"/></svg>`;
@@ -86,51 +116,52 @@ const ICON_MUTE = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" s
 const ICON_KEYBOARD = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="16" height="11" rx="2"/><path d="M5 9h1.5M9 9h2M13.5 9h1.5M5 12.5h10"/></svg>`;
 
 // UI icons
-const ICON_CLOSE  = `<svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
-const ICON_RESET  = `<svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 10a6 6 0 1 0 1-3.5M4 6.5V10H8"/></svg>`;
+const ICON_CLOSE = `<svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
+const ICON_RESET = `<svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 10a6 6 0 1 0 1-3.5M4 6.5V10H8"/></svg>`;
 const ICON_PERSON = `<svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="6" r="3"/><path d="M4 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>`;
 const ICON_ARROW_DOWN = `<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 5l4 4 4-4"/></svg>`;
 const ICON_EXPAND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 10h14M10 4l6 6-6 6"/></svg>`;
 
 // Profile icons (18×18)
-const ICON_P_BLIND      = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/><path d="M3 3l14 14"/></svg>`;
+const ICON_P_BLIND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/><path d="M3 3l14 14"/></svg>`;
 const ICON_P_LOW_VISION = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>`;
 const ICON_P_COLOR_BLIND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="10" r="4.5"/><circle cx="13" cy="10" r="4.5"/></svg>`;
-const ICON_P_DYSLEXIA   = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 16L8.5 4l5 12M5.5 12h6"/></svg>`;
-const ICON_P_MOTOR      = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="5" r="2"/><path d="M10 8v5l-3 4.5M10 13l3 4.5M7 12h6"/></svg>`;
-const ICON_P_COGNITIVE  = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5C4.5 4.5 3 7 3 10s1.5 5.5 4 6.5h6C15.5 15.5 17 13 17 10S15.5 4.5 13 3.5z"/><path d="M10 7v3l2 2"/></svg>`;
-const ICON_P_ATTENTION  = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 6v5M10 14v.5"/></svg>`;
-const ICON_P_EPILEPSY   = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3L6 11h5l-3 6 8-10h-5l2-4z"/></svg>`;
+const ICON_P_DYSLEXIA = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 16L8.5 4l5 12M5.5 12h6"/></svg>`;
+const ICON_P_MOTOR = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="5" r="2"/><path d="M10 8v5l-3 4.5M10 13l3 4.5M7 12h6"/></svg>`;
+const ICON_P_COGNITIVE = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5C4.5 4.5 3 7 3 10s1.5 5.5 4 6.5h6C15.5 15.5 17 13 17 10S15.5 4.5 13 3.5z"/><path d="M10 7v3l2 2"/></svg>`;
+const ICON_P_ATTENTION = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 6v5M10 14v.5"/></svg>`;
+const ICON_P_EPILEPSY = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3L6 11h5l-3 6 8-10h-5l2-4z"/></svg>`;
 const ICON_P_PARKINSONS = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13c1.5-3 4-4 5-4s3.5 1 5 4"/><circle cx="10" cy="7" r="2"/></svg>`;
 
 // ---------------------------------------------------------------------------
 // Feature list — ordered for display in the panel
 // ---------------------------------------------------------------------------
 const FEATURES: FeatureConfig[] = [
-  { key: "highContrast",       icon: ICON_HIGH_CONTRAST },
-  { key: "darkMode",           icon: ICON_DARK_MODE },
-  { key: "blueLightFilter",    icon: ICON_BLUE_LIGHT },
-  { key: "textResizing",       icon: ICON_TEXT_RESIZE },
-  { key: "textAlign",          icon: ICON_TEXT_ALIGN },
-  { key: "lineHeight",         icon: ICON_LINE_HEIGHT },
-  { key: "textSpacing",        icon: ICON_TEXT_SPACING },
-  { key: "screenReader",       icon: ICON_SCREEN_READER },
-  { key: "dyslexiaFont",       icon: ICON_DYSLEXIA },
-  { key: "readingMask",        icon: ICON_READING_MASK },
-  { key: "readingGuide",       icon: ICON_READING_GUIDE },
-  { key: "contentMagnifier",   icon: ICON_MAGNIFIER },
-  { key: "highlightLinks",     icon: ICON_HIGHLIGHT_LINKS },
-  { key: "highlightTitles",    icon: ICON_HIGHLIGHT_TITLES },
-  { key: "hideImages",         icon: ICON_HIDE_IMAGES },
-  { key: "pauseAnimations",    icon: ICON_PAUSE },
-  { key: "cursorEnhancement",  icon: ICON_CURSOR },
-  { key: "colorBlindMode",     icon: ICON_COLOR_BLIND },
-  { key: "grayscale",          icon: ICON_GRAYSCALE },
-  { key: "saturation",         icon: ICON_SATURATION },
-  { key: "focusHighlight",     icon: ICON_FOCUS },
-  { key: "largeClickTargets",  icon: ICON_TARGET },
-  { key: "skipNavigation",     icon: ICON_SKIP },
-  { key: "muteMedia",          icon: ICON_MUTE },
+  { key: "highContrast", icon: ICON_HIGH_CONTRAST },
+  { key: "darkMode", icon: ICON_DARK_MODE },
+  { key: "blueLightFilter", icon: ICON_BLUE_LIGHT },
+  { key: "textResizing", icon: ICON_TEXT_RESIZE },
+  { key: "textAlign", icon: ICON_TEXT_ALIGN },
+  { key: "lineHeight", icon: ICON_LINE_HEIGHT },
+  { key: "textSpacing", icon: ICON_TEXT_SPACING },
+  { key: "screenReader", icon: ICON_SCREEN_READER },
+  { key: "dyslexiaFont", icon: ICON_DYSLEXIA },
+  { key: "readingMask", icon: ICON_READING_MASK },
+  { key: "readingGuide", icon: ICON_READING_GUIDE },
+  { key: "contentMagnifier", icon: ICON_MAGNIFIER },
+  { key: "highlightLinks", icon: ICON_HIGHLIGHT_LINKS },
+  { key: "highlightTitles", icon: ICON_HIGHLIGHT_TITLES },
+  { key: "hideImages", icon: ICON_HIDE_IMAGES },
+  { key: "pauseAnimations", icon: ICON_PAUSE },
+  { key: "cursorEnhancement", icon: ICON_CURSOR },
+  { key: "colorBlindMode", icon: ICON_COLOR_BLIND },
+  { key: "grayscale", icon: ICON_GRAYSCALE },
+  { key: "saturation", icon: ICON_SATURATION },
+  { key: "focusHighlight", icon: ICON_FOCUS },
+  { key: "largeClickTargets", icon: ICON_TARGET },
+  { key: "slowCursor", icon: ICON_SLOW_CURSOR },
+  { key: "skipNavigation", icon: ICON_SKIP },
+  { key: "muteMedia", icon: ICON_MUTE },
   { key: "keyboardNavigation", icon: ICON_KEYBOARD },
 ];
 
@@ -138,15 +169,70 @@ const FEATURES: FeatureConfig[] = [
 // Accessibility profiles — preset feature combos
 // ---------------------------------------------------------------------------
 export const PROFILES: ProfileDef[] = [
-  { key: "blind",          label: "Blind",                  icon: ICON_P_BLIND,       features: ["screenReader", "keyboardNavigation", "skipNavigation", "textResizing"] },
-  { key: "lowVision",      label: "Low vision",             icon: ICON_P_LOW_VISION,  features: ["textResizing", "highContrast", "cursorEnhancement", "largeClickTargets"] },
-  { key: "colorBlind",     label: "Color blind",            icon: ICON_P_COLOR_BLIND, features: ["colorBlindMode"] },
-  { key: "dyslexia",       label: "Dyslexia mode",          icon: ICON_P_DYSLEXIA,    features: ["dyslexiaFont", "textSpacing", "readingGuide"] },
-  { key: "motorImpaired",  label: "Motor impaired",         icon: ICON_P_MOTOR,       features: ["keyboardNavigation", "largeClickTargets", "cursorEnhancement"] },
-  { key: "cognitive",      label: "Cognitive impairment",   icon: ICON_P_COGNITIVE,   features: ["readingMask", "pauseAnimations", "textSpacing"] },
-  { key: "attention",      label: "Attention disorder",     icon: ICON_P_ATTENTION,   features: ["readingGuide", "pauseAnimations", "textAlign"] },
-  { key: "epilepsy",       label: "Photosensitive epilepsy",icon: ICON_P_EPILEPSY,    features: ["pauseAnimations", "grayscale"] },
-  { key: "parkinsons",     label: "Parkinson's disease",    icon: ICON_P_PARKINSONS,  features: ["largeClickTargets", "keyboardNavigation", "textResizing"] },
+  {
+    key: "blind",
+    label: "Blind",
+    icon: ICON_P_BLIND,
+    features: [
+      "screenReader",
+      "keyboardNavigation",
+      "skipNavigation",
+      "textResizing",
+    ],
+  },
+  {
+    key: "lowVision",
+    label: "Low vision",
+    icon: ICON_P_LOW_VISION,
+    features: [
+      "textResizing",
+      "highContrast",
+      "cursorEnhancement",
+      "largeClickTargets",
+    ],
+  },
+  {
+    key: "colorBlind",
+    label: "Color blind",
+    icon: ICON_P_COLOR_BLIND,
+    features: ["colorBlindMode"],
+  },
+  {
+    key: "dyslexia",
+    label: "Dyslexia mode",
+    icon: ICON_P_DYSLEXIA,
+    features: ["dyslexiaFont", "textSpacing", "readingGuide"],
+  },
+  {
+    key: "motorImpaired",
+    label: "Motor impaired",
+    icon: ICON_P_MOTOR,
+    features: ["keyboardNavigation", "largeClickTargets", "cursorEnhancement"],
+  },
+  {
+    key: "cognitive",
+    label: "Cognitive impairment",
+    icon: ICON_P_COGNITIVE,
+    features: ["readingMask", "pauseAnimations", "textSpacing"],
+  },
+  {
+    key: "attention",
+    label: "Attention disorder",
+    icon: ICON_P_ATTENTION,
+    features: ["readingGuide", "pauseAnimations", "textAlign"],
+  },
+  {
+    key: "epilepsy",
+    label: "Photosensitive epilepsy",
+    icon: ICON_P_EPILEPSY,
+    features: ["pauseAnimations", "grayscale"],
+  },
+  {
+    key: "parkinsons",
+    label: "Parkinson's disease",
+    icon: ICON_P_PARKINSONS,
+    features: ["largeClickTargets", "keyboardNavigation", "textResizing"],
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -159,55 +245,64 @@ const EN_LABELS: Record<string, string> = {
   profilesTitle: "Profiles",
   closeMenu: "Close accessibility menu",
   // Category tabs
-  categoryVision:  "Vision",
+  categoryVision: "Vision",
   categoryReading: "Reading",
-  categoryMotor:   "Motor",
-  categoryCalm:    "Calm",
+  categoryMotor: "Motor",
+  categoryCalm: "Calm",
   // Features
-  highContrast:       "Contrast Mode",
-  darkMode:           "Dark Mode",
-  blueLightFilter:    "Blue Light Filter",
-  textResizing:       "Larger Text",
-  textAlign:          "Text Alignment",
-  lineHeight:         "Line Height",
-  textSpacing:        "Text Spacing",
-  screenReader:       "Screen Reader",
-  dyslexiaFont:       "Dyslexia Mode",
-  readingMask:        "Reading Mask",
-  readingGuide:       "Reading Guide",
-  contentMagnifier:   "Magnifier",
-  highlightLinks:     "Link Selection",
-  highlightTitles:    "Highlight Titles",
-  hideImages:         "Hide Images",
-  pauseAnimations:    "Stop Animation",
-  cursorEnhancement:  "Cursor",
-  colorBlindMode:     "Color Blind",
-  grayscale:          "Grayscale",
-  saturation:         "Saturation",
-  focusHighlight:     "Focus Highlight",
-  largeClickTargets:  "Large Targets",
-  skipNavigation:     "Skip to Main",
-  muteMedia:          "Mute Media",
+  highContrast: "Contrast Mode",
+  darkMode: "Dark Mode",
+  blueLightFilter: "Blue Light Filter",
+  textResizing: "Larger Text",
+  textAlign: "Text Alignment",
+  lineHeight: "Line Height",
+  textSpacing: "Text Spacing",
+  screenReader: "Screen Reader",
+  dyslexiaFont: "Dyslexia Mode",
+  readingMask: "Reading Mask",
+  readingGuide: "Reading Guide",
+  contentMagnifier: "Magnifier",
+  highlightLinks: "Link Selection",
+  highlightTitles: "Highlight Titles",
+  hideImages: "Hide Images",
+  pauseAnimations: "Stop Animation",
+  cursorEnhancement: "Cursor",
+  colorBlindMode: "Color Blind",
+  grayscale: "Grayscale",
+  saturation: "Saturation",
+  focusHighlight: "Focus Indicator",
+  largeClickTargets: "Large Targets",
+  slowCursor: "Slow Cursor",
+  skipNavigation: "Skip to Main",
+  muteMedia: "Mute Media",
   keyboardNavigation: "Keyboard Nav",
   accessibilityStatement: "Accessibility Statement",
+  resetSettings: "Reset settings",
+  switchWidgetLeft: "Switch widget to left",
+  switchWidgetRight: "Switch widget to right",
   // Color blind sub-types
-  deuteranopia:  "Deuteranopia",
-  protanopia:    "Protanopia",
-  tritanopia:    "Tritanopia",
+  deuteranopia: "Deuteranopia",
+  protanopia: "Protanopia",
+  tritanopia: "Tritanopia",
   achromatopsia: "Achromatopsia",
   // Profile labels
-  profile_blind:         "Blind",
-  profile_lowVision:     "Low vision",
-  profile_colorBlind:    "Color blind",
-  profile_dyslexia:      "Dyslexia",
+  profile_blind: "Blind",
+  profile_lowVision: "Low vision",
+  profile_colorBlind: "Color blind",
+  profile_dyslexia: "Dyslexia",
   profile_motorImpaired: "Motor",
-  profile_cognitive:     "Cognitive",
-  profile_attention:     "Attention",
-  profile_epilepsy:      "Epilepsy",
-  profile_parkinsons:    "Parkinson's",
+  profile_cognitive: "Cognitive",
+  profile_attention: "Attention",
+  profile_epilepsy: "Epilepsy",
+  profile_parkinsons: "Parkinson's",
 };
 
-const COLOR_BLIND_TYPES: ColorBlindType[] = ["deuteranopia", "protanopia", "tritanopia", "achromatopsia"];
+const COLOR_BLIND_TYPES: ColorBlindType[] = [
+  "deuteranopia",
+  "protanopia",
+  "tritanopia",
+  "achromatopsia",
+];
 const RTL_LANGS = new Set(["ar", "he", "fa", "ur"]);
 
 export const SUPPORTED_LANGUAGES: readonly { code: string; label: string }[] = [
@@ -267,7 +362,10 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
   const closeBtn = document.createElement("button");
   closeBtn.className = "inculva-header-btn inculva-panel-close";
   closeBtn.setAttribute("type", "button");
-  closeBtn.setAttribute("aria-label", labels["closeMenu"] ?? "Close accessibility menu");
+  closeBtn.setAttribute(
+    "aria-label",
+    labels["closeMenu"] ?? "Close accessibility menu",
+  );
   closeBtn.dataset["inculvaAction"] = "close";
   closeBtn.innerHTML = ICON_CLOSE;
 
@@ -280,7 +378,10 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
   return header;
 }
 
-function _buildControlsBar(language: string, labels: Record<string, string>): HTMLDivElement {
+function _buildControlsBar(
+  language: string,
+  labels: Record<string, string>,
+): HTMLDivElement {
   const bar = document.createElement("div");
   bar.className = "inculva-controls-bar";
 
@@ -310,9 +411,9 @@ function _buildControlsBar(language: string, labels: Record<string, string>): HT
   sizeGroup.className = "inculva-size-group";
 
   const sizeDefs: [string, string][] = [
-    ["mini",    "Small"],
+    ["mini", "Small"],
     ["regular", "Medium"],
-    ["large",   "Large"],
+    ["large", "Large"],
   ];
   for (const [sizeVal, sizeLabel] of sizeDefs) {
     const btn = document.createElement("button");
@@ -341,33 +442,41 @@ function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
   toggle.innerHTML = `${ICON_PERSON}<span>${labels["profilesTitle"] ?? "Profiles"}</span><span class="inculva-profiles-arrow">${ICON_ARROW_DOWN}</span>`;
   section.appendChild(toggle);
 
-  // Profile card grid (hidden by default)
-  const grid = document.createElement("div");
-  grid.className = "inculva-profiles-grid";
-  grid.hidden = true;
+  // Profile list with on/off toggles (hidden by default)
+  const list = document.createElement("div");
+  list.className = "inculva-profiles-list";
+  list.hidden = true;
 
   for (const profile of PROFILES) {
-    const card = document.createElement("button");
-    card.className = "inculva-profile-card";
-    card.setAttribute("type", "button");
-    card.setAttribute("aria-pressed", "false");
-    card.dataset["profile"] = profile.key;
+    const row = document.createElement("button");
+    row.className = "inculva-profile-row";
+    row.setAttribute("type", "button");
+    row.setAttribute("aria-pressed", "false");
+    row.dataset["profile"] = profile.key;
 
     const iconSpan = document.createElement("span");
-    iconSpan.className = "inculva-card-icon";
+    iconSpan.className = "inculva-profile-row-icon";
     iconSpan.setAttribute("aria-hidden", "true");
     iconSpan.innerHTML = profile.icon;
 
     const labelSpan = document.createElement("span");
-    labelSpan.className = "inculva-card-label";
+    labelSpan.className = "inculva-profile-label";
     labelSpan.textContent = labels[`profile_${profile.key}`] ?? profile.label;
 
-    card.appendChild(iconSpan);
-    card.appendChild(labelSpan);
-    grid.appendChild(card);
+    const switchTrack = document.createElement("span");
+    switchTrack.className = "inculva-profile-switch";
+    switchTrack.setAttribute("aria-hidden", "true");
+    const thumb = document.createElement("span");
+    thumb.className = "inculva-profile-switch-thumb";
+    switchTrack.appendChild(thumb);
+
+    row.appendChild(iconSpan);
+    row.appendChild(labelSpan);
+    row.appendChild(switchTrack);
+    list.appendChild(row);
   }
 
-  section.appendChild(grid);
+  section.appendChild(list);
   return section;
 }
 
@@ -378,10 +487,26 @@ function _buildCategoryTabs(labels: Record<string, string>): HTMLDivElement {
   bar.setAttribute("aria-label", "Feature categories");
 
   const tabs = [
-    { key: "vision",  icon: ICON_TAB_VISION,  label: labels["categoryVision"]  ?? "Vision"  },
-    { key: "reading", icon: ICON_TAB_READING, label: labels["categoryReading"] ?? "Reading" },
-    { key: "motor",   icon: ICON_TAB_MOTOR,   label: labels["categoryMotor"]   ?? "Motor"   },
-    { key: "calm",    icon: ICON_TAB_CALM,    label: labels["categoryCalm"]    ?? "Calm"    },
+    {
+      key: "vision",
+      icon: ICON_TAB_VISION,
+      label: labels["categoryVision"] ?? "Vision",
+    },
+    {
+      key: "reading",
+      icon: ICON_TAB_READING,
+      label: labels["categoryReading"] ?? "Reading",
+    },
+    {
+      key: "motor",
+      icon: ICON_TAB_MOTOR,
+      label: labels["categoryMotor"] ?? "Motor",
+    },
+    {
+      key: "calm",
+      icon: ICON_TAB_CALM,
+      label: labels["categoryCalm"] ?? "Calm",
+    },
   ];
 
   for (const tab of tabs) {
@@ -471,9 +596,13 @@ function _buildFeatureGrid(
       for (const type of COLOR_BLIND_TYPES) {
         const typeBtn = document.createElement("button");
         typeBtn.setAttribute("type", "button");
-        typeBtn.className = "inculva-cbm-btn" + (type === "deuteranopia" ? " active" : "");
+        typeBtn.className =
+          "inculva-cbm-btn" + (type === "deuteranopia" ? " active" : "");
         typeBtn.dataset["cbmType"] = type;
-        typeBtn.setAttribute("aria-pressed", type === "deuteranopia" ? "true" : "false");
+        typeBtn.setAttribute(
+          "aria-pressed",
+          type === "deuteranopia" ? "true" : "false",
+        );
         typeBtn.textContent = labels[type] ?? type;
         selector.appendChild(typeBtn);
       }
@@ -521,26 +650,70 @@ function _buildBody(
 ): HTMLDivElement {
   const body = document.createElement("div");
   body.className = "inculva-panel-body";
-
   body.appendChild(_buildFeatureGrid(features, labels));
+  return body;
+}
 
-  const resetRow = document.createElement("div");
-  resetRow.className = "inculva-reset-row";
+function _buildPreFooter(
+  labels: Record<string, string>,
+  isOnLeft: boolean,
+  accessibilityStatementUrl?: string,
+): HTMLDivElement {
+  const pre = document.createElement("div");
+  pre.className = "inculva-prefooter";
+
+  // Reset settings — dark pill button
   const resetBtn = document.createElement("button");
   resetBtn.setAttribute("type", "button");
-  resetBtn.className = "inculva-reset-btn";
+  resetBtn.className = "inculva-prefooter-reset";
   resetBtn.dataset["inculvaAction"] = "reset";
   resetBtn.setAttribute("aria-label", labels["resetAll"] ?? "Reset All");
-  resetBtn.innerHTML = `${ICON_RESET}<span>${labels["resetAll"] ?? "Reset All"}</span>`;
-  resetRow.appendChild(resetBtn);
-  body.appendChild(resetRow);
+  resetBtn.textContent = labels["resetSettings"] ?? "Reset settings";
+  pre.appendChild(resetBtn);
 
-  return body;
+  // Accessibility Statement — outline pill button (only when URL is configured)
+  if (accessibilityStatementUrl) {
+    const a11yBtn = document.createElement("a");
+    a11yBtn.className = "inculva-prefooter-a11y";
+    a11yBtn.href = accessibilityStatementUrl;
+    a11yBtn.target = "_blank";
+    a11yBtn.rel = "noopener noreferrer";
+    a11yBtn.textContent =
+      labels["accessibilityStatement"] ?? "Accessibility Statement";
+    pre.appendChild(a11yBtn);
+  }
+
+  // Switch widget side — label + toggle
+  const switchRow = document.createElement("div");
+  switchRow.className = "inculva-prefooter-switch";
+
+  const switchLabel = document.createElement("span");
+  switchLabel.className = "inculva-switch-label";
+  switchLabel.textContent = isOnLeft
+    ? (labels["switchWidgetRight"] ?? "Switch widget to right")
+    : (labels["switchWidgetLeft"] ?? "Switch widget to left");
+
+  const toggleBtn = document.createElement("button");
+  toggleBtn.setAttribute("type", "button");
+  toggleBtn.className = `inculva-switch-track${isOnLeft ? " active" : ""}`;
+  toggleBtn.dataset["inculvaAction"] = "switch-side";
+  toggleBtn.setAttribute("role", "switch");
+  toggleBtn.setAttribute("aria-checked", String(isOnLeft));
+  toggleBtn.setAttribute("aria-label", switchLabel.textContent);
+
+  const toggleThumb = document.createElement("span");
+  toggleThumb.className = "inculva-switch-thumb";
+  toggleBtn.appendChild(toggleThumb);
+
+  switchRow.appendChild(switchLabel);
+  switchRow.appendChild(toggleBtn);
+  pre.appendChild(switchRow);
+
+  return pre;
 }
 
 function _buildFooter(
   labels: Record<string, string>,
-  accessibilityStatementUrl?: string,
   whiteLabelText?: string | null,
 ): HTMLDivElement {
   const footer = document.createElement("div");
@@ -551,19 +724,11 @@ function _buildFooter(
       ? (labels["poweredBy"] ?? "Powered by Inculva")
       : whiteLabelText;
 
-  const brand = document.createElement("span");
-  brand.className = "inculva-footer-brand";
-  brand.innerHTML = `${brandImg(14)}<span>${poweredByText}</span>`;
-  footer.appendChild(brand);
-
-  if (accessibilityStatementUrl) {
-    const a = document.createElement("a");
-    a.className = "inculva-a11y-link";
-    a.href = accessibilityStatementUrl;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.textContent = labels["accessibilityStatement"] ?? "Accessibility Statement";
-    footer.appendChild(a);
+  if (poweredByText !== "") {
+    const brand = document.createElement("span");
+    brand.className = "inculva-footer-brand";
+    brand.innerHTML = `${brandImg(14)}<span>${poweredByText}</span>`;
+    footer.appendChild(brand);
   }
 
   return footer;
@@ -578,6 +743,7 @@ export function createPanel(
   language: string,
   accessibilityStatementUrl?: string,
   whiteLabelText?: string | null,
+  isOnLeft = false,
 ): HTMLDivElement {
   const labels = EN_LABELS;
 
@@ -594,7 +760,10 @@ export function createPanel(
   panel.appendChild(_buildControlsBar(language, labels));
   panel.appendChild(_buildBody(features, labels));
   panel.appendChild(_buildMiniActions());
-  panel.appendChild(_buildFooter(labels, accessibilityStatementUrl, whiteLabelText));
+  panel.appendChild(
+    _buildPreFooter(labels, isOnLeft, accessibilityStatementUrl),
+  );
+  panel.appendChild(_buildFooter(labels, whiteLabelText));
 
   return panel;
 }
@@ -625,15 +794,22 @@ export function updatePanel(
 
   const closeBtn = panel.querySelector<HTMLElement>(".inculva-panel-close");
   if (closeBtn)
-    closeBtn.setAttribute("aria-label", labels["closeMenu"] ?? "Close accessibility menu");
+    closeBtn.setAttribute(
+      "aria-label",
+      labels["closeMenu"] ?? "Close accessibility menu",
+    );
 
   // Sync language select to current language
-  const langSelect = panel.querySelector<HTMLSelectElement>(".inculva-lang-select");
+  const langSelect = panel.querySelector<HTMLSelectElement>(
+    ".inculva-lang-select",
+  );
   if (langSelect && language) langSelect.value = language;
 
   // Update feature button labels, tooltips and visibility
   for (const feature of FEATURES) {
-    const btn = panel.querySelector<HTMLElement>(`[data-feature="${feature.key}"]`);
+    const btn = panel.querySelector<HTMLElement>(
+      `[data-feature="${feature.key}"]`,
+    );
     if (!btn) continue;
     const enabled = features[feature.key] !== false;
     btn.classList.toggle("inculva-hidden", !enabled);
@@ -647,24 +823,38 @@ export function updatePanel(
   const selector = panel.querySelector<HTMLElement>(".inculva-cbm-selector");
   if (selector) {
     for (const type of COLOR_BLIND_TYPES) {
-      const typeBtn = selector.querySelector<HTMLElement>(`[data-cbm-type="${type}"]`);
+      const typeBtn = selector.querySelector<HTMLElement>(
+        `[data-cbm-type="${type}"]`,
+      );
       if (typeBtn) typeBtn.textContent = labels[type] ?? type;
     }
   }
 
-  // Update profile card labels
+  // Update profile row labels
   for (const profile of PROFILES) {
     const labelEl = panel.querySelector<HTMLElement>(
-      `[data-profile="${profile.key}"] .inculva-card-label`,
+      `[data-profile="${profile.key}"] .inculva-profile-label`,
     );
-    if (labelEl) labelEl.textContent = labels[`profile_${profile.key}`] ?? profile.label;
+    if (labelEl)
+      labelEl.textContent = labels[`profile_${profile.key}`] ?? profile.label;
   }
 
   // Update profiles toggle label
-  const profilesToggle = panel.querySelector<HTMLElement>(".inculva-profiles-toggle span:nth-child(2)");
-  if (profilesToggle) profilesToggle.textContent = labels["profilesTitle"] ?? "Profiles";
+  const profilesToggle = panel.querySelector<HTMLElement>(
+    ".inculva-profiles-toggle span:nth-child(2)",
+  );
+  if (profilesToggle)
+    profilesToggle.textContent = labels["profilesTitle"] ?? "Profiles";
 
-  // Update footer
+  // Update pre-footer — rebuild with current state
+  const prePre = panel.querySelector<HTMLElement>(".inculva-prefooter");
+  if (prePre) {
+    const isOnLeft = panel.getAttribute("data-panel-side") === "left";
+    const newPre = _buildPreFooter(labels, isOnLeft, accessibilityStatementUrl);
+    prePre.replaceWith(newPre);
+  }
+
+  // Update footer brand text
   const footer = panel.querySelector<HTMLElement>(".inculva-panel-footer");
   if (footer) {
     const poweredByText =
@@ -672,19 +862,32 @@ export function updatePanel(
         ? (labels["poweredBy"] ?? "Powered by Inculva")
         : whiteLabelText;
     footer.innerHTML = "";
-    const brand = document.createElement("span");
-    brand.className = "inculva-footer-brand";
-    brand.innerHTML = `${brandImg(14)}<span>${poweredByText}</span>`;
-    footer.appendChild(brand);
-    if (accessibilityStatementUrl) {
-      const a = document.createElement("a");
-      a.className = "inculva-a11y-link";
-      a.href = accessibilityStatementUrl;
-      a.target = "_blank";
-      a.rel = "noopener noreferrer";
-      a.textContent = labels["accessibilityStatement"] ?? "Accessibility Statement";
-      footer.appendChild(a);
+    if (poweredByText !== "") {
+      const brand = document.createElement("span");
+      brand.className = "inculva-footer-brand";
+      brand.innerHTML = `${brandImg(14)}<span>${poweredByText}</span>`;
+      footer.appendChild(brand);
     }
+  }
+}
+
+/** Update the pre-footer switch side label and toggle state after a side change. */
+export function updatePreFooterSide(
+  panel: HTMLDivElement,
+  isOnLeft: boolean,
+  labels: Record<string, string>,
+): void {
+  const switchLabel = panel.querySelector<HTMLElement>(".inculva-switch-label");
+  const toggleBtn = panel.querySelector<HTMLElement>(".inculva-switch-track");
+  if (switchLabel) {
+    const text = isOnLeft
+      ? (labels["switchWidgetRight"] ?? "Switch widget to right")
+      : (labels["switchWidgetLeft"] ?? "Switch widget to left");
+    switchLabel.textContent = text;
+  }
+  if (toggleBtn) {
+    toggleBtn.classList.toggle("active", isOnLeft);
+    toggleBtn.setAttribute("aria-checked", String(isOnLeft));
   }
 }
 
@@ -708,9 +911,9 @@ type Position = "bottom-right" | "bottom-left" | "top-right" | "top-left";
 export function applyPosition(el: HTMLElement, position: Position): void {
   const offset = "20px";
   el.style.bottom = position.includes("bottom") ? offset : "auto";
-  el.style.top    = position.includes("top")    ? offset : "auto";
-  el.style.right  = position.includes("right")  ? offset : "auto";
-  el.style.left   = position.includes("left")   ? offset : "auto";
+  el.style.top = position.includes("top") ? offset : "auto";
+  el.style.right = position.includes("right") ? offset : "auto";
+  el.style.left = position.includes("left") ? offset : "auto";
 }
 
 export function applyPanelPosition(
@@ -719,13 +922,13 @@ export function applyPanelPosition(
   position: Position,
 ): void {
   const btnRect = btn.getBoundingClientRect();
-  const gap  = 12;
-  const edge =  8;
+  const gap = 12;
+  const edge = 8;
 
   panel.style.bottom = "auto";
-  panel.style.top    = "auto";
-  panel.style.right  = "auto";
-  panel.style.left   = "auto";
+  panel.style.top = "auto";
+  panel.style.right = "auto";
+  panel.style.left = "auto";
 
   if (position.includes("bottom")) {
     const bottomOffset = window.innerHeight - btnRect.top + gap;

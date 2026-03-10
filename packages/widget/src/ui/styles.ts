@@ -303,7 +303,7 @@ export const widgetStyles = `
     font-family: inherit;
     font-size: 14px;
     font-weight: 600;
-    color: #374151;
+    color: #000;
     text-align: left;
     -webkit-tap-highlight-color: transparent;
     outline: none;
@@ -321,54 +321,84 @@ export const widgetStyles = `
   .inculva-profiles-toggle[aria-expanded="true"] .inculva-profiles-arrow {
     transform: rotate(180deg);
   }
-  .inculva-profiles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    padding: 8px 10px 10px;
+
+  /* ── Profile List (on/off toggle rows) ───────────────────────────────── */
+  .inculva-profiles-list {
     border-top: 1px solid rgba(0,0,0,0.07);
     background: #fafafa;
   }
-  .inculva-profile-card {
+  .inculva-profile-row {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 5px;
-    padding: 10px 6px 9px;
-    border: 1.5px solid rgba(0,0,0,0.09);
-    border-radius: 12px;
-    background: #fff;
+    gap: 10px;
+    padding: 9px 14px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
     cursor: pointer;
     font-family: inherit;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
-    color: #374151;
-    text-align: center;
-    line-height: 1.25;
-    transition: all 0.12s;
-    outline: none;
+    color: #000;
+    text-align: left;
     -webkit-tap-highlight-color: transparent;
-    word-break: break-word;
-    hyphens: auto;
+    outline: none;
+    transition: background 0.1s;
   }
-  .inculva-profile-card:hover { background: #f5f5f7; border-color: rgba(0,0,0,0.15); }
-  .inculva-profile-card:active { transform: scale(0.96); }
-  .inculva-profile-card:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 1px; }
-  .inculva-profile-card.active {
-    background: var(--inculva-primary, #0066cc);
-    border-color: var(--inculva-primary, #0066cc);
-    color: #fff;
-  }
-  .inculva-profile-card.active .inculva-card-icon svg path,
-  .inculva-profile-card.active .inculva-card-icon svg circle,
-  .inculva-profile-card.active .inculva-card-icon svg rect { stroke: #fff; }
-  .inculva-card-icon {
+  .inculva-profile-row:last-child { border-bottom: none; }
+  .inculva-profile-row:hover { background: rgba(0,0,0,0.03); }
+  .inculva-profile-row:active { background: rgba(0,0,0,0.06); }
+  .inculva-profile-row:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: -2px; }
+  .inculva-profile-row-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.06);
+    color: #374151;
+    transition: background 0.15s, color 0.15s;
   }
-  .inculva-card-label { font-size: 11px; line-height: 1.2; }
+  .inculva-profile-row.active .inculva-profile-row-icon {
+    background: color-mix(in srgb, var(--inculva-primary, #0066cc) 14%, transparent);
+    color: var(--inculva-primary, #0066cc);
+  }
+  .inculva-profile-label {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #000;
+  }
+  .inculva-profile-switch {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    border-radius: 100px;
+    background: #e4e4e7;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .inculva-profile-row.active .inculva-profile-switch {
+    background: var(--inculva-primary, #0066cc);
+  }
+  .inculva-profile-switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .inculva-profile-row.active .inculva-profile-switch-thumb {
+    transform: translateX(16px);
+  }
 
   /* ── Panel Body (scrollable) ─────────────────────────────────────────── */
   .inculva-panel-body {
@@ -408,7 +438,7 @@ export const widgetStyles = `
     line-height: 1.25;
     text-align: center;
     background: #fff;
-    color: #374151;
+    color: #000;
     transition: border-color 0.12s, background 0.12s, transform 0.1s, box-shadow 0.12s;
     outline: none;
     min-height: 108px;
@@ -550,31 +580,8 @@ export const widgetStyles = `
     font-weight: 700;
   }
 
-  /* ── Reset Row ───────────────────────────────────────────────────────── */
-  .inculva-reset-row { padding-bottom: 12px; }
-  .inculva-reset-btn {
-    width: 100%;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 16px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: #fff;
-    color: #6b7280;
-    transition: opacity 0.15s, background 0.15s;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    border: 1px solid rgba(0,0,0,0.09);
-  }
-  .inculva-reset-btn:hover { background: #f9fafb; color: #374151; }
-  .inculva-reset-btn:active { transform: scale(0.98); }
-  .inculva-reset-btn:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 1px; }
+  /* ── Reset Row (legacy — kept for any external references) ──────────── */
+  .inculva-reset-row { display: none; }
 
   /* ── Mini Mode ───────────────────────────────────────────────────────── */
   #inculva-widget-panel[data-size="mini"] {
@@ -584,7 +591,7 @@ export const widgetStyles = `
   #inculva-widget-panel[data-size="mini"] .inculva-panel-header,
   #inculva-widget-panel[data-size="mini"] .inculva-profiles-section,
   #inculva-widget-panel[data-size="mini"] .inculva-controls-bar,
-  #inculva-widget-panel[data-size="mini"] .inculva-reset-row,
+  #inculva-widget-panel[data-size="mini"] .inculva-prefooter,
   #inculva-widget-panel[data-size="mini"] .inculva-panel-footer {
     display: none !important;
   }
@@ -648,10 +655,10 @@ export const widgetStyles = `
 
   /* ── Large Mode ──────────────────────────────────────────────────────── */
   #inculva-widget-panel[data-size="large"] {
-    width: 500px !important;
+    width: 520px !important;
   }
   #inculva-widget-panel[data-size="large"] .inculva-feature-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
   }
   #inculva-widget-panel[data-size="large"] .inculva-feature-btn {
@@ -704,6 +711,66 @@ export const widgetStyles = `
   #inculva-widget-panel[data-size="large"] .inculva-size-btn {
     padding: 0 16px !important;
   }
+  /* Large mode — profiles section */
+  #inculva-widget-panel[data-size="large"] .inculva-profiles-section {
+    margin: 12px 14px 12px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-profiles-toggle {
+    height: 48px !important;
+    font-size: 15px !important;
+    padding: 0 16px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-profile-row {
+    padding: 11px 16px !important;
+    font-size: 14px !important;
+    gap: 12px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-profile-row-icon {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 9px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-profile-label {
+    font-size: 14px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-profile-switch {
+    width: 42px !important;
+    height: 24px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-profile-switch-thumb {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-profile-row.active .inculva-profile-switch-thumb {
+    transform: translateX(18px) !important;
+  }
+  /* Large mode — prefooter */
+  #inculva-widget-panel[data-size="large"] .inculva-prefooter {
+    padding: 14px 16px !important;
+    gap: 10px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-prefooter-reset {
+    font-size: 15px !important;
+    padding: 12px 20px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-prefooter-a11y {
+    font-size: 14px !important;
+    padding: 11px 20px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-switch-label {
+    font-size: 14px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-switch-track {
+    width: 48px !important;
+    height: 26px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-switch-thumb {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-switch-track.active .inculva-switch-thumb {
+    transform: translateX(22px) !important;
+  }
 
   /* Mini actions bar */
   .inculva-mini-actions {
@@ -742,17 +809,118 @@ export const widgetStyles = `
   .inculva-mini-btn svg { width: 24px; height: 24px; }
   #inculva-widget-panel[data-size="mini"] { padding-bottom: 168px; }
 
+  /* ── Pre-footer action bar ───────────────────────────────────────────── */
+  .inculva-prefooter {
+    flex-shrink: 0;
+    padding: 12px 14px;
+    background: #fff;
+    border-top: 1px solid #ececec;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .inculva-prefooter-reset {
+    width: 100%;
+    padding: 10px 16px;
+    background: #fff;
+    color: #1a1a2e;
+    border: 1.5px solid #e4e4e7;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, border-color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: 0.01em;
+  }
+  .inculva-prefooter-reset:hover { background: #f7f7f7; border-color: #d1d5db; }
+  .inculva-prefooter-reset:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 2px; }
+  .inculva-prefooter-a11y {
+    display: block;
+    width: 100%;
+    padding: 9px 16px;
+    background: transparent;
+    color: #1a1a2e;
+    border: 1.5px solid #d4d4d8;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: center;
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+  .inculva-prefooter-a11y:hover { background: #f4f4f5; border-color: #a1a1aa; }
+  .inculva-prefooter-a11y:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 2px; }
+  .inculva-prefooter-switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 0;
+    gap: 8px;
+  }
+  .inculva-switch-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a2e;
+    font-family: inherit;
+    flex: 1;
+    user-select: none;
+  }
+  .inculva-switch-track {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    border-radius: 100px;
+    background: #e4e4e7;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .inculva-switch-track.active { background: var(--inculva-primary, #0066cc); }
+  .inculva-switch-track:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 2px; }
+  .inculva-switch-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .inculva-switch-track.active .inculva-switch-thumb { transform: translateX(20px); }
+  /* OFF state — show ✕ inside thumb */
+  .inculva-switch-thumb::after {
+    content: '✕';
+    font-size: 9px;
+    color: #a1a1aa;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .inculva-switch-track.active .inculva-switch-thumb::after { content: ''; }
+
   /* ── Panel Footer — uses primary color as background ─────────────────── */
   .inculva-panel-footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
+    justify-content: center;
+    padding: 10px 16px;
     flex-shrink: 0;
     background: var(--inculva-footer-bg, var(--inculva-primary, #0066cc));
     border-top: 1px solid rgba(0,0,0,0.12);
-    gap: 8px;
-    min-height: 48px;
+    min-height: 42px;
     border-radius: 0 0 18px 18px;
   }
   .inculva-footer-brand {
@@ -764,18 +932,6 @@ export const widgetStyles = `
     color: rgba(255,255,255,0.8);
     font-family: inherit;
   }
-  .inculva-a11y-link {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    color: rgba(255,255,255,0.85);
-    font-family: inherit;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .inculva-a11y-link:hover { color: #fff; }
-  .inculva-a11y-link:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; border-radius: 2px; }
 
   /* ── RTL Support ─────────────────────────────────────────────────────── */
   #inculva-widget-panel[dir="rtl"] .inculva-panel-header   { flex-direction: row-reverse; }

@@ -22,14 +22,18 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     highlightLinks: "Highlight Links",
     colorBlindMode: "Color Blind",
     largeClickTargets: "Large Targets",
-    focusHighlight: "Focus Highlight",
+    focusHighlight: "Focus Indicator",
     grayscale: "Grayscale",
     skipNavigation: "Skip to Main",
     muteMedia: "Mute Media",
     readingMask: "Reading Mask",
     textAlign: "Text Align",
     saturation: "Saturation",
+    slowCursor: "Slow Cursor",
     accessibilityStatement: "Accessibility Statement",
+    resetSettings: "Reset settings",
+    switchWidgetLeft: "Switch widget to left",
+    switchWidgetRight: "Switch widget to right",
     // Color blind sub-type labels
     deuteranopia: "Deuteranopia",
     protanopia: "Protanopia",
@@ -51,14 +55,18 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     highlightLinks: "Bağlantıları Vurgula",
     colorBlindMode: "Renk Körlüğü",
     largeClickTargets: "Büyük Hedefler",
-    focusHighlight: "Odak Vurgulama",
+    focusHighlight: "Odak Göstergesi",
     grayscale: "Gri Tonlama",
     skipNavigation: "İçeriğe Atla",
     muteMedia: "Medyayı Kapat",
     readingMask: "Okuma Maskesi",
     textAlign: "Metin Hizalama",
     saturation: "Doygunluk",
+    slowCursor: "Yavaş İmleç",
     accessibilityStatement: "Erişilebilirlik Beyanı",
+    resetSettings: "Ayarları sıfırla",
+    switchWidgetLeft: "Widget'ı sola taşı",
+    switchWidgetRight: "Widget'ı sağa taşı",
   },
   de: {
     title: "Barrierefreiheit",
@@ -75,14 +83,18 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     highlightLinks: "Links hervorheben",
     colorBlindMode: "Farbenblind",
     largeClickTargets: "Große Ziele",
-    focusHighlight: "Fokus hervorheben",
+    focusHighlight: "Fokusanzeige",
     grayscale: "Graustufen",
     skipNavigation: "Zum Inhalt",
     muteMedia: "Medien stummschalten",
     readingMask: "Lesemaske",
     textAlign: "Textausrichtung",
     saturation: "Sättigung",
+    slowCursor: "Langsamer Cursor",
     accessibilityStatement: "Barrierefreiheitserklärung",
+    resetSettings: "Einstellungen zurücksetzen",
+    switchWidgetLeft: "Widget nach links",
+    switchWidgetRight: "Widget nach rechts",
   },
   fr: {
     title: "Accessibilité",
@@ -107,6 +119,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Alignement texte",
     saturation: "Saturation",
     accessibilityStatement: "Déclaration d'accessibilité",
+  
+    slowCursor: "Curseur lent",
+    resetSettings: "Réinitialiser",
+    switchWidgetLeft: "Déplacer à gauche",
+    switchWidgetRight: "Déplacer à droite",
   },
   es: {
     title: "Accesibilidad",
@@ -131,6 +148,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Alineación texto",
     saturation: "Saturación",
     accessibilityStatement: "Declaración de accesibilidad",
+  
+    slowCursor: "Cursor lento",
+    resetSettings: "Restablecer",
+    switchWidgetLeft: "Mover a la izquierda",
+    switchWidgetRight: "Mover a la derecha",
   },
   pt: {
     title: "Acessibilidade",
@@ -155,6 +177,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Alinhamento texto",
     saturation: "Saturação",
     accessibilityStatement: "Declaração de acessibilidade",
+  
+    slowCursor: "Cursor lento",
+    resetSettings: "Redefinir",
+    switchWidgetLeft: "Mover para esquerda",
+    switchWidgetRight: "Mover para direita",
   },
   it: {
     title: "Accessibilità",
@@ -179,6 +206,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Allineamento testo",
     saturation: "Saturazione",
     accessibilityStatement: "Dichiarazione di accessibilità",
+  
+    slowCursor: "Cursore lento",
+    resetSettings: "Ripristina",
+    switchWidgetLeft: "Sposta a sinistra",
+    switchWidgetRight: "Sposta a destra",
   },
   nl: {
     title: "Toegankelijkheid",
@@ -203,6 +235,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstuitlijning",
     saturation: "Verzadiging",
     accessibilityStatement: "Toegankelijkheidsverklaring",
+  
+    slowCursor: "Trage cursor",
+    resetSettings: "Resetten",
+    switchWidgetLeft: "Naar links",
+    switchWidgetRight: "Naar rechts",
   },
   pl: {
     title: "Dostępność",
@@ -227,6 +264,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Wyrównanie tekstu",
     saturation: "Nasycenie",
     accessibilityStatement: "Deklaracja dostępności",
+  
+    slowCursor: "Wolny kursor",
+    resetSettings: "Resetuj",
+    switchWidgetLeft: "Przesuń w lewo",
+    switchWidgetRight: "Przesuń w prawo",
   },
   ru: {
     title: "Доступность",
@@ -251,6 +293,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Выравнивание текста",
     saturation: "Насыщенность",
     accessibilityStatement: "Заявление о доступности",
+  
+    slowCursor: "Медленный курсор",
+    resetSettings: "Сбросить",
+    switchWidgetLeft: "Влево",
+    switchWidgetRight: "Вправо",
   },
   uk: {
     title: "Доступність",
@@ -275,6 +322,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Вирівнювання тексту",
     saturation: "Насиченість",
     accessibilityStatement: "Заява про доступність",
+  
+    slowCursor: "Повільний курсор",
+    resetSettings: "Скинути",
+    switchWidgetLeft: "Вліво",
+    switchWidgetRight: "Вправо",
   },
   cs: {
     title: "Přístupnost",
@@ -299,6 +351,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Zarovnání textu",
     saturation: "Sytost",
     accessibilityStatement: "Prohlášení o přístupnosti",
+  
+    slowCursor: "Pomalý kurzor",
+    resetSettings: "Resetovat",
+    switchWidgetLeft: "Doleva",
+    switchWidgetRight: "Doprava",
   },
   hu: {
     title: "Akadálymentesség",
@@ -323,6 +380,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Szövegigazítás",
     saturation: "Telítettség",
     accessibilityStatement: "Akadálymentességi nyilatkozat",
+  
+    slowCursor: "Lassú kurzor",
+    resetSettings: "Visszaállítás",
+    switchWidgetLeft: "Balra",
+    switchWidgetRight: "Jobbra",
   },
   ro: {
     title: "Accesibilitate",
@@ -347,6 +409,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Aliniere text",
     saturation: "Saturație",
     accessibilityStatement: "Declarație de accesibilitate",
+  
+    slowCursor: "Cursor lent",
+    resetSettings: "Resetare",
+    switchWidgetLeft: "La stânga",
+    switchWidgetRight: "La dreapta",
   },
   bg: {
     title: "Достъпност",
@@ -371,6 +438,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Подравняване на текст",
     saturation: "Наситеност",
     accessibilityStatement: "Декларация за достъпност",
+  
+    slowCursor: "Бавен курсор",
+    resetSettings: "Нулиране",
+    switchWidgetLeft: "Наляво",
+    switchWidgetRight: "Надясно",
   },
   hr: {
     title: "Pristupačnost",
@@ -395,6 +467,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Poravnanje teksta",
     saturation: "Zasićenost",
     accessibilityStatement: "Izjava o pristupačnosti",
+  
+    slowCursor: "Spori kursor",
+    resetSettings: "Resetiraj",
+    switchWidgetLeft: "Ulijevo",
+    switchWidgetRight: "Udesno",
   },
   sk: {
     title: "Prístupnosť",
@@ -419,6 +496,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Zarovnanie textu",
     saturation: "Sýtosť",
     accessibilityStatement: "Vyhlásenie o prístupnosti",
+  
+    slowCursor: "Pomalý kurzor",
+    resetSettings: "Resetovať",
+    switchWidgetLeft: "Doľava",
+    switchWidgetRight: "Doprava",
   },
   sl: {
     title: "Dostopnost",
@@ -443,6 +525,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Poravnava besedila",
     saturation: "Nasičenost",
     accessibilityStatement: "Izjava o dostopnosti",
+  
+    slowCursor: "Počasni kurzor",
+    resetSettings: "Ponastavitev",
+    switchWidgetLeft: "Levo",
+    switchWidgetRight: "Desno",
   },
   el: {
     title: "Προσβασιμότητα",
@@ -467,6 +554,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Στοίχιση κειμένου",
     saturation: "Κορεσμός",
     accessibilityStatement: "Δήλωση προσβασιμότητας",
+  
+    slowCursor: "Αργός κέρσορας",
+    resetSettings: "Επαναφορά",
+    switchWidgetLeft: "Αριστερά",
+    switchWidgetRight: "Δεξιά",
   },
   fi: {
     title: "Saavutettavuus",
@@ -491,6 +583,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstin tasaus",
     saturation: "Kylläisyys",
     accessibilityStatement: "Saavutettavuusseloste",
+  
+    slowCursor: "Hidas kursori",
+    resetSettings: "Nollaa",
+    switchWidgetLeft: "Vasemmalle",
+    switchWidgetRight: "Oikealle",
   },
   sv: {
     title: "Tillgänglighet",
@@ -515,6 +612,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Textjustering",
     saturation: "Mättnad",
     accessibilityStatement: "Tillgänglighetsredogörelse",
+  
+    slowCursor: "Långsam markör",
+    resetSettings: "Återställ",
+    switchWidgetLeft: "Till vänster",
+    switchWidgetRight: "Till höger",
   },
   no: {
     title: "Tilgjengelighet",
@@ -539,6 +641,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstjustering",
     saturation: "Metning",
     accessibilityStatement: "Tilgjengelighetserklæring",
+  
+    slowCursor: "Sakte markør",
+    resetSettings: "Tilbakestill",
+    switchWidgetLeft: "Til venstre",
+    switchWidgetRight: "Til høyre",
   },
   da: {
     title: "Tilgængelighed",
@@ -563,6 +670,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstjustering",
     saturation: "Mætning",
     accessibilityStatement: "Tilgængelhedserklæring",
+  
+    slowCursor: "Langsom markør",
+    resetSettings: "Nulstil",
+    switchWidgetLeft: "Til venstre",
+    switchWidgetRight: "Til højre",
   },
   lt: {
     title: "Prieinamumas",
@@ -587,6 +699,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Teksto lygiavimas",
     saturation: "Sodrumas",
     accessibilityStatement: "Prieinamumo pareiškimas",
+  
+    slowCursor: "Lėtas žymeklis",
+    resetSettings: "Atstatyti",
+    switchWidgetLeft: "Į kairę",
+    switchWidgetRight: "Į dešinę",
   },
   lv: {
     title: "Pieejamība",
@@ -611,6 +728,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Teksta izlīdzināšana",
     saturation: "Piesātinājums",
     accessibilityStatement: "Pieejamības paziņojums",
+  
+    slowCursor: "Lēns kursors",
+    resetSettings: "Atiestatīt",
+    switchWidgetLeft: "Pa kreisi",
+    switchWidgetRight: "Pa labi",
   },
   et: {
     title: "Juurdepääsetavus",
@@ -635,6 +757,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Teksti joondus",
     saturation: "Küllastus",
     accessibilityStatement: "Ligipääsetavuse avaldus",
+  
+    slowCursor: "Aeglane kursor",
+    resetSettings: "Lähtesta",
+    switchWidgetLeft: "Vasakule",
+    switchWidgetRight: "Paremale",
   },
   ar: {
     title: "إمكانية الوصول",
@@ -659,6 +786,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "محاذاة النص",
     saturation: "التشبع",
     accessibilityStatement: "بيان إمكانية الوصول",
+  
+    slowCursor: "مؤشر بطيء",
+    resetSettings: "إعادة تعيين",
+    switchWidgetLeft: "إلى اليسار",
+    switchWidgetRight: "إلى اليمين",
   },
   he: {
     title: "נגישות",
@@ -683,6 +815,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "יישור טקסט",
     saturation: "רוויה",
     accessibilityStatement: "הצהרת נגישות",
+  
+    slowCursor: "סמן איטי",
+    resetSettings: "איפוס",
+    switchWidgetLeft: "שמאלה",
+    switchWidgetRight: "ימינה",
   },
   fa: {
     title: "دسترسی‌پذیری",
@@ -707,6 +844,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "تراز متن",
     saturation: "اشباع",
     accessibilityStatement: "بیانیه دسترسی‌پذیری",
+  
+    slowCursor: "مکان‌نمای کند",
+    resetSettings: "بازنشانی",
+    switchWidgetLeft: "به چپ",
+    switchWidgetRight: "به راست",
   },
   zh: {
     title: "无障碍功能",
@@ -731,6 +873,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "文字对齐",
     saturation: "饱和度",
     accessibilityStatement: "无障碍声明",
+  
+    slowCursor: "慢速光标",
+    resetSettings: "重置设置",
+    switchWidgetLeft: "移到左侧",
+    switchWidgetRight: "移到右侧",
   },
   ja: {
     title: "アクセシビリティ",
@@ -755,6 +902,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "テキスト揃え",
     saturation: "彩度",
     accessibilityStatement: "アクセシビリティ声明",
+  
+    slowCursor: "ゆっくりカーソル",
+    resetSettings: "リセット",
+    switchWidgetLeft: "左に移動",
+    switchWidgetRight: "右に移動",
   },
   ko: {
     title: "접근성",
@@ -779,6 +931,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "텍스트 정렬",
     saturation: "채도",
     accessibilityStatement: "접근성 성명",
+  
+    slowCursor: "느린 커서",
+    resetSettings: "초기화",
+    switchWidgetLeft: "왼쪽으로",
+    switchWidgetRight: "오른쪽으로",
   },
   th: {
     title: "การช่วยการเข้าถึง",
@@ -803,6 +960,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "การจัดตำแหน่งข้อความ",
     saturation: "ความอิ่มตัว",
     accessibilityStatement: "คำชี้แจงการเข้าถึง",
+  
+    slowCursor: "เคอร์เซอร์ช้า",
+    resetSettings: "รีเซ็ต",
+    switchWidgetLeft: "ย้ายไปซ้าย",
+    switchWidgetRight: "ย้ายไปขวา",
   },
   vi: {
     title: "Khả năng tiếp cận",
@@ -827,6 +989,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Căn chỉnh văn bản",
     saturation: "Độ bão hòa",
     accessibilityStatement: "Tuyên bố khả năng tiếp cận",
+  
+    slowCursor: "Con trỏ chậm",
+    resetSettings: "Đặt lại",
+    switchWidgetLeft: "Sang trái",
+    switchWidgetRight: "Sang phải",
   },
   id: {
     title: "Aksesibilitas",
@@ -851,6 +1018,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Rata teks",
     saturation: "Saturasi",
     accessibilityStatement: "Pernyataan aksesibilitas",
+  
+    slowCursor: "Kursor lambat",
+    resetSettings: "Atur ulang",
+    switchWidgetLeft: "Ke kiri",
+    switchWidgetRight: "Ke kanan",
   },
   ms: {
     title: "Kebolehaksesan",
@@ -875,6 +1047,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Penjajaran teks",
     saturation: "Ketepuan",
     accessibilityStatement: "Pernyataan kebolehaksesan",
+  
+    slowCursor: "Kursor perlahan",
+    resetSettings: "Set semula",
+    switchWidgetLeft: "Ke kiri",
+    switchWidgetRight: "Ke kanan",
   },
   hi: {
     title: "अभिगम्यता",
@@ -899,6 +1076,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "पाठ संरेखण",
     saturation: "संतृप्ति",
     accessibilityStatement: "अभिगम्यता वक्तव्य",
+  
+    slowCursor: "धीमा कर्सर",
+    resetSettings: "रीसेट करें",
+    switchWidgetLeft: "बाएं जाएं",
+    switchWidgetRight: "दाएं जाएं",
   },
   bn: {
     title: "অ্যাক্সেসিবিলিটি",
@@ -923,6 +1105,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "টেক্সট সারিবদ্ধকরণ",
     saturation: "স্যাচুরেশন",
     accessibilityStatement: "অ্যাক্সেসিবিলিটি বিবৃতি",
+  
+    slowCursor: "ধীর কার্সার",
+    resetSettings: "রিসেট",
+    switchWidgetLeft: "বাম দিকে",
+    switchWidgetRight: "ডান দিকে",
   },
   ur: {
     title: "رسائی",
@@ -947,6 +1134,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "متن سیدھ",
     saturation: "سیریت",
     accessibilityStatement: "رسائی بیان",
+  
+    slowCursor: "سست کرسر",
+    resetSettings: "ری سیٹ",
+    switchWidgetLeft: "بائیں جانب",
+    switchWidgetRight: "دائیں جانب",
   },
   sw: {
     title: "Ufikiaji",
@@ -971,6 +1163,11 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Mpangilio wa maandishi",
     saturation: "Msisitizo wa rangi",
     accessibilityStatement: "Taarifa ya ufikiaji",
+  
+    slowCursor: "Kishale polepole",
+    resetSettings: "Weka upya",
+    switchWidgetLeft: "Nenda kushoto",
+    switchWidgetRight: "Nenda kulia",
   },
 };
 
