@@ -37,11 +37,11 @@ export default async function DashboardLayout({
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       <DashboardHeader email={email} name={name ?? null} locale={locale} isAdmin={isAdmin} />
       {!emailVerified && <VerificationBanner email={email} />}
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         <Sidebar sites={sites} isAdmin={isAdmin} />
-        <div className="flex-1 min-w-0 overflow-auto">
+        <main className="flex-1 min-w-0 overflow-y-auto">
           {children}
-        </div>
+        </main>
       </div>
     </div>
   );

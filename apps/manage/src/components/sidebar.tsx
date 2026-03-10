@@ -43,8 +43,8 @@ export function Sidebar({ sites, isAdmin }: Props) {
     }`;
 
   return (
-    <aside className="w-52 shrink-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 min-h-[calc(100vh-49px)] overflow-y-auto">
-      <nav className="p-3 space-y-0.5">
+    <aside className="w-56 shrink-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 min-h-[calc(100vh-52px)] overflow-y-auto flex flex-col">
+      <nav className="p-3 space-y-0.5 flex-1">
         {/* Section header */}
         <p className="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider">
           Websites
@@ -59,11 +59,6 @@ export function Sidebar({ sites, isAdmin }: Props) {
             <rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
           </svg>
           My websites
-          {pathname === "/dashboard" && (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="ml-auto">
-              <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          )}
         </a>
 
         {/* Site list */}
@@ -121,12 +116,21 @@ export function Sidebar({ sites, isAdmin }: Props) {
           );
         })}
 
-        {sites.length === 0 && (
+        {sites.length === 0 ? (
           <a
             href="/dashboard/sites/new"
             className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-400 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 border border-dashed border-gray-200 dark:border-gray-700"
           >
-            + Add first site
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+            Add first site
+          </a>
+        ) : (
+          <a
+            href="/dashboard/sites/new"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-gray-400 dark:text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950 transition-colors"
+          >
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+            Add new site
           </a>
         )}
 

@@ -2,97 +2,127 @@
 
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { cn } from "@inculva/ui";
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail]   = useState("");
   const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [sent, setSent]     = useState(false);
+  const [error, setError]   = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
-    const result = await authClient.requestPasswordReset({
-      email,
-      redirectTo: "/reset-password",
-    });
-
+    const result = await authClient.requestPasswordReset({ email, redirectTo: "/reset-password" });
     if (result.error) {
       setError(result.error.message ?? "Something went wrong");
       setLoading(false);
       return;
     }
-
     setSent(true);
     setLoading(false);
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
-      <div className="w-full max-w-md">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg dark:shadow-gray-950 p-8 border border-transparent dark:border-gray-800">
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Inculva</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">Reset your password</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
+      <div className="w-full max-w-sm">
+        {/* Logo */}
+        <div className="flex items-center justify-center gap-2.5 mb-8">
+          <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="4.5" r="2.2" fill="white" />
+              <path d="M5.5 10h13" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M12 8.5v5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M9 20l2-5.5M15 20l-2-5.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            </svg>
           </div>
+          <span className="font-bold text-lg text-gray-900 dark:text-white tracking-tight">Inculva</span>
+        </div>
 
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm p-8">
           {sent ? (
-            <div className="text-center space-y-4">
-              <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto">
-                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <div className="text-center">
+              <div className="w-14 h-14 bg-green-100 dark:bg-green-950 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-green-600 dark:text-green-400" aria-hidden="true">
+                  <rect x="2" y="5" width="20" height="14" rx="3" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="M2 8l10 7 10-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <p className="text-gray-700 dark:text-gray-200 font-medium">Check your inbox</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                We sent a password reset link to{" "}
-                <span className="font-medium text-gray-800 dark:text-gray-200">{email}</span>.
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Check your inbox</h2>
+              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+                We sent a reset link to{" "}
+                <span className="font-semibold text-gray-700 dark:text-gray-200">{email}</span>.{" "}
                 The link expires in 1 hour.
               </p>
-              <a href="/login" className="inline-block text-sm text-blue-600 dark:text-blue-400 hover:underline">
-                ← Back to sign in
+              <a
+                href="/login"
+                className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M8 2L3 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                Back to sign in
               </a>
             </div>
           ) : (
-            <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Email address
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="you@example.com"
-                />
+            <>
+              <div className="mb-7">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Forgot password?</h1>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  Enter your email and we&apos;ll send you a reset link.
+                </p>
               </div>
 
-              {error && (
-                <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 px-3 py-2 rounded-lg">
-                  {error}
+              <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                    Email address
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-sm"
+                    placeholder="you@example.com"
+                  />
+                </div>
+
+                {error && (
+                  <div className="flex items-start gap-2.5 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-xl px-4 py-3 text-sm text-red-600 dark:text-red-400">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5" aria-hidden="true">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                    {error}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={cn(
+                    "w-full py-2.5 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-sm flex items-center justify-center gap-2",
+                    loading && "opacity-60 cursor-not-allowed"
+                  )}
+                >
+                  {loading && (
+                    <svg className="animate-spin" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <circle cx="7" cy="7" r="5.5" stroke="white" strokeWidth="1.5" strokeOpacity="0.3" />
+                      <path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                  )}
+                  {loading ? "Sending…" : "Send reset link"}
+                </button>
+
+                <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                  Remember it?{" "}
+                  <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
+                    Sign in
+                  </a>
                 </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-2 px-4 rounded-lg font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {loading ? "Sending…" : "Send reset link"}
-              </button>
-
-              <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-                Remember your password?{" "}
-                <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                  Sign in
-                </a>
-              </p>
-            </form>
+              </form>
+            </>
           )}
         </div>
       </div>

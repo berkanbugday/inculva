@@ -16,25 +16,25 @@ const PROFILE_LABELS: Record<string, string> = {
 };
 
 const ALL_FEATURES = [
-  { key: "highContrast", label: "Contrast mode" },
-  { key: "textResizing", label: "Larger text" },
-  { key: "textAlign", label: "Text alignment" },
-  { key: "readingGuide", label: "Reading guide" },
-  { key: "textSpacing", label: "Text spacing" },
-  { key: "screenReader", label: "Screen reader" },
-  { key: "dyslexiaFont", label: "Dyslexia mode" },
-  { key: "readingMask", label: "Reading mask" },
-  { key: "cursorEnhancement", label: "Content magnifier" },
-  { key: "highlightLinks", label: "Link selection" },
-  { key: "focusHighlight", label: "Highlight titles" },
+  { key: "highContrast", label: "High Contrast" },
+  { key: "textResizing", label: "Text Resizing" },
+  { key: "textAlign", label: "Text Alignment" },
+  { key: "readingGuide", label: "Reading Guide" },
+  { key: "textSpacing", label: "Text Spacing" },
+  { key: "screenReader", label: "Screen Reader" },
+  { key: "dyslexiaFont", label: "Dyslexia Font" },
+  { key: "readingMask", label: "Reading Mask" },
+  { key: "cursorEnhancement", label: "Cursor Enhancement" },
+  { key: "highlightLinks", label: "Highlight Links" },
+  { key: "focusHighlight", label: "Focus Highlight" },
   { key: "grayscale", label: "Grayscale" },
-  { key: "pauseAnimations", label: "Stop animation" },
-  { key: "colorBlindMode", label: "Color blind mode" },
-  { key: "muteMedia", label: "Mute sound" },
-  { key: "skipNavigation", label: "Page structure" },
-  { key: "saturation", label: "Saturation boost" },
-  { key: "keyboardNavigation", label: "Keyboard navigation" },
-  { key: "largeClickTargets", label: "Large click targets" },
+  { key: "pauseAnimations", label: "Pause Animations" },
+  { key: "colorBlindMode", label: "Color Blind Mode" },
+  { key: "muteMedia", label: "Mute Media" },
+  { key: "skipNavigation", label: "Skip Navigation" },
+  { key: "saturation", label: "Saturation" },
+  { key: "keyboardNavigation", label: "Keyboard Navigation" },
+  { key: "largeClickTargets", label: "Large Click Targets" },
 ];
 
 export default async function StatisticsPage() {
@@ -92,7 +92,7 @@ export default async function StatisticsPage() {
       totalSessions > 0
         ? Math.round(((featureCounts[f.key]?.size ?? 0) / totalSessions) * 100)
         : 0,
-  }));
+  })).sort((a, b) => b.count - a.count);
 
   const profileCounts: Record<string, number> = {};
   for (const ev of profileEvents) {
@@ -100,142 +100,166 @@ export default async function StatisticsPage() {
     profileCounts[ev.feature] = (profileCounts[ev.feature] ?? 0) + 1;
   }
 
-  const profileStats = Object.entries(PROFILE_LABELS).map(([key, label]) => ({
-    key,
-    label,
-    count: profileCounts[key] ?? 0,
-  })).sort((a, b) => b.count - a.count);
+  const profileStats = Object.entries(PROFILE_LABELS)
+    .map(([key, label]) => ({ key, label, count: profileCounts[key] ?? 0 }))
+    .sort((a, b) => b.count - a.count);
 
-  const totalFeatureActivations = Object.values(featureCounts).reduce((sum, s) => sum + s.size, 0);
+  const maxProfileCount = Math.max(...profileStats.map((p) => p.count), 1);
+
+  const totalFeatureActivations = Object.values(featureCounts).reduce(
+    (sum, s) => sum + s.size,
+    0
+  );
+
+  const engagement =
+    (widgetLoadTotal._sum.count ?? 0) > 0
+      ? Math.round((openCount / (widgetLoadTotal._sum.count ?? 1)) * 100)
+      : 0;
 
   return (
-    <div className="px-8 py-8 max-w-4xl">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Statistics</h1>
-
-      {/* Widget Engagement Summary */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Widget Loads</p>
-          <p className="text-3xl font-bold mt-1 text-blue-600 dark:text-blue-400">
-            {(widgetLoadTotal._sum.count ?? 0).toLocaleString()}
-          </p>
-        </div>
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Widget Opens</p>
-          <p className="text-3xl font-bold mt-1 text-purple-600 dark:text-purple-400">
-            {openCount.toLocaleString()}
-          </p>
-        </div>
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Unique Sessions</p>
-          <p className="text-3xl font-bold mt-1 text-green-600 dark:text-green-400">
-            {totalSessions.toLocaleString()}
-          </p>
-        </div>
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Feature Activations</p>
-          <p className="text-3xl font-bold mt-1 text-gray-900 dark:text-white">
-            {totalFeatureActivations.toLocaleString()}
-          </p>
-        </div>
+    <div className="px-6 py-8 max-w-4xl">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Statistics</h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Last 30 days across all your sites</p>
       </div>
 
-      {/* Date range filter */}
-      <div className="mb-6">
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date Range</p>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-900">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              <rect x="1" y="2" width="14" height="13" rx="2" />
-              <path d="M1 6h14M5 1v2M11 1v2" />
-            </svg>
-            Last 30 days
+      {/* KPI cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        {[
+          {
+            label: "Widget Loads",
+            value: (widgetLoadTotal._sum.count ?? 0).toLocaleString(),
+            color: "text-blue-600 dark:text-blue-400",
+            bg: "bg-blue-50 dark:bg-blue-950",
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M8 1v9M4 7l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            ),
+          },
+          {
+            label: "Widget Opens",
+            value: openCount.toLocaleString(),
+            color: "text-violet-600 dark:text-violet-400",
+            bg: "bg-violet-50 dark:bg-violet-950",
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M1 8s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            ),
+          },
+          {
+            label: "Unique Sessions",
+            value: totalSessions.toLocaleString(),
+            color: "text-emerald-600 dark:text-emerald-400",
+            bg: "bg-emerald-50 dark:bg-emerald-950",
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M3 13.5a5 5 0 0110 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            ),
+          },
+          {
+            label: "Feature Activations",
+            value: totalFeatureActivations.toLocaleString(),
+            color: "text-amber-600 dark:text-amber-400",
+            bg: "bg-amber-50 dark:bg-amber-950",
+            icon: (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <rect x="1" y="9" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="6.5" y="5" width="3" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="12" y="1" width="3" height="14" rx="1" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            ),
+          },
+        ].map((stat) => (
+          <div key={stat.label} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+            <div className={`w-8 h-8 ${stat.bg} rounded-lg flex items-center justify-center mb-3 ${stat.color}`}>
+              {stat.icon}
+            </div>
+            <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 font-medium">{stat.label}</p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
-            Filter
-          </button>
-          <span className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg opacity-50 cursor-not-allowed">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              <path d="M8 1v9M4 7l4 4 4-4M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1" />
-            </svg>
-            Export Excel
+        ))}
+      </div>
+
+      {/* Engagement rate pill */}
+      <div className="flex items-center gap-3 mb-8 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
+        <div className="flex-1">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Widget engagement rate</p>
+            <span className="text-sm font-bold text-gray-900 dark:text-white">{engagement}%</span>
+          </div>
+          <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-blue-500 rounded-full transition-all"
+              style={{ width: `${Math.min(engagement, 100)}%` }}
+            />
+          </div>
+        </div>
+        <p className="text-xs text-gray-400 dark:text-gray-600 shrink-0">opens / loads</p>
+      </div>
+
+      {/* Feature stats */}
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <h2 className="text-base font-semibold text-gray-900 dark:text-white">Feature usage</h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Unique sessions that activated each feature in the last 30 days</p>
+          </div>
+          <span className="text-xs text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-lg">
+            Last 30 days
           </span>
         </div>
-      </div>
 
-      {/* Feature stats table */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
-        <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
-          Usage statistics by features
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
-          Track the usage of each feature to understand how users interact with your accessibility widget, helping optimize performance and enhance user experience.
-        </p>
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100 dark:border-gray-800">
-                <th className="text-left py-2.5 px-4 text-xs font-medium text-gray-400 dark:text-gray-600">
-                  Features
-                </th>
-                <th className="text-right py-2.5 px-4 text-xs font-medium text-gray-400 dark:text-gray-600 w-28">
-                  Count
-                </th>
-                <th className="text-right py-2.5 px-4 text-xs font-medium text-gray-400 dark:text-gray-600 w-28">
-                  Percentage
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {featureStats.map((f) => (
-                <tr
-                  key={f.key}
-                  className="border-b border-gray-50 dark:border-gray-800 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
-                >
-                  <td className="py-2.5 px-4 text-gray-700 dark:text-gray-300">{f.label}</td>
-                  <td className="py-2.5 px-4 text-right text-gray-500 dark:text-gray-400">{f.count}</td>
-                  <td className="py-2.5 px-4 text-right text-gray-500 dark:text-gray-400">{f.pct}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-3">
+          {featureStats.map((f) => (
+            <div key={f.key} className="flex items-center gap-3">
+              <div className="w-36 shrink-0">
+                <p className="text-sm text-gray-700 dark:text-gray-300 truncate">{f.label}</p>
+              </div>
+              <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-blue-500 rounded-full transition-all"
+                  style={{ width: f.pct > 0 ? `${f.pct}%` : "0%" }}
+                />
+              </div>
+              <div className="flex items-center gap-2 shrink-0 w-20 justify-end">
+                <span className="text-xs text-gray-500 dark:text-gray-400">{f.count.toLocaleString()}</span>
+                <span className="text-xs font-medium text-gray-400 dark:text-gray-600 w-8 text-right">{f.pct}%</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Accessibility Profile Usage */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
-        <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
-          Accessibility Profile Usage
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
-          How many times each one-click accessibility profile was activated in the last 30 days.
-        </p>
+      {/* Profile stats */}
+      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="mb-5">
+          <h2 className="text-base font-semibold text-gray-900 dark:text-white">Accessibility profile usage</h2>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">One-click profile activations in the last 30 days</p>
+        </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100 dark:border-gray-800">
-                <th className="text-left py-2.5 px-4 text-xs font-medium text-gray-400 dark:text-gray-600">
-                  Profile
-                </th>
-                <th className="text-right py-2.5 px-4 text-xs font-medium text-gray-400 dark:text-gray-600 w-28">
-                  Activations
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {profileStats.map((p) => (
-                <tr
-                  key={p.key}
-                  className="border-b border-gray-50 dark:border-gray-800 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
-                >
-                  <td className="py-2.5 px-4 text-gray-700 dark:text-gray-300">{p.label}</td>
-                  <td className="py-2.5 px-4 text-right text-gray-500 dark:text-gray-400">{p.count}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="space-y-3">
+          {profileStats.map((p) => (
+            <div key={p.key} className="flex items-center gap-3">
+              <div className="w-40 shrink-0">
+                <p className="text-sm text-gray-700 dark:text-gray-300 truncate">{p.label}</p>
+              </div>
+              <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-violet-500 rounded-full transition-all"
+                  style={{ width: `${Math.round((p.count / maxProfileCount) * 100)}%` }}
+                />
+              </div>
+              <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0 w-10 text-right">
+                {p.count.toLocaleString()}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
