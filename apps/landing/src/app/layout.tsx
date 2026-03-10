@@ -7,7 +7,7 @@ const siteUrl = "https://inculva.com";
 export const metadata: Metadata = {
   title: "Inculva — Web Accessibility Widget",
   description:
-    "Add 19 real accessibility features to any website in under 5 minutes. WCAG 2.1 AA, EAA 2025, ADA compliant. One script tag.",
+    "Add 25 real accessibility features to any website in under 5 minutes. WCAG 2.1 AA, EAA 2025, ADA compliant. One script tag.",
   metadataBase: new URL(siteUrl),
   icons: {
     icon: "/brand-logo.png",

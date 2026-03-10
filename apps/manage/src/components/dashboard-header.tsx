@@ -41,23 +41,30 @@ export function DashboardHeader({ email, name, locale }: Props) {
     : email[0]?.toUpperCase() ?? "?";
 
   return (
-    <header className="h-[49px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 flex items-center justify-between sticky top-0 z-40 shrink-0">
+    <header className="h-[52px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-5 flex items-center justify-between sticky top-0 z-40 shrink-0">
       {/* Logo */}
-      <a href="/dashboard" className="flex items-center">
-        <img
-          src="/assets/icons/universal-access.svg"
-          alt="Inculva"
-          className="h-6 w-auto dark:invert"
-        />
+      <a href="/dashboard" className="flex items-center gap-2.5 group">
+        <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="4.5" r="2.2" fill="white" />
+            <path d="M5.5 10h13" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <path d="M12 8.5v5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <path d="M9 20l2-5.5M15 20l-2-5.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </div>
+        <span className="font-bold text-sm text-gray-900 dark:text-white tracking-tight">Inculva</span>
       </a>
 
       {/* Right side */}
       <div className="flex items-center gap-2">
         <a
           href="/dashboard/sites/new"
-          className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-full transition-colors"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors"
         >
-          Add new site +
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M6 1v10M1 6h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+          New site
         </a>
 
         <ThemeToggle />
