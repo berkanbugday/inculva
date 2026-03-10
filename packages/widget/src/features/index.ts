@@ -1,5 +1,8 @@
 import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
-import { OPENDYSLEXIC_REGULAR_B64, OPENDYSLEXIC_BOLD_B64 } from "virtual:opendyslexic-fonts";
+import {
+  OPENDYSLEXIC_REGULAR_B64,
+  OPENDYSLEXIC_BOLD_B64,
+} from "virtual:opendyslexic-fonts";
 
 type FeatureHandler = {
   /** level is 1-based (1 = minimum, N = maximum). Omit for binary features. */
@@ -30,7 +33,7 @@ function loadDyslexiaFonts(): void {
 
   const specs = [
     { b64: OPENDYSLEXIC_REGULAR_B64, weight: "400" },
-    { b64: OPENDYSLEXIC_BOLD_B64,    weight: "700" },
+    { b64: OPENDYSLEXIC_BOLD_B64, weight: "700" },
   ] as const;
 
   for (const { b64, weight } of specs) {
@@ -79,19 +82,23 @@ function removeStyle(id: string): void {
 // Features listed here support incremental levels (1 = min, N = max).
 // Clicking the button cycles 0 → 1 → 2 → … → N → 0 (off).
 export const FEATURE_LEVELS: Partial<Record<keyof WidgetFeatures, number>> = {
-  textResizing:     4,
-  lineHeight:       4,
-  textSpacing:      4,
+  textResizing: 4,
+  lineHeight: 4,
+  textSpacing: 4,
   contentMagnifier: 4,
-  saturation:       4,
-  colorBlindMode:   4,  // L1=deuteranopia L2=protanopia L3=tritanopia L4=achromatopsia
-  textAlign:        3,  // L1=left L2=center L3=right
-  readingGuide:     3,  // L1=thin(3px) L2=medium(6px) L3=thick(12px)
+  saturation: 4,
+  colorBlindMode: 4, // L1=deuteranopia L2=protanopia L3=tritanopia L4=achromatopsia
+  textAlign: 3,      // L1=left L2=center L3=right
+  readingGuide: 3,   // L1=thin(3px) L2=medium(6px) L3=thick(12px)
+  cursorEnhancement: 3, // L1=medium(32px) L2=large(48px) L3=XL(64px)
 };
 
 /** Level → ColorBlindType mapping (exported so index.ts can derive display labels). */
 export const CBM_CYCLE_TYPES: ColorBlindType[] = [
-  "deuteranopia", "protanopia", "tritanopia", "achromatopsia",
+  "deuteranopia",
+  "protanopia",
+  "tritanopia",
+  "achromatopsia",
 ];
 
 // ── Composited html-level filter manager ─────────────────────────────────────
@@ -141,32 +148,41 @@ let activeColorBlindType: ColorBlindType = "deuteranopia";
 
 const COLOR_BLIND_FILTERS: Record<ColorBlindType, string> = {
   // Machado et al. (2009) color matrix values
-  deuteranopia:   "0.367 0.861 -0.228 0 0  0.280 0.673  0.047 0 0 -0.012 0.043  0.969 0 0  0 0 0 1 0",
-  protanopia:     "0.152 1.053 -0.205 0 0  0.115 0.786  0.099 0 0 -0.004 -0.048 1.052 0 0  0 0 0 1 0",
-  tritanopia:     "1.256 -0.077 -0.179 0 0 -0.078 0.931 0.148 0 0  0.005 0.691  0.304 0 0  0 0 0 1 0",
-  achromatopsia:  "0.299 0.587  0.114 0 0  0.299 0.587  0.114 0 0  0.299 0.587  0.114 0 0  0 0 0 1 0",
+  deuteranopia:
+    "0.367 0.861 -0.228 0 0  0.280 0.673  0.047 0 0 -0.012 0.043  0.969 0 0  0 0 0 1 0",
+  protanopia:
+    "0.152 1.053 -0.205 0 0  0.115 0.786  0.099 0 0 -0.004 -0.048 1.052 0 0  0 0 0 1 0",
+  tritanopia:
+    "1.256 -0.077 -0.179 0 0 -0.078 0.931 0.148 0 0  0.005 0.691  0.304 0 0  0 0 0 1 0",
+  achromatopsia:
+    "0.299 0.587  0.114 0 0  0.299 0.587  0.114 0 0  0.299 0.587  0.114 0 0  0 0 0 1 0",
 };
 
 /** Create / update the hidden SVG <filter> element used by colorBlindMode. */
 function _applyColorBlindSvg(type: ColorBlindType): void {
   injectStyle(
     "inculva-color-blind-filter-def",
-    `body::before { content: ''; position: fixed; width: 0; height: 0; }`
+    `body::before { content: ''; position: fixed; width: 0; height: 0; }`,
   );
   let svg = document.getElementById("inculva-color-blind-svg");
   if (!svg) {
-    svg = document.createElementNS("http://www.w3.org/2000/svg", "svg") as unknown as HTMLElement;
+    svg = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg",
+    ) as unknown as HTMLElement;
     svg.id = "inculva-color-blind-svg";
     (svg as unknown as SVGElement).setAttribute(
       "style",
-      "position:absolute;width:0;height:0;overflow:hidden"
+      "position:absolute;width:0;height:0;overflow:hidden",
     );
     document.body.insertBefore(svg, document.body.firstChild);
   }
   svg.innerHTML = `<defs><filter id="inculva-cbf"><feColorMatrix type="matrix" values="${COLOR_BLIND_FILTERS[type]}"/></filter></defs>`;
 }
 
-export function getColorBlindType(): ColorBlindType { return activeColorBlindType; }
+export function getColorBlindType(): ColorBlindType {
+  return activeColorBlindType;
+}
 
 export function setColorBlindType(type: ColorBlindType): void {
   activeColorBlindType = type;
@@ -188,7 +204,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       const sizes = ["110%", "125%", "140%", "155%"];
       replaceStyle(
         "inculva-text-resize",
-        `html { font-size: ${sizes[level - 1] ?? "110%"} !important; }`
+        `html { font-size: ${sizes[level - 1] ?? "110%"} !important; }`,
       );
     },
     disable: () => removeStyle("inculva-text-resize"),
@@ -199,7 +215,10 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   highContrast: {
     enable: () => {
       setHtmlFilter("highContrast", "contrast(1.55)");
-      injectStyle("inculva-high-contrast-links", `body a { color: #ffff00 !important; }`);
+      injectStyle(
+        "inculva-high-contrast-links",
+        `body a { color: #ffff00 !important; }`,
+      );
     },
     disable: () => {
       removeHtmlFilter("highContrast");
@@ -214,7 +233,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       loadDyslexiaFonts();
       injectStyle(
         "inculva-dyslexia-font",
-        `body * { font-family: 'OpenDyslexic', sans-serif !important; }`
+        `body * { font-family: 'OpenDyslexic', sans-serif !important; }`,
       );
     },
     disable: () => {
@@ -224,11 +243,26 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   },
 
   cursorEnhancement: {
-    enable: () =>
-      injectStyle(
+    // Three cursor sizes — standard arrow cursor shape (white fill, black outline).
+    // Hotspot coordinates reference the pointer tip (top-left of the arrow).
+    enable: (level = 1) => {
+      // [size_px, hotspot_x, hotspot_y] — hotspot in CSS pixels at rendered size
+      const cfg: [number, number, number][] = [[32, 6, 3], [48, 9, 4], [64, 12, 6]];
+      const [sz, hx, hy] = cfg[Math.min(level, 3) - 1] ?? cfg[0];
+      // Classic arrow cursor path in a 24×24 viewBox.
+      // IMPORTANT: all SVG attributes use double quotes so encodeURIComponent
+      // encodes them as safe %22 sequences — single quotes are NOT encoded by
+      // encodeURIComponent (they are in the unreserved set), so a single-quoted
+      // SVG inside url('...') would prematurely close the CSS string.
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${sz}" height="${sz}" viewBox="0 0 24 24">`
+        + `<path d="M5 2 L5 20 L9 16 L12 22.5 L15 21 L12 14.5 L18.5 14.5 Z" `
+        + `fill="white" stroke="black" stroke-width="1.8" stroke-linejoin="round" paint-order="stroke fill"/>`
+        + `</svg>`;
+      replaceStyle(
         "inculva-cursor",
-        `body * { cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="black" stroke="white" stroke-width="2"/></svg>') 16 16, auto !important; }`
-      ),
+        `body *:not([id^="inculva"]):not([class*="inculva"]) { cursor: url("data:image/svg+xml,${encodeURIComponent(svg)}") ${hx} ${hy}, auto !important; }`,
+      );
+    },
     disable: () => removeStyle("inculva-cursor"),
   },
 
@@ -236,7 +270,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     enable: () =>
       injectStyle(
         "inculva-keyboard-nav",
-        `:focus-visible { outline: 3px solid #0066cc !important; outline-offset: 3px !important; }`
+        `:focus-visible { outline: 3px solid #0066cc !important; outline-offset: 3px !important; }`,
       ),
     disable: () => removeStyle("inculva-keyboard-nav"),
   },
@@ -249,27 +283,35 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       const prev = document.getElementById("inculva-reading-guide") as
         | (HTMLElement & { _moveHandler?: (e: MouseEvent) => void })
         | null;
-      if (prev?._moveHandler) document.removeEventListener("mousemove", prev._moveHandler);
+      if (prev?._moveHandler)
+        document.removeEventListener("mousemove", prev._moveHandler);
       prev?.remove();
 
       const heights = [3, 6, 12];
-      const h = heights[(level - 1)] ?? 3;
+      const h = heights[level - 1] ?? 3;
       const blur = h * 3;
 
       const guide = document.createElement("div");
       guide.id = "inculva-reading-guide";
       guide.style.cssText = [
-        "position:fixed", "left:0", "right:0", `height:${h}px`,
+        "position:fixed",
+        "left:0",
+        "right:0",
+        `height:${h}px`,
         "background:rgba(245,158,11,0.9)",
         `box-shadow:0 0 ${blur}px rgba(245,158,11,0.7),0 2px 6px rgba(245,158,11,0.4)`,
-        "pointer-events:none", "z-index:2147483642", "top:0",
+        "pointer-events:none",
+        "z-index:2147483642",
+        "top:0",
       ].join(";");
       document.documentElement.appendChild(guide);
       const move = (e: MouseEvent) => {
         guide.style.top = `${e.clientY - Math.floor(h / 2)}px`;
       };
       document.addEventListener("mousemove", move);
-      (guide as HTMLElement & { _moveHandler?: (e: MouseEvent) => void })._moveHandler = move;
+      (
+        guide as HTMLElement & { _moveHandler?: (e: MouseEvent) => void }
+      )._moveHandler = move;
     },
     disable: () => {
       const guide = document.getElementById("inculva-reading-guide") as
@@ -289,7 +331,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         `
         img:not([alt]) { outline: 3px solid red !important; }
         img[alt]::after { content: attr(alt); }
-      `
+      `,
       ),
     disable: () => removeStyle("inculva-screen-reader"),
   },
@@ -298,7 +340,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     enable: () =>
       injectStyle(
         "inculva-pause-animations",
-        `body *, body *::before, body *::after { animation-play-state: paused !important; transition: none !important; }`
+        `body *, body *::before, body *::after { animation-play-state: paused !important; transition: none !important; }`,
       ),
     disable: () => removeStyle("inculva-pause-animations"),
   },
@@ -307,16 +349,16 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   textSpacing: {
     enable: (level = 1) => {
       const cfg = [
-        { lh: "1.5",  ls: "0.06em", ws: "0.10em" },
-        { lh: "1.7",  ls: "0.12em", ws: "0.16em" },
-        { lh: "1.9",  ls: "0.16em", ws: "0.20em" },
-        { lh: "2.1",  ls: "0.20em", ws: "0.24em" },
+        { lh: "1.5", ls: "0.06em", ws: "0.10em" },
+        { lh: "1.7", ls: "0.12em", ws: "0.16em" },
+        { lh: "1.9", ls: "0.16em", ws: "0.20em" },
+        { lh: "2.1", ls: "0.20em", ws: "0.24em" },
       ];
       const { lh, ls, ws } = cfg[level - 1] ?? cfg[0]!;
       replaceStyle(
         "inculva-text-spacing",
         `body * { line-height: ${lh} !important; letter-spacing: ${ls} !important; word-spacing: ${ws} !important; }
-         body p { margin-bottom: 2em !important; }`
+         body p { margin-bottom: 2em !important; }`,
       );
     },
     disable: () => removeStyle("inculva-text-spacing"),
@@ -327,7 +369,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     enable: () =>
       injectStyle(
         "inculva-highlight-links",
-        `body a, body a:visited { text-decoration: underline !important; font-weight: bold !important; outline: 2px solid currentColor !important; outline-offset: 1px !important; }`
+        `body a, body a:visited { text-decoration: underline !important; font-weight: bold !important; outline: 2px solid currentColor !important; outline-offset: 1px !important; }`,
       ),
     disable: () => removeStyle("inculva-highlight-links"),
   },
@@ -356,7 +398,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         `a, button, input, select, textarea, [role="button"], [role="link"], [role="checkbox"], [role="radio"], [tabindex] {
           min-width: 44px !important;
           min-height: 44px !important;
-        }`
+        }`,
       ),
     disable: () => removeStyle("inculva-large-targets"),
   },
@@ -372,7 +414,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
           box-shadow: 0 0 0 6px rgba(255,102,0,0.3) !important;
           z-index: 999997 !important;
           position: relative !important;
-        }`
+        }`,
       ),
     disable: () => removeStyle("inculva-focus-highlight"),
   },
@@ -389,7 +431,9 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       if (document.getElementById("inculva-skip-nav")) return;
       const skip = document.createElement("a");
       skip.id = "inculva-skip-nav";
-      const main = document.querySelector<HTMLElement>("main, [role='main'], #main, #content, .main-content");
+      const main = document.querySelector<HTMLElement>(
+        "main, [role='main'], #main, #content, .main-content",
+      );
       if (main) {
         if (!main.id) main.id = "inculva-main-content";
         skip.href = `#${main.id}`;
@@ -398,14 +442,27 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       }
       skip.textContent = "Skip to main content";
       skip.style.cssText = [
-        "position:fixed", "top:-100px", "left:16px", "z-index:9999999",
-        "background:#000", "color:#fff", "padding:8px 16px",
-        "border-radius:0 0 8px 8px", "font-weight:bold", "font-size:14px",
-        "font-family:system-ui,sans-serif", "text-decoration:none",
-        "transition:top 0.15s", "border:2px solid #fff",
+        "position:fixed",
+        "top:-100px",
+        "left:16px",
+        "z-index:9999999",
+        "background:#000",
+        "color:#fff",
+        "padding:8px 16px",
+        "border-radius:0 0 8px 8px",
+        "font-weight:bold",
+        "font-size:14px",
+        "font-family:system-ui,sans-serif",
+        "text-decoration:none",
+        "transition:top 0.15s",
+        "border:2px solid #fff",
       ].join(";");
-      skip.addEventListener("focus", () => { skip.style.top = "0"; });
-      skip.addEventListener("blur", () => { skip.style.top = "-100px"; });
+      skip.addEventListener("focus", () => {
+        skip.style.top = "0";
+      });
+      skip.addEventListener("blur", () => {
+        skip.style.top = "-100px";
+      });
       document.body.insertBefore(skip, document.body.firstChild);
     },
     disable: () => {
@@ -424,23 +481,33 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       // The div itself is transparent (the "window"). box-shadow creates the dark overlay
       // that fills the rest of the viewport — a CSS-only approach with no extra elements.
       mask.style.cssText = [
-        "position:fixed", "left:0", "right:0", "height:80px",
+        "position:fixed",
+        "left:0",
+        "right:0",
+        "height:80px",
         "background:transparent",
         "border-top:3px solid #3b82f6",
         "border-bottom:3px solid #3b82f6",
         "box-shadow:0 0 0 9999px rgba(0,0,0,0.65)",
-        "pointer-events:none", "z-index:2147483640", "top:0",
+        "pointer-events:none",
+        "z-index:2147483640",
+        "top:0",
       ].join(";");
       document.documentElement.appendChild(mask);
-      const move = (e: MouseEvent) => { mask.style.top = `${e.clientY - 40}px`; };
+      const move = (e: MouseEvent) => {
+        mask.style.top = `${e.clientY - 40}px`;
+      };
       document.addEventListener("mousemove", move);
-      (mask as HTMLElement & { _moveHandler?: (e: MouseEvent) => void })._moveHandler = move;
+      (
+        mask as HTMLElement & { _moveHandler?: (e: MouseEvent) => void }
+      )._moveHandler = move;
     },
     disable: () => {
       const mask = document.getElementById("inculva-reading-mask") as
         | (HTMLElement & { _moveHandler?: (e: MouseEvent) => void })
         | null;
-      if (mask?._moveHandler) document.removeEventListener("mousemove", mask._moveHandler);
+      if (mask?._moveHandler)
+        document.removeEventListener("mousemove", mask._moveHandler);
       mask?.remove();
     },
   },
@@ -449,10 +516,10 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   textAlign: {
     enable: (level = 1) => {
       const aligns = ["left", "center", "right"] as const;
-      const align  = aligns[(level - 1)] ?? "left";
+      const align = aligns[level - 1] ?? "left";
       replaceStyle(
         "inculva-text-align",
-        `p, li, td, th, label, h1, h2, h3, h4, h5, h6 { text-align: ${align} !important; }`
+        `p, li, td, th, label, h1, h2, h3, h4, h5, h6 { text-align: ${align} !important; }`,
       );
     },
     disable: () => removeStyle("inculva-text-align"),
@@ -470,7 +537,9 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   // WCAG 1.4.2 A — Audio Control (mute autoplaying media)
   muteMedia: {
     enable: () => {
-      for (const el of document.querySelectorAll<HTMLMediaElement>("audio, video")) {
+      for (const el of document.querySelectorAll<HTMLMediaElement>(
+        "audio, video",
+      )) {
         el.muted = true;
         if (!el.paused) el.pause();
       }
@@ -485,15 +554,22 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         }
       });
       observer.observe(document.body, { childList: true, subtree: true });
-      (window as Window & { __inculvaMuteObserver?: MutationObserver }).__inculvaMuteObserver = observer;
+      (
+        window as Window & { __inculvaMuteObserver?: MutationObserver }
+      ).__inculvaMuteObserver = observer;
     },
     disable: () => {
       removeStyle("inculva-mute-media-state");
-      for (const el of document.querySelectorAll<HTMLMediaElement>("audio, video")) {
+      for (const el of document.querySelectorAll<HTMLMediaElement>(
+        "audio, video",
+      )) {
         el.muted = false;
       }
-      (window as Window & { __inculvaMuteObserver?: MutationObserver }).__inculvaMuteObserver?.disconnect();
-      delete (window as Window & { __inculvaMuteObserver?: MutationObserver }).__inculvaMuteObserver;
+      (
+        window as Window & { __inculvaMuteObserver?: MutationObserver }
+      ).__inculvaMuteObserver?.disconnect();
+      delete (window as Window & { __inculvaMuteObserver?: MutationObserver })
+        .__inculvaMuteObserver;
     },
   },
 
@@ -501,19 +577,21 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
   // Blue Light Filter — warm sepia tint reduces blue channel fatigue
   blueLightFilter: {
-    enable: () => setHtmlFilter("blueLight", "sepia(0.25) saturate(0.85) brightness(0.95)"),
+    enable: () =>
+      setHtmlFilter("blueLight", "sepia(0.25) saturate(0.85) brightness(0.95)"),
     disable: () => removeHtmlFilter("blueLight"),
   },
 
   // Hide Images — makes images invisible while preserving page layout
   hideImages: {
-    enable: () => injectStyle(
-      "inculva-hide-images",
-      `img, picture, [role="img"]:not(svg):not(#inculva-widget-btn svg) {
+    enable: () =>
+      injectStyle(
+        "inculva-hide-images",
+        `img, picture, [role="img"]:not(svg):not(#inculva-widget-btn svg) {
          visibility: hidden !important;
        }
-       #inculva-widget-btn img, #inculva-widget-panel img { visibility: visible !important; }`
-    ),
+       #inculva-widget-btn img, #inculva-widget-panel img { visibility: visible !important; }`,
+      ),
     disable: () => removeStyle("inculva-hide-images"),
   },
 
@@ -524,7 +602,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       setHtmlFilter("darkMode", "invert(1) hue-rotate(180deg)");
       injectStyle(
         "inculva-dark-mode-media",
-        `img, video, iframe, canvas { filter: invert(1) hue-rotate(180deg) !important; }`
+        `img, video, iframe, canvas { filter: invert(1) hue-rotate(180deg) !important; }`,
       );
     },
     disable: () => {
@@ -545,17 +623,22 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
       injectStyle(
         "inculva-magnifier-cursor",
-        `:not([id^="inculva"]):not([class*="inculva"]) { cursor: zoom-in !important; }`
+        `:not([id^="inculva"]):not([class*="inculva"]) { cursor: zoom-in !important; }`,
       );
 
       const lens = document.createElement("div");
       lens.id = "inculva-magnifier";
       lens.style.cssText = [
-        "position:fixed", "width:200px", "height:200px", "border-radius:50%",
+        "position:fixed",
+        "width:200px",
+        "height:200px",
+        "border-radius:50%",
         "border:3px solid rgba(0,102,204,0.85)",
         "box-shadow:0 0 0 3px rgba(255,255,255,0.85),0 8px 28px rgba(0,0,0,0.3)",
-        "pointer-events:none", "z-index:2147483643",
-        "top:-9999px", "left:-9999px",
+        "pointer-events:none",
+        "z-index:2147483643",
+        "top:-9999px",
+        "left:-9999px",
         "background:rgba(200,220,255,0.06)",
       ].join(";");
       document.documentElement.appendChild(lens);
@@ -564,10 +647,18 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
       const move = (e: MouseEvent) => {
         lens.style.left = `${e.clientX - 100}px`;
-        lens.style.top  = `${e.clientY - 100}px`;
+        lens.style.top = `${e.clientY - 100}px`;
 
-        const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
-        if (!target || target === lens || target.closest?.("#inculva-widget-panel,#inculva-widget-btn")) return;
+        const target = document.elementFromPoint(
+          e.clientX,
+          e.clientY,
+        ) as HTMLElement | null;
+        if (
+          !target ||
+          target === lens ||
+          target.closest?.("#inculva-widget-panel,#inculva-widget-btn")
+        )
+          return;
 
         if (prevEl && prevEl !== target) {
           prevEl.style.removeProperty("transform");
@@ -577,23 +668,33 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         }
         if (target !== prevEl) {
           // Read _magnifierScale dynamically so level changes take effect immediately
-          target.style.setProperty("transform", `scale(${_magnifierScale})`, "important");
+          target.style.setProperty(
+            "transform",
+            `scale(${_magnifierScale})`,
+            "important",
+          );
           target.style.setProperty("z-index", "99998", "important");
-          target.style.setProperty("transition", "transform 0.12s ease", "important");
+          target.style.setProperty(
+            "transition",
+            "transform 0.12s ease",
+            "important",
+          );
           target.style.setProperty("position", "relative", "important");
           prevEl = target;
         }
       };
 
       document.addEventListener("mousemove", move);
-      (lens as HTMLElement & { _moveHandler?: typeof move })._moveHandler = move;
+      (lens as HTMLElement & { _moveHandler?: typeof move })._moveHandler =
+        move;
     },
     disable: () => {
       removeStyle("inculva-magnifier-cursor");
       const lens = document.getElementById("inculva-magnifier") as
         | (HTMLElement & { _moveHandler?: (e: MouseEvent) => void })
         | null;
-      if (lens?._moveHandler) document.removeEventListener("mousemove", lens._moveHandler);
+      if (lens?._moveHandler)
+        document.removeEventListener("mousemove", lens._moveHandler);
       lens?.remove();
       for (const el of document.querySelectorAll<HTMLElement>("[style]")) {
         if (el.style.transform?.startsWith("scale(")) {
@@ -612,7 +713,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       const vals = [1.6, 1.9, 2.2, 2.6];
       replaceStyle(
         "inculva-line-height",
-        `body * { line-height: ${vals[level - 1] ?? 1.6} !important; }`
+        `body * { line-height: ${vals[level - 1] ?? 1.6} !important; }`,
       );
     },
     disable: () => removeStyle("inculva-line-height"),
@@ -620,20 +721,21 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
   // Highlight Titles — outlines all headings to help users identify page structure
   highlightTitles: {
-    enable: () => injectStyle(
-      "inculva-highlight-titles",
-      `h1, h2, h3, h4, h5, h6 {
+    enable: () =>
+      injectStyle(
+        "inculva-highlight-titles",
+        `h1, h2, h3, h4, h5, h6 {
          outline: 2px solid currentColor !important;
          outline-offset: 3px !important;
          padding: 2px 6px !important;
-       }`
-    ),
+       }`,
+      ),
     disable: () => removeStyle("inculva-highlight-titles"),
   },
 
   // ── Hidden stubs (not shown in grid, reserved for future phases) ─────────────
-  toolTips:          { enable: () => {}, disable: () => {} },
-  sustainabilityMode:{ enable: () => {}, disable: () => {} },
-  slowCursor:        { enable: () => {}, disable: () => {} },
-  dictionary:        { enable: () => {}, disable: () => {} },
+  toolTips: { enable: () => {}, disable: () => {} },
+  sustainabilityMode: { enable: () => {}, disable: () => {} },
+  slowCursor: { enable: () => {}, disable: () => {} },
+  dictionary: { enable: () => {}, disable: () => {} },
 };

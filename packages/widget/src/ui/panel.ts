@@ -49,8 +49,12 @@ const ICON_TAB_READING = `<svg width="14" height="14" viewBox="0 0 20 20" fill="
 const ICON_TAB_MOTOR   = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="6" r="2"/><path d="M10 9v4l-2.5 4M10 13l2.5 4M6 11h3M11 11h3"/></svg>`;
 const ICON_TAB_CALM    = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 12c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0M3 7c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0"/></svg>`;
 
-// Compress/mini icon
+// Size mode icons
 const ICON_COMPRESS = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 3v14"/><path d="M13 7l-4 3 4 3"/></svg>`;
+const ICON_SIZE_MINI    = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="6" width="8" height="8" rx="1.5"/></svg>`;
+const ICON_SIZE_REGULAR = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2"/></svg>`;
+const ICON_SIZE_LARGE   = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="1" y="1" width="18" height="18" rx="3"/><path d="M1 1h18v18H1z" fill="currentColor" opacity="0.07"/></svg>`;
+const ICON_GLOBE        = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 2.5c-2.5 2.5-2.5 12.5 0 15M10 2.5c2.5 2.5 2.5 12.5 0 15M2.5 10h15"/></svg>`;
 
 // ---------------------------------------------------------------------------
 // SVG icon set — stroke-based (20×20 or 18×18), aria-hidden
@@ -82,8 +86,8 @@ const ICON_MUTE = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" s
 const ICON_KEYBOARD = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="16" height="11" rx="2"/><path d="M5 9h1.5M9 9h2M13.5 9h1.5M5 12.5h10"/></svg>`;
 
 // UI icons
-const ICON_CLOSE  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
-const ICON_RESET  = `<svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 10a6 6 0 1 0 1-3.5M4 6.5V10H8"/></svg>`;
+const ICON_CLOSE  = `<svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
+const ICON_RESET  = `<svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 10a6 6 0 1 0 1-3.5M4 6.5V10H8"/></svg>`;
 const ICON_PERSON = `<svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="6" r="3"/><path d="M4 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>`;
 const ICON_ARROW_DOWN = `<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 5l4 4 4-4"/></svg>`;
 const ICON_EXPAND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 10h14M10 4l6 6-6 6"/></svg>`;
@@ -206,6 +210,24 @@ const EN_LABELS: Record<string, string> = {
 const COLOR_BLIND_TYPES: ColorBlindType[] = ["deuteranopia", "protanopia", "tritanopia", "achromatopsia"];
 const RTL_LANGS = new Set(["ar", "he", "fa", "ur"]);
 
+export const SUPPORTED_LANGUAGES: readonly { code: string; label: string }[] = [
+  { code: "en", label: "English" },
+  { code: "tr", label: "Türkçe" },
+  { code: "de", label: "Deutsch" },
+  { code: "fr", label: "Français" },
+  { code: "es", label: "Español" },
+  { code: "it", label: "Italiano" },
+  { code: "pt", label: "Português" },
+  { code: "nl", label: "Nederlands" },
+  { code: "ar", label: "العربية" },
+  { code: "he", label: "עברית" },
+  { code: "zh", label: "中文" },
+  { code: "ja", label: "日本語" },
+  { code: "ko", label: "한국어" },
+  { code: "ru", label: "Русский" },
+  { code: "pl", label: "Polski" },
+];
+
 // ---------------------------------------------------------------------------
 // DOM builders
 // ---------------------------------------------------------------------------
@@ -216,7 +238,10 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
 
   const iconBox = document.createElement("div");
   iconBox.className = "inculva-panel-header-icon";
-  iconBox.innerHTML = brandImg(20);
+  iconBox.innerHTML = brandImg(22);
+
+  const titleWrap = document.createElement("div");
+  titleWrap.className = "inculva-panel-title-wrap";
 
   const title = document.createElement("span");
   title.className = "inculva-panel-title";
@@ -226,16 +251,11 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
   activeCount.className = "inculva-active-count";
   activeCount.hidden = true;
 
+  titleWrap.appendChild(title);
+  titleWrap.appendChild(activeCount);
+
   const actions = document.createElement("div");
   actions.className = "inculva-header-actions";
-
-  // Mini/compact toggle
-  const miniBtn = document.createElement("button");
-  miniBtn.className = "inculva-header-btn inculva-mini-btn";
-  miniBtn.setAttribute("type", "button");
-  miniBtn.setAttribute("aria-label", "Compact mode");
-  miniBtn.dataset["size"] = "mini";
-  miniBtn.innerHTML = ICON_COMPRESS;
 
   const resetBtn = document.createElement("button");
   resetBtn.className = "inculva-header-btn";
@@ -251,15 +271,62 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
   closeBtn.dataset["inculvaAction"] = "close";
   closeBtn.innerHTML = ICON_CLOSE;
 
-  actions.appendChild(miniBtn);
   actions.appendChild(resetBtn);
   actions.appendChild(closeBtn);
 
   header.appendChild(iconBox);
-  header.appendChild(title);
-  header.appendChild(activeCount);
+  header.appendChild(titleWrap);
   header.appendChild(actions);
   return header;
+}
+
+function _buildControlsBar(language: string, labels: Record<string, string>): HTMLDivElement {
+  const bar = document.createElement("div");
+  bar.className = "inculva-controls-bar";
+
+  // Language selector — fills all available space so the select is as wide as possible
+  const langWrap = document.createElement("div");
+  langWrap.className = "inculva-lang-wrap";
+  const globeIcon = document.createElement("span");
+  globeIcon.className = "inculva-lang-globe";
+  globeIcon.setAttribute("aria-hidden", "true");
+  globeIcon.innerHTML = ICON_GLOBE;
+  langWrap.appendChild(globeIcon);
+  const langSelect = document.createElement("select");
+  langSelect.className = "inculva-lang-select";
+  langSelect.setAttribute("aria-label", labels["languageLabel"] ?? "Language");
+  langSelect.dataset["inculvaAction"] = "set-language";
+  for (const lang of SUPPORTED_LANGUAGES) {
+    const opt = document.createElement("option");
+    opt.value = lang.code;
+    opt.textContent = lang.label;
+    if (lang.code === language) opt.selected = true;
+    langSelect.appendChild(opt);
+  }
+  langWrap.appendChild(langSelect);
+
+  // 3-way size toggle — text labels: Small / Medium / Large
+  const sizeGroup = document.createElement("div");
+  sizeGroup.className = "inculva-size-group";
+
+  const sizeDefs: [string, string][] = [
+    ["mini",    "Small"],
+    ["regular", "Medium"],
+    ["large",   "Large"],
+  ];
+  for (const [sizeVal, sizeLabel] of sizeDefs) {
+    const btn = document.createElement("button");
+    btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "regular" ? " active" : ""}`;
+    btn.setAttribute("type", "button");
+    btn.setAttribute("aria-label", `${sizeLabel} size`);
+    btn.dataset["size"] = sizeVal;
+    btn.textContent = sizeLabel;
+    sizeGroup.appendChild(btn);
+  }
+
+  bar.appendChild(langWrap);
+  bar.appendChild(sizeGroup);
+  return bar;
 }
 
 function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
@@ -352,7 +419,7 @@ function _buildFeatureGrid(
 ): HTMLDivElement {
   const grid = document.createElement("div");
   grid.className = "inculva-feature-grid";
-  grid.dataset["activeTab"] = "vision";
+  grid.dataset["activeTab"] = "all";
 
   for (const feature of FEATURES) {
     const enabled = features[feature.key] !== false;
@@ -363,6 +430,7 @@ function _buildFeatureGrid(
     btn.setAttribute("type", "button");
     btn.dataset["feature"] = feature.key;
     btn.dataset["category"] = category;
+    btn.dataset["tooltip"] = labels[feature.key] ?? feature.key;
     btn.setAttribute("aria-pressed", "false");
     if (!enabled) btn.classList.add("inculva-hidden");
 
@@ -523,7 +591,7 @@ export function createPanel(
 
   panel.appendChild(_buildHeader(labels));
   panel.appendChild(_buildProfileSection(labels));
-  panel.appendChild(_buildCategoryTabs(labels));
+  panel.appendChild(_buildControlsBar(language, labels));
   panel.appendChild(_buildBody(features, labels));
   panel.appendChild(_buildMiniActions());
   panel.appendChild(_buildFooter(labels, accessibilityStatementUrl, whiteLabelText));
@@ -559,14 +627,20 @@ export function updatePanel(
   if (closeBtn)
     closeBtn.setAttribute("aria-label", labels["closeMenu"] ?? "Close accessibility menu");
 
-  // Update feature button labels and visibility
+  // Sync language select to current language
+  const langSelect = panel.querySelector<HTMLSelectElement>(".inculva-lang-select");
+  if (langSelect && language) langSelect.value = language;
+
+  // Update feature button labels, tooltips and visibility
   for (const feature of FEATURES) {
     const btn = panel.querySelector<HTMLElement>(`[data-feature="${feature.key}"]`);
     if (!btn) continue;
     const enabled = features[feature.key] !== false;
     btn.classList.toggle("inculva-hidden", !enabled);
+    const labelText = labels[feature.key] ?? feature.key;
     const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
-    if (labelEl) labelEl.textContent = labels[feature.key] ?? feature.key;
+    if (labelEl) labelEl.textContent = labelText;
+    btn.dataset["tooltip"] = labelText;
   }
 
   // Update color blind sub-selector labels

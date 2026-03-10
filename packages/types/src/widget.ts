@@ -19,6 +19,10 @@ export interface WidgetConfig {
   borderRadius?: number;
   buttonSize?: "small" | "medium" | "large";
   fontFamily?: "system" | "inter" | "roboto" | "opensans";
+  /** Custom background color for the panel header (hex/rgb/hsl string) */
+  headerBgColor?: string;
+  /** Custom background color for the panel footer (hex/rgb/hsl string) */
+  footerBgColor?: string;
 }
 
 export interface WidgetFeatures {

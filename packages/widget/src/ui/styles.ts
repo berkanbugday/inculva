@@ -3,8 +3,8 @@ export const widgetStyles = `
   #inculva-widget-btn {
     position: fixed !important;
     z-index: 2147483645 !important;
-    width: var(--inculva-button-size, 56px);
-    height: var(--inculva-button-size, 56px);
+    width: var(--inculva-button-size, 58px);
+    height: var(--inculva-button-size, 58px);
     border-radius: 50%;
     border: none;
     cursor: pointer;
@@ -37,8 +37,8 @@ export const widgetStyles = `
     background: #ef4444;
     color: #fff;
     border-radius: 50%;
-    min-width: 19px;
-    height: 19px;
+    min-width: 20px;
+    height: 20px;
     font-size: 11px;
     font-weight: 700;
     font-family: var(--inculva-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
@@ -67,12 +67,12 @@ export const widgetStyles = `
   #inculva-widget-panel {
     position: fixed !important;
     z-index: 2147483645 !important;
-    width: 380px;
+    width: 420px;
     max-height: calc(100vh - 110px);
     display: flex;
     flex-direction: column;
-    border-radius: 16px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.18), 0 2px 12px rgba(0,0,0,0.10);
+    border-radius: 18px;
+    box-shadow: 0 10px 48px rgba(0,0,0,0.22), 0 2px 14px rgba(0,0,0,0.12);
     font-family: var(--inculva-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif);
     font-size: 14px;
     line-height: 1.4;
@@ -97,44 +97,54 @@ export const widgetStyles = `
     }
   }
 
-  /* ── Panel Header (clean white) ──────────────────────────────────────── */
+  /* ── Panel Header — uses primary color as background ────────────────── */
   .inculva-panel-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 0 12px;
-    height: 52px;
+    gap: 10px;
+    padding: 0 14px;
+    height: 64px;
     flex-shrink: 0;
-    background: #fff;
-    color: #111827;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
+    background: var(--inculva-header-bg, var(--inculva-primary, #0066cc));
+    color: #fff;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
     cursor: default;
     user-select: none;
+    border-radius: 18px 18px 0 0;
   }
   .inculva-panel-header-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    background: var(--inculva-primary, #0066cc);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
   }
-  .inculva-panel-title {
+  .inculva-panel-title-wrap {
     flex: 1;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .inculva-panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
     font-family: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .inculva-active-count {
-    background: var(--inculva-primary, #0066cc);
+    background: rgba(255,255,255,0.25);
     color: #fff;
-    border-radius: 10px;
-    padding: 2px 8px;
+    border-radius: 12px;
+    padding: 3px 9px;
     font-size: 11px;
     font-weight: 700;
     white-space: nowrap;
@@ -143,12 +153,102 @@ export const widgetStyles = `
   .inculva-header-actions {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 8px;
     flex-shrink: 0;
+    border-left: 1px solid rgba(255,255,255,0.22);
+    padding-left: 14px;
+    margin-left: 6px;
   }
   .inculva-header-btn {
-    width: 28px;
-    height: 28px;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    transition: background 0.12s, color 0.12s, transform 0.1s;
+    outline: none;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .inculva-header-btn:hover { background: rgba(255,255,255,0.28); color: #fff; }
+  .inculva-header-btn:active { transform: scale(0.9); }
+  .inculva-header-btn:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 1px; }
+
+  /* ── Controls Bar — same background as widget content area ──────────── */
+  .inculva-controls-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    flex-shrink: 0;
+    background: #f7f7f7;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  /* Language wrapper fills remaining space */
+  .inculva-lang-wrap {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex: 1;
+    min-width: 0;
+    color: #4b5563;
+  }
+  .inculva-lang-globe {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    opacity: 0.75;
+  }
+  .inculva-lang-globe svg { width: 16px; height: 16px; }
+  .inculva-lang-select {
+    flex: 1;
+    width: 100%;
+    height: 36px;
+    border: 1.5px solid rgba(0,0,0,0.14);
+    border-radius: 9px;
+    padding: 0 10px;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    background: #fff;
+    color: #374151;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.12s, box-shadow 0.12s;
+    min-width: 0;
+  }
+  .inculva-lang-select option {
+    background: #fff;
+    color: #374151;
+  }
+  .inculva-lang-select:hover {
+    border-color: rgba(0,0,0,0.28);
+  }
+  .inculva-lang-select:focus {
+    border-color: var(--inculva-primary, #0066cc);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--inculva-primary, #0066cc) 18%, transparent);
+  }
+  /* Size toggle group — full primary color pill so white text is always readable */
+  .inculva-size-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    background: var(--inculva-primary, #0066cc);
+    border-radius: 11px;
+    padding: 3px;
+  }
+  .inculva-ctrl-btn {
+    height: 34px;
+    min-width: 34px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
@@ -157,39 +257,52 @@ export const widgetStyles = `
     justify-content: center;
     padding: 0;
     flex-shrink: 0;
-    background: rgba(0,0,0,0.04);
-    color: #6b7280;
+    background: transparent;
+    color: rgba(255,255,255,0.72);
     transition: background 0.12s, color 0.12s, transform 0.1s;
     outline: none;
     font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
     -webkit-tap-highlight-color: transparent;
   }
-  .inculva-header-btn:hover { background: rgba(0,0,0,0.09); color: #111827; }
-  .inculva-header-btn:active { transform: scale(0.9); }
-  .inculva-header-btn:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 1px; }
+  .inculva-ctrl-btn:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+  }
+  .inculva-ctrl-btn:active { transform: scale(0.92); }
+  .inculva-ctrl-btn:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 1px; }
+  /* Text size buttons — wider than icon buttons */
+  .inculva-size-btn { padding: 0 13px; }
+  .inculva-size-btn.active {
+    background: #fff;
+    color: var(--inculva-primary, #0066cc);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.20);
+    font-weight: 700;
+  }
 
   /* ── Profile Section ─────────────────────────────────────────────────── */
   .inculva-profiles-section {
-    margin: 8px 10px 0;
+    margin: 10px 12px 10px;
     border: 1px solid rgba(0,0,0,0.09);
-    border-radius: 12px;
+    border-radius: 14px;
     overflow: hidden;
     background: #fff;
     flex-shrink: 0;
   }
   .inculva-profiles-toggle {
     width: 100%;
-    height: 36px;
+    height: 42px;
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 0 12px;
+    gap: 8px;
+    padding: 0 14px;
     background: #fff;
     border: none;
     cursor: pointer;
     font-family: inherit;
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     color: #374151;
     text-align: left;
     -webkit-tap-highlight-color: transparent;
@@ -208,12 +321,11 @@ export const widgetStyles = `
   .inculva-profiles-toggle[aria-expanded="true"] .inculva-profiles-arrow {
     transform: rotate(180deg);
   }
-  /* Profile card grid */
   .inculva-profiles-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    padding: 6px 8px 8px;
+    gap: 6px;
+    padding: 8px 10px 10px;
     border-top: 1px solid rgba(0,0,0,0.07);
     background: #fafafa;
   }
@@ -221,14 +333,14 @@ export const widgetStyles = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 8px 4px 7px;
+    gap: 5px;
+    padding: 10px 6px 9px;
     border: 1.5px solid rgba(0,0,0,0.09);
-    border-radius: 10px;
+    border-radius: 12px;
     background: #fff;
     cursor: pointer;
     font-family: inherit;
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 500;
     color: #374151;
     text-align: center;
@@ -256,72 +368,14 @@ export const widgetStyles = `
     justify-content: center;
     flex-shrink: 0;
   }
-  .inculva-card-label { font-size: 10.5px; line-height: 1.2; }
-
-  /* ── Category Tab Bar ────────────────────────────────────────────────── */
-  .inculva-tab-bar {
-    display: flex;
-    align-items: stretch;
-    flex-shrink: 0;
-    background: #fff;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-    padding: 0 6px;
-  }
-  .inculva-tab-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 10px 4px 9px;
-    border: none;
-    border-bottom: 2px solid transparent;
-    background: transparent;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 11.5px;
-    font-weight: 500;
-    color: #9ca3af;
-    transition: color 0.15s, border-color 0.15s;
-    outline: none;
-    white-space: nowrap;
-    -webkit-tap-highlight-color: transparent;
-    margin-bottom: -1px;
-    position: relative;
-  }
-  .inculva-tab-btn:hover { color: #374151; }
-  .inculva-tab-btn.active {
-    color: var(--inculva-primary, #0066cc);
-    border-bottom-color: var(--inculva-primary, #0066cc);
-    font-weight: 600;
-  }
-  .inculva-tab-btn:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: -2px; border-radius: 4px; }
-  .inculva-tab-label { pointer-events: none; }
-  .inculva-tab-count {
-    background: var(--inculva-primary, #0066cc);
-    color: #fff;
-    border-radius: 8px;
-    min-width: 16px;
-    height: 16px;
-    font-size: 10px;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .inculva-tab-btn:not(.active) .inculva-tab-count {
-    background: #6b7280;
-  }
+  .inculva-card-label { font-size: 11px; line-height: 1.2; }
 
   /* ── Panel Body (scrollable) ─────────────────────────────────────────── */
   .inculva-panel-body {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 10px 10px 0;
+    padding: 12px 12px 0;
     scrollbar-width: thin;
     scrollbar-color: rgba(0,0,0,0.14) transparent;
     background: #f7f7f7;
@@ -334,27 +388,21 @@ export const widgetStyles = `
   .inculva-feature-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 7px;
-    margin-bottom: 10px;
+    gap: 9px;
+    margin-bottom: 12px;
   }
-
-  /* Tab filtering — CSS hides features not in the active tab */
-  .inculva-feature-grid[data-active-tab="vision"]  [data-category]:not([data-category="vision"])  { display: none !important; }
-  .inculva-feature-grid[data-active-tab="reading"] [data-category]:not([data-category="reading"]) { display: none !important; }
-  .inculva-feature-grid[data-active-tab="motor"]   [data-category]:not([data-category="motor"])   { display: none !important; }
-  .inculva-feature-grid[data-active-tab="calm"]    [data-category]:not([data-category="calm"])    { display: none !important; }
 
   /* ── Feature Button ──────────────────────────────────────────────────── */
   .inculva-feature-btn {
-    border: 1.5px solid rgba(54,54,54,0.10);
-    border-radius: var(--inculva-border-radius, 14px);
-    padding: 12px 6px 10px;
+    border: 2px solid rgba(54,54,54,0.12);
+    border-radius: var(--inculva-border-radius, 15px);
+    padding: 16px 10px 13px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    font-size: 11.5px;
+    gap: 9px;
+    font-size: 12.5px;
     font-weight: 500;
     font-family: inherit;
     line-height: 1.25;
@@ -363,7 +411,7 @@ export const widgetStyles = `
     color: #374151;
     transition: border-color 0.12s, background 0.12s, transform 0.1s, box-shadow 0.12s;
     outline: none;
-    min-height: 88px;
+    min-height: 108px;
     word-break: break-word;
     hyphens: auto;
     -webkit-tap-highlight-color: transparent;
@@ -373,6 +421,7 @@ export const widgetStyles = `
     .inculva-feature-btn:hover {
       border-color: var(--inculva-primary, #0066cc);
       background: #fafbff;
+      box-shadow: 0 2px 10px rgba(0,102,204,0.12);
       transition: all 0.1s;
     }
   }
@@ -382,44 +431,55 @@ export const widgetStyles = `
     background: var(--inculva-primary, #0066cc) !important;
     border-color: var(--inculva-primary, #0066cc) !important;
     color: #fff !important;
-    box-shadow: 0 2px 8px rgba(0,102,204,0.25) !important;
+    box-shadow: 0 4px 12px rgba(0,102,204,0.32) !important;
   }
+  /* Active state: icon box border matches the active button border (primary color) */
   .inculva-feature-btn.active .inculva-feature-icon-box {
-    background: rgba(255,255,255,0.18) !important;
-    border-color: transparent !important;
+    background: #fff !important;
+    border-color: var(--inculva-primary, #0066cc) !important;
   }
   .inculva-feature-btn.active .inculva-feature-icon-box svg path,
   .inculva-feature-btn.active .inculva-feature-icon-box svg rect,
   .inculva-feature-btn.active .inculva-feature-icon-box svg circle {
-    stroke: #fff;
-    fill: none;
+    stroke: #000 !important;
+    fill: none !important;
   }
   .inculva-feature-btn.active .inculva-feature-icon-box svg [data-fill="1"] {
-    fill: #fff;
-    stroke: none;
+    fill: #000 !important;
+    stroke: none !important;
   }
 
-  /* Icon box */
+  /* Icon box — white bg, border matches the feature button border color */
   .inculva-feature-icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 11px;
-    background: #f4f4f6;
-    border: 1px solid rgba(0,0,0,0.06);
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1.5px solid rgba(54,54,54,0.12);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background 0.12s;
+    color: #000;
   }
   .inculva-feature-icon-box svg {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     flex-shrink: 0;
     display: block;
+    color: #000;
+  }
+  .inculva-feature-icon-box svg path,
+  .inculva-feature-icon-box svg rect,
+  .inculva-feature-icon-box svg circle {
+    stroke: #000;
+  }
+  .inculva-feature-icon-box svg [data-fill="1"] {
+    fill: #000;
+    stroke: none;
   }
   .inculva-feature-label {
-    font-size: 11.5px;
+    font-size: 12.5px;
     font-weight: 500;
     line-height: 1.25;
     font-family: inherit;
@@ -460,16 +520,16 @@ export const widgetStyles = `
     grid-column: 1 / -1;
     display: none;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 6px;
     padding: 2px 0 4px;
   }
   .inculva-cbm-selector.visible { display: flex; }
   .inculva-cbm-btn {
     flex: 1 1 auto;
     border: 1.5px solid rgba(0,0,0,0.1);
-    border-radius: 8px;
-    padding: 5px 6px;
-    font-size: 10.5px;
+    border-radius: 9px;
+    padding: 6px 8px;
+    font-size: 11.5px;
     font-weight: 500;
     font-family: inherit;
     cursor: pointer;
@@ -491,20 +551,20 @@ export const widgetStyles = `
   }
 
   /* ── Reset Row ───────────────────────────────────────────────────────── */
-  .inculva-reset-row { padding-bottom: 10px; }
+  .inculva-reset-row { padding-bottom: 12px; }
   .inculva-reset-btn {
     width: 100%;
     border: none;
-    border-radius: 10px;
-    padding: 10px 14px;
+    border-radius: 12px;
+    padding: 12px 16px;
     cursor: pointer;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 8px;
     background: #fff;
     color: #6b7280;
     transition: opacity 0.15s, background 0.15s;
@@ -518,12 +578,12 @@ export const widgetStyles = `
 
   /* ── Mini Mode ───────────────────────────────────────────────────────── */
   #inculva-widget-panel[data-size="mini"] {
-    width: 82px !important;
-    border-radius: 16px !important;
+    width: 86px !important;
+    border-radius: 18px !important;
   }
   #inculva-widget-panel[data-size="mini"] .inculva-panel-header,
   #inculva-widget-panel[data-size="mini"] .inculva-profiles-section,
-  #inculva-widget-panel[data-size="mini"] .inculva-tab-bar,
+  #inculva-widget-panel[data-size="mini"] .inculva-controls-bar,
   #inculva-widget-panel[data-size="mini"] .inculva-reset-row,
   #inculva-widget-panel[data-size="mini"] .inculva-panel-footer {
     display: none !important;
@@ -533,30 +593,117 @@ export const widgetStyles = `
   }
   #inculva-widget-panel[data-size="mini"] .inculva-feature-grid {
     grid-template-columns: 1fr !important;
-    gap: 6px !important;
+    gap: 5px !important;
   }
-  /* Show all non-disabled features in mini mode regardless of active tab */
-  #inculva-widget-panel[data-size="mini"] .inculva-feature-grid [data-category]:not(.inculva-hidden) {
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-grid .inculva-feature-btn:not(.inculva-hidden) {
     display: flex !important;
   }
   #inculva-widget-panel[data-size="mini"] .inculva-feature-btn {
-    min-height: 60px !important;
-    padding: 0 !important;
-    border-radius: 12px !important;
-    border: none !important;
+    min-height: 62px !important;
+    padding: 7px 5px 6px !important;
+    border-radius: 13px !important;
+    border: 1.5px solid rgba(0,0,0,0.09) !important;
     background: #fff !important;
+    gap: 3px !important;
   }
   #inculva-widget-panel[data-size="mini"] .inculva-feature-icon-box {
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 60px !important;
-    border-radius: 12px !important;
-    background: transparent !important;
+    width: 38px !important;
+    height: 38px !important;
+    min-height: 0 !important;
+    border-radius: 10px !important;
+    border: 1.5px solid rgba(54,54,54,0.12) !important;
+    background: #fff !important;
+  }
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-icon-box svg {
+    width: 20px !important;
+    height: 20px !important;
   }
   #inculva-widget-panel[data-size="mini"] .inculva-feature-label { display: none !important; }
   #inculva-widget-panel[data-size="mini"] .inculva-cbm-selector  { display: none !important; }
-  #inculva-widget-panel[data-size="mini"] .inculva-feature-levels { display: none !important; }
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-levels {
+    width: calc(100% - 8px) !important;
+    gap: 2px !important;
+    margin-top: 0 !important;
+  }
+  #inculva-widget-panel[data-size="mini"] .inculva-level-dot { height: 2px !important; }
   #inculva-widget-panel[data-size="mini"] .inculva-mini-actions  { display: flex !important; }
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active {
+    background: var(--inculva-primary, #0066cc) !important;
+    border-color: var(--inculva-primary, #0066cc) !important;
+  }
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box {
+    background: #fff !important;
+    border-color: var(--inculva-primary, #0066cc) !important;
+  }
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg path,
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg rect,
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg circle {
+    stroke: #000 !important;
+    fill: none !important;
+  }
+  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg [data-fill="1"] {
+    fill: #000 !important;
+    stroke: none !important;
+  }
+
+  /* ── Large Mode ──────────────────────────────────────────────────────── */
+  #inculva-widget-panel[data-size="large"] {
+    width: 500px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-feature-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-feature-btn {
+    min-height: 128px !important;
+    padding: 20px 12px 16px !important;
+    gap: 11px !important;
+    font-size: 14px !important;
+    border-width: 2px !important;
+    border-radius: 17px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-feature-icon-box {
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 17px !important;
+    border-width: 1.5px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-feature-icon-box svg {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-feature-label { font-size: 14px !important; }
+  #inculva-widget-panel[data-size="large"] .inculva-feature-levels {
+    width: calc(100% - 22px) !important;
+    gap: 4px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-level-dot {
+    height: 4px !important;
+    border-radius: 2px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-panel-header {
+    height: 72px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-panel-title {
+    font-size: 18px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-panel-body {
+    padding: 14px 14px 0 !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-controls-bar {
+    padding: 12px 16px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-lang-select {
+    height: 40px !important;
+    font-size: 15px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-ctrl-btn {
+    height: 40px !important;
+    font-size: 14px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-size-btn {
+    padding: 0 16px !important;
+  }
 
   /* Mini actions bar */
   .inculva-mini-actions {
@@ -566,9 +713,9 @@ export const widgetStyles = `
     justify-content: space-between;
     gap: 0;
     background: var(--inculva-primary, #0066cc);
-    border-radius: 0 0 16px 16px;
+    border-radius: 0 0 18px 18px;
     padding: 18px 14px;
-    height: 155px;
+    height: 160px;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -592,61 +739,49 @@ export const widgetStyles = `
   }
   .inculva-mini-btn:hover { opacity: 0.75; }
   .inculva-mini-btn:focus-visible { outline: 1px solid rgba(255,255,255,0.7); border-radius: 8px; }
-  .inculva-mini-btn svg { width: 22px; height: 22px; }
-  /* Header mini btn — NOT the mini-actions version */
-  .inculva-panel-header .inculva-mini-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    background: rgba(0,0,0,0.04);
-    color: #6b7280;
-    padding: 0;
-  }
-  .inculva-panel-header .inculva-mini-btn svg { width: 14px; height: 14px; }
-  .inculva-panel-header .inculva-mini-btn:hover { background: rgba(0,0,0,0.09); color: #111827; }
-  @media (max-width: 1024px) {
-    #inculva-widget-panel[data-size="mini"] { padding-bottom: 164px; }
-  }
+  .inculva-mini-btn svg { width: 24px; height: 24px; }
+  #inculva-widget-panel[data-size="mini"] { padding-bottom: 168px; }
 
-  /* ── Panel Footer (clean, minimal) ──────────────────────────────────── */
+  /* ── Panel Footer — uses primary color as background ─────────────────── */
   .inculva-panel-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px;
+    padding: 12px 16px;
     flex-shrink: 0;
-    background: #f9fafb;
-    border-top: 1px solid rgba(0,0,0,0.07);
+    background: var(--inculva-footer-bg, var(--inculva-primary, #0066cc));
+    border-top: 1px solid rgba(0,0,0,0.12);
     gap: 8px;
-    min-height: 44px;
+    min-height: 48px;
+    border-radius: 0 0 18px 18px;
   }
   .inculva-footer-brand {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 11px;
+    gap: 7px;
+    font-size: 12px;
     font-weight: 500;
-    color: #9ca3af;
+    color: rgba(255,255,255,0.8);
     font-family: inherit;
   }
   .inculva-a11y-link {
     display: inline-block;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     text-decoration: underline;
     text-underline-offset: 2px;
-    color: #6b7280;
+    color: rgba(255,255,255,0.85);
     font-family: inherit;
     -webkit-tap-highlight-color: transparent;
   }
-  .inculva-a11y-link:hover { color: #374151; }
-  .inculva-a11y-link:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 2px; border-radius: 2px; }
+  .inculva-a11y-link:hover { color: #fff; }
+  .inculva-a11y-link:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 2px; border-radius: 2px; }
 
   /* ── RTL Support ─────────────────────────────────────────────────────── */
   #inculva-widget-panel[dir="rtl"] .inculva-panel-header   { flex-direction: row-reverse; }
   #inculva-widget-panel[dir="rtl"] .inculva-header-actions { flex-direction: row-reverse; }
   #inculva-widget-panel[dir="rtl"] .inculva-profiles-toggle { flex-direction: row-reverse; }
-  #inculva-widget-panel[dir="rtl"] .inculva-tab-bar         { flex-direction: row-reverse; }
+  #inculva-widget-panel[dir="rtl"] .inculva-controls-bar   { flex-direction: row-reverse; }
 
   /* ── Reduced Motion ──────────────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
@@ -654,8 +789,8 @@ export const widgetStyles = `
     #inculva-widget-panel,
     .inculva-feature-btn,
     .inculva-header-btn,
+    .inculva-ctrl-btn,
     .inculva-feature-icon-box,
-    .inculva-tab-btn,
     .inculva-profile-card {
       transition: none !important;
       animation: none !important;
@@ -677,4 +812,25 @@ export const widgetStyles = `
     white-space: nowrap;
     border: 0;
   }
+
+  /* ── Feature Button Tooltip ──────────────────────────────────────────── */
+  #inculva-tooltip {
+    position: fixed;
+    z-index: 2147483646;
+    background: rgba(26,26,46,0.92);
+    color: #fff;
+    font-family: var(--inculva-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3;
+    padding: 6px 10px;
+    border-radius: 8px;
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.15s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.24);
+    max-width: 200px;
+  }
+  #inculva-tooltip.visible { opacity: 1; }
 `;

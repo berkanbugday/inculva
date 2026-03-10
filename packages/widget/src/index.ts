@@ -70,6 +70,7 @@ class InculvaWidget {
   private panel!: HTMLDivElement;
   private backdrop!: HTMLDivElement;
   private liveRegion!: HTMLElement;
+  private tooltip!: HTMLDivElement;
   private apiBase: string;
   /** Labels from the last successful remote config fetch (used for aria-live announcements). */
   private labels: Record<string, string> = {};
@@ -170,6 +171,13 @@ class InculvaWidget {
     }
 
     this.btn.addEventListener("click", () => this.togglePanel());
+    // Language select fires "change", not "click"
+    this.panel.addEventListener("change", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.dataset["inculvaAction"] === "set-language") {
+        this._setLanguage((target as HTMLSelectElement).value);
+      }
+    });
     this.panel.addEventListener("click", (e) => {
       const actionTarget = (e.target as HTMLElement).closest("[data-inculva-action]") as HTMLElement | null;
       if (actionTarget) {
@@ -183,7 +191,7 @@ class InculvaWidget {
       // itself, which carries data-size="regular" as a layout flag and would
       // intercept every click via closest() if used as the selector.
       const sizeTarget = (e.target as HTMLElement).closest(
-        ".inculva-size-btn, .inculva-mini-btn"
+        ".inculva-ctrl-btn.inculva-size-btn, .inculva-mini-btn"
       ) as HTMLElement | null;
       if (sizeTarget?.dataset["size"]) {
         this.switchSize(sizeTarget.dataset["size"] as "mini" | "regular" | "xl");
@@ -230,6 +238,22 @@ class InculvaWidget {
       }
     });
 
+    // Tooltip element — position:fixed, mounted on <html> to escape any
+    // overflow:hidden ancestor and always float above panel content.
+    this.tooltip = document.createElement("div");
+    this.tooltip.id = "inculva-tooltip";
+    document.documentElement.appendChild(this.tooltip);
+
+    // Tooltip hover delegation on the panel
+    this.panel.addEventListener("mouseover", (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-tooltip]");
+      if (btn) this._showTooltip(btn);
+    });
+    this.panel.addEventListener("mouseout", (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>("[data-tooltip]");
+      if (btn) this._hideTooltip();
+    });
+
     // Mount widget elements on <html> (outside <body>) so that any CSS filter
     // applied to <body> by accessibility features (dark mode, grayscale, etc.)
     // never affects the widget UI. position:fixed on these elements is always
@@ -237,6 +261,41 @@ class InculvaWidget {
     document.documentElement.appendChild(this.backdrop);
     document.documentElement.appendChild(this.btn);
     document.documentElement.appendChild(this.panel);
+  }
+
+  private _showTooltip(el: HTMLElement): void {
+    const text = el.dataset["tooltip"];
+    if (!text) return;
+    this.tooltip.textContent = text;
+    // Reset inline positioning so prior direction doesn't linger
+    this.tooltip.style.left = "";
+    this.tooltip.style.right = "";
+    const rect = el.getBoundingClientRect();
+    const isMini = this.panel.dataset["size"] === "mini";
+    const isRightSide = this.config.position.includes("right");
+    if (isMini) {
+      // In mini mode tooltip floats to the OPPOSITE side of the widget
+      const midY = rect.top + rect.height / 2;
+      this.tooltip.style.top = `${midY}px`;
+      this.tooltip.style.transform = "translateY(-50%)";
+      if (isRightSide) {
+        // Widget is on the right → tooltip goes LEFT
+        this.tooltip.style.right = `${window.innerWidth - rect.left + 8}px`;
+      } else {
+        // Widget is on the left → tooltip goes RIGHT
+        this.tooltip.style.left = `${rect.right + 8}px`;
+      }
+    } else {
+      // In regular/large mode tooltip appears above the button, centered
+      this.tooltip.style.left = `${rect.left + rect.width / 2}px`;
+      this.tooltip.style.top = `${rect.top - 6}px`;
+      this.tooltip.style.transform = "translate(-50%, -100%)";
+    }
+    this.tooltip.classList.add("visible");
+  }
+
+  private _hideTooltip(): void {
+    this.tooltip.classList.remove("visible");
   }
 
   private togglePanel(): void {
@@ -267,6 +326,7 @@ class InculvaWidget {
     this.panel.classList.remove("open");
     this.backdrop.classList.remove("open");
     this.btn.setAttribute("aria-expanded", "false");
+    this._hideTooltip();
     this.trackEvent("closed");
     this.btn.focus();
   }
@@ -456,17 +516,28 @@ class InculvaWidget {
     applyPanelPosition(this.panel, this.btn, this.config.position);
   }
 
-  /** Switch between Mini / Regular size modes. */
-  private switchSize(size: "mini" | "regular" | "xl"): void {
-    this.panel.dataset["size"] = size;
-    for (const btn of this.panel.querySelectorAll<HTMLElement>("[data-size]")) {
-      // Only toggle size-bar buttons (not the mini expand button which shares data-size)
-      if (btn.classList.contains("inculva-size-btn")) {
-        btn.classList.toggle("active", btn.dataset["size"] === size);
-      }
+  /** Switch between Mini / Regular / Large size modes. */
+  private switchSize(size: "mini" | "regular" | "large" | "xl"): void {
+    const normalized = size === "xl" ? "large" : size;
+    this.panel.dataset["size"] = normalized;
+    for (const btn of this.panel.querySelectorAll<HTMLElement>(".inculva-size-btn")) {
+      btn.classList.toggle("active", btn.dataset["size"] === normalized);
     }
-    // Recalculate panel position after size change
     applyPanelPosition(this.panel, this.btn, this.config.position);
+  }
+
+  /** Switch the panel language (RTL/LTR + update select value). */
+  private _setLanguage(lang: string): void {
+    this.config.language = lang;
+    const RTL = new Set(["ar", "he", "fa", "ur"]);
+    if (RTL.has(lang)) {
+      this.panel.setAttribute("dir", "rtl");
+    } else {
+      this.panel.removeAttribute("dir");
+    }
+    // Sync select in case called programmatically
+    const select = this.panel.querySelector<HTMLSelectElement>(".inculva-lang-select");
+    if (select && select.value !== lang) select.value = lang;
   }
 
   /** Show / hide the profiles grid. */
@@ -661,6 +732,8 @@ class InculvaWidget {
       if (remote.borderRadius !== undefined) this.config.borderRadius = remote.borderRadius;
       if (remote.buttonSize !== undefined) this.config.buttonSize = remote.buttonSize;
       if (remote.fontFamily !== undefined) this.config.fontFamily = remote.fontFamily;
+      if ((remote as Partial<WidgetConfig>).headerBgColor !== undefined) this.config.headerBgColor = (remote as Partial<WidgetConfig>).headerBgColor;
+      if ((remote as Partial<WidgetConfig>).footerBgColor !== undefined) this.config.footerBgColor = (remote as Partial<WidgetConfig>).footerBgColor;
       if (remote.labels) this.labels = remote.labels;
 
       return true;
@@ -696,6 +769,18 @@ class InculvaWidget {
       document.documentElement.style.setProperty(
         "--inculva-font",
         this.getFontStack(this.config.fontFamily)
+      );
+    }
+    if (this.config.headerBgColor) {
+      document.documentElement.style.setProperty(
+        "--inculva-header-bg",
+        this.config.headerBgColor
+      );
+    }
+    if (this.config.footerBgColor) {
+      document.documentElement.style.setProperty(
+        "--inculva-footer-bg",
+        this.config.footerBgColor
       );
     }
 
