@@ -82,8 +82,8 @@ export function getFeatureCategory(feature: keyof WidgetFeatures): string {
 // ---------------------------------------------------------------------------
 const ICON_TRIGGER = loadIcon(
   "universal-access",
-  26,
-  26,
+  50,
+  50,
   'style="filter: brightness(0) invert(1);"',
 );
 
@@ -91,7 +91,6 @@ const ICON_TRIGGER = loadIcon(
 // SVG icon set — stroke-based (20×20 or 18×18), aria-hidden
 // Feature icons are always black (both selected and unselected)
 // ---------------------------------------------------------------------------
-const ICON_HIGH_CONTRAST = loadIcon("circle-half-stroke", 20, 20);
 const ICON_DARK_MODE = loadIcon("moon", 20, 20);
 const ICON_BLUE_LIGHT = loadIcon("sun-bright", 20, 20);
 const ICON_TEXT_RESIZE = loadIcon("text-size", 20, 20);
@@ -110,7 +109,6 @@ const ICON_PAUSE = loadIcon("circle-pause", 20, 20);
 const ICON_CURSOR = loadIcon("arrow-pointer", 20, 20);
 const ICON_SLOW_CURSOR = loadIcon("computer-mouse-scrollwheel", 20, 20);
 const ICON_COLOR_BLIND = loadIcon("bring-forward", 20, 20);
-const ICON_GRAYSCALE = loadIcon("circle-half", 20, 20);
 const ICON_FOCUS = loadIcon("brackets-square", 20, 20);
 const ICON_TARGET = loadIcon("bullseye-pointer", 20, 20);
 const ICON_SKIP = loadIcon("forward-step", 20, 20);
@@ -141,15 +139,12 @@ const ICON_ARROW_DOWN = loadIcon("chevron-down", 15, 15);
 const ICON_SATURATION = loadIcon("circle-half-stroke", 20, 20);
 
 // Profile icons (18×18)
-const ICON_P_BLIND = loadIcon("eye-off", 18, 18);
-const ICON_P_LOW_VISION = loadIcon("eye", 18, 18);
-const ICON_P_COLOR_BLIND = loadIcon("palette", 18, 18);
-const ICON_P_DYSLEXIA = loadIcon("book-open", 18, 18);
-const ICON_P_MOTOR = loadIcon("hand", 18, 18);
-const ICON_P_COGNITIVE = loadIcon("brain", 18, 18);
-const ICON_P_ATTENTION = loadIcon("zap", 18, 18);
-const ICON_P_EPILEPSY = loadIcon("alert-triangle", 18, 18);
-const ICON_P_PARKINSONS = loadIcon("activity", 18, 18);
+const ICON_P_BLIND = loadIcon("eye-slash", 20, 20);
+const ICON_P_LOW_VISION = loadIcon("eye-low-vision", 20, 20);
+const ICON_P_COLOR_BLIND = loadIcon("bring-forward", 20, 20);
+const ICON_P_DYSLEXIA = loadIcon("df", 20, 20);
+const ICON_P_MOTOR = loadIcon("wheelchair", 20, 20);
+const ICON_P_ATTENTION = loadIcon("puzzle-piece", 20, 20);
 
 // ---------------------------------------------------------------------------
 // Feature list — ordered for display in the panel
@@ -276,8 +271,8 @@ const EN_LABELS: Record<string, string> = {
   keyboardNavigation: "Keyboard Nav",
   accessibilityStatement: "Accessibility Statement",
   languageLabel: "Select language",
-  sizeSmall: "Small",
-  sizeMedium: "Medium",
+  sizeSmall: "Mini",
+  sizeMedium: "Regular",
   sizeLarge: "Large",
   resetSettings: "Reset settings",
   switchWidgetLeft: "Switch widget to left",
@@ -294,6 +289,7 @@ const EN_LABELS: Record<string, string> = {
   profile_dyslexia: "Dyslexia",
   profile_motorImpaired: "Motor",
   profile_attention: "ADHD",
+  active: "Active",
 };
 
 /** Merge EN_LABELS with translations for the given language code. */
@@ -520,16 +516,16 @@ function _buildControlsBar(
   const sizeGroup = document.createElement("div");
   sizeGroup.className = "inculva-size-group";
 
-  const sizeDefs: [string, string, string][] = [
-    ["mini", "S", labels["sizeSmall"] ?? "Small"],
-    ["regular", "M", labels["sizeMedium"] ?? "Medium"],
-    ["large", "L", labels["sizeLarge"] ?? "Large"],
+  const sizeDefs: [string, string][] = [
+    ["mini", labels["sizeSmall"] ?? "Mini"],
+    ["regular", labels["sizeMedium"] ?? "Regular"],
+    ["large", labels["sizeLarge"] ?? "Large"],
   ];
-  for (const [sizeVal, sizeLabel, sizeAriaLabel] of sizeDefs) {
+  for (const [sizeVal, sizeLabel] of sizeDefs) {
     const btn = document.createElement("button");
     btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "large" ? " active" : ""}`;
     btn.setAttribute("type", "button");
-    btn.setAttribute("aria-label", `${sizeAriaLabel}`);
+    btn.setAttribute("aria-label", sizeLabel);
     btn.dataset["size"] = sizeVal;
     btn.textContent = sizeLabel;
     sizeGroup.appendChild(btn);
@@ -864,17 +860,20 @@ export function updatePanel(
     }
   }
 
-  // Update size button aria-labels
-  const sizeAriaMap: Record<string, string> = {
-    mini: labels["sizeSmall"] ?? "Small",
-    regular: labels["sizeMedium"] ?? "Medium",
+  // Update size button text and aria-labels
+  const sizeLabelMap: Record<string, string> = {
+    mini: labels["sizeSmall"] ?? "Mini",
+    regular: labels["sizeMedium"] ?? "Regular",
     large: labels["sizeLarge"] ?? "Large",
   };
-  for (const [sizeVal, sizeAriaLabel] of Object.entries(sizeAriaMap)) {
+  for (const [sizeVal, sizeLabel] of Object.entries(sizeLabelMap)) {
     const sizeBtn = panel.querySelector<HTMLElement>(
       `.inculva-size-btn[data-size="${sizeVal}"]`,
     );
-    if (sizeBtn) sizeBtn.setAttribute("aria-label", sizeAriaLabel);
+    if (sizeBtn) {
+      sizeBtn.setAttribute("aria-label", sizeLabel);
+      sizeBtn.textContent = sizeLabel;
+    }
   }
 
   // Update feature button labels, tooltips and visibility

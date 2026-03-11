@@ -733,6 +733,8 @@ class InculvaWidget {
       this.config.accessibilityStatementUrl,
       this.config.whiteLabelText,
     );
+    // Update active count text with new language
+    this.updateActiveBadge();
     this.saveCurrentPrefs();
   }
 
@@ -886,7 +888,8 @@ class InculvaWidget {
       ".inculva-active-count",
     );
     if (countEl) {
-      countEl.textContent = `${count} active`;
+      const labels = getLabels(this.config.language);
+      countEl.textContent = `${count} ${labels.active ?? "active"}`;
       countEl.hidden = count === 0;
     }
     // Sync per-tab count badges
