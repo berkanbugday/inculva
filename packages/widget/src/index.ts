@@ -21,6 +21,7 @@ import {
   applyPanelPosition,
   PROFILES,
   FEATURE_CATEGORIES,
+  SUPPORTED_LANGUAGES,
 } from "./ui/panel.js";
 import { widgetStyles } from "./ui/styles.js";
 import { savePrefs, loadPrefs } from "./utils/storage.js";
@@ -191,13 +192,6 @@ class InculvaWidget {
     }
 
     this.btn.addEventListener("click", () => this.togglePanel());
-    // Language select fires "change", not "click"
-    this.panel.addEventListener("change", (e) => {
-      const target = e.target as HTMLElement;
-      if (target.dataset["inculvaAction"] === "set-language") {
-        this._setLanguage((target as HTMLSelectElement).value);
-      }
-    });
     this.panel.addEventListener("click", (e) => {
       const actionTarget = (e.target as HTMLElement).closest(
         "[data-inculva-action]",
@@ -218,6 +212,15 @@ class InculvaWidget {
         }
         if (action === "switch-side") {
           this.switchSide();
+          return;
+        }
+        if (action === "lang-dropdown-toggle") {
+          this._toggleLangDropdown();
+          return;
+        }
+        if (action === "set-language") {
+          const langCode = actionTarget.dataset["langCode"];
+          if (langCode) this._setLanguage(langCode);
           return;
         }
       }
@@ -275,9 +278,36 @@ class InculvaWidget {
     });
 
     document.addEventListener("keydown", (e) => {
+      // Alt+A global shortcut to toggle widget
+      if (e.altKey && !e.shiftKey && !e.ctrlKey && !e.metaKey && e.key === "a") {
+        e.preventDefault();
+        this.togglePanel();
+        return;
+      }
       if (e.key === "Escape" && this.isOpen) {
+        // Close lang dropdown first if open
+        const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+        if (dropdown?.classList.contains("open")) {
+          this._closeLangDropdown();
+          return;
+        }
         this.closePanel();
         return;
+      }
+      // Arrow key navigation within open lang dropdown
+      if (this.isOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+        const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+        if (dropdown?.classList.contains("open")) {
+          e.preventDefault();
+          const options = Array.from(dropdown.querySelectorAll<HTMLElement>(".inculva-lang-option"));
+          const focused = document.activeElement as HTMLElement;
+          const currentIdx = options.indexOf(focused);
+          const nextIdx = e.key === "ArrowDown"
+            ? Math.min(currentIdx + 1, options.length - 1)
+            : Math.max(currentIdx - 1, 0);
+          options[nextIdx]?.focus();
+          return;
+        }
       }
       // WCAG 2.1.2 — focus trap: keep Tab/Shift+Tab within the dialog
       if (e.key === "Tab" && this.isOpen) {
@@ -290,6 +320,19 @@ class InculvaWidget {
     this.tooltip = document.createElement("div");
     this.tooltip.id = "inculva-tooltip";
     document.documentElement.appendChild(this.tooltip);
+
+    // Language search input filtering
+    this.panel.addEventListener("input", (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.classList.contains("inculva-lang-search")) return;
+      const query = (target as HTMLInputElement).value.toLowerCase().trim();
+      const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+      if (!dropdown) return;
+      for (const opt of dropdown.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
+        const text = opt.textContent?.toLowerCase() ?? "";
+        opt.classList.toggle("inculva-hidden", query.length > 0 && !text.includes(query));
+      }
+    });
 
     // Tooltip hover delegation on the panel
     this.panel.addEventListener("mouseover", (e) => {
@@ -373,6 +416,7 @@ class InculvaWidget {
 
   /** WCAG 2.4.3 — focus returns to trigger button on close */
   private closePanel(): void {
+    this._closeLangDropdown();
     this.isOpen = false;
     this.panel.classList.remove("open");
     this.backdrop.classList.remove("open");
@@ -623,7 +667,7 @@ class InculvaWidget {
     this.saveCurrentPrefs();
   }
 
-  /** Switch the panel language (RTL/LTR + update select value). */
+  /** Switch the panel language (RTL/LTR + update dropdown UI). */
   private _setLanguage(lang: string): void {
     this.config.language = lang;
     setSrLang(lang);
@@ -633,11 +677,62 @@ class InculvaWidget {
     } else {
       this.panel.removeAttribute("dir");
     }
-    // Sync select in case called programmatically
-    const select = this.panel.querySelector<HTMLSelectElement>(
-      ".inculva-lang-select",
-    );
-    if (select && select.value !== lang) select.value = lang;
+    // Close dropdown
+    this._closeLangDropdown();
+    // Sync trigger button display
+    const langObj = SUPPORTED_LANGUAGES.find(l => l.code === lang);
+    if (langObj) {
+      const flagEl = this.panel.querySelector<HTMLElement>(".inculva-lang-current-flag");
+      const labelEl = this.panel.querySelector<HTMLElement>(".inculva-lang-current-label");
+      if (flagEl) flagEl.textContent = langObj.flag;
+      if (labelEl) labelEl.textContent = langObj.label;
+    }
+    // Sync selected states on all options
+    for (const opt of this.panel.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
+      const isSelected = opt.dataset["langCode"] === lang;
+      opt.classList.toggle("active", isSelected);
+      opt.setAttribute("aria-selected", String(isSelected));
+    }
+  }
+
+  private _toggleLangDropdown(): void {
+    const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+    if (!dropdown) return;
+    if (dropdown.classList.contains("open")) {
+      this._closeLangDropdown();
+    } else {
+      this._openLangDropdown();
+    }
+  }
+
+  private _openLangDropdown(): void {
+    const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+    if (!dropdown) return;
+    dropdown.classList.add("open");
+    const trigger = dropdown.querySelector<HTMLElement>(".inculva-lang-trigger");
+    if (trigger) trigger.setAttribute("aria-expanded", "true");
+    // Reset search and show all options
+    const searchInput = dropdown.querySelector<HTMLInputElement>(".inculva-lang-search");
+    if (searchInput) {
+      searchInput.value = "";
+      for (const opt of dropdown.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
+        opt.classList.remove("inculva-hidden");
+      }
+    }
+    requestAnimationFrame(() => {
+      // Focus the search input for immediate typing
+      searchInput?.focus();
+      const active = dropdown.querySelector<HTMLElement>(".inculva-lang-option.active");
+      active?.scrollIntoView({ block: "nearest" });
+    });
+  }
+
+  private _closeLangDropdown(): void {
+    const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+    if (!dropdown) return;
+    dropdown.classList.remove("open");
+    const trigger = dropdown.querySelector<HTMLElement>(".inculva-lang-trigger");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
   }
 
   /** Toggle the widget between left-side and right-side of the viewport. */

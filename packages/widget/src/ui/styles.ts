@@ -92,8 +92,22 @@ export const widgetStyles = `
 
   @media (max-width: 575px) {
     #inculva-widget-panel {
-      width: 96vw !important;
+      width: calc(100vw - 16px) !important;
       border-radius: 16px !important;
+      left: 8px !important;
+      right: 8px !important;
+    }
+    .inculva-controls-bar {
+      padding: 8px 10px !important;
+    }
+    .inculva-controls-row {
+      gap: 7px !important;
+    }
+    .inculva-lang-trigger {
+      height: 38px !important;
+    }
+    .inculva-panel-body {
+      padding: 10px 10px 0 !important;
     }
   }
 
@@ -181,61 +195,177 @@ export const widgetStyles = `
   .inculva-header-btn:active { transform: scale(0.9); }
   .inculva-header-btn:focus-visible { outline: 2px solid rgba(255,255,255,0.7); outline-offset: 1px; }
 
-  /* ── Controls Bar — same background as widget content area ──────────── */
+  /* ── Controls Bar Row ────────────────────────────────────────────────── */
   .inculva-controls-bar {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 0;
     padding: 10px 14px;
     flex-shrink: 0;
     background: #f7f7f7;
     border-bottom: 1px solid rgba(0,0,0,0.08);
   }
-  /* Language wrapper fills remaining space */
-  .inculva-lang-wrap {
+  .inculva-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ── Custom Language Dropdown ────────────────────────────────────────── */
+  .inculva-lang-dropdown {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+  }
+  .inculva-lang-trigger {
+    width: 100%;
+    height: 36px;
     display: flex;
     align-items: center;
     gap: 7px;
-    flex: 1;
-    min-width: 0;
-    color: #4b5563;
+    padding: 0 10px;
+    background: #fff;
+    border: 1.5px solid rgba(0,0,0,0.14);
+    border-radius: 9px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #374151;
+    outline: none;
+    transition: border-color 0.12s, box-shadow 0.12s;
+    -webkit-tap-highlight-color: transparent;
+    text-align: start;
+  }
+  .inculva-lang-trigger:hover { border-color: rgba(0,0,0,0.28); }
+  .inculva-lang-trigger:focus-visible {
+    border-color: var(--inculva-primary, #0066cc);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--inculva-primary, #0066cc) 18%, transparent);
+  }
+  .inculva-lang-dropdown.open .inculva-lang-trigger {
+    border-color: var(--inculva-primary, #0066cc);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--inculva-primary, #0066cc) 18%, transparent);
   }
   .inculva-lang-globe {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    opacity: 0.75;
+    opacity: 0.55;
+    color: #4b5563;
   }
-  .inculva-lang-globe svg { width: 16px; height: 16px; }
-  .inculva-lang-select {
+  .inculva-lang-globe svg { width: 15px; height: 15px; }
+  .inculva-lang-current-flag {
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .inculva-lang-current-label {
     flex: 1;
-    width: 100%;
-    height: 36px;
-    border: 1.5px solid rgba(0,0,0,0.14);
-    border-radius: 9px;
-    padding: 0 10px;
-    font-family: inherit;
-    font-size: 13.5px;
-    font-weight: 500;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .inculva-lang-chevron {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: #9ca3af;
+    transition: transform 0.2s;
+  }
+  .inculva-lang-dropdown.open .inculva-lang-chevron { transform: rotate(180deg); }
+
+  /* Dropdown list */
+  .inculva-lang-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
     background: #fff;
-    color: #374151;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.08);
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 50;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.12) transparent;
+    padding: 0 4px 4px;
+  }
+  .inculva-lang-list::-webkit-scrollbar { width: 4px; }
+  .inculva-lang-list::-webkit-scrollbar-track { background: transparent; }
+  .inculva-lang-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 4px; }
+  .inculva-lang-dropdown.open .inculva-lang-list { display: block; }
+  .inculva-lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 10px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    text-align: start;
+    transition: background 0.1s;
     outline: none;
     -webkit-tap-highlight-color: transparent;
-    transition: border-color 0.12s, box-shadow 0.12s;
-    min-width: 0;
   }
-  .inculva-lang-select option {
+  .inculva-lang-option:hover { background: #f3f4f6; }
+  .inculva-lang-option:focus-visible { background: #f3f4f6; outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: -2px; }
+  .inculva-lang-option.active {
+    background: color-mix(in srgb, var(--inculva-primary, #0066cc) 10%, #fff);
+    color: var(--inculva-primary, #0066cc);
+    font-weight: 600;
+  }
+  .inculva-lang-flag {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 30px;
+    text-align: center;
+  }
+  .inculva-lang-name {
+    flex: 1;
+    font-size: 14px;
+  }
+
+  /* Language search input */
+  .inculva-lang-search-wrap {
+    padding: 6px 6px 4px;
+    position: sticky;
+    top: 0;
     background: #fff;
+    z-index: 1;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .inculva-lang-search {
+    width: 100%;
+    height: 34px;
+    border: 1.5px solid rgba(0,0,0,0.14);
+    border-radius: 8px;
+    padding: 0 10px;
+    font-family: inherit;
+    font-size: 13px;
     color: #374151;
+    background: #f9fafb;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
   }
-  .inculva-lang-select:hover {
-    border-color: rgba(0,0,0,0.28);
-  }
-  .inculva-lang-select:focus {
+  .inculva-lang-search:focus {
     border-color: var(--inculva-primary, #0066cc);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--inculva-primary, #0066cc) 18%, transparent);
+    background: #fff;
   }
+  .inculva-lang-search::-webkit-search-cancel-button { display: none; }
+  .inculva-lang-option.inculva-hidden { display: none !important; }
+
   /* Size toggle group — full primary color pill so white text is always readable */
   .inculva-size-group {
     display: flex;
@@ -682,7 +812,10 @@ export const widgetStyles = `
   #inculva-widget-panel[data-size="large"] .inculva-controls-bar {
     padding: 12px 16px !important;
   }
-  #inculva-widget-panel[data-size="large"] .inculva-lang-select {
+  #inculva-widget-panel[data-size="large"] .inculva-controls-row {
+    gap: 12px !important;
+  }
+  #inculva-widget-panel[data-size="large"] .inculva-lang-trigger {
     height: 40px !important;
     font-size: 15px !important;
   }
@@ -910,10 +1043,30 @@ export const widgetStyles = `
   }
 
   /* ── RTL Support ─────────────────────────────────────────────────────── */
-  #inculva-widget-panel[dir="rtl"] .inculva-panel-header   { flex-direction: row-reverse; }
-  #inculva-widget-panel[dir="rtl"] .inculva-header-actions { flex-direction: row-reverse; }
-  #inculva-widget-panel[dir="rtl"] .inculva-profiles-header { flex-direction: row-reverse; }
-  #inculva-widget-panel[dir="rtl"] .inculva-controls-bar   { flex-direction: row-reverse; }
+  /* direction: rtl from dir="rtl" already reverses flex-direction:row flow. */
+  /* We only need to fix directional properties (border-left→right, etc.)   */
+  #inculva-widget-panel[dir="rtl"] .inculva-header-actions {
+    border-left: none;
+    border-right: 1px solid rgba(255,255,255,0.22);
+    padding-left: 0;
+    padding-right: 14px;
+    margin-left: 0;
+    margin-right: 6px;
+  }
+  #inculva-widget-panel[dir="rtl"] .inculva-profiles-toggle { text-align: right; }
+  #inculva-widget-panel[dir="rtl"] .inculva-lang-list {
+    left: 0;
+    right: 0;
+  }
+  #inculva-widget-panel[dir="rtl"] .inculva-lang-trigger { text-align: right; }
+  #inculva-widget-panel[dir="rtl"] .inculva-switch-thumb {
+    transform: translateX(20px);
+  }
+  #inculva-widget-panel[dir="rtl"] .inculva-switch-track.active .inculva-switch-thumb {
+    transform: translateX(0);
+  }
+  #inculva-widget-panel[dir="rtl"] .inculva-prefooter-switch { flex-direction: row-reverse; }
+  #inculva-widget-panel[dir="rtl"] .inculva-lang-option { text-align: right; }
 
   /* ── Reduced Motion ──────────────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {

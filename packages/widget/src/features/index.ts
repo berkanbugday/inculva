@@ -386,12 +386,53 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   },
 
   keyboardNavigation: {
-    enable: () =>
+    enable: () => {
       injectStyle(
         "inculva-keyboard-nav",
-        `:focus-visible { outline: 3px solid #0066cc !important; outline-offset: 3px !important; }`,
-      ),
-    disable: () => removeStyle("inculva-keyboard-nav"),
+        `*:focus-visible:not([id^="inculva"]):not([class*="inculva"]) {
+           outline: 3px solid var(--inculva-primary, #0066cc) !important;
+           outline-offset: 3px !important;
+           box-shadow: 0 0 0 6px color-mix(in srgb, var(--inculva-primary, #0066cc) 22%, transparent) !important;
+           z-index: 999990 !important;
+           position: relative !important;
+         }`,
+      );
+      // Show floating indicator
+      if (!document.getElementById("inculva-kb-badge")) {
+        const badge = document.createElement("div");
+        badge.id = "inculva-kb-badge";
+        badge.style.cssText = [
+          "position:fixed",
+          "bottom:24px",
+          "left:50%",
+          "transform:translateX(-50%)",
+          "background:rgba(15,15,25,0.88)",
+          "color:#fff",
+          "padding:7px 16px",
+          "border-radius:100px",
+          "font-size:12.5px",
+          "font-family:system-ui,sans-serif",
+          "pointer-events:none",
+          "z-index:2147483639",
+          "white-space:nowrap",
+          "box-shadow:0 4px 20px rgba(0,0,0,0.3)",
+          "backdrop-filter:blur(8px)",
+          "-webkit-backdrop-filter:blur(8px)",
+          "border:1px solid rgba(255,255,255,0.12)",
+        ].join(";");
+        badge.textContent = "⌨ Keyboard navigation active · Tab to navigate";
+        document.documentElement.appendChild(badge);
+        setTimeout(() => {
+          badge.style.opacity = "0";
+          badge.style.transition = "opacity 0.6s";
+          setTimeout(() => badge.remove(), 700);
+        }, 3500);
+      }
+    },
+    disable: () => {
+      removeStyle("inculva-keyboard-nav");
+      document.getElementById("inculva-kb-badge")?.remove();
+    },
   },
 
   readingGuide: {

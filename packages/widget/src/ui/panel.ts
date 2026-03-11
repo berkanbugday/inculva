@@ -120,7 +120,7 @@ const ICON_CLOSE = `<svg width="18" height="18" viewBox="0 0 14 14" fill="none" 
 const ICON_RESET = `<svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 10a6 6 0 1 0 1-3.5M4 6.5V10H8"/></svg>`;
 const ICON_PERSON = `<svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="6" r="3"/><path d="M4 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>`;
 const ICON_ARROW_DOWN = `<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 5l4 4 4-4"/></svg>`;
-const ICON_EXPAND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 10h14M10 4l6 6-6 6"/></svg>`;
+const ICON_EXPAND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 8V3h5M12 3h5v5M17 12v5h-5M8 17H3v-5"/></svg>`;
 
 // Profile icons (18×18)
 const ICON_P_BLIND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/><path d="M3 3l14 14"/></svg>`;
@@ -284,22 +284,48 @@ const COLOR_BLIND_TYPES: ColorBlindType[] = [
 ];
 const RTL_LANGS = new Set(["ar", "he", "fa", "ur"]);
 
-export const SUPPORTED_LANGUAGES: readonly { code: string; label: string }[] = [
-  { code: "en", label: "English" },
-  { code: "tr", label: "Türkçe" },
-  { code: "de", label: "Deutsch" },
-  { code: "fr", label: "Français" },
-  { code: "es", label: "Español" },
-  { code: "it", label: "Italiano" },
-  { code: "pt", label: "Português" },
-  { code: "nl", label: "Nederlands" },
-  { code: "ar", label: "العربية" },
-  { code: "he", label: "עברית" },
-  { code: "zh", label: "中文" },
-  { code: "ja", label: "日本語" },
-  { code: "ko", label: "한국어" },
-  { code: "ru", label: "Русский" },
-  { code: "pl", label: "Polski" },
+export const SUPPORTED_LANGUAGES: readonly { code: string; label: string; flag: string }[] = [
+  { code: "en", label: "English",           flag: "🇬🇧" },
+  { code: "tr", label: "Türkçe",            flag: "🇹🇷" },
+  { code: "de", label: "Deutsch",           flag: "🇩🇪" },
+  { code: "fr", label: "Français",          flag: "🇫🇷" },
+  { code: "es", label: "Español",           flag: "🇪🇸" },
+  { code: "it", label: "Italiano",          flag: "🇮🇹" },
+  { code: "pt", label: "Português",         flag: "🇵🇹" },
+  { code: "nl", label: "Nederlands",        flag: "🇳🇱" },
+  { code: "ar", label: "العربية",           flag: "🇸🇦" },
+  { code: "he", label: "עברית",             flag: "🇮🇱" },
+  { code: "zh", label: "中文",              flag: "🇨🇳" },
+  { code: "ja", label: "日本語",            flag: "🇯🇵" },
+  { code: "ko", label: "한국어",            flag: "🇰🇷" },
+  { code: "ru", label: "Русский",           flag: "🇷🇺" },
+  { code: "pl", label: "Polski",            flag: "🇵🇱" },
+  { code: "cs", label: "Čeština",           flag: "🇨🇿" },
+  { code: "da", label: "Dansk",             flag: "🇩🇰" },
+  { code: "fi", label: "Suomi",             flag: "🇫🇮" },
+  { code: "el", label: "Ελληνικά",          flag: "🇬🇷" },
+  { code: "hu", label: "Magyar",            flag: "🇭🇺" },
+  { code: "ro", label: "Română",            flag: "🇷🇴" },
+  { code: "sk", label: "Slovenčina",        flag: "🇸🇰" },
+  { code: "sv", label: "Svenska",           flag: "🇸🇪" },
+  { code: "uk", label: "Українська",        flag: "🇺🇦" },
+  { code: "bg", label: "Български",         flag: "🇧🇬" },
+  { code: "hr", label: "Hrvatski",          flag: "🇭🇷" },
+  { code: "lt", label: "Lietuvių",          flag: "🇱🇹" },
+  { code: "lv", label: "Latviešu",          flag: "🇱🇻" },
+  { code: "et", label: "Eesti",             flag: "🇪🇪" },
+  { code: "sl", label: "Slovenščina",       flag: "🇸🇮" },
+  { code: "sr", label: "Srpski",            flag: "🇷🇸" },
+  { code: "no", label: "Norsk",             flag: "🇳🇴" },
+  { code: "fa", label: "فارسی",             flag: "🇮🇷" },
+  { code: "ur", label: "اردو",              flag: "🇵🇰" },
+  { code: "th", label: "ภาษาไทย",           flag: "🇹🇭" },
+  { code: "vi", label: "Tiếng Việt",        flag: "🇻🇳" },
+  { code: "id", label: "Bahasa Indonesia",  flag: "🇮🇩" },
+  { code: "ms", label: "Bahasa Melayu",     flag: "🇲🇾" },
+  { code: "ca", label: "Català",            flag: "🇪🇸" },
+  { code: "sq", label: "Shqip",             flag: "🇦🇱" },
+  { code: "sw", label: "Kiswahili",         flag: "🇹🇿" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -364,48 +390,107 @@ function _buildControlsBar(
   const bar = document.createElement("div");
   bar.className = "inculva-controls-bar";
 
-  // Language selector — fills all available space so the select is as wide as possible
-  const langWrap = document.createElement("div");
-  langWrap.className = "inculva-lang-wrap";
-  const globeIcon = document.createElement("span");
-  globeIcon.className = "inculva-lang-globe";
-  globeIcon.setAttribute("aria-hidden", "true");
-  globeIcon.innerHTML = ICON_GLOBE;
-  langWrap.appendChild(globeIcon);
-  const langSelect = document.createElement("select");
-  langSelect.className = "inculva-lang-select";
-  langSelect.setAttribute("aria-label", labels["languageLabel"] ?? "Language");
-  langSelect.dataset["inculvaAction"] = "set-language";
-  for (const lang of SUPPORTED_LANGUAGES) {
-    const opt = document.createElement("option");
-    opt.value = lang.code;
-    opt.textContent = lang.label;
-    if (lang.code === language) opt.selected = true;
-    langSelect.appendChild(opt);
-  }
-  langWrap.appendChild(langSelect);
+  // Top row: language dropdown trigger + size group
+  const row = document.createElement("div");
+  row.className = "inculva-controls-row";
 
-  // 3-way size toggle — text labels: Small / Medium / Large
+  // ── Custom language dropdown ──────────────────────────────────────────
+  const currentLang = SUPPORTED_LANGUAGES.find(l => l.code === language) ?? SUPPORTED_LANGUAGES[0]!;
+
+  const langDropdown = document.createElement("div");
+  langDropdown.className = "inculva-lang-dropdown";
+
+  const langTrigger = document.createElement("button");
+  langTrigger.className = "inculva-lang-trigger";
+  langTrigger.setAttribute("type", "button");
+  langTrigger.setAttribute("aria-label", labels["languageLabel"] ?? "Select language");
+  langTrigger.setAttribute("aria-expanded", "false");
+  langTrigger.setAttribute("aria-haspopup", "listbox");
+  langTrigger.dataset["inculvaAction"] = "lang-dropdown-toggle";
+
+  const currentFlag = document.createElement("span");
+  currentFlag.className = "inculva-lang-current-flag";
+  currentFlag.textContent = currentLang.flag;
+
+  const currentLabel = document.createElement("span");
+  currentLabel.className = "inculva-lang-current-label";
+  currentLabel.textContent = currentLang.label;
+
+  const chevronSpan = document.createElement("span");
+  chevronSpan.className = "inculva-lang-chevron";
+  chevronSpan.setAttribute("aria-hidden", "true");
+  chevronSpan.innerHTML = ICON_ARROW_DOWN;
+
+  langTrigger.appendChild(currentFlag);
+  langTrigger.appendChild(currentLabel);
+  langTrigger.appendChild(chevronSpan);
+
+  // Dropdown list
+  const langList = document.createElement("div");
+  langList.className = "inculva-lang-list";
+  langList.setAttribute("role", "listbox");
+  langList.setAttribute("aria-label", labels["languageLabel"] ?? "Language");
+
+  // Search input
+  const searchWrap = document.createElement("div");
+  searchWrap.className = "inculva-lang-search-wrap";
+  const searchInput = document.createElement("input");
+  searchInput.type = "search";
+  searchInput.className = "inculva-lang-search";
+  searchInput.placeholder = "🔍 Search...";
+  searchInput.setAttribute("autocomplete", "off");
+  searchInput.setAttribute("spellcheck", "false");
+  searchInput.setAttribute("aria-label", "Search language");
+  searchWrap.appendChild(searchInput);
+  langList.appendChild(searchWrap);
+
+  for (const lang of SUPPORTED_LANGUAGES) {
+    const opt = document.createElement("button");
+    opt.className = "inculva-lang-option" + (lang.code === language ? " active" : "");
+    opt.setAttribute("type", "button");
+    opt.setAttribute("role", "option");
+    opt.setAttribute("aria-selected", lang.code === language ? "true" : "false");
+    opt.dataset["inculvaAction"] = "set-language";
+    opt.dataset["langCode"] = lang.code;
+
+    const flagSpan = document.createElement("span");
+    flagSpan.className = "inculva-lang-flag";
+    flagSpan.textContent = lang.flag;
+
+    const nameSpan = document.createElement("span");
+    nameSpan.className = "inculva-lang-name";
+    nameSpan.textContent = lang.label;
+
+    opt.appendChild(flagSpan);
+    opt.appendChild(nameSpan);
+    langList.appendChild(opt);
+  }
+
+  langDropdown.appendChild(langTrigger);
+  langDropdown.appendChild(langList);
+
+  // ── Size toggle group ─────────────────────────────────────────────────
   const sizeGroup = document.createElement("div");
   sizeGroup.className = "inculva-size-group";
 
   const sizeDefs: [string, string][] = [
-    ["mini", "Small"],
-    ["regular", "Medium"],
-    ["large", "Large"],
+    ["mini", "S"],
+    ["regular", "M"],
+    ["large", "L"],
   ];
   for (const [sizeVal, sizeLabel] of sizeDefs) {
     const btn = document.createElement("button");
     btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "large" ? " active" : ""}`;
     btn.setAttribute("type", "button");
-    btn.setAttribute("aria-label", `${sizeLabel} size`);
+    btn.setAttribute("aria-label", `${sizeVal === "mini" ? "Small" : sizeVal === "regular" ? "Medium" : "Large"} size`);
     btn.dataset["size"] = sizeVal;
     btn.textContent = sizeLabel;
     sizeGroup.appendChild(btn);
   }
 
-  bar.appendChild(langWrap);
-  bar.appendChild(sizeGroup);
+  row.appendChild(langDropdown);
+  row.appendChild(sizeGroup);
+  bar.appendChild(row);
   return bar;
 }
 
@@ -770,11 +855,19 @@ export function updatePanel(
       labels["closeMenu"] ?? "Close accessibility menu",
     );
 
-  // Sync language select to current language
-  const langSelect = panel.querySelector<HTMLSelectElement>(
-    ".inculva-lang-select",
-  );
-  if (langSelect && language) langSelect.value = language;
+  // Sync custom language dropdown to current language
+  const currentLangObj = SUPPORTED_LANGUAGES.find(l => l.code === language);
+  if (currentLangObj) {
+    const flagEl = panel.querySelector<HTMLElement>(".inculva-lang-current-flag");
+    const labelEl = panel.querySelector<HTMLElement>(".inculva-lang-current-label");
+    if (flagEl) flagEl.textContent = currentLangObj.flag;
+    if (labelEl) labelEl.textContent = currentLangObj.label;
+    for (const opt of panel.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
+      const isSelected = opt.dataset["langCode"] === language;
+      opt.classList.toggle("active", isSelected);
+      opt.setAttribute("aria-selected", String(isSelected));
+    }
+  }
 
   // Update feature button labels, tooltips and visibility
   for (const feature of FEATURES) {
