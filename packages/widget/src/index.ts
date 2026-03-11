@@ -163,10 +163,6 @@ class InculvaWidget {
           : "light"
         : this.config.theme;
     document.documentElement.setAttribute("data-inculva-theme", theme);
-
-    // Apply panel-side hint so border-radius flips correctly
-    const isLeft = this.config.position.includes("left");
-    if (isLeft) this.panel?.setAttribute("data-panel-side", "left");
   }
 
   private renderWidget(): void {
@@ -921,13 +917,7 @@ class InculvaWidget {
   private selectColorBlindType(type: ColorBlindType): void {
     setColorBlindType(type);
 
-    // If colorBlindMode isn't already active, enable it
-    if (!this.activeFeatures.has("colorBlindMode")) {
-      this.toggleFeature("colorBlindMode");
-      return; // toggleFeature handles pref saving
-    }
-
-    // Update active state on type buttons
+    // Update active state on type buttons immediately
     const selector = this.panel.querySelector(".inculva-cbm-selector");
     if (selector) {
       for (const btn of selector.querySelectorAll<HTMLElement>(
@@ -937,6 +927,12 @@ class InculvaWidget {
         btn.classList.toggle("active", isThis);
         btn.setAttribute("aria-pressed", String(isThis));
       }
+    }
+
+    // If colorBlindMode isn't already active, enable it
+    if (!this.activeFeatures.has("colorBlindMode")) {
+      this.toggleFeature("colorBlindMode");
+      return; // toggleFeature handles pref saving
     }
 
     this.announce(`Color blind mode: ${type}`);

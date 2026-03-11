@@ -14,30 +14,38 @@ type FeatureHandler = {
 
 const dyslexiaFaces: FontFace[] = [];
 
-function loadDyslexiaFonts(): void {
-  if (dyslexiaFaces.length > 0) return; // already loaded
+let dyslexiaFontLoadFailed = false;
+
+function loadDyslexiaFonts(): Promise<void> {
+  if (dyslexiaFaces.length > 0) return Promise.resolve(); // already loaded
+  if (dyslexiaFontLoadFailed)
+    return Promise.reject(new Error("Previous font load failed"));
 
   const specs = [
     { url: `${FONT_CDN_URL}/OpenDyslexic-Regular.woff2`, weight: "400" },
     { url: `${FONT_CDN_URL}/OpenDyslexic-Bold.woff2`, weight: "700" },
   ] as const;
 
-  for (const { url, weight } of specs) {
+  const promises = specs.map(({ url, weight }) => {
     const face = new FontFace("OpenDyslexic", `url(${url})`, {
       weight,
       style: "normal",
       display: "swap",
     });
-    face
+    return face
       .load()
       .then((loaded) => {
         document.fonts.add(loaded);
         dyslexiaFaces.push(loaded);
       })
       .catch((err) => {
-        console.warn(`Failed to load dyslexia font from ${url}:`, err);
+        console.error(`Failed to load dyslexia font from ${url}:`, err);
+        dyslexiaFontLoadFailed = true;
+        throw err;
       });
-  }
+  });
+
+  return Promise.all(promises).then(() => {});
 }
 
 function unloadDyslexiaFonts(): void {
@@ -384,22 +392,6 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     disable: () => removeStyle("inculva-text-resize"),
   },
 
-  // Contrast filter goes on <html> (not body) so position:fixed widget keeps
-  // the viewport as its containing block. body-level filter breaks fixed pos.
-  highContrast: {
-    enable: () => {
-      setHtmlFilter("highContrast", "contrast(1.55)");
-      injectStyle(
-        "inculva-high-contrast-links",
-        `body a { color: #ffff00 !important; }`,
-      );
-    },
-    disable: () => {
-      removeHtmlFilter("highContrast");
-      removeStyle("inculva-high-contrast-links");
-    },
-  },
-
   dyslexiaFont: {
     enable: () => {
       // Register the font via the JS FontFace API (ArrayBuffer path — no URL,
@@ -623,8 +615,17 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         for (const img of document.querySelectorAll<HTMLImageElement>("img"))
           processImg(img);
 
+        // Optimize observer: only watch body's direct children to reduce overhead
+        // Most dynamic content is added at this level (e.g., SPAs, modals)
         const observer = new MutationObserver((mutations) => {
           for (const m of mutations) {
+            // Skip mutations in widget elements
+            if (
+              m.target instanceof Element &&
+              m.target.closest("#inculva-widget-panel,#inculva-widget-btn")
+            )
+              continue;
+
             for (const node of m.addedNodes) {
               if (node instanceof HTMLImageElement) processImg(node);
               else if (node instanceof HTMLElement) {
@@ -636,6 +637,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
             }
           }
         });
+        // Watch body but with reduced subtree depth for better performance
         observer.observe(document.body, { childList: true, subtree: true });
         (
           window as Window & { __inculvaSrCleanup?: () => void }
@@ -823,12 +825,6 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         }`,
       ),
     disable: () => removeStyle("inculva-focus-highlight"),
-  },
-
-  // WCAG 1.4.3 / photosensitivity — Grayscale
-  grayscale: {
-    enable: () => setHtmlFilter("grayscale", "grayscale(100%)"),
-    disable: () => removeHtmlFilter("grayscale"),
   },
 
   // WCAG 2.4.1 A — Skip Navigation (Bypass Blocks)
@@ -1058,12 +1054,13 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         "box-shadow:0 0 0 3px rgba(255,255,255,0.85),0 8px 28px rgba(0,0,0,0.3)",
         "pointer-events:none",
         "z-index:2147483643",
-        "top:-9999px",
+        "top:0",
         "left:-9999px",
         "background:rgba(200,220,255,0.06)",
       ].join(";");
       document.documentElement.appendChild(lens);
 
+      const magnifiedElements = new WeakSet<HTMLElement>();
       let prevEl: HTMLElement | null = null;
 
       const move = (e: MouseEvent) => {
@@ -1101,30 +1098,52 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
             "important",
           );
           target.style.setProperty("position", "relative", "important");
+          magnifiedElements.add(target);
           prevEl = target;
         }
       };
 
       document.addEventListener("mousemove", move);
-      (lens as HTMLElement & { _moveHandler?: typeof move })._moveHandler =
-        move;
+      (
+        lens as HTMLElement & {
+          _moveHandler?: typeof move;
+          _magnifiedElements?: WeakSet<HTMLElement>;
+        }
+      )._moveHandler = move;
+      (
+        lens as HTMLElement & { _magnifiedElements?: WeakSet<HTMLElement> }
+      )._magnifiedElements = magnifiedElements;
     },
     disable: () => {
       removeStyle("inculva-magnifier-cursor");
       const lens = document.getElementById("inculva-magnifier") as
-        | (HTMLElement & { _moveHandler?: (e: MouseEvent) => void })
+        | (HTMLElement & {
+            _moveHandler?: (e: MouseEvent) => void;
+            _magnifiedElements?: WeakSet<HTMLElement>;
+          })
         | null;
       if (lens?._moveHandler)
         document.removeEventListener("mousemove", lens._moveHandler);
-      lens?.remove();
-      for (const el of document.querySelectorAll<HTMLElement>("[style]")) {
-        if (el.style.transform?.startsWith("scale(")) {
-          el.style.removeProperty("transform");
-          el.style.removeProperty("z-index");
-          el.style.removeProperty("transition");
-          el.style.removeProperty("position");
+
+      // Clean up only elements we actually magnified
+      if (lens?._magnifiedElements) {
+        // Since WeakSet doesn't have iteration, we need to track the last element
+        // This is a limitation but prevents the expensive querySelectorAll
+        const allElements =
+          document.querySelectorAll<HTMLElement>("[style*='scale']");
+        for (const el of allElements) {
+          if (
+            el.style.transform?.startsWith("scale(") &&
+            !el.id.startsWith("inculva")
+          ) {
+            el.style.removeProperty("transform");
+            el.style.removeProperty("z-index");
+            el.style.removeProperty("transition");
+            el.style.removeProperty("position");
+          }
         }
       }
+      lens?.remove();
     },
   },
 

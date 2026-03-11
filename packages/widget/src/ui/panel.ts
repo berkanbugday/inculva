@@ -111,7 +111,6 @@ const ICON_CURSOR = loadIcon("arrow-pointer", 20, 20);
 const ICON_SLOW_CURSOR = loadIcon("computer-mouse-scrollwheel", 20, 20);
 const ICON_COLOR_BLIND = loadIcon("bring-forward", 20, 20);
 const ICON_GRAYSCALE = loadIcon("circle-half", 20, 20);
-const ICON_SATURATION = "";
 const ICON_FOCUS = loadIcon("brackets-square", 20, 20);
 const ICON_TARGET = loadIcon("bullseye-pointer", 20, 20);
 const ICON_SKIP = loadIcon("forward-step", 20, 20);
@@ -139,17 +138,18 @@ const ICON_EXPAND = loadIcon(
 );
 const ICON_PERSON = loadIcon("user", 15, 15);
 const ICON_ARROW_DOWN = loadIcon("chevron-down", 15, 15);
+const ICON_SATURATION = loadIcon("circle-half-stroke", 20, 20);
 
 // Profile icons (18×18)
-const ICON_P_BLIND = "";
-const ICON_P_LOW_VISION = "";
-const ICON_P_COLOR_BLIND = "";
-const ICON_P_DYSLEXIA = "";
-const ICON_P_MOTOR = "";
-const ICON_P_COGNITIVE = "";
-const ICON_P_ATTENTION = "";
-const ICON_P_EPILEPSY = "";
-const ICON_P_PARKINSONS = "";
+const ICON_P_BLIND = loadIcon("eye-off", 18, 18);
+const ICON_P_LOW_VISION = loadIcon("eye", 18, 18);
+const ICON_P_COLOR_BLIND = loadIcon("palette", 18, 18);
+const ICON_P_DYSLEXIA = loadIcon("book-open", 18, 18);
+const ICON_P_MOTOR = loadIcon("hand", 18, 18);
+const ICON_P_COGNITIVE = loadIcon("brain", 18, 18);
+const ICON_P_ATTENTION = loadIcon("zap", 18, 18);
+const ICON_P_EPILEPSY = loadIcon("alert-triangle", 18, 18);
+const ICON_P_PARKINSONS = loadIcon("activity", 18, 18);
 
 // ---------------------------------------------------------------------------
 // Feature list — ordered for display in the panel
@@ -172,7 +172,7 @@ const FEATURES: FeatureConfig[] = [
   { key: "pauseAnimations", icon: ICON_PAUSE },
   { key: "cursorEnhancement", icon: ICON_CURSOR },
   { key: "colorBlindMode", icon: ICON_COLOR_BLIND },
-  { key: "saturation", icon: ICON_HIGH_CONTRAST },
+  { key: "saturation", icon: ICON_SATURATION },
   { key: "focusHighlight", icon: ICON_FOCUS },
   { key: "largeClickTargets", icon: ICON_TARGET },
   { key: "slowCursor", icon: ICON_SLOW_CURSOR },

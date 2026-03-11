@@ -1,6 +1,14 @@
-export type WidgetPosition = "bottom-right" | "bottom-left" | "top-right" | "top-left";
+export type WidgetPosition =
+  | "bottom-right"
+  | "bottom-left"
+  | "top-right"
+  | "top-left";
 
-export type ColorBlindType = "deuteranopia" | "protanopia" | "tritanopia" | "achromatopsia";
+export type ColorBlindType =
+  | "deuteranopia"
+  | "protanopia"
+  | "tritanopia"
+  | "achromatopsia";
 
 export type WidgetTheme = "light" | "dark" | "auto";
 
@@ -28,7 +36,6 @@ export interface WidgetConfig {
 export interface WidgetFeatures {
   // Core
   textResizing: boolean;
-  highContrast: boolean;
   dyslexiaFont: boolean;
   cursorEnhancement: boolean;
   keyboardNavigation: boolean;
@@ -41,7 +48,6 @@ export interface WidgetFeatures {
   colorBlindMode: boolean;
   largeClickTargets: boolean;
   focusHighlight: boolean;
-  grayscale: boolean;
   // WCAG 2.4.1 A + 1.4.2 A (ADA/EAA)
   skipNavigation: boolean;
   muteMedia: boolean;
@@ -82,4 +88,8 @@ export interface WidgetEvent {
   timestamp: string;
 }
 
-export type WidgetEventType = "opened" | "closed" | "feature_enabled" | "feature_disabled";
+export type WidgetEventType =
+  | "opened"
+  | "closed"
+  | "feature_enabled"
+  | "feature_disabled";
