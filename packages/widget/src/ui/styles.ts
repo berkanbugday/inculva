@@ -240,11 +240,11 @@ export const widgetStyles = `
   .inculva-lang-trigger:hover { border-color: rgba(0,0,0,0.28); }
   .inculva-lang-trigger:focus-visible {
     border-color: var(--inculva-primary, #0066cc);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--inculva-primary, #0066cc) 18%, transparent);
+    box-shadow: 0 0 0 3px rgba(var(--inculva-primary-rgb, 0,102,204), 0.18);
   }
   .inculva-lang-dropdown.open .inculva-lang-trigger {
     border-color: var(--inculva-primary, #0066cc);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--inculva-primary, #0066cc) 18%, transparent);
+    box-shadow: 0 0 0 3px rgba(var(--inculva-primary-rgb, 0,102,204), 0.18);
   }
   .inculva-lang-globe {
     display: flex;
@@ -319,7 +319,7 @@ export const widgetStyles = `
   .inculva-lang-option:hover { background: #f3f4f6; }
   .inculva-lang-option:focus-visible { background: #f3f4f6; outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: -2px; }
   .inculva-lang-option.active {
-    background: color-mix(in srgb, var(--inculva-primary, #0066cc) 10%, #fff);
+    background: rgba(var(--inculva-primary-rgb, 0,102,204), 0.10);
     color: var(--inculva-primary, #0066cc);
     font-weight: 600;
   }
@@ -333,6 +333,13 @@ export const widgetStyles = `
   .inculva-lang-name {
     flex: 1;
     font-size: 14px;
+  }
+  .inculva-lang-en-name {
+    font-size: 11px;
+    color: #9ca3af;
+    font-weight: 400;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   /* Language search input */
@@ -487,7 +494,7 @@ export const widgetStyles = `
   @media (min-width: 785px) {
     .inculva-profile-card:hover {
       border-color: var(--inculva-primary, #0066cc);
-      background: color-mix(in srgb, var(--inculva-primary, #0066cc) 5%, #fff);
+      background: rgba(var(--inculva-primary-rgb, 0,102,204), 0.05);
     }
   }
   .inculva-profile-card:active { transform: scale(0.95); }
@@ -583,16 +590,6 @@ export const widgetStyles = `
     background: #fff !important;
     border-color: var(--inculva-primary, #0066cc) !important;
   }
-  .inculva-feature-btn.active .inculva-feature-icon-box svg path,
-  .inculva-feature-btn.active .inculva-feature-icon-box svg rect,
-  .inculva-feature-btn.active .inculva-feature-icon-box svg circle {
-    stroke: #000 !important;
-    fill: none !important;
-  }
-  .inculva-feature-btn.active .inculva-feature-icon-box svg [data-fill="1"] {
-    fill: #000 !important;
-    stroke: none !important;
-  }
 
   /* Icon box — white bg, border matches the feature button border color */
   .inculva-feature-icon-box {
@@ -624,7 +621,7 @@ export const widgetStyles = `
     stroke: none;
   }
   .inculva-feature-label {
-    font-size: 12.5px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1.25;
     font-family: inherit;
@@ -647,7 +644,8 @@ export const widgetStyles = `
   [data-level="1"] .inculva-level-dot:nth-child(1),
   [data-level="2"] .inculva-level-dot:nth-child(-n+2),
   [data-level="3"] .inculva-level-dot:nth-child(-n+3),
-  [data-level="4"] .inculva-level-dot:nth-child(-n+4) {
+  [data-level="4"] .inculva-level-dot:nth-child(-n+4),
+  [data-level="5"] .inculva-level-dot:nth-child(-n+5) {
     background: var(--inculva-primary, #0066cc);
   }
   .inculva-feature-btn.active .inculva-level-dot {
@@ -656,7 +654,8 @@ export const widgetStyles = `
   .inculva-feature-btn.active[data-level="1"] .inculva-level-dot:nth-child(1),
   .inculva-feature-btn.active[data-level="2"] .inculva-level-dot:nth-child(-n+2),
   .inculva-feature-btn.active[data-level="3"] .inculva-level-dot:nth-child(-n+3),
-  .inculva-feature-btn.active[data-level="4"] .inculva-level-dot:nth-child(-n+4) {
+  .inculva-feature-btn.active[data-level="4"] .inculva-level-dot:nth-child(-n+4),
+  .inculva-feature-btn.active[data-level="5"] .inculva-level-dot:nth-child(-n+5) {
     background: rgba(255,255,255,0.95);
   }
 
@@ -756,16 +755,6 @@ export const widgetStyles = `
   #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box {
     background: #fff !important;
     border-color: var(--inculva-primary, #0066cc) !important;
-  }
-  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg path,
-  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg rect,
-  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg circle {
-    stroke: #000 !important;
-    fill: none !important;
-  }
-  #inculva-widget-panel[data-size="mini"] .inculva-feature-btn.active .inculva-feature-icon-box svg [data-fill="1"] {
-    fill: #000 !important;
-    stroke: none !important;
   }
 
   /* ── Large Mode ──────────────────────────────────────────────────────── */

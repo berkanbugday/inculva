@@ -1,8 +1,6 @@
 import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
-import {
-  OPENDYSLEXIC_REGULAR_B64,
-  OPENDYSLEXIC_BOLD_B64,
-} from "virtual:opendyslexic-fonts";
+
+const FONT_CDN_URL = "https://cdn.inculva.com/fonts";
 
 type FeatureHandler = {
   /** level is 1-based (1 = minimum, N = maximum). Omit for binary features. */
@@ -12,19 +10,7 @@ type FeatureHandler = {
 
 // ── OpenDyslexic font loading ────────────────────────────────────────────────
 //
-// We use the FontFace JavaScript API with raw ArrayBuffer data rather than CSS
-// @font-face with a URL or data: URI. When a FontFace is constructed from
-// binary (not a URL string), the browser performs NO network request and does
-// NOT consult font-src CSP — there is simply no URL to check. This makes the
-// dyslexia font work on any customer site regardless of how strict their CSP is.
-
-/** Decode a base64 string into an ArrayBuffer without any URL or fetch. */
-function b64ToBuffer(b64: string): ArrayBuffer {
-  const binary = atob(b64);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-  return bytes.buffer;
-}
+// We use the FontFace JavaScript API to load fonts from CDN.
 
 const dyslexiaFaces: FontFace[] = [];
 
@@ -32,21 +18,25 @@ function loadDyslexiaFonts(): void {
   if (dyslexiaFaces.length > 0) return; // already loaded
 
   const specs = [
-    { b64: OPENDYSLEXIC_REGULAR_B64, weight: "400" },
-    { b64: OPENDYSLEXIC_BOLD_B64, weight: "700" },
+    { url: `${FONT_CDN_URL}/OpenDyslexic-Regular.woff2`, weight: "400" },
+    { url: `${FONT_CDN_URL}/OpenDyslexic-Bold.woff2`, weight: "700" },
   ] as const;
 
-  for (const { b64, weight } of specs) {
-    const face = new FontFace("OpenDyslexic", b64ToBuffer(b64), {
+  for (const { url, weight } of specs) {
+    const face = new FontFace("OpenDyslexic", `url(${url})`, {
       weight,
       style: "normal",
       display: "swap",
     });
-    // .load() on binary data resolves immediately (no network round-trip)
-    face.load().then((loaded) => {
-      document.fonts.add(loaded);
-      dyslexiaFaces.push(loaded);
-    });
+    face
+      .load()
+      .then((loaded) => {
+        document.fonts.add(loaded);
+        dyslexiaFaces.push(loaded);
+      })
+      .catch((err) => {
+        console.warn(`Failed to load dyslexia font from ${url}:`, err);
+      });
   }
 }
 
@@ -86,13 +76,13 @@ export const FEATURE_LEVELS: Partial<Record<keyof WidgetFeatures, number>> = {
   lineHeight: 4,
   textSpacing: 4,
   contentMagnifier: 4,
-  saturation: 4,
+  saturation: 5,
   colorBlindMode: 4, // L1=deuteranopia L2=protanopia L3=tritanopia L4=achromatopsia
-  textAlign: 3,      // L1=left L2=center L3=right
-  readingGuide: 3,   // L1=thin(3px) L2=medium(6px) L3=thick(12px)
+  textAlign: 3, // L1=left L2=center L3=right
+  readingGuide: 3, // L1=narrow(50vw) L2=wide(75vw) L3=full(100vw)
   cursorEnhancement: 3, // L1=medium(32px) L2=large(48px) L3=XL(64px)
-  slowCursor: 3,     // L1=slight(α=0.25) L2=medium(α=0.15) L3=heavy(α=0.08)
-  screenReader: 3,   // L1=alt hints  L2=read on hover  L3=read on tap
+  slowCursor: 3, // L1=slight(α=0.25) L2=medium(α=0.15) L3=heavy(α=0.08)
+  screenReader: 3, // L1=alt hints  L2=read on hover  L3=read on tap
 };
 
 /** Level → ColorBlindType mapping (exported so index.ts can derive display labels). */
@@ -206,7 +196,11 @@ function _getReadableText(target: Element): string {
   for (let i = 0; i < 4 && el && el !== document.documentElement; i++) {
     const htmlEl = el as HTMLElement;
     // Skip widget own UI
-    if (htmlEl.id?.startsWith("inculva") || htmlEl.className?.includes?.("inculva")) return "";
+    if (
+      htmlEl.id?.startsWith("inculva") ||
+      htmlEl.className?.includes?.("inculva")
+    )
+      return "";
 
     const ariaLabel = el.getAttribute("aria-label");
     if (ariaLabel?.trim()) return ariaLabel.trim();
@@ -221,13 +215,20 @@ function _getReadableText(target: Element): string {
       return el.alt?.trim() || "Image with no description";
     }
 
-    if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+    if (
+      el instanceof HTMLInputElement ||
+      el instanceof HTMLSelectElement ||
+      el instanceof HTMLTextAreaElement
+    ) {
       const elId = htmlEl.id;
       const lblText = elId
-        ? document.querySelector<HTMLElement>(`label[for="${elId}"]`)?.textContent?.trim()
+        ? document
+            .querySelector<HTMLElement>(`label[for="${elId}"]`)
+            ?.textContent?.trim()
         : undefined;
       if (lblText) return lblText;
-      if (el instanceof HTMLInputElement && el.placeholder) return el.placeholder;
+      if (el instanceof HTMLInputElement && el.placeholder)
+        return el.placeholder;
     }
 
     const text = (htmlEl.innerText ?? "").trim();
@@ -242,9 +243,47 @@ let _srLang = "";
 
 /** Map widget 2-letter language codes → BCP 47 tags for natural TTS voice selection. */
 const LANG_BCP47: Record<string, string> = {
-  en: "en-US", tr: "tr-TR", de: "de-DE", fr: "fr-FR", es: "es-ES",
-  it: "it-IT", pt: "pt-PT", nl: "nl-NL", ar: "ar-SA", he: "he-IL",
-  zh: "zh-CN", ja: "ja-JP", ko: "ko-KR", ru: "ru-RU", pl: "pl-PL",
+  en: "en-US",
+  tr: "tr-TR",
+  de: "de-DE",
+  fr: "fr-FR",
+  es: "es-ES",
+  it: "it-IT",
+  pt: "pt-BR",
+  nl: "nl-NL",
+  ar: "ar-SA",
+  he: "he-IL",
+  zh: "zh-CN",
+  ja: "ja-JP",
+  ko: "ko-KR",
+  ru: "ru-RU",
+  pl: "pl-PL",
+  cs: "cs-CZ",
+  da: "da-DK",
+  fi: "fi-FI",
+  el: "el-GR",
+  hu: "hu-HU",
+  ro: "ro-RO",
+  sk: "sk-SK",
+  sv: "sv-SE",
+  uk: "uk-UA",
+  bg: "bg-BG",
+  hr: "hr-HR",
+  lt: "lt-LT",
+  lv: "lv-LV",
+  et: "et-EE",
+  sl: "sl-SI",
+  sr: "sr-RS",
+  no: "nb-NO",
+  fa: "fa-IR",
+  ur: "ur-PK",
+  th: "th-TH",
+  vi: "vi-VN",
+  id: "id-ID",
+  ms: "ms-MY",
+  ca: "ca-ES",
+  sq: "sq-AL",
+  sw: "sw-TZ",
 };
 
 /** Called by the widget on init and when the user changes the language selector (fallback only). */
@@ -275,14 +314,19 @@ function _speak(text: string, fromEl?: Element): void {
   window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(text.trim().slice(0, 350));
   utt.rate = 1.05;
-  utt.lang = fromEl ? _detectLang(fromEl) : (LANG_BCP47[_srLang] ?? _srLang ?? "en-US");
+  utt.lang = fromEl
+    ? _detectLang(fromEl)
+    : (LANG_BCP47[_srLang] ?? _srLang ?? "en-US");
   window.speechSynthesis.speak(utt);
 }
 
 /** Tears down all screen-reader state for any level (called before switching levels or on disable). */
 function _cleanupScreenReader(): void {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-  if (_srHoverTimer !== null) { clearTimeout(_srHoverTimer); _srHoverTimer = null; }
+  if (_srHoverTimer !== null) {
+    clearTimeout(_srHoverTimer);
+    _srHoverTimer = null;
+  }
 
   // Run the per-level cleanup closure (removes event listeners)
   const w = window as Window & { __inculvaSrCleanup?: () => void };
@@ -292,25 +336,36 @@ function _cleanupScreenReader(): void {
   removeStyle("inculva-screen-reader");
 
   // Remove TTS outline markers
-  for (const el of document.querySelectorAll<HTMLElement>("[data-inculva-tts-hover],[data-inculva-tts-tap]")) {
+  for (const el of document.querySelectorAll<HTMLElement>(
+    "[data-inculva-tts-hover],[data-inculva-tts-tap]",
+  )) {
     delete el.dataset["inculvaTtsHover"];
     delete el.dataset["inculvaTtsTap"];
   }
   // Unwrap alt-badge wrappers, restoring <img> to original position
-  for (const wrap of document.querySelectorAll<HTMLElement>("[data-inculva-sr-wrap]")) {
+  for (const wrap of document.querySelectorAll<HTMLElement>(
+    "[data-inculva-sr-wrap]",
+  )) {
     const img = wrap.querySelector("img");
     if (img) wrap.parentNode?.insertBefore(img, wrap);
     wrap.remove();
   }
   // Remove alt-hint markers and red outlines
-  for (const img of document.querySelectorAll<HTMLImageElement>("[data-inculva-sr]")) {
+  for (const img of document.querySelectorAll<HTMLImageElement>(
+    "[data-inculva-sr]",
+  )) {
     img.classList.remove("inculva-no-alt");
     delete img.dataset["inculvaSr"];
   }
 }
 
 /** Exported so index.ts can build per-level button label strings. */
-export const SR_MODE_LABELS = ["", "Alt hints", "Read on hover", "Read on tap"] as const;
+export const SR_MODE_LABELS = [
+  "",
+  "Alt hints",
+  "Read on hover",
+  "Read on tap",
+] as const;
 
 // Runtime scale value read by the contentMagnifier move handler on every event,
 // so changing the level takes effect immediately without recreating the lens.
@@ -366,17 +421,22 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     // Hotspot coordinates reference the pointer tip (top-left of the arrow).
     enable: (level = 1) => {
       // [size_px, hotspot_x, hotspot_y] — hotspot in CSS pixels at rendered size
-      const cfg: [number, number, number][] = [[32, 6, 3], [48, 9, 4], [64, 12, 6]];
+      const cfg: [number, number, number][] = [
+        [32, 6, 3],
+        [48, 9, 4],
+        [64, 12, 6],
+      ];
       const [sz, hx, hy] = cfg[Math.min(level, 3) - 1] ?? cfg[0];
       // Classic arrow cursor path in a 24×24 viewBox.
       // IMPORTANT: all SVG attributes use double quotes so encodeURIComponent
       // encodes them as safe %22 sequences — single quotes are NOT encoded by
       // encodeURIComponent (they are in the unreserved set), so a single-quoted
       // SVG inside url('...') would prematurely close the CSS string.
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${sz}" height="${sz}" viewBox="0 0 24 24">`
-        + `<path d="M5 2 L5 20 L9 16 L12 22.5 L15 21 L12 14.5 L18.5 14.5 Z" `
-        + `fill="white" stroke="black" stroke-width="1.8" stroke-linejoin="round" paint-order="stroke fill"/>`
-        + `</svg>`;
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${sz}" height="${sz}" viewBox="0 0 24 24">` +
+        `<path d="M5 2 L5 20 L9 16 L12 22.5 L15 21 L12 14.5 L18.5 14.5 Z" ` +
+        `fill="white" stroke="black" stroke-width="1.8" stroke-linejoin="round" paint-order="stroke fill"/>` +
+        `</svg>`;
       replaceStyle(
         "inculva-cursor",
         `body *:not([id^="inculva"]):not([class*="inculva"]) { cursor: url("data:image/svg+xml,${encodeURIComponent(svg)}") ${hx} ${hy}, auto !important; }`,
@@ -392,7 +452,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         `*:focus-visible:not([id^="inculva"]):not([class*="inculva"]) {
            outline: 3px solid var(--inculva-primary, #0066cc) !important;
            outline-offset: 3px !important;
-           box-shadow: 0 0 0 6px color-mix(in srgb, var(--inculva-primary, #0066cc) 22%, transparent) !important;
+           box-shadow: 0 0 0 6px rgba(var(--inculva-primary-rgb, 0,102,204), 0.22) !important;
            z-index: 999990 !important;
            position: relative !important;
          }`,
@@ -436,8 +496,8 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   },
 
   readingGuide: {
-    // 3 levels of prominence: thin (3 px) / medium (6 px) / thick (12 px).
-    // The element is always recreated on enable so level changes take effect immediately.
+    // 3 levels controlling guide width: narrow (50vw) / wide (75vw) / full (100vw).
+    // A fixed-height bar follows the cursor with a chevron ▲ at its center.
     enable: (level = 1) => {
       // Clean up any existing guide before (re-)creating at new level
       const prev = document.getElementById("inculva-reading-guide") as
@@ -447,30 +507,59 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         document.removeEventListener("mousemove", prev._moveHandler);
       prev?.remove();
 
-      const heights = [3, 6, 12];
-      const h = heights[level - 1] ?? 3;
+      const widths = ["50vw", "75vw", "100vw"];
+      const w = widths[level - 1] ?? "50vw";
+      const H = 4; // fixed guide height in px
 
-      const guide = document.createElement("div");
+      const guide = document.createElement("div") as HTMLElement & {
+        _moveHandler?: (e: MouseEvent) => void;
+      };
       guide.id = "inculva-reading-guide";
       guide.style.cssText = [
         "position:fixed",
-        "left:0",
-        "right:0",
-        `height:${h}px`,
+        "left:50%",
+        "-webkit-transform:translateX(-50%)",
+        "transform:translateX(-50%)",
+        `width:${w}`,
+        `height:${H}px`,
         "background:var(--inculva-primary,#0066cc)",
-        "opacity:0.85",
+        "opacity:0.9",
         "pointer-events:none",
         "z-index:2147483642",
         "top:0",
+        "border-radius:2px 2px 0 0",
       ].join(";");
+
+      // Chevron ▲ at the center-top of the guide line
+      const chevron = document.createElement("span");
+      chevron.style.cssText = [
+        "position:absolute",
+        "bottom:100%",
+        "left:50%",
+        "-webkit-transform:translateX(-50%)",
+        "transform:translateX(-50%)",
+        "width:0",
+        "height:0",
+        "border-left:10px solid transparent",
+        "border-right:10px solid transparent",
+        "border-bottom:11px solid var(--inculva-primary,#0066cc)",
+        "display:block",
+        "opacity:0.9",
+      ].join(";");
+      guide.appendChild(chevron);
+
       document.documentElement.appendChild(guide);
+
+      const isFullWidth = w === "100vw";
       const move = (e: MouseEvent) => {
-        guide.style.top = `${e.clientY - Math.floor(h / 2)}px`;
+        guide.style.top = `${e.clientY}px`;
+        if (!isFullWidth) {
+          // Center the guide on cursor X for narrower widths
+          guide.style.left = `${e.clientX}px`;
+        }
       };
+      guide._moveHandler = move;
       document.addEventListener("mousemove", move);
-      (
-        guide as HTMLElement & { _moveHandler?: (e: MouseEvent) => void }
-      )._moveHandler = move;
     },
     disable: () => {
       const guide = document.getElementById("inculva-reading-guide") as
@@ -514,7 +603,10 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
           img.dataset["inculvaSr"] = "1";
           const alt = img.getAttribute("alt");
           const hasAlt = alt !== null && alt.trim() !== "";
-          if (!hasAlt) { img.classList.add("inculva-no-alt"); return; }
+          if (!hasAlt) {
+            img.classList.add("inculva-no-alt");
+            return;
+          }
           const parent = img.parentNode;
           if (!parent) return;
           const wrap = document.createElement("span");
@@ -528,21 +620,26 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
           wrap.appendChild(badge);
         }
 
-        for (const img of document.querySelectorAll<HTMLImageElement>("img")) processImg(img);
+        for (const img of document.querySelectorAll<HTMLImageElement>("img"))
+          processImg(img);
 
         const observer = new MutationObserver((mutations) => {
           for (const m of mutations) {
             for (const node of m.addedNodes) {
               if (node instanceof HTMLImageElement) processImg(node);
               else if (node instanceof HTMLElement) {
-                for (const img of node.querySelectorAll<HTMLImageElement>("img")) processImg(img);
+                for (const img of node.querySelectorAll<HTMLImageElement>(
+                  "img",
+                ))
+                  processImg(img);
               }
             }
           }
         });
         observer.observe(document.body, { childList: true, subtree: true });
-        (window as Window & { __inculvaSrCleanup?: () => void }).__inculvaSrCleanup = () => observer.disconnect();
-
+        (
+          window as Window & { __inculvaSrCleanup?: () => void }
+        ).__inculvaSrCleanup = () => observer.disconnect();
       } else if (level === 2) {
         // ── L2: Read on hover ────────────────────────────────────────────────
         // A dashed primary-colour outline appears on the element being read.
@@ -559,11 +656,17 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         const onOver = (e: MouseEvent): void => {
           const target = e.target as Element | null;
           if (!target || target === lastEl) return;
-          if (target.closest("#inculva-widget-panel,#inculva-widget-btn")) return;
+          if (target.closest("#inculva-widget-panel,#inculva-widget-btn"))
+            return;
           lastEl = target;
           // Clear any pending timer and remove the previous outline
-          if (_srHoverTimer !== null) { clearTimeout(_srHoverTimer); _srHoverTimer = null; }
-          for (const el of document.querySelectorAll<HTMLElement>("[data-inculva-tts-hover]")) {
+          if (_srHoverTimer !== null) {
+            clearTimeout(_srHoverTimer);
+            _srHoverTimer = null;
+          }
+          for (const el of document.querySelectorAll<HTMLElement>(
+            "[data-inculva-tts-hover]",
+          )) {
             delete el.dataset["inculvaTtsHover"];
           }
           // Wait 400 ms of stillness before reading — avoids reading every element
@@ -578,16 +681,20 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         };
 
         const onOut = (): void => {
-          if (_srHoverTimer !== null) { clearTimeout(_srHoverTimer); _srHoverTimer = null; }
+          if (_srHoverTimer !== null) {
+            clearTimeout(_srHoverTimer);
+            _srHoverTimer = null;
+          }
         };
 
         document.addEventListener("mouseover", onOver);
         document.addEventListener("mouseout", onOut);
-        (window as Window & { __inculvaSrCleanup?: () => void }).__inculvaSrCleanup = () => {
+        (
+          window as Window & { __inculvaSrCleanup?: () => void }
+        ).__inculvaSrCleanup = () => {
           document.removeEventListener("mouseover", onOver);
           document.removeEventListener("mouseout", onOut);
         };
-
       } else {
         // ── L3: Read on tap / click ──────────────────────────────────────────
         // A solid primary-colour outline briefly marks the element just read.
@@ -604,9 +711,12 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         const onTap = (e: MouseEvent): void => {
           const target = e.target as Element | null;
           if (!target) return;
-          if (target.closest("#inculva-widget-panel,#inculva-widget-btn")) return;
+          if (target.closest("#inculva-widget-panel,#inculva-widget-btn"))
+            return;
           // Remove outline from previously tapped element
-          if (lastTapEl) { delete (lastTapEl as HTMLElement).dataset["inculvaTtsTap"]; }
+          if (lastTapEl) {
+            delete (lastTapEl as HTMLElement).dataset["inculvaTtsTap"];
+          }
           const text = _getReadableText(target);
           if (!text) return;
           lastTapEl = target;
@@ -622,7 +732,9 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         };
 
         document.addEventListener("click", onTap);
-        (window as Window & { __inculvaSrCleanup?: () => void }).__inculvaSrCleanup = () => {
+        (
+          window as Window & { __inculvaSrCleanup?: () => void }
+        ).__inculvaSrCleanup = () => {
           document.removeEventListener("click", onTap);
         };
       }
@@ -819,13 +931,28 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     disable: () => removeStyle("inculva-text-align"),
   },
 
-  // Saturation — boosts colour saturation — 4 levels
+  // Saturation — Level 1 = High Contrast, Levels 2-5 = saturation boost
   saturation: {
     enable: (level = 1) => {
-      const vals = [1.4, 1.8, 2.4, 3.0];
-      setHtmlFilter("saturation", `saturate(${vals[level - 1] ?? 1.4})`);
+      if (level === 1) {
+        removeHtmlFilter("saturation");
+        setHtmlFilter("highContrast", "contrast(1.55)");
+        injectStyle(
+          "inculva-high-contrast-links",
+          `body a { color: #ffff00 !important; }`,
+        );
+      } else {
+        removeHtmlFilter("highContrast");
+        removeStyle("inculva-high-contrast-links");
+        const vals = [1.4, 1.8, 2.4, 3.0];
+        setHtmlFilter("saturation", `saturate(${vals[level - 2] ?? 1.4})`);
+      }
     },
-    disable: () => removeHtmlFilter("saturation"),
+    disable: () => {
+      removeHtmlFilter("saturation");
+      removeHtmlFilter("highContrast");
+      removeStyle("inculva-high-contrast-links");
+    },
   },
 
   // WCAG 1.4.2 A — Audio Control (mute autoplaying media)
@@ -1035,11 +1162,12 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
   slowCursor: {
     enable: (level = 1) => {
       const alphas = [0.25, 0.15, 0.08];
-      const alpha = alphas[(level - 1)] ?? 0.25;
+      const alpha = alphas[level - 1] ?? 0.25;
 
       // Update alpha dynamically — frame loop reads it on every tick,
       // so changing levels takes effect immediately without recreating everything.
-      (window as Window & { __inculvaSlowAlpha?: number }).__inculvaSlowAlpha = alpha;
+      (window as Window & { __inculvaSlowAlpha?: number }).__inculvaSlowAlpha =
+        alpha;
 
       // If virtual cursor already exists just updating alpha is sufficient.
       if (document.getElementById("inculva-slow-cursor")) return;
@@ -1047,7 +1175,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       // Hide the OS cursor on all page elements (but keep it on widget itself).
       injectStyle(
         "inculva-slow-cursor-hide",
-        `body *:not([id^="inculva"]):not([class*="inculva"]) { cursor: none !important; }`
+        `body *:not([id^="inculva"]):not([class*="inculva"]) { cursor: none !important; }`,
       );
 
       // Virtual cursor element — classic white-fill / black-stroke arrow.
@@ -1090,7 +1218,9 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       const el = document.getElementById("inculva-slow-cursor");
 
       function frame() {
-        const a = (window as Window & { __inculvaSlowAlpha?: number }).__inculvaSlowAlpha ?? 0.25;
+        const a =
+          (window as Window & { __inculvaSlowAlpha?: number })
+            .__inculvaSlowAlpha ?? 0.25;
         // Hotspot offset: top-left of SVG arrow is at ~(6px, 3px) within the 36px viewbox.
         const hx = 6 * (sz / 24);
         const hy = 3 * (sz / 24);
@@ -1104,16 +1234,22 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       }
       rafId = requestAnimationFrame(frame);
 
-      (window as Window & { __inculvaSlowCursorCleanup?: () => void }).__inculvaSlowCursorCleanup = () => {
+      (
+        window as Window & { __inculvaSlowCursorCleanup?: () => void }
+      ).__inculvaSlowCursorCleanup = () => {
         document.removeEventListener("mousemove", onMove);
         cancelAnimationFrame(rafId);
       };
     },
     disable: () => {
       removeStyle("inculva-slow-cursor-hide");
-      (window as Window & { __inculvaSlowCursorCleanup?: () => void }).__inculvaSlowCursorCleanup?.();
-      delete (window as Window & { __inculvaSlowCursorCleanup?: () => void }).__inculvaSlowCursorCleanup;
-      delete (window as Window & { __inculvaSlowAlpha?: number }).__inculvaSlowAlpha;
+      (
+        window as Window & { __inculvaSlowCursorCleanup?: () => void }
+      ).__inculvaSlowCursorCleanup?.();
+      delete (window as Window & { __inculvaSlowCursorCleanup?: () => void })
+        .__inculvaSlowCursorCleanup;
+      delete (window as Window & { __inculvaSlowAlpha?: number })
+        .__inculvaSlowAlpha;
       document.getElementById("inculva-slow-cursor")?.remove();
     },
   },

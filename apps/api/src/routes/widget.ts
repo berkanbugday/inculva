@@ -193,10 +193,8 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
           theme: config.theme,
           primaryColor: config.primaryColor,
           language: config.language,
-          labels: getLabels(config.language),
           features: {
             textResizing: config.textResizing,
-            highContrast: config.highContrast,
             dyslexiaFont: config.dyslexiaFont,
             cursorEnhancement: config.cursorEnhancement,
             keyboardNavigation: config.keyboardNavigation,
@@ -208,7 +206,6 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
             colorBlindMode: config.colorBlindMode,
             largeClickTargets: config.largeClickTargets,
             focusHighlight: config.focusHighlight,
-            grayscale: config.grayscale,
             skipNavigation: config.skipNavigation,
             muteMedia: config.muteMedia,
             readingMask: config.readingMask,

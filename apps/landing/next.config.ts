@@ -36,8 +36,8 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       // data: allows the base64 WOFF2 data URIs the widget inlines for OpenDyslexic.
       // 'self' + widgetSrc cover static .woff2 files served from the CDN/manage app.
-      `font-src 'self' ${widgetSrc} data:`,
-      "img-src 'self' data: https://picsum.photos",
+      `font-src 'self' ${widgetSrc} https://cdn.inculva.com https://api.inculva.com${isDev ? ` ${apiSrc}` : ""} data:`,
+      "img-src 'self' data: https://picsum.photos https://cdn.inculva.com",
       // always allow the production API (widget defaults to it); also allow local in dev
       // widgetSrc is also needed in dev so browser can fetch source maps for widget.iife.js
       `connect-src 'self' https://api.inculva.com${isDev ? ` ${apiSrc} ${widgetSrc}` : ""}`,

@@ -1,6 +1,20 @@
 import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
 import { FEATURE_LEVELS } from "../features/index.js";
 import { BRAND_LOGO_PNG } from "virtual:brand-svg";
+import { TRANSLATIONS } from "./translations.js";
+
+const ICON_CDN_URL = "https://cdn.inculva.com/icons";
+
+/** Helper to create an img tag that loads icon from CDN */
+function loadIcon(
+  name: string,
+  width: number,
+  height: number,
+  extraAttrs = "",
+): string {
+  const iconUrl = `${ICON_CDN_URL}/${name}.svg`;
+  return `<img src="${iconUrl}" width="${width}" height="${height}" aria-hidden="true" ${extraAttrs} alt="" style="display:block;" />`;
+}
 
 /** Renders the brand logo PNG at the given size (square 1:1 ratio). */
 function brandImg(size: number): string {
@@ -26,10 +40,8 @@ export const FEATURE_CATEGORIES: Readonly<
   Record<string, readonly (keyof WidgetFeatures)[]>
 > = {
   vision: [
-    "highContrast",
     "darkMode",
     "blueLightFilter",
-    "grayscale",
     "colorBlindMode",
     "saturation",
     "highlightLinks",
@@ -68,76 +80,81 @@ export function getFeatureCategory(feature: keyof WidgetFeatures): string {
 // ---------------------------------------------------------------------------
 // Trigger icon — International Symbol of Access (person, arms extended)
 // ---------------------------------------------------------------------------
-const ICON_TRIGGER = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="4.5" r="2.2" fill="white"/><path d="M5.5 10h13" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M12 8.5v5" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M9 20l2-5.5M15 20l-2-5.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>`;
-
-// ---------------------------------------------------------------------------
-// Tab icons (14×14)
-// ---------------------------------------------------------------------------
-const ICON_TAB_VISION = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>`;
-const ICON_TAB_READING = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="12" height="14" rx="1.5"/><path d="M7 8h6M7 11h5M7 14h4"/></svg>`;
-const ICON_TAB_MOTOR = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="6" r="2"/><path d="M10 9v4l-2.5 4M10 13l2.5 4M6 11h3M11 11h3"/></svg>`;
-const ICON_TAB_CALM = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 12c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0M3 7c2.3-2.5 4.7-2.5 7 0s4.7 2.5 7 0"/></svg>`;
-
-// Size mode icons
-const ICON_COMPRESS = `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 3v14"/><path d="M13 7l-4 3 4 3"/></svg>`;
-const ICON_SIZE_MINI = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="6" width="8" height="8" rx="1.5"/></svg>`;
-const ICON_SIZE_REGULAR = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2"/></svg>`;
-const ICON_SIZE_LARGE = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="1" y="1" width="18" height="18" rx="3"/><path d="M1 1h18v18H1z" fill="currentColor" opacity="0.07"/></svg>`;
-const ICON_GLOBE = `<svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 2.5c-2.5 2.5-2.5 12.5 0 15M10 2.5c2.5 2.5 2.5 12.5 0 15M2.5 10h15"/></svg>`;
+const ICON_TRIGGER = loadIcon(
+  "universal-access",
+  26,
+  26,
+  'style="filter: brightness(0) invert(1);"',
+);
 
 // ---------------------------------------------------------------------------
 // SVG icon set — stroke-based (20×20 or 18×18), aria-hidden
+// Feature icons are always black (both selected and unselected)
 // ---------------------------------------------------------------------------
-const ICON_HIGH_CONTRAST = `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 3a7 7 0 0 0 0 14z" fill="currentColor"/></svg>`;
-const ICON_DARK_MODE = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5A7 7 0 0 1 6.5 3a7 7 0 1 0 10.5 10.5z"/></svg>`;
-const ICON_BLUE_LIGHT = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="3.5"/><path d="M10 2v1.5M10 16.5V18M2 10h1.5M16.5 10H18M4.4 4.4l1 1M14.6 14.6l1 1M4.4 15.6l1-1M14.6 5.4l1-1"/></svg>`;
-const ICON_TEXT_RESIZE = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h14M10 5v11M7 16h6"/></svg>`;
-const ICON_TEXT_ALIGN = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h14M3 9h14M3 13h14M3 17h10"/></svg>`;
-const ICON_LINE_HEIGHT = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M8 5h9M8 10h9M8 15h9"/><path d="M4 4v12M2 6l2-2 2 2M2 14l2 2 2-2"/></svg>`;
-const ICON_TEXT_SPACING = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h14M3 10h14M3 14h10"/><path d="M15 12l2.5 2-2.5 2"/></svg>`;
-const ICON_SCREEN_READER = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>`;
-const ICON_DYSLEXIA = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 16L8.5 4l5 12M5.5 12h6"/></svg>`;
-const ICON_READING_MASK = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="16" height="3.5" rx="1" fill="currentColor" stroke="none" opacity="0.4" data-fill="1"/><path d="M2 9h16M2 11h16"/><rect x="2" y="13.5" width="16" height="3.5" rx="1" fill="currentColor" stroke="none" opacity="0.4" data-fill="1"/></svg>`;
-const ICON_READING_GUIDE = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 7h14M3 10.5h14M3 14h10"/></svg>`;
-const ICON_MAGNIFIER = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="5.5"/><path d="M13.5 13.5L17 17"/><path d="M9 6.5v5M6.5 9h5"/></svg>`;
-const ICON_HIGHLIGHT_LINKS = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 12.5l-2 2a2.5 2.5 0 0 1-3.5-3.5l2-2a2.5 2.5 0 0 1 3.5 0"/><path d="M12.5 7.5l2-2a2.5 2.5 0 0 1 3.5 3.5l-2 2a2.5 2.5 0 0 1-3.5 0"/><path d="M8.5 11.5l3-3"/></svg>`;
-const ICON_HIGHLIGHT_TITLES = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 6h12M4 10h8"/><path d="M4 15h12" stroke-width="3" stroke-linecap="round" opacity="0.4"/></svg>`;
-const ICON_HIDE_IMAGES = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="14" height="10" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="M3 14l4-4 3 3 2-2 5 5"/><path d="M2.5 2.5l15 15"/></svg>`;
-const ICON_PAUSE = `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="5.5" y="4.5" width="3" height="11" rx="1.5" fill="currentColor" data-fill="1"/><rect x="11.5" y="4.5" width="3" height="11" rx="1.5" fill="currentColor" data-fill="1"/></svg>`;
-const ICON_CURSOR = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M5 3l10 6.5-4.5 1.5-2 5L5 3z"/></svg>`;
-const ICON_SLOW_CURSOR = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 2l9 6-4 1.5-1.5 4.5L4 2z"/><circle cx="15.5" cy="14.5" r="3"/><path d="M15.5 13v1.5l1 1"/></svg>`;
-const ICON_COLOR_BLIND = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/><path d="M3.5 3.5l13 13"/></svg>`;
-const ICON_GRAYSCALE = `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 3a7 7 0 0 0 0 14z" fill="currentColor" opacity="0.45" data-fill="1"/></svg>`;
-const ICON_SATURATION = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M10 2l6.5 9.5a6.5 6.5 0 0 1-13 0L10 2z"/></svg>`;
-const ICON_FOCUS = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="14" height="14" rx="3"/></svg>`;
-const ICON_TARGET = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="3"/><circle cx="10" cy="10" r="7"/></svg>`;
-const ICON_SKIP = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 5l8 5-8 5V5z"/><path d="M16.5 5v10"/></svg>`;
-const ICON_MUTE = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 6.5L5.5 10H2.5v2h3l4 3V6.5z"/><path d="M13 8l4 5M17 8l-4 5"/></svg>`;
-const ICON_KEYBOARD = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="16" height="11" rx="2"/><path d="M5 9h1.5M9 9h2M13.5 9h1.5M5 12.5h10"/></svg>`;
+const ICON_HIGH_CONTRAST = loadIcon("circle-half-stroke", 20, 20);
+const ICON_DARK_MODE = loadIcon("moon", 20, 20);
+const ICON_BLUE_LIGHT = loadIcon("sun-bright", 20, 20);
+const ICON_TEXT_RESIZE = loadIcon("text-size", 20, 20);
+const ICON_TEXT_ALIGN = loadIcon("align-left", 20, 20);
+const ICON_LINE_HEIGHT = loadIcon("line-height", 20, 20);
+const ICON_TEXT_SPACING = loadIcon("arrows-left-right", 20, 20);
+const ICON_SCREEN_READER = loadIcon("waveform", 20, 20);
+const ICON_DYSLEXIA = loadIcon("df", 20, 20);
+const ICON_READING_MASK = loadIcon("square-poll-horizontal", 20, 20);
+const ICON_READING_GUIDE = loadIcon("file-dashed-line", 20, 20);
+const ICON_MAGNIFIER = loadIcon("magnifying-glass-plus", 20, 20);
+const ICON_HIGHLIGHT_LINKS = loadIcon("link-simple", 20, 20);
+const ICON_HIGHLIGHT_TITLES = loadIcon("square-dashed", 20, 20);
+const ICON_HIDE_IMAGES = loadIcon("image-slash", 20, 20);
+const ICON_PAUSE = loadIcon("circle-pause", 20, 20);
+const ICON_CURSOR = loadIcon("arrow-pointer", 20, 20);
+const ICON_SLOW_CURSOR = loadIcon("computer-mouse-scrollwheel", 20, 20);
+const ICON_COLOR_BLIND = loadIcon("bring-forward", 20, 20);
+const ICON_GRAYSCALE = loadIcon("circle-half", 20, 20);
+const ICON_SATURATION = "";
+const ICON_FOCUS = loadIcon("brackets-square", 20, 20);
+const ICON_TARGET = loadIcon("bullseye-pointer", 20, 20);
+const ICON_SKIP = loadIcon("forward-step", 20, 20);
+const ICON_MUTE = loadIcon("volume-slash", 20, 20);
+const ICON_KEYBOARD = loadIcon("keyboard", 20, 20);
 
-// UI icons
-const ICON_CLOSE = `<svg width="18" height="18" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M2 2l10 10M12 2L2 12"/></svg>`;
-const ICON_RESET = `<svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M4 10a6 6 0 1 0 1-3.5M4 6.5V10H8"/></svg>`;
-const ICON_PERSON = `<svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="6" r="3"/><path d="M4 18c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>`;
-const ICON_ARROW_DOWN = `<svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 5l4 4 4-4"/></svg>`;
-const ICON_EXPAND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 8V3h5M12 3h5v5M17 12v5h-5M8 17H3v-5"/></svg>`;
+// UI icons — close and reset are always white
+const ICON_CLOSE = loadIcon(
+  "x",
+  18,
+  18,
+  'style="filter: brightness(0) invert(1);"',
+);
+const ICON_RESET = loadIcon(
+  "arrows-rotate",
+  20,
+  20,
+  'style="filter: brightness(0) invert(1);"',
+);
+const ICON_EXPAND = loadIcon(
+  "arrow-left",
+  20,
+  20,
+  'style="filter: brightness(0) invert(1);"',
+);
+const ICON_PERSON = loadIcon("user", 15, 15);
+const ICON_ARROW_DOWN = loadIcon("chevron-down", 15, 15);
 
 // Profile icons (18×18)
-const ICON_P_BLIND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/><path d="M3 3l14 14"/></svg>`;
-const ICON_P_LOW_VISION = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/><circle cx="10" cy="10" r="2.5"/></svg>`;
-const ICON_P_COLOR_BLIND = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="10" r="4.5"/><circle cx="13" cy="10" r="4.5"/></svg>`;
-const ICON_P_DYSLEXIA = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 16L8.5 4l5 12M5.5 12h6"/></svg>`;
-const ICON_P_MOTOR = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="5" r="2"/><path d="M10 8v5l-3 4.5M10 13l3 4.5M7 12h6"/></svg>`;
-const ICON_P_COGNITIVE = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5C4.5 4.5 3 7 3 10s1.5 5.5 4 6.5h6C15.5 15.5 17 13 17 10S15.5 4.5 13 3.5z"/><path d="M10 7v3l2 2"/></svg>`;
-const ICON_P_ATTENTION = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 6v5M10 14v.5"/></svg>`;
-const ICON_P_EPILEPSY = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3L6 11h5l-3 6 8-10h-5l2-4z"/></svg>`;
-const ICON_P_PARKINSONS = `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13c1.5-3 4-4 5-4s3.5 1 5 4"/><circle cx="10" cy="7" r="2"/></svg>`;
+const ICON_P_BLIND = "";
+const ICON_P_LOW_VISION = "";
+const ICON_P_COLOR_BLIND = "";
+const ICON_P_DYSLEXIA = "";
+const ICON_P_MOTOR = "";
+const ICON_P_COGNITIVE = "";
+const ICON_P_ATTENTION = "";
+const ICON_P_EPILEPSY = "";
+const ICON_P_PARKINSONS = "";
 
 // ---------------------------------------------------------------------------
 // Feature list — ordered for display in the panel
 // ---------------------------------------------------------------------------
 const FEATURES: FeatureConfig[] = [
-  { key: "highContrast", icon: ICON_HIGH_CONTRAST },
   { key: "darkMode", icon: ICON_DARK_MODE },
   { key: "blueLightFilter", icon: ICON_BLUE_LIGHT },
   { key: "textResizing", icon: ICON_TEXT_RESIZE },
@@ -155,8 +172,7 @@ const FEATURES: FeatureConfig[] = [
   { key: "pauseAnimations", icon: ICON_PAUSE },
   { key: "cursorEnhancement", icon: ICON_CURSOR },
   { key: "colorBlindMode", icon: ICON_COLOR_BLIND },
-  { key: "grayscale", icon: ICON_GRAYSCALE },
-  { key: "saturation", icon: ICON_SATURATION },
+  { key: "saturation", icon: ICON_HIGH_CONTRAST },
   { key: "focusHighlight", icon: ICON_FOCUS },
   { key: "largeClickTargets", icon: ICON_TARGET },
   { key: "slowCursor", icon: ICON_SLOW_CURSOR },
@@ -186,7 +202,7 @@ export const PROFILES: ProfileDef[] = [
     icon: ICON_P_LOW_VISION,
     features: [
       "textResizing",
-      "highContrast",
+      "saturation",
       "cursorEnhancement",
       "largeClickTargets",
     ],
@@ -251,7 +267,7 @@ const EN_LABELS: Record<string, string> = {
   cursorEnhancement: "Cursor",
   colorBlindMode: "Color Blind",
   grayscale: "Grayscale",
-  saturation: "Saturation",
+  saturation: "Contrast+",
   focusHighlight: "Focus Indicator",
   largeClickTargets: "Large Targets",
   slowCursor: "Slow Cursor",
@@ -259,6 +275,10 @@ const EN_LABELS: Record<string, string> = {
   muteMedia: "Mute Media",
   keyboardNavigation: "Keyboard Nav",
   accessibilityStatement: "Accessibility Statement",
+  languageLabel: "Select language",
+  sizeSmall: "Small",
+  sizeMedium: "Medium",
+  sizeLarge: "Large",
   resetSettings: "Reset settings",
   switchWidgetLeft: "Switch widget to left",
   switchWidgetRight: "Switch widget to right",
@@ -276,6 +296,11 @@ const EN_LABELS: Record<string, string> = {
   profile_attention: "ADHD",
 };
 
+/** Merge EN_LABELS with translations for the given language code. */
+export function getLabels(lang: string): Record<string, string> {
+  return { ...EN_LABELS, ...(TRANSLATIONS[lang] ?? {}) };
+}
+
 const COLOR_BLIND_TYPES: ColorBlindType[] = [
   "deuteranopia",
   "protanopia",
@@ -284,48 +309,53 @@ const COLOR_BLIND_TYPES: ColorBlindType[] = [
 ];
 const RTL_LANGS = new Set(["ar", "he", "fa", "ur"]);
 
-export const SUPPORTED_LANGUAGES: readonly { code: string; label: string; flag: string }[] = [
-  { code: "en", label: "English",           flag: "🇬🇧" },
-  { code: "tr", label: "Türkçe",            flag: "🇹🇷" },
-  { code: "de", label: "Deutsch",           flag: "🇩🇪" },
-  { code: "fr", label: "Français",          flag: "🇫🇷" },
-  { code: "es", label: "Español",           flag: "🇪🇸" },
-  { code: "it", label: "Italiano",          flag: "🇮🇹" },
-  { code: "pt", label: "Português",         flag: "🇵🇹" },
-  { code: "nl", label: "Nederlands",        flag: "🇳🇱" },
-  { code: "ar", label: "العربية",           flag: "🇸🇦" },
-  { code: "he", label: "עברית",             flag: "🇮🇱" },
-  { code: "zh", label: "中文",              flag: "🇨🇳" },
-  { code: "ja", label: "日本語",            flag: "🇯🇵" },
-  { code: "ko", label: "한국어",            flag: "🇰🇷" },
-  { code: "ru", label: "Русский",           flag: "🇷🇺" },
-  { code: "pl", label: "Polski",            flag: "🇵🇱" },
-  { code: "cs", label: "Čeština",           flag: "🇨🇿" },
-  { code: "da", label: "Dansk",             flag: "🇩🇰" },
-  { code: "fi", label: "Suomi",             flag: "🇫🇮" },
-  { code: "el", label: "Ελληνικά",          flag: "🇬🇷" },
-  { code: "hu", label: "Magyar",            flag: "🇭🇺" },
-  { code: "ro", label: "Română",            flag: "🇷🇴" },
-  { code: "sk", label: "Slovenčina",        flag: "🇸🇰" },
-  { code: "sv", label: "Svenska",           flag: "🇸🇪" },
-  { code: "uk", label: "Українська",        flag: "🇺🇦" },
-  { code: "bg", label: "Български",         flag: "🇧🇬" },
-  { code: "hr", label: "Hrvatski",          flag: "🇭🇷" },
-  { code: "lt", label: "Lietuvių",          flag: "🇱🇹" },
-  { code: "lv", label: "Latviešu",          flag: "🇱🇻" },
-  { code: "et", label: "Eesti",             flag: "🇪🇪" },
-  { code: "sl", label: "Slovenščina",       flag: "🇸🇮" },
-  { code: "sr", label: "Srpski",            flag: "🇷🇸" },
-  { code: "no", label: "Norsk",             flag: "🇳🇴" },
-  { code: "fa", label: "فارسی",             flag: "🇮🇷" },
-  { code: "ur", label: "اردو",              flag: "🇵🇰" },
-  { code: "th", label: "ภาษาไทย",           flag: "🇹🇭" },
-  { code: "vi", label: "Tiếng Việt",        flag: "🇻🇳" },
-  { code: "id", label: "Bahasa Indonesia",  flag: "🇮🇩" },
-  { code: "ms", label: "Bahasa Melayu",     flag: "🇲🇾" },
-  { code: "ca", label: "Català",            flag: "🇪🇸" },
-  { code: "sq", label: "Shqip",             flag: "🇦🇱" },
-  { code: "sw", label: "Kiswahili",         flag: "🇹🇿" },
+export const SUPPORTED_LANGUAGES: readonly {
+  code: string;
+  label: string;
+  flag: string;
+  en: string;
+}[] = [
+  { code: "en", label: "English", flag: "🇬🇧", en: "English" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷", en: "Turkish" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪", en: "German" },
+  { code: "fr", label: "Français", flag: "🇫🇷", en: "French" },
+  { code: "es", label: "Español", flag: "🇪🇸", en: "Spanish" },
+  { code: "it", label: "Italiano", flag: "🇮🇹", en: "Italian" },
+  { code: "pt", label: "Português", flag: "🇵🇹", en: "Portuguese" },
+  { code: "nl", label: "Nederlands", flag: "🇳🇱", en: "Dutch" },
+  { code: "ar", label: "العربية", flag: "🇸🇦", en: "Arabic" },
+  { code: "he", label: "עברית", flag: "🇮🇱", en: "Hebrew" },
+  { code: "zh", label: "中文", flag: "🇨🇳", en: "Chinese" },
+  { code: "ja", label: "日本語", flag: "🇯🇵", en: "Japanese" },
+  { code: "ko", label: "한국어", flag: "🇰🇷", en: "Korean" },
+  { code: "ru", label: "Русский", flag: "🇷🇺", en: "Russian" },
+  { code: "pl", label: "Polski", flag: "🇵🇱", en: "Polish" },
+  { code: "cs", label: "Čeština", flag: "🇨🇿", en: "Czech" },
+  { code: "da", label: "Dansk", flag: "🇩🇰", en: "Danish" },
+  { code: "fi", label: "Suomi", flag: "🇫🇮", en: "Finnish" },
+  { code: "el", label: "Ελληνικά", flag: "🇬🇷", en: "Greek" },
+  { code: "hu", label: "Magyar", flag: "🇭🇺", en: "Hungarian" },
+  { code: "ro", label: "Română", flag: "🇷🇴", en: "Romanian" },
+  { code: "sk", label: "Slovenčina", flag: "🇸🇰", en: "Slovak" },
+  { code: "sv", label: "Svenska", flag: "🇸🇪", en: "Swedish" },
+  { code: "uk", label: "Українська", flag: "🇺🇦", en: "Ukrainian" },
+  { code: "bg", label: "Български", flag: "🇧🇬", en: "Bulgarian" },
+  { code: "hr", label: "Hrvatski", flag: "🇭🇷", en: "Croatian" },
+  { code: "lt", label: "Lietuvių", flag: "🇱🇹", en: "Lithuanian" },
+  { code: "lv", label: "Latviešu", flag: "🇱🇻", en: "Latvian" },
+  { code: "et", label: "Eesti", flag: "🇪🇪", en: "Estonian" },
+  { code: "sl", label: "Slovenščina", flag: "🇸🇮", en: "Slovenian" },
+  { code: "sr", label: "Srpski", flag: "🇷🇸", en: "Serbian" },
+  { code: "no", label: "Norsk", flag: "🇳🇴", en: "Norwegian" },
+  { code: "fa", label: "فارسی", flag: "🇮🇷", en: "Persian" },
+  { code: "ur", label: "اردو", flag: "🇵🇰", en: "Urdu" },
+  { code: "th", label: "ภาษาไทย", flag: "🇹🇭", en: "Thai" },
+  { code: "vi", label: "Tiếng Việt", flag: "🇻🇳", en: "Vietnamese" },
+  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩", en: "Indonesian" },
+  { code: "ms", label: "Bahasa Melayu", flag: "🇲🇾", en: "Malay" },
+  { code: "ca", label: "Català", flag: "🇪🇸", en: "Catalan" },
+  { code: "sq", label: "Shqip", flag: "🇦🇱", en: "Albanian" },
+  { code: "sw", label: "Kiswahili", flag: "🇹🇿", en: "Swahili" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -395,7 +425,9 @@ function _buildControlsBar(
   row.className = "inculva-controls-row";
 
   // ── Custom language dropdown ──────────────────────────────────────────
-  const currentLang = SUPPORTED_LANGUAGES.find(l => l.code === language) ?? SUPPORTED_LANGUAGES[0]!;
+  const currentLang =
+    SUPPORTED_LANGUAGES.find((l) => l.code === language) ??
+    SUPPORTED_LANGUAGES[0]!;
 
   const langDropdown = document.createElement("div");
   langDropdown.className = "inculva-lang-dropdown";
@@ -403,7 +435,10 @@ function _buildControlsBar(
   const langTrigger = document.createElement("button");
   langTrigger.className = "inculva-lang-trigger";
   langTrigger.setAttribute("type", "button");
-  langTrigger.setAttribute("aria-label", labels["languageLabel"] ?? "Select language");
+  langTrigger.setAttribute(
+    "aria-label",
+    labels["languageLabel"] ?? "Select language",
+  );
   langTrigger.setAttribute("aria-expanded", "false");
   langTrigger.setAttribute("aria-haspopup", "listbox");
   langTrigger.dataset["inculvaAction"] = "lang-dropdown-toggle";
@@ -446,12 +481,18 @@ function _buildControlsBar(
 
   for (const lang of SUPPORTED_LANGUAGES) {
     const opt = document.createElement("button");
-    opt.className = "inculva-lang-option" + (lang.code === language ? " active" : "");
+    opt.className =
+      "inculva-lang-option" + (lang.code === language ? " active" : "");
     opt.setAttribute("type", "button");
     opt.setAttribute("role", "option");
-    opt.setAttribute("aria-selected", lang.code === language ? "true" : "false");
+    opt.setAttribute(
+      "aria-selected",
+      lang.code === language ? "true" : "false",
+    );
     opt.dataset["inculvaAction"] = "set-language";
     opt.dataset["langCode"] = lang.code;
+
+    opt.dataset["enName"] = lang.en;
 
     const flagSpan = document.createElement("span");
     flagSpan.className = "inculva-lang-flag";
@@ -461,8 +502,14 @@ function _buildControlsBar(
     nameSpan.className = "inculva-lang-name";
     nameSpan.textContent = lang.label;
 
+    const enSpan = document.createElement("span");
+    enSpan.className = "inculva-lang-en-name";
+    enSpan.textContent = lang.en !== lang.label ? lang.en : "";
+    enSpan.setAttribute("aria-hidden", "true");
+
     opt.appendChild(flagSpan);
     opt.appendChild(nameSpan);
+    opt.appendChild(enSpan);
     langList.appendChild(opt);
   }
 
@@ -473,16 +520,16 @@ function _buildControlsBar(
   const sizeGroup = document.createElement("div");
   sizeGroup.className = "inculva-size-group";
 
-  const sizeDefs: [string, string][] = [
-    ["mini", "S"],
-    ["regular", "M"],
-    ["large", "L"],
+  const sizeDefs: [string, string, string][] = [
+    ["mini", "S", labels["sizeSmall"] ?? "Small"],
+    ["regular", "M", labels["sizeMedium"] ?? "Medium"],
+    ["large", "L", labels["sizeLarge"] ?? "Large"],
   ];
-  for (const [sizeVal, sizeLabel] of sizeDefs) {
+  for (const [sizeVal, sizeLabel, sizeAriaLabel] of sizeDefs) {
     const btn = document.createElement("button");
     btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "large" ? " active" : ""}`;
     btn.setAttribute("type", "button");
-    btn.setAttribute("aria-label", `${sizeVal === "mini" ? "Small" : sizeVal === "regular" ? "Medium" : "Large"} size`);
+    btn.setAttribute("aria-label", `${sizeAriaLabel}`);
     btn.dataset["size"] = sizeVal;
     btn.textContent = sizeLabel;
     sizeGroup.appendChild(btn);
@@ -534,64 +581,6 @@ function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
 
   section.appendChild(grid);
   return section;
-}
-
-function _buildCategoryTabs(labels: Record<string, string>): HTMLDivElement {
-  const bar = document.createElement("div");
-  bar.className = "inculva-tab-bar";
-  bar.setAttribute("role", "tablist");
-  bar.setAttribute("aria-label", "Feature categories");
-
-  const tabs = [
-    {
-      key: "vision",
-      icon: ICON_TAB_VISION,
-      label: labels["categoryVision"] ?? "Vision",
-    },
-    {
-      key: "reading",
-      icon: ICON_TAB_READING,
-      label: labels["categoryReading"] ?? "Reading",
-    },
-    {
-      key: "motor",
-      icon: ICON_TAB_MOTOR,
-      label: labels["categoryMotor"] ?? "Motor",
-    },
-    {
-      key: "calm",
-      icon: ICON_TAB_CALM,
-      label: labels["categoryCalm"] ?? "Calm",
-    },
-  ];
-
-  for (const tab of tabs) {
-    const btn = document.createElement("button");
-    btn.className = `inculva-tab-btn${tab.key === "vision" ? " active" : ""}`;
-    btn.setAttribute("type", "button");
-    btn.setAttribute("role", "tab");
-    btn.setAttribute("aria-selected", tab.key === "vision" ? "true" : "false");
-    btn.dataset["inculvaTab"] = tab.key;
-
-    const iconSpan = document.createElement("span");
-    iconSpan.setAttribute("aria-hidden", "true");
-    iconSpan.innerHTML = tab.icon;
-
-    const labelSpan = document.createElement("span");
-    labelSpan.className = "inculva-tab-label";
-    labelSpan.textContent = tab.label;
-
-    const countSpan = document.createElement("span");
-    countSpan.className = "inculva-tab-count";
-    countSpan.hidden = true;
-
-    btn.appendChild(iconSpan);
-    btn.appendChild(labelSpan);
-    btn.appendChild(countSpan);
-    bar.appendChild(btn);
-  }
-
-  return bar;
 }
 
 function _buildFeatureGrid(
@@ -677,7 +666,7 @@ function _buildMiniActions(): HTMLDivElement {
   expandBtn.className = "inculva-mini-btn";
   expandBtn.setAttribute("type", "button");
   expandBtn.setAttribute("aria-label", "Expand widget");
-  expandBtn.dataset["size"] = "large";
+  expandBtn.dataset["size"] = "regular";
   expandBtn.innerHTML = ICON_EXPAND;
 
   const resetBtn = document.createElement("button");
@@ -801,7 +790,7 @@ export function createPanel(
   whiteLabelText?: string | null,
   isOnLeft = false,
 ): HTMLDivElement {
-  const labels = EN_LABELS;
+  const labels = getLabels(language);
 
   const panel = document.createElement("div");
   panel.id = "inculva-widget-panel";
@@ -856,17 +845,36 @@ export function updatePanel(
     );
 
   // Sync custom language dropdown to current language
-  const currentLangObj = SUPPORTED_LANGUAGES.find(l => l.code === language);
+  const currentLangObj = SUPPORTED_LANGUAGES.find((l) => l.code === language);
   if (currentLangObj) {
-    const flagEl = panel.querySelector<HTMLElement>(".inculva-lang-current-flag");
-    const labelEl = panel.querySelector<HTMLElement>(".inculva-lang-current-label");
+    const flagEl = panel.querySelector<HTMLElement>(
+      ".inculva-lang-current-flag",
+    );
+    const labelEl = panel.querySelector<HTMLElement>(
+      ".inculva-lang-current-label",
+    );
     if (flagEl) flagEl.textContent = currentLangObj.flag;
     if (labelEl) labelEl.textContent = currentLangObj.label;
-    for (const opt of panel.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
+    for (const opt of panel.querySelectorAll<HTMLElement>(
+      ".inculva-lang-option",
+    )) {
       const isSelected = opt.dataset["langCode"] === language;
       opt.classList.toggle("active", isSelected);
       opt.setAttribute("aria-selected", String(isSelected));
     }
+  }
+
+  // Update size button aria-labels
+  const sizeAriaMap: Record<string, string> = {
+    mini: labels["sizeSmall"] ?? "Small",
+    regular: labels["sizeMedium"] ?? "Medium",
+    large: labels["sizeLarge"] ?? "Large",
+  };
+  for (const [sizeVal, sizeAriaLabel] of Object.entries(sizeAriaMap)) {
+    const sizeBtn = panel.querySelector<HTMLElement>(
+      `.inculva-size-btn[data-size="${sizeVal}"]`,
+    );
+    if (sizeBtn) sizeBtn.setAttribute("aria-label", sizeAriaLabel);
   }
 
   // Update feature button labels, tooltips and visibility

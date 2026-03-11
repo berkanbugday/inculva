@@ -1,6 +1,6 @@
 import { defineConfig, type Plugin } from "vite";
 import { resolve } from "path";
-import { readFileSync, copyFileSync, cpSync, mkdirSync } from "fs";
+import { readFileSync, copyFileSync, cpSync, mkdirSync, readdirSync } from "fs";
 
 const managePublicDir = resolve(__dirname, "../../apps/manage/public");
 const fontsDir = resolve(__dirname, "public/fonts");
@@ -26,8 +26,12 @@ function openDyslexicFontsPlugin(): Plugin {
     load(id) {
       if (id !== RESOLVED_ID) return;
 
-      const regular = readFileSync(resolve(fontsDir, "OpenDyslexic-Regular.woff2")).toString("base64");
-      const bold    = readFileSync(resolve(fontsDir, "OpenDyslexic-Bold.woff2")).toString("base64");
+      const regular = readFileSync(
+        resolve(fontsDir, "OpenDyslexic-Regular.woff2"),
+      ).toString("base64");
+      const bold = readFileSync(
+        resolve(fontsDir, "OpenDyslexic-Bold.woff2"),
+      ).toString("base64");
 
       return [
         `export const OPENDYSLEXIC_REGULAR_B64 = ${JSON.stringify(regular)};`,
@@ -43,9 +47,9 @@ function openDyslexicFontsPlugin(): Plugin {
  * no external URL is ever needed at runtime on customer sites.
  */
 function brandSvgPlugin(): Plugin {
-  const VIRTUAL_ID  = "virtual:brand-svg";
+  const VIRTUAL_ID = "virtual:brand-svg";
   const RESOLVED_ID = "\0" + VIRTUAL_ID;
-  const pngSrc      = resolve(__dirname, "../../apps/landing/public/brand-logo.png");
+  const pngSrc = resolve(__dirname, "../../apps/landing/public/brand-logo.png");
 
   return {
     name: "brand-svg",
@@ -61,10 +65,42 @@ function brandSvgPlugin(): Plugin {
   };
 }
 
+/**
+ * Embeds all SVG icons from public/icons directory as inline SVG strings.
+ * This keeps the widget fully self-contained without needing external icon files.
+ */
+function iconsPlugin(): Plugin {
+  const VIRTUAL_ID = "virtual:icons";
+  const RESOLVED_ID = "\0" + VIRTUAL_ID;
+  const iconsDir = resolve(__dirname, "public/icons");
+
+  return {
+    name: "icons",
+    resolveId(id) {
+      if (id === VIRTUAL_ID) return RESOLVED_ID;
+    },
+    load(id) {
+      if (id !== RESOLVED_ID) return;
+
+      const iconFiles = readdirSync(iconsDir).filter((f) => f.endsWith(".svg"));
+      const icons: Record<string, string> = {};
+
+      for (const file of iconFiles) {
+        const name = file.replace(".svg", "");
+        const content = readFileSync(resolve(iconsDir, file), "utf-8");
+        icons[name] = content;
+      }
+
+      return `export const ICONS = ${JSON.stringify(icons, null, 2)};`;
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     openDyslexicFontsPlugin(),
     brandSvgPlugin(),
+    iconsPlugin(),
     {
       name: "copy-to-manage-public",
       closeBundle() {
@@ -75,7 +111,9 @@ export default defineConfig({
             resolve(managePublicDir, "widget.js"),
           );
           // Keep static font files for direct CDN delivery (e.g. non-widget usage)
-          cpSync(fontsDir, resolve(managePublicDir, "fonts"), { recursive: true });
+          cpSync(fontsDir, resolve(managePublicDir, "fonts"), {
+            recursive: true,
+          });
         } catch {
           // non-fatal: manage app may not be present in all environments
         }

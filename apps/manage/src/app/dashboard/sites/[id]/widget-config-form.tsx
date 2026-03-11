@@ -103,7 +103,7 @@ const LANGUAGES = [
 
 const FEATURES: { key: keyof WidgetFeatures; label: string; description: string; wcag?: string }[] = [
   { key: "textResizing", label: "Text Resizing", description: "Allow users to increase font size (4 levels: 110%–155%)", wcag: "1.4.4" },
-  { key: "highContrast", label: "High Contrast", description: "Boost color contrast for better legibility on low-vision displays", wcag: "1.4.3" },
+  { key: "saturation", label: "Contrast+", description: "5-level contrast and saturation tool: Level 1 = High Contrast (contrast boost + yellow links), Levels 2–5 = Saturation Boost (1.4×–3.0×) — covers both high-contrast and colour-saturation needs" },
   { key: "dyslexiaFont", label: "Dyslexia Font", description: "Switch page font to OpenDyslexic — heavy bottoms anchor letters to the baseline" },
   { key: "cursorEnhancement", label: "Big Cursor", description: "Replaces OS cursor with a large white-fill arrow (3 sizes: 32/48/64px)" },
   { key: "keyboardNavigation", label: "Keyboard Nav", description: "Adds a visible 3px blue focus ring around focused elements for keyboard users", wcag: "2.1.1" },
@@ -115,12 +115,10 @@ const FEATURES: { key: keyof WidgetFeatures; label: string; description: string;
   { key: "colorBlindMode", label: "Color Blind Mode", description: "SVG feColorMatrix filter with 4 types: deuteranopia, protanopia, tritanopia, achromatopsia", wcag: "1.4.1" },
   { key: "largeClickTargets", label: "Large Click Targets", description: "Enforces a 44×44px minimum size on all interactive elements (buttons, links, inputs) — critical for motor-impaired users using touch or assistive devices", wcag: "2.5.8" },
   { key: "focusHighlight", label: "Focus Indicator", description: "Adds a high-visibility 3px orange outline + glow to every focused element — stronger than Keyboard Nav, critical for low-vision keyboard users", wcag: "2.4.11" },
-  { key: "grayscale", label: "Grayscale", description: "Applies grayscale filter — useful for photosensitive users and for testing color-independent communication", wcag: "1.4.3" },
   { key: "skipNavigation", label: "Skip Navigation", description: "Injects a 'Skip to main content' link that appears on Tab press — lets keyboard users bypass repetitive nav menus", wcag: "2.4.1" },
   { key: "muteMedia", label: "Mute Media", description: "Mutes and pauses all audio/video elements including newly injected ones — uses MutationObserver", wcag: "1.4.2" },
   { key: "readingMask", label: "Reading Mask", description: "Full-page dimming overlay with a clear 80px reading window that follows the cursor — eliminates visual distractions" },
   { key: "textAlign", label: "Text Alignment", description: "Forces left-align on all paragraph/list/heading text — improves readability for cognitive and dyslexic users" },
-  { key: "saturation", label: "Saturation Boost", description: "Increases colour saturation (4 levels: 1.4×–3.0×) — helps low-vision users perceive colour differences" },
   { key: "slowCursor", label: "Slow Cursor", description: "Smooths cursor movement using exponential lag (3 levels) — reduces the effect of hand tremors for users with Parkinson's disease or motor impairments" },
 ];
 

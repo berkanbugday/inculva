@@ -19,6 +19,7 @@ import {
   createTriggerButton,
   applyPosition,
   applyPanelPosition,
+  getLabels,
   PROFILES,
   FEATURE_CATEGORIES,
   SUPPORTED_LANGUAGES,
@@ -37,7 +38,6 @@ const DEFAULT_CONFIG: Omit<WidgetConfig, "siteId"> = {
   features: {
     // Core
     textResizing: true,
-    highContrast: true,
     dyslexiaFont: true,
     cursorEnhancement: true,
     keyboardNavigation: true,
@@ -50,7 +50,6 @@ const DEFAULT_CONFIG: Omit<WidgetConfig, "siteId"> = {
     colorBlindMode: true,
     largeClickTargets: true,
     focusHighlight: true,
-    grayscale: true,
     // WCAG 2.4.1 A + 1.4.2 A (ADA/EAA)
     skipNavigation: true,
     muteMedia: true,
@@ -86,8 +85,12 @@ class InculvaWidget {
   private liveRegion!: HTMLElement;
   private tooltip!: HTMLDivElement;
   private apiBase: string;
-  /** Labels from the last successful remote config fetch (used for aria-live announcements). */
+  /** Remote labels override from the API config (may be empty). */
   private labels: Record<string, string> = {};
+  /** Merged labels: built-in translations for the current language + remote overrides. */
+  private get _labels(): Record<string, string> {
+    return { ...getLabels(this.config.language), ...this.labels };
+  }
 
   constructor(partialConfig: PartialConfig) {
     this.config = {
@@ -138,6 +141,15 @@ class InculvaWidget {
     document.documentElement.style.setProperty(
       "--inculva-primary",
       this.config.primaryColor,
+    );
+    // Set --inculva-primary-rgb for rgba() fallbacks (cross-browser color-mix alternative)
+    const hex = this.config.primaryColor.replace("#", "");
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    document.documentElement.style.setProperty(
+      "--inculva-primary-rgb",
+      `${r},${g},${b}`,
     );
   }
 
@@ -279,14 +291,22 @@ class InculvaWidget {
 
     document.addEventListener("keydown", (e) => {
       // Alt+A global shortcut to toggle widget
-      if (e.altKey && !e.shiftKey && !e.ctrlKey && !e.metaKey && e.key === "a") {
+      if (
+        e.altKey &&
+        !e.shiftKey &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        e.key === "a"
+      ) {
         e.preventDefault();
         this.togglePanel();
         return;
       }
       if (e.key === "Escape" && this.isOpen) {
         // Close lang dropdown first if open
-        const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+        const dropdown = this.panel.querySelector<HTMLElement>(
+          ".inculva-lang-dropdown",
+        );
         if (dropdown?.classList.contains("open")) {
           this._closeLangDropdown();
           return;
@@ -296,15 +316,20 @@ class InculvaWidget {
       }
       // Arrow key navigation within open lang dropdown
       if (this.isOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
-        const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+        const dropdown = this.panel.querySelector<HTMLElement>(
+          ".inculva-lang-dropdown",
+        );
         if (dropdown?.classList.contains("open")) {
           e.preventDefault();
-          const options = Array.from(dropdown.querySelectorAll<HTMLElement>(".inculva-lang-option"));
+          const options = Array.from(
+            dropdown.querySelectorAll<HTMLElement>(".inculva-lang-option"),
+          );
           const focused = document.activeElement as HTMLElement;
           const currentIdx = options.indexOf(focused);
-          const nextIdx = e.key === "ArrowDown"
-            ? Math.min(currentIdx + 1, options.length - 1)
-            : Math.max(currentIdx - 1, 0);
+          const nextIdx =
+            e.key === "ArrowDown"
+              ? Math.min(currentIdx + 1, options.length - 1)
+              : Math.max(currentIdx - 1, 0);
           options[nextIdx]?.focus();
           return;
         }
@@ -321,16 +346,32 @@ class InculvaWidget {
     this.tooltip.id = "inculva-tooltip";
     document.documentElement.appendChild(this.tooltip);
 
-    // Language search input filtering
+    // Language search input filtering (matches native name, English name, and lang code)
     this.panel.addEventListener("input", (e) => {
       const target = e.target as HTMLElement;
       if (!target.classList.contains("inculva-lang-search")) return;
       const query = (target as HTMLInputElement).value.toLowerCase().trim();
-      const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+      const dropdown = this.panel.querySelector<HTMLElement>(
+        ".inculva-lang-dropdown",
+      );
       if (!dropdown) return;
-      for (const opt of dropdown.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
-        const text = opt.textContent?.toLowerCase() ?? "";
-        opt.classList.toggle("inculva-hidden", query.length > 0 && !text.includes(query));
+      for (const opt of dropdown.querySelectorAll<HTMLElement>(
+        ".inculva-lang-option",
+      )) {
+        if (!query) {
+          opt.classList.remove("inculva-hidden");
+          continue;
+        }
+        const nativeName =
+          opt.querySelector(".inculva-lang-name")?.textContent?.toLowerCase() ??
+          "";
+        const englishName = (opt.dataset["enName"] ?? "").toLowerCase();
+        const code = (opt.dataset["langCode"] ?? "").toLowerCase();
+        const matches =
+          nativeName.includes(query) ||
+          englishName.includes(query) ||
+          code.startsWith(query);
+        opt.classList.toggle("inculva-hidden", !matches);
       }
     });
 
@@ -499,11 +540,11 @@ class InculvaWidget {
       if (labelEl) {
         labelEl.textContent = !isActive
           ? this._cbmTypeName(1)
-          : (this.labels["colorBlindMode"] ?? "Color Blind");
+          : (this._labels["colorBlindMode"] ?? "Color Blind");
       }
     }
 
-    const featureName = this.labels[feature] ?? feature;
+    const featureName = this._labels[feature] ?? feature;
     this.announce(`${featureName} ${!isActive ? "enabled" : "disabled"}`);
 
     this.updateActiveBadge();
@@ -554,7 +595,21 @@ class InculvaWidget {
         labelEl.textContent =
           nextLevel > 0
             ? this._cbmTypeName(nextLevel)
-            : (this.labels["colorBlindMode"] ?? "Color Blind");
+            : (this._labels["colorBlindMode"] ?? "Color Blind");
+      }
+    }
+
+    // saturation level 1 = high contrast: update label accordingly
+    if (feature === "saturation" && btn) {
+      const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
+      if (labelEl) {
+        if (nextLevel === 0) {
+          labelEl.textContent = this._labels["saturation"] ?? "Contrast+";
+        } else if (nextLevel === 1) {
+          labelEl.textContent = this._labels["highContrast"] ?? "High Contrast";
+        } else {
+          labelEl.textContent = this._labels["saturation"] ?? "Contrast+";
+        }
       }
     }
 
@@ -565,11 +620,11 @@ class InculvaWidget {
         labelEl.textContent =
           nextLevel > 0
             ? (SR_MODE_LABELS[nextLevel] ?? "Screen reader")
-            : (this.labels["screenReader"] ?? "Screen reader");
+            : (this._labels["screenReader"] ?? "Screen reader");
       }
     }
 
-    const featureName = this.labels[feature] ?? feature;
+    const featureName = this._labels[feature] ?? feature;
     const announcement =
       feature === "colorBlindMode" && nextLevel > 0
         ? `${featureName}: ${this._cbmTypeName(nextLevel)}`
@@ -604,7 +659,7 @@ class InculvaWidget {
           );
           if (labelEl)
             labelEl.textContent =
-              this.labels["colorBlindMode"] ?? "Color Blind";
+              this._labels["colorBlindMode"] ?? "Color Blind";
         }
         // Restore screenReader label to default
         if (feature === "screenReader") {
@@ -613,7 +668,7 @@ class InculvaWidget {
           );
           if (labelEl)
             labelEl.textContent =
-              this.labels["screenReader"] ?? "Screen reader";
+              this._labels["screenReader"] ?? "Screen reader";
         }
       }
     }
@@ -667,36 +722,28 @@ class InculvaWidget {
     this.saveCurrentPrefs();
   }
 
-  /** Switch the panel language (RTL/LTR + update dropdown UI). */
+  /** Switch the panel language (RTL/LTR + translate all UI text). */
   private _setLanguage(lang: string): void {
     this.config.language = lang;
     setSrLang(lang);
-    const RTL = new Set(["ar", "he", "fa", "ur"]);
-    if (RTL.has(lang)) {
-      this.panel.setAttribute("dir", "rtl");
-    } else {
-      this.panel.removeAttribute("dir");
-    }
-    // Close dropdown
+    // Close dropdown first
     this._closeLangDropdown();
-    // Sync trigger button display
-    const langObj = SUPPORTED_LANGUAGES.find(l => l.code === lang);
-    if (langObj) {
-      const flagEl = this.panel.querySelector<HTMLElement>(".inculva-lang-current-flag");
-      const labelEl = this.panel.querySelector<HTMLElement>(".inculva-lang-current-label");
-      if (flagEl) flagEl.textContent = langObj.flag;
-      if (labelEl) labelEl.textContent = langObj.label;
-    }
-    // Sync selected states on all options
-    for (const opt of this.panel.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
-      const isSelected = opt.dataset["langCode"] === lang;
-      opt.classList.toggle("active", isSelected);
-      opt.setAttribute("aria-selected", String(isSelected));
-    }
+    // Re-render all translatable text via updatePanel
+    updatePanel(
+      this.panel,
+      this.config.features,
+      lang,
+      this._labels,
+      this.config.accessibilityStatementUrl,
+      this.config.whiteLabelText,
+    );
+    this.saveCurrentPrefs();
   }
 
   private _toggleLangDropdown(): void {
-    const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+    const dropdown = this.panel.querySelector<HTMLElement>(
+      ".inculva-lang-dropdown",
+    );
     if (!dropdown) return;
     if (dropdown.classList.contains("open")) {
       this._closeLangDropdown();
@@ -706,32 +753,46 @@ class InculvaWidget {
   }
 
   private _openLangDropdown(): void {
-    const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+    const dropdown = this.panel.querySelector<HTMLElement>(
+      ".inculva-lang-dropdown",
+    );
     if (!dropdown) return;
     dropdown.classList.add("open");
-    const trigger = dropdown.querySelector<HTMLElement>(".inculva-lang-trigger");
+    const trigger = dropdown.querySelector<HTMLElement>(
+      ".inculva-lang-trigger",
+    );
     if (trigger) trigger.setAttribute("aria-expanded", "true");
     // Reset search and show all options
-    const searchInput = dropdown.querySelector<HTMLInputElement>(".inculva-lang-search");
+    const searchInput = dropdown.querySelector<HTMLInputElement>(
+      ".inculva-lang-search",
+    );
     if (searchInput) {
       searchInput.value = "";
-      for (const opt of dropdown.querySelectorAll<HTMLElement>(".inculva-lang-option")) {
+      for (const opt of dropdown.querySelectorAll<HTMLElement>(
+        ".inculva-lang-option",
+      )) {
         opt.classList.remove("inculva-hidden");
       }
     }
     requestAnimationFrame(() => {
       // Focus the search input for immediate typing
       searchInput?.focus();
-      const active = dropdown.querySelector<HTMLElement>(".inculva-lang-option.active");
+      const active = dropdown.querySelector<HTMLElement>(
+        ".inculva-lang-option.active",
+      );
       active?.scrollIntoView({ block: "nearest" });
     });
   }
 
   private _closeLangDropdown(): void {
-    const dropdown = this.panel.querySelector<HTMLElement>(".inculva-lang-dropdown");
+    const dropdown = this.panel.querySelector<HTMLElement>(
+      ".inculva-lang-dropdown",
+    );
     if (!dropdown) return;
     dropdown.classList.remove("open");
-    const trigger = dropdown.querySelector<HTMLElement>(".inculva-lang-trigger");
+    const trigger = dropdown.querySelector<HTMLElement>(
+      ".inculva-lang-trigger",
+    );
     if (trigger) trigger.setAttribute("aria-expanded", "false");
   }
 
@@ -762,7 +823,7 @@ class InculvaWidget {
     }
 
     // Update pre-footer switch label + toggle state
-    updatePreFooterSide(this.panel, nowLeft, this.labels);
+    updatePreFooterSide(this.panel, nowLeft, this._labels);
     this.saveCurrentPrefs();
   }
 
@@ -853,8 +914,8 @@ class InculvaWidget {
   /** Returns the localised display name for a colorBlindMode level (1-based). */
   private _cbmTypeName(level: number): string {
     const key = CBM_CYCLE_TYPES[level - 1];
-    if (!key) return this.labels["colorBlindMode"] ?? "Color Blind";
-    return this.labels[key] ?? key.charAt(0).toUpperCase() + key.slice(1);
+    if (!key) return this._labels["colorBlindMode"] ?? "Color Blind";
+    return this._labels[key] ?? key.charAt(0).toUpperCase() + key.slice(1);
   }
 
   private selectColorBlindType(type: ColorBlindType): void {
@@ -889,16 +950,36 @@ class InculvaWidget {
       prefs[feature] = this.featureLevels.get(feature) ?? true;
     }
     prefs["colorBlindType"] = getColorBlindType();
-    // Persist UI state: widget size and position
+    // Persist UI state: widget size, position, and language
     prefs["widgetSize"] = this.panel.dataset["size"] ?? "regular";
     prefs["widgetPosition"] = this.config.position;
+    prefs["widgetLanguage"] = this.config.language;
     savePrefs(prefs);
   }
 
   private restorePrefs(): void {
     const prefs = loadPrefs();
 
-    // Restore position FIRST — so that when switchSize() calls saveCurrentPrefs()
+    // Restore language FIRST — so UI renders with the correct language
+    const savedLang = prefs["widgetLanguage"];
+    if (
+      typeof savedLang === "string" &&
+      SUPPORTED_LANGUAGES.some((l) => l.code === savedLang)
+    ) {
+      this.config.language = savedLang;
+      setSrLang(savedLang);
+      // Re-render panel with saved language
+      updatePanel(
+        this.panel,
+        this.config.features,
+        savedLang,
+        this._labels,
+        this.config.accessibilityStatementUrl,
+        this.config.whiteLabelText,
+      );
+    }
+
+    // Restore position SECOND — so that when switchSize() calls saveCurrentPrefs()
     // it serialises the correct position rather than the default.
     const savedPos = prefs["widgetPosition"];
     if (
@@ -916,7 +997,7 @@ class InculvaWidget {
       } else {
         this.panel.removeAttribute("data-panel-side");
       }
-      updatePreFooterSide(this.panel, nowLeft, this.labels);
+      updatePreFooterSide(this.panel, nowLeft, this._labels);
     }
 
     // Restore widget size (after position is set so saveCurrentPrefs() captures both)
@@ -929,7 +1010,12 @@ class InculvaWidget {
 
     for (const [feature, value] of Object.entries(prefs)) {
       if (feature === "colorBlindType") continue; // legacy key — ignored
-      if (feature === "widgetSize" || feature === "widgetPosition") continue;
+      if (
+        feature === "widgetSize" ||
+        feature === "widgetPosition" ||
+        feature === "widgetLanguage"
+      )
+        continue;
       if (!(feature in featureHandlers)) continue;
       const feat = feature as keyof WidgetFeatures;
       const maxLevels = FEATURE_LEVELS[feat];
@@ -958,6 +1044,17 @@ class InculvaWidget {
             );
             if (labelEl) labelEl.textContent = this._cbmTypeName(value);
           }
+          // Restore saturation label (level 1 = high contrast)
+          if (feat === "saturation") {
+            const labelEl = btn.querySelector<HTMLElement>(
+              ".inculva-feature-label",
+            );
+            if (labelEl)
+              labelEl.textContent =
+                value === 1
+                  ? (this._labels["highContrast"] ?? "High Contrast")
+                  : (this._labels["saturation"] ?? "Contrast+");
+          }
           // Restore screenReader mode label
           if (feat === "screenReader") {
             const labelEl = btn.querySelector<HTMLElement>(
@@ -965,7 +1062,9 @@ class InculvaWidget {
             );
             if (labelEl)
               labelEl.textContent =
-                SR_MODE_LABELS[value] ?? (this.labels["screenReader"] ?? "Screen reader");
+                SR_MODE_LABELS[value] ??
+                this._labels["screenReader"] ??
+                "Screen reader";
           }
         }
       } else if (value === true || (typeof value === "number" && value >= 1)) {
@@ -1099,17 +1198,15 @@ class InculvaWidget {
       );
     }
 
-    // Apply remote labels to panel text (localization strings from API)
-    if (Object.keys(this.labels).length > 0) {
-      updatePanel(
-        this.panel,
-        this.config.features,
-        this.config.language,
-        this.labels,
-        this.config.accessibilityStatementUrl,
-        this.config.whiteLabelText,
-      );
-    }
+    // Apply labels to panel text (built-in translations + optional remote overrides)
+    updatePanel(
+      this.panel,
+      this.config.features,
+      this.config.language,
+      this._labels,
+      this.config.accessibilityStatementUrl,
+      this.config.whiteLabelText,
+    );
 
     // Sync panel side attribute with final config position (remote may override it)
     if (this.config.position.includes("left")) {

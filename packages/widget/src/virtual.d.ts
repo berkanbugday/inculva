@@ -10,3 +10,9 @@ declare module "virtual:brand-svg" {
    *  Use as the src of an <img> element — no external URL required. */
   export const BRAND_LOGO_PNG: string;
 }
+
+declare module "virtual:icons" {
+  /** SVG icon strings embedded at build time from public/icons directory.
+   *  Keys are icon names (without .svg extension), values are raw SVG markup. */
+  export const ICONS: Record<string, string>;
+}
