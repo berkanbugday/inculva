@@ -1,5 +1,69 @@
 "use client";
 
+/* ─────────────────────────────────────────────────────────
+   Inline SVG icon primitives  (Lucide-compatible, 24 × 24)
+   ───────────────────────────────────────────────────────── */
+type IconProps = { size?: number; color?: string; strokeWidth?: number };
+
+const ic = (path: string) =>
+  function SvgIcon({ size = 20, color = "currentColor", strokeWidth = 2 }: IconProps) {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d={path} />
+      </svg>
+    );
+  };
+
+// ── Accessibility / widget feature icons ──────────────────
+const IconSun            = ic("M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 5a7 7 0 1 0 0 14A7 7 0 0 0 12 5z");
+const IconMoon           = ic("M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z");
+const IconWarmFilter     = ic("M12 3v1M12 20v1M4.22 4.22l.71.71M19.07 19.07l.71.71M1 12h1M22 12h1M4.22 19.78l.71-.71M19.07 4.93l.71-.71M12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7z");
+const IconTextLarge      = ic("M4 7V4h16v3M9 20h6M12 4v16");
+const IconAlignLeft      = ic("M3 6h18M3 12h12M3 18h15");
+const IconLineHeight     = ic("M3 6h18M3 18h18M8 12h8M12 9v6");
+const IconTextSpacing    = ic("M4 6h16M4 12h16M4 18h16M9 3l3-3 3 3M9 21l3 3 3-3");
+const IconScreenReader   = ic("M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z");
+const IconDyslexia       = ic("M4 20V4h4l4 4 4-4h4v16M8 12h8");
+const IconReadingMask    = ic("M2 3h20v5H2zM2 16h20v5H2z");
+const IconReadingGuide   = ic("M3 12h18M3 8h18M3 16h18");
+const IconMagnifier      = ic("M11 17.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM21 21l-4.35-4.35");
+const IconHighlightLinks = ic("M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.7");
+const IconHighlightH     = ic("M4 6h16M4 12h8M4 18h16M13 9l4 9M17 9l-4 9");
+const IconHideImages     = ic("M3 3l18 18M10.94 6.08A6 6 0 0 1 12 6c3.18 0 6 2.5 7.68 6a15.23 15.23 0 0 1-1.67 2.34M6.61 6.61A13.526 13.526 0 0 0 4.32 12c1.68 3.5 4.5 6 7.68 6a13.45 13.45 0 0 0 5.39-1.61");
+const IconPauseAnim      = ic("M10 9v6M14 9v6M12 1a11 11 0 1 0 0 22A11 11 0 0 0 12 1z");
+const IconCursor         = ic("M4 4l7.07 17 2.51-7.39L21 11.07z");
+const IconColorBlind     = ic("M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z M3 3l18 18");
+const IconGrayscale      = ic("M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18V4a8 8 0 0 1 0 16z");
+const IconSaturation     = ic("M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M12 6v12M8 9l8 6M8 15l8-6");
+const IconFocusRing      = ic("M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3z M12 8v4l3 3");
+const IconLargeTargets   = ic("M3 9l4-4 4 4M7 5v14M15 9l4-4 4 4M19 5v14M3 15l4 4 4-4M15 15l4 4 4-4");
+const IconSlowCursor     = ic("M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6l4 2");
+const IconSkipLink       = ic("M9 18l6-6-6-6");
+const IconMuteMedia      = ic("M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6");
+const IconKeyboard       = ic("M20 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zM8 10h2M8 14h8M14 10h2");
+// ── Icon button icons ─────────────────────────────────────
+const IconHome           = ic("M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z M9 22V12h6v10");
+const IconSearch         = ic("M11 17.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM21 21l-4.35-4.35");
+const IconSettings       = ic("M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z");
+const IconBell           = ic("M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0");
+const IconMail           = ic("M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6");
+const IconHeart          = ic("M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z");
+const IconStar           = ic("M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z");
+const IconTrash          = ic("M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6");
+// ── General UI icons ──────────────────────────────────────
+const IconAccessibility  = ic("M12 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M12 8c-4 0-7 2-7 4l2 8h10l2-8c0-2-3-4-7-4z M9 12l-1 6M15 12l1 6");
+
 export default function WidgetTestPage() {
   return (
     <>
@@ -152,7 +216,7 @@ export default function WidgetTestPage() {
             /* ── Feature guide ──────────────────────────────── */
             .wt-guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
             .wt-guide-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; }
-            .wt-guide-icon { font-size: 24px; margin-bottom: 8px; }
+            .wt-guide-icon { width: 36px; height: 36px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; background: #f0f4ff; border-radius: 8px; color: #0066cc; flex-shrink: 0; }
             .wt-guide-title { font-size: 14px; font-weight: 700; color: #111827; margin-bottom: 4px; }
             .wt-guide-desc { font-size: 12.5px; color: #6b7280; line-height: 1.5; }
 
@@ -167,7 +231,7 @@ export default function WidgetTestPage() {
 
             /* ── Print/info ─────────────────────────────────── */
             .wt-info-box { background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 16px 20px; display: flex; gap: 12px; align-items: flex-start; }
-            .wt-info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+            .wt-info-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
             .wt-info-text { font-size: 14px; color: #1e40af; line-height: 1.6; }
             .wt-info-text strong { font-weight: 700; }
           `,
@@ -228,7 +292,7 @@ export default function WidgetTestPage() {
         {/* ── Info box ───────────────────────────────────────────────── */}
         <div style={{ marginTop: 32 }}>
           <div className="wt-info-box">
-            <span className="wt-info-icon">♿</span>
+            <span className="wt-info-icon" style={{ color: "#1e40af" }}><IconAccessibility size={22} /></span>
             <p className="wt-info-text">
               <strong>Testing guide:</strong> Open the accessibility widget
               (bottom-right button), then try each feature category. This page
@@ -250,142 +314,38 @@ export default function WidgetTestPage() {
             effect.
           </p>
           <div className="wt-guide-grid">
-            {[
-              {
-                icon: "🔆",
-                title: "High Contrast",
-                desc: "Boosts contrast across all elements. Observe headings and body text change.",
-              },
-              {
-                icon: "🌙",
-                title: "Dark Mode",
-                desc: "Inverts page colours. Images get counter-inverted. Check the image section.",
-              },
-              {
-                icon: "💙",
-                title: "Blue Light Filter",
-                desc: "Applies warm overlay. Observe colour shift on white backgrounds.",
-              },
-              {
-                icon: "🔤",
-                title: "Larger Text",
-                desc: "Increases font size up to 4 levels. Watch paragraphs and headings grow.",
-              },
-              {
-                icon: "↔",
-                title: "Text Alignment",
-                desc: "Cycles Left → Centre → Right. Observe all paragraph text reflow.",
-              },
-              {
-                icon: "📏",
-                title: "Line Height",
-                desc: "Increases line spacing. Long paragraphs become more readable.",
-              },
-              {
-                icon: "🔡",
-                title: "Text Spacing",
-                desc: "Increases letter and word spacing. Check the dense paragraph text.",
-              },
-              {
-                icon: "👁",
-                title: "Screen Reader",
-                desc: "Outlines images with missing alt text. Observe dashed red borders on images below.",
-              },
-              {
-                icon: "A",
-                title: "Dyslexia Font",
-                desc: "Switches to OpenDyslexic. All paragraph and heading text changes font.",
-              },
-              {
-                icon: "📖",
-                title: "Reading Mask",
-                desc: "Dims page above/below a horizontal window. Move your mouse.",
-              },
-              {
-                icon: "—",
-                title: "Reading Guide",
-                desc: "Highlights current line with an amber bar following your cursor.",
-              },
-              {
-                icon: "🔍",
-                title: "Magnifier",
-                desc: "Circular zoom lens follows your cursor. Move over text and images.",
-              },
-              {
-                icon: "🔗",
-                title: "Highlight Links",
-                desc: "Underlines all links with bold colour. Check paragraph links below.",
-              },
-              {
-                icon: "H",
-                title: "Highlight Titles",
-                desc: "Underlines headings. Check the typography section.",
-              },
-              {
-                icon: "🖼",
-                title: "Hide Images",
-                desc: "Replaces images with blank boxes. Check the image grid.",
-              },
-              {
-                icon: "⏸",
-                title: "Stop Animations",
-                desc: "Pauses all CSS animations. Check the animations section.",
-              },
-              {
-                icon: "🖱",
-                title: "Cursor",
-                desc: "Enlarges the cursor. Move your mouse around the page.",
-              },
-              {
-                icon: "👁‍🗨",
-                title: "Color Blind",
-                desc: "Applies colour-blindness simulation. Check the colour swatches.",
-              },
-              {
-                icon: "◑",
-                title: "Grayscale",
-                desc: "Removes all colour. Observe the gradient hero and swatches.",
-              },
-              {
-                icon: "💧",
-                title: "Saturation",
-                desc: "Boosts colour saturation. Swatches and gradients become vivid.",
-              },
-              {
-                icon: "⬚",
-                title: "Focus Indicator",
-                desc: "Shows visible focus ring. Tab through form elements.",
-              },
-              {
-                icon: "⊕",
-                title: "Large Targets",
-                desc: "Enlarges click areas. Observe button spacing change.",
-              },
-              {
-                icon: "🐢",
-                title: "Slow Cursor",
-                desc: "Smoothly lags cursor movement. Move mouse quickly.",
-              },
-              {
-                icon: "⏭",
-                title: "Skip to Main",
-                desc: "Injects a skip link. Press Tab to reveal it.",
-              },
-              {
-                icon: "🔇",
-                title: "Mute Media",
-                desc: "Mutes all audio/video. Open the media section and check.",
-              },
-              {
-                icon: "⌨",
-                title: "Keyboard Nav",
-                desc: "Enables custom keyboard navigation hints.",
-              },
-            ].map((item) => (
-              <div key={item.title} className="wt-guide-card">
-                <div className="wt-guide-icon">{item.icon}</div>
-                <div className="wt-guide-title">{item.title}</div>
-                <div className="wt-guide-desc">{item.desc}</div>
+            {([
+              { Icon: IconSun,           title: "High Contrast",    desc: "Boosts contrast across all elements. Observe headings and body text change." },
+              { Icon: IconMoon,          title: "Dark Mode",         desc: "Inverts page colours. Images get counter-inverted. Check the image section." },
+              { Icon: IconWarmFilter,    title: "Blue Light Filter", desc: "Applies warm overlay. Observe colour shift on white backgrounds." },
+              { Icon: IconTextLarge,     title: "Larger Text",       desc: "Increases font size up to 4 levels. Watch paragraphs and headings grow." },
+              { Icon: IconAlignLeft,     title: "Text Alignment",    desc: "Cycles Left → Centre → Right. Observe all paragraph text reflow." },
+              { Icon: IconLineHeight,    title: "Line Height",       desc: "Increases line spacing. Long paragraphs become more readable." },
+              { Icon: IconTextSpacing,   title: "Text Spacing",      desc: "Increases letter and word spacing. Check the dense paragraph text." },
+              { Icon: IconScreenReader,  title: "Screen Reader",     desc: "Outlines images with missing alt text. Observe dashed red borders on images below." },
+              { Icon: IconDyslexia,      title: "Dyslexia Font",     desc: "Switches to OpenDyslexic. All paragraph and heading text changes font." },
+              { Icon: IconReadingMask,   title: "Reading Mask",      desc: "Dims page above/below a horizontal window. Move your mouse." },
+              { Icon: IconReadingGuide,  title: "Reading Guide",     desc: "Highlights current line with an amber bar following your cursor." },
+              { Icon: IconMagnifier,     title: "Magnifier",         desc: "Circular zoom lens follows your cursor. Move over text and images." },
+              { Icon: IconHighlightLinks,title: "Highlight Links",   desc: "Underlines all links with bold colour. Check paragraph links below." },
+              { Icon: IconHighlightH,    title: "Highlight Titles",  desc: "Underlines headings. Check the typography section." },
+              { Icon: IconHideImages,    title: "Hide Images",       desc: "Replaces images with blank boxes. Check the image grid." },
+              { Icon: IconPauseAnim,     title: "Stop Animations",   desc: "Pauses all CSS animations. Check the animations section." },
+              { Icon: IconCursor,        title: "Cursor",            desc: "Enlarges the cursor. Move your mouse around the page." },
+              { Icon: IconColorBlind,    title: "Color Blind",       desc: "Applies colour-blindness simulation. Check the colour swatches." },
+              { Icon: IconGrayscale,     title: "Grayscale",         desc: "Removes all colour. Observe the gradient hero and swatches." },
+              { Icon: IconSaturation,    title: "Saturation",        desc: "Boosts colour saturation. Swatches and gradients become vivid." },
+              { Icon: IconFocusRing,     title: "Focus Indicator",   desc: "Shows visible focus ring. Tab through form elements." },
+              { Icon: IconLargeTargets,  title: "Large Targets",     desc: "Enlarges click areas. Observe button spacing change." },
+              { Icon: IconSlowCursor,    title: "Slow Cursor",       desc: "Smoothly lags cursor movement. Move mouse quickly." },
+              { Icon: IconSkipLink,      title: "Skip to Main",      desc: "Injects a skip link. Press Tab to reveal it." },
+              { Icon: IconMuteMedia,     title: "Mute Media",        desc: "Mutes all audio/video. Open the media section and check." },
+              { Icon: IconKeyboard,      title: "Keyboard Nav",      desc: "Enables custom keyboard navigation hints." },
+            ] as const).map(({ Icon, title, desc }) => (
+              <div key={title} className="wt-guide-card">
+                <div className="wt-guide-icon"><Icon size={18} /></div>
+                <div className="wt-guide-title">{title}</div>
+                <div className="wt-guide-desc">{desc}</div>
               </div>
             ))}
           </div>
@@ -1192,29 +1152,29 @@ export default function WidgetTestPage() {
               Icon buttons (test cursor size)
             </h3>
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-              {[
-                { icon: "🏠", label: "Home" },
-                { icon: "🔍", label: "Search" },
-                { icon: "⚙️", label: "Settings" },
-                { icon: "🔔", label: "Notifications" },
-                { icon: "📧", label: "Email" },
-                { icon: "❤️", label: "Like" },
-                { icon: "⭐", label: "Favourite" },
-                { icon: "🗑️", label: "Delete" },
-              ].map((b) => (
+              {([
+                { Icon: IconHome,     label: "Home" },
+                { Icon: IconSearch,   label: "Search" },
+                { Icon: IconSettings, label: "Settings" },
+                { Icon: IconBell,     label: "Notifications" },
+                { Icon: IconMail,     label: "Email" },
+                { Icon: IconHeart,    label: "Like" },
+                { Icon: IconStar,     label: "Favourite" },
+                { Icon: IconTrash,    label: "Delete" },
+              ] as const).map(({ Icon, label }) => (
                 <button
-                  key={b.label}
-                  aria-label={b.label}
-                  title={b.label}
+                  key={label}
+                  aria-label={label}
+                  title={label}
                   className="wt-button wt-button-md"
                   style={{
                     background: "#f3f4f6",
                     color: "#374151",
-                    minWidth: 48,
+                    minWidth: 44,
                     justifyContent: "center",
                   }}
                 >
-                  {b.icon}
+                  <Icon size={18} />
                 </button>
               ))}
             </div>
@@ -1447,8 +1407,8 @@ export default function WidgetTestPage() {
           {/* English */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇬🇧 English</h3>
-            <p>Welcome to the Inculva accessibility widget test page. This paragraph tests the screen reader&apos;s ability to read English text aloud with natural intonation.</p>
-            <p>The quick brown fox jumps over the lazy dog. Accessibility is about creating digital experiences that everyone can use, regardless of their abilities.</p>
+            <p lang="en">Welcome to the Inculva accessibility widget test page. This paragraph tests the screen reader&apos;s ability to read English text aloud with natural intonation.</p>
+            <p lang="en">The quick brown fox jumps over the lazy dog. Accessibility is about creating digital experiences that everyone can use, regardless of their abilities.</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Click me</button>
             <a href="#" style={{ color: "#0066cc" }}>Visit our accessibility guide →</a>
           </div>
@@ -1456,8 +1416,8 @@ export default function WidgetTestPage() {
           {/* Turkish */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇹🇷 Türkçe</h3>
-            <p>İnculva erişilebilirlik widget&apos;ının test sayfasına hoş geldiniz. Bu paragraf, ekran okuyucunun Türkçe metni doğal tonlama ile sesli okuma yeteneğini test etmektedir.</p>
-            <p>Dijital erişilebilirlik, her kullanıcının yeteneklerinden bağımsız olarak web sitelerini ve uygulamaları kullanabilmesi anlamına gelir. Herkes için tasarım, daha iyi bir dünya yaratır.</p>
+            <p lang="tr">İnculva erişilebilirlik widget&apos;ının test sayfasına hoş geldiniz. Bu paragraf, ekran okuyucunun Türkçe metni doğal tonlama ile sesli okuma yeteneğini test etmektedir.</p>
+            <p lang="tr">Dijital erişilebilirlik, her kullanıcının yeteneklerinden bağımsız olarak web sitelerini ve uygulamaları kullanabilmesi anlamına gelir. Herkes için tasarım, daha iyi bir dünya yaratır.</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Bana tıkla</button>
             <a href="#" style={{ color: "#0066cc" }}>Erişilebilirlik rehberimizi ziyaret edin →</a>
           </div>
@@ -1465,8 +1425,8 @@ export default function WidgetTestPage() {
           {/* German */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇩🇪 Deutsch</h3>
-            <p>Willkommen auf der Testseite des Inculva-Barrierefreiheits-Widgets. Dieser Absatz testet die Fähigkeit des Bildschirmlesers, deutschen Text mit natürlicher Intonation vorzulesen.</p>
-            <p>Digitale Barrierefreiheit bedeutet, dass alle Menschen unabhängig von ihren Fähigkeiten Websites und Apps nutzen können. Inklusive Gestaltung schafft eine bessere Zukunft für alle.</p>
+            <p lang="de">Willkommen auf der Testseite des Inculva-Barrierefreiheits-Widgets. Dieser Absatz testet die Fähigkeit des Bildschirmlesers, deutschen Text mit natürlicher Intonation vorzulesen.</p>
+            <p lang="de">Digitale Barrierefreiheit bedeutet, dass alle Menschen unabhängig von ihren Fähigkeiten Websites und Apps nutzen können. Inklusive Gestaltung schafft eine bessere Zukunft für alle.</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Klick mich</button>
             <a href="#" style={{ color: "#0066cc" }}>Barrierefreiheitsleitfaden ansehen →</a>
           </div>
@@ -1474,8 +1434,8 @@ export default function WidgetTestPage() {
           {/* French */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇫🇷 Français</h3>
-            <p>Bienvenue sur la page de test du widget d&apos;accessibilité Inculva. Ce paragraphe teste la capacité du lecteur d&apos;écran à lire du texte français à voix haute avec une intonation naturelle.</p>
-            <p>L&apos;accessibilité numérique consiste à créer des expériences en ligne utilisables par tous, quelles que soient leurs capacités. Une conception inclusive améliore la vie de chacun.</p>
+            <p lang="fr">Bienvenue sur la page de test du widget d&apos;accessibilité Inculva. Ce paragraphe teste la capacité du lecteur d&apos;écran à lire du texte français à voix haute avec une intonation naturelle.</p>
+            <p lang="fr">L&apos;accessibilité numérique consiste à créer des expériences en ligne utilisables par tous, quelles que soient leurs capacités. Une conception inclusive améliore la vie de chacun.</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Cliquez-moi</button>
             <a href="#" style={{ color: "#0066cc" }}>Voir notre guide d&apos;accessibilité →</a>
           </div>
@@ -1483,8 +1443,8 @@ export default function WidgetTestPage() {
           {/* Spanish */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇪🇸 Español</h3>
-            <p>Bienvenido a la página de prueba del widget de accesibilidad de Inculva. Este párrafo prueba la capacidad del lector de pantalla para leer texto en español en voz alta con entonación natural.</p>
-            <p>La accesibilidad digital significa crear experiencias en línea que todos puedan usar, independientemente de sus capacidades. El diseño inclusivo mejora la vida de todas las personas.</p>
+            <p lang="es">Bienvenido a la página de prueba del widget de accesibilidad de Inculva. Este párrafo prueba la capacidad del lector de pantalla para leer texto en español en voz alta con entonación natural.</p>
+            <p lang="es">La accesibilidad digital significa crear experiencias en línea que todos puedan usar, independientemente de sus capacidades. El diseño inclusivo mejora la vida de todas las personas.</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Hazme clic</button>
             <a href="#" style={{ color: "#0066cc" }}>Ver nuestra guía de accesibilidad →</a>
           </div>
@@ -1492,8 +1452,8 @@ export default function WidgetTestPage() {
           {/* Arabic — RTL */}
           <div className="wt-card wt-prose" dir="rtl" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇸🇦 العربية</h3>
-            <p>مرحباً بكم في صفحة اختبار أداة إمكانية الوصول من Inculva. تختبر هذه الفقرة قدرة قارئ الشاشة على قراءة النص العربي بصوت عالٍ بنبرة طبيعية.</p>
-            <p>إمكانية الوصول الرقمية تعني إنشاء تجارب رقمية يمكن للجميع استخدامها بغض النظر عن قدراتهم. التصميم الشامل يحسّن حياة الجميع ويصنع عالماً أفضل للجميع.</p>
+            <p lang="ar">مرحباً بكم في صفحة اختبار أداة إمكانية الوصول من Inculva. تختبر هذه الفقرة قدرة قارئ الشاشة على قراءة النص العربي بصوت عالٍ بنبرة طبيعية.</p>
+            <p lang="ar">إمكانية الوصول الرقمية تعني إنشاء تجارب رقمية يمكن للجميع استخدامها بغض النظر عن قدراتهم. التصميم الشامل يحسّن حياة الجميع ويصنع عالماً أفضل للجميع.</p>
             <button style={{ marginLeft: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>انقر هنا</button>
             <a href="#" style={{ color: "#0066cc" }}>← زيارة دليل إمكانية الوصول</a>
           </div>
@@ -1501,8 +1461,8 @@ export default function WidgetTestPage() {
           {/* Hebrew — RTL */}
           <div className="wt-card wt-prose" dir="rtl" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇮🇱 עברית</h3>
-            <p>ברוכים הבאים לדף הבדיקה של ווידג&apos;ט הנגישות של Inculva. פסקה זו בודקת את יכולת קורא המסך לקרוא טקסט עברי בקול עם נסירה טבעית.</p>
-            <p>נגישות דיגיטלית פירושה יצירת חוויות מקוונות שכולם יכולים להשתמש בהן, ללא קשר ליכולותיהם. עיצוב כוללני משפר את חיי כולם.</p>
+            <p lang="he">ברוכים הבאים לדף הבדיקה של ווידג&apos;ט הנגישות של Inculva. פסקה זו בודקת את יכולת קורא המסך לקרוא טקסט עברי בקול עם נסירה טבעית.</p>
+            <p lang="he">נגישות דיגיטלית פירושה יצירת חוויות מקוונות שכולם יכולים להשתמש בהן, ללא קשר ליכולותיהם. עיצוב כוללני משפר את חיי כולם.</p>
             <button style={{ marginLeft: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>לחץ עלי</button>
             <a href="#" style={{ color: "#0066cc" }}>← בקר במדריך הנגישות שלנו</a>
           </div>
@@ -1510,8 +1470,8 @@ export default function WidgetTestPage() {
           {/* Japanese */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇯🇵 日本語</h3>
-            <p>Inculvaアクセシビリティウィジェットのテストページへようこそ。この段落は、スクリーンリーダーが自然なイントネーションで日本語のテキストを読み上げる機能をテストするものです。</p>
-            <p>デジタルアクセシビリティとは、能力に関わらずすべての人がウェブサイトやアプリを利用できるようにすることです。インクルーシブデザインはより良い社会を作ります。</p>
+            <p lang="ja">Inculvaアクセシビリティウィジェットのテストページへようこそ。この段落は、スクリーンリーダーが自然なイントネーションで日本語のテキストを読み上げる機能をテストするものです。</p>
+            <p lang="ja">デジタルアクセシビリティとは、能力に関わらずすべての人がウェブサイトやアプリを利用できるようにすることです。インクルーシブデザインはより良い社会を作ります。</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>クリックしてください</button>
             <a href="#" style={{ color: "#0066cc" }}>アクセシビリティガイドを見る →</a>
           </div>
@@ -1519,8 +1479,8 @@ export default function WidgetTestPage() {
           {/* Chinese */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇨🇳 中文</h3>
-            <p>欢迎来到 Inculva 无障碍访问小部件测试页面。本段测试屏幕阅读器以自然语调朗读中文文本的能力。</p>
-            <p>数字无障碍意味着创建所有人都能使用的在线体验，无论其能力如何。包容性设计让每个人的生活都更美好，并为所有人打造更友好的数字世界。</p>
+            <p lang="zh">欢迎来到 Inculva 无障碍访问小部件测试页面。本段测试屏幕阅读器以自然语调朗读中文文本的能力。</p>
+            <p lang="zh">数字无障碍意味着创建所有人都能使用的在线体验，无论其能力如何。包容性设计让每个人的生活都更美好，并为所有人打造更友好的数字世界。</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>点击我</button>
             <a href="#" style={{ color: "#0066cc" }}>查看我们的无障碍指南 →</a>
           </div>
@@ -1528,8 +1488,8 @@ export default function WidgetTestPage() {
           {/* Korean */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇰🇷 한국어</h3>
-            <p>Inculva 접근성 위젯 테스트 페이지에 오신 것을 환영합니다. 이 단락은 스크린 리더가 자연스러운 억양으로 한국어 텍스트를 소리 내어 읽는 기능을 테스트합니다.</p>
-            <p>디지털 접근성이란 모든 사람이 능력에 관계없이 웹사이트와 앱을 사용할 수 있도록 하는 것을 의미합니다. 포용적 디자인은 모든 사람의 삶을 개선합니다.</p>
+            <p lang="ko">Inculva 접근성 위젯 테스트 페이지에 오신 것을 환영합니다. 이 단락은 스크린 리더가 자연스러운 억양으로 한국어 텍스트를 소리 내어 읽는 기능을 테스트합니다.</p>
+            <p lang="ko">디지털 접근성이란 모든 사람이 능력에 관계없이 웹사이트와 앱을 사용할 수 있도록 하는 것을 의미합니다. 포용적 디자인은 모든 사람의 삶을 개선합니다.</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>클릭하세요</button>
             <a href="#" style={{ color: "#0066cc" }}>접근성 가이드 보기 →</a>
           </div>
@@ -1537,8 +1497,8 @@ export default function WidgetTestPage() {
           {/* Russian */}
           <div className="wt-card wt-prose" style={{ marginBottom: 12 }}>
             <h3 style={{ margin: "0 0 8px", fontSize: 14, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700 }}>🇷🇺 Русский</h3>
-            <p>Добро пожаловать на тестовую страницу виджета доступности Inculva. Этот абзац проверяет способность программы чтения с экрана читать русский текст вслух с естественной интонацией.</p>
-            <p>Цифровая доступность означает создание онлайн-опыта, которым могут пользоваться все люди, независимо от их способностей. Инклюзивный дизайн улучшает жизнь каждого человека.</p>
+            <p lang="ru">Добро пожаловать на тестовую страницу виджета доступности Inculva. Этот абзац проверяет способность программы чтения с экрана читать русский текст вслух с естественной интонацией.</p>
+            <p lang="ru">Цифровая доступность означает создание онлайн-опыта, которым могут пользоваться все люди, независимо от их способностей. Инклюзивный дизайн улучшает жизнь каждого человека.</p>
             <button style={{ marginRight: 8, padding: "8px 16px", borderRadius: 8, border: "1px solid #d1d5db", background: "#fff", cursor: "pointer", fontSize: 14 }}>Нажмите меня</button>
             <a href="#" style={{ color: "#0066cc" }}>Просмотр нашего руководства по доступности →</a>
           </div>
