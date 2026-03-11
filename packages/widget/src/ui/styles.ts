@@ -34,7 +34,7 @@ export const widgetStyles = `
     position: absolute !important;
     top: -4px;
     right: -4px;
-    background: #ef4444;
+    background: var(--inculva-primary, #0066cc);
     color: #fff;
     border-radius: 50%;
     min-width: 20px;
@@ -47,7 +47,6 @@ export const widgetStyles = `
     justify-content: center;
     border: 2px solid #fff;
     padding: 0 3px;
-    line-height: 1;
     pointer-events: none;
     z-index: 1;
   }
@@ -506,8 +505,8 @@ export const widgetStyles = `
     box-shadow: 0 4px 12px rgba(0,102,204,0.28) !important;
   }
   .inculva-profile-card-icon {
-    width: 34px;
-    height: 34px;
+    width: 50px;
+    height: 50px;
     border-radius: 9px;
     background: rgba(0,0,0,0.06);
     display: flex;

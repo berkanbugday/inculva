@@ -449,41 +449,9 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
            position: relative !important;
          }`,
       );
-      // Show floating indicator
-      if (!document.getElementById("inculva-kb-badge")) {
-        const badge = document.createElement("div");
-        badge.id = "inculva-kb-badge";
-        badge.style.cssText = [
-          "position:fixed",
-          "bottom:24px",
-          "left:50%",
-          "transform:translateX(-50%)",
-          "background:rgba(15,15,25,0.88)",
-          "color:#fff",
-          "padding:7px 16px",
-          "border-radius:100px",
-          "font-size:12.5px",
-          "font-family:system-ui,sans-serif",
-          "pointer-events:none",
-          "z-index:2147483639",
-          "white-space:nowrap",
-          "box-shadow:0 4px 20px rgba(0,0,0,0.3)",
-          "backdrop-filter:blur(8px)",
-          "-webkit-backdrop-filter:blur(8px)",
-          "border:1px solid rgba(255,255,255,0.12)",
-        ].join(";");
-        badge.textContent = "⌨ Keyboard navigation active · Tab to navigate";
-        document.documentElement.appendChild(badge);
-        setTimeout(() => {
-          badge.style.opacity = "0";
-          badge.style.transition = "opacity 0.6s";
-          setTimeout(() => badge.remove(), 700);
-        }, 3500);
-      }
     },
     disable: () => {
       removeStyle("inculva-keyboard-nav");
-      document.getElementById("inculva-kb-badge")?.remove();
     },
   },
 
@@ -1019,7 +987,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
       setHtmlFilter("darkMode", "invert(1) hue-rotate(180deg)");
       injectStyle(
         "inculva-dark-mode-media",
-        `img, video, iframe, canvas { filter: invert(1) hue-rotate(180deg) !important; }`,
+        `img:not([class*="inculva-"]):not([class*="inculva-"] img), video:not([class*="inculva-"]):not([class*="inculva-"] video), iframe:not([class*="inculva-"]):not([class*="inculva-"] iframe), canvas:not([class*="inculva-"]):not([class*="inculva-"] canvas) { filter: invert(1) hue-rotate(180deg) !important; }`,
       );
     },
     disable: () => {
