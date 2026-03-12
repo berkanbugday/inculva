@@ -12,38 +12,7 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-gray-950/90 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center shrink-0">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-              >
-                <circle cx="12" cy="4.5" r="2.2" fill="white" />
-                <path
-                  d="M5.5 10h13"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M12 8.5v5"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M9 20l2-5.5M15 20l-2-5.5"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-            <span className="text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-              Inculva
-            </span>
+            <img src="/logo.png" alt="Inculva" className="h-14 w-auto" />
           </a>
 
           <nav className="hidden md:flex items-center gap-1 text-sm">
@@ -1292,39 +1261,8 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
             <div>
-              <div className="mb-2 flex items-center gap-2">
-                <div className="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle cx="12" cy="4.5" r="2.2" fill="white" />
-                    <path
-                      d="M5.5 10h13"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M12 8.5v5"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M9 20l2-5.5M15 20l-2-5.5"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
-                <span className="text-sm font-bold tracking-tight text-gray-900 dark:text-white">
-                  Inculva
-                </span>
+              <div className="mb-2">
+                <img src="/logo.png" alt="Inculva" className="h-14 w-auto" />
               </div>
               <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
                 Web accessibility tools for developers and teams who care about

@@ -15,11 +15,11 @@ const STATS = [
 function RegisterForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [name, setName]         = useState("");
-  const [email, setEmail]       = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError]       = useState<string | null>(null);
-  const [loading, setLoading]   = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -62,32 +62,32 @@ function RegisterForm() {
 
         {/* Brand */}
         <div className="flex items-center gap-3 relative z-10">
-          <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="4.5" r="2.2" fill="white" />
-              <path d="M5.5 10h13" stroke="white" strokeWidth="2" strokeLinecap="round" />
-              <path d="M12 8.5v5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-              <path d="M9 20l2-5.5M15 20l-2-5.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </div>
-          <span className="text-white font-bold text-lg tracking-tight">Inculva</span>
+          <img src="/logo.png" alt="Inculva" className="h-8 w-auto" />
         </div>
 
         {/* Middle */}
         <div className="relative z-10">
           <h2 className="text-3xl font-bold text-white leading-tight mb-4">
-            Join thousands of sites<br />making the web inclusive.
+            Join thousands of sites
+            <br />
+            making the web inclusive.
           </h2>
           <p className="text-indigo-100 text-sm mb-10 leading-relaxed">
-            Free plan forever. No credit card required. Up and running in under 5 minutes.
+            Free plan forever. No credit card required. Up and running in under
+            5 minutes.
           </p>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-3 mb-8">
             {STATS.map((s) => (
-              <div key={s.label} className="bg-white/10 border border-white/10 rounded-xl p-3 text-center">
+              <div
+                key={s.label}
+                className="bg-white/10 border border-white/10 rounded-xl p-3 text-center"
+              >
                 <p className="text-white font-bold text-xl">{s.value}</p>
-                <p className="text-indigo-200 text-xs mt-0.5 leading-tight">{s.label}</p>
+                <p className="text-indigo-200 text-xs mt-0.5 leading-tight">
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
@@ -95,13 +95,18 @@ function RegisterForm() {
           {/* Testimonial */}
           <div className="bg-white/10 border border-white/15 rounded-2xl px-5 py-4">
             <p className="text-white/90 text-sm leading-relaxed italic mb-3">
-              &ldquo;Set up in 3 minutes. Our accessibility score went from D to A. The EAA compliance banner alone saved us weeks of work.&rdquo;
+              &ldquo;Set up in 3 minutes. Our accessibility score went from D to
+              A. The EAA compliance banner alone saved us weeks of work.&rdquo;
             </p>
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-bold">M</div>
+              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-bold">
+                M
+              </div>
               <div>
                 <p className="text-white text-xs font-semibold">Maria V.</p>
-                <p className="text-indigo-200 text-xs">Frontend Lead, EU SaaS</p>
+                <p className="text-indigo-200 text-xs">
+                  Frontend Lead, EU SaaS
+                </p>
               </div>
             </div>
           </div>
@@ -109,8 +114,12 @@ function RegisterForm() {
 
         {/* Bottom badge */}
         <div className="relative z-10 bg-white/10 border border-white/20 rounded-2xl px-5 py-4">
-          <p className="text-white/60 text-xs font-medium mb-1 uppercase tracking-widest">Standards</p>
-          <p className="text-white font-semibold text-sm">WCAG 2.1 AA · EAA 2025 · ADA · Section 508</p>
+          <p className="text-white/60 text-xs font-medium mb-1 uppercase tracking-widest">
+            Standards
+          </p>
+          <p className="text-white font-semibold text-sm">
+            WCAG 2.1 AA · EAA 2025 · ADA · Section 508
+          </p>
         </div>
       </div>
 
@@ -119,18 +128,16 @@ function RegisterForm() {
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="4.5" r="2.2" fill="white" />
-                <path d="M5.5 10h13" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <path d="M12 8.5v5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <path d="M9 20l2-5.5M15 20l-2-5.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </div>
-            <span className="font-bold text-lg text-gray-900 dark:text-white">Inculva</span>
+            <img
+              src="/logo.png"
+              alt="Inculva"
+              className="h-10 w-auto mx-auto"
+            />
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Create your account</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+            Create your account
+          </h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-7">
             Free forever. No credit card required.
           </p>
@@ -140,7 +147,10 @@ function RegisterForm() {
 
           <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
+              >
                 Full name
               </label>
               <input
@@ -155,7 +165,10 @@ function RegisterForm() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
+              >
                 Email
               </label>
               <input
@@ -170,7 +183,10 @@ function RegisterForm() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
+              >
                 Password
               </label>
               <input
@@ -187,9 +203,27 @@ function RegisterForm() {
 
             {error && (
               <div className="flex items-start gap-2.5 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-xl px-4 py-3 text-sm text-red-600 dark:text-red-400">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5" aria-hidden="true">
-                  <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  className="shrink-0 mt-0.5"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="8"
+                    cy="8"
+                    r="7"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M8 5v4M8 11v.5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
                 {error}
               </div>
@@ -200,13 +234,32 @@ function RegisterForm() {
               disabled={loading}
               className={cn(
                 "w-full py-2.5 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-sm flex items-center justify-center gap-2",
-                loading && "opacity-60 cursor-not-allowed"
+                loading && "opacity-60 cursor-not-allowed",
               )}
             >
               {loading && (
-                <svg className="animate-spin" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <circle cx="7" cy="7" r="5.5" stroke="white" strokeWidth="1.5" strokeOpacity="0.3" />
-                  <path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                <svg
+                  className="animate-spin"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="7"
+                    cy="7"
+                    r="5.5"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    strokeOpacity="0.3"
+                  />
+                  <path
+                    d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
                 </svg>
               )}
               {loading ? "Creating account…" : "Create free account"}
@@ -214,14 +267,28 @@ function RegisterForm() {
 
             <p className="text-center text-xs text-gray-400 dark:text-gray-600 leading-relaxed">
               By signing up you agree to our{" "}
-              <a href="/terms" className="underline hover:text-gray-700 dark:hover:text-gray-400">Terms</a>
-              {" "}and{" "}
-              <a href="/privacy" className="underline hover:text-gray-700 dark:hover:text-gray-400">Privacy Policy</a>.
+              <a
+                href="/terms"
+                className="underline hover:text-gray-700 dark:hover:text-gray-400"
+              >
+                Terms
+              </a>{" "}
+              and{" "}
+              <a
+                href="/privacy"
+                className="underline hover:text-gray-700 dark:hover:text-gray-400"
+              >
+                Privacy Policy
+              </a>
+              .
             </p>
 
             <p className="text-center text-sm text-gray-500 dark:text-gray-400">
               Already have an account?{" "}
-              <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
+              <a
+                href="/login"
+                className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+              >
                 Sign in
               </a>
             </p>

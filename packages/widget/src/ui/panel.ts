@@ -1,6 +1,7 @@
 import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
 import { FEATURE_LEVELS } from "../features/index.js";
-import { BRAND_LOGO_PNG } from "virtual:brand-svg";
+import { LOGO_PNG } from "virtual:logo-svg";
+import { LOGO_ICON_PNG } from "virtual:logo-icon-svg";
 import { TRANSLATIONS } from "./translations.js";
 
 const ICON_CDN_URL = "https://cdn.inculva.com/icons";
@@ -17,8 +18,11 @@ function loadIcon(
 }
 
 /** Renders the brand logo PNG at the given size (square 1:1 ratio). */
-function brandImg(size: number): string {
-  return `<img src="${BRAND_LOGO_PNG}" width="${size}" height="${size}" alt="" aria-hidden="true" style="display:block;border-radius:4px;">`;
+function logoImg(size: number): string {
+  return `<img src="${LOGO_PNG}" width="${size}" height="${size}" alt="" aria-hidden="true" style="display:block;border-radius:4px;">`;
+}
+function logoIconImg(size: number): string {
+  return `<img src="${LOGO_ICON_PNG}" width="${size}" height="${size}" alt="" aria-hidden="true" style="display:block;border-radius:4px;">`;
 }
 
 type FeatureConfig = {
@@ -139,12 +143,12 @@ const ICON_ARROW_DOWN = loadIcon("chevron-down", 15, 15);
 const ICON_SATURATION = loadIcon("circle-half-stroke", 20, 20);
 
 // Profile icons (18×18)
-const ICON_P_BLIND = loadIcon("eye-slash", 20, 20);
-const ICON_P_LOW_VISION = loadIcon("eye-low-vision", 20, 20);
-const ICON_P_COLOR_BLIND = loadIcon("bring-forward", 20, 20);
-const ICON_P_DYSLEXIA = loadIcon("df", 20, 20);
-const ICON_P_MOTOR = loadIcon("wheelchair", 20, 20);
-const ICON_P_ATTENTION = loadIcon("puzzle-piece", 20, 20);
+const ICON_P_BLIND = loadIcon("eye-slash", 30, 30);
+const ICON_P_LOW_VISION = loadIcon("eye-low-vision", 30, 30);
+const ICON_P_COLOR_BLIND = loadIcon("bring-forward", 30, 30);
+const ICON_P_DYSLEXIA = loadIcon("df", 30, 30);
+const ICON_P_MOTOR = loadIcon("wheelchair", 30, 30);
+const ICON_P_ATTENTION = loadIcon("puzzle-piece", 30, 30);
 
 // ---------------------------------------------------------------------------
 // Feature list — ordered for display in the panel
@@ -364,7 +368,7 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
 
   const iconBox = document.createElement("div");
   iconBox.className = "inculva-panel-header-icon";
-  iconBox.innerHTML = brandImg(22);
+  iconBox.innerHTML = logoIconImg(22);
 
   const titleWrap = document.createElement("div");
   titleWrap.className = "inculva-panel-title-wrap";
@@ -765,12 +769,10 @@ function _buildFooter(
       ? (labels["poweredBy"] ?? "Powered by Inculva")
       : whiteLabelText;
 
-  if (poweredByText !== "") {
-    const brand = document.createElement("span");
-    brand.className = "inculva-footer-brand";
-    brand.innerHTML = `${brandImg(14)}<span>${poweredByText}</span>`;
-    footer.appendChild(brand);
-  }
+  const brand = document.createElement("span");
+  brand.className = "inculva-footer-logo";
+  brand.innerHTML = logoImg(150);
+  footer.appendChild(brand);
 
   return footer;
 }
@@ -937,12 +939,10 @@ export function updatePanel(
         ? (labels["poweredBy"] ?? "Powered by Inculva")
         : whiteLabelText;
     footer.innerHTML = "";
-    if (poweredByText !== "") {
-      const brand = document.createElement("span");
-      brand.className = "inculva-footer-brand";
-      brand.innerHTML = `${brandImg(14)}<span>${poweredByText}</span>`;
-      footer.appendChild(brand);
-    }
+    const logo = document.createElement("span");
+    logo.className = "inculva-footer-logo";
+    logo.innerHTML = logoImg(150);
+    footer.appendChild(logo);
   }
 }
 

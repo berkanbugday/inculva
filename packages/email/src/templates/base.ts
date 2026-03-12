@@ -35,7 +35,7 @@ export function baseTemplate(content: string, previewText = ""): string {
   <div class="wrapper">
     <div class="card">
       <div class="header">
-        <img src="https://inculva.com/brand-logo.svg" alt="Inculva" />
+        <img src="https://inculva.com/logo.svg" alt="Inculva" />
       </div>
       <div class="body">
         ${content}

@@ -507,7 +507,6 @@ export const widgetStyles = `
     width: 50px;
     height: 50px;
     border-radius: 9px;
-    background: rgba(0,0,0,0.06);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1010,7 +1009,7 @@ export const widgetStyles = `
   .inculva-panel-footer {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 10px 16px;
     flex-shrink: 0;
     background: var(--inculva-footer-bg, var(--inculva-primary, #0066cc));
@@ -1018,7 +1017,7 @@ export const widgetStyles = `
     min-height: 42px;
     border-radius: 0 0 18px 18px;
   }
-  .inculva-footer-brand {
+  .inculva-footer-logo {
     display: flex;
     align-items: center;
     gap: 7px;
