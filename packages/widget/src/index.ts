@@ -874,6 +874,7 @@ class InculvaWidget {
     this.announce(
       `Profile ${profile.label} ${!isActive ? "activated" : "deactivated"}`,
     );
+    this.saveCurrentPrefs();
   }
 
   /** Sync the red badge count on the trigger button, header pill, and per-tab counts. */
@@ -943,7 +944,7 @@ class InculvaWidget {
   }
 
   private saveCurrentPrefs(): void {
-    const prefs: Record<string, boolean | string | number> = {};
+    const prefs: Record<string, boolean | string | number | string[]> = {};
     for (const feature of this.activeFeatures) {
       // Save the current level for leveled features (otherwise just true)
       prefs[feature] = this.featureLevels.get(feature) ?? true;
@@ -953,6 +954,8 @@ class InculvaWidget {
     prefs["widgetSize"] = this.panel.dataset["size"] ?? "regular";
     prefs["widgetPosition"] = this.config.position;
     prefs["widgetLanguage"] = this.config.language;
+    // Persist selected profiles
+    prefs["activeProfiles"] = Array.from(this.activeProfiles);
     savePrefs(prefs);
   }
 
@@ -1007,12 +1010,31 @@ class InculvaWidget {
       this.switchSize(prefs["widgetSize"] as "mini" | "regular" | "large");
     }
 
+    // Restore active profiles
+    const savedProfiles = prefs["activeProfiles"];
+    if (Array.isArray(savedProfiles)) {
+      for (const profileKey of savedProfiles) {
+        if (
+          typeof profileKey === "string" &&
+          PROFILES.find((p) => p.key === profileKey)
+        ) {
+          this.activeProfiles.add(profileKey);
+          const item = this.panel.querySelector<HTMLElement>(
+            `[data-profile="${profileKey}"]`,
+          );
+          item?.classList.add("active");
+          item?.setAttribute("aria-pressed", "true");
+        }
+      }
+    }
+
     for (const [feature, value] of Object.entries(prefs)) {
       if (feature === "colorBlindType") continue; // legacy key — ignored
       if (
         feature === "widgetSize" ||
         feature === "widgetPosition" ||
-        feature === "widgetLanguage"
+        feature === "widgetLanguage" ||
+        feature === "activeProfiles"
       )
         continue;
       if (!(feature in featureHandlers)) continue;

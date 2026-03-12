@@ -517,7 +517,7 @@ export const widgetStyles = `
     flex-shrink: 0;
   }
   .inculva-profile-card.active .inculva-profile-card-icon {
-    background: rgba(255,255,255,0.22);
+    background: #fff;
     color: #fff;
   }
 

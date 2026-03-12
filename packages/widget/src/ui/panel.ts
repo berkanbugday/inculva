@@ -523,7 +523,7 @@ function _buildControlsBar(
   ];
   for (const [sizeVal, sizeLabel] of sizeDefs) {
     const btn = document.createElement("button");
-    btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "large" ? " active" : ""}`;
+    btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "regular" ? " active" : ""}`;
     btn.setAttribute("type", "button");
     btn.setAttribute("aria-label", sizeLabel);
     btn.dataset["size"] = sizeVal;
@@ -793,7 +793,7 @@ export function createPanel(
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "false");
   panel.setAttribute("aria-label", labels["title"] ?? "Accessibility");
-  panel.dataset["size"] = "large";
+  panel.dataset["size"] = "regular";
   if (RTL_LANGS.has(language)) panel.setAttribute("dir", "rtl");
 
   panel.appendChild(_buildHeader(labels));
