@@ -82,8 +82,8 @@ export function getFeatureCategory(feature: keyof WidgetFeatures): string {
 // ---------------------------------------------------------------------------
 const ICON_TRIGGER = loadIcon(
   "universal-access",
-  50,
-  50,
+  48,
+  48,
   'style="filter: brightness(0) invert(1);"',
 );
 

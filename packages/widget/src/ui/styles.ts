@@ -3,19 +3,31 @@ export const widgetStyles = `
   #inculva-widget-btn {
     position: fixed !important;
     z-index: 2147483645 !important;
-    width: var(--inculva-button-size, 58px);
-    height: var(--inculva-button-size, 58px);
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.24), 0 2px 6px rgba(0,0,0,0.14);
-    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
-    outline: none;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
+    width: var(--inculva-button-size, 58px) !important;
+    height: var(--inculva-button-size, 58px) !important;
+    border-radius: 50% !important;
+    border: none !important;
+    background-color: var(--inculva-primary, #0066cc) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.24), 0 2px 6px rgba(0,0,0,0.14) !important;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease !important;
+    outline: none !important;
+    padding: 0 !important;
+    -webkit-tap-highlight-color: transparent !important;
+    box-sizing: content-box !important;
+    margin: 0 !important;
+  }
+  #inculva-widget-btn img {
+    width: 48px !important;
+    height: 48px !important;
+    max-width: 48px !important;
+    max-height: 48px !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+    pointer-events: none !important;
   }
   #inculva-widget-btn:hover {
     transform: scale(1.1);
@@ -46,7 +58,6 @@ export const widgetStyles = `
     align-items: center;
     justify-content: center;
     border: 2px solid #fff;
-    padding: 0 3px;
     pointer-events: none;
     z-index: 1;
   }
