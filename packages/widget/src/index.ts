@@ -288,13 +288,13 @@ class InculvaWidget {
     });
 
     document.addEventListener("keydown", (e) => {
-      // Alt+A global shortcut to toggle widget
+      // Ctrl+U global shortcut to toggle widget
       if (
-        e.altKey &&
+        e.ctrlKey &&
         !e.shiftKey &&
-        !e.ctrlKey &&
+        !e.altKey &&
         !e.metaKey &&
-        e.key === "a"
+        e.key === "u"
       ) {
         e.preventDefault();
         this.togglePanel();

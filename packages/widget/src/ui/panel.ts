@@ -236,7 +236,7 @@ export const PROFILES: ProfileDef[] = [
 // Labels (EN fallback)
 // ---------------------------------------------------------------------------
 const EN_LABELS: Record<string, string> = {
-  title: "Accessibility",
+  title: "Accessibility Menu",
   poweredBy: "Powered by Inculva",
   resetAll: "Reset All",
   profilesTitle: "Profiles",
@@ -366,22 +366,24 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
   const header = document.createElement("div");
   header.className = "inculva-panel-header";
 
-  const iconBox = document.createElement("div");
-  iconBox.className = "inculva-panel-header-icon";
-  iconBox.innerHTML = logoIconImg(22);
-
   const titleWrap = document.createElement("div");
   titleWrap.className = "inculva-panel-title-wrap";
 
   const title = document.createElement("span");
   title.className = "inculva-panel-title";
-  title.textContent = labels["title"] ?? "Accessibility";
+  title.textContent = labels["title"] ?? "Accessibility Menu";
+
+  const shortcut = document.createElement("span");
+  shortcut.className = "inculva-keyboard-shortcut";
+  shortcut.textContent = "(Ctrl+U)";
+  shortcut.setAttribute("aria-label", "Keyboard shortcut: Control plus U");
 
   const activeCount = document.createElement("span");
   activeCount.className = "inculva-active-count";
   activeCount.hidden = true;
 
   titleWrap.appendChild(title);
+  titleWrap.appendChild(shortcut);
   titleWrap.appendChild(activeCount);
 
   const actions = document.createElement("div");
@@ -407,7 +409,6 @@ function _buildHeader(labels: Record<string, string>): HTMLDivElement {
   actions.appendChild(resetBtn);
   actions.appendChild(closeBtn);
 
-  header.appendChild(iconBox);
   header.appendChild(titleWrap);
   header.appendChild(actions);
   return header;
@@ -764,11 +765,6 @@ function _buildFooter(
   const footer = document.createElement("div");
   footer.className = "inculva-panel-footer";
 
-  const poweredByText =
-    whiteLabelText === undefined || whiteLabelText === null
-      ? (labels["poweredBy"] ?? "Powered by Inculva")
-      : whiteLabelText;
-
   const brand = document.createElement("span");
   brand.className = "inculva-footer-logo";
   brand.innerHTML = logoImg(120);
@@ -794,7 +790,7 @@ export function createPanel(
   panel.id = "inculva-widget-panel";
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "false");
-  panel.setAttribute("aria-label", labels["title"] ?? "Accessibility");
+  panel.setAttribute("aria-label", labels["title"] ?? "Accessibility Menu");
   panel.dataset["size"] = "regular";
   if (RTL_LANGS.has(language)) panel.setAttribute("dir", "rtl");
 
@@ -830,10 +826,10 @@ export function updatePanel(
     panel.removeAttribute("dir");
   }
 
-  panel.setAttribute("aria-label", labels["title"] ?? "Accessibility");
+  panel.setAttribute("aria-label", labels["title"] ?? "Accessibility Menu");
 
   const titleEl = panel.querySelector<HTMLElement>(".inculva-panel-title");
-  if (titleEl) titleEl.textContent = labels["title"] ?? "Accessibility";
+  if (titleEl) titleEl.textContent = labels["title"] ?? "Accessibility Menu";
 
   const closeBtn = panel.querySelector<HTMLElement>(".inculva-panel-close");
   if (closeBtn)
@@ -931,13 +927,9 @@ export function updatePanel(
     prePre.replaceWith(newPre);
   }
 
-  // Update footer brand text
+  // Update footer - only logo, no text
   const footer = panel.querySelector<HTMLElement>(".inculva-panel-footer");
   if (footer) {
-    const poweredByText =
-      whiteLabelText === undefined || whiteLabelText === null
-        ? (labels["poweredBy"] ?? "Powered by Inculva")
-        : whiteLabelText;
     footer.innerHTML = "";
     const logo = document.createElement("span");
     logo.className = "inculva-footer-logo";
