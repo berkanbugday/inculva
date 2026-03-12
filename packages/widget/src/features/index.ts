@@ -129,7 +129,7 @@ function _flushHtmlFilter(): void {
     el.id = id;
     document.head.appendChild(el);
   }
-  el.textContent = `body { filter: ${parts.join(" ")} !important; }`;
+  el.textContent = `html { filter: ${parts.join(" ")} !important; }`;
 }
 
 function setHtmlFilter(key: string, value: string): void {
@@ -960,11 +960,23 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
   // ── Fully implemented Phase 2 features ─────────────────────────────────────
 
-  // Blue Light Filter — warm sepia tint reduces blue channel fatigue
+  // Blue Light Filter — warm amber overlay at a z-index below the widget.
+  // Using a fixed overlay instead of html/body filter means the widget is never
+  // inside a filtered stacking context and its appearance stays unchanged.
   blueLightFilter: {
-    enable: () =>
-      setHtmlFilter("blueLight", "sepia(0.25) saturate(0.85) brightness(0.95)"),
-    disable: () => removeHtmlFilter("blueLight"),
+    enable: () => {
+      if (!document.getElementById("inculva-blf-overlay")) {
+        const ol = document.createElement("div");
+        ol.id = "inculva-blf-overlay";
+        ol.setAttribute("aria-hidden", "true");
+        ol.style.cssText =
+          "position:fixed;inset:0;pointer-events:none;z-index:2147483640;background:rgba(255,140,0,0.14);";
+        document.body.appendChild(ol);
+      }
+    },
+    disable: () => {
+      document.getElementById("inculva-blf-overlay")?.remove();
+    },
   },
 
   // Hide Images — makes images invisible while preserving page layout
@@ -980,14 +992,19 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
     disable: () => removeStyle("inculva-hide-images"),
   },
 
-  // Dark Mode — CSS invert + hue-rotate trick; media elements are counter-inverted
-  // so photos/videos keep their original colours on the dark background.
+  // Dark Mode — CSS invert + hue-rotate on <html> so the filter covers the full
+  // page regardless of WordPress theme structure.
+  // Media elements and the widget itself are counter-inverted (same filter applied
+  // twice = identity), so photos/videos keep true colours and the widget is visually
+  // unchanged.  The blue-light overlay (#inculva-blf-overlay) is also counter-
+  // inverted so it keeps its warm amber tint when both features are active.
   darkMode: {
     enable: () => {
       setHtmlFilter("darkMode", "invert(1) hue-rotate(180deg)");
       injectStyle(
         "inculva-dark-mode-media",
-        `img:not([class*="inculva-"]):not([class*="inculva-"] img), video:not([class*="inculva-"]):not([class*="inculva-"] video), iframe:not([class*="inculva-"]):not([class*="inculva-"] iframe), canvas:not([class*="inculva-"]):not([class*="inculva-"] canvas) { filter: invert(1) hue-rotate(180deg) !important; }`,
+        `img:not([class*="inculva-"]):not([class*="inculva-"] img), video:not([class*="inculva-"]):not([class*="inculva-"] video), iframe:not([class*="inculva-"]):not([class*="inculva-"] iframe), canvas:not([class*="inculva-"]):not([class*="inculva-"] canvas) { filter: invert(1) hue-rotate(180deg) !important; }
+        #inculva-widget-btn, #inculva-widget-panel, #inculva-widget-backdrop, #inculva-tooltip, #inculva-blf-overlay { filter: invert(1) hue-rotate(180deg) !important; }`,
       );
     },
     disable: () => {
