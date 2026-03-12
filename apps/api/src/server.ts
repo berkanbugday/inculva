@@ -24,6 +24,15 @@ async function bootstrap(): Promise<void> {
     // Widget is loaded cross-origin on customer sites; allow any origin to read responses
     crossOriginResourcePolicy: { policy: "cross-origin" },
   });
+
+  // Chrome Private Network Access — must be registered before @fastify/cors so the
+  // header is present when the CORS plugin sends the preflight reply.
+  app.addHook("onRequest", async (_request, reply) => {
+    if (_request.headers["access-control-request-private-network"] === "true") {
+      void reply.header("Access-Control-Allow-Private-Network", "true");
+    }
+  });
+
   // Widget routes must be accessible from any origin (embedded on external sites).
   // Other routes are gated by API keys or session cookies.
   await app.register(cors, {

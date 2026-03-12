@@ -40,7 +40,7 @@ const securityHeaders = [
       "img-src 'self' data: https://picsum.photos https://cdn.inculva.com",
       // always allow the production API (widget defaults to it); also allow local in dev
       // widgetSrc is also needed in dev so browser can fetch source maps for widget.iife.js
-      `connect-src 'self' https://api.inculva.com${isDev ? ` ${apiSrc} ${widgetSrc}` : ""}`,
+      `connect-src 'self' https://api.inculva.com https://cdn.inculva.com${isDev ? ` ${apiSrc} ${widgetSrc}` : ""}`,
       "frame-ancestors 'none'",
       "base-uri 'self'",
     ].join("; "),

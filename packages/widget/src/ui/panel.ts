@@ -2,8 +2,7 @@ import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
 import { FEATURE_LEVELS } from "../features/index.js";
 import { LOGO_PNG } from "virtual:logo-svg";
 import { LOGO_ICON_PNG } from "virtual:logo-icon-svg";
-import { TRANSLATIONS } from "./translations.js";
-
+import { TR_TRANSLATIONS } from "./translations-tr.js";
 const ICON_CDN_URL = "https://cdn.inculva.com/icons";
 
 /** Helper to create an img tag that loads icon from CDN */
@@ -19,10 +18,7 @@ function loadIcon(
 
 /** Renders the brand logo PNG at the given size (square 1:1 ratio). */
 function logoImg(size: number): string {
-  return `<img src="${LOGO_PNG}" width="${size}" height="${size}" alt="" aria-hidden="true" style="display:block;border-radius:4px;">`;
-}
-function logoIconImg(size: number): string {
-  return `<img src="${LOGO_ICON_PNG}" width="${size}" height="${size}" alt="" aria-hidden="true" style="display:block;border-radius:4px;">`;
+  return `<img src="${LOGO_PNG}" width="${size}" alt="" aria-hidden="true" style="display:block;border-radius:4px;">`;
 }
 
 type FeatureConfig = {
@@ -296,9 +292,22 @@ const EN_LABELS: Record<string, string> = {
   active: "Active",
 };
 
-/** Merge EN_LABELS with translations for the given language code. */
+/** Runtime translation cache — Turkish is bundled inline; others lazy-loaded from CDN. */
+const _translationCache: Record<string, Record<string, string>> = {
+  tr: TR_TRANSLATIONS,
+};
+
+/** Register translations for a language (called at runtime after CDN fetch). */
+export function setTranslationCache(
+  lang: string,
+  data: Record<string, string>,
+): void {
+  _translationCache[lang] = data;
+}
+
+/** Merge EN_LABELS with cached translations for the given language. */
 export function getLabels(lang: string): Record<string, string> {
-  return { ...EN_LABELS, ...(TRANSLATIONS[lang] ?? {}) };
+  return { ...EN_LABELS, ...(_translationCache[lang] ?? {}) };
 }
 
 const COLOR_BLIND_TYPES: ColorBlindType[] = [

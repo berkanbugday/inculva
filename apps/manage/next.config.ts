@@ -38,6 +38,7 @@ const connectSrc = [
   "'self'",
   apiUrl,
   devApiUrl,
+  "https://cdn.inculva.com",
 ]
   .filter(Boolean)
   .join(" ");
@@ -86,6 +87,16 @@ const nextConfig: NextConfig = {
           { key: "Access-Control-Allow-Methods", value: "GET, OPTIONS" },
           { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
           { key: "Cache-Control", value: "public, max-age=300, stale-while-revalidate=60" },
+        ],
+      },
+      {
+        // i18n translation JSON files must be loadable cross-origin (widget fetches from CDN)
+        source: "/i18n/:file*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET, OPTIONS" },
+          { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+          { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=3600" },
         ],
       },
       {

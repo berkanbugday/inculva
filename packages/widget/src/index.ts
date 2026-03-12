@@ -20,6 +20,7 @@ import {
   applyPosition,
   applyPanelPosition,
   getLabels,
+  setTranslationCache,
   PROFILES,
   FEATURE_CATEGORIES,
   SUPPORTED_LANGUAGES,
@@ -29,6 +30,7 @@ import { savePrefs, loadPrefs } from "./utils/storage.js";
 import { getSessionId } from "./utils/session.js";
 
 type PartialConfig = Partial<WidgetConfig> & { siteId: string };
+
 
 const DEFAULT_CONFIG: Omit<WidgetConfig, "siteId"> = {
   position: "bottom-right",
@@ -79,6 +81,9 @@ class InculvaWidget {
   private featureLevels: Map<keyof WidgetFeatures, number> = new Map();
   /** True while restorePrefs() is running — blocks intermediate saveCurrentPrefs() calls. */
   private _restoring = false;
+  /** Languages whose translation data has been fetched from CDN. */
+  /** Languages bundled inline (no CDN fetch needed). */
+  private _loadedLangs: Set<string> = new Set(["en", "tr"]);
   private isOpen = false;
   private btn!: HTMLButtonElement;
   private badge!: HTMLSpanElement;
@@ -125,10 +130,27 @@ class InculvaWidget {
 
     this.injectStyles();
     this.applyTheme();
+    if (this.config.language !== "en") {
+      await this._preloadTranslation(this.config.language);
+    }
     this.renderWidget();
     setSrLang(this.config.language);
     this.applyConfigToDOM();
     this.restorePrefs();
+  }
+
+  /** Fetch and cache translations for a language from the Inculva CDN. */
+  private async _preloadTranslation(lang: string): Promise<void> {
+    if (lang === "en" || this._loadedLangs.has(lang)) return;
+    try {
+      const resp = await fetch(`https://cdn.inculva.com/i18n/${lang}.json`);
+      if (!resp.ok) return;
+      const data = (await resp.json()) as Record<string, string>;
+      setTranslationCache(lang, data);
+      this._loadedLangs.add(lang);
+    } catch {
+      // graceful degradation — fall back to English
+    }
   }
 
   private injectStyles(): void {
@@ -230,7 +252,7 @@ class InculvaWidget {
         }
         if (action === "set-language") {
           const langCode = actionTarget.dataset["langCode"];
-          if (langCode) this._setLanguage(langCode);
+          if (langCode) void this._setLanguage(langCode);
           return;
         }
       }
@@ -681,11 +703,13 @@ class InculvaWidget {
   }
 
   /** Switch the panel language (RTL/LTR + translate all UI text). */
-  private _setLanguage(lang: string): void {
+  private async _setLanguage(lang: string): Promise<void> {
     this.config.language = lang;
     setSrLang(lang);
     // Close dropdown first
     this._closeLangDropdown();
+    // Pre-load translations for this language if not already cached
+    await this._preloadTranslation(lang);
     // Re-render all translatable text via updatePanel
     updatePanel(
       this.panel,

@@ -51,7 +51,7 @@ function LoginForm() {
 
         {/* Brand */}
         <div className="flex items-center gap-3 relative z-10">
-          <img src="/logo.png" alt="Inculva" className="h-8 w-auto" />
+          <img src="/logo-dark.png" alt="Inculva" className="h-8 w-auto" />
         </div>
 
         {/* Middle */}
@@ -104,7 +104,7 @@ function LoginForm() {
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
             <img
-              src="/logo.png"
+              src="/logo-dark.png"
               alt="Inculva"
               className="h-10 w-auto mx-auto"
             />

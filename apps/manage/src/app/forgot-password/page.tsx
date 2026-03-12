@@ -32,7 +32,7 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex items-center justify-center mb-8">
-          <img src="/logo.png" alt="Inculva" className="h-8 w-auto" />
+          <img src="/logo-dark.png" alt="Inculva" className="h-8 w-auto" />
         </div>
 
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm p-8">

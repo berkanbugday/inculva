@@ -55,7 +55,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 name: "Inculva",
                 url: siteUrl,
-                logo: `${siteUrl}/logo.png`,
+                logo: `${siteUrl}/logo-dark.png`,
                 description:
                   "Web accessibility widget for any website. 19 features, WCAG 2.1 AA compliant, one script tag.",
                 contactPoint: {

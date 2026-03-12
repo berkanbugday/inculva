@@ -68,7 +68,6 @@ jobs:
               --metadata "Access-Control-Allow-Origin=*"
           done
 
-
       # ── i18n/ ────────────────────────────────────────────────────────────────
       # Translation JSON files — 1 day TTL, CORS open so any embedded site can load.
       - name: Upload i18n JSON files to R2 (cdn.inculva.com/i18n/*)
@@ -86,7 +85,7 @@ jobs:
       # Brand logos — widget loads these from CDN instead of embedding as base64.
       - name: Upload logo images to R2 (cdn.inculva.com/logos/*)
         run: |
-          aws s3 cp apps/landing/public/logo-dark.png \
+          aws s3 cp apps/landing/public/logo.png \
             s3://${{ env.R2_BUCKET }}/logos/logo.png \
             --endpoint-url ${{ env.R2_ENDPOINT }} \
             --content-type "image/png" \
