@@ -532,15 +532,8 @@ class InculvaWidget {
       }
     }
 
-    // colorBlindMode: update the button label to show the active type name
-    if (feature === "colorBlindMode" && btn) {
-      const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
-      if (labelEl) {
-        labelEl.textContent = !isActive
-          ? this._cbmTypeName(1)
-          : (this._labels["colorBlindMode"] ?? "Color Blind");
-      }
-    }
+    // Update label for features whose text changes with level
+    if (btn) this._applyFeatureLabel(feature, !isActive ? 1 : 0, btn);
 
     const featureName = this._labels[feature] ?? feature;
     this.announce(`${featureName} ${!isActive ? "enabled" : "disabled"}`);
@@ -586,41 +579,8 @@ class InculvaWidget {
       }
     }
 
-    // colorBlindMode: update button label to show the active type name
-    if (feature === "colorBlindMode" && btn) {
-      const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
-      if (labelEl) {
-        labelEl.textContent =
-          nextLevel > 0
-            ? this._cbmTypeName(nextLevel)
-            : (this._labels["colorBlindMode"] ?? "Color Blind");
-      }
-    }
-
-    // saturation level 1 = high contrast: update label accordingly
-    if (feature === "saturation" && btn) {
-      const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
-      if (labelEl) {
-        if (nextLevel === 0) {
-          labelEl.textContent = this._labels["saturation"] ?? "Contrast+";
-        } else if (nextLevel === 1) {
-          labelEl.textContent = this._labels["highContrast"] ?? "High Contrast";
-        } else {
-          labelEl.textContent = this._labels["saturation"] ?? "Contrast+";
-        }
-      }
-    }
-
-    // screenReader: update button label to show the active mode name
-    if (feature === "screenReader" && btn) {
-      const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
-      if (labelEl) {
-        labelEl.textContent =
-          nextLevel > 0
-            ? (SR_MODE_LABELS[nextLevel] ?? "Screen reader")
-            : (this._labels["screenReader"] ?? "Screen reader");
-      }
-    }
+    // Update label for features whose text changes with level
+    if (btn) this._applyFeatureLabel(feature, nextLevel, btn);
 
     const featureName = this._labels[feature] ?? feature;
     const announcement =
@@ -918,6 +878,36 @@ class InculvaWidget {
     const key = CBM_CYCLE_TYPES[level - 1];
     if (!key) return this._labels["colorBlindMode"] ?? "Color Blind";
     return this._labels[key] ?? key.charAt(0).toUpperCase() + key.slice(1);
+  }
+
+  /**
+   * Updates the label text of a feature button for features whose label
+   * changes depending on level (colorBlindMode, saturation, screenReader).
+   * Pass level=0 to reset to the default label (feature turned off).
+   */
+  private _applyFeatureLabel(
+    feature: keyof WidgetFeatures,
+    level: number,
+    btn: HTMLElement,
+  ): void {
+    const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
+    if (!labelEl) return;
+    if (feature === "colorBlindMode") {
+      labelEl.textContent =
+        level > 0
+          ? this._cbmTypeName(level)
+          : (this._labels["colorBlindMode"] ?? "Color Blind");
+    } else if (feature === "saturation") {
+      labelEl.textContent =
+        level === 1
+          ? (this._labels["highContrast"] ?? "High Contrast")
+          : (this._labels["saturation"] ?? "Contrast+");
+    } else if (feature === "screenReader") {
+      labelEl.textContent =
+        level > 0
+          ? (SR_MODE_LABELS[level] ?? "Screen reader")
+          : (this._labels["screenReader"] ?? "Screen reader");
+    }
   }
 
   private selectColorBlindType(type: ColorBlindType): void {
