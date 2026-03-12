@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite build --watch",
-    "build": "vite build && cp dist/widget.iife.js ../../apps/manage/public/widget.js",
-    "build:cdn": "vite build",
+    "build": "vite build && node scripts/extract-i18n.mjs",
+    "build:cdn": "BUILD_TARGET=cdn vite build && node scripts/extract-i18n.mjs",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },

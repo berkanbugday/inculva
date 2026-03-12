@@ -48,19 +48,11 @@ jobs:
       # Short TTL (5 min) so updates propagate quickly after each deploy.
       - name: Upload widget.js to R2
         run: |
-          aws s3 cp packages/widget/dist/widget.iife.js \
+          aws s3 cp packages/widget/dist/widget.js \
             s3://${{ env.R2_BUCKET }}/widget.js \
             --endpoint-url ${{ env.R2_ENDPOINT }} \
             --content-type "application/javascript; charset=utf-8" \
             --cache-control "public, max-age=300, stale-while-revalidate=60"
-
-      - name: Upload source map to R2
-        run: |
-          aws s3 cp packages/widget/dist/widget.iife.js.map \
-            s3://${{ env.R2_BUCKET }}/widget.iife.js.map \
-            --endpoint-url ${{ env.R2_ENDPOINT }} \
-            --content-type "application/json" \
-            --cache-control "public, max-age=300"
 
       # ── fonts/ ───────────────────────────────────────────────────────────────
       # Fonts are content-addressed by filename and never mutate, so they use an
