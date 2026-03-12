@@ -77,6 +77,8 @@ class InculvaWidget {
   private activeProfiles: Set<string> = new Set();
   /** Current level (1-N) for leveled features. 0 / absent means feature is off. */
   private featureLevels: Map<keyof WidgetFeatures, number> = new Map();
+  /** True while restorePrefs() is running — blocks intermediate saveCurrentPrefs() calls. */
+  private _restoring = false;
   private isOpen = false;
   private btn!: HTMLButtonElement;
   private badge!: HTMLSpanElement;
@@ -125,8 +127,8 @@ class InculvaWidget {
     this.applyTheme();
     this.renderWidget();
     setSrLang(this.config.language);
-    this.restorePrefs();
     this.applyConfigToDOM();
+    this.restorePrefs();
   }
 
   private injectStyles(): void {
@@ -944,10 +946,23 @@ class InculvaWidget {
   }
 
   private saveCurrentPrefs(): void {
+    if (this._restoring) return;
     const prefs: Record<string, boolean | string | number | string[]> = {};
     for (const feature of this.activeFeatures) {
-      // Save the current level for leveled features (otherwise just true)
-      prefs[feature] = this.featureLevels.get(feature) ?? true;
+      const level = this.featureLevels.get(feature);
+      prefs[feature] = level ?? true;
+      // Save label text for leveled features so it can be restored exactly
+      if (level !== undefined) {
+        const btn = this.panel.querySelector<HTMLElement>(
+          `[data-feature="${feature}"]`,
+        );
+        const labelEl = btn?.querySelector<HTMLElement>(
+          ".inculva-feature-label",
+        );
+        if (labelEl?.textContent) {
+          prefs[`${feature}Label`] = labelEl.textContent;
+        }
+      }
     }
     prefs["colorBlindType"] = getColorBlindType();
     // Persist UI state: widget size, position, and language
@@ -960,6 +975,7 @@ class InculvaWidget {
   }
 
   private restorePrefs(): void {
+    this._restoring = true;
     const prefs = loadPrefs();
 
     // Restore language FIRST — so UI renders with the correct language
@@ -1030,6 +1046,7 @@ class InculvaWidget {
 
     for (const [feature, value] of Object.entries(prefs)) {
       if (feature === "colorBlindType") continue; // legacy key — ignored
+      if (feature.endsWith("Label")) continue; // label keys are applied below
       if (
         feature === "widgetSize" ||
         feature === "widgetPosition" ||
@@ -1058,34 +1075,13 @@ class InculvaWidget {
           btn.classList.add("active");
           btn.setAttribute("aria-pressed", "true");
           btn.dataset["level"] = String(value);
-          // Restore colorBlindMode type label
-          if (feat === "colorBlindMode") {
+          // Restore saved label text (covers colorBlindMode, saturation, screenReader, etc.)
+          const savedLabel = prefs[`${feat}Label`];
+          if (typeof savedLabel === "string") {
             const labelEl = btn.querySelector<HTMLElement>(
               ".inculva-feature-label",
             );
-            if (labelEl) labelEl.textContent = this._cbmTypeName(value);
-          }
-          // Restore saturation label (level 1 = high contrast)
-          if (feat === "saturation") {
-            const labelEl = btn.querySelector<HTMLElement>(
-              ".inculva-feature-label",
-            );
-            if (labelEl)
-              labelEl.textContent =
-                value === 1
-                  ? (this._labels["highContrast"] ?? "High Contrast")
-                  : (this._labels["saturation"] ?? "Contrast+");
-          }
-          // Restore screenReader mode label
-          if (feat === "screenReader") {
-            const labelEl = btn.querySelector<HTMLElement>(
-              ".inculva-feature-label",
-            );
-            if (labelEl)
-              labelEl.textContent =
-                SR_MODE_LABELS[value] ??
-                this._labels["screenReader"] ??
-                "Screen reader";
+            if (labelEl) labelEl.textContent = savedLabel;
           }
         }
       } else if (value === true || (typeof value === "number" && value >= 1)) {
@@ -1094,6 +1090,9 @@ class InculvaWidget {
     }
     // Sync badge after all saved preferences are restored
     this.updateActiveBadge();
+    // Unblock saves and persist the fully-restored state in one write
+    this._restoring = false;
+    this.saveCurrentPrefs();
   }
 
   /**

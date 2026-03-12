@@ -502,7 +502,6 @@ export const widgetStyles = `
     background: var(--inculva-primary, #0066cc) !important;
     border-color: var(--inculva-primary, #0066cc) !important;
     color: #fff !important;
-    box-shadow: 0 4px 12px rgba(0,102,204,0.28) !important;
   }
   .inculva-profile-card-icon {
     width: 50px;
@@ -582,7 +581,6 @@ export const widgetStyles = `
     background: var(--inculva-primary, #0066cc) !important;
     border-color: var(--inculva-primary, #0066cc) !important;
     color: #fff !important;
-    box-shadow: 0 4px 12px rgba(0,102,204,0.32) !important;
   }
   /* Active state: icon box border matches the active button border (primary color) */
   .inculva-feature-btn.active .inculva-feature-icon-box {
