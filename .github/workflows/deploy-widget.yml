@@ -5,9 +5,12 @@ on:
     branches: [master, main]
     paths:
       - "packages/widget/src/**"
-      - "packages/widget/public/fonts/**"
+      - "packages/widget/public/**"
+      - "packages/widget/scripts/**"
       - "packages/widget/vite.config.ts"
       - "packages/widget/package.json"
+      - "apps/landing/public/logo-dark.png"
+      - "apps/landing/public/logo-icon.png"
       - ".github/workflows/deploy-widget.yml"
 
 jobs:
@@ -28,8 +31,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -85,3 +86,31 @@ jobs:
               --cache-control "public, max-age=31536000, immutable" \
               --metadata "Access-Control-Allow-Origin=*"
           done
+
+      # ── i18n/ ────────────────────────────────────────────────────────────────
+      # Translation JSON files — 1 day TTL, CORS open so any embedded site can load.
+      - name: Upload i18n JSON files to R2 (cdn.inculva.com/i18n/*)
+        run: |
+          for f in packages/widget/public/i18n/*.json; do
+            aws s3 cp "$f" \
+              s3://${{ env.R2_BUCKET }}/i18n/$(basename "$f") \
+              --endpoint-url ${{ env.R2_ENDPOINT }} \
+              --content-type "application/json; charset=utf-8" \
+              --cache-control "public, max-age=86400, stale-while-revalidate=3600" \
+              --metadata "Access-Control-Allow-Origin=*"
+          done
+
+      # ── logos ─────────────────────────────────────────────────────────────────
+      # Brand logos — widget loads these from CDN instead of embedding as base64.
+      - name: Upload logo images to R2 (cdn.inculva.com/logo-*.png)
+        run: |
+          aws s3 cp apps/landing/public/logo-dark.png \
+            s3://${{ env.R2_BUCKET }}/logo-dark.png \
+            --endpoint-url ${{ env.R2_ENDPOINT }} \
+            --content-type "image/png" \
+            --cache-control "public, max-age=31536000, immutable"
+          aws s3 cp apps/landing/public/logo-icon.png \
+            s3://${{ env.R2_BUCKET }}/logo-icon.png \
+            --endpoint-url ${{ env.R2_ENDPOINT }} \
+            --content-type "image/png" \
+            --cache-control "public, max-age=31536000, immutable"
