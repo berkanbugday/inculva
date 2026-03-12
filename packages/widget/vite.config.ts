@@ -33,10 +33,7 @@ function logoSvgPlugin(): Plugin {
 function logoIconSvgPlugin(): Plugin {
   const VIRTUAL_ID = "virtual:logo-icon-svg";
   const RESOLVED_ID = "\0" + VIRTUAL_ID;
-  const pngSrc = resolve(
-    __dirname,
-    "../../apps/landing/public/logo-icon-dark.png",
-  );
+  const pngSrc = resolve(__dirname, "../../apps/landing/public/logo-icon.png");
 
   return {
     name: "logo-icon-svg",

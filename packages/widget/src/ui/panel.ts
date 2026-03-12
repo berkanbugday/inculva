@@ -771,7 +771,7 @@ function _buildFooter(
 
   const brand = document.createElement("span");
   brand.className = "inculva-footer-logo";
-  brand.innerHTML = logoImg(150);
+  brand.innerHTML = logoImg(120);
   footer.appendChild(brand);
 
   return footer;
@@ -941,7 +941,7 @@ export function updatePanel(
     footer.innerHTML = "";
     const logo = document.createElement("span");
     logo.className = "inculva-footer-logo";
-    logo.innerHTML = logoImg(150);
+    logo.innerHTML = logoImg(120);
     footer.appendChild(logo);
   }
 }

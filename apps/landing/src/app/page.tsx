@@ -12,7 +12,7 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-gray-950/90 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="Inculva" className="h-14 w-auto" />
+            <img src="/logo.png" alt="Inculva" className="h-10 w-auto" />
           </a>
 
           <nav className="hidden md:flex items-center gap-1 text-sm">
