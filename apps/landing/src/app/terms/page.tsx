@@ -1,6 +1,6 @@
 export default function TermsPage() {
   const lastUpdated = "March 4, 2026";
-  const APP_URL = process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com";
+  const APP_URL = process.env["NEXT_PUBLIC_APP_URL"]!;
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">

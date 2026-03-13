@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="inculva" translate="label" sortOrder="999">
+            <label>Inculva</label>
+        </tab>
+        <section id="inculva_widget" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Accessibility Widget</label>
+            <tab>inculva</tab>
+            <resource>Inculva_Widget::config</resource>
+            <group id="banner" translate="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label></label>
+                <field id="dashboard_banner" translate="label" type="note" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label></label>
+                    <frontend_model>Inculva\Widget\Block\Adminhtml\Banner</frontend_model>
+                </field>
+            </group>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="site_id" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Site ID</label>
+                    <comment>Find your Site ID at app.inculva.com</comment>
+                </field>
+                <field id="api_url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Widget API URL</label>
+                    <comment>Leave default unless you use a self-hosted API</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

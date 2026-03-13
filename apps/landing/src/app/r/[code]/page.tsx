@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-const APP_URL = process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com";
+const APP_URL = process.env["NEXT_PUBLIC_APP_URL"]!;
 
 interface Props {
   params: Promise<{ code: string }>;

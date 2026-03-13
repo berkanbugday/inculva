@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
-const APP_URL = process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com";
+const APP_URL = process.env["NEXT_PUBLIC_APP_URL"]!;
+const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
 export default function HomePage() {
   const register = `${APP_URL}/register`;
@@ -159,7 +160,7 @@ export default function HomePage() {
                   <p className="text-gray-400 pl-4">
                     src=
                     <span className="text-amber-300">
-                      &quot;https://cdn.inculva.com/widget.js&quot;
+                      &quot;{`${CDN_URL}/widget.js`}&quot;
                     </span>
                   </p>
                   <p className="text-gray-400 pl-4">

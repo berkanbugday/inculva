@@ -3,12 +3,14 @@ import { cookies } from "next/headers";
 import "@inculva/ui/globals.css";
 import { CookieBanner } from "@/components/cookie-banner";
 
+const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
+
 export const metadata: Metadata = {
   title: "Inculva — Accessibility Dashboard",
   description: "Manage your web accessibility widget settings and analytics.",
   icons: {
-    icon: "/assets/icons/universal-access.svg",
-    shortcut: "/assets/icons/universal-access.svg",
+    icon: `${CDN_URL}/icons/universal-access.svg`,
+    shortcut: `${CDN_URL}/icons/universal-access.svg`,
   },
 };
 

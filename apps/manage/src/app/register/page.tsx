@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@inculva/ui";
 import { OAuthButtons, OAuthDivider } from "@/components/oauth-buttons";
 
+const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
+
 const STATS = [
   { value: "25", label: "Accessibility features" },
   { value: "41", label: "Languages" },
@@ -62,7 +64,7 @@ function RegisterForm() {
 
         {/* Brand */}
         <div className="flex items-center gap-3 relative z-10">
-          <img src="/logo-dark.png" alt="Inculva" className="h-8 w-auto" />
+          <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva" className="h-8 w-auto" />
         </div>
 
         {/* Middle */}
@@ -129,7 +131,7 @@ function RegisterForm() {
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
             <img
-              src="/logo-dark.png"
+              src={`${CDN_URL}/logos/logo.png`}
               alt="Inculva"
               className="h-10 w-auto mx-auto"
             />

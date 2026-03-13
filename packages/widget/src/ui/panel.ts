@@ -3,7 +3,7 @@ import { FEATURE_LEVELS } from "../features/index.js";
 import { LOGO_PNG } from "virtual:logo-svg";
 import { LOGO_ICON_PNG } from "virtual:logo-icon-svg";
 import { TR_TRANSLATIONS } from "./translations-tr.js";
-const ICON_CDN_URL = "https://cdn.inculva.com/icons";
+const ICON_CDN_URL = `${__CDN_URL__}/icons`;
 
 /** Helper to create an img tag that loads icon from CDN */
 function loadIcon(

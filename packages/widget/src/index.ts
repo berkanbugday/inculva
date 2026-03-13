@@ -110,7 +110,7 @@ class InculvaWidget {
     };
     this.apiBase =
       (window as Window & { INCULVA_API_URL?: string }).INCULVA_API_URL ??
-      "https://api.inculva.com";
+      __API_URL__;
     this.init();
   }
 
@@ -143,7 +143,7 @@ class InculvaWidget {
   private async _preloadTranslation(lang: string): Promise<void> {
     if (lang === "en" || this._loadedLangs.has(lang)) return;
     try {
-      const resp = await fetch(`https://cdn.inculva.com/i18n/${lang}.json`);
+      const resp = await fetch(`${__CDN_URL__}/i18n/${lang}.json`);
       if (!resp.ok) return;
       const data = (await resp.json()) as Record<string, string>;
       setTranslationCache(lang, data);

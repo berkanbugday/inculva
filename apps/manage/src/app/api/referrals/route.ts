@@ -4,8 +4,8 @@ import { db } from "@inculva/db";
 import { headers } from "next/headers";
 import { generateReferralCode } from "@/lib/referral";
 
-const APP_URL = process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com";
-const LANDING_URL = process.env["NEXT_PUBLIC_LANDING_URL"] ?? "https://inculva.com";
+const APP_URL = process.env["NEXT_PUBLIC_APP_URL"]!;
+const LANDING_URL = process.env["NEXT_PUBLIC_LANDING_URL"]!;
 
 export async function GET() {
   const session = await auth.api.getSession({ headers: await headers() });

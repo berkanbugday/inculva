@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "@inculva/ui/globals.css";
 import { CookieBanner } from "@/components/cookie-banner";
 
-const siteUrl = "https://inculva.com";
+const siteUrl = process.env["NEXT_PUBLIC_LANDING_URL"]!;
+const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
 export const metadata: Metadata = {
   title: "Inculva — Web Accessibility Widget",
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
     "Add 25 real accessibility features to any website in under 5 minutes. WCAG 2.1 AA, EAA 2025, ADA compliant. One script tag.",
   metadataBase: new URL(siteUrl),
   icons: {
-    icon: "/logo-icon.png",
-    shortcut: "/logo-icon.png",
+    icon: `${CDN_URL}/logos/logo-icon.png`,
+    shortcut: `${CDN_URL}/logos/logo-icon.png`,
   },
   openGraph: {
     type: "website",
@@ -109,19 +110,16 @@ export default function RootLayout({
       <body>
         {children}
         <CookieBanner />
-        {process.env.NODE_ENV === "development" && (
+        {process.env["NEXT_PUBLIC_API_URL"] && (
           <script
             dangerouslySetInnerHTML={{
-              __html: `window.INCULVA_API_URL = "http://localhost:3001";`,
+              __html: `window.INCULVA_API_URL = ${JSON.stringify(process.env["NEXT_PUBLIC_API_URL"])};`,
             }}
           />
         )}
         <script
           src={
-            process.env.NEXT_PUBLIC_WIDGET_URL ??
-            (process.env.NODE_ENV === "development"
-              ? "http://localhost:3000/widget.js"
-              : "https://cdn.inculva.com/widget.js")
+            process.env["NEXT_PUBLIC_WIDGET_URL"]!
           }
           data-site-id="cmmjb1jzv0001i3jiilvu3xp5"
           defer

@@ -1,0 +1,27 @@
+{% render 'inculva-widget' %}
+
+{% schema %}
+{
+  "name": "Inculva Widget",
+  "settings": [
+    {
+      "type": "text",
+      "id": "inculva_site_id",
+      "label": "Site ID",
+      "info": "Find your Site ID at app.inculva.com"
+    },
+    {
+      "type": "text",
+      "id": "inculva_api_url",
+      "label": "Widget API URL",
+      "default": "https://api.inculva.com",
+      "info": "Leave default unless you use a self-hosted API"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inculva Accessibility Widget"
+    }
+  ]
+}
+{% endschema %}

@@ -39,10 +39,7 @@ export default async function SitePage({ params }: Props) {
         siteId={site.id}
         initialName={site.name}
         initialDomain={site.domain}
-        widgetScriptSrc={
-          process.env["NEXT_PUBLIC_WIDGET_URL"] ??
-          `${process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com"}/widget.js`
-        }
+        widgetScriptSrc={process.env["NEXT_PUBLIC_WIDGET_URL"]!}
       />
 
       {/* Sub-nav */}
@@ -98,13 +95,13 @@ export default async function SitePage({ params }: Props) {
         <div className="flex items-center gap-3 mb-4">
           {/* Live preview of badge */}
           <img
-            src={`${process.env["NEXT_PUBLIC_API_URL"] ?? "https://api.inculva.com"}/badge/${site.id}.svg`}
+            src={`${process.env["NEXT_PUBLIC_API_URL"]!}/badge/${site.id}.svg`}
             alt="WCAG 2.1 AA compliance badge"
             height={20}
           />
         </div>
         <pre className="bg-gray-50 dark:bg-gray-950 rounded-lg p-4 text-xs overflow-x-auto text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-800 select-all">
-{`<img src="${process.env["NEXT_PUBLIC_API_URL"] ?? "https://api.inculva.com"}/badge/${site.id}.svg" alt="WCAG 2.1 AA" height="20" />`}
+{`<img src="${process.env["NEXT_PUBLIC_API_URL"]!}/badge/${site.id}.svg" alt="WCAG 2.1 AA" height="20" />`}
         </pre>
       </div>
 

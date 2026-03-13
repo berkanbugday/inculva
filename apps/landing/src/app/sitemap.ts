@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://inculva.com";
+const BASE_URL = process.env["NEXT_PUBLIC_LANDING_URL"]!;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

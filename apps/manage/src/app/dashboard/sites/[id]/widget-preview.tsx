@@ -18,15 +18,9 @@ function buildPreviewHtml(config: PreviewConfig): string {
   const textColor = config.theme === "dark" ? "#eee" : "#333";
 
   // Must be an absolute URL — srcdoc iframes have no URL to resolve relative
-  // paths against even with allow-same-origin. In production NEXT_PUBLIC_WIDGET_URL
-  // is the CDN URL; in dev we fall back to the parent page's own /widget.js.
-  const widgetSrc =
-    (process.env.NEXT_PUBLIC_WIDGET_URL as string | undefined) ??
-    `${window.location.origin}/widget.js`;
-
-  const apiUrl =
-    (process.env.NEXT_PUBLIC_API_URL as string | undefined) ??
-    "http://localhost:3001";
+  // paths against even with allow-same-origin.
+  const widgetSrc = process.env.NEXT_PUBLIC_WIDGET_URL!;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL!;
 
   const previewConfig = JSON.stringify({
     siteId: config.siteId,

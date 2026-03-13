@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
 
-const APP_URL = process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com";
+const APP_URL = process.env["NEXT_PUBLIC_APP_URL"]!;
 
 export async function POST(request: NextRequest) {
   const session = await auth.api.getSession({ headers: await headers() });

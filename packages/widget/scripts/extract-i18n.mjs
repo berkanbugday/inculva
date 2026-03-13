@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Extracts translations from translations.ts and writes one JSON file per language.
- * Output: public/i18n/{lang}.json and apps/manage/public/i18n/{lang}.json
+ * Output: public/i18n/{lang}.json
+ * Also copies to apps/manage/public/i18n/ for local dev (non-CDN builds only).
  */
 import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { resolve, dirname } from "path";
@@ -36,19 +37,28 @@ while ((match = langBlockRegex.exec(src)) !== null) {
   }
 }
 
+const isCdn = process.env["BUILD_TARGET"] === "cdn";
+
 // Write output
 const outDir = resolve(root, "public/i18n");
-const manageOutDir = resolve(root, "../../apps/manage/public/i18n");
-
 mkdirSync(outDir, { recursive: true });
-mkdirSync(manageOutDir, { recursive: true });
 
 let count = 0;
 for (const [lang, data] of Object.entries(langs)) {
   const json = JSON.stringify(data);
   writeFileSync(resolve(outDir, `${lang}.json`), json);
-  writeFileSync(resolve(manageOutDir, `${lang}.json`), json);
   count++;
 }
 
-console.log(`Extracted ${count} language files to public/i18n/ and apps/manage/public/i18n/`);
+// In local dev builds (non-CDN), also copy to apps/manage/public so the
+// Next.js dev server can serve them at http://localhost:3000/i18n/*.json.
+if (!isCdn) {
+  const manageOutDir = resolve(root, "../../apps/manage/public/i18n");
+  mkdirSync(manageOutDir, { recursive: true });
+  for (const [lang, data] of Object.entries(langs)) {
+    writeFileSync(resolve(manageOutDir, `${lang}.json`), JSON.stringify(data));
+  }
+  console.log(`Extracted ${count} language files to public/i18n/ and apps/manage/public/i18n/`);
+} else {
+  console.log(`Extracted ${count} language files to public/i18n/`);
+}

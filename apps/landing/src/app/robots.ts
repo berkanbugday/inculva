@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://inculva.com/sitemap.xml",
+    sitemap: `${process.env["NEXT_PUBLIC_LANDING_URL"]!}/sitemap.xml`,
   };
 }

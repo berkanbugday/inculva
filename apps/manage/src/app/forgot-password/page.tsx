@@ -4,6 +4,8 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@inculva/ui";
 
+const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
+
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,7 +34,7 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex items-center justify-center mb-8">
-          <img src="/logo-dark.png" alt="Inculva" className="h-8 w-auto" />
+          <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva" className="h-8 w-auto" />
         </div>
 
         <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm p-8">

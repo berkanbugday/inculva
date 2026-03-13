@@ -1,6 +1,6 @@
 import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
 
-const FONT_CDN_URL = "https://cdn.inculva.com/fonts";
+const FONT_CDN_URL = `${__CDN_URL__}/fonts`;
 
 type FeatureHandler = {
   /** level is 1-based (1 = minimum, N = maximum). Omit for binary features. */

@@ -1,0 +1,19 @@
+{% comment %}
+  Inculva Accessibility Widget
+  Usage: {% render 'inculva-widget' %}
+{% endcomment %}
+
+{% assign inculva_site_id = settings.inculva_site_id | default: '' %}
+{% assign inculva_api_url = settings.inculva_api_url | default: 'https://api.inculva.com' %}
+
+{% if inculva_site_id != '' %}
+  <script>
+    window.INCULVA_API_URL = {{ inculva_api_url | json }};
+    window.InculvaConfig = { siteId: {{ inculva_site_id | json }} };
+  </script>
+  <script
+    src="https://cdn.inculva.com/widget.js"
+    data-site-id="{{ inculva_site_id | escape }}"
+    defer
+  ></script>
+{% endif %}

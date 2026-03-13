@@ -60,7 +60,7 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
     signal: AbortSignal.timeout(15_000),
     headers: {
       "User-Agent":
-        "Inculva-Scanner/1.0 (WCAG Accessibility Checker; +https://inculva.com)",
+        `Inculva-Scanner/1.0 (WCAG Accessibility Checker; +${process.env["NEXT_PUBLIC_LANDING_URL"]!})`,
       Accept: "text/html,application/xhtml+xml",
     },
     redirect: "manual",

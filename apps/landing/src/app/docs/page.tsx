@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   description: "Complete API reference for the Inculva accessibility widget. Widget config, event ingestion, analytics, and compliance badge endpoints.",
 };
 
-const APP_URL = process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com";
-const API_URL = "https://api.inculva.com";
+const APP_URL = process.env["NEXT_PUBLIC_APP_URL"]!;
+const API_URL = process.env["NEXT_PUBLIC_API_URL"]!;
 
 function Badge({ label, color }: { label: string; color: "green" | "blue" | "yellow" | "gray" }) {
   const colors = {

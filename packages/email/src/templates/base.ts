@@ -7,6 +7,8 @@ export function escapeHtml(str: string): string {
     .replace(/'/g, "&#39;");
 }
 
+const landingUrl = process.env["NEXT_PUBLIC_LANDING_URL"]!;
+
 export function baseTemplate(content: string, previewText = ""): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -35,7 +37,7 @@ export function baseTemplate(content: string, previewText = ""): string {
   <div class="wrapper">
     <div class="card">
       <div class="header">
-        <img src="https://inculva.com/logo.svg" alt="Inculva" />
+        <img src="${landingUrl}/logo.svg" alt="Inculva" />
       </div>
       <div class="body">
         ${content}

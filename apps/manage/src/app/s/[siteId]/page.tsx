@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { db } from "@inculva/db";
 import type { Metadata } from "next";
 
+const landingUrl = process.env["NEXT_PUBLIC_LANDING_URL"]!;
+
 export const revalidate = 3600; // ISR: refresh every hour
 
 interface Props {
@@ -139,7 +141,7 @@ export default async function PublicStatementPage({ params }: Props) {
             </p>
             <p>
               Powered by{" "}
-              <a href="https://inculva.com" style={{ color: "#0066cc" }}>
+              <a href={landingUrl} style={{ color: "#0066cc" }}>
                 Inculva
               </a>{" "}
               accessibility platform.

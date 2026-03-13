@@ -1,0 +1,139 @@
+<?php
+/**
+ * @file
+ * Inculva Accessibility Widget module.
+ */
+
+/**
+ * Returns a translated string for the given key.
+ * Detects current Drupal language; falls back to English for non-Turkish locales.
+ */
+function _inculva_t(string $key): string {
+  static $strings = NULL;
+  if ($strings === NULL) {
+    $langId  = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $lang    = strncmp($langId, 'tr', 2) === 0 ? 'tr' : 'en';
+    $strings = _inculva_widget_strings($lang);
+  }
+  return $strings[$key] ?? $key;
+}
+
+/**
+ * Returns the i18n string map for the given language.
+ */
+function _inculva_widget_strings(string $lang): array {
+  $map = [
+    'en' => [
+      'plugin_name'     => 'Inculva Accessibility Widget',
+      'banner_text'     => 'Your accessibility widget is active. Manage settings, view reports, and monitor compliance from the Inculva Dashboard.',
+      'go_to_dashboard' => 'Go to Dashboard',
+      'dismiss'         => 'Dismiss',
+      'site_id'         => 'Site ID',
+      'site_id_desc'    => 'Find your Site ID in your Inculva dashboard.',
+      'api_url'         => 'Widget API URL',
+      'api_url_desc'    => 'Leave default unless you use a self-hosted API.',
+      'save'            => 'Save configuration',
+    ],
+    'tr' => [
+      'plugin_name'     => 'Inculva Erişilebilirlik Widget\'ı',
+      'banner_text'     => 'Erişilebilirlik widget\'ınız aktif. Inculva Dashboard\'dan ayarları yönetin, raporları görüntüleyin ve uyumluluğu izleyin.',
+      'go_to_dashboard' => 'Panele Git',
+      'dismiss'         => 'Kapat',
+      'site_id'         => 'Site ID',
+      'site_id_desc'    => 'Site ID\'nizi Inculva panonuzda bulabilirsiniz.',
+      'api_url'         => 'Widget API URL',
+      'api_url_desc'    => 'Kendi API\'nizi barındırmıyorsanız varsayılanı bırakın.',
+      'save'            => 'Yapılandırmayı Kaydet',
+    ],
+  ];
+  return $map[$lang] ?? $map['en'];
+}
+
+function inculva_widget_page_attachments(array &$attachments) {
+  $config  = \Drupal::config('inculva_widget.settings');
+  $site_id = $config->get('site_id');
+
+  if (empty($site_id)) {
+    return;
+  }
+
+  $api_url = $config->get('api_url') ?: 'https://api.inculva.com';
+
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#type'  => 'html_tag',
+      '#tag'   => 'script',
+      '#value' => 'window.INCULVA_API_URL=' . json_encode($api_url) . ';'
+                . 'window.InculvaConfig=' . json_encode(['siteId' => $site_id]) . ';',
+    ],
+    'inculva_widget_config',
+  ];
+
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#type'       => 'html_tag',
+      '#tag'        => 'script',
+      '#attributes' => [
+        'src'          => 'https://cdn.inculva.com/widget.js',
+        'data-site-id' => $site_id,
+        'defer'        => TRUE,
+      ],
+    ],
+    'inculva_widget_script',
+  ];
+}
+
+/**
+ * Implements hook_form_alter() — injects the dashboard banner into the settings form.
+ */
+function inculva_widget_form_alter(array &$form, \Drupal\Core\Form\FormStateInterface $form_state, string $form_id): void {
+  if ($form_id !== 'inculva_widget_settings') {
+    return;
+  }
+
+  $form['inculva_banner'] = [
+    '#type'         => 'markup',
+    '#weight'       => -100,
+    '#markup'       => _inculva_widget_banner_html(),
+    '#allowed_tags' => ['div', 'img', 'p', 'a', 'button', 'script'],
+  ];
+}
+
+/**
+ * Returns the dashboard banner HTML string.
+ */
+function _inculva_widget_banner_html(): string {
+  $banner_text     = htmlspecialchars(_inculva_t('banner_text'), ENT_QUOTES);
+  $go_to_dashboard = htmlspecialchars(_inculva_t('go_to_dashboard'), ENT_QUOTES);
+  $dismiss         = htmlspecialchars(_inculva_t('dismiss'), ENT_QUOTES);
+
+  return '
+  <div id="inculva-banner" style="
+      background:#fff;border:1px solid #e2e4e7;border-radius:10px;
+      padding:20px 24px;margin-bottom:24px;
+      position:relative;box-shadow:0 1px 4px rgba(0,0,0,.06);
+  ">
+      <button onclick="
+          document.getElementById(\'inculva-banner\').style.display=\'none\';
+          localStorage.setItem(\'inculva_banner_dismissed\',\'1\');
+      " style="
+          position:absolute;top:12px;right:14px;background:none;border:none;
+          cursor:pointer;font-size:18px;line-height:1;color:#888;padding:0;
+      " aria-label="' . $dismiss . '">&#x2715;</button>
+      <img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="Inculva"
+           style="display:block;margin-bottom:10px;" />
+      <p style="margin:0 0 16px;color:#3c434a;font-size:15px;line-height:1.5;">'
+          . $banner_text .
+      '</p>
+      <a href="https://app.inculva.com" target="_blank" rel="noopener" style="
+          display:inline-flex;align-items:center;gap:8px;
+          background:#111;color:#fff;padding:10px 20px;border-radius:50px;
+          font-size:15px;font-weight:600;text-decoration:none;
+      ">' . $go_to_dashboard . ' &#8594;</a>
+  </div>
+  <script>
+      if (localStorage.getItem("inculva_banner_dismissed") === "1") {
+          document.getElementById("inculva-banner").style.display = "none";
+      }
+  </script>';
+}

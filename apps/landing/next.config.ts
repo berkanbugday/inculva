@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
-const CDN = "https://cdn.inculva.com";
+const CDN = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
 // Derive widget origin from NEXT_PUBLIC_WIDGET_URL when set (staging / prod overrides).
 // Falls back to the CDN in production and localhost in dev.
@@ -11,11 +11,11 @@ function widgetOrigin(): string {
   if (envUrl) {
     try { return new URL(envUrl).origin; } catch { /* fall through */ }
   }
-  return isDev ? "http://localhost:3000" : CDN;
+  return isDev ? new URL(process.env["NEXT_PUBLIC_APP_URL"]!).origin : CDN;
 }
 
 const widgetSrc = widgetOrigin();
-const apiSrc = isDev ? "http://localhost:3001" : "https://api.inculva.com";
+const apiSrc = process.env["NEXT_PUBLIC_API_URL"]!;
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -36,11 +36,9 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       // data: allows the base64 WOFF2 data URIs the widget inlines for OpenDyslexic.
       // 'self' + widgetSrc cover static .woff2 files served from the CDN/manage app.
-      `font-src 'self' ${widgetSrc} https://cdn.inculva.com https://api.inculva.com${isDev ? ` ${apiSrc}` : ""} data:`,
-      "img-src 'self' data: https://picsum.photos https://cdn.inculva.com",
-      // always allow the production API (widget defaults to it); also allow local in dev
-      // widgetSrc is also needed in dev so browser can fetch source maps for widget.iife.js
-      `connect-src 'self' https://api.inculva.com https://cdn.inculva.com${isDev ? ` ${apiSrc} ${widgetSrc}` : ""}`,
+      `font-src 'self' ${widgetSrc} ${CDN} ${apiSrc} data:`,
+      `img-src 'self' data: https://picsum.photos ${CDN}`,
+      `connect-src 'self' ${apiSrc} ${CDN}${isDev ? ` ${widgetSrc}` : ""}`,
       "frame-ancestors 'none'",
       "base-uri 'self'",
     ].join("; "),

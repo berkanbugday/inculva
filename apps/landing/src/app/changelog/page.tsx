@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description: "See what's new in Inculva. Product updates, new features, and improvements.",
 };
 
-const APP_URL = process.env["NEXT_PUBLIC_APP_URL"] ?? "https://app.inculva.com";
+const APP_URL = process.env["NEXT_PUBLIC_APP_URL"]!;
 
 type ChangeType = "new" | "improved" | "fixed" | "security";
 
