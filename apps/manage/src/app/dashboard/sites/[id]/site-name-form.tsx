@@ -67,13 +67,13 @@ export function SiteNameForm({ siteId, initialName }: Props) {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="text-xs px-3 py-1 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
           >
             {saving ? "Saving…" : "Save"}
           </button>
           <button
             onClick={() => { setDraft(name); setEditing(false); setError(""); }}
-            className="text-xs px-3 py-1 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="text-xs px-3 py-1.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             Cancel
           </button>

@@ -19,7 +19,7 @@ export default async function ScanPage({ params }: Props) {
   if (!site) notFound();
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-8 space-y-6">
+    <main className="max-w-3xl space-y-6">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm">
         <a href="/dashboard" className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400">
@@ -34,7 +34,7 @@ export default async function ScanPage({ params }: Props) {
       </nav>
 
       {/* Sub-nav */}
-      <nav className="flex gap-1 border-b border-gray-200 dark:border-gray-800 -mb-2">
+      <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
         {[
           { label: "Config", href: `/dashboard/sites/${site.id}` },
           { label: "Analytics", href: `/dashboard/sites/${site.id}/analytics` },
@@ -44,10 +44,10 @@ export default async function ScanPage({ params }: Props) {
           <a
             key={tab.href}
             href={tab.href}
-            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-colors ${
               tab.active
-                ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400"
-                : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                ? "bg-blue-600 text-white"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
             }`}
           >
             {tab.label}

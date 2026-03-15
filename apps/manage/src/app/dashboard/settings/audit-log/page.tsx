@@ -44,33 +44,33 @@ export default async function AuditLogPage() {
   });
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-8 space-y-8">
+    <main className="max-w-3xl space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h2>
+        <h2 className="text-3xl font-black text-gray-900 dark:text-white">Settings</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your account and API access.</p>
       </div>
 
       {/* Settings sub-nav */}
-      <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 w-fit">
+      <div className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
         <a
           href="/dashboard/settings"
-          className="px-4 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 rounded-lg transition-colors"
+          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
         >
           Account
         </a>
         <a
           href="/dashboard/settings/billing"
-          className="px-4 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 rounded-lg transition-colors"
+          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
         >
           Billing
         </a>
-        <span className="px-4 py-1.5 bg-white dark:bg-gray-900 rounded-lg text-sm font-medium text-gray-900 dark:text-white shadow-sm">
+        <span className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold">
           Audit Log
         </span>
       </div>
 
-      <div className="border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center justify-between">
           <div>
             <h3 className="text-base font-semibold text-gray-900 dark:text-white">Audit Log</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
@@ -87,7 +87,7 @@ export default async function AuditLogPage() {
             <p className="text-sm text-gray-400 dark:text-gray-600">No activity recorded yet.</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-50 dark:divide-gray-800">
+          <div className="divide-y divide-[#f8f9fc] dark:divide-[#2a2a3e]">
             {logs.map((log) => {
               const style = ACTION_LABELS[log.action] ?? {
                 label: log.action,

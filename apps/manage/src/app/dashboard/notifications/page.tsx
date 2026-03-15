@@ -51,9 +51,9 @@ export default async function NotificationsPage({ searchParams }: Props) {
   const pages = Math.ceil(total / take);
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-8 space-y-6">
+    <main className="max-w-3xl space-y-6">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-black text-gray-900 dark:text-white">
           Notifications
           {unreadCount > 0 && (
             <span className="ml-2 px-2 py-0.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 text-sm font-semibold rounded-full">
@@ -66,23 +66,23 @@ export default async function NotificationsPage({ searchParams }: Props) {
           {unreadCount > 0 && (
             <NotificationsClient.MarkAllRead />
           )}
-          <div className="flex rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden text-sm">
+          <div className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm text-sm">
             <a
               href="/dashboard/notifications?filter=all"
-              className={`px-3 py-1.5 transition-colors ${
+              className={`px-4 py-1.5 rounded-xl font-semibold transition-colors ${
                 filter === "all"
                   ? "bg-blue-600 text-white"
-                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
               }`}
             >
               All
             </a>
             <a
               href="/dashboard/notifications?filter=unread"
-              className={`px-3 py-1.5 transition-colors border-l border-gray-200 dark:border-gray-700 ${
+              className={`px-4 py-1.5 rounded-xl font-semibold transition-colors ${
                 filter === "unread"
                   ? "bg-blue-600 text-white"
-                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
               }`}
             >
               Unread
@@ -91,7 +91,7 @@ export default async function NotificationsPage({ searchParams }: Props) {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 divide-y divide-gray-50 dark:divide-gray-800 overflow-hidden">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm divide-y divide-[#f8f9fc] dark:divide-[#2a2a3e] overflow-hidden">
         {notifications.length === 0 ? (
           <div className="px-6 py-16 text-center">
             <div className="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -129,7 +129,7 @@ export default async function NotificationsPage({ searchParams }: Props) {
             {page > 1 && (
               <a
                 href={`/dashboard/notifications?${new URLSearchParams({ filter, page: String(page - 1) })}`}
-                className="px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="px-4 py-2 text-sm font-semibold border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 Previous
               </a>
@@ -137,7 +137,7 @@ export default async function NotificationsPage({ searchParams }: Props) {
             {page < pages && (
               <a
                 href={`/dashboard/notifications?${new URLSearchParams({ filter, page: String(page + 1) })}`}
-                className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
               >
                 Next
               </a>

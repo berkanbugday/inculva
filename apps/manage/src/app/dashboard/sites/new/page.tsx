@@ -97,7 +97,7 @@ interface Props {
 export default async function NewSitePage({ searchParams }: Props) {
   const { error } = await searchParams;
   return (
-    <main className="max-w-2xl mx-auto px-6 py-8">
+    <main className="max-w-2xl">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-8">
         <a href="/dashboard" className="text-gray-400 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-400">

@@ -22,7 +22,10 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const inputCls =
-  "w-full px-4 py-3.5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-base";
+  "w-full px-5 py-4 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#1a1a2e] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-shadow text-base";
+const labelCls = "block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5";
+const btnPrimary =
+  "w-full py-4 px-6 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-base flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed";
 
 export default function ForgotPasswordPage() {
   const [sentEmail, setSentEmail] = useState<string | null>(null);
@@ -71,8 +74,8 @@ export default function ForgotPasswordPage() {
         </div>
       </AuthBrandPanel>
 
-      <main className="flex-1 flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-950">
-        <div className="w-full max-w-sm">
+      <main className="flex-1 flex items-center justify-center p-6 bg-[#f8f9fc] dark:bg-[#0e0e10]">
+        <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-10 w-full max-w-md">
           <div className="lg:hidden text-center mb-8">
             <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva — Web Accessibility Platform" className="h-10 w-auto mx-auto" />
           </div>
@@ -85,7 +88,7 @@ export default function ForgotPasswordPage() {
                   <path d="M2 8l10 7 10-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Check your inbox</h1>
+              <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-2">Check your inbox</h1>
               <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
                 We sent a reset link to{" "}
                 <strong className="font-semibold text-gray-700 dark:text-gray-200">{sentEmail}</strong>.
@@ -104,16 +107,14 @@ export default function ForgotPasswordPage() {
             </div>
           ) : (
             <>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">Forgot password?</h1>
-              <p className="text-gray-500 dark:text-gray-400 text-base mb-7">
+              <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-1">Forgot password?</h1>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
                 Enter your email and we&apos;ll send you a reset link.
               </p>
 
               <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Request a password reset link" className="space-y-5">
                 <div>
-                  <label htmlFor="email" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                    Email address
-                  </label>
+                  <label htmlFor="email" className={labelCls}>Email address</label>
                   <input
                     id="email" type="email" autoComplete="email" placeholder="you@example.com"
                     aria-describedby={errors.email ? "email-error" : undefined}
@@ -140,10 +141,7 @@ export default function ForgotPasswordPage() {
                 <button
                   type="submit" disabled={isSubmitting} aria-busy={isSubmitting}
                   aria-label={isSubmitting ? "Sending reset link, please wait" : "Send password reset link"}
-                  className={cn(
-                    "w-full py-3.5 px-6 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-base flex items-center justify-center gap-2",
-                    isSubmitting && "opacity-60 cursor-not-allowed",
-                  )}
+                  className={cn(btnPrimary)}
                 >
                   {isSubmitting && (
                     <svg className="animate-spin" width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">

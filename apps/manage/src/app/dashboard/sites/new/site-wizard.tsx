@@ -87,10 +87,10 @@ export function SiteWizard({ createSite, error }: Props) {
   }
 
   const inputClass =
-    "w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
+    "w-full px-4 py-3 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-base bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8">
       {/* Error banner */}
       {error && (
         <div className="mb-6 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-xl p-4 flex items-start gap-3">
@@ -226,7 +226,7 @@ export function SiteWizard({ createSite, error }: Props) {
               </div>
             </div>
             {/* Preview */}
-            <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
+            <div className="flex items-center gap-3 p-4 bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e]">
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
                 style={{ backgroundColor: state.primaryColor }}
@@ -254,10 +254,10 @@ export function SiteWizard({ createSite, error }: Props) {
                   type="button"
                   onClick={() => update("position", pos.value)}
                   className={cn(
-                    "p-4 rounded-xl border-2 text-left transition-all",
+                    "p-4 rounded-2xl border-2 text-left transition-all",
                     state.position === pos.value
                       ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40"
-                      : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                      : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-300 dark:hover:border-blue-700"
                   )}
                 >
                   <p className={cn("text-sm font-medium", state.position === pos.value ? "text-blue-700 dark:text-blue-300" : "text-gray-800 dark:text-gray-200")}>
@@ -294,7 +294,7 @@ export function SiteWizard({ createSite, error }: Props) {
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">Review and create</h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">Everything looks good? Click Create site to finish.</p>
             </div>
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-xl divide-y divide-gray-100 dark:divide-gray-700">
+            <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl divide-y divide-[#e8eaf0] dark:divide-[#2a2a3e] border border-[#e8eaf0] dark:border-[#2a2a3e]">
               {[
                 { label: "Site name", value: state.name },
                 { label: "Domain", value: state.domain },
@@ -319,13 +319,13 @@ export function SiteWizard({ createSite, error }: Props) {
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-3 mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
+      <div className="flex gap-3 mt-8 pt-6 border-t border-[#e8eaf0] dark:border-[#2a2a3e]">
         {step > 0 && (
           <button
             type="button"
             onClick={() => setStep((s) => s - 1)}
             disabled={isPending}
-            className="px-5 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-base font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors disabled:opacity-50"
+            className="px-5 py-3 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] text-gray-700 dark:text-gray-300 rounded-full text-base font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             Back
           </button>
@@ -335,7 +335,7 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={() => setStep((s) => s + 1)}
             disabled={!canAdvance()}
-            className="px-5 py-3 bg-blue-600 text-white rounded-xl text-base font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-5 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Continue
           </button>
@@ -344,14 +344,14 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={handleSubmit}
             disabled={isPending}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl text-base font-medium hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isPending ? "Creating…" : "Create site"}
           </button>
         )}
         <a
           href="/dashboard"
-          className="px-5 py-3 text-gray-500 dark:text-gray-400 rounded-xl text-base font-medium hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+          className="px-5 py-3 text-gray-500 dark:text-gray-400 rounded-full text-base font-semibold hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
         >
           Cancel
         </a>

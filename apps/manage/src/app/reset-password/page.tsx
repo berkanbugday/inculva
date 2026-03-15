@@ -30,7 +30,10 @@ const schema = z
 type FormData = z.infer<typeof schema>;
 
 const inputCls =
-  "w-full px-4 py-3.5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-base";
+  "w-full px-5 py-4 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#1a1a2e] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-shadow text-base";
+const labelCls = "block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5";
+const btnPrimary =
+  "w-full py-4 px-6 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-base flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed";
 
 function ResetPasswordForm() {
   const router = useRouter();
@@ -87,8 +90,8 @@ function ResetPasswordForm() {
         </div>
       </AuthBrandPanel>
 
-      <main className="flex-1 flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-950">
-        <div className="w-full max-w-sm">
+      <main className="flex-1 flex items-center justify-center p-6 bg-[#f8f9fc] dark:bg-[#0e0e10]">
+        <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-10 w-full max-w-md">
           <div className="lg:hidden text-center mb-8">
             <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva — Web Accessibility Platform" className="h-10 w-auto mx-auto" />
           </div>
@@ -102,16 +105,14 @@ function ResetPasswordForm() {
               </svg>
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white leading-tight">Set new password</h1>
+              <h1 className="text-2xl font-black text-gray-900 dark:text-white leading-tight">Set new password</h1>
               <p className="text-base text-gray-500 dark:text-gray-400">Must be at least 8 characters.</p>
             </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Set your new password" className="space-y-5">
             <div>
-              <label htmlFor="password" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                New password
-              </label>
+              <label htmlFor="password" className={labelCls}>New password</label>
               <input
                 id="password" type="password" autoComplete="new-password" placeholder="Min. 8 characters"
                 aria-describedby={["pw-hint", errors.password ? "pw-error" : undefined].filter(Boolean).join(" ")}
@@ -123,9 +124,7 @@ function ResetPasswordForm() {
             </div>
 
             <div>
-              <label htmlFor="confirm" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                Confirm new password
-              </label>
+              <label htmlFor="confirm" className={labelCls}>Confirm new password</label>
               <input
                 id="confirm" type="password" autoComplete="new-password" placeholder="Repeat new password"
                 aria-describedby={errors.confirm ? "confirm-error" : undefined}
@@ -148,10 +147,7 @@ function ResetPasswordForm() {
             <button
               type="submit" disabled={isSubmitting || !token} aria-busy={isSubmitting}
               aria-label={isSubmitting ? "Updating password, please wait" : "Set your new password"}
-              className={cn(
-                "w-full py-3.5 px-6 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-base flex items-center justify-center gap-2",
-                (isSubmitting || !token) && "opacity-60 cursor-not-allowed",
-              )}
+              className={cn(btnPrimary)}
             >
               {isSubmitting && (
                 <svg className="animate-spin" width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">

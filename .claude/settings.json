@@ -1,0 +1,9 @@
+{
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "huggingface-skills@claude-plugins-official": true,
+    "sonatype-guide@claude-plugins-official": true,
+    "sanity-plugin@claude-plugins-official": true
+  }
+}

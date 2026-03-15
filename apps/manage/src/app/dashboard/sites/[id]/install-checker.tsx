@@ -37,7 +37,7 @@ export function InstallChecker({ siteId, domain }: Props) {
       <button
         onClick={() => void checkInstall()}
         disabled={status === "checking"}
-        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
+        className="px-4 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] text-gray-700 dark:text-gray-300 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
       >
         {status === "checking" ? "Checking…" : "Check installation"}
       </button>

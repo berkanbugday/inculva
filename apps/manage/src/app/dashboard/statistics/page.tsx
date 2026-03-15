@@ -117,14 +117,14 @@ export default async function StatisticsPage() {
       : 0;
 
   return (
-    <div className="px-6 py-8 max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Statistics</h1>
+    <div className="max-w-4xl space-y-8">
+      <div>
+        <h1 className="text-3xl font-black text-gray-900 dark:text-white">Statistics</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Last 30 days across all your sites</p>
       </div>
 
       {/* KPI cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           {
             label: "Widget Loads",
@@ -176,7 +176,7 @@ export default async function StatisticsPage() {
             ),
           },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+          <div key={stat.label} className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
             <div className={`w-8 h-8 ${stat.bg} rounded-lg flex items-center justify-center mb-3 ${stat.color}`}>
               {stat.icon}
             </div>
@@ -187,7 +187,7 @@ export default async function StatisticsPage() {
       </div>
 
       {/* Engagement rate pill */}
-      <div className="flex items-center gap-3 mb-8 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
+      <div className="flex items-center gap-3 p-6 bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm">
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Widget engagement rate</p>
@@ -204,7 +204,7 @@ export default async function StatisticsPage() {
       </div>
 
       {/* Feature stats */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 mb-6">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="flex items-center justify-between mb-5">
           <div>
             <h2 className="text-base font-semibold text-gray-900 dark:text-white">Feature usage</h2>
@@ -221,7 +221,7 @@ export default async function StatisticsPage() {
               <div className="w-36 shrink-0">
                 <p className="text-sm text-gray-700 dark:text-gray-300 truncate">{f.label}</p>
               </div>
-              <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+              <div className="flex-1 h-2 bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-full overflow-hidden">
                 <div
                   className="h-full bg-blue-500 rounded-full transition-all"
                   style={{ width: f.pct > 0 ? `${f.pct}%` : "0%" }}
@@ -237,7 +237,7 @@ export default async function StatisticsPage() {
       </div>
 
       {/* Profile stats */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="mb-5">
           <h2 className="text-base font-semibold text-gray-900 dark:text-white">Accessibility profile usage</h2>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">One-click profile activations in the last 30 days</p>
@@ -249,7 +249,7 @@ export default async function StatisticsPage() {
               <div className="w-40 shrink-0">
                 <p className="text-sm text-gray-700 dark:text-gray-300 truncate">{p.label}</p>
               </div>
-              <div className="flex-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+              <div className="flex-1 h-2 bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-full overflow-hidden">
                 <div
                   className="h-full bg-violet-500 rounded-full transition-all"
                   style={{ width: `${Math.round((p.count / maxProfileCount) * 100)}%` }}

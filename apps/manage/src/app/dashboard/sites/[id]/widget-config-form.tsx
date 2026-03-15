@@ -232,17 +232,17 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
   }
 
   const inputClass =
-    "w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
+    "w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
   const labelClass = "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1";
 
   const cardClass =
-    "bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5";
+    "bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6";
 
   const applyBtnClass =
-    "px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
+    "px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
 
   const saveButtonClass =
-    "px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
+    "px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed";
 
   return (
     <div className="space-y-6">
@@ -467,7 +467,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                   }
                   setDomainInput("");
                 }}
-                className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="px-4 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] text-gray-700 dark:text-gray-300 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 Add
               </button>
@@ -481,7 +481,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                 {form.allowedDomains.map((domain) => (
                   <span
                     key={domain}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 rounded-lg text-xs font-mono"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 rounded-full text-xs font-mono"
                   >
                     {domain}
                     <button
@@ -599,10 +599,10 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                   type="button"
                   onClick={() => setIconSize(size)}
                   className={cn(
-                    "flex-1 py-1.5 rounded-lg text-xs font-medium border transition-colors",
+                    "flex-1 py-1.5 rounded-full text-xs font-semibold border transition-colors",
                     iconSize === size
                       ? "bg-blue-600 text-white border-blue-600"
-                      : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-700 hover:border-blue-400"
+                      : "bg-white dark:bg-[#0e0e10] text-gray-600 dark:text-gray-400 border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-400"
                   )}
                 >
                   {size.charAt(0).toUpperCase() + size.slice(1)}
@@ -621,7 +621,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                     "aspect-square rounded-xl border-2 flex items-center justify-center transition-colors",
                     iconStyle === style.value
                       ? "border-blue-600 bg-blue-50 dark:bg-blue-950"
-                      : "border-gray-200 dark:border-gray-700 hover:border-blue-300 bg-gray-50 dark:bg-gray-800"
+                      : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-300 bg-[#f8f9fc] dark:bg-[#0e0e10]"
                   )}
                 >
                   {/* Accessibility icon SVG */}
@@ -663,17 +663,17 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
             </h3>
 
             {/* Desktop / Mobile tabs */}
-            <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1 mb-4 w-fit">
+            <div className="flex gap-1 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl p-1.5 mb-4 w-fit">
               {(["desktop", "mobile"] as const).map((tab) => (
                 <button
                   key={tab}
                   type="button"
                   onClick={() => setPositionTab(tab)}
                   className={cn(
-                    "px-4 py-1.5 rounded-md text-xs font-medium transition-colors",
+                    "px-4 py-1.5 rounded-xl text-xs font-semibold transition-colors",
                     positionTab === tab
-                      ? "bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm"
-                      : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                      ? "bg-blue-600 text-white"
+                      : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white dark:hover:bg-gray-800"
                   )}
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -705,7 +705,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                     return (
                       <div
                         key={`${rowIdx}-${colIdx}`}
-                        className="w-10 h-10 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-700 opacity-40"
+                        className="w-10 h-10 rounded-xl border-2 border-dashed border-[#e8eaf0] dark:border-[#2a2a3e] opacity-40"
                       />
                     );
                   }
@@ -719,7 +719,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                         "w-10 h-10 rounded-lg border-2 transition-colors flex items-center justify-center",
                         isSelected
                           ? "border-blue-600 bg-blue-600"
-                          : "border-gray-300 dark:border-gray-600 hover:border-blue-400 bg-gray-50 dark:bg-gray-800"
+                          : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-400 bg-[#f8f9fc] dark:bg-[#0e0e10]"
                       )}
                       aria-label={`Position: ${cell.value}`}
                     >
@@ -760,7 +760,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
       </div>
 
       {/* Widget Features — collapsible */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm overflow-hidden">
         <button
           type="button"
           onClick={() => setFeaturesExpanded((v) => !v)}
@@ -790,12 +790,12 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
         </button>
 
         {featuresExpanded && (
-          <div className="px-5 pb-5 border-t border-gray-100 dark:border-gray-800 pt-4">
+          <div className="px-5 pb-5 border-t border-[#e8eaf0] dark:border-[#2a2a3e] pt-4">
             <div className="grid grid-cols-1 gap-2">
               {FEATURES.map(({ key, label, description, wcag }) => (
                 <label
                   key={key}
-                  className="flex items-center justify-between p-3 rounded-lg border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+                  className="flex items-center justify-between p-3 rounded-lg border border-[#e8eaf0] dark:border-[#2a2a3e] hover:bg-blue-50 dark:hover:bg-blue-950/30 cursor-pointer transition-colors"
                 >
                   <div>
                     <div className="flex items-center gap-2">
@@ -838,7 +838,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                 onClick={() => void handleSave()}
                 disabled={saving}
                 className={cn(
-                  "px-5 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors",
+                  "px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors",
                   saving && "opacity-60 cursor-not-allowed"
                 )}
               >
@@ -860,7 +860,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
       </div>
 
       {/* Extended Widget Features */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm overflow-hidden">
         <button
           type="button"
           onClick={() => setFeaturesExpanded((v) => !v)}
@@ -890,7 +890,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
         </button>
 
         {featuresExpanded && (
-          <div className="px-5 pb-5 border-t border-gray-100 dark:border-gray-800 pt-4">
+          <div className="px-5 pb-5 border-t border-[#e8eaf0] dark:border-[#2a2a3e] pt-4">
             <p className="text-xs text-gray-400 dark:text-gray-600 mb-3">
               UserWay and Corpowid-inspired accessibility features.
             </p>
@@ -898,7 +898,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
               {EXTENDED_FEATURES.map(({ key, label, description, wcag }) => (
                 <label
                   key={key}
-                  className="flex items-center justify-between p-3 rounded-lg border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+                  className="flex items-center justify-between p-3 rounded-lg border border-[#e8eaf0] dark:border-[#2a2a3e] hover:bg-blue-50 dark:hover:bg-blue-950/30 cursor-pointer transition-colors"
                 >
                   <div>
                     <div className="flex items-center gap-2">
@@ -941,7 +941,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                 onClick={() => void handleSave()}
                 disabled={saving}
                 className={cn(
-                  "px-5 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors",
+                  "px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors",
                   saving && "opacity-60 cursor-not-allowed"
                 )}
               >
@@ -963,7 +963,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
       </div>
 
       {/* Accessibility Profiles */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="mb-4">
           <h3 className="font-semibold text-gray-900 dark:text-white">Accessibility Profiles</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -982,7 +982,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
                   "flex items-start gap-3 p-3 rounded-xl border-2 text-left transition-all",
                   enabled
                     ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40"
-                    : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                    : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-300 dark:hover:border-blue-700"
                 )}
               >
                 <span className="text-xl shrink-0 mt-0.5">{profile.icon}</span>
@@ -1024,7 +1024,7 @@ export function WidgetConfigForm({ siteId, userPlan, config }: Props) {
       {(saved || saveError) && (
         <div
           className={cn(
-            "px-4 py-3 rounded-lg text-sm font-medium",
+            "px-5 py-3 rounded-2xl text-sm font-semibold",
             saved
               ? "bg-green-50 dark:bg-green-950 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800"
               : "bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800"

@@ -27,12 +27,12 @@ export default async function SitePage({ params }: Props) {
   if (!site) notFound();
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-8 space-y-6">
+    <main className="max-w-3xl space-y-6">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm">
         <a href="/dashboard" className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400">Dashboard</a>
         <span className="text-gray-300 dark:text-gray-700">/</span>
-        <span className="text-gray-700 dark:text-gray-300 font-medium">{site.name}</span>
+        <span className="text-gray-700 dark:text-gray-300 font-semibold">{site.name}</span>
       </nav>
 
       <SiteInfoClient
@@ -43,7 +43,7 @@ export default async function SitePage({ params }: Props) {
       />
 
       {/* Sub-nav */}
-      <nav className="flex gap-1 border-b border-gray-200 dark:border-gray-800 -mb-2">
+      <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
         {[
           { label: "Config", href: `/dashboard/sites/${site.id}`, active: true },
           { label: "Analytics", href: `/dashboard/sites/${site.id}/analytics` },
@@ -53,10 +53,10 @@ export default async function SitePage({ params }: Props) {
           <a
             key={tab.href}
             href={tab.href}
-            className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-colors ${
               tab.active
-                ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400"
-                : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                ? "bg-blue-600 text-white"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
             }`}
           >
             {tab.label}
@@ -85,7 +85,7 @@ export default async function SitePage({ params }: Props) {
       )}
 
       {/* WCAG Badge */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-1">WCAG Compliance Badge</h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           Embed this badge on your site to show visitors you take accessibility seriously.
@@ -100,20 +100,20 @@ export default async function SitePage({ params }: Props) {
             height={20}
           />
         </div>
-        <pre className="bg-gray-50 dark:bg-gray-950 rounded-lg p-4 text-xs overflow-x-auto text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-800 select-all">
+        <pre className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-4 text-xs overflow-x-auto text-gray-700 dark:text-gray-300 border border-[#e8eaf0] dark:border-[#2a2a3e] select-all">
 {`<img src="${process.env["NEXT_PUBLIC_API_URL"]!}/badge/${site.id}.svg" alt="WCAG 2.1 AA" height="20" />`}
         </pre>
       </div>
 
       {/* Danger zone */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-red-200 dark:border-red-900 p-6">
-        <h3 className="font-semibold text-red-700 dark:text-red-400 mb-1">Danger Zone</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 border-l-4 border-red-500">
+        <h3 className="font-bold text-red-600 dark:text-red-400 mb-1">Danger Zone</h3>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
           Permanently delete this site and all its data.
         </p>
         <a
           href={`/dashboard/sites/${site.id}/delete`}
-          className="px-4 py-2 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900 transition-colors"
+          className="inline-flex px-5 py-2.5 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-full text-sm font-semibold hover:bg-red-100 dark:hover:bg-red-900 transition-colors"
         >
           Delete site
         </a>

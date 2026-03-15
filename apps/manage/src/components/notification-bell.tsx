@@ -71,7 +71,7 @@ export function NotificationBell() {
       <button
         onClick={handleOpen}
         aria-label={`Notifications${unread > 0 ? ` (${unread} unread)` : ""}`}
-        className="relative w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        className="relative w-9 h-9 flex items-center justify-center rounded-2xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#0e0e10] transition-colors"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
@@ -85,15 +85,15 @@ export function NotificationBell() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-10 w-80 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl z-50 overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+        <div className="absolute right-0 top-10 w-80 bg-white dark:bg-[#1a1a2e] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-3xl shadow-xl z-50 overflow-hidden">
+          <div className="px-4 py-3 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center justify-between">
             <span className="text-sm font-semibold text-gray-900 dark:text-white">Notifications</span>
             {unread === 0 && !loading && (
               <span className="text-xs text-gray-400 dark:text-gray-600">All caught up</span>
             )}
           </div>
 
-          <div className="max-h-96 overflow-y-auto divide-y divide-gray-50 dark:divide-gray-800">
+          <div className="max-h-96 overflow-y-auto divide-y divide-[#f8f9fc] dark:divide-[#2a2a3e]">
             {loading ? (
               <div className="px-4 py-8 text-center text-sm text-gray-400 dark:text-gray-600">Loading…</div>
             ) : notifications.length === 0 ? (
@@ -121,7 +121,7 @@ export function NotificationBell() {
               })
             )}
           </div>
-          <div className="border-t border-gray-100 dark:border-gray-800 px-4 py-2">
+          <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] px-4 py-2">
             <a
               href="/dashboard/notifications"
               onClick={() => setOpen(false)}

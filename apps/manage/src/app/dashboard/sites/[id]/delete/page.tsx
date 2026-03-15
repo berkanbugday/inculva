@@ -41,7 +41,7 @@ export default async function DeleteSitePage({ params }: Props) {
   const deleteSiteWithId = deleteSite.bind(null, id);
 
   return (
-    <main className="max-w-lg mx-auto px-6 py-8">
+    <main className="max-w-lg">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-8">
         <a href="/dashboard" className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
@@ -59,10 +59,10 @@ export default async function DeleteSitePage({ params }: Props) {
         <span className="text-red-500 font-medium">Delete</span>
       </nav>
 
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-red-200 dark:border-red-900 overflow-hidden">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm overflow-hidden border-t-4 border-red-500">
         {/* Warning header */}
-        <div className="bg-red-50 dark:bg-red-950/50 px-6 py-5 border-b border-red-200 dark:border-red-900 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900 flex items-center justify-center shrink-0">
+        <div className="bg-red-50 dark:bg-red-950/30 px-6 py-5 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center gap-4">
+          <div className="w-10 h-10 rounded-2xl bg-red-100 dark:bg-red-900 flex items-center justify-center shrink-0">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-red-600 dark:text-red-400" aria-hidden="true">
               <path d="M12 9v4M12 17v.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
@@ -85,7 +85,7 @@ export default async function DeleteSitePage({ params }: Props) {
             {" "}and all associated data.
           </p>
 
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 space-y-2">
+          <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-4 space-y-2">
             <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Data that will be deleted</p>
             <ul className="space-y-1.5 mt-2">
               {["Site configuration & widget settings", "All analytics events", "Widget load history", "WCAG scan results"].map((item) => (
@@ -101,18 +101,18 @@ export default async function DeleteSitePage({ params }: Props) {
         </div>
 
         {/* Actions */}
-        <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-800 flex items-center gap-3">
+        <div className="px-6 py-4 bg-[#f8f9fc] dark:bg-[#0e0e10]/50 border-t border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center gap-3">
           <form action={deleteSiteWithId}>
             <button
               type="submit"
-              className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-semibold transition-colors"
+              className="px-5 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-full text-sm font-semibold transition-colors"
             >
               Yes, delete this site
             </button>
           </form>
           <a
             href={`/dashboard/sites/${id}`}
-            className="px-5 py-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="px-5 py-2.5 bg-white dark:bg-[#1a1a2e] border border-[#e8eaf0] dark:border-[#2a2a3e] text-gray-700 dark:text-gray-300 rounded-full text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
             Cancel
           </a>

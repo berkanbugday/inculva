@@ -49,11 +49,11 @@ export default async function BillingPage() {
   ];
 
   return (
-    <div className="px-8 py-8 max-w-4xl">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Subscriptions</h1>
+    <div className="max-w-4xl space-y-6">
+      <h1 className="text-3xl font-black text-gray-900 dark:text-white">Subscriptions</h1>
 
       {/* Current plan status */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-4">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-4">
           Your current plan and status
         </h2>
@@ -112,15 +112,15 @@ export default async function BillingPage() {
       </div>
 
       {/* Discount code */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5 mb-6 flex items-center justify-between gap-4">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-5 flex items-center justify-between gap-4">
         <h3 className="text-sm font-semibold text-gray-900 dark:text-white shrink-0">Enter discount code</h3>
         <div className="flex items-center gap-2 flex-1 max-w-xs">
           <input
             type="text"
             placeholder="Enter code"
-            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors">
+          <button className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors">
             Apply
           </button>
         </div>
@@ -130,7 +130,7 @@ export default async function BillingPage() {
       {plan !== "business" && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {/* Monthly plan */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5">
+          <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
             <p className="font-semibold text-gray-900 dark:text-white">Monthly plan</p>
             <p className="text-xs text-gray-400 mt-0.5 mb-4">Billed monthly</p>
             <p className="text-3xl font-bold text-gray-900 dark:text-white mb-0.5">
@@ -144,7 +144,7 @@ export default async function BillingPage() {
           </div>
 
           {/* Annual plan – highlighted */}
-          <div className="bg-gray-900 dark:bg-gray-800 rounded-xl border border-gray-700 p-5 relative overflow-hidden">
+          <div className="bg-gray-900 dark:bg-gray-800 rounded-3xl shadow-sm p-6 relative overflow-hidden">
             <p className="font-semibold text-white">Annual Plan</p>
             <p className="text-xs text-gray-400 mt-0.5 mb-4">17% off the monthly plan</p>
             <p className="text-3xl font-bold text-white mb-0.5">
@@ -158,7 +158,7 @@ export default async function BillingPage() {
           </div>
 
           {/* Business plan */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-5">
+          <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
             <p className="font-semibold text-gray-900 dark:text-white">Business Plan</p>
             <p className="text-xs text-gray-400 mt-0.5 mb-4">35% off the monthly plan</p>
             <p className="text-3xl font-bold text-gray-900 dark:text-white mb-0.5">
@@ -174,7 +174,7 @@ export default async function BillingPage() {
       )}
 
       {/* Info text */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6 mb-4">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <p className="text-sm text-gray-500 dark:text-gray-400 text-center leading-relaxed">
           Subscription plans are structured based on your website&apos;s monthly traffic. Events and usage limits vary by plan — upgrade to unlock higher limits and additional features for your accessibility widget.
         </p>

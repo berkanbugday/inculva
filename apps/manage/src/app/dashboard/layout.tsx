@@ -20,7 +20,7 @@ export default async function DashboardLayout({
   const [user, sites] = await Promise.all([
     db.user.findUnique({
       where: { id: session.user.id },
-      select: { role: true, bannedAt: true },
+      select: { bannedAt: true },
     }),
     db.site.findMany({
       where: { ownerId: session.user.id },
@@ -31,15 +31,14 @@ export default async function DashboardLayout({
   ]);
 
   if (user?.bannedAt) redirect("/banned");
-  const isAdmin = user?.role === "admin";
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
-      <DashboardHeader email={email} name={name ?? null} locale={locale} isAdmin={isAdmin} />
+    <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex flex-col">
+      <DashboardHeader locale={locale} />
       {!emailVerified && <VerificationBanner email={email} />}
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar sites={sites} isAdmin={isAdmin} />
-        <main className="flex-1 min-w-0 overflow-y-auto">
+        <Sidebar sites={sites} userName={name ?? null} userEmail={email} />
+        <main className="flex-1 min-w-0 overflow-y-auto p-8">
           {children}
         </main>
       </div>

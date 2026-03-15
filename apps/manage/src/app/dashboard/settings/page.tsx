@@ -27,26 +27,26 @@ export default async function SettingsPage() {
   })]);
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-8 space-y-8">
+    <main className="max-w-3xl space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Settings</h2>
+        <h2 className="text-3xl font-black text-gray-900 dark:text-white">Settings</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your account and API access.</p>
       </div>
 
       {/* Settings sub-nav */}
-      <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 w-fit">
-        <span className="px-4 py-1.5 bg-white dark:bg-gray-900 rounded-lg text-sm font-medium text-gray-900 dark:text-white shadow-sm">
+      <div className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
+        <span className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold">
           Account
         </span>
         <a
           href="/dashboard/settings/billing"
-          className="px-4 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 rounded-lg transition-colors"
+          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
         >
           Billing
         </a>
         <a
           href="/dashboard/settings/audit-log"
-          className="px-4 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 rounded-lg transition-colors"
+          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
         >
           Audit Log
         </a>
@@ -64,7 +64,7 @@ export default async function SettingsPage() {
       <WebhooksManager initialWebhooks={webhooks.map(w => ({ ...w, createdAt: w.createdAt.toISOString() }))} />
 
       {/* GDPR Data Export */}
-      <section className="border border-gray-200 dark:border-gray-800 rounded-xl p-6 space-y-3">
+      <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-3">
         <div>
           <h3 className="text-base font-semibold text-gray-900 dark:text-white">Export Your Data</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -74,7 +74,7 @@ export default async function SettingsPage() {
         <a
           href="/api/account/export"
           download
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-sm font-medium transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-sm font-semibold transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M8 1v9M4 7l4 4 4-4M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

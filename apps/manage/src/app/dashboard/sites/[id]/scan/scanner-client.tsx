@@ -51,7 +51,7 @@ function ViolationCard({ v }: { v: ScanViolation }) {
   const style = IMPACT_STYLES[v.impact];
 
   return (
-    <div className={`rounded-xl border ${style.border} bg-white dark:bg-gray-900 overflow-hidden`}>
+    <div className={`rounded-2xl border ${style.border} bg-white dark:bg-[#1a1a2e] overflow-hidden`}>
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full flex items-start gap-3 p-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -81,7 +81,7 @@ function ViolationCard({ v }: { v: ScanViolation }) {
       </button>
 
       {open && (
-        <div className="border-t border-gray-100 dark:border-gray-800 px-4 pb-4 pt-3 space-y-3">
+        <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] px-4 pb-4 pt-3 space-y-3">
           <p className="text-sm text-gray-700 dark:text-gray-300">{v.description}</p>
 
           {v.elements.length > 0 && (
@@ -164,7 +164,7 @@ export function ScannerClient({ siteId, domain }: Props) {
   return (
     <div className="space-y-6">
       {/* Scan form */}
-      <form onSubmit={runScan} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+      <form onSubmit={runScan} className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
           WCAG Accessibility Scan
         </h2>
@@ -178,12 +178,12 @@ export function ScannerClient({ siteId, domain }: Props) {
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://example.com"
             required
-            className="flex-1 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-gray-100 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-lg text-sm font-medium transition-colors"
+            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-full text-sm font-semibold transition-colors"
           >
             {loading ? "Scanning…" : "Run Scan"}
           </button>
@@ -213,7 +213,7 @@ export function ScannerClient({ siteId, domain }: Props) {
             const warningCount = WARNING_IMPACTS.reduce((sum, imp) => sum + impactCount(result.violations, imp), 0);
             const simulatedScore = computeScore(warningCount, result.passCount + criticalCount);
             return (
-              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+              <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   {/* Score */}
                   <div className="flex items-center gap-4">
@@ -276,7 +276,7 @@ export function ScannerClient({ siteId, domain }: Props) {
           })()}
 
           {/* Detailed impact breakdown */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5">
+          <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Breakdown by Severity</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {(["critical", "serious", "moderate", "minor"] as ImpactLevel[]).map((impact) => {

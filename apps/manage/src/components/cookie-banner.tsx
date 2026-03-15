@@ -24,7 +24,7 @@ export function CookieBanner() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-6 py-4 shadow-lg"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#1a1a2e] px-6 py-4 shadow-lg"
     >
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
         <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -35,7 +35,7 @@ export function CookieBanner() {
         </p>
         <button
           onClick={accept}
-          className="shrink-0 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
+          className="shrink-0 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors"
         >
           Got it
         </button>

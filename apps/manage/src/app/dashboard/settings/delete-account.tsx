@@ -28,7 +28,7 @@ export function DeleteAccount() {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-red-200 p-6">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 border-l-4 border-red-500">
       <h3 className="font-semibold text-red-700 mb-1">Danger Zone</h3>
       <p className="text-sm text-gray-500 mb-4">
         Permanently delete your account, all sites, analytics data, and
@@ -38,7 +38,7 @@ export function DeleteAccount() {
       {!open ? (
         <button
           onClick={() => setOpen(true)}
-          className="px-4 py-2 bg-red-50 text-red-700 border border-red-200 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors"
+          className="px-5 py-2.5 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-full text-sm font-semibold hover:bg-red-100 dark:hover:bg-red-900 transition-colors"
         >
           Delete account
         </button>
@@ -51,7 +51,7 @@ export function DeleteAccount() {
             type="text"
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+            className="w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-400"
             placeholder="delete"
             autoComplete="off"
           />
@@ -62,13 +62,13 @@ export function DeleteAccount() {
             <button
               onClick={() => void handleDelete()}
               disabled={confirm !== "delete" || loading}
-              className="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-5 py-2.5 bg-red-600 text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Deleting…" : "Permanently delete account"}
             </button>
             <button
               onClick={() => { setOpen(false); setConfirm(""); }}
-              className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors"
+              className="px-5 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-full border border-[#e8eaf0] dark:border-[#2a2a3e] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               Cancel
             </button>

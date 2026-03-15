@@ -13,7 +13,7 @@ interface Props {
  */
 export function AuthBrandPanel({
   children,
-  gradient = "from-blue-600 to-blue-800",
+  gradient = "from-blue-600 to-violet-600",
 }: Props) {
   return (
     <div

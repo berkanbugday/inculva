@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-type WebhookEvent = "site.config_updated" | "usage.warning" | "usage.limit" | "payment.failed";
+type WebhookEvent =
+  | "site.config_updated"
+  | "usage.warning"
+  | "usage.limit"
+  | "payment.failed";
 
 interface Webhook {
   id: string;
@@ -13,10 +17,26 @@ interface Webhook {
 }
 
 const ALL_EVENTS: { value: WebhookEvent; label: string; desc: string }[] = [
-  { value: "site.config_updated", label: "Site config updated", desc: "When widget settings are saved" },
-  { value: "usage.warning", label: "Usage warning (80%)", desc: "When monthly event quota hits 80%" },
-  { value: "usage.limit", label: "Usage limit (100%)", desc: "When monthly event quota is exhausted" },
-  { value: "payment.failed", label: "Payment failed", desc: "When a subscription payment fails" },
+  {
+    value: "site.config_updated",
+    label: "Site config updated",
+    desc: "When widget settings are saved",
+  },
+  {
+    value: "usage.warning",
+    label: "Usage warning (80%)",
+    desc: "When monthly event quota hits 80%",
+  },
+  {
+    value: "usage.limit",
+    label: "Usage limit (100%)",
+    desc: "When monthly event quota is exhausted",
+  },
+  {
+    value: "payment.failed",
+    label: "Payment failed",
+    desc: "When a subscription payment fails",
+  },
 ];
 
 interface Props {
@@ -27,12 +47,17 @@ export function WebhooksManager({ initialWebhooks }: Props) {
   const [webhooks, setWebhooks] = useState<Webhook[]>(initialWebhooks);
   const [showForm, setShowForm] = useState(false);
   const [url, setUrl] = useState("");
-  const [selectedEvents, setSelectedEvents] = useState<WebhookEvent[]>(["site.config_updated"]);
+  const [selectedEvents, setSelectedEvents] = useState<WebhookEvent[]>([
+    "site.config_updated",
+  ]);
   const [saving, setSaving] = useState(false);
   const [newSecret, setNewSecret] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [testingId, setTestingId] = useState<string | null>(null);
-  const [testResult, setTestResult] = useState<{ id: string; ok: boolean } | null>(null);
+  const [testResult, setTestResult] = useState<{
+    id: string;
+    ok: boolean;
+  } | null>(null);
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -44,7 +69,11 @@ export function WebhooksManager({ initialWebhooks }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url, events: selectedEvents }),
       });
-      const json = await res.json() as { success?: boolean; error?: string; data?: Webhook & { secret?: string } };
+      const json = (await res.json()) as {
+        success?: boolean;
+        error?: string;
+        data?: Webhook & { secret?: string };
+      };
       if (!res.ok || !json.success) {
         setError(json.error ?? "Failed to create webhook.");
         return;
@@ -63,9 +92,11 @@ export function WebhooksManager({ initialWebhooks }: Props) {
   }
 
   async function handleDelete(id: string) {
-    await fetch(`/api/webhooks/${id}`, { method: "DELETE" });
-    setWebhooks((prev) => prev.filter((w) => w.id !== id));
-    if (newSecret) setNewSecret(null);
+    const res = await fetch(`/api/webhooks/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setWebhooks((prev) => prev.filter((w) => w.id !== id));
+      if (newSecret) setNewSecret(null);
+    }
   }
 
   async function handleToggle(id: string, enabled: boolean) {
@@ -101,18 +132,24 @@ export function WebhooksManager({ initialWebhooks }: Props) {
   }
 
   return (
-    <section className="border border-gray-200 dark:border-gray-800 rounded-xl p-6 space-y-4">
+    <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-base font-semibold text-gray-900 dark:text-white">Webhooks</h3>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">
+            Webhooks
+          </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
             Receive HTTP POST notifications when platform events occur.
           </p>
         </div>
         {!showForm && (
           <button
-            onClick={() => { setShowForm(true); setNewSecret(null); setError(""); }}
-            className="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+            onClick={() => {
+              setShowForm(true);
+              setNewSecret(null);
+              setError("");
+            }}
+            className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors"
           >
             + Add webhook
           </button>
@@ -121,7 +158,10 @@ export function WebhooksManager({ initialWebhooks }: Props) {
 
       {/* Create form */}
       {showForm && (
-        <form onSubmit={(e) => void handleCreate(e)} className="border border-gray-100 dark:border-gray-800 rounded-xl p-4 space-y-4 bg-gray-50 dark:bg-gray-900/50">
+        <form
+          onSubmit={(e) => void handleCreate(e)}
+          className="border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl p-5 space-y-4 bg-[#f8f9fc] dark:bg-[#0e0e10]"
+        >
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Endpoint URL <span className="text-red-500">*</span>
@@ -132,16 +172,23 @@ export function WebhooksManager({ initialWebhooks }: Props) {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://your-server.com/webhooks/inculva"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#1a1a2e] text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <p className="text-xs text-gray-400 mt-1">Must be HTTPS. Max 500 characters.</p>
+            <p className="text-xs text-gray-400 mt-1">
+              Must be HTTPS. Max 500 characters.
+            </p>
           </div>
 
           <div>
-            <p className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Events to subscribe</p>
+            <p className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Events to subscribe
+            </p>
             <div className="space-y-2">
               {ALL_EVENTS.map((ev) => (
-                <label key={ev.value} className="flex items-start gap-2.5 cursor-pointer">
+                <label
+                  key={ev.value}
+                  className="flex items-start gap-2.5 cursor-pointer"
+                >
                   <input
                     type="checkbox"
                     checked={selectedEvents.includes(ev.value)}
@@ -149,8 +196,12 @@ export function WebhooksManager({ initialWebhooks }: Props) {
                     className="mt-0.5 rounded border-gray-300"
                   />
                   <span className="text-sm">
-                    <span className="font-medium text-gray-800 dark:text-gray-200">{ev.label}</span>
-                    <span className="text-gray-400 dark:text-gray-500 ml-2">{ev.desc}</span>
+                    <span className="font-medium text-gray-800 dark:text-gray-200">
+                      {ev.label}
+                    </span>
+                    <span className="text-gray-400 dark:text-gray-500 ml-2">
+                      {ev.desc}
+                    </span>
                   </span>
                 </label>
               ))}
@@ -163,14 +214,17 @@ export function WebhooksManager({ initialWebhooks }: Props) {
             <button
               type="submit"
               disabled={saving || selectedEvents.length === 0}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
             >
               {saving ? "Creating…" : "Create webhook"}
             </button>
             <button
               type="button"
-              onClick={() => { setShowForm(false); setError(""); }}
-              className="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              onClick={() => {
+                setShowForm(false);
+                setError("");
+              }}
+              className="px-5 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
               Cancel
             </button>
@@ -185,7 +239,10 @@ export function WebhooksManager({ initialWebhooks }: Props) {
             Save your signing secret — shown only once
           </p>
           <p className="text-xs text-yellow-700 dark:text-yellow-400 mb-3">
-            Use this to verify incoming requests are from Inculva. Check the <code className="font-mono">X-Inculva-Signature</code> header against <code className="font-mono">HMAC-SHA256(secret, body)</code>.
+            Use this to verify incoming requests are from Inculva. Check the{" "}
+            <code className="font-mono">X-Inculva-Signature</code> header
+            against <code className="font-mono">HMAC-SHA256(secret, body)</code>
+            .
           </p>
           <code className="block bg-white dark:bg-gray-900 border border-yellow-200 dark:border-yellow-800 rounded-lg px-3 py-2 text-xs font-mono text-gray-800 dark:text-gray-200 break-all select-all">
             {newSecret}
@@ -205,21 +262,30 @@ export function WebhooksManager({ initialWebhooks }: Props) {
           No webhooks yet. Add one to start receiving event notifications.
         </p>
       ) : (
-        <div className="divide-y divide-gray-100 dark:divide-gray-800">
+        <div className="divide-y divide-[#f8f9fc] dark:divide-[#2a2a3e]">
           {webhooks.map((hook) => (
             <div key={hook.id} className="py-4 flex items-start gap-4">
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-mono text-gray-800 dark:text-gray-200 truncate">{hook.url}</p>
+                <p className="text-sm font-mono text-gray-800 dark:text-gray-200 truncate">
+                  {hook.url}
+                </p>
                 <div className="flex flex-wrap gap-1.5 mt-1.5">
                   {hook.events.map((ev) => (
-                    <span key={ev} className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs font-mono">
+                    <span
+                      key={ev}
+                      className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded text-xs font-mono"
+                    >
                       {ev}
                     </span>
                   ))}
                 </div>
                 {testResult?.id === hook.id && (
-                  <p className={`text-xs mt-1.5 ${testResult.ok ? "text-green-600 dark:text-green-400" : "text-red-500"}`}>
-                    {testResult.ok ? "Test delivered successfully." : "Test delivery failed — check your endpoint."}
+                  <p
+                    className={`text-xs mt-1.5 ${testResult.ok ? "text-green-600 dark:text-green-400" : "text-red-500"}`}
+                  >
+                    {testResult.ok
+                      ? "Test delivered successfully."
+                      : "Test delivery failed — check your endpoint."}
                   </p>
                 )}
               </div>
@@ -230,7 +296,9 @@ export function WebhooksManager({ initialWebhooks }: Props) {
                   title={hook.enabled ? "Disable" : "Enable"}
                   className={`relative w-9 h-5 rounded-full transition-colors ${hook.enabled ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"}`}
                 >
-                  <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full transition-transform ${hook.enabled ? "translate-x-4" : ""}`} />
+                  <span
+                    className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full transition-transform ${hook.enabled ? "translate-x-4" : ""}`}
+                  />
                 </button>
                 {/* Test */}
                 <button

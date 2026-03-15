@@ -25,17 +25,17 @@ export function PeriodTabs({ siteId, current }: Props) {
   }
 
   return (
-    <div className="flex gap-1 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+    <div className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm border border-[#e8eaf0] dark:border-[#2a2a3e]">
       {OPTIONS.map((opt) => {
         const active = current === Number(opt.value);
         return (
           <button
             key={opt.value}
             onClick={() => select(opt.value)}
-            className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-xl text-sm font-semibold transition-colors ${
               active
-                ? "bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+                ? "bg-blue-600 text-white"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
             }`}
           >
             {opt.label}

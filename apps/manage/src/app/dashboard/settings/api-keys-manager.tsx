@@ -43,7 +43,10 @@ export function ApiKeysManager({ initialKeys }: Props) {
       setName("");
       // Refresh key list
       const listRes = await fetch("/api/keys");
-      const listJson = (await listRes.json()) as { success: boolean; data: ApiKey[] };
+      const listJson = (await listRes.json()) as {
+        success: boolean;
+        data: ApiKey[];
+      };
       if (listJson.success) setKeys(listJson.data);
     } finally {
       setCreating(false);
@@ -53,8 +56,10 @@ export function ApiKeysManager({ initialKeys }: Props) {
   async function handleRevoke(id: string) {
     setRevoking(id);
     try {
-      await fetch(`/api/keys/${id}`, { method: "DELETE" });
-      setKeys((prev) => prev.filter((k) => k.id !== id));
+      const res = await fetch(`/api/keys/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        setKeys((prev) => prev.filter((k) => k.id !== id));
+      }
     } finally {
       setRevoking(null);
     }
@@ -77,11 +82,12 @@ export function ApiKeysManager({ initialKeys }: Props) {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-6">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-6">
       <div>
         <h3 className="font-semibold text-gray-900">API Keys</h3>
         <p className="text-sm text-gray-500 mt-1">
-          Use these keys to authenticate requests to the Inculva API from your own integrations.
+          Use these keys to authenticate requests to the Inculva API from your
+          own integrations.
         </p>
       </div>
 
@@ -101,7 +107,7 @@ export function ApiKeysManager({ initialKeys }: Props) {
                 "px-3 py-2 rounded-lg text-xs font-medium transition-colors shrink-0",
                 copied
                   ? "bg-green-600 text-white"
-                  : "bg-green-100 text-green-800 hover:bg-green-200"
+                  : "bg-green-100 text-green-800 hover:bg-green-200",
               )}
             >
               {copied ? "Copied!" : "Copy"}
@@ -124,14 +130,14 @@ export function ApiKeysManager({ initialKeys }: Props) {
           onChange={(e) => setName(e.target.value)}
           placeholder="Key name (e.g. Production)"
           required
-          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"
           disabled={creating}
           className={cn(
-            "px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shrink-0",
-            creating && "opacity-60 cursor-not-allowed"
+            "px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors shrink-0",
+            creating && "opacity-60 cursor-not-allowed",
           )}
         >
           {creating ? "Creating…" : "Create key"}
@@ -144,12 +150,17 @@ export function ApiKeysManager({ initialKeys }: Props) {
           No API keys yet. Create one above.
         </p>
       ) : (
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-[#f8f9fc] dark:divide-[#2a2a3e]">
           {keys.map((key) => (
-            <div key={key.id} className="flex items-center justify-between py-3 gap-4">
+            <div
+              key={key.id}
+              className="flex items-center justify-between py-3 gap-4"
+            >
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-900">{key.name}</span>
+                  <span className="text-sm font-medium text-gray-900">
+                    {key.name}
+                  </span>
                   <code className="text-xs font-mono bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">
                     {key.keyPrefix}…
                   </code>
@@ -158,7 +169,9 @@ export function ApiKeysManager({ initialKeys }: Props) {
                   <span>Created {formatDate(key.createdAt)}</span>
                   <span>Last used {formatDate(key.lastUsedAt)}</span>
                   {key.expiresAt && (
-                    <span className="text-amber-600">Expires {formatDate(key.expiresAt)}</span>
+                    <span className="text-amber-600">
+                      Expires {formatDate(key.expiresAt)}
+                    </span>
                   )}
                 </div>
               </div>

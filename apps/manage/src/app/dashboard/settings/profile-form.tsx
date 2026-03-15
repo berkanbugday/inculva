@@ -8,7 +8,10 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@inculva/ui";
 
 const nameSchema = z.object({
-  name: z.string().min(1, "Name is required").max(100, "Maximum 100 characters"),
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .max(100, "Maximum 100 characters"),
 });
 const pwSchema = z.object({
   currentPassword: z.string().min(1, "Current password is required"),
@@ -24,7 +27,7 @@ interface Props {
 }
 
 const inputCls =
-  "w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow";
+  "w-full px-4 py-3 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow";
 
 export function ProfileForm({ name, email }: Props) {
   const [nameSaved, setNameSaved] = useState(false);
@@ -40,7 +43,9 @@ export function ProfileForm({ name, email }: Props) {
     setNameSaved(false);
     const result = await authClient.updateUser({ name: data.name });
     if (result.error) {
-      nameForm.setError("root", { message: result.error.message ?? "Failed to update name" });
+      nameForm.setError("root", {
+        message: result.error.message ?? "Failed to update name",
+      });
       return;
     }
     setNameSaved(true);
@@ -54,7 +59,9 @@ export function ProfileForm({ name, email }: Props) {
       revokeOtherSessions: false,
     });
     if (result.error) {
-      pwForm.setError("root", { message: result.error.message ?? "Failed to change password" });
+      pwForm.setError("root", {
+        message: result.error.message ?? "Failed to change password",
+      });
       return;
     }
     setPwSaved(true);
@@ -65,10 +72,13 @@ export function ProfileForm({ name, email }: Props) {
     <div className="space-y-6">
       {/* ── Profile section ── */}
       <section
-        className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-7"
+        className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8"
         aria-labelledby="profile-heading"
       >
-        <h3 id="profile-heading" className="text-lg font-bold text-gray-900 dark:text-white mb-5">
+        <h3
+          id="profile-heading"
+          className="text-lg font-bold text-gray-900 dark:text-white mb-5"
+        >
           Profile
         </h3>
         <form
@@ -78,19 +88,34 @@ export function ProfileForm({ name, email }: Props) {
           className="space-y-5"
         >
           <div>
-            <label htmlFor="display-name" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+            <label
+              htmlFor="display-name"
+              className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
+            >
               Name
             </label>
             <input
-              id="display-name" type="text" autoComplete="name" placeholder="Jane Smith"
-              aria-describedby={nameForm.formState.errors.name ? "name-error" : undefined}
+              id="display-name"
+              type="text"
+              autoComplete="name"
+              placeholder="Jane Smith"
+              aria-describedby={
+                nameForm.formState.errors.name ? "name-error" : undefined
+              }
               aria-invalid={!!nameForm.formState.errors.name}
               className={inputCls}
               {...nameForm.register("name")}
-              onChange={(e) => { void nameForm.register("name").onChange(e); setNameSaved(false); }}
+              onChange={(e) => {
+                void nameForm.register("name").onChange(e);
+                setNameSaved(false);
+              }}
             />
             {nameForm.formState.errors.name && (
-              <p id="name-error" role="alert" className="mt-1.5 text-sm text-red-600 dark:text-red-400">
+              <p
+                id="name-error"
+                role="alert"
+                className="mt-1.5 text-sm text-red-600 dark:text-red-400"
+              >
                 {nameForm.formState.errors.name.message}
               </p>
             )}
@@ -101,16 +126,21 @@ export function ProfileForm({ name, email }: Props) {
               Email address
             </label>
             <p
-              className="px-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-base text-gray-600 dark:text-gray-400"
+              className="px-4 py-3 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-base text-gray-600 dark:text-gray-400"
               aria-label={`Your email address is ${email}. Contact support to change it.`}
             >
               {email}
             </p>
-            <p className="text-sm text-gray-400 dark:text-gray-600 mt-1">Contact support to change your email address.</p>
+            <p className="text-sm text-gray-400 dark:text-gray-600 mt-1">
+              Contact support to change your email address.
+            </p>
           </div>
 
           {nameForm.formState.errors.root && (
-            <p role="alert" className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 px-4 py-3 rounded-xl">
+            <p
+              role="alert"
+              className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 px-4 py-3 rounded-xl"
+            >
               {nameForm.formState.errors.root.message}
             </p>
           )}
@@ -120,14 +150,19 @@ export function ProfileForm({ name, email }: Props) {
               disabled={nameForm.formState.isSubmitting}
               aria-busy={nameForm.formState.isSubmitting}
               className={cn(
-                "px-6 py-3 bg-blue-600 text-white rounded-xl text-base font-semibold hover:bg-blue-700 transition-colors",
-                nameForm.formState.isSubmitting && "opacity-60 cursor-not-allowed",
+                "px-6 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors",
+                nameForm.formState.isSubmitting &&
+                  "opacity-60 cursor-not-allowed",
               )}
             >
               {nameForm.formState.isSubmitting ? "Saving…" : "Save name"}
             </button>
             {nameSaved && (
-              <span role="status" aria-live="polite" className="text-sm text-green-600 dark:text-green-400 font-medium">
+              <span
+                role="status"
+                aria-live="polite"
+                className="text-sm text-green-600 dark:text-green-400 font-medium"
+              >
                 ✓ Saved
               </span>
             )}
@@ -137,10 +172,13 @@ export function ProfileForm({ name, email }: Props) {
 
       {/* ── Change Password section ── */}
       <section
-        className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-7"
+        className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8"
         aria-labelledby="pw-heading"
       >
-        <h3 id="pw-heading" className="text-lg font-bold text-gray-900 dark:text-white mb-5">
+        <h3
+          id="pw-heading"
+          className="text-lg font-bold text-gray-900 dark:text-white mb-5"
+        >
           Change Password
         </h3>
         <form
@@ -150,44 +188,91 @@ export function ProfileForm({ name, email }: Props) {
           className="space-y-5"
         >
           <div>
-            <label htmlFor="current-password" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+            <label
+              htmlFor="current-password"
+              className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
+            >
               Current password
             </label>
             <input
-              id="current-password" type="password" autoComplete="current-password" placeholder="••••••••"
-              aria-describedby={pwForm.formState.errors.currentPassword ? "curr-pw-error" : undefined}
+              id="current-password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="••••••••"
+              aria-describedby={
+                pwForm.formState.errors.currentPassword
+                  ? "curr-pw-error"
+                  : undefined
+              }
               aria-invalid={!!pwForm.formState.errors.currentPassword}
               className={inputCls}
               {...pwForm.register("currentPassword")}
+              onChange={(e) => {
+                void pwForm.register("currentPassword").onChange(e);
+                setPwSaved(false);
+              }}
             />
             {pwForm.formState.errors.currentPassword && (
-              <p id="curr-pw-error" role="alert" className="mt-1.5 text-sm text-red-600 dark:text-red-400">
+              <p
+                id="curr-pw-error"
+                role="alert"
+                className="mt-1.5 text-sm text-red-600 dark:text-red-400"
+              >
                 {pwForm.formState.errors.currentPassword.message}
               </p>
             )}
           </div>
 
           <div>
-            <label htmlFor="new-password" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+            <label
+              htmlFor="new-password"
+              className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
+            >
               New password
             </label>
             <input
-              id="new-password" type="password" autoComplete="new-password" placeholder="Min. 8 characters"
-              aria-describedby={["new-pw-hint", pwForm.formState.errors.newPassword ? "new-pw-error" : undefined].filter(Boolean).join(" ")}
+              id="new-password"
+              type="password"
+              autoComplete="new-password"
+              placeholder="Min. 8 characters"
+              aria-describedby={[
+                "new-pw-hint",
+                pwForm.formState.errors.newPassword
+                  ? "new-pw-error"
+                  : undefined,
+              ]
+                .filter(Boolean)
+                .join(" ")}
               aria-invalid={!!pwForm.formState.errors.newPassword}
               className={inputCls}
               {...pwForm.register("newPassword")}
+              onChange={(e) => {
+                void pwForm.register("newPassword").onChange(e);
+                setPwSaved(false);
+              }}
             />
-            <p id="new-pw-hint" className="text-sm text-gray-400 dark:text-gray-600 mt-1">Must be at least 8 characters.</p>
+            <p
+              id="new-pw-hint"
+              className="text-sm text-gray-400 dark:text-gray-600 mt-1"
+            >
+              Must be at least 8 characters.
+            </p>
             {pwForm.formState.errors.newPassword && (
-              <p id="new-pw-error" role="alert" className="mt-1 text-sm text-red-600 dark:text-red-400">
+              <p
+                id="new-pw-error"
+                role="alert"
+                className="mt-1 text-sm text-red-600 dark:text-red-400"
+              >
                 {pwForm.formState.errors.newPassword.message}
               </p>
             )}
           </div>
 
           {pwForm.formState.errors.root && (
-            <p role="alert" className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 px-4 py-3 rounded-xl">
+            <p
+              role="alert"
+              className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950 px-4 py-3 rounded-xl"
+            >
               {pwForm.formState.errors.root.message}
             </p>
           )}
@@ -197,14 +282,19 @@ export function ProfileForm({ name, email }: Props) {
               disabled={pwForm.formState.isSubmitting}
               aria-busy={pwForm.formState.isSubmitting}
               className={cn(
-                "px-6 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-xl text-base font-semibold hover:bg-gray-700 dark:hover:bg-white transition-colors",
-                pwForm.formState.isSubmitting && "opacity-60 cursor-not-allowed",
+                "px-6 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-full text-base font-semibold hover:bg-gray-700 dark:hover:bg-white transition-colors",
+                pwForm.formState.isSubmitting &&
+                  "opacity-60 cursor-not-allowed",
               )}
             >
               {pwForm.formState.isSubmitting ? "Updating…" : "Change password"}
             </button>
             {pwSaved && (
-              <span role="status" aria-live="polite" className="text-sm text-green-600 dark:text-green-400 font-medium">
+              <span
+                role="status"
+                aria-live="polite"
+                className="text-sm text-green-600 dark:text-green-400 font-medium"
+              >
                 ✓ Password updated
               </span>
             )}

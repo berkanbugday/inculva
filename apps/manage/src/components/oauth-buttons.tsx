@@ -13,7 +13,6 @@ export function OAuthButtons({ callbackURL = "/dashboard" }: Props) {
   async function handleOAuth(provider: "google" | "github") {
     setLoadingProvider(provider);
     await signIn.social({ provider, callbackURL });
-    // navigation is handled by Better Auth redirect — no need to reset state
   }
 
   return (
@@ -22,7 +21,7 @@ export function OAuthButtons({ callbackURL = "/dashboard" }: Props) {
         type="button"
         onClick={() => void handleOAuth("google")}
         disabled={loadingProvider !== null}
-        className="w-full flex items-center justify-center gap-3 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full bg-white dark:bg-[#1a1a2e] text-gray-700 dark:text-gray-200 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {loadingProvider === "google" ? (
           <span className="w-5 h-5 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
@@ -41,7 +40,7 @@ export function OAuthButtons({ callbackURL = "/dashboard" }: Props) {
         type="button"
         onClick={() => void handleOAuth("github")}
         disabled={loadingProvider !== null}
-        className="w-full flex items-center justify-center gap-3 px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-3 px-4 py-3.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full bg-white dark:bg-[#1a1a2e] text-gray-700 dark:text-gray-200 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {loadingProvider === "github" ? (
           <span className="w-5 h-5 border-2 border-gray-300 border-t-gray-700 dark:border-t-gray-200 rounded-full animate-spin" />
@@ -58,12 +57,12 @@ export function OAuthButtons({ callbackURL = "/dashboard" }: Props) {
 
 export function OAuthDivider() {
   return (
-    <div className="relative my-5">
+    <div className="relative my-6">
       <div className="absolute inset-0 flex items-center">
-        <div className="w-full border-t border-gray-200 dark:border-gray-700" />
+        <div className="w-full border-t border-[#e8eaf0] dark:border-[#2a2a3e]" />
       </div>
       <div className="relative flex justify-center text-xs">
-        <span className="bg-white dark:bg-gray-900 px-3 text-gray-400 dark:text-gray-500">
+        <span className="bg-white dark:bg-[#1a1a2e] px-3 text-gray-400 dark:text-gray-500 font-medium">
           or continue with email
         </span>
       </div>

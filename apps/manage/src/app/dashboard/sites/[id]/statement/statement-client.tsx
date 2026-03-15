@@ -171,7 +171,7 @@ export function StatementClient({
           </code>
           <button
             onClick={copyHostedUrl}
-            className="px-3 py-1.5 text-xs font-medium bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            className="px-3 py-1.5 text-xs font-medium bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors"
           >
             {copied ? "Copied!" : "Copy URL"}
           </button>
@@ -179,7 +179,7 @@ export function StatementClient({
             href={hostedUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 text-xs font-medium border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
+            className="px-3 py-1.5 text-xs font-medium border border-green-300 dark:border-green-700 text-green-700 dark:text-green-300 rounded-full hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
           >
             Preview
           </a>
@@ -208,7 +208,7 @@ export function StatementClient({
       )}
 
       {/* Form */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-4">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6 space-y-4">
         <h3 className="font-semibold text-gray-900 dark:text-white">Statement Details</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -220,7 +220,7 @@ export function StatementClient({
               type="text"
               value={form.contactName}
               onChange={(e) => setForm((f) => ({ ...f, contactName: e.target.value }))}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Jane Smith"
             />
           </div>
@@ -233,7 +233,7 @@ export function StatementClient({
               type="email"
               value={form.contactEmail}
               onChange={(e) => setForm((f) => ({ ...f, contactEmail: e.target.value }))}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="accessibility@example.com"
             />
           </div>
@@ -245,7 +245,7 @@ export function StatementClient({
             <select
               value={form.conformanceLevel}
               onChange={(e) => setForm((f) => ({ ...f, conformanceLevel: e.target.value }))}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="A">WCAG 2.1 Level A</option>
               <option value="AA">WCAG 2.1 Level AA (EAA required)</option>
@@ -261,7 +261,7 @@ export function StatementClient({
               type="date"
               value={form.reviewDate}
               onChange={(e) => setForm((f) => ({ ...f, reviewDate: e.target.value }))}
-              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
@@ -274,7 +274,7 @@ export function StatementClient({
             value={form.limitations}
             onChange={(e) => setForm((f) => ({ ...f, limitations: e.target.value }))}
             rows={3}
-            className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             placeholder="Describe any known accessibility barriers and your plan to fix them..."
           />
         </div>
@@ -282,13 +282,13 @@ export function StatementClient({
         <div className="flex flex-wrap gap-3 pt-2">
           <button
             onClick={downloadHtml}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+            className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors"
           >
             Download HTML
           </button>
           <button
             onClick={() => setPreview((p) => !p)}
-            className="px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            className="px-5 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] text-gray-700 dark:text-gray-300 rounded-full text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 border border-[#e8eaf0] dark:border-[#2a2a3e] transition-colors"
           >
             {preview ? "Hide Preview" : "Preview"}
           </button>
@@ -297,7 +297,7 @@ export function StatementClient({
 
       {/* Preview */}
       {preview && (
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
           <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Preview</h3>
           <iframe
             srcDoc={html}
@@ -309,7 +309,7 @@ export function StatementClient({
       )}
 
       {/* Link to statement in widget */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 space-y-4">
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6 space-y-4">
         <h3 className="font-semibold text-gray-900 dark:text-white">Link in Widget</h3>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           After hosting the HTML file on your site, add the URL to your widget config so it appears as a link in the widget panel footer. You can also set it directly in the{" "}

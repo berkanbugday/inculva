@@ -42,23 +42,23 @@ export function UpgradeButton({
   return (
     <div className="space-y-3">
       {/* Interval toggle */}
-      <div className="flex gap-1 bg-blue-100 dark:bg-blue-900/30 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 bg-white dark:bg-[#1a1a2e] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl p-1.5 w-fit shadow-sm">
         <button
           onClick={() => setInterval("month")}
-          className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+          className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
             interval === "month"
-              ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm"
-              : "text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-100"
+              ? "bg-blue-600 text-white shadow-sm"
+              : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
           }`}
         >
           Monthly — ${monthlyUsd}/mo
         </button>
         <button
           onClick={() => setInterval("year")}
-          className={`px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 ${
             interval === "year"
-              ? "bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm"
-              : "text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-blue-100"
+              ? "bg-blue-600 text-white shadow-sm"
+              : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
           }`}
         >
           Annual — ${monthlyEquiv}/mo
@@ -71,7 +71,7 @@ export function UpgradeButton({
       <button
         onClick={() => void handleCheckout()}
         disabled={loading || !variantId}
-        className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {loading ? "Redirecting…" : `Upgrade to ${planName} →`}
       </button>

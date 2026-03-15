@@ -27,7 +27,7 @@ export function ReferralBanner() {
   }
 
   return (
-    <section className="border border-gray-200 dark:border-gray-800 rounded-xl p-6 space-y-4">
+    <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-4">
       <div>
         <h3 className="text-base font-semibold text-gray-900 dark:text-white">Refer &amp; Earn</h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -38,12 +38,12 @@ export function ReferralBanner() {
       {data ? (
         <>
           <div className="flex items-center gap-2">
-            <code className="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-mono text-gray-700 dark:text-gray-300 truncate">
+            <code className="flex-1 px-4 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm font-mono text-gray-700 dark:text-gray-300 truncate">
               {data.shareUrl}
             </code>
             <button
               onClick={() => void handleCopy()}
-              className="shrink-0 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
+              className="shrink-0 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors"
             >
               {copied ? "Copied!" : "Copy link"}
             </button>
