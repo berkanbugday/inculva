@@ -13,7 +13,7 @@ export function Nav({ cdnUrl, appUrl }: { cdnUrl: string; appUrl: string }) {
       <div className="max-w-6xl mx-auto px-8 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3">
           <img
-            src={`${cdnUrl}/logos/logo.png`}
+            src={`${cdnUrl}/logos/logo-dark.png`}
             alt="Inculva - Web Accessibility Tools"
             className="h-8 w-auto"
           />

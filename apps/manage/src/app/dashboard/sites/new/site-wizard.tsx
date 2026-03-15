@@ -87,7 +87,7 @@ export function SiteWizard({ createSite, error }: Props) {
   }
 
   const inputClass =
-    "w-full px-3 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
+    "w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8">
@@ -156,7 +156,7 @@ export function SiteWizard({ createSite, error }: Props) {
               <p className="text-sm text-gray-500 dark:text-gray-400">Enter a friendly name and the domain you want to embed the widget on.</p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="wizard-name">
+              <label className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5" htmlFor="wizard-name">
                 Site name
               </label>
               <input
@@ -170,7 +170,7 @@ export function SiteWizard({ createSite, error }: Props) {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="wizard-domain">
+              <label className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5" htmlFor="wizard-domain">
                 Domain
               </label>
               <input
@@ -325,7 +325,7 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={() => setStep((s) => s - 1)}
             disabled={isPending}
-            className="px-5 py-2.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors disabled:opacity-50"
+            className="px-5 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-base font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors disabled:opacity-50"
           >
             Back
           </button>
@@ -335,7 +335,7 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={() => setStep((s) => s + 1)}
             disabled={!canAdvance()}
-            className="px-5 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-5 py-3 bg-blue-600 text-white rounded-xl text-base font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Continue
           </button>
@@ -344,14 +344,14 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={handleSubmit}
             disabled={isPending}
-            className="px-6 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-blue-600 text-white rounded-xl text-base font-medium hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isPending ? "Creating…" : "Create site"}
           </button>
         )}
         <a
           href="/dashboard"
-          className="px-5 py-2.5 text-gray-500 dark:text-gray-400 rounded-lg text-sm font-medium hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+          className="px-5 py-3 text-gray-500 dark:text-gray-400 rounded-xl text-base font-medium hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
         >
           Cancel
         </a>

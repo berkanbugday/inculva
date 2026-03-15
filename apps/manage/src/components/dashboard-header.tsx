@@ -54,7 +54,11 @@ export function DashboardHeader({ email, name, locale }: Props) {
     <header className="h-[52px] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-5 flex items-center justify-between sticky top-0 z-40 shrink-0">
       {/* Logo */}
       <a href="/dashboard" className="flex items-center gap-2.5 group">
-        <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva" className="h-7 w-auto" />
+        <img
+          src={`${CDN_URL}/logos/logo-dark.png`}
+          alt="Inculva"
+          className="h-7 w-auto"
+        />
       </a>
 
       {/* Right side */}

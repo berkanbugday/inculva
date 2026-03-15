@@ -1,209 +1,168 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@inculva/ui";
+import { AuthBrandPanel } from "@/components/auth-brand-panel";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
-export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const TIPS = [
+  "Check your spam or junk folder",
+  "Reset link is valid for 1 hour",
+  "Use a strong, unique new password",
+];
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    const result = await authClient.requestPasswordReset({
-      email,
+const schema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+});
+type FormData = z.infer<typeof schema>;
+
+const inputCls =
+  "w-full px-4 py-3.5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-base";
+
+export default function ForgotPasswordPage() {
+  const [sentEmail, setSentEmail] = useState<string | null>(null);
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  async function onSubmit(data: FormData) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await (authClient as any).requestPasswordReset({
+      email: data.email,
       redirectTo: "/reset-password",
     });
     if (result.error) {
-      setError(result.error.message ?? "Something went wrong");
-      setLoading(false);
+      setError("root", { message: result.error.message ?? "Something went wrong" });
       return;
     }
-    setSent(true);
-    setLoading(false);
+    setSentEmail(data.email);
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
-      <div className="w-full max-w-sm">
-        {/* Logo */}
-        <div className="flex items-center justify-center mb-8">
-          <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva" className="h-8 w-auto" />
+    <div className="min-h-screen flex">
+      <AuthBrandPanel>
+        <div>
+          <h2 className="text-3xl font-bold text-white leading-tight mb-3">
+            Secure account<br />recovery.
+          </h2>
+          <p className="text-blue-100 text-sm mb-8 leading-relaxed">
+            We&apos;ll email you a secure link so you can regain access quickly.
+          </p>
+          <ul className="space-y-3" role="list">
+            {TIPS.map((tip) => (
+              <li key={tip} className="flex items-center gap-3 text-white/90 text-sm">
+                <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                {tip}
+              </li>
+            ))}
+          </ul>
         </div>
+      </AuthBrandPanel>
 
-        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm p-8">
-          {sent ? (
-            <div className="text-center">
-              <div className="w-14 h-14 bg-green-100 dark:bg-green-950 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="text-green-600 dark:text-green-400"
-                  aria-hidden="true"
-                >
-                  <rect
-                    x="2"
-                    y="5"
-                    width="20"
-                    height="14"
-                    rx="3"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                  />
-                  <path
-                    d="M2 8l10 7 10-7"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+      <main className="flex-1 flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-950">
+        <div className="w-full max-w-sm">
+          <div className="lg:hidden text-center mb-8">
+            <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva — Web Accessibility Platform" className="h-10 w-auto mx-auto" />
+          </div>
+
+          {sentEmail ? (
+            <div aria-live="polite" role="status">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-950 rounded-2xl flex items-center justify-center mb-5" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-green-600 dark:text-green-400">
+                  <rect x="2" y="5" width="20" height="14" rx="3" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="M2 8l10 7 10-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                Check your inbox
-              </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Check your inbox</h1>
+              <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
                 We sent a reset link to{" "}
-                <span className="font-semibold text-gray-700 dark:text-gray-200">
-                  {email}
-                </span>
-                . The link expires in 1 hour.
+                <strong className="font-semibold text-gray-700 dark:text-gray-200">{sentEmail}</strong>.
+                The link expires in 1 hour.
               </p>
               <a
                 href="/login"
-                className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                className="inline-flex items-center gap-1.5 text-base text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                aria-label="Go back to the sign in page"
               >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path
-                    d="M8 2L3 7l5 5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M8 2L3 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 Back to sign in
               </a>
             </div>
           ) : (
             <>
-              <div className="mb-7">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                  Forgot password?
-                </h1>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  Enter your email and we&apos;ll send you a reset link.
-                </p>
-              </div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1">Forgot password?</h1>
+              <p className="text-gray-500 dark:text-gray-400 text-base mb-7">
+                Enter your email and we&apos;ll send you a reset link.
+              </p>
 
-              <form
-                onSubmit={(e) => void handleSubmit(e)}
-                className="space-y-4"
-              >
+              <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Request a password reset link" className="space-y-5">
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5"
-                  >
+                  <label htmlFor="email" className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
                     Email address
                   </label>
                   <input
-                    id="email"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-3.5 py-2.5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow text-sm"
-                    placeholder="you@example.com"
+                    id="email" type="email" autoComplete="email" placeholder="you@example.com"
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    aria-invalid={!!errors.email} aria-required="true"
+                    className={inputCls} {...register("email")}
                   />
+                  {errors.email && (
+                    <p id="email-error" role="alert" className="mt-1.5 text-sm text-red-600 dark:text-red-400">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
 
-                {error && (
-                  <div className="flex items-start gap-2.5 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-xl px-4 py-3 text-sm text-red-600 dark:text-red-400">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      className="shrink-0 mt-0.5"
-                      aria-hidden="true"
-                    >
-                      <circle
-                        cx="8"
-                        cy="8"
-                        r="7"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <path
-                        d="M8 5v4M8 11v.5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
+                {errors.root && (
+                  <div role="alert" className="flex items-start gap-2.5 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-xl px-4 py-3 text-sm text-red-600 dark:text-red-400">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5" aria-hidden="true">
+                      <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
-                    {error}
+                    {errors.root.message}
                   </div>
                 )}
 
                 <button
-                  type="submit"
-                  disabled={loading}
+                  type="submit" disabled={isSubmitting} aria-busy={isSubmitting}
+                  aria-label={isSubmitting ? "Sending reset link, please wait" : "Send password reset link"}
                   className={cn(
-                    "w-full py-2.5 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-sm flex items-center justify-center gap-2",
-                    loading && "opacity-60 cursor-not-allowed",
+                    "w-full py-3.5 px-6 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-base flex items-center justify-center gap-2",
+                    isSubmitting && "opacity-60 cursor-not-allowed",
                   )}
                 >
-                  {loading && (
-                    <svg
-                      className="animate-spin"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <circle
-                        cx="7"
-                        cy="7"
-                        r="5.5"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeOpacity="0.3"
-                      />
-                      <path
-                        d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
+                  {isSubmitting && (
+                    <svg className="animate-spin" width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <circle cx="7" cy="7" r="5.5" stroke="white" strokeWidth="1.5" strokeOpacity="0.3" />
+                      <path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
                   )}
-                  {loading ? "Sending…" : "Send reset link"}
+                  {isSubmitting ? "Sending…" : "Send reset link"}
                 </button>
 
-                <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-center text-base text-gray-500 dark:text-gray-400">
                   Remember it?{" "}
-                  <a
-                    href="/login"
-                    className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
-                  >
-                    Sign in
-                  </a>
+                  <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Sign in</a>
                 </p>
               </form>
             </>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

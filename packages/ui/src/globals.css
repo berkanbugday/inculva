@@ -2,12 +2,27 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Brand primary: #0066cc — override Tailwind blue palette globally */
+@theme {
+  --color-blue-50: #e6f0ff;
+  --color-blue-100: #cce0ff;
+  --color-blue-200: #99c2ff;
+  --color-blue-300: #66a3ff;
+  --color-blue-400: #3385ff;
+  --color-blue-500: #0066ff;
+  --color-blue-600: #0066cc;
+  --color-blue-700: #0052a3;
+  --color-blue-800: #003d7a;
+  --color-blue-900: #002952;
+  --color-blue-950: #001429;
+}
+
 :root {
   --background: 0 0% 100%;
   --foreground: 224 71.4% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 224 71.4% 4.1%;
-  --primary: 220.9 39.3% 11%;
+  --primary: 210 100% 40%;
   --primary-foreground: 210 20% 98%;
   --secondary: 220 14.3% 95.9%;
   --secondary-foreground: 220.9 39.3% 11%;
@@ -19,8 +34,8 @@
   --destructive-foreground: 210 20% 98%;
   --border: 220 13% 91%;
   --input: 220 13% 91%;
-  --ring: 224 71.4% 4.1%;
-  --radius: 0.5rem;
+  --ring: 210 100% 40%;
+  --radius: 0.75rem;
 }
 
 .dark {
@@ -28,7 +43,7 @@
   --foreground: 210 20% 98%;
   --card: 224 71.4% 4.1%;
   --card-foreground: 210 20% 98%;
-  --primary: 210 20% 98%;
+  --primary: 210 100% 65%;
   --primary-foreground: 220.9 39.3% 11%;
   --secondary: 215 27.9% 16.9%;
   --secondary-foreground: 210 20% 98%;
@@ -40,7 +55,7 @@
   --destructive-foreground: 210 20% 98%;
   --border: 215 27.9% 16.9%;
   --input: 215 27.9% 16.9%;
-  --ring: 216 12.2% 83.9%;
+  --ring: 210 100% 65%;
 }
 
 * {
