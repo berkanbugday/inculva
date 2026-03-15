@@ -168,12 +168,12 @@ export function WidgetConfigForm({
 
   return (
     <div className="space-y-6">
-      <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
+      <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm overflow-x-auto w-full sm:w-fit">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setTab(tab.id)}
-            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-colors cursor-pointer ${
+            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-colors cursor-pointer whitespace-nowrap ${
               activeTab === tab.id
                 ? "bg-blue-600 text-white"
                 : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"

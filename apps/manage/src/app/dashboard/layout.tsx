@@ -1,47 +1,16 @@
-import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
-import { db } from "@inculva/db";
-import { headers, cookies } from "next/headers";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { VerificationBanner } from "@/components/verification-banner";
 import { Sidebar } from "@/components/sidebar";
+import { DashboardLayoutContent } from "@/components/dashboard-layout-content";
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) redirect("/login");
-
-  const { email, name, emailVerified } = session.user;
-  const locale = (await cookies()).get("locale")?.value ?? "en";
-
-  const [user, sites] = await Promise.all([
-    db.user.findUnique({
-      where: { id: session.user.id },
-      select: { bannedAt: true },
-    }),
-    db.site.findMany({
-      where: { ownerId: session.user.id },
-      select: { id: true, name: true, domain: true },
-      orderBy: { createdAt: "desc" },
-      take: 20,
-    }),
-  ]);
-
-  if (user?.bannedAt) redirect("/banned");
-
-  return (
-    <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex flex-col">
-      <DashboardHeader locale={locale} />
-      {!emailVerified && <VerificationBanner email={email} />}
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar sites={sites} userName={name ?? null} userEmail={email} />
-        <main className="flex-1 min-w-0 overflow-y-auto ml-64 w-[calc(100%-16rem)] p-8">
-          {children}
-        </main>
-      </div>
-    </div>
-  );
+  return <DashboardLayoutContent>{children}</DashboardLayoutContent>;
 }

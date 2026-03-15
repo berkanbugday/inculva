@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   GlobeIcon,
   UserIcon,
@@ -22,7 +23,7 @@ export function SidebarLink({
   label: string;
 }) {
   return (
-    <a
+    <Link
       href={href}
       className={`flex items-center gap-3 px-4 py-3 rounded-2xl mx-1 text-sm font-semibold transition-colors relative cursor-pointer ${
         active
@@ -30,15 +31,9 @@ export function SidebarLink({
           : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white"
       }`}
     >
-      {active && (
-        <span
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 dark:bg-blue-400 rounded-full"
-          aria-hidden="true"
-        />
-      )}
       {icon}
       {label}
-    </a>
+    </Link>
   );
 }
 
@@ -96,7 +91,7 @@ export function SiteGroup({
       {expanded && (
         <div className="ml-8 mt-0.5 space-y-0.5">
           {subItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
@@ -106,7 +101,7 @@ export function SiteGroup({
               }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
       )}
@@ -155,7 +150,7 @@ export function SettingsGroup({
             ? pathname === "/dashboard/settings"
             : isActive(item.href);
         return (
-          <a
+          <Link
             key={item.href}
             href={item.href}
             className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl mx-1 text-sm font-semibold transition-colors relative cursor-pointer ${
@@ -166,7 +161,7 @@ export function SettingsGroup({
           >
             {item.icon}
             {item.label}
-          </a>
+          </Link>
         );
       })}
     </div>

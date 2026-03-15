@@ -81,7 +81,7 @@ export default async function DashboardPage() {
 
       {/* Stats row */}
       {sites.length > 0 && (
-        <div className="grid grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
           {[
             { label: "Total sites", value: sites.length },
             { label: "Widget opens", value: totalOpens },
@@ -89,12 +89,12 @@ export default async function DashboardPage() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8"
+              className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6 sm:p-8"
             >
               <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
                 {stat.label}
               </p>
-              <p className="text-4xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent">
+              <p className="text-3xl sm:text-4xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent">
                 {stat.value.toLocaleString()}
               </p>
             </div>
@@ -103,7 +103,7 @@ export default async function DashboardPage() {
       )}
 
       {sites.length === 0 ? (
-        <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl border-2 border-dashed border-blue-200 dark:border-blue-900 p-16 text-center">
+        <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl border-2 border-dashed border-blue-200 dark:border-blue-900 p-8 sm:p-16 text-center">
           <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center mx-auto mb-6">
             <svg
               width="28"
