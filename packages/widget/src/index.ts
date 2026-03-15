@@ -718,6 +718,14 @@ class InculvaWidget {
       this.config.accessibilityStatementUrl,
       this.config.whiteLabelText,
     );
+    // Re-apply dynamic labels for active leveled features (screenReader, colorBlindMode, saturation)
+    // updatePanel resets all labels to the base translation; re-applying restores the mode-specific label.
+    for (const [feature, level] of this.featureLevels) {
+      const btn = this.panel.querySelector<HTMLElement>(
+        `[data-feature="${feature}"]`,
+      );
+      if (btn) this._applyFeatureLabel(feature, level, btn);
+    }
     // Update active count text with new language
     this.updateActiveBadge();
     this.saveCurrentPrefs();
@@ -923,21 +931,26 @@ class InculvaWidget {
   ): void {
     const labelEl = btn.querySelector<HTMLElement>(".inculva-feature-label");
     if (!labelEl) return;
+    let text: string | undefined;
     if (feature === "colorBlindMode") {
-      labelEl.textContent =
+      text =
         level > 0
           ? this._cbmTypeName(level)
           : (this._labels["colorBlindMode"] ?? "Color Blind");
     } else if (feature === "saturation") {
-      labelEl.textContent =
+      text =
         level === 1
           ? (this._labels["highContrast"] ?? "High Contrast")
           : (this._labels["saturation"] ?? "Contrast+");
     } else if (feature === "screenReader") {
-      labelEl.textContent =
+      text =
         level > 0
           ? this._getSrModeName(level)
           : (this._labels["screenReader"] ?? "Screen reader");
+    }
+    if (text !== undefined) {
+      labelEl.textContent = text;
+      btn.dataset["tooltip"] = text;
     }
   }
 
