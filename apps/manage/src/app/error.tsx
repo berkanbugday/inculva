@@ -26,7 +26,7 @@ export default function Error({ error, reset }: Props) {
         <div className="flex gap-3 justify-center">
           <button
             onClick={reset}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors"
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors cursor-pointer"
           >
             Try again
           </button>

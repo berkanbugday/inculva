@@ -136,7 +136,7 @@ export default async function DashboardPage() {
           </p>
           <a
             href="/dashboard/sites/new"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors cursor-pointer"
           >
             Add first site
           </a>
@@ -232,7 +232,7 @@ export default async function DashboardPage() {
                 <div className="pt-2 border-t border-[#e8eaf0] dark:border-[#2a2a3e]">
                   <a
                     href={`/dashboard/sites/${site.id}`}
-                    className="block text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors"
+                    className="block text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors cursor-pointer"
                   >
                     Open →
                   </a>
@@ -240,35 +240,6 @@ export default async function DashboardPage() {
               </div>
             );
           })}
-
-          <a
-            href="/dashboard/sites/new"
-            className="bg-white dark:bg-[#1a1a2e] rounded-3xl border-2 border-dashed border-[#e8eaf0] dark:border-[#2a2a3e] p-6 flex flex-col items-center justify-center gap-3 text-center hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all group min-h-[200px]"
-          >
-            <div className="w-10 h-10 rounded-2xl bg-blue-100 dark:bg-blue-950 flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-900 transition-colors">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 16 16"
-                fill="none"
-                className="text-blue-600 dark:text-blue-400"
-                aria-hidden="true"
-              >
-                <path
-                  d="M8 2v12M2 8h12"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
-                Add new site
-              </p>
-              <p className="text-xs text-gray-400">Live in under 5 min</p>
-            </div>
-          </a>
         </div>
       )}
     </div>

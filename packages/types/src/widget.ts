@@ -75,9 +75,6 @@ export interface WidgetProfiles {
   profileColorBlind: boolean;
   profileDyslexia: boolean;
   profileMotorImpaired: boolean;
-  profileCognitive: boolean;
-  profileSeizure: boolean;
-  profileParkinson: boolean;
 }
 
 export interface WidgetEvent {

@@ -41,20 +41,52 @@ export default async function DeleteSitePage({ params }: Props) {
   const deleteSiteWithId = deleteSite.bind(null, id);
 
   return (
-    <main className="max-w-lg">
+    <main>
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-8">
-        <a href="/dashboard" className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
+        <a
+          href="/dashboard"
+          className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
+        >
           Dashboard
         </a>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-gray-300 dark:text-gray-700" aria-hidden="true">
-          <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          className="text-gray-300 dark:text-gray-700"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 2l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
-        <a href={`/dashboard/sites/${id}`} className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 transition-colors truncate max-w-[120px]">
+        <a
+          href={`/dashboard/sites/${id}`}
+          className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 transition-colors truncate max-w-[120px]"
+        >
           {site.name}
         </a>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-gray-300 dark:text-gray-700" aria-hidden="true">
-          <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          className="text-gray-300 dark:text-gray-700"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 2l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
         <span className="text-red-500 font-medium">Delete</span>
       </nav>
@@ -63,14 +95,35 @@ export default async function DeleteSitePage({ params }: Props) {
         {/* Warning header */}
         <div className="bg-red-50 dark:bg-red-950/30 px-6 py-5 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center gap-4">
           <div className="w-10 h-10 rounded-2xl bg-red-100 dark:bg-red-900 flex items-center justify-center shrink-0">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-red-600 dark:text-red-400" aria-hidden="true">
-              <path d="M12 9v4M12 17v.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-red-600 dark:text-red-400"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 9v4M12 17v.5"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+              <path
+                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinejoin="round"
+              />
             </svg>
           </div>
           <div>
-            <h2 className="text-base font-bold text-red-900 dark:text-red-200">Delete site permanently</h2>
-            <p className="text-sm text-red-700 dark:text-red-400 mt-0.5">This action cannot be undone.</p>
+            <h2 className="text-base font-bold text-red-900 dark:text-red-200">
+              Delete site permanently
+            </h2>
+            <p className="text-sm text-red-700 dark:text-red-400 mt-0.5">
+              This action cannot be undone.
+            </p>
           </div>
         </div>
 
@@ -78,20 +131,51 @@ export default async function DeleteSitePage({ params }: Props) {
         <div className="px-6 py-5 space-y-5">
           <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
             You are about to permanently delete{" "}
-            <strong className="text-gray-900 dark:text-white">{site.name}</strong>
+            <strong className="text-gray-900 dark:text-white">
+              {site.name}
+            </strong>
             {site.domain !== site.name && (
-              <> (<code className="font-mono text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">{site.domain}</code>)</>
-            )}
-            {" "}and all associated data.
+              <>
+                {" "}
+                (
+                <code className="font-mono text-xs bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">
+                  {site.domain}
+                </code>
+                )
+              </>
+            )}{" "}
+            and all associated data.
           </p>
 
           <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-4 space-y-2">
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Data that will be deleted</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
+              Data that will be deleted
+            </p>
             <ul className="space-y-1.5 mt-2">
-              {["Site configuration & widget settings", "All analytics events", "Widget load history", "WCAG scan results"].map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-red-400" aria-hidden="true">
-                    <path d="M3 3l8 8M11 3L3 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              {[
+                "Site configuration & widget settings",
+                "All analytics events",
+                "Widget load history",
+                "WCAG scan results",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    className="shrink-0 text-red-400"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 3l8 8M11 3L3 11"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
                   </svg>
                   {item}
                 </li>

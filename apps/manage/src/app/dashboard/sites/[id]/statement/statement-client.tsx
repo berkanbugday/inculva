@@ -24,14 +24,24 @@ function generateHtml(opts: {
   lastScanViolations: number | null;
   landingUrl: string;
 }): string {
-  const { siteName, siteDomain, contactEmail, contactName, conformanceLevel, reviewDate, limitations, lastScanViolations, landingUrl } = opts;
+  const {
+    siteName,
+    siteDomain,
+    contactEmail,
+    contactName,
+    conformanceLevel,
+    reviewDate,
+    limitations,
+    lastScanViolations,
+    landingUrl,
+  } = opts;
 
   const statusNote =
     lastScanViolations === null
       ? "An automated accessibility scan has not yet been performed."
       : lastScanViolations === 0
-      ? "The most recent automated WCAG scan found no violations."
-      : `The most recent automated WCAG scan found ${lastScanViolations} potential violation(s). We are actively working to resolve them.`;
+        ? "The most recent automated WCAG scan found no violations."
+        : `The most recent automated WCAG scan found ${lastScanViolations} potential violation(s). We are actively working to resolve them.`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -116,6 +126,9 @@ export function StatementClient({
   const [saved, setSaved] = useState(false);
   const [preview, setPreview] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [statementUrl, setStatementUrl] = useState(currentStatementUrl || "");
+  const [urlSaving, setUrlSaving] = useState(false);
+  const [urlSaved, setUrlSaved] = useState(false);
 
   const appUrl = process.env["NEXT_PUBLIC_APP_URL"]!;
   const landingUrl = process.env["NEXT_PUBLIC_LANDING_URL"]!;
@@ -128,7 +141,13 @@ export function StatementClient({
     });
   }
 
-  const html = generateHtml({ ...form, siteName, siteDomain, lastScanViolations, landingUrl });
+  const html = generateHtml({
+    ...form,
+    siteName,
+    siteDomain,
+    lastScanViolations,
+    landingUrl,
+  });
 
   function downloadHtml() {
     const blob = new Blob([html], { type: "text/html" });
@@ -141,17 +160,19 @@ export function StatementClient({
   }
 
   async function saveUrl() {
-    setSaving(true);
+    setUrlSaving(true);
     try {
-      await fetch(`/api/sites/${siteId}/statement`, {
-        method: "POST",
+      const res = await fetch(`/api/sites/${siteId}/config`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: currentStatementUrl }),
+        body: JSON.stringify({ accessibilityStatementUrl: statementUrl }),
       });
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
+      if (res.ok) {
+        setUrlSaved(true);
+        setTimeout(() => setUrlSaved(false), 3000);
+      }
     } finally {
-      setSaving(false);
+      setUrlSaving(false);
     }
   }
 
@@ -160,9 +181,16 @@ export function StatementClient({
       {/* Hosted URL banner */}
       <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-2xl p-5 space-y-3">
         <div>
-          <h3 className="font-semibold text-green-900 dark:text-green-200 mb-1">Hosted Accessibility Statement</h3>
+          <h3 className="font-semibold text-green-900 dark:text-green-200 mb-1">
+            Hosted Accessibility Statement
+          </h3>
           <p className="text-sm text-green-700 dark:text-green-300">
-            Inculva hosts your accessibility statement automatically — no self-hosting required. Copy the URL below and use it as your <code className="bg-green-100 dark:bg-green-900 px-1 rounded text-xs">accessibilityStatementUrl</code> in the widget config.
+            Inculva hosts your accessibility statement automatically — no
+            self-hosting required. Copy the URL below and use it as your{" "}
+            <code className="bg-green-100 dark:bg-green-900 px-1 rounded text-xs">
+              accessibilityStatementUrl
+            </code>{" "}
+            in the widget config.
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -188,19 +216,26 @@ export function StatementClient({
 
       {/* Info banner */}
       <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-2xl p-5">
-        <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-1">EAA Article 13 Compliance</h3>
+        <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-1">
+          EAA Article 13 Compliance
+        </h3>
         <p className="text-sm text-blue-700 dark:text-blue-300">
-          The European Accessibility Act (EAA) requires all digital products and services to publish an accessibility statement. Generate one below, host it on your site, then paste the URL in the widget config to link it from your widget.
+          The European Accessibility Act (EAA) requires all digital products and
+          services to publish an accessibility statement. Generate one below,
+          host it on your site, then paste the URL in the widget config to link
+          it from your widget.
         </p>
       </div>
 
       {/* Scan status */}
       {lastScanAt && (
-        <div className={`rounded-xl border p-4 text-sm ${
-          lastScanViolations === 0
-            ? "bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800 text-green-800 dark:text-green-300"
-            : "bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300"
-        }`}>
+        <div
+          className={`rounded-xl border p-4 text-sm ${
+            lastScanViolations === 0
+              ? "bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800 text-green-800 dark:text-green-300"
+              : "bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300"
+          }`}
+        >
           {lastScanViolations === 0
             ? `Last WCAG scan (${new Date(lastScanAt).toLocaleDateString()}) found no violations.`
             : `Last WCAG scan (${new Date(lastScanAt).toLocaleDateString()}) found ${lastScanViolations} potential violation(s). Consider resolving these before generating the statement.`}
@@ -209,7 +244,9 @@ export function StatementClient({
 
       {/* Form */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6 space-y-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white">Statement Details</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-white">
+          Statement Details
+        </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -219,7 +256,9 @@ export function StatementClient({
             <input
               type="text"
               value={form.contactName}
-              onChange={(e) => setForm((f) => ({ ...f, contactName: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, contactName: e.target.value }))
+              }
               className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Jane Smith"
             />
@@ -232,7 +271,9 @@ export function StatementClient({
             <input
               type="email"
               value={form.contactEmail}
-              onChange={(e) => setForm((f) => ({ ...f, contactEmail: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, contactEmail: e.target.value }))
+              }
               className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="accessibility@example.com"
             />
@@ -244,7 +285,9 @@ export function StatementClient({
             </label>
             <select
               value={form.conformanceLevel}
-              onChange={(e) => setForm((f) => ({ ...f, conformanceLevel: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, conformanceLevel: e.target.value }))
+              }
               className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="A">WCAG 2.1 Level A</option>
@@ -260,7 +303,9 @@ export function StatementClient({
             <input
               type="date"
               value={form.reviewDate}
-              onChange={(e) => setForm((f) => ({ ...f, reviewDate: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, reviewDate: e.target.value }))
+              }
               className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -272,7 +317,9 @@ export function StatementClient({
           </label>
           <textarea
             value={form.limitations}
-            onChange={(e) => setForm((f) => ({ ...f, limitations: e.target.value }))}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, limitations: e.target.value }))
+            }
             rows={3}
             className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             placeholder="Describe any known accessibility barriers and your plan to fix them..."
@@ -298,7 +345,9 @@ export function StatementClient({
       {/* Preview */}
       {preview && (
         <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
-          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Preview</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
+            Preview
+          </h3>
           <iframe
             srcDoc={html}
             className="w-full border border-gray-200 dark:border-gray-700 rounded-lg"
@@ -310,32 +359,43 @@ export function StatementClient({
 
       {/* Link to statement in widget */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6 space-y-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white">Link in Widget</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-white">
+          Link in Widget
+        </h3>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          After hosting the HTML file on your site, add the URL to your widget config so it appears as a link in the widget panel footer. You can also set it directly in the{" "}
-          <a href={`/dashboard/sites/${siteId}`} className="text-blue-600 dark:text-blue-400 underline">
-            Config tab
-          </a>
-          .
+          After hosting the HTML file on your site (or using the hosted URL
+          above), add the URL below so it appears as a link in the widget panel
+          footer.
         </p>
-        <div className="text-sm text-gray-600 dark:text-gray-400">
-          Current URL:{" "}
-          {currentStatementUrl ? (
-            <a
-              href={currentStatementUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 underline"
-            >
-              {currentStatementUrl}
-            </a>
-          ) : (
-            <span className="text-gray-400 dark:text-gray-600 italic">Not set</span>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            Accessibility Statement URL
+          </label>
+          <input
+            type="url"
+            value={statementUrl}
+            onChange={(e) => {
+              setStatementUrl(e.target.value);
+              setUrlSaved(false);
+            }}
+            className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="https://example.com/accessibility or use hosted URL above"
+          />
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => void saveUrl()}
+            disabled={urlSaving}
+            className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60"
+          >
+            {urlSaving ? "Saving…" : "Save URL"}
+          </button>
+          {urlSaved && (
+            <span className="text-sm text-green-600 dark:text-green-400">
+              Saved!
+            </span>
           )}
         </div>
-        {saved && (
-          <p className="text-sm text-green-600 dark:text-green-400">Saved.</p>
-        )}
       </div>
     </div>
   );

@@ -112,7 +112,7 @@ export function ConfigTabAppearance({
               <button
                 key={val}
                 onClick={() => setField("buttonSize", val)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${form.buttonSize === val ? "bg-white dark:bg-[#1a1a2e] text-blue-600 dark:text-blue-400 shadow-sm" : "text-gray-500 dark:text-gray-400 hover:text-gray-700"}`}
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${form.buttonSize === val ? "bg-white dark:bg-[#1a1a2e] text-blue-600 dark:text-blue-400 shadow-sm" : "text-gray-500 dark:text-gray-400 hover:text-gray-700"}`}
               >
                 {label}
               </button>
@@ -140,8 +140,8 @@ export function ConfigTabAppearance({
                     !cell.enabled
                       ? "border-transparent bg-[#f8f9fc] dark:bg-[#0e0e10] cursor-default"
                       : cell.value === form.position
-                        ? "border-blue-600 bg-blue-50 dark:bg-blue-950"
-                        : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-400"
+                        ? "border-blue-600 bg-blue-50 dark:bg-blue-950 cursor-pointer"
+                        : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-400 cursor-pointer"
                   }`}
                   aria-label={
                     cell.enabled && cell.value
@@ -157,44 +157,12 @@ export function ConfigTabAppearance({
         {/* Business plan gates */}
         {!isBusiness && (
           <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
-            Upgrade to Business to unlock white-label text, border radius, font
-            family, and header/footer colors.
+            Upgrade to Business to unlock font family and header/footer colors.
           </p>
         )}
 
         <div className={isBusiness ? "" : "opacity-50 pointer-events-none"}>
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                White-label text{" "}
-                <span className="text-xs text-amber-600">Business</span>
-              </label>
-              <input
-                type="text"
-                value={form.whiteLabelText}
-                onChange={(e) => setField("whiteLabelText", e.target.value)}
-                className={inputClass}
-                placeholder="Powered by Acme Accessibility"
-                disabled={!isBusiness}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Border radius: {form.borderRadius}px{" "}
-                <span className="text-xs text-amber-600">Business</span>
-              </label>
-              <input
-                type="range"
-                min={0}
-                max={50}
-                value={form.borderRadius}
-                onChange={(e) =>
-                  setField("borderRadius", parseInt(e.target.value))
-                }
-                className="w-full"
-                disabled={!isBusiness}
-              />
-            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Font family{" "}
@@ -221,7 +189,7 @@ export function ConfigTabAppearance({
         <button
           onClick={onSave}
           disabled={saving}
-          className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60"
+          className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
         >
           {saving ? "Saving…" : "Save"}
         </button>

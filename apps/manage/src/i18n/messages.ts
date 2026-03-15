@@ -43,7 +43,7 @@ export interface DashboardMessages {
     auditLog: string;
     exportData: string;
     deleteAccount: string;
-    saveName: string;
+    save: string;
     saving: string;
     updating: string;
   };
@@ -96,7 +96,7 @@ const messages: Record<Locale, DashboardMessages> = {
       auditLog: "Audit Log",
       exportData: "Export Your Data",
       deleteAccount: "Delete Account",
-      saveName: "Save name",
+      save: "Save",
       saving: "Saving…",
       updating: "Updating…",
     },
@@ -148,7 +148,7 @@ const messages: Record<Locale, DashboardMessages> = {
       auditLog: "Denetim Günlüğü",
       exportData: "Verilerimi Dışa Aktar",
       deleteAccount: "Hesabı Sil",
-      saveName: "Adı kaydet",
+      save: "Kaydet",
       saving: "Kaydediliyor…",
       updating: "Güncelleniyor…",
     },
@@ -200,7 +200,7 @@ const messages: Record<Locale, DashboardMessages> = {
       auditLog: "Audit-Protokoll",
       exportData: "Daten exportieren",
       deleteAccount: "Konto löschen",
-      saveName: "Namen speichern",
+      save: "Speichern",
       saving: "Wird gespeichert…",
       updating: "Wird aktualisiert…",
     },
@@ -252,7 +252,7 @@ const messages: Record<Locale, DashboardMessages> = {
       auditLog: "Journal d'audit",
       exportData: "Exporter vos données",
       deleteAccount: "Supprimer le compte",
-      saveName: "Enregistrer le nom",
+      save: "Enregistrer",
       saving: "Enregistrement…",
       updating: "Mise à jour…",
     },
@@ -304,7 +304,7 @@ const messages: Record<Locale, DashboardMessages> = {
       auditLog: "Registro de auditoría",
       exportData: "Exportar tus datos",
       deleteAccount: "Eliminar cuenta",
-      saveName: "Guardar nombre",
+      save: "Guardar",
       saving: "Guardando…",
       updating: "Actualizando…",
     },

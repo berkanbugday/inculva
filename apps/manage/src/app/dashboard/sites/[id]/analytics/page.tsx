@@ -61,7 +61,13 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       where: { siteId: id, createdAt: { gte: since } },
       orderBy: { createdAt: "desc" },
       take: 5_000,
-      select: { id: true, event: true, feature: true, createdAt: true, sessionId: true },
+      select: {
+        id: true,
+        event: true,
+        feature: true,
+        createdAt: true,
+        sessionId: true,
+      },
     }),
     db.widgetLoad.groupBy({
       by: ["domain"],
@@ -87,7 +93,8 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
     const day = new Date(ev.createdAt).toISOString().slice(0, 10);
     dailyMap[day] = (dailyMap[day] ?? 0) + 1;
     if (ev.event === "feature_enabled" && ev.feature) {
-      if (!featureEnableMap[ev.feature]) featureEnableMap[ev.feature] = new Set();
+      if (!featureEnableMap[ev.feature])
+        featureEnableMap[ev.feature] = new Set();
       featureEnableMap[ev.feature]!.add(ev.sessionId);
     }
     if (ev.event === "opened") openCount++;
@@ -103,14 +110,20 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
   }
 
   const uniqueSessions = new Set(events.map((e) => e.sessionId)).size;
-  const totalActivations = Object.values(featureEnableMap).reduce((sum, s) => sum + s.size, 0);
+  const totalActivations = Object.values(featureEnableMap).reduce(
+    (sum, s) => sum + s.size,
+    0,
+  );
 
   const featureStats = Object.entries(featureEnableMap)
     .map(([feature, sessions]) => ({
       feature,
       label: featureLabels[feature] ?? feature,
       count: sessions.size,
-      adoptionPct: uniqueSessions > 0 ? Math.round((sessions.size / uniqueSessions) * 100) : 0,
+      adoptionPct:
+        uniqueSessions > 0
+          ? Math.round((sessions.size / uniqueSessions) * 100)
+          : 0,
     }))
     .sort((a, b) => b.count - a.count);
 
@@ -131,21 +144,37 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
   const recentEvents = events.slice(0, 50);
 
   return (
-    <main className="max-w-4xl space-y-8">
+    <main className="space-y-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm">
-        <a href="/dashboard" className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400">Dashboard</a>
+        <a
+          href="/dashboard"
+          className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400"
+        >
+          Dashboard
+        </a>
         <span className="text-gray-300 dark:text-gray-700">/</span>
-        <a href={`/dashboard/sites/${id}`} className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400">{site.name}</a>
+        <a
+          href={`/dashboard/sites/${id}`}
+          className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400"
+        >
+          {site.name}
+        </a>
         <span className="text-gray-300 dark:text-gray-700">/</span>
-        <span className="text-gray-700 dark:text-gray-300 font-medium">Analytics</span>
+        <span className="text-gray-700 dark:text-gray-300 font-medium">
+          Analytics
+        </span>
       </nav>
 
       {/* Sub-nav */}
       <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
         {[
           { label: "Config", href: `/dashboard/sites/${id}` },
-          { label: "Analytics", href: `/dashboard/sites/${id}/analytics`, active: true },
+          {
+            label: "Analytics",
+            href: `/dashboard/sites/${id}/analytics`,
+            active: true,
+          },
           { label: "WCAG Scan", href: `/dashboard/sites/${id}/scan` },
           { label: "Statement", href: `/dashboard/sites/${id}/statement` },
         ].map((tab) => (
@@ -169,7 +198,9 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
           <h2 className="text-xl font-black text-gray-900 dark:text-white">
             {site.name} — Last {days} Days
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{site.domain}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            {site.domain}
+          </p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <Suspense>
@@ -180,7 +211,16 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
             download
             className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-600 dark:text-gray-400 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
@@ -193,7 +233,10 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       {/* Stat cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {statCards.map(({ label, value, color }) => (
-          <div key={label} className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
+          <div
+            key={label}
+            className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6"
+          >
             <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
               {label}
             </p>
@@ -206,7 +249,9 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
 
       {/* Daily trend chart */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-5">Daily Events ({days} days)</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-5">
+          Daily Events ({days} days)
+        </h3>
         {events.length === 0 ? (
           <p className="text-sm text-gray-400 dark:text-gray-600 text-center py-8">
             No events yet. Embed the widget on your site to start tracking.
@@ -219,7 +264,9 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       {/* Feature usage + adoption */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="font-semibold text-gray-900 dark:text-white">Feature Adoption</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
+            Feature Adoption
+          </h3>
           {uniqueSessions > 0 && (
             <span className="text-xs text-gray-400 dark:text-gray-600">
               % of {uniqueSessions.toLocaleString()} unique sessions
@@ -238,18 +285,33 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-[#e8eaf0] dark:border-[#2a2a3e]">
-                    <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Feature</th>
-                    <th className="text-right py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Sessions</th>
-                    <th className="text-right py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Adoption</th>
+                    <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      Feature
+                    </th>
+                    <th className="text-right py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      Sessions
+                    </th>
+                    <th className="text-right py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      Adoption
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {featureStats.map((f) => (
-                    <tr key={f.feature} className="border-b border-[#f8f9fc] dark:border-[#2a2a3e] last:border-0">
-                      <td className="py-2 pr-4 text-gray-800 dark:text-gray-200 font-medium">{f.label}</td>
-                      <td className="py-2 pr-4 text-right text-gray-600 dark:text-gray-400">{f.count.toLocaleString()}</td>
+                    <tr
+                      key={f.feature}
+                      className="border-b border-[#f8f9fc] dark:border-[#2a2a3e] last:border-0"
+                    >
+                      <td className="py-2 pr-4 text-gray-800 dark:text-gray-200 font-medium">
+                        {f.label}
+                      </td>
+                      <td className="py-2 pr-4 text-right text-gray-600 dark:text-gray-400">
+                        {f.count.toLocaleString()}
+                      </td>
                       <td className="py-2 text-right">
-                        <span className={`font-medium ${f.adoptionPct >= 20 ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}`}>
+                        <span
+                          className={`font-medium ${f.adoptionPct >= 20 ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}`}
+                        >
                           {f.adoptionPct}%
                         </span>
                       </td>
@@ -264,8 +326,12 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
 
       {/* Embed Domains */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Embed Domains</h3>
-        <p className="text-xs text-gray-400 dark:text-gray-600 mb-4">Domains that loaded your widget in the last {days} days.</p>
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
+          Embed Domains
+        </h3>
+        <p className="text-xs text-gray-400 dark:text-gray-600 mb-4">
+          Domains that loaded your widget in the last {days} days.
+        </p>
         {domainLoads.length === 0 ? (
           <p className="text-sm text-gray-400 dark:text-gray-600 text-center py-8">
             No domain loads recorded yet.
@@ -275,20 +341,33 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-[#e8eaf0] dark:border-[#2a2a3e]">
-                  <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Domain</th>
-                  <th className="text-right py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Loads</th>
-                  <th className="text-right py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Last Seen</th>
+                  <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    Domain
+                  </th>
+                  <th className="text-right py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    Loads
+                  </th>
+                  <th className="text-right py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    Last Seen
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {domainLoads.map((row) => (
-                  <tr key={row.domain} className="border-b border-[#f8f9fc] dark:border-[#2a2a3e] last:border-0">
-                    <td className="py-2 pr-4 font-mono text-gray-800 dark:text-gray-200">{row.domain}</td>
+                  <tr
+                    key={row.domain}
+                    className="border-b border-[#f8f9fc] dark:border-[#2a2a3e] last:border-0"
+                  >
+                    <td className="py-2 pr-4 font-mono text-gray-800 dark:text-gray-200">
+                      {row.domain}
+                    </td>
                     <td className="py-2 pr-4 text-right font-medium text-gray-700 dark:text-gray-300">
                       {(row._sum.count ?? 0).toLocaleString()}
                     </td>
                     <td className="py-2 text-right text-gray-400 dark:text-gray-600 text-xs">
-                      {row._max.date ? new Date(row._max.date).toLocaleDateString() : "—"}
+                      {row._max.date
+                        ? new Date(row._max.date).toLocaleDateString()
+                        : "—"}
                     </td>
                   </tr>
                 ))}
@@ -301,10 +380,19 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       {/* Recent events */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-gray-900 dark:text-white">Recent Events</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white">
+            Recent Events
+          </h3>
           {events.length > 50 && (
             <span className="text-xs text-gray-400 dark:text-gray-600">
-              Showing 50 of {events.length.toLocaleString()} — <a href={`/api/sites/${id}/analytics/export?days=${days}`} download className="text-blue-600 dark:text-blue-400 hover:underline">export all</a>
+              Showing 50 of {events.length.toLocaleString()} —{" "}
+              <a
+                href={`/api/sites/${id}/analytics/export?days=${days}`}
+                download
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                export all
+              </a>
             </span>
           )}
         </div>
@@ -317,21 +405,32 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-[#e8eaf0] dark:border-[#2a2a3e]">
-                  <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Event</th>
-                  <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Feature</th>
-                  <th className="text-left py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Time</th>
+                  <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    Event
+                  </th>
+                  <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    Feature
+                  </th>
+                  <th className="text-left py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                    Time
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {recentEvents.map((event) => (
-                  <tr key={event.id} className="border-b border-[#f8f9fc] dark:border-[#2a2a3e] last:border-0">
+                  <tr
+                    key={event.id}
+                    className="border-b border-[#f8f9fc] dark:border-[#2a2a3e] last:border-0"
+                  >
                     <td className="py-2 pr-4">
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
                         {event.event}
                       </span>
                     </td>
                     <td className="py-2 pr-4 text-gray-500 dark:text-gray-400">
-                      {event.feature ? (featureLabels[event.feature] ?? event.feature) : "—"}
+                      {event.feature
+                        ? (featureLabels[event.feature] ?? event.feature)
+                        : "—"}
                     </td>
                     <td className="py-2 text-gray-400 dark:text-gray-600 text-xs">
                       {new Date(event.createdAt).toLocaleString()}

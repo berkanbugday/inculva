@@ -62,7 +62,12 @@ export function NotificationBell() {
     // Mark all as read when opening
     if (!open && unread > 0) {
       fetch("/api/notifications", { method: "PATCH" }).catch(() => {});
-      setNotifications((prev) => prev.map((n) => ({ ...n, readAt: n.readAt ?? new Date().toISOString() })));
+      setNotifications((prev) =>
+        prev.map((n) => ({
+          ...n,
+          readAt: n.readAt ?? new Date().toISOString(),
+        })),
+      );
     }
   }
 
@@ -71,9 +76,18 @@ export function NotificationBell() {
       <button
         onClick={handleOpen}
         aria-label={`Notifications${unread > 0 ? ` (${unread} unread)` : ""}`}
-        className="relative w-9 h-9 flex items-center justify-center rounded-2xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#0e0e10] transition-colors"
+        className="relative w-9 h-9 flex items-center justify-center rounded-2xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#0e0e10] transition-colors cursor-pointer"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
           <path d="M13.73 21a2 2 0 0 1-3.46 0" />
         </svg>
@@ -87,18 +101,26 @@ export function NotificationBell() {
       {open && (
         <div className="absolute right-0 top-10 w-80 bg-white dark:bg-[#1a1a2e] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-3xl shadow-xl z-50 overflow-hidden">
           <div className="px-4 py-3 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center justify-between">
-            <span className="text-sm font-semibold text-gray-900 dark:text-white">Notifications</span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              Notifications
+            </span>
             {unread === 0 && !loading && (
-              <span className="text-xs text-gray-400 dark:text-gray-600">All caught up</span>
+              <span className="text-xs text-gray-400 dark:text-gray-600">
+                All caught up
+              </span>
             )}
           </div>
 
           <div className="max-h-96 overflow-y-auto divide-y divide-[#f8f9fc] dark:divide-[#2a2a3e]">
             {loading ? (
-              <div className="px-4 py-8 text-center text-sm text-gray-400 dark:text-gray-600">Loading…</div>
+              <div className="px-4 py-8 text-center text-sm text-gray-400 dark:text-gray-600">
+                Loading…
+              </div>
             ) : notifications.length === 0 ? (
               <div className="px-4 py-8 text-center">
-                <p className="text-sm text-gray-400 dark:text-gray-600">No notifications yet</p>
+                <p className="text-sm text-gray-400 dark:text-gray-600">
+                  No notifications yet
+                </p>
               </div>
             ) : (
               notifications.map((n) => {
@@ -107,14 +129,22 @@ export function NotificationBell() {
                   <Wrapper
                     key={n.id}
                     {...(n.href ? { href: n.href } : {})}
-                    className="flex gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-default"
+                    className="flex gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                     onClick={() => setOpen(false)}
                   >
-                    <span className="text-lg shrink-0 mt-0.5">{TYPE_ICON[n.type] ?? "🔔"}</span>
+                    <span className="text-lg shrink-0 mt-0.5">
+                      {TYPE_ICON[n.type] ?? "🔔"}
+                    </span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white leading-snug">{n.title}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">{n.body}</p>
-                      <p className="text-[11px] text-gray-400 dark:text-gray-600 mt-1">{timeAgo(n.createdAt)}</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white leading-snug">
+                        {n.title}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 leading-snug">
+                        {n.body}
+                      </p>
+                      <p className="text-[11px] text-gray-400 dark:text-gray-600 mt-1">
+                        {timeAgo(n.createdAt)}
+                      </p>
                     </div>
                   </Wrapper>
                 );
@@ -125,7 +155,7 @@ export function NotificationBell() {
             <a
               href="/dashboard/notifications"
               onClick={() => setOpen(false)}
-              className="block text-center text-xs text-blue-600 dark:text-blue-400 hover:underline py-1"
+              className="block text-center text-xs text-blue-600 dark:text-blue-400 hover:underline py-1 cursor-pointer"
             >
               View all notifications
             </a>

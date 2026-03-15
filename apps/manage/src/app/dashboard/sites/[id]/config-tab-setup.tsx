@@ -85,26 +85,11 @@ export function ConfigTabSetup({
             </pre>
             <button
               onClick={() => void copySnippet()}
-              className="absolute top-2 right-2 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors"
+              className="absolute top-2 right-2 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors cursor-pointer"
             >
               {copied ? "Copied!" : "Copy"}
             </button>
           </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Accessibility Statement URL
-          </label>
-          <input
-            type="url"
-            value={form.accessibilityStatementUrl}
-            onChange={(e) =>
-              setField("accessibilityStatementUrl", e.target.value)
-            }
-            className={inputClass}
-            placeholder="https://example.com/accessibility"
-          />
         </div>
 
         <div>
@@ -140,7 +125,7 @@ export function ConfigTabSetup({
             />
             <button
               onClick={addDomain}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-2xl transition-colors whitespace-nowrap"
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-2xl transition-colors whitespace-nowrap cursor-pointer"
             >
               Add
             </button>
@@ -154,7 +139,7 @@ export function ConfigTabSetup({
                 {d}
                 <button
                   onClick={() => removeDomain(d)}
-                  className="text-gray-400 hover:text-red-500 transition-colors"
+                  className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
                   aria-label={`Remove ${d}`}
                 >
                   ×
@@ -188,7 +173,7 @@ export function ConfigTabSetup({
         <button
           onClick={onSave}
           disabled={saving}
-          className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60"
+          className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
         >
           {saving ? "Saving…" : "Save"}
         </button>
@@ -213,7 +198,7 @@ export function ConfigTabSetup({
         </p>
         <a
           href={`/dashboard/sites/${siteId}/delete`}
-          className="inline-flex px-5 py-2.5 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-full text-sm font-semibold hover:bg-red-100 dark:hover:bg-red-900 transition-colors"
+          className="inline-flex px-5 py-2.5 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-full text-sm font-semibold hover:bg-red-100 dark:hover:bg-red-900 transition-colors cursor-pointer"
         >
           Delete site
         </a>

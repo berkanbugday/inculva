@@ -38,7 +38,7 @@ export default async function DashboardLayout({
       {!emailVerified && <VerificationBanner email={email} />}
       <div className="flex flex-1 overflow-hidden">
         <Sidebar sites={sites} userName={name ?? null} userEmail={email} />
-        <main className="flex-1 min-w-0 overflow-y-auto p-8">
+        <main className="flex-1 min-w-0 overflow-y-auto ml-64 w-[calc(100%-16rem)] p-8">
           {children}
         </main>
       </div>

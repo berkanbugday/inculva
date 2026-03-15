@@ -1,7 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { GlobeIcon, UserIcon, KeyIcon, WebhookIcon, CreditCardIcon, ListIcon } from "./sidebar-icons";
+import {
+  GlobeIcon,
+  UserIcon,
+  KeyIcon,
+  WebhookIcon,
+  CreditCardIcon,
+  ListIcon,
+} from "./sidebar-icons";
 
 export function SidebarLink({
   href,
@@ -17,7 +24,7 @@ export function SidebarLink({
   return (
     <a
       href={href}
-      className={`flex items-center gap-3 px-4 py-3 rounded-2xl mx-1 text-sm font-semibold transition-colors relative ${
+      className={`flex items-center gap-3 px-4 py-3 rounded-2xl mx-1 text-sm font-semibold transition-colors relative cursor-pointer ${
         active
           ? "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"
           : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white"
@@ -60,7 +67,7 @@ export function SiteGroup({
     <div>
       <button
         onClick={onToggle}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl mx-1 text-sm font-semibold transition-colors text-left ${
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl mx-1 text-sm font-semibold transition-colors text-left cursor-pointer ${
           siteActive
             ? "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"
             : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50"
@@ -76,7 +83,13 @@ export function SiteGroup({
           className={`shrink-0 transition-transform ${expanded ? "rotate-90" : ""}`}
           aria-hidden="true"
         >
-          <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M4 2l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
@@ -86,7 +99,7 @@ export function SiteGroup({
             <a
               key={item.href}
               href={item.href}
-              className={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
+              className={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
                 isActive(item.href)
                   ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 font-semibold"
                   : "text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
@@ -103,13 +116,33 @@ export function SiteGroup({
 
 const SETTINGS_LINKS = [
   { href: "/dashboard/settings", label: "Account", icon: <UserIcon /> },
-  { href: "/dashboard/settings/api-keys", label: "API Keys", icon: <KeyIcon /> },
-  { href: "/dashboard/settings/webhooks", label: "Webhooks", icon: <WebhookIcon /> },
-  { href: "/dashboard/settings/billing", label: "Billing", icon: <CreditCardIcon /> },
-  { href: "/dashboard/settings/audit-log", label: "Audit Log", icon: <ListIcon /> },
+  {
+    href: "/dashboard/settings/api-keys",
+    label: "API Keys",
+    icon: <KeyIcon />,
+  },
+  {
+    href: "/dashboard/settings/webhooks",
+    label: "Webhooks",
+    icon: <WebhookIcon />,
+  },
+  {
+    href: "/dashboard/settings/billing",
+    label: "Billing",
+    icon: <CreditCardIcon />,
+  },
+  {
+    href: "/dashboard/settings/audit-log",
+    label: "Audit Log",
+    icon: <ListIcon />,
+  },
 ] as const;
 
-export function SettingsGroup({ isActive }: { isActive: (href: string) => boolean }) {
+export function SettingsGroup({
+  isActive,
+}: {
+  isActive: (href: string) => boolean;
+}) {
   const pathname = usePathname();
   return (
     <div>
@@ -125,15 +158,12 @@ export function SettingsGroup({ isActive }: { isActive: (href: string) => boolea
           <a
             key={item.href}
             href={item.href}
-            className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl mx-1 text-sm font-semibold transition-colors relative ${
+            className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl mx-1 text-sm font-semibold transition-colors relative cursor-pointer ${
               active
                 ? "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"
                 : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
-            {active && (
-              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 dark:bg-blue-400 rounded-full" aria-hidden="true" />
-            )}
             {item.icon}
             {item.label}
           </a>

@@ -155,7 +155,7 @@ export function ProfileForm({ name, email }: Props) {
                   "opacity-60 cursor-not-allowed",
               )}
             >
-              {nameForm.formState.isSubmitting ? "Saving…" : "Save name"}
+              {nameForm.formState.isSubmitting ? "Saving…" : "Save"}
             </button>
             {nameSaved && (
               <span

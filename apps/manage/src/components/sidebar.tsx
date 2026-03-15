@@ -80,7 +80,7 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
     : (userEmail[0]?.toUpperCase() ?? "?");
 
   return (
-    <aside className="w-64 shrink-0 bg-white dark:bg-[#1a1a2e] border-r border-[#e8eaf0] dark:border-[#2a2a3e] h-screen sticky top-0 flex flex-col">
+    <aside className="w-64 shrink-0 bg-white dark:bg-[#1a1a2e] border-r border-[#e8eaf0] dark:border-[#2a2a3e] h-[calc(100vh-3.5rem)] fixed top-14 left-0 flex flex-col">
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         <SidebarLink
           href="/dashboard"
@@ -139,7 +139,7 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
             <button
               ref={signOutBtnRef}
               onClick={handleSignOut}
-              className="w-full text-left px-4 py-3 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
+              className="w-full text-left px-4 py-3 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors cursor-pointer"
             >
               Sign out
             </button>
@@ -150,7 +150,7 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
           onClick={() => setPopupOpen((v) => !v)}
           aria-expanded={popupOpen}
           aria-label="Account menu"
-          className="flex items-center gap-3 w-full hover:opacity-80 transition-opacity"
+          className="flex items-center gap-3 w-full hover:opacity-80 transition-opacity cursor-pointer"
         >
           <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">
             {initials}

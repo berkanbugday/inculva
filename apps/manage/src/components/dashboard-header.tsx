@@ -19,12 +19,23 @@ export function DashboardHeader({ locale }: Props) {
     <header className="h-14 bg-white dark:bg-[#1a1a2e] border-b border-[#e8eaf0] dark:border-[#2a2a3e] px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">
       <div className="flex items-center gap-3">
         <a href="/dashboard">
-          <img src={`${CDN_URL}/logos/logo-dark.png`} alt="Inculva" className="h-7 w-auto" />
+          <img
+            src={`${CDN_URL}/logos/logo-dark.png`}
+            alt="Inculva"
+            className="h-7 w-auto"
+          />
         </a>
         {label && (
           <>
-            <span className="text-gray-300 dark:text-gray-700 text-sm" aria-hidden="true">/</span>
-            <span className="text-sm font-semibold text-gray-900 dark:text-white">{label}</span>
+            <span
+              className="text-gray-300 dark:text-gray-700 text-sm"
+              aria-hidden="true"
+            >
+              /
+            </span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              {label}
+            </span>
           </>
         )}
       </div>
@@ -32,10 +43,21 @@ export function DashboardHeader({ locale }: Props) {
       <div className="flex items-center gap-2">
         <a
           href="/dashboard/sites/new"
-          className="flex items-center gap-1.5 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors"
+          className="flex items-center gap-1.5 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors cursor-pointer"
         >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M6 1v10M1 6h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M6 1v10M1 6h10"
+              stroke="white"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
           New site
         </a>

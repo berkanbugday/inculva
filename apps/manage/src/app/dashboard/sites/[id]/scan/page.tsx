@@ -19,18 +19,26 @@ export default async function ScanPage({ params }: Props) {
   if (!site) notFound();
 
   return (
-    <main className="max-w-3xl space-y-6">
+    <main className="space-y-6">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm">
-        <a href="/dashboard" className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400">
+        <a
+          href="/dashboard"
+          className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400"
+        >
           Dashboard
         </a>
         <span className="text-gray-300 dark:text-gray-700">/</span>
-        <a href={`/dashboard/sites/${site.id}`} className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400">
+        <a
+          href={`/dashboard/sites/${site.id}`}
+          className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400"
+        >
           {site.name}
         </a>
         <span className="text-gray-300 dark:text-gray-700">/</span>
-        <span className="text-gray-700 dark:text-gray-300 font-medium">WCAG Scan</span>
+        <span className="text-gray-700 dark:text-gray-300 font-medium">
+          WCAG Scan
+        </span>
       </nav>
 
       {/* Sub-nav */}
@@ -38,7 +46,11 @@ export default async function ScanPage({ params }: Props) {
         {[
           { label: "Config", href: `/dashboard/sites/${site.id}` },
           { label: "Analytics", href: `/dashboard/sites/${site.id}/analytics` },
-          { label: "WCAG Scan", href: `/dashboard/sites/${site.id}/scan`, active: true },
+          {
+            label: "WCAG Scan",
+            href: `/dashboard/sites/${site.id}/scan`,
+            active: true,
+          },
           { label: "Statement", href: `/dashboard/sites/${site.id}/statement` },
         ].map((tab) => (
           <a
