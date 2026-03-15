@@ -241,6 +241,9 @@ function _getReadableText(target: Element): string {
 
     const text = (htmlEl.innerText ?? "").trim();
     if (text.length >= 2 && text.length <= 500) return text;
+    // For large containers (> 500 chars) return a truncated snippet so the SR
+    // always provides feedback instead of silently reading nothing.
+    if (text.length > 500) return text.slice(0, 200) + "…";
     el = el.parentElement;
   }
   return "";
@@ -319,13 +322,15 @@ function _detectLang(el: Element): string {
 
 function _speak(text: string, fromEl?: Element): void {
   if (!("speechSynthesis" in window) || !text.trim()) return;
-  window.speechSynthesis.cancel();
   const utt = new SpeechSynthesisUtterance(text.trim().slice(0, 350));
   utt.rate = 1.05;
   utt.lang = fromEl
     ? _detectLang(fromEl)
     : (LANG_BCP47[_srLang] ?? _srLang ?? "en-US");
-  window.speechSynthesis.speak(utt);
+  // Cancel first, then defer speak by one task to avoid a Chrome bug where
+  // speechSynthesis.speak() silently fails when called on the same tick as cancel().
+  window.speechSynthesis.cancel();
+  setTimeout(() => window.speechSynthesis.speak(utt), 50);
 }
 
 /** Tears down all screen-reader state for any level (called before switching levels or on disable). */
@@ -559,6 +564,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
 
         function processImg(img: HTMLImageElement): void {
           if (img.dataset["inculvaSr"]) return;
+          if (img.dataset["inculvaIgnore"]) return;
           if (img.closest("#inculva-widget-panel,#inculva-widget-btn")) return;
           img.dataset["inculvaSr"] = "1";
           const alt = img.getAttribute("alt");
@@ -651,6 +657,7 @@ export const featureHandlers: Record<keyof WidgetFeatures, FeatureHandler> = {
         };
 
         const onOut = (): void => {
+          lastEl = null; // allow re-entering the same element to re-trigger reading
           if (_srHoverTimer !== null) {
             clearTimeout(_srHoverTimer);
             _srHoverTimer = null;

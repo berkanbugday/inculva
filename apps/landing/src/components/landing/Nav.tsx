@@ -16,6 +16,7 @@ export function Nav({ cdnUrl, appUrl }: { cdnUrl: string; appUrl: string }) {
             src={`${cdnUrl}/logos/logo-dark.png`}
             alt="Inculva - Web Accessibility Tools"
             className="h-8 w-auto"
+            data-inculva-ignore="true"
           />
         </a>
 
