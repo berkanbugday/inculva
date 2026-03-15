@@ -31,7 +31,6 @@ import { getSessionId } from "./utils/session.js";
 
 type PartialConfig = Partial<WidgetConfig> & { siteId: string };
 
-
 const DEFAULT_CONFIG: Omit<WidgetConfig, "siteId"> = {
   position: "bottom-right",
   theme: "light",
@@ -609,7 +608,7 @@ class InculvaWidget {
       feature === "colorBlindMode" && nextLevel > 0
         ? `${featureName}: ${this._cbmTypeName(nextLevel)}`
         : feature === "screenReader" && nextLevel > 0
-          ? `${featureName}: ${SR_MODE_LABELS[nextLevel] ?? "level " + String(nextLevel)}`
+          ? `${featureName}: ${this._getSrModeName(nextLevel)}`
           : nextLevel > 0
             ? `${featureName} level ${nextLevel} of ${maxLevels}`
             : `${featureName} disabled`;
@@ -904,6 +903,14 @@ class InculvaWidget {
     return this._labels[key] ?? key.charAt(0).toUpperCase() + key.slice(1);
   }
 
+  /** Returns the localised display name for a screenReader level (1-based). */
+  private _getSrModeName(level: number): string {
+    const keys = ["", "altHints", "readOnHover", "readOnTap"] as const;
+    const key = keys[level];
+    if (!key) return this._labels["screenReader"] ?? "Screen reader";
+    return this._labels[key] ?? SR_MODE_LABELS[level] ?? "Screen reader";
+  }
+
   /**
    * Updates the label text of a feature button for features whose label
    * changes depending on level (colorBlindMode, saturation, screenReader).
@@ -929,7 +936,7 @@ class InculvaWidget {
     } else if (feature === "screenReader") {
       labelEl.textContent =
         level > 0
-          ? (SR_MODE_LABELS[level] ?? "Screen reader")
+          ? this._getSrModeName(level)
           : (this._labels["screenReader"] ?? "Screen reader");
     }
   }
