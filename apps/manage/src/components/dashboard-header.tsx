@@ -30,18 +30,18 @@ export function DashboardHeader({ locale }: Props) {
       </div>
 
       <div className="flex items-center gap-2">
-        <ThemeToggle />
-        <LanguageSwitcher locale={locale} />
-        <NotificationBell />
         <a
           href="/dashboard/sites/new"
-          className="flex items-center gap-1.5 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors ml-2"
+          className="flex items-center gap-1.5 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M6 1v10M1 6h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
           </svg>
           New site
         </a>
+        <ThemeToggle />
+        <LanguageSwitcher locale={locale} />
+        <NotificationBell />
       </div>
     </header>
   );

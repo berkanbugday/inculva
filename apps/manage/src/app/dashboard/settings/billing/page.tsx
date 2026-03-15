@@ -49,7 +49,7 @@ export default async function BillingPage() {
   ];
 
   return (
-    <div className="max-w-4xl space-y-6">
+    <div className="space-y-6">
       <h1 className="text-3xl font-black text-gray-900 dark:text-white">Subscriptions</h1>
 
       {/* Current plan status */}

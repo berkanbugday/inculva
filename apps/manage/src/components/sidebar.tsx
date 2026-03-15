@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { SidebarLink, SiteGroup } from "./sidebar-parts";
-import { GridIcon, ChartIcon, SettingsIcon, PlusIcon } from "./sidebar-icons";
+import { SidebarLink, SiteGroup, SettingsGroup } from "./sidebar-parts";
+import { GridIcon, ChartIcon } from "./sidebar-icons";
+import { signOut } from "@/lib/auth-client";
 
 interface Site {
   id: string;
@@ -23,6 +24,9 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
     const matched = sites.find((s) => pathname.includes(s.id));
     return matched ? new Set([matched.id]) : new Set();
   });
+  const [popupOpen, setPopupOpen] = useState(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const signOutBtnRef = useRef<HTMLButtonElement>(null);
 
   function toggleSite(id: string) {
     setExpandedSites((prev) => {
@@ -38,6 +42,33 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
     return pathname.startsWith(href);
   }
 
+  async function handleSignOut() {
+    await signOut();
+    window.location.href = "/login";
+  }
+
+  useEffect(() => {
+    if (!popupOpen) return;
+
+    function onMouseDown(e: MouseEvent) {
+      if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
+        setPopupOpen(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setPopupOpen(false);
+    }
+
+    document.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("keydown", onKeyDown);
+    signOutBtnRef.current?.focus();
+
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [popupOpen]);
+
   const initials = userName
     ? userName
         .split(" ")
@@ -49,8 +80,8 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
     : (userEmail[0]?.toUpperCase() ?? "?");
 
   return (
-    <aside className="w-64 shrink-0 bg-white dark:bg-[#1a1a2e] border-r border-[#e8eaf0] dark:border-[#2a2a3e] min-h-[calc(100vh-56px)] flex flex-col overflow-y-auto">
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
+    <aside className="w-64 shrink-0 bg-white dark:bg-[#1a1a2e] border-r border-[#e8eaf0] dark:border-[#2a2a3e] h-screen sticky top-0 flex flex-col">
+      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         <SidebarLink
           href="/dashboard"
           active={pathname === "/dashboard"}
@@ -69,14 +100,6 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
           />
         ))}
 
-        <a
-          href="/dashboard/sites/new"
-          className="flex items-center justify-center gap-2 mx-3 mt-2 px-4 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors"
-        >
-          <PlusIcon />
-          Add new site
-        </a>
-
         <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] mx-2 my-3" />
 
         <SidebarLink
@@ -85,23 +108,54 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
           icon={<ChartIcon />}
           label="Statistics"
         />
-        <SidebarLink
-          href="/dashboard/settings"
-          active={isActive("/dashboard/settings")}
-          icon={<SettingsIcon />}
-          label="Settings"
-        />
+
+        <SettingsGroup isActive={isActive} />
       </nav>
 
-      <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] px-4 py-4">
-        <a
-          href="/dashboard/settings"
-          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+      {/* Pinned user area */}
+      <div
+        className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] px-4 py-4 relative"
+        ref={popupRef}
+      >
+        {popupOpen && (
+          <div className="absolute bottom-full left-3 right-3 mb-2 bg-white dark:bg-[#1a1a2e] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl shadow-lg overflow-hidden z-50">
+            <div className="px-4 py-3 border-b border-[#e8eaf0] dark:border-[#2a2a3e]">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                  {initials}
+                </div>
+                <div className="min-w-0">
+                  {userName && (
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                      {userName}
+                    </p>
+                  )}
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    {userEmail}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <button
+              ref={signOutBtnRef}
+              onClick={handleSignOut}
+              className="w-full text-left px-4 py-3 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
+            >
+              Sign out
+            </button>
+          </div>
+        )}
+
+        <button
+          onClick={() => setPopupOpen((v) => !v)}
+          aria-expanded={popupOpen}
+          aria-label="Account menu"
+          className="flex items-center gap-3 w-full hover:opacity-80 transition-opacity"
         >
           <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">
             {initials}
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 text-left">
             {userName && (
               <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
                 {userName}
@@ -111,7 +165,7 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
               {userEmail}
             </p>
           </div>
-        </a>
+        </button>
       </div>
     </aside>
   );

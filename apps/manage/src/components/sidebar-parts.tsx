@@ -1,6 +1,7 @@
 "use client";
 
-import { GlobeIcon } from "./sidebar-icons";
+import { usePathname } from "next/navigation";
+import { GlobeIcon, UserIcon, KeyIcon, WebhookIcon, CreditCardIcon, ListIcon } from "./sidebar-icons";
 
 export function SidebarLink({
   href,
@@ -96,6 +97,48 @@ export function SiteGroup({
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+const SETTINGS_LINKS = [
+  { href: "/dashboard/settings", label: "Account", icon: <UserIcon /> },
+  { href: "/dashboard/settings/api-keys", label: "API Keys", icon: <KeyIcon /> },
+  { href: "/dashboard/settings/webhooks", label: "Webhooks", icon: <WebhookIcon /> },
+  { href: "/dashboard/settings/billing", label: "Billing", icon: <CreditCardIcon /> },
+  { href: "/dashboard/settings/audit-log", label: "Audit Log", icon: <ListIcon /> },
+] as const;
+
+export function SettingsGroup({ isActive }: { isActive: (href: string) => boolean }) {
+  const pathname = usePathname();
+  return (
+    <div>
+      <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-600 select-none">
+        Settings
+      </p>
+      {SETTINGS_LINKS.map((item) => {
+        const active =
+          item.href === "/dashboard/settings"
+            ? pathname === "/dashboard/settings"
+            : isActive(item.href);
+        return (
+          <a
+            key={item.href}
+            href={item.href}
+            className={`flex items-center gap-3 px-4 py-2.5 rounded-2xl mx-1 text-sm font-semibold transition-colors relative ${
+              active
+                ? "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"
+                : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white"
+            }`}
+          >
+            {active && (
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 dark:bg-blue-400 rounded-full" aria-hidden="true" />
+            )}
+            {item.icon}
+            {item.label}
+          </a>
+        );
+      })}
     </div>
   );
 }

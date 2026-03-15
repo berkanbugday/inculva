@@ -44,3 +44,51 @@ export function PlusIcon() {
     </svg>
   );
 }
+
+export function UserIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+      <circle cx="8" cy="5.5" r="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M1.5 14.5c0-3.314 2.91-6 6.5-6s6.5 2.686 6.5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function KeyIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+      <circle cx="6" cy="7" r="4" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M9.5 9.5l5 5M12 12l-1.5 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function WebhookIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+      <path d="M6 3a3 3 0 1 1 0 4H5l-3 5h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10 13a3 3 0 1 0 0-4h-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function CreditCardIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+      <rect x="1" y="3.5" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M1 6.5h14" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M4 10h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function ListIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+      <path d="M6 4h8M6 8h8M6 12h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="2.5" cy="4" r="1" fill="currentColor" />
+      <circle cx="2.5" cy="8" r="1" fill="currentColor" />
+      <circle cx="2.5" cy="12" r="1" fill="currentColor" />
+    </svg>
+  );
+}

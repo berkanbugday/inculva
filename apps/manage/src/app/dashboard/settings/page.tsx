@@ -1,67 +1,27 @@
 import { auth } from "@/lib/auth";
-import { db } from "@inculva/db";
 import { headers } from "next/headers";
-import { ApiKeysManager } from "./api-keys-manager";
+import { redirect } from "next/navigation";
 import { ProfileForm } from "./profile-form";
 import { DeleteAccount } from "./delete-account";
-import { WebhooksManager } from "./webhooks-manager";
 import { ReferralBanner } from "@/components/referral-banner";
+
 export default async function SettingsPage() {
   const session = await auth.api.getSession({ headers: await headers() });
-
-  const [apiKeys, webhooks] = await Promise.all([db.apiKey.findMany({
-    where: { userId: session!.user.id, revokedAt: null },
-    select: {
-      id: true,
-      name: true,
-      keyPrefix: true,
-      lastUsedAt: true,
-      expiresAt: true,
-      createdAt: true,
-    },
-    orderBy: { createdAt: "desc" },
-  }), db.webhook.findMany({
-    where: { userId: session!.user.id },
-    select: { id: true, url: true, events: true, enabled: true, createdAt: true },
-    orderBy: { createdAt: "desc" },
-  })]);
+  if (!session) redirect("/login");
 
   return (
-    <main className="max-w-3xl space-y-8">
+    <main className="space-y-8">
       <div>
-        <h2 className="text-3xl font-black text-gray-900 dark:text-white">Settings</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your account and API access.</p>
-      </div>
-
-      {/* Settings sub-nav */}
-      <div className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
-        <span className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold">
-          Account
-        </span>
-        <a
-          href="/dashboard/settings/billing"
-          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
-        >
-          Billing
-        </a>
-        <a
-          href="/dashboard/settings/audit-log"
-          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
-        >
-          Audit Log
-        </a>
+        <h2 className="text-3xl font-black text-gray-900 dark:text-white">Account</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your profile and account settings.</p>
       </div>
 
       <ProfileForm
-        name={session!.user.name ?? null}
-        email={session!.user.email}
+        name={session.user.name ?? null}
+        email={session.user.email}
       />
 
       <ReferralBanner />
-
-      <ApiKeysManager initialKeys={apiKeys} />
-
-      <WebhooksManager initialWebhooks={webhooks.map(w => ({ ...w, createdAt: w.createdAt.toISOString() }))} />
 
       {/* GDPR Data Export */}
       <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-3">

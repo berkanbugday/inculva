@@ -66,39 +66,17 @@ export default async function DashboardPage() {
   const liveSites = sites.filter((s) => s.healthStatus === "healthy").length;
 
   return (
-    <div className="max-w-6xl">
+    <div>
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-black text-gray-900 dark:text-white">
-            My Websites
-          </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            {sites.length === 0
-              ? "No sites yet"
-              : `${sites.length} site${sites.length !== 1 ? "s" : ""} connected`}
-          </p>
-        </div>
-        <a
-          href="/dashboard/sites/new"
-          className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors"
-        >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 1v10M1 6h10"
-              stroke="white"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
-          New site
-        </a>
+      <div className="mb-8">
+        <h1 className="text-3xl font-black text-gray-900 dark:text-white">
+          My Websites
+        </h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          {sites.length === 0
+            ? "No sites yet"
+            : `${sites.length} site${sites.length !== 1 ? "s" : ""} connected`}
+        </p>
       </div>
 
       {/* Stats row */}
@@ -251,24 +229,12 @@ export default async function DashboardPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 pt-2 border-t border-[#e8eaf0] dark:border-[#2a2a3e]">
-                  <a
-                    href={`/dashboard/sites/${site.id}/analytics`}
-                    className="flex-1 text-center text-xs font-semibold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
-                  >
-                    Analytics
-                  </a>
-                  <a
-                    href={`/dashboard/sites/${site.id}/scan`}
-                    className="flex-1 text-center text-xs font-semibold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 py-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
-                  >
-                    WCAG Scan
-                  </a>
+                <div className="pt-2 border-t border-[#e8eaf0] dark:border-[#2a2a3e]">
                   <a
                     href={`/dashboard/sites/${site.id}`}
-                    className="flex-1 text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors"
+                    className="block text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors"
                   >
-                    Manage
+                    Open →
                   </a>
                 </div>
               </div>

@@ -44,43 +44,18 @@ export default async function AuditLogPage() {
   });
 
   return (
-    <main className="max-w-3xl space-y-8">
+    <main className="space-y-8">
       <div>
-        <h2 className="text-3xl font-black text-gray-900 dark:text-white">Settings</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your account and API access.</p>
-      </div>
-
-      {/* Settings sub-nav */}
-      <div className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
-        <a
-          href="/dashboard/settings"
-          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
-        >
-          Account
-        </a>
-        <a
-          href="/dashboard/settings/billing"
-          className="px-4 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors"
-        >
-          Billing
-        </a>
-        <span className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold">
-          Audit Log
-        </span>
+        <h2 className="text-3xl font-black text-gray-900 dark:text-white">Audit Log</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Last 100 actions on your account.</p>
       </div>
 
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm overflow-hidden">
-        <div className="px-6 py-4 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center justify-between">
-          <div>
-            <h3 className="text-base font-semibold text-gray-900 dark:text-white">Audit Log</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-              Last 100 actions on your account.
-            </p>
-          </div>
-          {logs.length > 0 && (
+        {logs.length > 0 && (
+          <div className="px-6 py-3 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center justify-end">
             <span className="text-xs text-gray-400 dark:text-gray-600">{logs.length} entries</span>
-          )}
-        </div>
+          </div>
+        )}
 
         {logs.length === 0 ? (
           <div className="px-6 py-12 text-center">
