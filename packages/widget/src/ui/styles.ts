@@ -859,8 +859,8 @@ export const widgetStyles = `
     padding: 12px 20px !important;
   }
   #inculva-widget-panel[data-size="large"] .inculva-prefooter-a11y {
-    font-size: 14px !important;
-    padding: 11px 20px !important;
+    font-size: 15px !important;
+    padding: 10px 0 !important;
   }
   #inculva-widget-panel[data-size="large"] .inculva-switch-label {
     font-size: 14px !important;
@@ -943,23 +943,20 @@ export const widgetStyles = `
   .inculva-prefooter-reset:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 2px; }
   .inculva-prefooter-a11y {
     display: block;
-    width: 100%;
-    padding: 9px 16px;
+    padding: 8px 0;
     background: transparent;
-    color: #1a1a2e;
-    border: 1.5px solid #d4d4d8;
-    border-radius: 100px;
-    font-size: 13px;
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     font-family: inherit;
     text-align: center;
-    text-decoration: none;
-    transition: border-color 0.15s, background 0.15s;
+    transition: color 0.15s, opacity 0.15s;
     -webkit-tap-highlight-color: transparent;
     box-sizing: border-box;
   }
-  .inculva-prefooter-a11y:hover { background: #f4f4f5; border-color: #a1a1aa; }
+  .inculva-prefooter-a11y:hover { color: #ffffff;text-decoration: underline; }
   .inculva-prefooter-a11y:focus-visible { outline: 2px solid var(--inculva-primary, #0066cc); outline-offset: 2px; }
   .inculva-prefooter-switch {
     display: flex;
@@ -1019,8 +1016,7 @@ export const widgetStyles = `
   /* ── Panel Footer — uses primary color as background ─────────────────── */
   .inculva-panel-footer {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 10px 16px;
     flex-shrink: 0;
     background: var(--inculva-footer-bg, var(--inculva-primary, #0066cc));

@@ -715,7 +715,6 @@ function _buildBody(
 function _buildPreFooter(
   labels: Record<string, string>,
   isOnLeft: boolean,
-  accessibilityStatementUrl?: string,
 ): HTMLDivElement {
   const pre = document.createElement("div");
   pre.className = "inculva-prefooter";
@@ -728,18 +727,6 @@ function _buildPreFooter(
   resetBtn.setAttribute("aria-label", labels["resetAll"] ?? "Reset All");
   resetBtn.textContent = labels["resetSettings"] ?? "Reset settings";
   pre.appendChild(resetBtn);
-
-  // Accessibility Statement — outline pill button (only when URL is configured)
-  if (accessibilityStatementUrl) {
-    const a11yBtn = document.createElement("a");
-    a11yBtn.className = "inculva-prefooter-a11y";
-    a11yBtn.href = accessibilityStatementUrl;
-    a11yBtn.target = "_blank";
-    a11yBtn.rel = "noopener noreferrer";
-    a11yBtn.textContent =
-      labels["accessibilityStatement"] ?? "Accessibility Statement";
-    pre.appendChild(a11yBtn);
-  }
 
   // Switch widget side — label + toggle
   const switchRow = document.createElement("div");
@@ -772,10 +759,23 @@ function _buildPreFooter(
 
 function _buildFooter(
   labels: Record<string, string>,
+  accessibilityStatementUrl?: string,
   whiteLabelText?: string | null,
 ): HTMLDivElement {
   const footer = document.createElement("div");
   footer.className = "inculva-panel-footer";
+
+  // Accessibility Statement — outline pill button (only when URL is configured)
+  if (accessibilityStatementUrl) {
+    const a11yBtn = document.createElement("a");
+    a11yBtn.className = "inculva-prefooter-a11y";
+    a11yBtn.href = accessibilityStatementUrl;
+    a11yBtn.target = "_blank";
+    a11yBtn.rel = "noopener noreferrer";
+    a11yBtn.textContent =
+      labels["accessibilityStatement"] ?? "Accessibility Statement";
+    footer.appendChild(a11yBtn);
+  }
 
   const brand = document.createElement("span");
   brand.className = "inculva-footer-logo";
@@ -811,10 +811,10 @@ export function createPanel(
   panel.appendChild(_buildControlsBar(language, labels));
   panel.appendChild(_buildBody(features, labels));
   panel.appendChild(_buildMiniActions());
+  panel.appendChild(_buildPreFooter(labels, isOnLeft));
   panel.appendChild(
-    _buildPreFooter(labels, isOnLeft, accessibilityStatementUrl),
+    _buildFooter(labels, accessibilityStatementUrl, whiteLabelText),
   );
-  panel.appendChild(_buildFooter(labels, whiteLabelText));
 
   return panel;
 }
@@ -935,18 +935,19 @@ export function updatePanel(
   const prePre = panel.querySelector<HTMLElement>(".inculva-prefooter");
   if (prePre) {
     const isOnLeft = panel.getAttribute("data-panel-side") === "left";
-    const newPre = _buildPreFooter(labels, isOnLeft, accessibilityStatementUrl);
+    const newPre = _buildPreFooter(labels, isOnLeft);
     prePre.replaceWith(newPre);
   }
 
-  // Update footer - only logo, no text
+  // Update footer — rebuild with a11y button and logo
   const footer = panel.querySelector<HTMLElement>(".inculva-panel-footer");
   if (footer) {
-    footer.innerHTML = "";
-    const logo = document.createElement("span");
-    logo.className = "inculva-footer-logo";
-    logo.innerHTML = logoImg(120);
-    footer.appendChild(logo);
+    const newFooter = _buildFooter(
+      labels,
+      accessibilityStatementUrl,
+      whiteLabelText,
+    );
+    footer.replaceWith(newFooter);
   }
 }
 
