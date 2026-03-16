@@ -166,7 +166,6 @@ model WidgetConfig {
   readingMask        Boolean @default(true)
   textAlign          Boolean @default(true)
   saturation         Boolean @default(true)
-  // New features (from UserWay/Corpowid research)
   blueLightFilter    Boolean @default(true)
   hideImages         Boolean @default(true)
   darkMode           Boolean @default(true)

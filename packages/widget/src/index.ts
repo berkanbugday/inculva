@@ -177,8 +177,6 @@ class InculvaWidget {
   }
 
   private applyTheme(): void {
-    // Widget uses its own visual style (corpowid-style light panel).
-    // data-inculva-theme is still set for any custom theme overrides.
     const theme =
       this.config.theme === "auto"
         ? window.matchMedia("(prefers-color-scheme: dark)").matches

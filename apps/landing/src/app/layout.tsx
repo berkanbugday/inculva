@@ -118,9 +118,7 @@ export default function RootLayout({
           />
         )}
         <script
-          src={
-            process.env["NEXT_PUBLIC_WIDGET_URL"]!
-          }
+          src={process.env["NEXT_PUBLIC_WIDGET_URL"]!}
           data-site-id="cmmjb1jzv0001i3jiilvu3xp5"
           defer
         />
