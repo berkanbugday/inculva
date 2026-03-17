@@ -1,0 +1,186 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import PricingCard from '@/components/PricingCard.astro';
+import Button from '@/components/Button.astro';
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$0',
+    period: '/mo',
+    description: 'Perfect for personal projects and small sites.',
+    features: [
+      '1 website',
+      'Basic WCAG scanning',
+      'Up to 100 pages',
+      'Monthly reports',
+      'Community support',
+    ],
+    cta: 'Get Started Free',
+    ctaHref: 'https://app.inculva.com/signup',
+    popular: false,
+  },
+  {
+    name: 'Pro',
+    price: '$49',
+    period: '/mo',
+    description: 'For growing businesses that need full compliance.',
+    features: [
+      'Up to 5 websites',
+      'Full WCAG 2.1 AA scanning',
+      'Unlimited pages',
+      'AI-powered auto-fixes',
+      'Real-time monitoring',
+      'Priority email support',
+      'Custom branding',
+    ],
+    cta: 'Start Free Trial',
+    ctaHref: 'https://app.inculva.com/signup?plan=pro',
+    popular: true,
+  },
+  {
+    name: 'Business',
+    price: '$149',
+    period: '/mo',
+    description: 'For enterprises with advanced compliance needs.',
+    features: [
+      'Unlimited websites',
+      'WCAG 2.1 AAA scanning',
+      'Unlimited pages',
+      'AI-powered auto-fixes',
+      'Continuous monitoring',
+      'Dedicated account manager',
+      'SLA guarantee',
+      'Custom integrations',
+      'Audit reports',
+    ],
+    cta: 'Contact Sales',
+    ctaHref: '/contact',
+    popular: false,
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing"
+  description="Simple, transparent pricing for web accessibility. Start free, upgrade as you grow. Plans for individuals, teams, and enterprises."
+  canonical="https://inculva.com/pricing"
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-4 md:pt-28 md:pb-8">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          Simple, transparent
+          <span class="text-gradient">pricing</span>
+        </h1>
+        <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+          Start free and upgrade as your needs grow. No hidden fees, no surprises.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Pricing Cards -->
+  <Section background="white" class="!pt-12">
+    <Container>
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-6 max-w-5xl mx-auto items-stretch">
+        {plans.map((plan) => (
+          <PricingCard {...plan} />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Comparison Table -->
+  <Section background="gray">
+    <Container>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">Compare plans</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left bg-white rounded-2xl shadow-soft overflow-hidden">
+          <thead>
+            <tr class="border-b border-gray-100">
+              <th class="px-6 py-4 text-sm font-semibold text-gray-900">Feature</th>
+              <th class="px-6 py-4 text-sm font-semibold text-gray-900 text-center">Starter</th>
+              <th class="px-6 py-4 text-sm font-semibold text-primary-600 text-center">Pro</th>
+              <th class="px-6 py-4 text-sm font-semibold text-gray-900 text-center">Business</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['Websites', '1', '5', 'Unlimited'],
+              ['Pages per site', '100', 'Unlimited', 'Unlimited'],
+              ['WCAG level', 'A', 'AA', 'AAA'],
+              ['Auto-fix', '—', '✓', '✓'],
+              ['Real-time monitoring', '—', '✓', '✓'],
+              ['Custom branding', '—', '✓', '✓'],
+              ['SLA guarantee', '—', '—', '✓'],
+              ['Dedicated support', '—', '—', '✓'],
+            ].map(([feature, starter, pro, business]) => (
+              <tr class="border-b border-gray-50 last:border-0">
+                <td class="px-6 py-4 text-sm text-gray-700">{feature}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-center">{starter}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-center font-medium">{pro}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-center">{business}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section background="white">
+    <Container narrow>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">Pricing FAQ</h2>
+      </div>
+      <div class="space-y-4">
+        {[
+          {
+            q: 'Can I switch plans at any time?',
+            a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated.',
+          },
+          {
+            q: 'Is there a free trial?',
+            a: 'Yes! The Pro plan comes with a 14-day free trial. No credit card required to start.',
+          },
+          {
+            q: 'What happens if I exceed my page limit?',
+            a: 'On the Starter plan, scanning pauses at 100 pages. You can upgrade to Pro for unlimited pages at any time.',
+          },
+          {
+            q: 'Do you offer annual billing?',
+            a: 'Yes, annual billing is available with a 20% discount. Contact sales for enterprise annual agreements.',
+          },
+        ].map(({ q, a }) => (
+          <details class="group bg-white rounded-2xl border border-gray-100 shadow-soft">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-gray-900 hover:text-primary-600 transition-colors">
+              {q}
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-gray-600 leading-relaxed">{a}</div>
+          </details>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <Section background="gray">
+    <Container narrow>
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900">Need a custom plan?</h2>
+        <p class="mt-4 text-lg text-gray-600">Contact us for enterprise pricing tailored to your organization's needs.</p>
+        <div class="mt-8">
+          <Button href="/contact" size="lg">Contact Sales</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

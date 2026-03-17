@@ -1,0 +1,211 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import Button from '@/components/Button.astro';
+import { getAllPosts } from '@/lib/sanity';
+import { getBlogPostingSchema } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+
+  // If no posts from Sanity, provide placeholder paths
+  if (posts.length === 0) {
+    return [
+      {
+        params: { slug: 'understanding-wcag-21' },
+        props: {
+          post: {
+            _id: '1',
+            title: 'Understanding WCAG 2.1: A Complete Guide for Developers',
+            slug: { current: 'understanding-wcag-21' },
+            description: 'Learn the key principles of WCAG 2.1 and how to implement them in your web applications for better accessibility compliance.',
+            publishedAt: '2025-03-10',
+            mainImage: undefined,
+            content: [],
+          },
+        },
+      },
+      {
+        params: { slug: 'ada-compliance-2025' },
+        props: {
+          post: {
+            _id: '2',
+            title: 'ADA Compliance in 2025: What You Need to Know',
+            slug: { current: 'ada-compliance-2025' },
+            description: 'A comprehensive overview of ADA requirements for websites and how to avoid costly legal issues with proper accessibility practices.',
+            publishedAt: '2025-03-05',
+            mainImage: undefined,
+            content: [],
+          },
+        },
+      },
+      {
+        params: { slug: 'ai-web-accessibility-testing' },
+        props: {
+          post: {
+            _id: '3',
+            title: 'How AI is Transforming Web Accessibility Testing',
+            slug: { current: 'ai-web-accessibility-testing' },
+            description: 'Explore how artificial intelligence is revolutionizing the way we test and fix accessibility issues on the web.',
+            publishedAt: '2025-02-28',
+            mainImage: undefined,
+            content: [],
+          },
+        },
+      },
+      {
+        params: { slug: 'color-contrast-best-practices' },
+        props: {
+          post: {
+            _id: '4',
+            title: 'Color Contrast Best Practices for Accessible Design',
+            slug: { current: 'color-contrast-best-practices' },
+            description: 'Master color contrast ratios and learn practical techniques to ensure your designs meet WCAG AA and AAA standards.',
+            publishedAt: '2025-02-20',
+            mainImage: undefined,
+            content: [],
+          },
+        },
+      },
+      {
+        params: { slug: 'building-accessible-forms' },
+        props: {
+          post: {
+            _id: '5',
+            title: 'Building Accessible Forms: A Step-by-Step Tutorial',
+            slug: { current: 'building-accessible-forms' },
+            description: 'Learn how to create forms that work for everyone, including users with screen readers, keyboard navigation, and cognitive disabilities.',
+            publishedAt: '2025-02-15',
+            mainImage: undefined,
+            content: [],
+          },
+        },
+      },
+      {
+        params: { slug: 'business-case-web-accessibility' },
+        props: {
+          post: {
+            _id: '6',
+            title: 'The Business Case for Web Accessibility',
+            slug: { current: 'business-case-web-accessibility' },
+            description: 'Discover how investing in web accessibility can improve SEO, expand your audience, reduce legal risk, and boost your bottom line.',
+            publishedAt: '2025-02-10',
+            mainImage: undefined,
+            content: [],
+          },
+        },
+      },
+    ];
+  }
+
+  return posts.map((post) => ({
+    params: { slug: post.slug.current },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const postUrl = `https://inculva.com/blog/${post.slug.current}`;
+const blogPostSchema = getBlogPostingSchema({
+  title: post.title,
+  description: post.description,
+  url: postUrl,
+  image: post.mainImage?.asset?.url,
+  publishedAt: post.publishedAt,
+});
+---
+
+<BaseLayout
+  title={post.title}
+  description={post.description}
+  canonical={postUrl}
+  ogType="article"
+  ogImage={post.mainImage?.asset?.url}
+  publishedAt={post.publishedAt}
+  jsonLd={blogPostSchema}
+>
+  <article>
+    <!-- Header -->
+    <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-8 md:pt-28 md:pb-12">
+      <Container narrow>
+        <div class="max-w-3xl mx-auto">
+          <a href="/blog" class="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors mb-8">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Back to Blog
+          </a>
+
+          <time class="text-sm text-gray-500 font-medium" datetime={post.publishedAt}>
+            {formattedDate}
+          </time>
+
+          <h1 class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+            {post.title}
+          </h1>
+
+          <p class="mt-6 text-lg text-gray-600 leading-relaxed">
+            {post.description}
+          </p>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Featured Image -->
+    {post.mainImage?.asset?.url && (
+      <Container narrow>
+        <div class="rounded-2xl overflow-hidden mb-12">
+          <img
+            src={post.mainImage.asset.url}
+            alt={post.mainImage.alt || post.title}
+            class="w-full h-auto"
+            width="800"
+            height="450"
+            loading="eager"
+          />
+        </div>
+      </Container>
+    )}
+
+    <!-- Content -->
+    <Section background="white" class="!pt-4">
+      <Container narrow>
+        <div class="prose prose-lg max-w-3xl mx-auto prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline">
+          {post.content && post.content.length > 0 ? (
+            <div>
+              {/* Render Sanity rich text content here */}
+              <p>Content loaded from Sanity CMS.</p>
+            </div>
+          ) : (
+            <div class="text-center py-12">
+              <div class="w-16 h-16 mx-auto rounded-2xl bg-primary-50 flex items-center justify-center mb-4">
+                <svg class="w-8 h-8 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                </svg>
+              </div>
+              <p class="text-gray-500">This is a placeholder post. Connect Sanity CMS to display full content.</p>
+            </div>
+          )}
+        </div>
+
+        <!-- Back to Blog -->
+        <div class="mt-16 pt-8 border-t border-gray-100 text-center">
+          <Button href="/blog" variant="secondary">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Back to all posts
+          </Button>
+        </div>
+      </Container>
+    </Section>
+  </article>
+</BaseLayout>

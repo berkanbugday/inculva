@@ -1,0 +1,42 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  publishedAt?: string;
+  jsonLd?: Record<string, any> | Record<string, any>[];
+}
+
+import { SEO } from 'astro-seo';
+import { getSEOProps } from '@/lib/seo';
+
+const { title, description, canonical, ogImage, ogType, noindex, publishedAt, jsonLd } = Astro.props;
+
+const seoProps = getSEOProps({
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType,
+  noindex,
+  publishedAt,
+});
+
+const schemas = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+---
+
+<SEO
+  title={seoProps.title}
+  description={seoProps.description}
+  canonical={seoProps.canonical}
+  noindex={seoProps.noindex}
+  openGraph={seoProps.openGraph}
+  twitter={seoProps.twitter}
+/>
+
+{schemas.map((schema) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

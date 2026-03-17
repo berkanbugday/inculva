@@ -1,0 +1,108 @@
+---
+import Container from './Container.astro';
+
+const navLinks = [
+  { label: 'Features', href: '/features' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+  <Container>
+    <nav class="flex items-center justify-between h-16 md:h-18" aria-label="Main navigation">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 group" aria-label="Inculva home">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center">
+          <span class="text-white font-bold text-sm">I</span>
+        </div>
+        <span class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">Inculva</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-1">
+        {navLinks.map(({ label, href }) => (
+          <a
+            href={href}
+            class:list={[
+              'px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+              currentPath === href || currentPath.startsWith(href + '/')
+                ? 'text-primary-600 bg-primary-50'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+            ]}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+
+      <!-- CTA + Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <a href="https://app.inculva.com" class="hidden md:inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors shadow-sm">
+          Get Started
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          type="button"
+          class="md:hidden p-2 -mr-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          id="mobile-menu-toggle"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </Container>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden border-t border-gray-100 bg-white">
+    <Container>
+      <div class="py-4 space-y-1">
+        {navLinks.map(({ label, href }) => (
+          <a
+            href={href}
+            class:list={[
+              'block px-4 py-3 text-base font-medium rounded-lg transition-colors',
+              currentPath === href
+                ? 'text-primary-600 bg-primary-50'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+            ]}
+          >
+            {label}
+          </a>
+        ))}
+        <div class="pt-3 mt-3 border-t border-gray-100">
+          <a href="https://app.inculva.com" class="block w-full text-center px-5 py-3 text-base font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors">
+            Get Started
+          </a>
+        </div>
+      </div>
+    </Container>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+
+    if (isOpen) {
+      menuIcon?.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+    } else {
+      menuIcon?.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+    }
+  });
+</script>

@@ -1,0 +1,165 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import Card from '@/components/Card.astro';
+import Button from '@/components/Button.astro';
+---
+
+<BaseLayout
+  title="Features"
+  description="Explore Inculva's powerful accessibility features: AI scanning, automated fixes, real-time monitoring, multi-language support, and seamless integration."
+  canonical="https://inculva.com/features"
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-16 md:pt-28 md:pb-20">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          Powerful features for
+          <span class="text-gradient">complete compliance</span>
+        </h1>
+        <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          Everything you need to achieve and maintain WCAG compliance, from automated scanning to real-time monitoring.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- AI Scanning -->
+  <Section background="white">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-sm font-medium mb-4">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5M14.25 3.104c.251.023.501.05.75.082M19.8 14.5l-2.55 7.156a.91.91 0 01-.857.644H7.607a.91.91 0 01-.857-.644L4.2 14.5m15.6 0h-15.6"/></svg>
+            AI-Powered
+          </div>
+          <h2 class="text-3xl font-bold text-gray-900">Intelligent Accessibility Scanning</h2>
+          <p class="mt-4 text-gray-600 leading-relaxed">
+            Our AI engine crawls every page on your site, analyzing DOM structure, color contrast, ARIA attributes, keyboard navigation, and more. It goes beyond rule-based checks to understand semantic context.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {['Full-page DOM analysis', 'Color contrast validation', 'ARIA attribute auditing', 'Keyboard navigation testing', 'Screen reader compatibility'].map((item) => (
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-primary-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl bg-gradient-to-br from-primary-100 to-accent-50 p-8 aspect-square flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-24 h-24 mx-auto rounded-2xl bg-white shadow-soft flex items-center justify-center mb-4">
+              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5"/></svg>
+            </div>
+            <p class="text-sm font-medium text-primary-700">Deep AI Analysis</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Automated Fixes -->
+  <Section background="gray">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1 rounded-2xl bg-gradient-to-br from-accent-50 to-primary-50 p-8 aspect-square flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-24 h-24 mx-auto rounded-2xl bg-white shadow-soft flex items-center justify-center mb-4">
+              <svg class="w-12 h-12 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.42 15.17l-5.684 5.684a1.875 1.875 0 01-2.652-2.652l5.684-5.684m0 0L3.382 7.13a2.625 2.625 0 013.712-3.712l5.388 5.388m-3.07 3.07l7.068-7.068 2.37 2.37a.75.75 0 010 1.06l-7.068 7.069-2.37-2.37z"/></svg>
+            </div>
+            <p class="text-sm font-medium text-accent-700">Smart Auto-Fix</p>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-50 text-accent-700 text-sm font-medium mb-4">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.42 15.17l-5.684 5.684a1.875 1.875 0 01-2.652-2.652l5.684-5.684"/></svg>
+            Automated
+          </div>
+          <h2 class="text-3xl font-bold text-gray-900">One-Click Accessibility Fixes</h2>
+          <p class="mt-4 text-gray-600 leading-relaxed">
+            Don't just find issues — fix them automatically. Inculva applies smart patches to your live website without touching your source code. Fixes are applied via our lightweight widget.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {['Alt text generation for images', 'ARIA label injection', 'Focus management improvements', 'Color contrast overlays', 'Skip navigation links'].map((item) => (
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Monitoring -->
+  <Section background="white">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-sm font-medium mb-4">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75z"/></svg>
+            Real-Time
+          </div>
+          <h2 class="text-3xl font-bold text-gray-900">Continuous Compliance Monitoring</h2>
+          <p class="mt-4 text-gray-600 leading-relaxed">
+            Your website changes constantly. Inculva continuously monitors your pages for new accessibility issues and alerts you before they become problems.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {['Scheduled automated scans', 'Instant email alerts', 'Compliance score tracking', 'Historical trend reports', 'Custom scan frequency'].map((item) => (
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-primary-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl bg-gradient-to-br from-primary-100 to-primary-50 p-8 aspect-square flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-24 h-24 mx-auto rounded-2xl bg-white shadow-soft flex items-center justify-center mb-4">
+              <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+            </div>
+            <p class="text-sm font-medium text-primary-700">24/7 Monitoring</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Integration Section -->
+  <Section background="gray" id="integrations">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">Works with any technology</h2>
+        <p class="mt-4 text-lg text-gray-600">
+          A single script tag is all you need. Inculva works seamlessly with every framework and platform.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        {['React', 'Next.js', 'Vue', 'Angular', 'WordPress', 'Shopify'].map((tech) => (
+          <Card hover={true} padding="md" class="text-center">
+            <div class="w-10 h-10 mx-auto rounded-lg bg-gray-100 flex items-center justify-center mb-3">
+              <span class="text-sm font-bold text-gray-600">{tech[0]}</span>
+            </div>
+            <p class="text-sm font-medium text-gray-700">{tech}</p>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <Section background="white">
+    <Container narrow>
+      <div class="text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Ready to get started?</h2>
+        <p class="mt-4 text-lg text-gray-600">Try Inculva free and see your accessibility score improve instantly.</p>
+        <div class="mt-8">
+          <Button href="https://app.inculva.com" size="lg">Start Free Trial</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

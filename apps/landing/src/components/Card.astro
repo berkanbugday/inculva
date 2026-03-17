@@ -1,0 +1,26 @@
+---
+export interface Props {
+  hover?: boolean;
+  class?: string;
+  padding?: 'sm' | 'md' | 'lg';
+}
+
+const { hover = true, class: className = '', padding = 'md' } = Astro.props;
+
+const paddingClasses = {
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+};
+
+const classes = [
+  'bg-white rounded-2xl border border-gray-100 shadow-soft',
+  paddingClasses[padding],
+  hover ? 'hover-lift' : '',
+  className,
+].join(' ');
+---
+
+<div class={classes}>
+  <slot />
+</div>
