@@ -4,6 +4,8 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import Button from '@/components/Button.astro';
 import Card from '@/components/Card.astro';
+
+const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
 ---
 
 <BaseLayout
@@ -125,16 +127,16 @@ import Card from '@/components/Card.astro';
               <!-- Animated Accessibility Widget & Menu -->
               <div class="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-20 flex flex-col items-end">
                 <!-- Dropdown Menu -->
-                <div class="mockup-widget-menu absolute bottom-[3.5rem] right-0 w-[240px] bg-[#f8f9fa] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-gray-200 flex flex-col origin-bottom-right opacity-0 scale-95 pointer-events-none transition-all duration-300 overflow-hidden z-20">
+                <div class="mockup-widget-menu absolute bottom-[2.8rem] right-0 w-[240px] bg-[#f8f9fa] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] flex flex-col origin-bottom-right opacity-0 scale-95 pointer-events-none transition-all duration-300 overflow-hidden z-20">
                    <!-- Header -->
                    <div class="bg-[#0066cc] text-white p-2.5 flex items-center justify-between">
                      <div class="text-[10px] font-bold shrink-0">Erişilebilirlik Menüsü <span class="text-[8px] opacity-80 font-normal">(Ctrl+U)</span></div>
                      <div class="flex gap-1.5 shrink-0">
                        <div class="w-4 h-4 rounded bg-white/20 flex items-center justify-center">
-                         <img src="https://cdn.inculva.com/icons/arrows-rotate.svg" class="w-2.5 h-2.5" style="filter: brightness(0) invert(1);" alt="" />
+                         <img src={`${CDN_URL}/icons/arrows-rotate.svg`} class="w-2.5 h-2.5" style="filter: brightness(0) invert(1);" alt="" />
                        </div>
                        <div class="w-4 h-4 rounded bg-white/20 flex items-center justify-center">
-                         <img src="https://cdn.inculva.com/icons/x.svg" class="w-2.5 h-2.5" style="filter: brightness(0) invert(1);" alt="" />
+                         <img src={`${CDN_URL}/icons/x.svg`} class="w-2.5 h-2.5" style="filter: brightness(0) invert(1);" alt="" />
                        </div>
                      </div>
                    </div>
@@ -143,10 +145,10 @@ import Card from '@/components/Card.astro';
                    <div class="p-2 bg-[#f0f2f5] border-b border-gray-200 flex flex-col gap-1.5">
                      <div class="w-full h-6 bg-white rounded border border-gray-300 flex items-center px-2 justify-between">
                        <div class="flex items-center gap-1.5">
-                         <img src="https://cdn.inculva.com/icons/user.svg" class="w-3 h-3 opacity-70" alt="" />
+                         <img src={`${CDN_URL}/icons/user.svg`} class="w-3 h-3 opacity-70" alt="" />
                          <span class="text-[9px] text-gray-700 font-medium">Profiller</span>
                        </div>
-                       <img src="https://cdn.inculva.com/icons/chevron-down.svg" class="w-3 h-3 opacity-50" alt="" />
+                       <img src={`${CDN_URL}/icons/chevron-down.svg`} class="w-3 h-3 opacity-50" alt="" />
                      </div>
                      <div class="flex items-center gap-1.5">
                        <div class="flex-1 h-6 bg-white rounded border border-gray-300 flex items-center px-1.5 justify-between">
@@ -156,7 +158,7 @@ import Card from '@/components/Card.astro';
                            </div>
                            <span class="text-[8px] text-gray-700">Türkçe</span>
                          </div>
-                         <img src="https://cdn.inculva.com/icons/chevron-down.svg" class="w-3 h-3 opacity-50 shrink-0" alt="" />
+                         <img src={`${CDN_URL}/icons/chevron-down.svg`} class="w-3 h-3 opacity-50 shrink-0" alt="" />
                        </div>
                        <div class="flex h-6 bg-white rounded border border-gray-300 overflow-hidden shrink-0">
                           <div class="px-1.5 flex items-center justify-center text-[7px] text-gray-600">Mini</div>
@@ -170,15 +172,15 @@ import Card from '@/components/Card.astro';
                    <div class="p-2 sm:p-2.5 bg-[#f8f9fa] grid grid-cols-3 gap-1.5 sm:gap-2">
                      <!-- Row 1 -->
                      <div class="toggle-dark bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px] transition-colors">
-                       <img src="https://cdn.inculva.com/icons/moon.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70 ToggleDarkIcon transition-all" alt="" />
+                       <img src={`${CDN_URL}/icons/moon.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70 ToggleDarkIcon transition-all" alt="" />
                        <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight toggle-dark-label transition-colors">Karanlık Mod</span>
                      </div>
                      <div class="bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px]">
-                       <img src="https://cdn.inculva.com/icons/sun-bright.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70" alt="" />
+                       <img src={`${CDN_URL}/icons/sun-bright.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70" alt="" />
                        <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight">Mavi Işık Filtresi</span>
                      </div>
                      <div class="toggle-text bg-white border border-gray-200 rounded flex flex-col items-center justify-between p-1.5 sm:p-2 text-center shadow-sm relative overflow-hidden transition-colors h-full min-h-[52px]">
-                       <img src="https://cdn.inculva.com/icons/text-size.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-70 ToggleTextIcon transition-colors" alt="" />
+                       <img src={`${CDN_URL}/icons/text-size.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-70 ToggleTextIcon transition-colors" alt="" />
                        <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight z-10 toggle-text-label transition-colors">Büyük Metin</span>
                        <div class="flex gap-[1px] mt-1 z-10 w-full px-0.5">
                          <div class="h-0.5 flex-1 rounded-sm toggle-step-text-1"></div>
@@ -190,7 +192,7 @@ import Card from '@/components/Card.astro';
                      
                      <!-- Row 2 -->
                      <div class="bg-white border border-gray-200 rounded flex flex-col items-center justify-between p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px]">
-                       <img src="https://cdn.inculva.com/icons/align-left.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-70" alt="" />
+                       <img src={`${CDN_URL}/icons/align-left.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-70" alt="" />
                        <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight">Metin Hizalama</span>
                        <div class="flex gap-[1px] mt-1 w-full px-0.5">
                          <div class="h-0.5 flex-1 rounded-sm bg-gray-200"></div>
@@ -199,11 +201,11 @@ import Card from '@/components/Card.astro';
                        </div>
                      </div>
                      <div class="toggle-dyslexia bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative transition-colors min-h-[52px]">
-                       <img src="https://cdn.inculva.com/icons/df.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70 ToggleDyslexiaIcon transition-all" alt="" />
+                       <img src={`${CDN_URL}/icons/df.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70 ToggleDyslexiaIcon transition-all" alt="" />
                        <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight z-10 toggle-dyslexia-label transition-colors">Disleksi Modu</span>
                      </div>
                      <div class="bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px]">
-                       <img src="https://cdn.inculva.com/icons/link-simple.svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70" alt="" />
+                       <img src={`${CDN_URL}/icons/link-simple.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70" alt="" />
                        <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight">Bağlantıları Vurgula</span>
                      </div>
                    </div>
@@ -224,23 +226,20 @@ import Card from '@/components/Card.astro';
                    </div>
 
                    <!-- Footer Inculva Branding -->
-                   <div class="bg-[#0066cc] p-2 flex items-center justify-center gap-1.5 shrink-0">
-                     <img src="https://cdn.inculva.com/icons/universal-access.svg" class="w-3 h-3" style="filter: brightness(0) invert(1);" alt="" />
-                     <span class="text-white font-bold text-[10px]">inculva</span>
+                   <div class="bg-[#0066cc] p-2 flex items-center justify-left gap-1.5 shrink-0">
+                     <img src={`${CDN_URL}/logos/logo.png`} class="w-16" alt="Inculva Logo" />
                    </div>
                 </div>
 
                 <!-- Widget Button with universal access icon -->
-                <div class="mockup-widget-btn w-10 h-10 bg-[#0066cc] rounded-full shadow-lg flex items-center justify-center text-white relative z-30 transition-transform duration-200 border-2 border-white cursor-pointer px-[2px]">
-                  <img src="https://cdn.inculva.com/icons/universal-access.svg" class="w-6 h-6" style="filter: brightness(0) invert(1);" alt="Accessibility" />
+                <div class="mockup-widget-btn w-10 h-10 bg-[#0066cc] rounded-full shadow-lg flex items-center justify-center text-white relative z-30 transition-transform duration-200 cursor-pointer px-[2px]">
+                  <img src={`${CDN_URL}/icons/universal-access.svg`} class="w-8 h-8" style="filter: brightness(0) invert(1);" alt="Accessibility" />
                 </div>
               </div>
 
               <!-- Animated Mouse Pointer -->
-              <div class="mockup-pointer absolute z-50 w-7 h-7 text-black drop-shadow-md pointer-events-none" style="top: 20%; left: 30%;">
-                 <svg viewBox="0 0 24 24" fill="currentColor" stroke="white" stroke-width="1.5" class="w-full h-full">
-                   <path d="M5.5 3.21a.5.5 0 01.76-.43l13.43 8.3c.37.23.27.8-.13.88l-4.7 1a.5.5 0 00-.37.34l-2 5a.5.5 0 01-.89.06L7.13 10.6a.5.5 0 00-.33-.24l-4.14-1C2.33 9.17 2.45 8.6 2.8 8.44l2.7-1.23z"/>
-                 </svg>
+              <div class="mockup-pointer absolute z-50 w-7 h-7 drop-shadow-md pointer-events-none" style="top: 20%; left: 30%;">
+                 <img src={`${CDN_URL}/icons/arrow-pointer-bold.svg`} alt="" class="w-full h-full" />
                  <!-- Click ripple -->
                  <div class="mockup-click-ripple absolute top-0 left-0 w-6 h-6 rounded-full bg-primary-500/50 scale-0 opacity-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
               </div>
@@ -319,16 +318,16 @@ import Card from '@/components/Card.astro';
       0%, 15% { top: 30%; left: 40%; }
       18%, 20% { top: calc(100% - 38px - 14px); left: calc(100% - 38px - 14px); } /* Hover widget btn */
       22%, 26% { top: calc(100% - 38px - 14px); left: calc(100% - 38px - 14px); }
-      28%, 29% { top: calc(100% - 198px); left: calc(100% - 210px); } /* Hover Dark Mode */
-      31%, 34% { top: calc(100% - 198px); left: calc(100% - 210px); }
-      36%, 37% { top: calc(100% - 145px); left: calc(100% - 140px); } /* Hover Dyslexia */
-      39%, 43% { top: calc(100% - 145px); left: calc(100% - 140px); }
-      45%, 46% { top: calc(100% - 198px); left: calc(100% - 50px); } /* Hover Büyük Metin */
-      48%, 51% { top: calc(100% - 198px); left: calc(100% - 50px); }
-      53%, 56% { top: calc(100% - 198px); left: calc(100% - 50px); }
-      58%, 66% { top: calc(100% - 198px); left: calc(100% - 50px); }
-      69%, 72% { top: calc(100% - 85px); left: calc(100% - 140px); } /* Hover Ayarları Sıfırla */
-      74%, 85% { top: calc(100% - 85px); left: calc(100% - 140px); }
+      28%, 29% { top: calc(100% - 260px); left: calc(100% - 210px); } /* Hover Dark Mode */
+      31%, 34% { top: calc(100% - 260px); left: calc(100% - 210px); }
+      36%, 37% { top: calc(100% - 200px); left: calc(100% - 140px); } /* Hover Dyslexia */
+      39%, 43% { top: calc(100% - 200px); left: calc(100% - 140px); }
+      45%, 46% { top: calc(100% - 260px); left: calc(100% - 60px); } /* Hover Büyük Metin */
+      48%, 51% { top: calc(100% - 260px); left: calc(100% - 60px); }
+      53%, 56% { top: calc(100% - 260px); left: calc(100% - 60px); }
+      58%, 66% { top: calc(100% - 260px); left: calc(100% - 60px); }
+      69%, 72% { top: calc(100% - 138px); left: calc(100% - 140px); } /* Hover Ayarları Sıfırla */
+      74%, 85% { top: calc(100% - 138px); left: calc(100% - 140px); }
       88%, 100% { top: 30%; left: 40%; }
     }
     
