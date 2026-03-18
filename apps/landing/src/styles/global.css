@@ -38,4 +38,15 @@
   .hover-lift {
     @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-soft-lg;
   }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .reveal-on-scroll[data-visible="true"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

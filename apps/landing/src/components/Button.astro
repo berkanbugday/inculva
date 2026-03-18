@@ -8,7 +8,7 @@ export interface Props {
 
 const { variant = 'primary', size = 'md', href, class: className = '' } = Astro.props;
 
-const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2';
+const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2';
 
 const variantClasses = {
   primary: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-sm hover:shadow-md',

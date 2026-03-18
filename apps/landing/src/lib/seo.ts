@@ -1,5 +1,6 @@
 const SITE_URL = 'https://inculva.com';
 const SITE_NAME = 'Inculva';
+const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
 export interface SEOProps {
@@ -15,7 +16,7 @@ export interface SEOProps {
 
 export function getSEOProps(props: SEOProps) {
   const fullTitle = props.title === SITE_NAME
-    ? `${SITE_NAME} — AI-Powered Web Accessibility`
+    ? `${SITE_NAME} — Web Accessibility Platform`
     : `${props.title} | ${SITE_NAME}`;
 
   return {
@@ -58,8 +59,8 @@ export function getOrganizationSchema() {
     '@type': 'Organization',
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.svg`,
-    description: 'AI-powered web accessibility platform that helps websites achieve WCAG compliance automatically.',
+    logo: `${CDN_URL}/logos/logo.png`,
+    description: 'Web accessibility platform that helps websites achieve WCAG compliance automatically.',
     sameAs: [
       'https://twitter.com/inculva',
       'https://github.com/inculva',
@@ -74,7 +75,7 @@ export function getWebSiteSchema() {
     '@type': 'WebSite',
     name: SITE_NAME,
     url: SITE_URL,
-    description: 'AI-powered web accessibility platform',
+    description: 'Web accessibility platform',
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,
@@ -106,7 +107,7 @@ export function getBlogPostingSchema(post: {
       name: SITE_NAME,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_URL}/logo.svg`,
+        url: `${CDN_URL}/logos/logo.png`,
       },
     },
   };

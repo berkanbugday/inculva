@@ -10,6 +10,7 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
+const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
 ---
 
 <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
@@ -17,10 +18,7 @@ const currentPath = Astro.url.pathname;
     <nav class="flex items-center justify-between h-16 md:h-18" aria-label="Main navigation">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 group" aria-label="Inculva home">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-600 to-accent-500 flex items-center justify-center">
-          <span class="text-white font-bold text-sm">I</span>
-        </div>
-        <span class="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">Inculva</span>
+        <img src={`${CDN_URL}/logos/logo-dark.png`} alt="Inculva Logo" class="w-40 object-contain" />
       </a>
 
       <!-- Desktop Navigation -->
@@ -42,7 +40,7 @@ const currentPath = Astro.url.pathname;
 
       <!-- CTA + Mobile Toggle -->
       <div class="flex items-center gap-3">
-        <a href="https://app.inculva.com" class="hidden md:inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors shadow-sm">
+        <a href="https://app.inculva.com" class="hidden md:inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-primary-600 rounded-full hover:bg-primary-700 transition-colors shadow-sm">
           Get Started
         </a>
 
@@ -80,7 +78,7 @@ const currentPath = Astro.url.pathname;
           </a>
         ))}
         <div class="pt-3 mt-3 border-t border-gray-100">
-          <a href="https://app.inculva.com" class="block w-full text-center px-5 py-3 text-base font-semibold text-white bg-primary-600 rounded-xl hover:bg-primary-700 transition-colors">
+          <a href="https://app.inculva.com" class="block w-full text-center px-5 py-3 text-base font-semibold text-white bg-primary-600 rounded-full hover:bg-primary-700 transition-colors">
             Get Started
           </a>
         </div>

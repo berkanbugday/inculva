@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 export interface Props {
   title: string;
   description: string;
@@ -22,13 +24,13 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
     <!-- Image -->
     <div class="aspect-video bg-gradient-to-br from-primary-100 to-accent-50 relative overflow-hidden">
       {image ? (
-        <img
+        <Image
           src={image}
           alt={imageAlt || title}
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
-          width="600"
-          height="340"
+          width={600}
+          height={340}
         />
       ) : (
         <div class="w-full h-full flex items-center justify-center">

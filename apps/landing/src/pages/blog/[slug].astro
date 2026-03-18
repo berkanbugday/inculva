@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import Button from '@/components/Button.astro';
+import { Image } from 'astro:assets';
 import { getAllPosts } from '@/lib/sanity';
 import { getBlogPostingSchema } from '@/lib/seo';
 
@@ -163,12 +164,12 @@ const blogPostSchema = getBlogPostingSchema({
     {post.mainImage?.asset?.url && (
       <Container narrow>
         <div class="rounded-2xl overflow-hidden mb-12">
-          <img
+          <Image
             src={post.mainImage.asset.url}
             alt={post.mainImage.alt || post.title}
             class="w-full h-auto"
-            width="800"
-            height="450"
+            width={800}
+            height={450}
             loading="eager"
           />
         </div>

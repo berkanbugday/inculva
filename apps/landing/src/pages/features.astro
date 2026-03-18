@@ -4,11 +4,13 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import Card from '@/components/Card.astro';
 import Button from '@/components/Button.astro';
+
+const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
 ---
 
 <BaseLayout
   title="Features"
-  description="Explore Inculva's powerful accessibility features: AI scanning, automated fixes, real-time monitoring, multi-language support, and seamless integration."
+  description="Explore Inculva's powerful accessibility features: automated scanning, automated fixes, real-time monitoring, multi-language support, and seamless integration."
   canonical="https://inculva.com/features"
 >
   <!-- Hero -->
@@ -26,18 +28,18 @@ import Button from '@/components/Button.astro';
     </Container>
   </section>
 
-  <!-- AI Scanning -->
-  <Section background="white">
+  <!-- Automated Scanning -->
+  <Section background="white" class="reveal-on-scroll">
     <Container>
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div>
           <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-sm font-medium mb-4">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5M14.25 3.104c.251.023.501.05.75.082M19.8 14.5l-2.55 7.156a.91.91 0 01-.857.644H7.607a.91.91 0 01-.857-.644L4.2 14.5m15.6 0h-15.6"/></svg>
-            AI-Powered
+            Automated
           </div>
           <h2 class="text-3xl font-bold text-gray-900">Intelligent Accessibility Scanning</h2>
           <p class="mt-4 text-gray-600 leading-relaxed">
-            Our AI engine crawls every page on your site, analyzing DOM structure, color contrast, ARIA attributes, keyboard navigation, and more. It goes beyond rule-based checks to understand semantic context.
+            Our scanning engine crawls every page on your site, analyzing DOM structure, color contrast, ARIA attributes, keyboard navigation, and more. It goes beyond rule-based checks to understand semantic context.
           </p>
           <ul class="mt-6 space-y-3">
             {['Full-page DOM analysis', 'Color contrast validation', 'ARIA attribute auditing', 'Keyboard navigation testing', 'Screen reader compatibility'].map((item) => (
@@ -53,7 +55,7 @@ import Button from '@/components/Button.astro';
             <div class="w-24 h-24 mx-auto rounded-2xl bg-white shadow-soft flex items-center justify-center mb-4">
               <svg class="w-12 h-12 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5"/></svg>
             </div>
-            <p class="text-sm font-medium text-primary-700">Deep AI Analysis</p>
+            <p class="text-sm font-medium text-primary-700">Deep Analysis</p>
           </div>
         </div>
       </div>
@@ -61,7 +63,7 @@ import Button from '@/components/Button.astro';
   </Section>
 
   <!-- Automated Fixes -->
-  <Section background="gray">
+  <Section background="gray" class="reveal-on-scroll">
     <Container>
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div class="order-2 lg:order-1 rounded-2xl bg-gradient-to-br from-accent-50 to-primary-50 p-8 aspect-square flex items-center justify-center">
@@ -95,7 +97,7 @@ import Button from '@/components/Button.astro';
   </Section>
 
   <!-- Monitoring -->
-  <Section background="white">
+  <Section background="white" class="reveal-on-scroll">
     <Container>
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div>
@@ -129,7 +131,7 @@ import Button from '@/components/Button.astro';
   </Section>
 
   <!-- Integration Section -->
-  <Section background="gray" id="integrations">
+  <Section background="gray" id="integrations" class="reveal-on-scroll">
     <Container>
       <div class="text-center max-w-2xl mx-auto mb-12">
         <h2 class="text-3xl font-bold text-gray-900">Works with any technology</h2>
@@ -137,13 +139,23 @@ import Button from '@/components/Button.astro';
           A single script tag is all you need. Inculva works seamlessly with every framework and platform.
         </p>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        {['React', 'Next.js', 'Vue', 'Angular', 'WordPress', 'Shopify'].map((tech) => (
+      <div class="grid grid-cols-2 sm:grid-cols-3 max-w-4xl mx-auto gap-4 lg:gap-6">
+        {[
+          { name: 'Angular', icon: 'angular.svg' },
+          { name: 'Drupal', icon: 'drupal.svg' },
+          { name: 'Joomla', icon: 'joomla.svg' },
+          { name: 'Magento', icon: 'magento.svg' },
+          { name: 'React', icon: 'react.svg' },
+          { name: 'Shopify', icon: 'shopify.svg' },
+          { name: 'Squarespace', icon: 'squarespace.svg' },
+          { name: 'Wix', icon: 'wix.svg' },
+          { name: 'WordPress', icon: 'wordpress.svg' }
+        ].map((tech) => (
           <Card hover={true} padding="md" class="text-center">
-            <div class="w-10 h-10 mx-auto rounded-lg bg-gray-100 flex items-center justify-center mb-3">
-              <span class="text-sm font-bold text-gray-600">{tech[0]}</span>
+            <div class="w-12 h-12 mx-auto rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center mb-3 p-2.5">
+              <img src={`${CDN_URL}/icons/brands/${tech.icon}`} alt={`${tech.name} logo`} class="w-full h-full object-contain" loading="lazy" />
             </div>
-            <p class="text-sm font-medium text-gray-700">{tech}</p>
+            <p class="text-sm font-medium text-gray-700">{tech.name}</p>
           </Card>
         ))}
       </div>
@@ -151,7 +163,7 @@ import Button from '@/components/Button.astro';
   </Section>
 
   <!-- CTA -->
-  <Section background="white">
+  <Section background="white" class="reveal-on-scroll">
     <Container narrow>
       <div class="text-center">
         <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Ready to get started?</h2>

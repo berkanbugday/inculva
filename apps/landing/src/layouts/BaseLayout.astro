@@ -45,7 +45,7 @@ const allSchemas = jsonLd
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <SEOHead
       title={title}
@@ -71,5 +71,34 @@ const allSchemas = jsonLd
     </main>
 
     <Footer />
+
+    <script>
+      function initScrollAnimations() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.setAttribute('data-visible', 'true');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px',
+          }
+        );
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      // Run on initial load
+      initScrollAnimations();
+
+      // Run on ViewTransition navigation if added
+      document.addEventListener('astro:after-swap', initScrollAnimations);
+    </script>
   </body>
 </html>

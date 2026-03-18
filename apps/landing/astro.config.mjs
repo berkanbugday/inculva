@@ -12,4 +12,8 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
+  prefetch: true,
+  image: {
+    remotePatterns: [{ protocol: 'https' }],
+  },
 });
