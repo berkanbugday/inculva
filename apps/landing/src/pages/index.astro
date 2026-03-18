@@ -26,23 +26,18 @@ const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
         <!-- Text Content -->
         <div class="text-center lg:text-left">
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 border border-primary-100 text-primary-700 text-sm font-medium mb-8 animate-fade-in">
-            <span class="w-2 h-2 rounded-full bg-primary-500 animate-pulse"></span>
-            Automated Accessibility Platform
-          </div>
-
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.1] animate-slide-up">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.1] animate-slide-left">
             Make your website
             <span class="text-gradient"> accessible </span>
             <br class="hidden sm:block" />
             to everyone
           </h1>
 
-          <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-slide-up" style="animation-delay: 100ms;">
+          <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-slide-left" style="animation-delay: 100ms;">
             Inculva detects, fixes, and monitors web accessibility issues automatically. Achieve WCAG 2.1 AA compliance without rewriting your code.
           </p>
 
-          <div class="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-slide-up" style="animation-delay: 200ms;">
+          <div class="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-slide-left" style="animation-delay: 200ms;">
             <Button href="https://app.inculva.com" size="lg">
               Start Free Trial
               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -54,11 +49,11 @@ const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
             </Button>
           </div>
 
-          <p class="mt-6 text-sm text-gray-500 animate-slide-up" style="animation-delay: 300ms;">No credit card required • Free plan available</p>
+          <p class="mt-6 text-sm text-gray-500 animate-slide-left" style="animation-delay: 300ms;">No credit card required • Free plan available</p>
         </div>
 
         <!-- Animated Frame -->
-        <div class="relative w-full max-w-lg mx-auto lg:max-w-none lg:h-[500px] flex items-center justify-center animate-slide-up" style="animation-delay: 400ms;">
+        <div class="relative w-full max-w-lg mx-auto lg:max-w-none lg:h-[500px] flex items-center justify-center animate-slide-right" style="animation-delay: 200ms;">
           <!-- Website Mockup Frame -->
           <div class="relative w-full aspect-[4/3] lg:h-[90%] lg:w-[110%] lg:-mr-10 bg-white rounded-2xl border border-gray-100 shadow-2xl overflow-hidden flex flex-col transform transition-transform hover:scale-[1.02] duration-500 mockup-container">
             <!-- Browser Header -->
@@ -713,8 +708,8 @@ const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
           },
           {
             step: '02',
-            title: 'Automated Scans & Fixes',
-            description: 'Our platform analyzes every page, detects violations, and applies fixes automatically.',
+            title: 'Configure & Customize',
+            description: 'Choose from 24 accessibility features, set your language, and customize the widget to match your brand.',
           },
           {
             step: '03',
@@ -746,7 +741,7 @@ const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
           {[
             { value: '99.8%', label: 'Uptime SLA' },
             { value: '50ms', label: 'Average Widget Load' },
-            { value: '10K+', label: 'Websites Protected' },
+            { value: '41+', label: 'Languages Supported' },
           ].map(({ value, label }) => (
             <div>
               <div class="text-4xl md:text-5xl font-bold text-white">{value}</div>
@@ -766,7 +761,7 @@ const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
           Ready to make your website accessible?
         </h2>
         <p class="mt-4 text-lg text-gray-600 max-w-xl mx-auto">
-          Join thousands of websites using Inculva to achieve WCAG compliance automatically.
+          Start improving your website's accessibility today with Inculva.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button href="https://app.inculva.com" size="lg">
