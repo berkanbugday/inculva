@@ -1,0 +1,159 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import PricingCard from '@/components/PricingCard.astro';
+import Button from '@/components/Button.astro';
+import { t, getLocalizedPath, type Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+
+const plans = [
+  {
+    name: i.pricing.starter,
+    price: '$0',
+    period: '/mo',
+    description: i.pricing.starterDesc,
+    features: i.pricing.starterFeatures as string[],
+    cta: i.pricing.getStartedFree,
+    ctaHref: 'https://app.inculva.com/signup',
+    popular: false,
+  },
+  {
+    name: i.pricing.pro,
+    price: '$49',
+    period: '/mo',
+    description: i.pricing.proDesc,
+    features: i.pricing.proFeatures as string[],
+    cta: i.pricing.startFreeTrial,
+    ctaHref: 'https://app.inculva.com/signup?plan=pro',
+    popular: true,
+  },
+  {
+    name: i.pricing.business,
+    price: '$149',
+    period: '/mo',
+    description: i.pricing.businessDesc,
+    features: i.pricing.businessFeatures as string[],
+    cta: i.pricing.contactSales,
+    ctaHref: getLocalizedPath('/contact', lang),
+    popular: false,
+  },
+];
+---
+
+<BaseLayout
+  title={i.pricing.title}
+  description={i.pricing.description}
+  canonical="https://inculva.com/pricing"
+  lang={lang}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-4 md:pt-28 md:pb-8">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          {i.pricing.heroTitle1}
+          <span class="text-gradient">{i.pricing.heroTitleHighlight}</span>
+        </h1>
+        <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+          {i.pricing.heroDescription}
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Pricing Cards -->
+  <Section background="white" class="!pt-12">
+    <Container>
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-6 max-w-5xl mx-auto items-stretch">
+        {plans.map((plan) => (
+          <PricingCard {...plan} />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Comparison Table -->
+  <Section background="gray">
+    <Container>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">{i.pricing.comparePlans}</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left bg-white rounded-2xl shadow-soft overflow-hidden">
+          <thead>
+            <tr class="border-b border-gray-100">
+              <th class="px-6 py-4 text-sm font-semibold text-gray-900">{i.pricing.feature}</th>
+              <th class="px-6 py-4 text-sm font-semibold text-gray-900 text-center">{i.pricing.starter}</th>
+              <th class="px-6 py-4 text-sm font-semibold text-primary-600 text-center">{i.pricing.pro}</th>
+              <th class="px-6 py-4 text-sm font-semibold text-gray-900 text-center">{i.pricing.business}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              [i.pricing.websites, '1', '5', i.pricing.unlimited],
+              [i.pricing.pagesPerSite, '100', i.pricing.unlimited, i.pricing.unlimited],
+              [i.pricing.wcagLevel, 'A', 'AA', 'AAA'],
+              [i.pricing.autoFix, '—', '✓', '✓'],
+              [i.pricing.realTimeMonitoring, '—', '✓', '✓'],
+              [i.pricing.customBranding, '—', '✓', '✓'],
+              [i.pricing.slaGuarantee, '—', '—', '✓'],
+              [i.pricing.dedicatedSupport, '—', '—', '✓'],
+            ].map(([feature, starter, pro, business]) => (
+              <tr class="border-b border-gray-50 last:border-0">
+                <td class="px-6 py-4 text-sm text-gray-700">{feature}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-center">{starter}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-center font-medium">{pro}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-center">{business}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section background="white">
+    <Container narrow>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">{i.pricing.faqTitle}</h2>
+      </div>
+      <div class="space-y-4">
+        {[
+          { q: i.pricing.faq1Q, a: i.pricing.faq1A },
+          { q: i.pricing.faq2Q, a: i.pricing.faq2A },
+          { q: i.pricing.faq3Q, a: i.pricing.faq3A },
+          { q: i.pricing.faq4Q, a: i.pricing.faq4A },
+        ].map(({ q, a }) => (
+          <details class="group bg-white rounded-2xl border border-gray-100 shadow-soft">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-gray-900 hover:text-primary-600 transition-colors">
+              {q}
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-gray-600 leading-relaxed">{a}</div>
+          </details>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <Section background="gray">
+    <Container narrow>
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900">{i.pricing.customPlanTitle}</h2>
+        <p class="mt-4 text-lg text-gray-600">{i.pricing.customPlanDesc}</p>
+        <div class="mt-8">
+          <Button href={getLocalizedPath('/contact', lang)} size="lg">{i.pricing.contactSales}</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,113 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { getAllPosts } from '@/lib/sanity';
+
+let posts = await getAllPosts();
+
+const placeholderPosts = [
+  {
+    _id: '1',
+    title: 'Understanding WCAG 2.1: A Complete Guide for Developers',
+    slug: { current: 'understanding-wcag-21' },
+    description: 'Learn the key principles of WCAG 2.1 and how to implement them in your web applications for better accessibility compliance.',
+    publishedAt: '2025-03-10',
+    mainImage: undefined,
+  },
+  {
+    _id: '2',
+    title: 'ADA Compliance in 2025: What You Need to Know',
+    slug: { current: 'ada-compliance-2025' },
+    description: 'A comprehensive overview of ADA requirements for websites and how to avoid costly legal issues with proper accessibility practices.',
+    publishedAt: '2025-03-05',
+    mainImage: undefined,
+  },
+  {
+    _id: '3',
+    title: 'How AI is Transforming Web Accessibility Testing',
+    slug: { current: 'ai-web-accessibility-testing' },
+    description: 'Explore how artificial intelligence is revolutionizing the way we test and fix accessibility issues on the web.',
+    publishedAt: '2025-02-28',
+    mainImage: undefined,
+  },
+  {
+    _id: '4',
+    title: 'Color Contrast Best Practices for Accessible Design',
+    slug: { current: 'color-contrast-best-practices' },
+    description: 'Master color contrast ratios and learn practical techniques to ensure your designs meet WCAG AA and AAA standards.',
+    publishedAt: '2025-02-20',
+    mainImage: undefined,
+  },
+  {
+    _id: '5',
+    title: 'Building Accessible Forms: A Step-by-Step Tutorial',
+    slug: { current: 'building-accessible-forms' },
+    description: 'Learn how to create forms that work for everyone, including users with screen readers, keyboard navigation, and cognitive disabilities.',
+    publishedAt: '2025-02-15',
+    mainImage: undefined,
+  },
+  {
+    _id: '6',
+    title: 'The Business Case for Web Accessibility',
+    slug: { current: 'business-case-web-accessibility' },
+    description: 'Discover how investing in web accessibility can improve SEO, expand your audience, reduce legal risk, and boost your bottom line.',
+    publishedAt: '2025-02-10',
+    mainImage: undefined,
+  },
+];
+
+const displayPosts = posts.length > 0 ? posts : placeholderPosts;
+---
+
+<BaseLayout
+  title="Blog"
+  description="Web erişilebilirliği, WCAG uyumluluğu, ADA gereksinimleri ve erişilebilir tasarım en iyi uygulamaları hakkında uzman kılavuzları."
+  canonical="https://inculva.com/tr/blog"
+  lang="tr"
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-4 md:pt-28 md:pb-8">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          Erişilebilirlik <span class="text-gradient">içgörüleri</span>
+        </h1>
+        <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+          WCAG uyumluluğu, erişilebilir tasarım ve kapsayıcı web geliştirme hakkında uzman kılavuzları.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Blog Grid -->
+  <Section background="white" class="!pt-12">
+    <Container>
+      {displayPosts.length > 0 ? (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayPosts.map((post) => (
+            <BlogCard
+              title={post.title}
+              description={post.description}
+              slug={post.slug.current}
+              publishedAt={post.publishedAt}
+              image={post.mainImage?.asset?.url}
+              imageAlt={post.mainImage?.alt}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <div class="w-16 h-16 mx-auto rounded-2xl bg-gray-100 flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-900">Henüz yazı yok</h2>
+          <p class="mt-2 text-gray-600">Erişilebilirlik kılavuzları ve öğreticiler için yakında tekrar kontrol edin.</p>
+        </div>
+      )}
+    </Container>
+  </Section>
+</BaseLayout>

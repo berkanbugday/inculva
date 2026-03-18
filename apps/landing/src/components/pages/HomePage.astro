@@ -1,0 +1,778 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import Button from '@/components/Button.astro';
+import Card from '@/components/Card.astro';
+import { t, getLocalizedPath, type Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
+---
+
+<BaseLayout
+  title={i.home.title}
+  description={i.home.description}
+  canonical="https://inculva.com"
+  lang={lang}
+>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-primary-50/60 via-white to-white pt-20 pb-28 md:pt-28 md:pb-36">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
+      <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary-200/40 rounded-full blur-3xl animate-blob"></div>
+      <div class="absolute top-20 -left-20 w-80 h-80 bg-accent-200/30 rounded-full blur-3xl animate-blob" style="animation-delay: 2s"></div>
+      <div class="absolute bottom-10 right-20 w-72 h-72 bg-purple-200/30 rounded-full blur-3xl animate-blob" style="animation-delay: 4s"></div>
+    </div>
+
+    <Container class="relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <!-- Text Content -->
+        <div class="text-center lg:text-left">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-[1.1] animate-slide-left">
+            {i.home.heroTitle1}
+            <span class="text-gradient">{i.home.heroTitleHighlight}</span>
+            <br class="hidden sm:block" />
+            {i.home.heroTitle2}
+          </h1>
+
+          <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-slide-left" style="animation-delay: 100ms;">
+            {i.home.heroDescription}
+          </p>
+
+          <div class="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-slide-left" style="animation-delay: 200ms;">
+            <Button href="https://app.inculva.com" size="lg">
+              {i.home.startFreeTrial}
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Button>
+            <Button href={getLocalizedPath('/features', lang)} variant="secondary" size="lg">
+              {i.home.seeHowItWorks}
+            </Button>
+          </div>
+
+          <p class="mt-6 text-sm text-gray-500 animate-slide-left" style="animation-delay: 300ms;">{i.home.noCreditCard}</p>
+        </div>
+
+        <!-- Animated Frame -->
+        <div class="relative w-full max-w-lg mx-auto lg:max-w-none lg:h-[500px] flex items-center justify-center animate-slide-right" style="animation-delay: 200ms;">
+          <!-- Website Mockup Frame -->
+          <div class="relative w-full aspect-[4/3] lg:h-[90%] lg:w-[110%] lg:-mr-10 bg-white rounded-2xl border border-gray-100 shadow-2xl overflow-hidden flex flex-col transform transition-transform hover:scale-[1.02] duration-500 mockup-container">
+            <!-- Browser Header -->
+            <div class="h-10 sm:h-12 border-b border-gray-100 flex items-center px-4 justify-between bg-gray-50 shrink-0">
+              <div class="flex gap-1.5">
+                <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400"></div>
+                <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400"></div>
+                <div class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400"></div>
+              </div>
+              <div class="flex-1 px-4 max-w-sm">
+                <div class="h-5 sm:h-6 bg-white border border-gray-200 rounded-md w-full flex items-center px-2">
+                  <div class="w-2 h-2 rounded-full bg-gray-300 mr-2"></div>
+                  <div class="h-1.5 w-16 bg-gray-200 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Website Content -->
+            <div class="flex-1 p-5 sm:p-8 flex flex-col relative overflow-hidden mockup-content-bg transition-all duration-700">
+              <!-- Content lines -->
+              <div class="w-full max-w-sm mx-auto flex flex-col gap-4 relative z-10 transition-all duration-300 mockup-text-wrapper">
+                <div class="h-3 sm:h-4 bg-primary-100 rounded-full w-24 mb-2"></div>
+                
+                <!-- Animating text elements -->
+                <div class="text-xl sm:text-2xl font-bold text-gray-900 leading-tight transition-all duration-500 mockup-title">
+                  {i.home.mockupTitle}<br/>{i.home.mockupTitle2}
+                </div>
+                
+                <p class="text-[10px] sm:text-xs text-gray-500 leading-relaxed transition-all duration-500 mockup-paragraph">
+                  {i.home.mockupDescription}
+                </p>
+
+                <div class="flex items-center gap-3 mt-2">
+                  <div class="px-4 py-1.5 sm:py-2 bg-primary-600 rounded-lg text-[10px] sm:text-xs font-semibold text-white">{i.home.mockupGetStarted}</div>
+                  <div class="px-4 py-1.5 sm:py-2 bg-gray-100 rounded-lg text-[10px] sm:text-xs font-medium text-gray-700 mockup-secondary-btn">{i.home.mockupLearnMore}</div>
+                </div>
+              </div>
+
+              <!-- Media Content Area -->
+              <div class="mt-6 flex gap-3 relative z-10">
+                <!-- Video Thumbnail -->
+                <div class="flex-1 relative rounded-xl overflow-hidden shadow-sm bg-gray-900 aspect-video mockup-media-card cursor-pointer group">
+                  <img src={`${CDN_URL}/images/thumbnail_1.avif`} alt="" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+                  <div class="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/95 shadow-lg flex items-center justify-center backdrop-blur-sm">
+                      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary-600 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                  <div class="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                    <div class="h-1 flex-1 bg-white/30 rounded-full overflow-hidden"><div class="h-full w-1/3 bg-white rounded-full"></div></div>
+                    <span class="text-[7px] text-white font-medium bg-black/40 px-1 rounded">1:24</span>
+                  </div>
+                </div>
+                <!-- Image Thumbnail -->
+                <div class="flex-1 relative rounded-xl overflow-hidden shadow-sm bg-gray-100 aspect-video mockup-media-card cursor-pointer">
+                  <img src={`${CDN_URL}/images/thumbnail_2.avif`} alt="" class="absolute inset-0 w-full h-full object-cover" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                  <div class="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-black/40 backdrop-blur-sm flex items-center gap-1">
+                    <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"/></svg>
+                    <span class="text-[7px] text-white font-medium">IMG</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Animated Accessibility Widget & Menu -->
+              <div class="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-20 flex flex-col items-end">
+                <!-- Dropdown Menu -->
+                <div class="mockup-widget-menu absolute bottom-[2.8rem] right-0 w-[240px] bg-[#f8f9fa] rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] flex flex-col origin-bottom-right opacity-0 scale-95 pointer-events-none transition-all duration-300 overflow-hidden z-20">
+                   <!-- Header -->
+                   <div class="bg-[#0066cc] text-white p-2.5 flex items-center justify-between">
+                     <div class="text-[10px] font-bold shrink-0">{i.home.widgetMenuTitle} <span class="text-[8px] opacity-80 font-normal">(Ctrl+U)</span></div>
+                     <div class="flex gap-1.5 shrink-0">
+                       <div class="w-4 h-4 rounded bg-white/20 flex items-center justify-center">
+                         <img src={`${CDN_URL}/icons/arrows-rotate.svg`} class="w-2.5 h-2.5" style="filter: brightness(0) invert(1);" alt="" />
+                       </div>
+                       <div class="w-4 h-4 rounded bg-white/20 flex items-center justify-center">
+                         <img src={`${CDN_URL}/icons/x.svg`} class="w-2.5 h-2.5" style="filter: brightness(0) invert(1);" alt="" />
+                       </div>
+                     </div>
+                   </div>
+
+                   <!-- Toolbar -->
+                   <div class="p-2 bg-[#f0f2f5] border-b border-gray-200 flex flex-col gap-1.5">
+                     <div class="w-full h-6 bg-white rounded border border-gray-300 flex items-center px-2 justify-between">
+                       <div class="flex items-center gap-1.5">
+                         <img src={`${CDN_URL}/icons/user.svg`} class="w-3 h-3 opacity-70" alt="" />
+                         <span class="text-[9px] text-gray-700 font-medium">{i.home.widgetProfiles}</span>
+                       </div>
+                       <img src={`${CDN_URL}/icons/chevron-down.svg`} class="w-3 h-3 opacity-50" alt="" />
+                     </div>
+                     <div class="flex items-center gap-1.5">
+                       <div class="flex-1 h-6 bg-white rounded border border-gray-300 flex items-center px-1.5 justify-between">
+                         <div class="flex items-center gap-1.5">
+                           <div class="w-3.5 h-3.5 flex items-center justify-center shrink-0">
+                             <img src={i.home.widgetLanguageFlag} alt={i.home.widgetLanguageFlagAlt} class="w-full h-full object-cover rounded-sm border border-gray-100" />
+                           </div>
+                           <span class="text-[8px] text-gray-700">{i.home.widgetLanguage}</span>
+                         </div>
+                         <img src={`${CDN_URL}/icons/chevron-down.svg`} class="w-3 h-3 opacity-50 shrink-0" alt="" />
+                       </div>
+                       <div class="flex h-6 bg-white rounded border border-gray-300 overflow-hidden shrink-0">
+                          <div class="px-1.5 flex items-center justify-center text-[7px] text-gray-600">{i.home.widgetSizeSmall}</div>
+                          <div class="px-1.5 flex items-center justify-center text-[7px] bg-[#0066cc] text-white font-medium">{i.home.widgetSizeNormal}</div>
+                          <div class="px-1.5 flex items-center justify-center text-[7px] text-gray-600">{i.home.widgetSizeLarge}</div>
+                       </div>
+                     </div>
+                   </div>
+
+                   <!-- Grid Content -->
+                   <div class="p-2 sm:p-2.5 bg-[#f8f9fa] grid grid-cols-3 gap-1.5 sm:gap-2">
+                     <!-- Row 1 -->
+                     <div class="toggle-dark bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px] transition-colors">
+                       <img src={`${CDN_URL}/icons/moon.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70 ToggleDarkIcon transition-all" alt="" />
+                       <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight toggle-dark-label transition-colors">{i.home.widgetDarkMode}</span>
+                     </div>
+                     <div class="bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px]">
+                       <img src={`${CDN_URL}/icons/sun-bright.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70" alt="" />
+                       <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight">{i.home.widgetBlueLight}</span>
+                     </div>
+                     <div class="toggle-text bg-white border border-gray-200 rounded flex flex-col items-center justify-between p-1.5 sm:p-2 text-center shadow-sm relative overflow-hidden transition-colors h-full min-h-[52px]">
+                       <img src={`${CDN_URL}/icons/text-size.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-70 ToggleTextIcon transition-colors" alt="" />
+                       <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight z-10 toggle-text-label transition-colors">{i.home.widgetBigText}</span>
+                       <div class="flex gap-[1px] mt-1 z-10 w-full px-0.5">
+                         <div class="h-0.5 flex-1 rounded-sm toggle-step-text-1"></div>
+                         <div class="h-0.5 flex-1 rounded-sm toggle-step-text-2"></div>
+                         <div class="h-0.5 flex-1 rounded-sm toggle-step-text-3"></div>
+                         <div class="h-0.5 flex-1 rounded-sm bg-gray-200"></div>
+                       </div>
+                     </div>
+                     
+                     <!-- Row 2 -->
+                     <div class="bg-white border border-gray-200 rounded flex flex-col items-center justify-between p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px]">
+                       <img src={`${CDN_URL}/icons/align-left.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 opacity-70" alt="" />
+                       <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight">{i.home.widgetTextAlign}</span>
+                       <div class="flex gap-[1px] mt-1 w-full px-0.5">
+                         <div class="h-0.5 flex-1 rounded-sm bg-gray-200"></div>
+                         <div class="h-0.5 flex-1 rounded-sm bg-gray-200"></div>
+                         <div class="h-0.5 flex-1 rounded-sm bg-gray-200"></div>
+                       </div>
+                     </div>
+                     <div class="toggle-dyslexia bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative transition-colors min-h-[52px]">
+                       <img src={`${CDN_URL}/icons/df.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70 ToggleDyslexiaIcon transition-all" alt="" />
+                       <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight z-10 toggle-dyslexia-label transition-colors">{i.home.widgetDyslexia}</span>
+                     </div>
+                     <div class="bg-white border border-gray-200 rounded flex flex-col items-center justify-center p-1.5 sm:p-2 text-center shadow-sm relative min-h-[52px]">
+                       <img src={`${CDN_URL}/icons/link-simple.svg`} class="w-3.5 h-3.5 sm:w-4 sm:h-4 mb-1 opacity-70" alt="" />
+                       <span class="text-[7px] sm:text-[8px] font-medium text-gray-700 leading-tight">{i.home.widgetHighlightLinks}</span>
+                     </div>
+                   </div>
+
+                   <!-- Footer Controls -->
+                   <div class="px-2 pb-2 bg-[#f8f9fa] flex flex-col gap-1.5 relative z-10">
+                     <div class="w-full h-6 bg-white border border-gray-200 rounded flex items-center justify-center shadow-sm cursor-pointer toggle-reset">
+                       <span class="text-[8px] font-semibold text-gray-700">{i.home.widgetReset}</span>
+                     </div>
+                   </div>
+
+                   <!-- Widget Position Toggle -->
+                   <div class="px-2 pb-2 bg-[#f8f9fa] flex items-center justify-between">
+                     <span class="text-[8px] text-gray-500">{i.home.widgetMoveLeft}</span>
+                     <div class="w-6 h-3.5 bg-gray-200 rounded-full flex items-center px-0.5 cursor-pointer relative">
+                       <div class="w-2.5 h-2.5 bg-white rounded-full shadow-sm"></div>
+                     </div>
+                   </div>
+
+                   <!-- Footer Inculva Branding -->
+                   <div class="bg-[#0066cc] p-2 flex items-center justify-left gap-1.5 shrink-0">
+                     <img src={`${CDN_URL}/logos/logo.png`} class="w-16" alt="Inculva Logo" />
+                   </div>
+                </div>
+
+                <!-- Widget Button with universal access icon -->
+                <div class="mockup-widget-btn w-10 h-10 bg-[#0066cc] rounded-full shadow-lg flex items-center justify-center text-white relative z-30 transition-transform duration-200 cursor-pointer px-[2px]">
+                  <img src={`${CDN_URL}/icons/universal-access.svg`} class="w-8 h-8" style="filter: brightness(0) invert(1);" alt="Accessibility" />
+                </div>
+              </div>
+
+              <!-- Animated Mouse Pointer -->
+              <div class="mockup-pointer absolute z-50 w-7 h-7 drop-shadow-md pointer-events-none" style="top: 20%; left: 30%;">
+                 <img src={`${CDN_URL}/icons/arrow-pointer-bold.svg`} alt="" class="w-full h-full" />
+                 <!-- Click ripple -->
+                 <div class="mockup-click-ripple absolute top-0 left-0 w-6 h-6 rounded-full bg-primary-500/50 scale-0 opacity-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <style is:global>
+    /* CDN OpenDyslexic font for dyslexia animation */
+    @font-face {
+      font-family: 'OpenDyslexic';
+      src: url('https://cdn.inculva.com/fonts/OpenDyslexic-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'OpenDyslexic';
+      src: url('https://cdn.inculva.com/fonts/OpenDyslexic-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    .mockup-pointer { animation: pointerSequence 14s infinite ease-in-out; }
+    .mockup-widget-btn { animation: widgetBtnSequence 14s infinite; }
+    .mockup-widget-menu { animation: widgetMenuSequence 14s infinite ease-in-out; }
+    .mockup-text-wrapper { animation: modifyTextSequence 14s infinite; }
+    .mockup-click-ripple { animation: clickRippleSequence 14s infinite; }
+    .mockup-content-bg { background-color: #ffffff; animation: darkModeBackground 14s infinite; }
+    .mockup-title { animation: darkModeText 14s infinite; }
+    .mockup-paragraph { animation: darkModeParagraph 14s infinite; }
+    .mockup-secondary-btn { animation: darkModeSecondaryBtn 14s infinite; }
+    .mockup-media-card { animation: darkModeMediaCard 14s infinite; }
+    
+    .toggle-dark { animation: toggleDarkCard 14s infinite; }
+    .toggle-dark-label { animation: toggleDarkLabel 14s infinite; }
+    .ToggleDarkIcon { animation: toggleDarkIcon 14s infinite; }
+    
+    .toggle-dyslexia { animation: toggleDyslexiaCard 14s infinite; }
+    .toggle-dyslexia-label { animation: toggleDyslexiaIcon 14s infinite; }
+    
+    .toggle-text { animation: toggleTextCard 14s infinite; }
+    .toggle-text-label { animation: toggleTextIcon 14s infinite; }
+    
+    .ToggleDyslexiaIcon { animation: toggleDyslexiaIcon 14s infinite; }
+    .ToggleTextIcon { animation: toggleTextIcon 14s infinite; }
+    
+    .toggle-step-text-1 { background-color: #e5e7eb; animation: step1 14s infinite; }
+    .toggle-step-text-2 { background-color: #e5e7eb; animation: step2 14s infinite; }
+    .toggle-step-text-3 { background-color: #e5e7eb; animation: step3 14s infinite; }
+    
+    @keyframes pointerSequence {
+      0%, 15% { top: 30%; left: 40%; }
+      18%, 20% { top: calc(100% - 38px - 14px); left: calc(100% - 38px - 14px); }
+      22%, 26% { top: calc(100% - 38px - 14px); left: calc(100% - 38px - 14px); }
+      28%, 29% { top: calc(100% - 260px); left: calc(100% - 210px); }
+      31%, 34% { top: calc(100% - 260px); left: calc(100% - 210px); }
+      36%, 37% { top: calc(100% - 200px); left: calc(100% - 140px); }
+      39%, 43% { top: calc(100% - 200px); left: calc(100% - 140px); }
+      45%, 46% { top: calc(100% - 260px); left: calc(100% - 60px); }
+      48%, 51% { top: calc(100% - 260px); left: calc(100% - 60px); }
+      53%, 56% { top: calc(100% - 260px); left: calc(100% - 60px); }
+      58%, 66% { top: calc(100% - 260px); left: calc(100% - 60px); }
+      69%, 72% { top: calc(100% - 138px); left: calc(100% - 140px); }
+      74%, 85% { top: calc(100% - 138px); left: calc(100% - 140px); }
+      88%, 100% { top: 30%; left: 40%; }
+    }
+    
+    @keyframes clickRippleSequence {
+      0%, 20.9% { transform: scale(0) translate(-50%, -50%); opacity: 0; }
+      21% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+      22%, 28.9% { transform: scale(2.5) translate(-20%, -20%); opacity: 0; }
+      29% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+      30%, 36.9% { transform: scale(2.5) translate(-20%, -20%); opacity: 0; }
+      37% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+      38%, 46.9% { transform: scale(2.5) translate(-20%, -20%); opacity: 0; }
+      47% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+      48%, 51.9% { transform: scale(2.5) translate(-20%, -20%); opacity: 0; }
+      52% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+      53%, 56.9% { transform: scale(2.5) translate(-20%, -20%); opacity: 0; }
+      57% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+      58%, 72.9% { transform: scale(2.5) translate(-20%, -20%); opacity: 0; }
+      73% { transform: scale(1) translate(-50%, -50%); opacity: 1; }
+      74%, 100% { transform: scale(2.5) translate(-20%, -20%); opacity: 0; }
+    }
+    
+    @keyframes widgetBtnSequence {
+      0%, 20% { transform: scale(1); }
+      21% { transform: scale(0.9); }
+      22%, 100% { transform: scale(1); }
+    }
+    
+    @keyframes widgetMenuSequence {
+      0%, 20% { opacity: 0; transform: scale(0.95); pointer-events: none; }
+      22%, 73% { opacity: 1; transform: scale(1); pointer-events: auto; }
+      75%, 100% { opacity: 0; transform: scale(0.95); pointer-events: none; }
+    }
+    
+    @keyframes toggleDarkCard {
+      0%, 28.9% { background-color: #ffffff; border-color: #e5e7eb; }
+      29%, 73% { background-color: #0066cc; border-color: #0066cc; }
+      73.1%, 100% { background-color: #ffffff; border-color: #e5e7eb; }
+    }
+    @keyframes toggleDarkLabel {
+      0%, 28.9% { color: #374151; }
+      29%, 73% { color: #ffffff; }
+      73.1%, 100% { color: #374151; }
+    }
+    @keyframes toggleDarkIcon {
+      0%, 28.9% { filter: invert(0) opacity(0.7); }
+      29%, 73% { filter: invert(1) grayscale(1) brightness(2) opacity(1); }
+      73.1%, 100% { filter: invert(0) opacity(0.7); }
+    }
+
+    @keyframes darkModeBackground {
+      0%, 28.9% { background-color: #ffffff; }
+      29%, 73% { background-color: #1a1a2e; }
+      73.1%, 100% { background-color: #ffffff; }
+    }
+    @keyframes darkModeText {
+      0%, 28.9% { color: #111827; }
+      29%, 73% { color: #f3f4f6; }
+      73.1%, 100% { color: #111827; }
+    }
+    @keyframes darkModeParagraph {
+      0%, 28.9% { color: #6b7280; }
+      29%, 73% { color: #9ca3af; }
+      73.1%, 100% { color: #6b7280; }
+    }
+    @keyframes darkModeSecondaryBtn {
+      0%, 28.9% { background-color: #f3f4f6; color: #374151; }
+      29%, 73% { background-color: #374151; color: #e5e7eb; }
+      73.1%, 100% { background-color: #f3f4f6; color: #374151; }
+    }
+    @keyframes darkModeMediaCard {
+      0%, 28.9% { border-color: #f3f4f6; }
+      29%, 73% { border-color: #374151; }
+      73.1%, 100% { border-color: #f3f4f6; }
+    }
+
+    @keyframes toggleDyslexiaCard {
+      0%, 36.9% { background-color: #ffffff; border-color: #e5e7eb; }
+      37%, 73% { background-color: #0066cc; border-color: #0066cc; }
+      73.1%, 100% { background-color: #ffffff; border-color: #e5e7eb; }
+    }
+    @keyframes toggleDyslexiaIcon {
+      0%, 36.9% { filter: invert(0) opacity(0.7); }
+      37%, 73% { filter: invert(1) grayscale(1) brightness(2) opacity(1); }
+      73.1%, 100% { filter: invert(0) opacity(0.7); }
+    }
+
+    @keyframes toggleTextCard {
+      0%, 46.9% { background-color: #ffffff; border-color: #e5e7eb; }
+      47%, 73% { background-color: #0066cc; border-color: #0066cc; }
+      73.1%, 100% { background-color: #ffffff; border-color: #e5e7eb; }
+    }
+    @keyframes toggleTextIcon {
+      0%, 46.9% { filter: invert(0) opacity(0.7); }
+      47%, 73% { filter: invert(1) grayscale(1) brightness(2) opacity(1); }
+      73.1%, 100% { filter: invert(0) opacity(0.7); }
+    }
+    
+    @keyframes step1 {
+      0%, 46.9% { background-color: #e5e7eb; }
+      47%, 73% { background-color: #ffffff; }
+      73.1%, 100% { background-color: #e5e7eb; }
+    }
+    @keyframes step2 {
+      0%, 51.9% { background-color: #e5e7eb; }
+      52%, 73% { background-color: #ffffff; }
+      73.1%, 100% { background-color: #e5e7eb; }
+    }
+    @keyframes step3 {
+      0%, 56.9% { background-color: #e5e7eb; }
+      57%, 73% { background-color: #ffffff; }
+      73.1%, 100% { background-color: #e5e7eb; }
+    }
+    
+    @keyframes modifyTextSequence {
+      0%, 36.9% { 
+        font-family: inherit;
+        letter-spacing: normal;
+        transform: scale(1);
+        transform-origin: top left;
+      }
+      37%, 46.9% {
+        font-family: 'OpenDyslexic', sans-serif;
+        letter-spacing: 0.05em;
+        transform: scale(1);
+        transform-origin: top left;
+      }
+      47%, 51.9% {
+        font-family: 'OpenDyslexic', sans-serif;
+        letter-spacing: 0.05em;
+        transform: scale(1.10);
+        transform-origin: top left;
+        width: 90%; 
+      }
+      52%, 56.9% {
+        font-family: 'OpenDyslexic', sans-serif;
+        letter-spacing: 0.05em;
+        transform: scale(1.20);
+        transform-origin: top left;
+        width: 83%; 
+      }
+      57%, 73% {
+        font-family: 'OpenDyslexic', sans-serif;
+        letter-spacing: 0.05em;
+        transform: scale(1.30);
+        transform-origin: top left;
+        width: 76%; 
+      }
+      73.1%, 100% {
+        font-family: inherit;
+        letter-spacing: normal;
+        transform: scale(1);
+        transform-origin: top left;
+      }
+    }
+  </style>
+
+  <!-- Works With Any Technology Section -->
+  <section class="bg-gray-900 py-14 md:py-20 overflow-hidden reveal-on-scroll">
+    <Container>
+      <div class="text-center mb-10 md:mb-14">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white">{i.home.worksWithTitle}</h2>
+        <p class="mt-3 text-gray-400 text-base max-w-lg mx-auto">{i.home.worksWithDescription}</p>
+      </div>
+    </Container>
+
+    <!-- Carousel Row 1 — scrolls left -->
+    <div class="relative">
+      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="marquee-track">
+        <div class="marquee-scroll">
+          {[
+            { name: 'React', icon: 'react', color: '61DAFB' },
+            { name: 'Next.js', icon: 'nextdotjs', color: 'FFFFFF' },
+            { name: 'Vue.js', icon: 'vuedotjs', color: '4FC08D' },
+            { name: 'Angular', icon: 'angular', color: 'DD0031' },
+            { name: 'Svelte', icon: 'svelte', color: 'FF3E00' },
+            { name: 'WordPress', icon: 'wordpress', color: '21759B' },
+            { name: 'Shopify', icon: 'shopify', color: '7AB55C' },
+            { name: 'Wix', icon: 'wix', color: '0C6EFC' },
+            { name: 'Squarespace', icon: 'squarespace', color: 'FFFFFF' },
+            { name: 'Webflow', icon: 'webflow', color: '4353FF' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt={name} class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+          {[
+            { name: 'React', icon: 'react', color: '61DAFB' },
+            { name: 'Next.js', icon: 'nextdotjs', color: 'FFFFFF' },
+            { name: 'Vue.js', icon: 'vuedotjs', color: '4FC08D' },
+            { name: 'Angular', icon: 'angular', color: 'DD0031' },
+            { name: 'Svelte', icon: 'svelte', color: 'FF3E00' },
+            { name: 'WordPress', icon: 'wordpress', color: '21759B' },
+            { name: 'Shopify', icon: 'shopify', color: '7AB55C' },
+            { name: 'Wix', icon: 'wix', color: '0C6EFC' },
+            { name: 'Squarespace', icon: 'squarespace', color: 'FFFFFF' },
+            { name: 'Webflow', icon: 'webflow', color: '4353FF' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item" aria-hidden="true">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt="" class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Row 2 — scrolls right -->
+    <div class="relative mt-5">
+      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="marquee-track">
+        <div class="marquee-scroll marquee-reverse">
+          {[
+            { name: 'Drupal', icon: 'drupal', color: '0678BE' },
+            { name: 'Joomla', icon: 'joomla', color: '5091CD' },
+            { name: 'BigCommerce', icon: 'bigcommerce', color: '121118' },
+            { name: 'Gatsby', icon: 'gatsby', color: '663399' },
+            { name: 'Nuxt', icon: 'nuxt', color: '00DC82' },
+            { name: 'Astro', icon: 'astro', color: 'BC52EE' },
+            { name: 'Laravel', icon: 'laravel', color: 'FF2D20' },
+            { name: 'Ruby on Rails', icon: 'rubyonrails', color: 'D30001' },
+            { name: 'Django', icon: 'django', color: '092E20' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt={name} class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+          {[
+            { name: 'Drupal', icon: 'drupal', color: '0678BE' },
+            { name: 'Joomla', icon: 'joomla', color: '5091CD' },
+            { name: 'BigCommerce', icon: 'bigcommerce', color: '121118' },
+            { name: 'Gatsby', icon: 'gatsby', color: '663399' },
+            { name: 'Nuxt', icon: 'nuxt', color: '00DC82' },
+            { name: 'Astro', icon: 'astro', color: 'BC52EE' },
+            { name: 'Laravel', icon: 'laravel', color: 'FF2D20' },
+            { name: 'Ruby on Rails', icon: 'rubyonrails', color: 'D30001' },
+            { name: 'Django', icon: 'django', color: '092E20' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item" aria-hidden="true">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt="" class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .marquee-track {
+      overflow: hidden;
+      width: 100%;
+    }
+    .marquee-scroll {
+      display: flex;
+      width: max-content;
+      animation: marquee-left 35s linear infinite;
+    }
+    .marquee-reverse {
+      animation: marquee-right 35s linear infinite;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.5rem;
+      margin: 0 0.375rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .marquee-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    @keyframes marquee-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marquee-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-scroll {
+        animation: none;
+      }
+    }
+  </style>
+
+  <!-- Features Grid Section -->
+  <Section background="white" id="features-preview" class="reveal-on-scroll">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">
+          {i.home.featuresTitle1}
+          <span class="text-gradient">{i.home.featuresTitleHighlight}</span>
+        </h2>
+        <p class="mt-4 text-lg text-gray-600">
+          {i.home.featuresDescription}
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          {
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5M14.25 3.104c.251.023.501.05.75.082M19.8 14.5l-2.55 7.156a.91.91 0 01-.857.644H7.607a.91.91 0 01-.857-.644L4.2 14.5m15.6 0h-15.6"/>',
+            title: i.home.automatedScanning,
+            description: i.home.automatedScanningDesc,
+          },
+          {
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.42 15.17l-5.684 5.684a1.875 1.875 0 01-2.652-2.652l5.684-5.684m0 0L3.382 7.13a2.625 2.625 0 013.712-3.712l5.388 5.388m-3.07 3.07l7.068-7.068 2.37 2.37a.75.75 0 010 1.06l-7.068 7.069-2.37-2.37z"/>',
+            title: i.home.oneClickFixes,
+            description: i.home.oneClickFixesDesc,
+          },
+          {
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>',
+            title: i.home.complianceDashboard,
+            description: i.home.complianceDashboardDesc,
+          },
+          {
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/>',
+            title: i.home.multiLanguageSupport,
+            description: i.home.multiLanguageSupportDesc,
+          },
+          {
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/>',
+            title: i.home.easyIntegration,
+            description: i.home.easyIntegrationDesc,
+          },
+          {
+            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/>',
+            title: i.home.legalProtection,
+            description: i.home.legalProtectionDesc,
+          },
+        ].map(({ icon, title, description }) => (
+          <Card padding="lg">
+            <div class="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <Fragment set:html={icon} />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900">{title}</h3>
+            <p class="mt-2 text-sm text-gray-600 leading-relaxed">{description}</p>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- How It Works Section -->
+  <Section background="gray" class="reveal-on-scroll">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">
+          {i.home.howItWorksTitle1}<span class="text-gradient">{i.home.howItWorksTitleHighlight}</span>
+        </h2>
+        <p class="mt-4 text-lg text-gray-600">
+          {i.home.howItWorksDescription}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        {[
+          { step: '01', title: i.home.step01, description: i.home.step01Desc },
+          { step: '02', title: i.home.step02, description: i.home.step02Desc },
+          { step: '03', title: i.home.step03, description: i.home.step03Desc },
+        ].map(({ step, title, description }) => (
+          <div class="relative text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white border border-gray-200 shadow-soft mb-6">
+              <span class="text-2xl font-bold text-gradient">{step}</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900">{title}</h3>
+            <p class="mt-3 text-gray-600 leading-relaxed">{description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Stats Section -->
+  <Section background="white" class="reveal-on-scroll">
+    <Container>
+      <div class="relative rounded-3xl bg-gradient-to-br from-primary-600 to-primary-800 px-8 py-16 md:py-20 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+          <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        </div>
+        <div class="relative grid sm:grid-cols-3 gap-8 text-center">
+          {[
+            { value: '99.8%', label: i.home.uptimeSla },
+            { value: '50ms', label: i.home.avgWidgetLoad },
+            { value: '41+', label: i.home.languagesSupported },
+          ].map(({ value, label }) => (
+            <div>
+              <div class="text-4xl md:text-5xl font-bold text-white">{value}</div>
+              <div class="mt-2 text-primary-200 font-medium">{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section background="gray" class="reveal-on-scroll">
+    <Container narrow>
+      <div class="text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">
+          {i.home.ctaTitle}
+        </h2>
+        <p class="mt-4 text-lg text-gray-600 max-w-xl mx-auto">
+          {i.home.ctaDescription}
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button href="https://app.inculva.com" size="lg">
+            {i.home.startFreeTrial}
+          </Button>
+          <Button href={getLocalizedPath('/contact', lang)} variant="secondary" size="lg">
+            {i.home.talkToSales}
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ Section -->
+  <Section background="white" class="reveal-on-scroll">
+    <Container narrow>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{i.home.faqTitle}</h2>
+      </div>
+
+      <div class="space-y-4">
+        {[
+          { q: i.home.faq1Q, a: i.home.faq1A },
+          { q: i.home.faq2Q, a: i.home.faq2A },
+          { q: i.home.faq3Q, a: i.home.faq3A },
+          { q: i.home.faq4Q, a: i.home.faq4A },
+          { q: i.home.faq5Q, a: i.home.faq5A },
+        ].map(({ q, a }) => (
+          <details class="group bg-white rounded-2xl border border-gray-100 shadow-soft">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-gray-900 hover:text-primary-600 transition-colors">
+              {q}
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-5 text-gray-600 leading-relaxed">
+              {a}
+            </div>
+          </details>
+        ))}
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
