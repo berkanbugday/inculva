@@ -8,11 +8,14 @@ export interface Props {
   publishedAt: string;
   image?: string;
   imageAlt?: string;
+  readMore?: string;
+  lang?: string;
 }
 
-const { title, description, slug, publishedAt, image, imageAlt } = Astro.props;
+const { title, description, slug, publishedAt, image, imageAlt, readMore = 'Read more', lang = 'en' } = Astro.props;
 
-const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+const locale = lang === 'tr' ? 'tr-TR' : 'en-US';
+const formattedDate = new Date(publishedAt).toLocaleDateString(locale, {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
@@ -22,7 +25,7 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
 <article class="group">
   <a href={`/blog/${slug}`} class="block bg-white rounded-2xl border border-gray-100 shadow-soft overflow-hidden hover-lift">
     <!-- Image -->
-    <div class="aspect-video bg-gradient-to-br from-primary-100 to-accent-50 relative overflow-hidden">
+    <div class="aspect-video bg-primary-50 relative overflow-hidden">
       {image ? (
         <Image
           src={image}
@@ -53,7 +56,7 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
         {description}
       </p>
       <span class="mt-4 inline-flex items-center text-sm font-semibold text-primary-600 group-hover:gap-2 gap-1 transition-all">
-        Read more
+        {readMore}
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>

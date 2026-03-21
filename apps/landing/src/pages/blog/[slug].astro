@@ -6,6 +6,7 @@ import Button from '@/components/Button.astro';
 import { Image } from 'astro:assets';
 import { getAllPosts } from '@/lib/sanity';
 import { getBlogPostingSchema } from '@/lib/seo';
+import { t } from '@/i18n';
 
 export async function getStaticPaths() {
   const posts = await getAllPosts();
@@ -107,6 +108,8 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const lang = 'en';
+const i = t(lang);
 
 const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
   year: 'numeric',
@@ -135,14 +138,14 @@ const blogPostSchema = getBlogPostingSchema({
 >
   <article>
     <!-- Header -->
-    <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-8 md:pt-28 md:pb-12">
+    <section class="bg-primary-50/30 pt-20 pb-8 md:pt-28 md:pb-12">
       <Container narrow>
         <div class="max-w-3xl mx-auto">
           <a href="/blog" class="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors mb-8">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
-            Back to Blog
+            {i.blog.backToBlog}
           </a>
 
           <time class="text-sm text-gray-500 font-medium" datetime={post.publishedAt}>
@@ -183,7 +186,7 @@ const blogPostSchema = getBlogPostingSchema({
           {post.content && post.content.length > 0 ? (
             <div>
               {/* Render Sanity rich text content here */}
-              <p>Content loaded from Sanity CMS.</p>
+              <p>{i.blog.sanityContent}</p>
             </div>
           ) : (
             <div class="text-center py-12">
@@ -192,7 +195,7 @@ const blogPostSchema = getBlogPostingSchema({
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
                 </svg>
               </div>
-              <p class="text-gray-500">This is a placeholder post. Connect Sanity CMS to display full content.</p>
+              <p class="text-gray-500">{i.blog.placeholderContent}</p>
             </div>
           )}
         </div>
@@ -203,7 +206,7 @@ const blogPostSchema = getBlogPostingSchema({
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
-            Back to all posts
+            {i.blog.backToAllPosts}
           </Button>
         </div>
       </Container>

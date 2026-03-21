@@ -4,6 +4,10 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import BlogCard from '@/components/BlogCard.astro';
 import { getAllPosts } from '@/lib/sanity';
+import { t } from '@/i18n';
+
+const lang = 'en';
+const i = t(lang);
 
 let posts = await getAllPosts();
 
@@ -63,19 +67,20 @@ const displayPosts = posts.length > 0 ? posts : placeholderPosts;
 ---
 
 <BaseLayout
-  title="Blog"
-  description="Expert guides on web accessibility, WCAG compliance, ADA requirements, and accessible design best practices from the Inculva team."
+  title={i.blog.title}
+  description={i.blog.description}
   canonical="https://inculva.com/blog"
+  lang={lang}
 >
   <!-- Hero -->
-  <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-4 md:pt-28 md:pb-8">
+  <section class="bg-primary-50/30 pt-20 pb-4 md:pt-28 md:pb-8">
     <Container>
       <div class="text-center max-w-3xl mx-auto">
         <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
-          Accessibility <span class="text-gradient">insights</span>
+          {i.blog.heroTitle1}<span class="text-gradient">{i.blog.heroTitleHighlight}</span>
         </h1>
         <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-          Expert guides on WCAG compliance, accessible design, and inclusive web development.
+          {i.blog.heroDescription}
         </p>
       </div>
     </Container>
@@ -94,6 +99,8 @@ const displayPosts = posts.length > 0 ? posts : placeholderPosts;
               publishedAt={post.publishedAt}
               image={post.mainImage?.asset?.url}
               imageAlt={post.mainImage?.alt}
+              readMore={i.blog.readMore}
+              lang={lang}
             />
           ))}
         </div>
@@ -104,8 +111,8 @@ const displayPosts = posts.length > 0 ? posts : placeholderPosts;
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
             </svg>
           </div>
-          <h2 class="text-xl font-semibold text-gray-900">No posts yet</h2>
-          <p class="mt-2 text-gray-600">Check back soon for accessibility guides and tutorials.</p>
+          <h2 class="text-xl font-semibold text-gray-900">{i.blog.noPostsYet}</h2>
+          <p class="mt-2 text-gray-600">{i.blog.noPostsSoon}</p>
         </div>
       )}
     </Container>

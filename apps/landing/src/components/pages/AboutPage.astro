@@ -20,7 +20,7 @@ const i = t(lang);
   lang={lang}
 >
   <!-- Hero -->
-  <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-16 md:pt-28 md:pb-20">
+  <section class="bg-primary-50/30 pt-20 pb-16 md:pt-28 md:pb-20">
     <Container narrow>
       <div class="text-center">
         <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
@@ -51,11 +51,13 @@ const i = t(lang);
             {i.about.missionP3}
           </p>
         </div>
-        <div class="rounded-2xl bg-gradient-to-br from-primary-100 to-accent-50 p-12 flex items-center justify-center aspect-square">
-          <div class="text-center">
-            <div class="text-6xl font-extrabold text-gradient">1B+</div>
-            <p class="mt-4 text-gray-600 font-medium">{i.about.missionStat}</p>
-          </div>
+        <div class="rounded-2xl overflow-hidden aspect-square">
+          <img
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80"
+            alt="Person using assistive technology on a laptop"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
       </div>
     </Container>
@@ -100,34 +102,8 @@ const i = t(lang);
     </Container>
   </Section>
 
-  <!-- Team -->
-  <Section background="white" id="team">
-    <Container>
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900">{i.about.teamTitle}</h2>
-        <p class="mt-4 text-lg text-gray-600">{i.about.teamDescription}</p>
-      </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-        {[
-          { name: 'Berkan Bugday', role: i.about.founderCeo },
-          { name: 'Sarah Chen', role: i.about.headOfAi },
-          { name: 'Marcus Johnson', role: i.about.leadEngineer },
-          { name: 'Emily Rodriguez', role: i.about.headOfDesign },
-        ].map(({ name, role }) => (
-          <div class="text-center">
-            <div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-br from-primary-100 to-accent-50 flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-primary-600">{name.split(' ').map((n) => n[0]).join('')}</span>
-            </div>
-            <h3 class="font-semibold text-gray-900">{name}</h3>
-            <p class="text-sm text-gray-500">{role}</p>
-          </div>
-        ))}
-      </div>
-    </Container>
-  </Section>
-
   <!-- CTA -->
-  <Section background="gray" id="careers">
+  <Section background="white" id="careers">
     <Container narrow>
       <div class="text-center">
         <h2 class="text-3xl font-bold text-gray-900">{i.about.joinTitle}</h2>

@@ -45,7 +45,7 @@ export const en = {
       "Inculva detects, fixes, and monitors web accessibility issues automatically. Achieve WCAG 2.1 AA compliance without rewriting your code.",
     startFreeTrial: "Start Free Trial",
     seeHowItWorks: "See How It Works",
-    noCreditCard: "No credit card required • Free plan available",
+    noCreditCard: "No credit card required • 7-day free trial",
 
     // Works with any tech
     worksWithTitle: "Works with any technology",
@@ -126,6 +126,7 @@ export const en = {
     widgetHighlightLinks: "Highlight Links",
     widgetReset: "Reset Settings",
     widgetMoveLeft: "Move widget left",
+    healthy: "Healthy",
 
     // FAQ
     faqTitle: "Frequently asked questions",
@@ -137,13 +138,13 @@ export const en = {
       "No. Inculva is designed to be used by anyone. Simply paste one line of code into your website, and our automated platform handles the rest. No coding skills are needed for common accessibility fixes.",
     faq3Q: "Does Inculva slow down my website?",
     faq3A:
-      "No. The Inculva widget is loaded asynchronously and optimized for performance. It typically adds less than 50ms to your page load time and does not affect your Core Web Vitals.",
+      "No. The Inculva widget is loaded asynchronously and optimized for performance.",
     faq4Q: "Which accessibility standards does Inculva support?",
     faq4A:
       "Inculva supports WCAG 2.1 Level AA, ADA (Americans with Disabilities Act), Section 508, EN 301 549, and other regional accessibility regulations.",
     faq5Q: "Can I try Inculva for free?",
     faq5A:
-      "Yes! We offer a free plan that includes basic accessibility scanning and fixes for a single website. No credit card required to get started.",
+      "Yes! All our plans come with a 7-day free trial. No credit card required to get started.",
   },
 
   // Features page
@@ -173,7 +174,7 @@ export const en = {
 
     fixesTitle: "One-Click Accessibility Fixes",
     fixesDescription:
-      "Don't just find issues — fix them automatically. Inculva applies smart patches to your live website without touching your source code. Fixes are applied via our lightweight widget.",
+      "Don't just find issues. Fix them automatically. Inculva applies smart patches to your live website without touching your source code. Fixes are applied via our lightweight widget.",
     fixesFeatures: [
       "Alt text generation for images",
       "ARIA label injection",
@@ -209,62 +210,60 @@ export const en = {
   pricing: {
     title: "Pricing",
     description:
-      "Simple, transparent pricing for web accessibility. Start free, upgrade as you grow. Plans for individuals, teams, and enterprises.",
-    heroTitle1: "Simple, transparent",
-    heroTitleHighlight: "pricing",
-    heroDescription:
-      "Start free and upgrade as your needs grow. No hidden fees, no surprises.",
+      "Pay only for what you need with zero hidden fees. From solo developers to enterprise teams, try our flexible plans completely free for 7 days without a credit card.",
+    monthly: "Monthly",
+    yearly: "Yearly",
+    save20: "Save 20%",
+    heroTitle1: "Fair pricing that ",
+    heroTitleHighlight: "grows with you",
+    heroDescription: "Try all our features free for 7 days.",
 
-    starter: "Starter",
-    starterDesc: "Perfect for personal projects and small sites.",
-    starterFeatures: [
-      "1 website",
-      "Basic WCAG scanning",
-      "Up to 100 pages",
-      "Monthly reports",
-      "Community support",
+    small: "Small",
+    smallDesc: "Perfect for personal projects and small sites.",
+    smallFeatures: [
+      "Up to 100,000 pageviews/mo",
+      "Full WCAG 2.1 AA & AAA scanning",
+      "Automated auto-fixes",
+      "Real-time monitoring",
+      "7-day free trial",
     ],
     getStartedFree: "Get Started Free",
 
-    pro: "Pro",
-    proDesc: "For growing businesses that need full compliance.",
-    proFeatures: [
-      "Up to 5 websites",
-      "Full WCAG 2.1 AA scanning",
-      "Unlimited pages",
+    medium: "Medium",
+    mediumDesc: "For growing businesses that need full compliance.",
+    mediumFeatures: [
+      "Up to 300,000 pageviews/mo",
+      "Full WCAG 2.1 AA & AAA scanning",
       "Automated auto-fixes",
       "Real-time monitoring",
-      "Priority email support",
-      "Custom branding",
+      "7-day free trial",
     ],
     startFreeTrial: "Start Free Trial",
 
-    business: "Business",
-    businessDesc: "For enterprises with advanced compliance needs.",
-    businessFeatures: [
-      "Unlimited websites",
-      "WCAG 2.1 AAA scanning",
-      "Unlimited pages",
+    large: "Large",
+    largeDesc: "For enterprises with advanced compliance needs.",
+    largeFeatures: [
+      "Up to 1,000,000 pageviews/mo",
+      "Full WCAG 2.1 AA & AAA scanning",
       "Automated auto-fixes",
       "Continuous monitoring",
-      "Dedicated account manager",
-      "SLA guarantee",
-      "Custom integrations",
-      "Audit reports",
+      "7-day free trial",
     ],
     contactSales: "Contact Sales",
 
     comparePlans: "Compare plans",
     feature: "Feature",
-    websites: "Websites",
-    pagesPerSite: "Pages per site",
+    pageviews: "Pageviews/mo",
+    freeTrialPeriod: "Free trial",
+    sevenDays: "7 days",
     wcagLevel: "WCAG level",
     autoFix: "Auto-fix",
     realTimeMonitoring: "Real-time monitoring",
     customBranding: "Custom branding",
-    slaGuarantee: "SLA guarantee",
-    dedicatedSupport: "Dedicated support",
     unlimited: "Unlimited",
+    perMonth: "/mo",
+    perYear: "/yr",
+    save: "Save",
     mostPopular: "Most Popular",
 
     faqTitle: "Pricing FAQ",
@@ -273,10 +272,10 @@ export const en = {
       "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated.",
     faq2Q: "Is there a free trial?",
     faq2A:
-      "Yes! The Pro plan comes with a 14-day free trial. No credit card required to start.",
+      "Yes! All our plans come with a 7-day free trial. No credit card required to start.",
     faq3Q: "What happens if I exceed my page limit?",
     faq3A:
-      "On the Starter plan, scanning pauses at 100 pages. You can upgrade to Pro for unlimited pages at any time.",
+      "If you exceed your monthly pageview limit, we will notify you. Your widget will continue to work, but we may ask you to upgrade to the next tier if the high traffic persists across billing cycles.",
     faq4Q: "Do you offer annual billing?",
     faq4A:
       "Yes, annual billing is available with a 20% discount. Contact sales for enterprise annual agreements.",
@@ -284,6 +283,25 @@ export const en = {
     customPlanTitle: "Need a custom plan?",
     customPlanDesc:
       "Contact us for enterprise pricing tailored to your organization's needs.",
+  },
+
+  // Blog page
+  blog: {
+    title: "Blog",
+    description:
+      "Expert guides on web accessibility, WCAG compliance, ADA requirements, and accessible design best practices from the Inculva team.",
+    heroTitle1: "Accessibility ",
+    heroTitleHighlight: "insights",
+    heroDescription:
+      "Expert guides on WCAG compliance, accessible design, and inclusive web development.",
+    noPostsYet: "No posts yet",
+    noPostsSoon: "Check back soon for accessibility guides and tutorials.",
+    readMore: "Read more",
+    backToBlog: "Back to Blog",
+    backToAllPosts: "Back to all posts",
+    sanityContent: "Content loaded from Sanity CMS.",
+    placeholderContent:
+      "This is a placeholder post. Connect Sanity CMS to display full content.",
   },
 
   // About page
@@ -301,7 +319,7 @@ export const en = {
     missionP1:
       "Over 1 billion people worldwide live with some form of disability. Yet the vast majority of websites remain inaccessible, creating barriers to information, services, and opportunities.",
     missionP2:
-      "Inculva was founded to change that. We use artificial intelligence to automatically detect, fix, and monitor accessibility issues on websites — making compliance effortless and inclusive design the default.",
+      "Inculva was founded to change that. We use artificial intelligence to automatically detect, fix, and monitor accessibility issues on websites, making compliance effortless and inclusive design the default.",
     missionP3:
       "Our goal is simple: a world where every website works for every person.",
     missionStat: "People with disabilities worldwide",
@@ -310,13 +328,13 @@ export const en = {
     valuesDescription: "The principles that guide everything we do.",
     inclusionFirst: "Inclusion First",
     inclusionFirstDesc:
-      "We design for the widest possible range of users. Accessibility is not an afterthought — it is our foundation.",
+      "We design for the widest possible range of users. Accessibility is not an afterthought. It is our foundation.",
     innovation: "Innovation",
     innovationDesc:
       "We push the boundaries of what AI can do for accessibility, continuously improving our scanning and remediation technology.",
     transparency: "Transparency",
     transparencyDesc:
-      "We are clear about what our platform does, how we use data, and what compliance means. No black boxes.",
+      "We are transparent about what our platform does, how we use data, and what compliance means.",
 
     teamTitle: "Meet our team",
     teamDescription: "The people building the future of web accessibility.",
@@ -339,7 +357,7 @@ export const en = {
     heroTitle1: "Get in ",
     heroTitleHighlight: "touch",
     heroDescription:
-      "Have questions about Inculva? We're here to help. Reach out and we'll get back to you within 24 hours.",
+      "Have questions about Inculva? We're here to help. Reach out and we'll get back to you within 1 hour.",
 
     firstName: "First name",
     lastName: "Last name",

@@ -13,36 +13,64 @@ interface Props {
 const { lang } = Astro.props;
 const i = t(lang);
 
+const YEARLY_DISCOUNT = 0.2;
+
+function calcYearlyTotal(monthly: number): string {
+  const total = Math.round(monthly * 12 * (1 - YEARLY_DISCOUNT));
+  return `$${total.toLocaleString('en-US')}`;
+}
+
+function calcYearlySavings(monthly: number): string {
+  const total = Math.round(monthly * 12 * (1 - YEARLY_DISCOUNT));
+  const savings = monthly * 12 - total;
+  return `$${savings.toLocaleString('en-US')}`;
+}
+
 const plans = [
   {
-    name: i.pricing.starter,
-    price: '$0',
-    period: '/mo',
-    description: i.pricing.starterDesc,
-    features: i.pricing.starterFeatures as string[],
+    name: i.pricing.small,
+    price: '$39',
+    priceYearlyTotal: calcYearlyTotal(39),
+    savings: calcYearlySavings(39),
+    period: i.pricing.perMonth,
+    periodYearly: i.pricing.perYear,
+    saveLabel: i.pricing.save,
+    description: i.pricing.smallDesc,
+    features: i.pricing.smallFeatures as string[],
     cta: i.pricing.getStartedFree,
     ctaHref: 'https://app.inculva.com/signup',
     popular: false,
+    mostPopular: i.pricing.mostPopular,
   },
   {
-    name: i.pricing.pro,
-    price: '$49',
-    period: '/mo',
-    description: i.pricing.proDesc,
-    features: i.pricing.proFeatures as string[],
+    name: i.pricing.medium,
+    price: '$59',
+    priceYearlyTotal: calcYearlyTotal(59),
+    savings: calcYearlySavings(59),
+    period: i.pricing.perMonth,
+    periodYearly: i.pricing.perYear,
+    saveLabel: i.pricing.save,
+    description: i.pricing.mediumDesc,
+    features: i.pricing.mediumFeatures as string[],
     cta: i.pricing.startFreeTrial,
-    ctaHref: 'https://app.inculva.com/signup?plan=pro',
+    ctaHref: 'https://app.inculva.com/signup?plan=medium',
     popular: true,
+    mostPopular: i.pricing.mostPopular,
   },
   {
-    name: i.pricing.business,
-    price: '$149',
-    period: '/mo',
-    description: i.pricing.businessDesc,
-    features: i.pricing.businessFeatures as string[],
+    name: i.pricing.large,
+    price: '$119',
+    priceYearlyTotal: calcYearlyTotal(119),
+    savings: calcYearlySavings(119),
+    period: i.pricing.perMonth,
+    periodYearly: i.pricing.perYear,
+    saveLabel: i.pricing.save,
+    description: i.pricing.largeDesc,
+    features: i.pricing.largeFeatures as string[],
     cta: i.pricing.contactSales,
     ctaHref: getLocalizedPath('/contact', lang),
     popular: false,
+    mostPopular: i.pricing.mostPopular,
   },
 ];
 ---
@@ -54,7 +82,7 @@ const plans = [
   lang={lang}
 >
   <!-- Hero -->
-  <section class="bg-gradient-to-b from-primary-50/60 to-white pt-20 pb-4 md:pt-28 md:pb-8">
+  <section class="bg-primary-50/30 pt-20 pb-4 md:pt-28 md:pb-8">
     <Container>
       <div class="text-center max-w-3xl mx-auto">
         <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
@@ -71,50 +99,23 @@ const plans = [
   <!-- Pricing Cards -->
   <Section background="white" class="!pt-12">
     <Container>
+      <div class="flex justify-center mb-12">
+        <div class="relative flex items-center p-1 bg-gray-100 rounded-full border border-gray-200">
+          <button type="button" id="toggle-monthly" class="pricing-toggle-btn relative w-32 py-2 text-sm font-semibold text-gray-500 hover:text-gray-900 rounded-full transition-all duration-200">
+            {i.pricing.monthly}
+          </button>
+          <button type="button" id="toggle-yearly" class="pricing-toggle-btn relative w-44 py-2 text-sm font-semibold text-gray-900 bg-white rounded-full shadow-sm transition-all duration-200 flex items-center justify-center gap-2">
+            {i.pricing.yearly}
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] uppercase font-bold bg-green-100 text-green-700">
+              {i.pricing.save} %20
+            </span>
+          </button>
+        </div>
+      </div>
       <div class="grid md:grid-cols-3 gap-8 lg:gap-6 max-w-5xl mx-auto items-stretch">
         {plans.map((plan) => (
           <PricingCard {...plan} />
         ))}
-      </div>
-    </Container>
-  </Section>
-
-  <!-- Comparison Table -->
-  <Section background="gray">
-    <Container>
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-900">{i.pricing.comparePlans}</h2>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left bg-white rounded-2xl shadow-soft overflow-hidden">
-          <thead>
-            <tr class="border-b border-gray-100">
-              <th class="px-6 py-4 text-sm font-semibold text-gray-900">{i.pricing.feature}</th>
-              <th class="px-6 py-4 text-sm font-semibold text-gray-900 text-center">{i.pricing.starter}</th>
-              <th class="px-6 py-4 text-sm font-semibold text-primary-600 text-center">{i.pricing.pro}</th>
-              <th class="px-6 py-4 text-sm font-semibold text-gray-900 text-center">{i.pricing.business}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              [i.pricing.websites, '1', '5', i.pricing.unlimited],
-              [i.pricing.pagesPerSite, '100', i.pricing.unlimited, i.pricing.unlimited],
-              [i.pricing.wcagLevel, 'A', 'AA', 'AAA'],
-              [i.pricing.autoFix, '—', '✓', '✓'],
-              [i.pricing.realTimeMonitoring, '—', '✓', '✓'],
-              [i.pricing.customBranding, '—', '✓', '✓'],
-              [i.pricing.slaGuarantee, '—', '—', '✓'],
-              [i.pricing.dedicatedSupport, '—', '—', '✓'],
-            ].map(([feature, starter, pro, business]) => (
-              <tr class="border-b border-gray-50 last:border-0">
-                <td class="px-6 py-4 text-sm text-gray-700">{feature}</td>
-                <td class="px-6 py-4 text-sm text-gray-600 text-center">{starter}</td>
-                <td class="px-6 py-4 text-sm text-gray-600 text-center font-medium">{pro}</td>
-                <td class="px-6 py-4 text-sm text-gray-600 text-center">{business}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
     </Container>
   </Section>
@@ -156,4 +157,49 @@ const plans = [
       </div>
     </Container>
   </Section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnMonthly = document.getElementById('toggle-monthly');
+      const btnYearly = document.getElementById('toggle-yearly');
+      const monthlyDisplays = document.querySelectorAll('.price-monthly');
+      const yearlyDisplays = document.querySelectorAll('.price-yearly');
+
+      if (btnMonthly && btnYearly) {
+        btnMonthly.addEventListener('click', () => {
+          btnMonthly.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+          btnMonthly.classList.remove('text-gray-500');
+          
+          btnYearly.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+          btnYearly.classList.add('text-gray-500');
+
+          monthlyDisplays.forEach(el => {
+            el.classList.remove('hidden');
+            el.classList.add('block');
+          });
+          yearlyDisplays.forEach(el => {
+            el.classList.add('hidden');
+            el.classList.remove('block');
+          });
+        });
+
+        btnYearly.addEventListener('click', () => {
+          btnYearly.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+          btnYearly.classList.remove('text-gray-500');
+          
+          btnMonthly.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+          btnMonthly.classList.add('text-gray-500');
+
+          yearlyDisplays.forEach(el => {
+            el.classList.remove('hidden');
+            el.classList.add('block');
+          });
+          monthlyDisplays.forEach(el => {
+            el.classList.add('hidden');
+            el.classList.remove('block');
+          });
+        });
+      }
+    });
+  </script>
 </BaseLayout>

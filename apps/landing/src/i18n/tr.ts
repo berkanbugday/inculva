@@ -47,7 +47,7 @@ export const tr: Translations = {
       "Inculva, web erişilebilirlik sorunlarını otomatik olarak tespit eder, düzeltir ve izler. Kodunuzu yeniden yazmadan WCAG 2.1 AA uyumluluğunu sağlayın.",
     startFreeTrial: "Ücretsiz Deneyin",
     seeHowItWorks: "Nasıl Çalışır?",
-    noCreditCard: "Kredi kartı gerekmez • Ücretsiz plan mevcut",
+    noCreditCard: "Kredi kartı gerekmez • 7 gün ücretsiz deneme",
 
     // Works with any tech
     worksWithTitle: "Her teknoloji ile çalışır",
@@ -128,6 +128,7 @@ export const tr: Translations = {
     widgetHighlightLinks: "Bağlantıları Vurgula",
     widgetReset: "Ayarları Sıfırla",
     widgetMoveLeft: "Widgeti sola taşı",
+    healthy: "Sağlıklı",
 
     // FAQ
     faqTitle: "Sıkça sorulan sorular",
@@ -139,13 +140,13 @@ export const tr: Translations = {
       "Hayır. Inculva herkes tarafından kullanılmak üzere tasarlanmıştır. Web sitenize tek satır kod yapıştırın, otomatik platformumuz gerisini halleder. Yaygın erişilebilirlik düzeltmeleri için kodlama becerisi gerekmez.",
     faq3Q: "Inculva web sitemi yavaşlatır mı?",
     faq3A:
-      "Hayır. Inculva widget'ı asenkron olarak yüklenir ve performans için optimize edilmiştir. Genellikle sayfa yükleme sürenize 50ms'den az ekler ve Core Web Vitals'ınızı etkilemez.",
+      "Hayır. Inculva widget'ı asenkron olarak yüklenir ve performans için optimize edilmiştir.",
     faq4Q: "Inculva hangi erişilebilirlik standartlarını destekler?",
     faq4A:
       "Inculva; WCAG 2.1 Seviye AA, ADA (Engelli Amerikalılar Yasası), Section 508, EN 301 549 ve diğer bölgesel erişilebilirlik düzenlemelerini destekler.",
     faq5Q: "Inculva'yı ücretsiz deneyebilir miyim?",
     faq5A:
-      "Evet! Tek bir web sitesi için temel erişilebilirlik taraması ve düzeltmeleri içeren ücretsiz bir plan sunuyoruz. Başlamak için kredi kartı gerekmez.",
+      "Evet! Tüm planlarımız 7 günlük ücretsiz deneme içerir. Başlamak için kredi kartı gerekmez.",
   },
 
   // Features page
@@ -175,7 +176,7 @@ export const tr: Translations = {
 
     fixesTitle: "Tek Tıkla Erişilebilirlik Düzeltmeleri",
     fixesDescription:
-      "Sorunları bulmakla kalmayın — otomatik olarak düzeltin. Inculva, kaynak kodunuza dokunmadan canlı web sitenize akıllı yamalar uygular. Düzeltmeler hafif widget'ımız aracılığıyla uygulanır.",
+      "Sorunları bulmakla kalmayın, otomatik olarak düzeltin. Inculva, kaynak kodunuza dokunmadan canlı web sitenize akıllı yamalar uygular. Düzeltmeler hafif widget'ımız aracılığıyla uygulanır.",
     fixesFeatures: [
       "Görseller için alt metin üretimi",
       "ARIA etiket enjeksiyonu",
@@ -211,62 +212,61 @@ export const tr: Translations = {
   pricing: {
     title: "Fiyatlandırma",
     description:
-      "Web erişilebilirliği için basit, şeffaf fiyatlandırma. Ücretsiz başlayın, büyüdükçe yükseltin. Bireyler, ekipler ve kurumlar için planlar.",
-    heroTitle1: "Basit, şeffaf",
-    heroTitleHighlight: "fiyatlandırma",
+      "Gizli ücretler olmadan, sadece ihtiyacınız olanı ödeyin. Bireysel projelerden dev kurumlara kadar her bütçeye uyan planlarımızı kredi kartı gerekmeden 7 gün ücretsiz deneyin.",
+    monthly: "Aylık",
+    yearly: "Yıllık",
+    save20: "%20 Tasarruf Edin",
+    heroTitle1: "Sizinle büyüyen ",
+    heroTitleHighlight: "esnek planlar",
     heroDescription:
-      "Ücretsiz başlayın ve ihtiyaçlarınız büyüdükçe yükseltin. Gizli ücret yok, sürpriz yok.",
+      "Tüm özellikleri 7 gün boyunca gönül rahatlığıyla ücretsiz deneyin.",
 
-    starter: "Başlangıç",
-    starterDesc: "Kişisel projeler ve küçük siteler için ideal.",
-    starterFeatures: [
-      "1 web sitesi",
-      "Temel WCAG taraması",
-      "100 sayfaya kadar",
-      "Aylık raporlar",
-      "Topluluk desteği",
+    small: "Small",
+    smallDesc: "Kişisel projeler ve küçük siteler için ideal.",
+    smallFeatures: [
+      "100.000 sayfa görüntülemeye kadar",
+      "Tam WCAG 2.1 AA & AAA taraması",
+      "Otomatik düzeltmeler",
+      "Gerçek zamanlı izleme",
+      "7 gün ücretsiz deneme",
     ],
     getStartedFree: "Ücretsiz Başlayın",
 
-    pro: "Pro",
-    proDesc: "Tam uyumluluk ihtiyacı olan büyüyen işletmeler için.",
-    proFeatures: [
-      "5 web sitesine kadar",
-      "Tam WCAG 2.1 AA taraması",
-      "Sınırsız sayfa",
+    medium: "Medium",
+    mediumDesc: "Tam uyumluluk ihtiyacı olan büyüyen işletmeler için.",
+    mediumFeatures: [
+      "300.000 sayfa görüntülemeye kadar",
+      "Tam WCAG 2.1 AA & AAA taraması",
       "Otomatik düzeltmeler",
       "Gerçek zamanlı izleme",
-      "Öncelikli e-posta desteği",
-      "Özel markalama",
+      "7 gün ücretsiz deneme",
     ],
     startFreeTrial: "Ücretsiz Deneyin",
 
-    business: "Kurumsal",
-    businessDesc: "Gelişmiş uyumluluk ihtiyaçları olan kurumlar için.",
-    businessFeatures: [
-      "Sınırsız web sitesi",
-      "WCAG 2.1 AAA taraması",
-      "Sınırsız sayfa",
+    large: "Large",
+    largeDesc: "Gelişmiş uyumluluk ihtiyaçları olan kurumlar için.",
+    largeFeatures: [
+      "1.000.000 sayfa görüntülemeye kadar",
+      "Tam WCAG 2.1 AA & AAA taraması",
       "Otomatik düzeltmeler",
       "Sürekli izleme",
-      "Özel hesap yöneticisi",
-      "SLA garantisi",
-      "Özel entegrasyonlar",
-      "Denetim raporları",
+      "7 gün ücretsiz deneme",
     ],
     contactSales: "Satış ile İletişime Geçin",
 
     comparePlans: "Planları karşılaştırın",
     feature: "Özellik",
-    websites: "Web siteleri",
-    pagesPerSite: "Site başına sayfa",
+    pageviews: "Aylık sayfa görüntüleme",
+    freeTrialPeriod: "Ücretsiz deneme",
+    sevenDays: "7 gün",
     wcagLevel: "WCAG seviyesi",
     autoFix: "Otomatik düzeltme",
     realTimeMonitoring: "Gerçek zamanlı izleme",
     customBranding: "Özel markalama",
-    slaGuarantee: "SLA garantisi",
-    dedicatedSupport: "Özel destek",
     unlimited: "Sınırsız",
+    perMonth: "/ay",
+    perYear: "/yıl",
+    save: "Kazanç",
     mostPopular: "En Popüler",
 
     faqTitle: "Fiyatlandırma SSS",
@@ -275,10 +275,10 @@ export const tr: Translations = {
       "Evet, istediğiniz zaman planınızı yükseltebilir veya düşürebilirsiniz. Değişiklikler anında geçerli olur ve faturalandırma orantılı olarak yapılır.",
     faq2Q: "Ücretsiz deneme var mı?",
     faq2A:
-      "Evet! Pro plan 14 günlük ücretsiz deneme ile gelir. Başlamak için kredi kartı gerekmez.",
+      "Evet! Tüm planlarımız 7 günlük ücretsiz deneme ile gelir. Başlamak için kredi kartı gerekmez.",
     faq3Q: "Sayfa limitimi aşarsam ne olur?",
     faq3A:
-      "Başlangıç planında tarama 100 sayfada durur. İstediğiniz zaman sınırsız sayfa için Pro'ya yükseltebilirsiniz.",
+      "Aylık sayfa görüntüleme limitinizi aşarsanız sizi bilgilendiririz. Widget'ınız çalışmaya devam eder, ancak yüksek trafik fatura dönemleri boyunca devam ederse sizden bir üst seviyeye geçmenizi isteyebiliriz.",
     faq4Q: "Yıllık faturalandırma sunuyor musunuz?",
     faq4A:
       "Evet, %20 indirimli yıllık faturalandırma mevcuttur. Kurumsal yıllık anlaşmalar için satış ile iletişime geçin.",
@@ -286,6 +286,26 @@ export const tr: Translations = {
     customPlanTitle: "Özel bir plana mı ihtiyacınız var?",
     customPlanDesc:
       "Kuruluşunuzun ihtiyaçlarına göre özelleştirilmiş kurumsal fiyatlandırma için bizimle iletişime geçin.",
+  },
+
+  // Blog page
+  blog: {
+    title: "Blog",
+    description:
+      "Inculva ekibinden web erişilebilirliği, WCAG uyumluluğu, ADA gereksinimleri ve erişilebilir tasarım en iyi uygulamaları hakkında uzman kılavuzları.",
+    heroTitle1: "Erişilebilirlik ",
+    heroTitleHighlight: "içgörüleri",
+    heroDescription:
+      "WCAG uyumluluğu, erişilebilir tasarım ve kapsayıcı web geliştirme hakkında uzman kılavuzları.",
+    noPostsYet: "Henüz yazı yok",
+    noPostsSoon:
+      "Erişilebilirlik kılavuzları ve öğreticiler için yakında tekrar kontrol edin.",
+    readMore: "Devamını oku",
+    backToBlog: "Bloga Dön",
+    backToAllPosts: "Tüm yazılara dön",
+    sanityContent: "İçerik Sanity CMS'den yüklendi.",
+    placeholderContent:
+      "Bu bir yer tutucu yazıdır. Tam içeriği görüntülemek için Sanity CMS'i bağlayın.",
   },
 
   // About page
@@ -303,7 +323,7 @@ export const tr: Translations = {
     missionP1:
       "Dünya genelinde 1 milyardan fazla insan bir tür engellilikle yaşıyor. Ancak web sitelerinin büyük çoğunluğu erişilemez durumda ve bilgi, hizmet ve fırsatlara erişimde engeller oluşturuyor.",
     missionP2:
-      "Inculva bunu değiştirmek için kuruldu. Web sitelerindeki erişilebilirlik sorunlarını otomatik olarak tespit etmek, düzeltmek ve izlemek için yapay zeka kullanıyoruz — uyumluluğu zahmetsiz ve kapsayıcı tasarımı varsayılan hale getiriyoruz.",
+      "Inculva bunu değiştirmek için kuruldu. Web sitelerindeki erişilebilirlik sorunlarını otomatik olarak tespit etmek, düzeltmek ve izlemek için yapay zeka kullanıyoruz, uyumluluğu zahmetsiz ve kapsayıcı tasarımı varsayılan hale getiriyoruz.",
     missionP3:
       "Hedefimiz basit: her web sitesinin herkes için çalıştığı bir dünya.",
     missionStat: "Dünya genelinde engelli bireyler",
@@ -312,13 +332,13 @@ export const tr: Translations = {
     valuesDescription: "Yaptığımız her şeye yön veren ilkeler.",
     inclusionFirst: "Önce Kapsayıcılık",
     inclusionFirstDesc:
-      "Mümkün olan en geniş kullanıcı yelpazesi için tasarlıyoruz. Erişilebilirlik bir ek düşünce değil — temelimizdir.",
+      "Mümkün olan en geniş kullanıcı yelpazesi için tasarlıyoruz. Erişilebilirlik bir ek düşünce değildir. Temelimizdir.",
     innovation: "İnovasyon",
     innovationDesc:
       "Yapay zekanın erişilebilirlik için neler yapabileceğinin sınırlarını zorluyoruz, tarama ve iyileştirme teknolojimizi sürekli geliştiriyoruz.",
     transparency: "Şeffaflık",
     transparencyDesc:
-      "Platformumuzun ne yaptığı, verileri nasıl kullandığımız ve uyumluluğun ne anlama geldiği konusunda nettiz. Kara kutu yok.",
+      "Platformumuzun ne yaptığı, verileri nasıl kullandığımız ve uyumluluğun ne anlama geldiği konusunda şeffafız.",
 
     teamTitle: "Ekibimizle tanışın",
     teamDescription: "Web erişilebilirliğinin geleceğini inşa eden insanlar.",
@@ -341,7 +361,7 @@ export const tr: Translations = {
     heroTitle1: "Bizimle ",
     heroTitleHighlight: "iletişime geçin",
     heroDescription:
-      "Inculva hakkında sorularınız mı var? Yardımcı olmak için buradayız. Bize ulaşın, 24 saat içinde size dönüş yapacağız.",
+      "Inculva hakkında sorularınız mı var? Yardımcı olmak için buradayız. Bize ulaşın, 1 saat içinde size dönüş yapacağız.",
 
     firstName: "Ad",
     lastName: "Soyad",
