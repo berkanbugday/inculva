@@ -7,7 +7,7 @@ export const en = {
     blog: "Blog",
     about: "About",
     contact: "Contact",
-    getStarted: "Get Started",
+    getStarted: "Book a Call",
     skipToContent: "Skip to main content",
   },
 
@@ -43,7 +43,7 @@ export const en = {
     heroTitle2: "to everyone",
     heroDescription:
       "Inculva detects, fixes, and monitors web accessibility issues automatically. Achieve WCAG 2.1 AA compliance without rewriting your code.",
-    startFreeTrial: "Start Free Trial",
+    startFreeTrial: "Book a Call",
     seeHowItWorks: "See How It Works",
     noCreditCard: "No credit card required • 7-day free trial",
 
@@ -107,7 +107,7 @@ export const en = {
     mockupTitle2: "Starts Here.",
     mockupDescription:
       "We believe the web should be completely accessible to everyone. By empowering developers with the right automation tools, we can make digital inclusion a standard, not an afterthought.",
-    mockupGetStarted: "Get Started",
+    mockupGetStarted: "Book a Call",
     mockupLearnMore: "Learn More",
     widgetMenuTitle: "Accessibility Menu",
     widgetProfiles: "Profiles",
@@ -203,7 +203,7 @@ export const en = {
     ctaTitle: "Ready to get started?",
     ctaDescription:
       "Try Inculva free and see your accessibility score improve instantly.",
-    startFreeTrial: "Start Free Trial",
+    startFreeTrial: "Book a Call",
   },
 
   // Pricing page
@@ -227,7 +227,7 @@ export const en = {
       "Real-time monitoring",
       "7-day free trial",
     ],
-    getStartedFree: "Get Started Free",
+    getStartedFree: "Book a Call",
 
     medium: "Medium",
     mediumDesc: "For growing businesses that need full compliance.",
@@ -238,7 +238,7 @@ export const en = {
       "Real-time monitoring",
       "7-day free trial",
     ],
-    startFreeTrial: "Start Free Trial",
+    startFreeTrial: "Book a Call",
 
     large: "Large",
     largeDesc: "For enterprises with advanced compliance needs.",
@@ -356,9 +356,7 @@ export const en = {
       "Get in touch with the Inculva team. Reach out for sales inquiries, support questions, partnership opportunities, or custom accessibility solutions.",
     heroTitle1: "Get in ",
     heroTitleHighlight: "touch",
-    heroDescription:
-      "Have questions about Inculva? We're here to help. Reach out and we'll get back to you within 1 hour.",
-
+    heroDescription: "Have questions about Inculva? We're here to help.",
     firstName: "First name",
     lastName: "Last name",
     email: "Email",
@@ -374,6 +372,17 @@ export const en = {
     message: "Message",
     messagePlaceholder: "Tell us how we can help...",
     sendMessage: "Send Message",
+    sending: "Sending...",
+    successTitle: "Message sent!",
+    successDescription:
+      "Thank you for reaching out. We'll get back to you within 1 hour.",
+    errorTitle: "Something went wrong",
+    errorDescription: "Please try again later or email us directly.",
+    validationFirstName: "First name is required",
+    validationLastName: "Last name is required",
+    validationEmail: "Please enter a valid email address",
+    validationSubject: "Please select a topic",
+    validationMessage: "Message must be at least 10 characters",
 
     otherWays: "Other ways to reach us",
     emailLabel: "Email",

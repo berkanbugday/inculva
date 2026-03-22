@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
-import Button from '@/components/Button.astro';
+import ContactForm from '@/components/ContactForm';
 import { t, getLocalizedPath, type Lang } from '@/i18n';
 
 interface Props {
@@ -38,95 +38,33 @@ const i = t(lang);
       <div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
         <!-- Contact Form -->
         <div class="lg:col-span-2">
-          <form class="space-y-6" action="#" method="POST" novalidate>
-            <div class="grid sm:grid-cols-2 gap-6">
-              <div>
-                <label for="first-name" class="block text-sm font-medium text-gray-700 mb-2">{i.contact.firstName}</label>
-                <input
-                  type="text"
-                  id="first-name"
-                  name="first-name"
-                  autocomplete="given-name"
-                  required
-                  class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all outline-none"
-                  placeholder="Jane"
-                />
-              </div>
-              <div>
-                <label for="last-name" class="block text-sm font-medium text-gray-700 mb-2">{i.contact.lastName}</label>
-                <input
-                  type="text"
-                  id="last-name"
-                  name="last-name"
-                  autocomplete="family-name"
-                  required
-                  class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all outline-none"
-                  placeholder="Doe"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{i.contact.email}</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                autocomplete="email"
-                required
-                class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all outline-none"
-                placeholder="jane@example.com"
-              />
-            </div>
-
-            <div>
-              <label for="company" class="block text-sm font-medium text-gray-700 mb-2">{i.contact.company} <span class="text-gray-400">({i.contact.optional})</span></label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                autocomplete="organization"
-                class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all outline-none"
-                placeholder="Acme Corp"
-              />
-            </div>
-
-            <div>
-              <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">{i.contact.subject}</label>
-              <select
-                id="subject"
-                name="subject"
-                required
-                class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all outline-none"
-              >
-                <option value="" disabled selected>{i.contact.selectTopic}</option>
-                <option value="sales">{i.contact.salesInquiry}</option>
-                <option value="support">{i.contact.technicalSupport}</option>
-                <option value="partnership">{i.contact.partnership}</option>
-                <option value="enterprise">{i.contact.enterprisePlan}</option>
-                <option value="other">{i.contact.other}</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{i.contact.message}</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="5"
-                required
-                class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all outline-none resize-y"
-                placeholder={i.contact.messagePlaceholder}
-              ></textarea>
-            </div>
-
-            <Button variant="primary" size="lg" class="w-full sm:w-auto">
-              {i.contact.sendMessage}
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-              </svg>
-            </Button>
-          </form>
+          <ContactForm client:load labels={{
+            firstName: i.contact.firstName,
+            lastName: i.contact.lastName,
+            email: i.contact.email,
+            company: i.contact.company,
+            optional: i.contact.optional,
+            subject: i.contact.subject,
+            selectTopic: i.contact.selectTopic,
+            salesInquiry: i.contact.salesInquiry,
+            technicalSupport: i.contact.technicalSupport,
+            partnership: i.contact.partnership,
+            enterprisePlan: i.contact.enterprisePlan,
+            other: i.contact.other,
+            message: i.contact.message,
+            messagePlaceholder: i.contact.messagePlaceholder,
+            sendMessage: i.contact.sendMessage,
+            sending: i.contact.sending,
+            successTitle: i.contact.successTitle,
+            successDescription: i.contact.successDescription,
+            errorTitle: i.contact.errorTitle,
+            errorDescription: i.contact.errorDescription,
+            validationFirstName: i.contact.validationFirstName,
+            validationLastName: i.contact.validationLastName,
+            validationEmail: i.contact.validationEmail,
+            validationSubject: i.contact.validationSubject,
+            validationMessage: i.contact.validationMessage,
+          }} />
         </div>
 
         <!-- Contact Info -->

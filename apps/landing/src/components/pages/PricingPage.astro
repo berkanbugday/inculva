@@ -38,7 +38,7 @@ const plans = [
     description: i.pricing.smallDesc,
     features: i.pricing.smallFeatures as string[],
     cta: i.pricing.getStartedFree,
-    ctaHref: 'https://app.inculva.com/signup',
+    ctaHref: '#',
     popular: false,
     mostPopular: i.pricing.mostPopular,
   },
@@ -53,7 +53,7 @@ const plans = [
     description: i.pricing.mediumDesc,
     features: i.pricing.mediumFeatures as string[],
     cta: i.pricing.startFreeTrial,
-    ctaHref: 'https://app.inculva.com/signup?plan=medium',
+    ctaHref: '#',
     popular: true,
     mostPopular: i.pricing.mostPopular,
   },
@@ -68,7 +68,7 @@ const plans = [
     description: i.pricing.largeDesc,
     features: i.pricing.largeFeatures as string[],
     cta: i.pricing.contactSales,
-    ctaHref: getLocalizedPath('/contact', lang),
+    ctaHref: '#',
     popular: false,
     mostPopular: i.pricing.mostPopular,
   },
@@ -152,7 +152,7 @@ const plans = [
         <h2 class="text-3xl font-bold text-gray-900">{i.pricing.customPlanTitle}</h2>
         <p class="mt-4 text-lg text-gray-600">{i.pricing.customPlanDesc}</p>
         <div class="mt-8">
-          <Button href={getLocalizedPath('/contact', lang)} size="lg">{i.pricing.contactSales}</Button>
+          <Button href="#" size="lg" data-cal-link="berkan-bugday-rdudv5/30min">{i.pricing.contactSales}</Button>
         </div>
       </div>
     </Container>

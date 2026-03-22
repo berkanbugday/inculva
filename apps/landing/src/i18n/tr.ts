@@ -9,7 +9,7 @@ export const tr: Translations = {
     blog: "Blog",
     about: "Hakkımızda",
     contact: "İletişim",
-    getStarted: "Başla",
+    getStarted: "Görüşme Planla",
     skipToContent: "Ana içeriğe geç",
   },
 
@@ -45,7 +45,7 @@ export const tr: Translations = {
     heroTitle2: "hale getirin",
     heroDescription:
       "Inculva, web erişilebilirlik sorunlarını otomatik olarak tespit eder, düzeltir ve izler. Kodunuzu yeniden yazmadan WCAG 2.1 AA uyumluluğunu sağlayın.",
-    startFreeTrial: "Ücretsiz Deneyin",
+    startFreeTrial: "Görüşme Planla",
     seeHowItWorks: "Nasıl Çalışır?",
     noCreditCard: "Kredi kartı gerekmez • 7 gün ücretsiz deneme",
 
@@ -109,7 +109,7 @@ export const tr: Translations = {
     mockupTitle2: "Burada Başlar.",
     mockupDescription:
       "Web'in herkes için tamamen erişilebilir olması gerektiğine inanıyoruz. Geliştiricilere doğru otomasyon araçlarını sağlayarak dijital kapsayıcılığı bir standart haline getirebiliriz.",
-    mockupGetStarted: "Başla",
+    mockupGetStarted: "Görüşme Planla",
     mockupLearnMore: "Daha Fazla",
     widgetMenuTitle: "Erişilebilirlik Menüsü",
     widgetProfiles: "Profiller",
@@ -205,7 +205,7 @@ export const tr: Translations = {
     ctaTitle: "Başlamaya hazır mısınız?",
     ctaDescription:
       "Inculva'yı ücretsiz deneyin ve erişilebilirlik puanınızın anında iyileştiğini görün.",
-    startFreeTrial: "Ücretsiz Deneyin",
+    startFreeTrial: "Görüşme Planla",
   },
 
   // Pricing page
@@ -230,7 +230,7 @@ export const tr: Translations = {
       "Gerçek zamanlı izleme",
       "7 gün ücretsiz deneme",
     ],
-    getStartedFree: "Ücretsiz Başlayın",
+    getStartedFree: "Görüşme Planla",
 
     medium: "Medium",
     mediumDesc: "Tam uyumluluk ihtiyacı olan büyüyen işletmeler için.",
@@ -241,7 +241,7 @@ export const tr: Translations = {
       "Gerçek zamanlı izleme",
       "7 gün ücretsiz deneme",
     ],
-    startFreeTrial: "Ücretsiz Deneyin",
+    startFreeTrial: "Görüşme Planla",
 
     large: "Large",
     largeDesc: "Gelişmiş uyumluluk ihtiyaçları olan kurumlar için.",
@@ -361,8 +361,7 @@ export const tr: Translations = {
     heroTitle1: "Bizimle ",
     heroTitleHighlight: "iletişime geçin",
     heroDescription:
-      "Inculva hakkında sorularınız mı var? Yardımcı olmak için buradayız. Bize ulaşın, 1 saat içinde size dönüş yapacağız.",
-
+      "Inculva hakkında sorularınız mı var? Yardımcı olmak için buradayız.",
     firstName: "Ad",
     lastName: "Soyad",
     email: "E-posta",
@@ -378,6 +377,18 @@ export const tr: Translations = {
     message: "Mesaj",
     messagePlaceholder: "Size nasıl yardımcı olabileceğimizi anlatın...",
     sendMessage: "Mesaj Gönder",
+    sending: "Gönderiliyor...",
+    successTitle: "Mesaj gönderildi!",
+    successDescription:
+      "Bize ulaştığınız için teşekkürler. 1 saat içinde size dönüş yapacağız.",
+    errorTitle: "Bir şeyler ters gitti",
+    errorDescription:
+      "Lütfen daha sonra tekrar deneyin veya doğrudan e-posta gönderin.",
+    validationFirstName: "Ad gereklidir",
+    validationLastName: "Soyad gereklidir",
+    validationEmail: "Geçerli bir e-posta adresi girin",
+    validationSubject: "Lütfen bir konu seçin",
+    validationMessage: "Mesaj en az 10 karakter olmalıdır",
 
     otherWays: "Bize ulaşmanın diğer yolları",
     emailLabel: "E-posta",

@@ -2,4 +2,26 @@
 import HomePage from '@/components/pages/HomePage.astro';
 ---
 
+<script is:inline>
+  (function() {
+    // Only run on exactly the root path
+    if (window.location.pathname !== '/') return;
+
+    // Allow override via ?lang=en
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('lang')) {
+      localStorage.setItem('preferred-lang', urlParams.get('lang'));
+    }
+
+    const preferredLang = localStorage.getItem('preferred-lang');
+    if (preferredLang === 'en') return; // User prefers English
+
+    // Detect browser language
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang && browserLang.toLowerCase().startsWith('tr')) {
+      window.location.replace('/tr/');
+    }
+  })();
+</script>
+
 <HomePage lang="en" />

@@ -4,9 +4,11 @@ export interface Props {
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   class?: string;
+  'data-cal-link'?: string;
+  [key: string]: any;
 }
 
-const { variant = 'primary', size = 'md', href, class: className = '' } = Astro.props;
+const { variant = 'primary', size = 'md', href, class: className = '', 'data-cal-link': calLink, ...rest } = Astro.props;
 
 const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2';
 
@@ -26,6 +28,6 @@ const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} 
 const Tag = href ? 'a' : 'button';
 ---
 
-<Tag href={href} class={classes}>
+<Tag href={href} class={classes} data-cal-link={calLink} {...rest}>
   <slot />
 </Tag>

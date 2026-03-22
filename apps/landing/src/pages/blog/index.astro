@@ -9,61 +9,7 @@ import { t } from '@/i18n';
 const lang = 'en';
 const i = t(lang);
 
-let posts = await getAllPosts();
-
-// If no posts from Sanity, show placeholder content
-const placeholderPosts = [
-  {
-    _id: '1',
-    title: 'Understanding WCAG 2.1: A Complete Guide for Developers',
-    slug: { current: 'understanding-wcag-21' },
-    description: 'Learn the key principles of WCAG 2.1 and how to implement them in your web applications for better accessibility compliance.',
-    publishedAt: '2025-03-10',
-    mainImage: undefined,
-  },
-  {
-    _id: '2',
-    title: 'ADA Compliance in 2025: What You Need to Know',
-    slug: { current: 'ada-compliance-2025' },
-    description: 'A comprehensive overview of ADA requirements for websites and how to avoid costly legal issues with proper accessibility practices.',
-    publishedAt: '2025-03-05',
-    mainImage: undefined,
-  },
-  {
-    _id: '3',
-    title: 'How AI is Transforming Web Accessibility Testing',
-    slug: { current: 'ai-web-accessibility-testing' },
-    description: 'Explore how artificial intelligence is revolutionizing the way we test and fix accessibility issues on the web.',
-    publishedAt: '2025-02-28',
-    mainImage: undefined,
-  },
-  {
-    _id: '4',
-    title: 'Color Contrast Best Practices for Accessible Design',
-    slug: { current: 'color-contrast-best-practices' },
-    description: 'Master color contrast ratios and learn practical techniques to ensure your designs meet WCAG AA and AAA standards.',
-    publishedAt: '2025-02-20',
-    mainImage: undefined,
-  },
-  {
-    _id: '5',
-    title: 'Building Accessible Forms: A Step-by-Step Tutorial',
-    slug: { current: 'building-accessible-forms' },
-    description: 'Learn how to create forms that work for everyone, including users with screen readers, keyboard navigation, and cognitive disabilities.',
-    publishedAt: '2025-02-15',
-    mainImage: undefined,
-  },
-  {
-    _id: '6',
-    title: 'The Business Case for Web Accessibility',
-    slug: { current: 'business-case-web-accessibility' },
-    description: 'Discover how investing in web accessibility can improve SEO, expand your audience, reduce legal risk, and boost your bottom line.',
-    publishedAt: '2025-02-10',
-    mainImage: undefined,
-  },
-];
-
-const displayPosts = posts.length > 0 ? posts : placeholderPosts;
+const posts = await getAllPosts();
 ---
 
 <BaseLayout
@@ -89,9 +35,9 @@ const displayPosts = posts.length > 0 ? posts : placeholderPosts;
   <!-- Blog Grid -->
   <Section background="white" class="!pt-12">
     <Container>
-      {displayPosts.length > 0 ? (
+      {posts.length > 0 ? (
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayPosts.map((post) => (
+          {posts.map((post) => (
             <BlogCard
               title={post.title}
               description={post.description}
