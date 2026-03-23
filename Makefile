@@ -1,4 +1,7 @@
-.PHONY: setup dev db-up db-down db-reset db-studio migrate seed
+.PHONY: setup dev db-up db-down db-reset db-studio migrate seed push-api push-landing push
+
+REPO  ?= inculva/inculva
+TAG   ?= latest
 
 ## First-time setup
 setup:
@@ -36,3 +39,14 @@ migrate:
 
 seed:
 	cd packages/db && pnpm db:seed
+
+## Docker
+push-api:
+	docker build -f apps/api/Dockerfile -t $(REPO):api .
+	docker push $(REPO):api
+
+push-landing:
+	docker build -f apps/landing/Dockerfile -t $(REPO):landing apps/landing
+	docker push $(REPO):landing
+
+push: push-api push-landing

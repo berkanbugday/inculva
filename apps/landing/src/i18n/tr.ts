@@ -469,4 +469,12 @@ export const tr: Translations = {
     otherWays: "Bize ulaşmanın diğer yolları",
     emailLabel: "E-posta",
   },
+
+  // Cookie banner
+  cookie: {
+    message: "Site kullanımını analiz etmek ve deneyiminizi iyileştirmek için çerezler kullanıyoruz.",
+    privacyLink: "Gizlilik Politikası",
+    dismiss: "Anladım",
+    ariaLabel: "Çerez bildirimi",
+  },
 } as const;

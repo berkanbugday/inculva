@@ -1,0 +1,69 @@
+---
+import { t, getLocalizedPath, type Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+const privacyHref = getLocalizedPath('/privacy-policy', lang);
+---
+
+<div
+  id="cookie-banner"
+  role="region"
+  aria-live="polite"
+  aria-label={i.cookie.ariaLabel}
+  class="hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <p class="text-sm text-gray-600 text-center sm:text-left">
+      {i.cookie.message}{' '}
+      <a
+        href={privacyHref}
+        class="underline text-primary-600 hover:text-primary-700 transition-colors"
+      >
+        {i.cookie.privacyLink}
+      </a>
+    </p>
+    <button
+      id="cookie-dismiss"
+      type="button"
+      class="shrink-0 px-5 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+    >
+      {i.cookie.dismiss}
+    </button>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'inculva_cookie_dismissed';
+
+  function checkBanner() {
+    if (localStorage.getItem(STORAGE_KEY)) return;
+
+    const banner = document.getElementById('cookie-banner');
+    const btn = document.getElementById('cookie-dismiss') as HTMLButtonElement | null;
+    if (!banner || !btn) return;
+
+    banner.classList.remove('hidden');
+
+    // Guard: checkBanner may be called multiple times before a DOM swap,
+    // so prevent attaching duplicate click listeners to the same node.
+    if (btn.dataset.listenerAttached) return;
+    btn.dataset.listenerAttached = '1';
+
+    btn.addEventListener(
+      'click',
+      () => {
+        localStorage.setItem(STORAGE_KEY, '1');
+        banner.classList.add('hidden');
+      },
+      { once: true },
+    );
+  }
+
+  document.addEventListener('DOMContentLoaded', checkBanner);
+  document.addEventListener('astro:after-swap', checkBanner);
+</script>

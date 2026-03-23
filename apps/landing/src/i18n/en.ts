@@ -463,6 +463,14 @@ export const en = {
     otherWays: "Other ways to reach us",
     emailLabel: "Email",
   },
+
+  // Cookie banner
+  cookie: {
+    message: "We use cookies to analyze site usage and improve your experience.",
+    privacyLink: "Privacy Policy",
+    dismiss: "Got it",
+    ariaLabel: "Cookie notice",
+  },
 } as const;
 
 type DeepStringRecord<T> = {
