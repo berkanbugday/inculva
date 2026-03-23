@@ -3,7 +3,7 @@ import React from "react";
 import { Composition } from "remotion";
 import { WelcomeVideo } from "./compositions/WelcomeVideo";
 
-const DURATION = 2520; // 42s × 60fps
+const DURATION = 1740; // 29s × 60fps
 const FPS = 60;
 
 export function Root() {

@@ -1,7 +1,9 @@
+// apps/video/src/translations.ts
 import type { FeatureKey, Lang } from "./types";
 
 interface Translations {
   opening: string;
+  openingSub: string;
   solution: string;
   ctaBadge: string;
   ctaTagline: string;
@@ -11,7 +13,8 @@ interface Translations {
 
 export const t: Record<Lang, Translations> = {
   en: {
-    opening: "The web wasn't built for everyone.",
+    opening: "1.3 billion people\ncan't use your website.",
+    openingSub: "Until now.",
     solution: "One line of code.",
     ctaBadge: "WCAG 2.1 AA Compliant ✓",
     ctaTagline: "Make your website accessible to everyone.",
@@ -24,7 +27,8 @@ export const t: Record<Lang, Translations> = {
     },
   },
   tr: {
-    opening: "İnternet herkes için tasarlanmadı.",
+    opening: "1,3 milyar kişi\nsitenizi kullanamıyor.",
+    openingSub: "Ta ki şimdiye kadar.",
     solution: "Tek satır kod.",
     ctaBadge: "WCAG 2.1 AA Uyumlu ✓",
     ctaTagline: "Web sitenizi herkese erişilebilir yapın.",

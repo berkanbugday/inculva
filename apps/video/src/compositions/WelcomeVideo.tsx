@@ -22,25 +22,25 @@ export function WelcomeVideo({ lang, aspectRatio }: WelcomeVideoProps) {
       <Audio
         src={staticFile("music.mp3")}
         volume={(f) =>
-          interpolate(f, [0, 120, 2400, 2520], [0, 1, 1, 0], {
+          interpolate(f, [0, 60, 1680, 1740], [0, 1, 1, 0], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           })
         }
       />
-      <Sequence from={0} durationInFrames={300} style={{ position: "absolute", inset: 0 }}>
+      <Sequence from={0} durationInFrames={150} style={{ position: "absolute", inset: 0 }}>
         <OpeningScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={300} durationInFrames={420} style={{ position: "absolute", inset: 0 }}>
+      <Sequence from={150} durationInFrames={210} style={{ position: "absolute", inset: 0 }}>
         <ProblemScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={720} durationInFrames={360} style={{ position: "absolute", inset: 0 }}>
+      <Sequence from={360} durationInFrames={180} style={{ position: "absolute", inset: 0 }}>
         <SolutionScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={1080} durationInFrames={960} style={{ position: "absolute", inset: 0 }}>
+      <Sequence from={540} durationInFrames={900} style={{ position: "absolute", inset: 0 }}>
         <WidgetDemoScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={2040} durationInFrames={480} style={{ position: "absolute", inset: 0 }}>
+      <Sequence from={1440} durationInFrames={300} style={{ position: "absolute", inset: 0 }}>
         <CtaScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
     </div>

@@ -9,18 +9,18 @@ import { MockWebsite } from "../../components/MockWebsite";
 export function CtaScene({ lang }: SceneProps) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const DURATION = 480;
+  const DURATION = 300;
 
-  const fadeIn = interpolate(frame, [0, 30], [0, 1], { extrapolateRight: "clamp" });
+  const fadeIn = interpolate(frame, [0, 20], [0, 1], { extrapolateRight: "clamp" });
 
-  const taglineSpring = spring({ frame: Math.max(0, frame - 120), fps, config: { damping: 18, stiffness: 90, mass: 1 } });
+  const taglineSpring = spring({ frame: Math.max(0, frame - 80), fps, config: { damping: 18, stiffness: 90, mass: 1 } });
   const taglineOpacity = interpolate(taglineSpring, [0, 1], [0, 1]);
   const taglineY = interpolate(taglineSpring, [0, 1], [20, 0]);
 
-  const domainSpring = spring({ frame: Math.max(0, frame - 200), fps, config: { damping: 18, stiffness: 90, mass: 1 } });
+  const domainSpring = spring({ frame: Math.max(0, frame - 140), fps, config: { damping: 18, stiffness: 90, mass: 1 } });
   const domainOpacity = interpolate(domainSpring, [0, 1], [0, 1]);
 
-  const exitOpacity = interpolate(frame, [DURATION - 40, DURATION], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const exitOpacity = interpolate(frame, [DURATION - 30, DURATION], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   return (
     <div
@@ -40,7 +40,7 @@ export function CtaScene({ lang }: SceneProps) {
       <div style={{ width: "80%", height: "28%" }}>
         <MockWebsite activeFeature={null} mode="fixed" />
       </div>
-      <Sequence from={60}>
+      <Sequence from={40}>
         <ComplianceBadge lang={lang} />
       </Sequence>
       <p
