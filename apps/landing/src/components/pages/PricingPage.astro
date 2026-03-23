@@ -1,0 +1,234 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import PricingCard from '@/components/PricingCard.astro';
+import Button from '@/components/Button.astro';
+import { t, getLocalizedPath, type Lang } from '@/i18n';
+import { getLocalizedCanonical, getFAQSchema, getProductSchema, getBreadcrumbSchema, getWebPageSchema, SITE_URL } from '@/lib/seo';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+
+const YEARLY_DISCOUNT = 0.2;
+
+function calcYearlyTotal(monthly: number): string {
+  const total = Math.round(monthly * 12 * (1 - YEARLY_DISCOUNT));
+  return `$${total.toLocaleString('en-US')}`;
+}
+
+function calcYearlySavings(monthly: number): string {
+  const total = Math.round(monthly * 12 * (1 - YEARLY_DISCOUNT));
+  const savings = monthly * 12 - total;
+  return `$${savings.toLocaleString('en-US')}`;
+}
+
+const pricingFaqs = [
+  { question: i.pricing.faq1Q, answer: i.pricing.faq1A },
+  { question: i.pricing.faq2Q, answer: i.pricing.faq2A },
+  { question: i.pricing.faq3Q, answer: i.pricing.faq3A },
+  { question: i.pricing.faq4Q, answer: i.pricing.faq4A },
+];
+
+const productPlans = [
+  { name: i.pricing.small, description: i.pricing.smallDesc, price: '39', features: i.pricing.smallFeatures as string[] },
+  { name: i.pricing.medium, description: i.pricing.mediumDesc, price: '59', features: i.pricing.mediumFeatures as string[] },
+  { name: i.pricing.large, description: i.pricing.largeDesc, price: '119', features: i.pricing.largeFeatures as string[] },
+];
+
+const pricingSchemas = [
+  getFAQSchema(pricingFaqs),
+  ...getProductSchema(productPlans),
+  getBreadcrumbSchema([
+    { name: i.nav.home, url: SITE_URL },
+    { name: i.nav.pricing, url: getLocalizedCanonical('/pricing', lang) },
+  ]),
+  getWebPageSchema({
+    name: i.pricing.title,
+    description: i.pricing.description,
+    url: getLocalizedCanonical('/pricing', lang),
+  }),
+];
+
+const plans = [
+  {
+    name: i.pricing.small,
+    price: '$39',
+    priceYearlyTotal: calcYearlyTotal(39),
+    savings: calcYearlySavings(39),
+    period: i.pricing.perMonth,
+    periodYearly: i.pricing.perYear,
+    saveLabel: i.pricing.save,
+    description: i.pricing.smallDesc,
+    features: i.pricing.smallFeatures as string[],
+    cta: i.pricing.getStartedFree,
+    ctaHref: '#',
+    popular: false,
+    mostPopular: i.pricing.mostPopular,
+  },
+  {
+    name: i.pricing.medium,
+    price: '$59',
+    priceYearlyTotal: calcYearlyTotal(59),
+    savings: calcYearlySavings(59),
+    period: i.pricing.perMonth,
+    periodYearly: i.pricing.perYear,
+    saveLabel: i.pricing.save,
+    description: i.pricing.mediumDesc,
+    features: i.pricing.mediumFeatures as string[],
+    cta: i.pricing.startFreeTrial,
+    ctaHref: '#',
+    popular: true,
+    mostPopular: i.pricing.mostPopular,
+  },
+  {
+    name: i.pricing.large,
+    price: '$119',
+    priceYearlyTotal: calcYearlyTotal(119),
+    savings: calcYearlySavings(119),
+    period: i.pricing.perMonth,
+    periodYearly: i.pricing.perYear,
+    saveLabel: i.pricing.save,
+    description: i.pricing.largeDesc,
+    features: i.pricing.largeFeatures as string[],
+    cta: i.pricing.contactSales,
+    ctaHref: '#',
+    popular: false,
+    mostPopular: i.pricing.mostPopular,
+  },
+];
+---
+
+<BaseLayout
+  title={i.pricing.title}
+  description={i.pricing.description}
+  canonical={getLocalizedCanonical('/pricing', lang)}
+  lang={lang}
+  jsonLd={pricingSchemas}
+>
+  <!-- Hero -->
+  <section class="bg-primary-50/30 pt-20 pb-4 md:pt-28 md:pb-8">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          {i.pricing.heroTitle1}
+          <span class="text-gradient">{i.pricing.heroTitleHighlight}</span>
+        </h1>
+        <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+          {i.pricing.heroDescription}
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Pricing Cards -->
+  <Section background="white" class="!pt-12">
+    <Container>
+      <div class="flex justify-center mb-12">
+        <div class="relative flex items-center p-1 bg-gray-100 rounded-full border border-gray-200">
+          <button type="button" id="toggle-monthly" class="pricing-toggle-btn relative w-32 py-2 text-sm font-semibold text-gray-500 hover:text-gray-900 rounded-full transition-all duration-200">
+            {i.pricing.monthly}
+          </button>
+          <button type="button" id="toggle-yearly" class="pricing-toggle-btn relative w-44 py-2 text-sm font-semibold text-gray-900 bg-white rounded-full shadow-sm transition-all duration-200 flex items-center justify-center gap-2">
+            {i.pricing.yearly}
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] uppercase font-bold bg-green-100 text-green-700">
+              {i.pricing.save} %20
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-6 max-w-5xl mx-auto items-stretch">
+        {plans.map((plan) => (
+          <PricingCard {...plan} />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section background="white">
+    <Container narrow>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900">{i.pricing.faqTitle}</h2>
+      </div>
+      <div class="space-y-4">
+        {[
+          { q: i.pricing.faq1Q, a: i.pricing.faq1A },
+          { q: i.pricing.faq2Q, a: i.pricing.faq2A },
+          { q: i.pricing.faq3Q, a: i.pricing.faq3A },
+          { q: i.pricing.faq4Q, a: i.pricing.faq4A },
+        ].map(({ q, a }) => (
+          <details class="group bg-white rounded-2xl border border-gray-100 shadow-soft">
+            <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-left font-semibold text-gray-900 hover:text-primary-600 transition-colors">
+              {q}
+              <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-gray-600 leading-relaxed">{a}</div>
+          </details>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- CTA -->
+  <Section background="gray">
+    <Container narrow>
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-900">{i.pricing.customPlanTitle}</h2>
+        <p class="mt-4 text-lg text-gray-600">{i.pricing.customPlanDesc}</p>
+        <div class="mt-8">
+          <Button href="#" size="lg" data-cal-link="berkan-bugday-rdudv5/30min">{i.pricing.contactSales}</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnMonthly = document.getElementById('toggle-monthly');
+      const btnYearly = document.getElementById('toggle-yearly');
+      const monthlyDisplays = document.querySelectorAll('.price-monthly');
+      const yearlyDisplays = document.querySelectorAll('.price-yearly');
+
+      if (btnMonthly && btnYearly) {
+        btnMonthly.addEventListener('click', () => {
+          btnMonthly.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+          btnMonthly.classList.remove('text-gray-500');
+          
+          btnYearly.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+          btnYearly.classList.add('text-gray-500');
+
+          monthlyDisplays.forEach(el => {
+            el.classList.remove('hidden');
+            el.classList.add('block');
+          });
+          yearlyDisplays.forEach(el => {
+            el.classList.add('hidden');
+            el.classList.remove('block');
+          });
+        });
+
+        btnYearly.addEventListener('click', () => {
+          btnYearly.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+          btnYearly.classList.remove('text-gray-500');
+          
+          btnMonthly.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+          btnMonthly.classList.add('text-gray-500');
+
+          yearlyDisplays.forEach(el => {
+            el.classList.remove('hidden');
+            el.classList.add('block');
+          });
+          monthlyDisplays.forEach(el => {
+            el.classList.add('hidden');
+            el.classList.remove('block');
+          });
+        });
+      }
+    });
+  </script>
+</BaseLayout>

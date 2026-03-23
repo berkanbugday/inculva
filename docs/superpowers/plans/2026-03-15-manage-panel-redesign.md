@@ -11,6 +11,7 @@
 **Component size limit:** Max 150 lines per component file. Split if needed.
 
 **Design token reference:**
+
 - Primary: `blue-600` (`#0066cc`) / dark: `blue-400` (`#4d9eff`)
 - Background light: `#f8f9fc` (CSS var update) / dark: `#0e0e10`
 - Card light: `#ffffff` / dark: `#1a1a2e`
@@ -26,6 +27,7 @@
 ## Chunk 1: Design Tokens
 
 **Files:**
+
 - Modify: `packages/ui/src/globals.css`
 
 ### Task 1: Update CSS design tokens
@@ -33,13 +35,14 @@
 - [ ] **Step 1: Open `packages/ui/src/globals.css` and update `:root` and `.dark` tokens**
 
 Replace `:root` block with:
+
 ```css
 :root {
-  --background: 220 33% 98%;        /* #f8f9fc */
+  --background: 220 33% 98%; /* #f8f9fc */
   --foreground: 224 71.4% 4.1%;
-  --card: 0 0% 100%;                 /* #ffffff */
+  --card: 0 0% 100%; /* #ffffff */
   --card-foreground: 224 71.4% 4.1%;
-  --primary: 210 100% 40%;           /* #0066cc */
+  --primary: 210 100% 40%; /* #0066cc */
   --primary-foreground: 210 20% 98%;
   --secondary: 220 14.3% 95.9%;
   --secondary-foreground: 220.9 39.3% 11%;
@@ -49,7 +52,7 @@ Replace `:root` block with:
   --accent-foreground: 220.9 39.3% 11%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 20% 98%;
-  --border: 228 20% 93%;             /* #e8eaf0 */
+  --border: 228 20% 93%; /* #e8eaf0 */
   --input: 228 20% 93%;
   --ring: 210 100% 40%;
   --radius: 0.75rem;
@@ -57,13 +60,14 @@ Replace `:root` block with:
 ```
 
 Replace `.dark` block with:
+
 ```css
 .dark {
-  --background: 240 7% 6%;           /* #0e0e10 */
+  --background: 240 7% 6%; /* #0e0e10 */
   --foreground: 210 20% 98%;
-  --card: 240 28% 14%;               /* #1a1a2e */
+  --card: 240 28% 14%; /* #1a1a2e */
   --card-foreground: 210 20% 98%;
-  --primary: 210 100% 65%;           /* #4d9eff */
+  --primary: 210 100% 65%; /* #4d9eff */
   --primary-foreground: 220.9 39.3% 11%;
   --secondary: 240 19% 20%;
   --secondary-foreground: 210 20% 98%;
@@ -73,13 +77,14 @@ Replace `.dark` block with:
   --accent-foreground: 210 20% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 20% 98%;
-  --border: 240 19% 20%;             /* ~#2a2a3e (HSL approximation, visually correct) */
+  --border: 240 19% 20%; /* ~#2a2a3e (HSL approximation, visually correct) */
   --input: 240 19% 20%;
   --ring: 210 100% 65%;
 }
 ```
 
 - [ ] **Step 2: Commit**
+
 ```bash
 git add packages/ui/src/globals.css
 git commit -m "design: update CSS tokens for modern manage panel redesign"
@@ -90,6 +95,7 @@ git commit -m "design: update CSS tokens for modern manage panel redesign"
 ## Chunk 2: Shell — Sidebar, Header, Dashboard Layout
 
 **Files:**
+
 - Modify: `apps/manage/src/components/sidebar.tsx`
 - Modify: `apps/manage/src/components/dashboard-header.tsx`
 - Modify: `apps/manage/src/app/dashboard/layout.tsx`
@@ -140,13 +146,23 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
   }
 
   const initials = userName
-    ? userName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
+    ? userName
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
     : (userEmail[0]?.toUpperCase() ?? "?");
 
   return (
     <aside className="w-64 shrink-0 bg-white dark:bg-[#1a1a2e] border-r border-[#e8eaf0] dark:border-[#2a2a3e] min-h-[calc(100vh-56px)] flex flex-col overflow-y-auto">
       <nav className="flex-1 px-3 py-4 space-y-0.5">
-        <SidebarLink href="/dashboard" active={pathname === "/dashboard"} icon={<GridIcon />} label="My Websites" />
+        <SidebarLink
+          href="/dashboard"
+          active={pathname === "/dashboard"}
+          icon={<GridIcon />}
+          label="My Websites"
+        />
 
         {sites.map((site) => (
           <SiteGroup
@@ -169,18 +185,37 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
 
         <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] mx-2 my-2" />
 
-        <SidebarLink href="/dashboard/statistics" active={isActive("/dashboard/statistics")} icon={<ChartIcon />} label="Statistics" />
-        <SidebarLink href="/dashboard/settings" active={isActive("/dashboard/settings")} icon={<SettingsIcon />} label="Settings" />
+        <SidebarLink
+          href="/dashboard/statistics"
+          active={isActive("/dashboard/statistics")}
+          icon={<ChartIcon />}
+          label="Statistics"
+        />
+        <SidebarLink
+          href="/dashboard/settings"
+          active={isActive("/dashboard/settings")}
+          icon={<SettingsIcon />}
+          label="Settings"
+        />
       </nav>
 
       <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] px-4 py-4">
-        <a href="/dashboard/settings" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <a
+          href="/dashboard/settings"
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+        >
           <div className="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">
             {initials}
           </div>
           <div className="min-w-0">
-            {userName && <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{userName}</p>}
-            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{userEmail}</p>
+            {userName && (
+              <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                {userName}
+              </p>
+            )}
+            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+              {userEmail}
+            </p>
           </div>
         </a>
       </div>
@@ -200,7 +235,17 @@ Create `apps/manage/src/components/sidebar-parts.tsx` containing `SidebarLink` a
 - [ ] **Step 3: Add sub-components to `sidebar-parts.tsx`**
 
 ```tsx
-function SidebarLink({ href, active, icon, label }: { href: string; active: boolean; icon: React.ReactNode; label: string }) {
+function SidebarLink({
+  href,
+  active,
+  icon,
+  label,
+}: {
+  href: string;
+  active: boolean;
+  icon: React.ReactNode;
+  label: string;
+}) {
   return (
     <a
       href={href}
@@ -210,14 +255,25 @@ function SidebarLink({ href, active, icon, label }: { href: string; active: bool
           : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white"
       }`}
     >
-      {active && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 dark:bg-blue-400 rounded-full" aria-hidden="true" />}
+      {active && (
+        <span
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-blue-600 dark:bg-blue-400 rounded-full"
+          aria-hidden="true"
+        />
+      )}
       {icon}
       {label}
     </a>
   );
 }
 
-function SiteGroup({ site, expanded, onToggle, isActive, pathname }: {
+function SiteGroup({
+  site,
+  expanded,
+  onToggle,
+  isActive,
+  pathname,
+}: {
   site: { id: string; name: string; domain: string };
   expanded: boolean;
   onToggle: () => void;
@@ -243,8 +299,21 @@ function SiteGroup({ site, expanded, onToggle, isActive, pathname }: {
       >
         <GlobeIcon />
         <span className="flex-1 truncate text-xs">{site.domain}</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`shrink-0 transition-transform ${expanded ? "rotate-90" : ""}`} aria-hidden="true">
-          <path d="M4 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          className={`shrink-0 transition-transform ${expanded ? "rotate-90" : ""}`}
+          aria-hidden="true"
+        >
+          <path
+            d="M4 2l4 4-4 4"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
       {expanded && (
@@ -271,43 +340,148 @@ function SiteGroup({ site, expanded, onToggle, isActive, pathname }: {
 // Icons
 function GridIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-      <rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="9" y="1" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="1" y="9" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <rect
+        x="1"
+        y="1"
+        width="6"
+        height="6"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="9"
+        y="1"
+        width="6"
+        height="6"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="1"
+        y="9"
+        width="6"
+        height="6"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="9"
+        y="9"
+        width="6"
+        height="6"
+        rx="1.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
 function GlobeIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
       <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M1.5 8h13M8 1.5C6.5 3.5 5.5 5.7 5.5 8s1 4.5 2.5 6.5M8 1.5C9.5 3.5 10.5 5.7 10.5 8s-1 4.5-2.5 6.5" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M1.5 8h13M8 1.5C6.5 3.5 5.5 5.7 5.5 8s1 4.5 2.5 6.5M8 1.5C9.5 3.5 10.5 5.7 10.5 8s-1 4.5-2.5 6.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
 function ChartIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-      <rect x="1" y="9" width="3" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="6.5" y="5" width="3" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="12" y="1" width="3" height="14" rx="1" stroke="currentColor" strokeWidth="1.5" />
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <rect
+        x="1"
+        y="9"
+        width="3"
+        height="6"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="6.5"
+        y="5"
+        width="3"
+        height="10"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="12"
+        y="1"
+        width="3"
+        height="14"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
     </svg>
   );
 }
 function SettingsIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
       <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <path
+        d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 function PlusIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-      <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path
+        d="M8 2v12M2 8h12"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -343,12 +517,18 @@ export function DashboardHeader({ locale }: Props) {
     <header className="h-14 bg-white dark:bg-[#1a1a2e] border-b border-[#e8eaf0] dark:border-[#2a2a3e] px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">
       <div className="flex items-center gap-3">
         <a href="/dashboard">
-          <img src={`${CDN_URL}/logos/logo-dark.png`} alt="Inculva" className="h-7 w-auto" />
+          <img
+            src={`${CDN_URL}/logos/logo-dark.png`}
+            alt="Inculva"
+            className="h-7 w-auto"
+          />
         </a>
         {label && (
           <>
             <span className="text-gray-300 dark:text-gray-700 text-sm">/</span>
-            <span className="text-sm font-semibold text-gray-900 dark:text-white">{label}</span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              {label}
+            </span>
           </>
         )}
       </div>
@@ -361,8 +541,19 @@ export function DashboardHeader({ locale }: Props) {
           href="/dashboard/sites/new"
           className="flex items-center gap-1.5 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors ml-2"
         >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M6 1v10M1 6h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M6 1v10M1 6h10"
+              stroke="white"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
           New site
         </a>
@@ -402,7 +593,11 @@ import { DashboardHeader } from "@/components/dashboard-header";
 import { VerificationBanner } from "@/components/verification-banner";
 import { Sidebar } from "@/components/sidebar";
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect("/login");
 
@@ -430,9 +625,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       {!emailVerified && <VerificationBanner email={email} />}
       <div className="flex flex-1 overflow-hidden">
         <Sidebar sites={sites} userName={name ?? null} userEmail={email} />
-        <main className="flex-1 min-w-0 overflow-y-auto p-8">
-          {children}
-        </main>
+        <main className="flex-1 min-w-0 overflow-y-auto p-8">{children}</main>
       </div>
     </div>
   );
@@ -440,6 +633,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 ```
 
 - [ ] **Step 2: Commit**
+
 ```bash
 git add apps/manage/src/components/sidebar.tsx apps/manage/src/components/dashboard-header.tsx apps/manage/src/app/dashboard/layout.tsx
 git commit -m "design: redesign sidebar, header, and dashboard layout shell"
@@ -450,6 +644,7 @@ git commit -m "design: redesign sidebar, header, and dashboard layout shell"
 ## Chunk 3: Auth Pages
 
 **Files:**
+
 - Modify: `apps/manage/src/components/auth-brand-panel.tsx`
 - Modify: `apps/manage/src/components/oauth-buttons.tsx`
 - Modify: `apps/manage/src/app/login/page.tsx`
@@ -465,11 +660,16 @@ git commit -m "design: redesign sidebar, header, and dashboard layout shell"
 - Modify: `apps/manage/src/app/error.tsx`
 
 **Shared CSS constants (define once, use across auth pages):**
+
 ```tsx
-const inputCls = "w-full px-5 py-4 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#1a1a2e] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-shadow text-base";
-const labelCls = "block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5";
-const btnCls = "w-full py-4 px-6 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-base flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed";
-const cardCls = "bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-10 w-full max-w-md";
+const inputCls =
+  "w-full px-5 py-4 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#1a1a2e] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-shadow text-base";
+const labelCls =
+  "block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5";
+const btnCls =
+  "w-full py-4 px-6 rounded-full font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors text-base flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed";
+const cardCls =
+  "bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-10 w-full max-w-md";
 ```
 
 ### Task 5: Update auth brand panel
@@ -477,12 +677,14 @@ const cardCls = "bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-10 w-full ma
 The component already has a `gradient` prop with default `"from-blue-600 to-blue-800"`. The spec wants `from-blue-600 to-violet-600`.
 
 - [ ] **Step 1: Update `apps/manage/src/components/auth-brand-panel.tsx`** — change the default gradient prop value:
+
 ```tsx
 // Change from:
 gradient = "from-blue-600 to-blue-800",
 // To:
 gradient = "from-blue-600 to-violet-600",
 ```
+
 No other changes needed — logo, children slot, decorative circles, and standards badge are already correct.
 
 ### Task 6: Update OAuth buttons to pill shape
@@ -496,6 +698,7 @@ No other changes needed — logo, children slot, decorative circles, and standar
 - [ ] **Step 1: Update `apps/manage/src/app/login/page.tsx`**
 
 Apply the new shared constants. Key changes:
+
 - Card container: wrap form content in `<div className={cardCls}>`
 - `<main>` bg: `bg-[#f8f9fc] dark:bg-[#0e0e10]`
 - Title: `text-2xl font-black`
@@ -505,21 +708,32 @@ Apply the new shared constants. Key changes:
 - Links → keep `text-blue-600 font-semibold hover:underline`
 
 Full replacement of the `<main>` section:
+
 ```tsx
 <main className="flex-1 flex items-center justify-center p-6 bg-[#f8f9fc] dark:bg-[#0e0e10]">
   <div className={cardCls}>
     <div className="lg:hidden text-center mb-8">
-      <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva" className="h-10 w-auto mx-auto" />
+      <img
+        src={`${CDN_URL}/logos/logo.png`}
+        alt="Inculva"
+        className="h-10 w-auto mx-auto"
+      />
     </div>
 
-    <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-1">Welcome back</h1>
+    <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-1">
+      Welcome back
+    </h1>
     <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
       Sign in to manage your accessible sites.
     </p>
 
     {/* password reset success banner */}
     {passwordReset && (
-      <div role="status" aria-live="polite" className="mb-6 flex items-start gap-2.5 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-2xl px-4 py-3 text-sm text-green-700 dark:text-green-300">
+      <div
+        role="status"
+        aria-live="polite"
+        className="mb-6 flex items-start gap-2.5 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-2xl px-4 py-3 text-sm text-green-700 dark:text-green-300"
+      >
         {/* check icon */}
         Password updated. Sign in with your new password.
       </div>
@@ -528,44 +742,105 @@ Full replacement of the `<main>` section:
     <OAuthButtons callbackURL={callbackUrl} />
     <OAuthDivider />
 
-    <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Sign in to your account" className="space-y-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      aria-label="Sign in to your account"
+      className="space-y-5"
+    >
       <div>
-        <label htmlFor="email" className={labelCls}>Email address</label>
-        <input id="email" type="email" autoComplete="email" placeholder="you@example.com"
+        <label htmlFor="email" className={labelCls}>
+          Email address
+        </label>
+        <input
+          id="email"
+          type="email"
+          autoComplete="email"
+          placeholder="you@example.com"
           aria-describedby={errors.email ? "email-error" : undefined}
-          aria-invalid={!!errors.email} aria-required="true"
-          className={inputCls} {...register("email")} />
-        {errors.email && <p id="email-error" role="alert" className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.email.message}</p>}
+          aria-invalid={!!errors.email}
+          aria-required="true"
+          className={inputCls}
+          {...register("email")}
+        />
+        {errors.email && (
+          <p
+            id="email-error"
+            role="alert"
+            className="mt-1.5 text-sm text-red-600 dark:text-red-400"
+          >
+            {errors.email.message}
+          </p>
+        )}
       </div>
 
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label htmlFor="password" className="text-sm font-semibold text-gray-700 dark:text-gray-300">Password</label>
-          <a href="/forgot-password" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">Forgot password?</a>
+          <label
+            htmlFor="password"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-300"
+          >
+            Password
+          </label>
+          <a
+            href="/forgot-password"
+            className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            Forgot password?
+          </a>
         </div>
-        <input id="password" type="password" autoComplete="current-password" placeholder="••••••••"
+        <input
+          id="password"
+          type="password"
+          autoComplete="current-password"
+          placeholder="••••••••"
           aria-describedby={errors.password ? "password-error" : undefined}
-          aria-invalid={!!errors.password} aria-required="true"
-          className={inputCls} {...register("password")} />
-        {errors.password && <p id="password-error" role="alert" className="mt-1.5 text-sm text-red-600 dark:text-red-400">{errors.password.message}</p>}
+          aria-invalid={!!errors.password}
+          aria-required="true"
+          className={inputCls}
+          {...register("password")}
+        />
+        {errors.password && (
+          <p
+            id="password-error"
+            role="alert"
+            className="mt-1.5 text-sm text-red-600 dark:text-red-400"
+          >
+            {errors.password.message}
+          </p>
+        )}
       </div>
 
       {errors.root && (
-        <div role="alert" className="flex items-start gap-2.5 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3 text-sm text-red-600 dark:text-red-400">
+        <div
+          role="alert"
+          className="flex items-start gap-2.5 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-2xl px-4 py-3 text-sm text-red-600 dark:text-red-400"
+        >
           {errors.root.message}
         </div>
       )}
 
-      <button type="submit" disabled={isSubmitting} aria-busy={isSubmitting}
-        aria-label={isSubmitting ? "Signing in, please wait" : "Sign in to your account"}
-        className={btnCls}>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        aria-busy={isSubmitting}
+        aria-label={
+          isSubmitting ? "Signing in, please wait" : "Sign in to your account"
+        }
+        className={btnCls}
+      >
         {isSubmitting && <SpinnerIcon />}
         {isSubmitting ? "Signing in…" : "Sign in"}
       </button>
 
       <p className="text-center text-sm text-gray-500 dark:text-gray-400">
         Don&apos;t have an account?{" "}
-        <a href="/register" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Sign up free</a>
+        <a
+          href="/register"
+          className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+        >
+          Sign up free
+        </a>
       </p>
     </form>
   </div>
@@ -591,17 +866,24 @@ Full replacement of the `<main>` section:
 
 - [ ] **Step 1: Read `apps/manage/src/app/banned/page.tsx`**
 - [ ] **Step 2: Update to centered layout:**
+
 ```tsx
 <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex items-center justify-center p-6">
   <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-12 w-full max-w-md text-center">
     <div className="w-16 h-16 rounded-3xl bg-red-50 dark:bg-red-950 flex items-center justify-center mx-auto mb-6">
       {/* red ban icon */}
     </div>
-    <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-3">Account Suspended</h1>
+    <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-3">
+      Account Suspended
+    </h1>
     <p className="text-gray-500 dark:text-gray-400 text-sm mb-8 leading-relaxed">
-      Your account has been suspended. Contact support if you believe this is a mistake.
+      Your account has been suspended. Contact support if you believe this is a
+      mistake.
     </p>
-    <a href="mailto:support@inculva.com" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors">
+    <a
+      href="mailto:hi@inculva.com"
+      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
+    >
       Contact support
     </a>
   </div>
@@ -619,21 +901,33 @@ Each auth layout file wraps the page in a full-height container. These need the 
 
 - [ ] **Step 1: Read `apps/manage/src/app/not-found.tsx`**
 - [ ] **Step 2: Update with gradient large number:**
+
 ```tsx
 <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex items-center justify-center p-6">
   <div className="text-center">
-    <p className="text-8xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent mb-4">404</p>
-    <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-3">Page not found</h1>
-    <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">This page doesn&apos;t exist or has been moved.</p>
-    <a href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors">
+    <p className="text-8xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent mb-4">
+      404
+    </p>
+    <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-3">
+      Page not found
+    </h1>
+    <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
+      This page doesn&apos;t exist or has been moved.
+    </p>
+    <a
+      href="/dashboard"
+      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
+    >
       Back to dashboard
     </a>
   </div>
 </div>
 ```
+
 - [ ] **Step 3: Read `apps/manage/src/app/error.tsx` and apply same pattern with "Something went wrong" messaging.**
 
 - [ ] **Step 4: Commit**
+
 ```bash
 git add apps/manage/src/components/auth-brand-panel.tsx apps/manage/src/components/oauth-buttons.tsx apps/manage/src/app/login/page.tsx apps/manage/src/app/register/page.tsx apps/manage/src/app/forgot-password/page.tsx apps/manage/src/app/reset-password/page.tsx apps/manage/src/app/banned/page.tsx apps/manage/src/app/not-found.tsx apps/manage/src/app/error.tsx
 git commit -m "design: redesign auth pages with modern rounded card layout"
@@ -644,6 +938,7 @@ git commit -m "design: redesign auth pages with modern rounded card layout"
 ## Chunk 4: Dashboard Home & Site Pages
 
 **Files:**
+
 - Modify: `apps/manage/src/app/dashboard/page.tsx`
 - Modify: `apps/manage/src/app/dashboard/sites/new/page.tsx` (and wizard component)
 - Modify: `apps/manage/src/app/dashboard/sites/[id]/page.tsx` (and sub-components)
@@ -653,6 +948,7 @@ git commit -m "design: redesign auth pages with modern rounded card layout"
 - Modify: `apps/manage/src/app/dashboard/sites/[id]/delete/page.tsx`
 
 **Shared card class (use in all dashboard pages):**
+
 ```tsx
 const cardCls = "bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm";
 const sectionCls = "bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8";
@@ -663,6 +959,7 @@ const sectionCls = "bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8";
 - [ ] **Step 1: Update `apps/manage/src/app/dashboard/page.tsx`**
 
 Key changes:
+
 - Remove outer `px-6 py-8` — layout now handled by `main` in `layout.tsx` (`p-8`)
 - Page header: `text-3xl font-black`
 - Stats row: add 3 stat cards above the grid (total sites, total widget opens, total scans)
@@ -673,21 +970,39 @@ Key changes:
 - Add new site card: same dashed `rounded-3xl`
 
 Updated structure:
+
 ```tsx
 return (
   <div className="max-w-6xl">
     {/* Header */}
     <div className="flex items-center justify-between mb-8">
       <div>
-        <h1 className="text-3xl font-black text-gray-900 dark:text-white">My Websites</h1>
+        <h1 className="text-3xl font-black text-gray-900 dark:text-white">
+          My Websites
+        </h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          {sites.length === 0 ? "No sites yet" : `${sites.length} site${sites.length !== 1 ? "s" : ""} connected`}
+          {sites.length === 0
+            ? "No sites yet"
+            : `${sites.length} site${sites.length !== 1 ? "s" : ""} connected`}
         </p>
       </div>
-      <a href="/dashboard/sites/new"
-        className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-          <path d="M6 1v10M1 6h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+      <a
+        href="/dashboard/sites/new"
+        className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors"
+      >
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M6 1v10M1 6h10"
+            stroke="white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
         </svg>
         New site
       </a>
@@ -697,17 +1012,27 @@ return (
     {sites.length > 0 && (
       <div className="grid grid-cols-3 gap-6 mb-8">
         <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8">
-          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">Total sites</p>
-          <p className="text-4xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent">{sites.length}</p>
-        </div>
-        <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8">
-          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">Widget opens</p>
+          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
+            Total sites
+          </p>
           <p className="text-4xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent">
-            {sites.reduce((a, s) => a + s._count.widgetEvents, 0).toLocaleString()}
+            {sites.length}
           </p>
         </div>
         <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8">
-          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">Live sites</p>
+          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
+            Widget opens
+          </p>
+          <p className="text-4xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent">
+            {sites
+              .reduce((a, s) => a + s._count.widgetEvents, 0)
+              .toLocaleString()}
+          </p>
+        </div>
+        <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8">
+          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
+            Live sites
+          </p>
           <p className="text-4xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent">
             {sites.filter((s) => s.healthStatus === "healthy").length}
           </p>
@@ -719,51 +1044,104 @@ return (
     {sites.length === 0 ? (
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl border-2 border-dashed border-blue-200 dark:border-blue-900 p-16 text-center">
         <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center mx-auto mb-6">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-white" aria-hidden="true">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-            <path d="M12 3C10 5.5 9 8.7 9 12s1 6.5 3 9M12 3c2 2.5 3 5.7 3 9s-1 6.5-3 9M3 12h18" stroke="currentColor" strokeWidth="1.8" />
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="text-white"
+            aria-hidden="true"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            />
+            <path
+              d="M12 3C10 5.5 9 8.7 9 12s1 6.5 3 9M12 3c2 2.5 3 5.7 3 9s-1 6.5-3 9M3 12h18"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            />
           </svg>
         </div>
-        <h2 className="text-xl font-black text-gray-900 dark:text-white mb-3">Add your first site</h2>
+        <h2 className="text-xl font-black text-gray-900 dark:text-white mb-3">
+          Add your first site
+        </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-8 leading-relaxed">
-          Register your domain and get an embed snippet. Your accessibility widget goes live in under 5 minutes.
+          Register your domain and get an embed snippet. Your accessibility
+          widget goes live in under 5 minutes.
         </p>
-        <a href="/dashboard/sites/new"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors">
+        <a
+          href="/dashboard/sites/new"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors"
+        >
           Add first site
         </a>
       </div>
     ) : (
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sites.map((site) => {
-          const score = getComplianceScore(site.widgetConfig?.lastScanViolations);
+          const score = getComplianceScore(
+            site.widgetConfig?.lastScanViolations,
+          );
           const isLive = site.healthStatus === "healthy";
           const isDown = site.healthStatus === "degraded";
           return (
-            <div key={site.id}
-              className="bg-white dark:bg-[#1a1a2e] rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4">
+            <div
+              key={site.id}
+              className="bg-white dark:bg-[#1a1a2e] rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4"
+            >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950 flex items-center justify-center shrink-0">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-blue-600 dark:text-blue-400" aria-hidden="true">
-                      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-                      <path d="M12 3C10 5.5 9 8.7 9 12s1 6.5 3 9M12 3c2 2.5 3 5.7 3 9s-1 6.5-3 9M3 12h18" stroke="currentColor" strokeWidth="1.8" />
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="text-blue-600 dark:text-blue-400"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                      />
+                      <path
+                        d="M12 3C10 5.5 9 8.7 9 12s1 6.5 3 9M12 3c2 2.5 3 5.7 3 9s-1 6.5-3 9M3 12h18"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                      />
                     </svg>
                   </div>
                   <div className="min-w-0">
-                    <p className="font-bold text-gray-900 dark:text-white text-sm truncate">{site.domain}</p>
+                    <p className="font-bold text-gray-900 dark:text-white text-sm truncate">
+                      {site.domain}
+                    </p>
                     {site.name !== site.domain && (
-                      <p className="text-xs text-gray-400 truncate">{site.name}</p>
+                      <p className="text-xs text-gray-400 truncate">
+                        {site.name}
+                      </p>
                     )}
                   </div>
                 </div>
                 {site.healthStatus && (
-                  <span className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${
-                    isLive ? "bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-400"
-                    : isDown ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-400"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-500"
-                  }`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-green-500" : isDown ? "bg-red-500" : "bg-gray-400"}`} />
+                  <span
+                    className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${
+                      isLive
+                        ? "bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-400"
+                        : isDown
+                          ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-400"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-500"
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-green-500" : isDown ? "bg-red-500" : "bg-gray-400"}`}
+                    />
                     {isLive ? "Live" : isDown ? "Offline" : "Checking"}
                   </span>
                 )}
@@ -772,35 +1150,72 @@ return (
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-3">
                   <p className="text-xs text-gray-400 mb-0.5">Widget opens</p>
-                  <p className="text-lg font-black text-gray-900 dark:text-white">{site._count.widgetEvents.toLocaleString()}</p>
+                  <p className="text-lg font-black text-gray-900 dark:text-white">
+                    {site._count.widgetEvents.toLocaleString()}
+                  </p>
                 </div>
                 <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-3">
                   <p className="text-xs text-gray-400 mb-0.5">WCAG score</p>
-                  <p className={`text-sm font-bold flex items-center gap-1.5 mt-0.5 ${score.color}`}>
-                    <span className={`w-2 h-2 rounded-full shrink-0 ${score.dot}`} />
+                  <p
+                    className={`text-sm font-bold flex items-center gap-1.5 mt-0.5 ${score.color}`}
+                  >
+                    <span
+                      className={`w-2 h-2 rounded-full shrink-0 ${score.dot}`}
+                    />
                     {score.label}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 pt-2 border-t border-[#e8eaf0] dark:border-[#2a2a3e]">
-                <a href={`/dashboard/sites/${site.id}/analytics`} className="flex-1 text-center text-xs font-semibold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 py-1.5 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors">Analytics</a>
-                <a href={`/dashboard/sites/${site.id}/scan`} className="flex-1 text-center text-xs font-semibold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 py-1.5 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors">WCAG Scan</a>
-                <a href={`/dashboard/sites/${site.id}`} className="flex-1 text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors">Manage</a>
+                <a
+                  href={`/dashboard/sites/${site.id}/analytics`}
+                  className="flex-1 text-center text-xs font-semibold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 py-1.5 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
+                >
+                  Analytics
+                </a>
+                <a
+                  href={`/dashboard/sites/${site.id}/scan`}
+                  className="flex-1 text-center text-xs font-semibold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 py-1.5 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
+                >
+                  WCAG Scan
+                </a>
+                <a
+                  href={`/dashboard/sites/${site.id}`}
+                  className="flex-1 text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors"
+                >
+                  Manage
+                </a>
               </div>
             </div>
           );
         })}
 
-        <a href="/dashboard/sites/new"
-          className="bg-white dark:bg-[#1a1a2e] rounded-3xl border-2 border-dashed border-[#e8eaf0] dark:border-[#2a2a3e] p-6 flex flex-col items-center justify-center gap-3 text-center hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all group min-h-[200px]">
+        <a
+          href="/dashboard/sites/new"
+          className="bg-white dark:bg-[#1a1a2e] rounded-3xl border-2 border-dashed border-[#e8eaf0] dark:border-[#2a2a3e] p-6 flex flex-col items-center justify-center gap-3 text-center hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all group min-h-[200px]"
+        >
           <div className="w-10 h-10 rounded-2xl bg-blue-100 dark:bg-blue-950 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
-            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="text-blue-600 dark:text-blue-400" aria-hidden="true">
-              <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 16 16"
+              fill="none"
+              className="text-blue-600 dark:text-blue-400"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 2v12M2 8h12"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
             </svg>
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-700 dark:text-gray-300">Add new site</p>
+            <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
+              Add new site
+            </p>
             <p className="text-xs text-gray-400">Live in under 5 min</p>
           </div>
         </a>
@@ -853,6 +1268,7 @@ return (
 - [ ] **Step 3: Update wizard card** — `rounded-3xl shadow-sm p-10`, inputs `rounded-2xl`, next/back buttons `rounded-full`.
 
 - [ ] **Step 4: Commit**
+
 ```bash
 git add apps/manage/src/app/dashboard/
 git commit -m "design: redesign dashboard home and site management pages"
@@ -863,6 +1279,7 @@ git commit -m "design: redesign dashboard home and site management pages"
 ## Chunk 5: Settings & Utility Pages
 
 **Files:**
+
 - Modify: `apps/manage/src/app/dashboard/settings/page.tsx` + sub-components
 - Modify: `apps/manage/src/app/dashboard/settings/billing/page.tsx` + sub-components
 - Modify: `apps/manage/src/app/dashboard/settings/audit-log/page.tsx`
@@ -916,6 +1333,7 @@ git commit -m "design: redesign dashboard home and site management pages"
   - "Mark all read" button: `rounded-full border border-[#e8eaf0]`
 
 - [ ] **Final commit for Chunk 5**
+
 ```bash
 git add apps/manage/src/app/dashboard/settings/ apps/manage/src/app/dashboard/statistics/ apps/manage/src/app/dashboard/notifications/
 git commit -m "design: redesign settings, billing, audit log, statistics, and notifications pages"
@@ -926,6 +1344,7 @@ git commit -m "design: redesign settings, billing, audit log, statistics, and no
 ## Chunk 6: Shared Utility Components
 
 **Files:**
+
 - Modify: `apps/manage/src/components/verification-banner.tsx`
 - Modify: `apps/manage/src/components/cookie-banner.tsx`
 - Modify: `apps/manage/src/components/referral-banner.tsx`
@@ -946,6 +1365,7 @@ git commit -m "design: redesign settings, billing, audit log, statistics, and no
 - [ ] **Step 3: Read and update `language-switcher.tsx`** — `rounded-2xl p-2 hover:bg-gray-100`, dropdown `rounded-2xl shadow-xl border border-[#e8eaf0]`.
 
 - [ ] **Step 4: Commit**
+
 ```bash
 git add apps/manage/src/components/
 git commit -m "design: update shared banners and header micro-components"
@@ -956,16 +1376,21 @@ git commit -m "design: update shared banners and header micro-components"
 ## Final Verification
 
 - [ ] **Step 1: Run type check**
+
 ```bash
 cd apps/manage && pnpm typecheck
 ```
+
 Expected: no type errors
 
 - [ ] **Step 2: Run dev server and visually verify**
+
 ```bash
 pnpm dev
 ```
+
 Open `http://localhost:3000` and check:
+
 - [ ] Login page — gradient brand panel, rounded card form
 - [ ] Dashboard home — stats row, site cards, empty state
 - [ ] Sidebar — `w-64`, icons + labels, active pill state
@@ -974,6 +1399,7 @@ Open `http://localhost:3000` and check:
 - [ ] Dark mode toggle — all pages look correct in dark mode
 
 - [ ] **Step 3: Final commit if any last fixes needed**
+
 ```bash
 git add -p
 git commit -m "design: final polish for manage panel redesign"

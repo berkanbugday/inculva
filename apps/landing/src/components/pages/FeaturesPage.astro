@@ -1,0 +1,552 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import Card from '@/components/Card.astro';
+import Button from '@/components/Button.astro';
+import { t, getLocalizedPath, type Lang } from '@/i18n';
+import { getLocalizedCanonical, getBreadcrumbSchema, getWebPageSchema, SITE_URL } from '@/lib/seo';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
+
+const featuresSchemas = [
+  getBreadcrumbSchema([
+    { name: i.nav.home, url: SITE_URL },
+    { name: i.nav.features, url: getLocalizedCanonical('/features', lang) },
+  ]),
+  getWebPageSchema({
+    name: i.features.title,
+    description: i.features.description,
+    url: getLocalizedCanonical('/features', lang),
+  }),
+];
+---
+
+<BaseLayout
+  title={i.features.title}
+  description={i.features.description}
+  canonical={getLocalizedCanonical('/features', lang)}
+  lang={lang}
+  jsonLd={featuresSchemas}
+>
+  <!-- Hero -->
+  <section class="bg-primary-50/30 pt-20 pb-16 md:pt-28 md:pb-20">
+    <Container>
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          {i.features.heroTitle1}
+          <span class="text-gradient">{i.features.heroTitleHighlight}</span>
+        </h1>
+        <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          {i.features.heroDescription}
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Automated Scanning -->
+  <Section background="white" class="reveal-on-scroll">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+
+          <h2 class="text-3xl font-bold text-gray-900">{i.features.scanningTitle}</h2>
+          <p class="mt-4 text-gray-600 leading-relaxed">
+            {i.features.scanningDescription}
+          </p>
+          <ul class="mt-6 space-y-3">
+            {(i.features.scanningFeatures as string[]).map((item) => (
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-primary-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-[#f4f7fc] p-6 flex items-center justify-center h-full min-h-[320px] overflow-hidden relative group">
+          <!-- Abstract Background Shapes -->
+          <div class="absolute -top-32 -right-32 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-white/60 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="w-[85%] max-w-[300px] bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] overflow-hidden relative border border-white/50 z-10">
+            <!-- Mock Browser Header -->
+            <div class="h-8 border-b border-gray-100 flex items-center px-3 bg-[#f8f9fa]">
+              <div class="flex gap-1.5">
+                <div class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></div>
+              </div>
+            </div>
+            <!-- Mock Content -->
+            <div class="p-5 space-y-4 relative bg-white">
+              <div class="h-3 bg-gray-200 rounded-full w-3/4"></div>
+              <div class="space-y-2">
+                <div class="h-2 bg-gray-100 rounded-full w-full"></div>
+                <div class="h-2 bg-gray-100 rounded-full w-5/6"></div>
+                <div class="h-2 bg-gray-100 rounded-full w-4/6"></div>
+              </div>
+              <div class="pt-2 space-y-3">
+                <div class="h-12 bg-primary-50/50 rounded-lg flex items-center px-3 gap-3 border border-primary-100">
+                   <div class="w-6 h-6 rounded bg-white flex items-center justify-center shadow-sm">
+                     <svg class="w-3.5 h-3.5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                   </div>
+                   <div class="space-y-1.5 flex-1">
+                     <div class="h-1.5 bg-primary-200 rounded-full w-1/3"></div>
+                     <div class="h-1 bg-primary-100 rounded-full w-1/4"></div>
+                   </div>
+                </div>
+                <div class="h-12 bg-gray-50 rounded-lg flex items-center px-3 gap-3 border border-gray-100">
+                   <div class="w-6 h-6 rounded bg-white flex items-center justify-center shadow-sm">
+                     <div class="w-3 h-3 bg-gray-200 rounded-sm"></div>
+                   </div>
+                   <div class="space-y-1.5 flex-1">
+                     <div class="h-1.5 bg-gray-200 rounded-full w-1/2"></div>
+                     <div class="h-1 bg-gray-100 rounded-full w-1/3"></div>
+                   </div>
+                </div>
+              </div>
+              
+              <!-- Scanner Line -->
+              <div class="absolute top-0 left-0 right-0 h-0.5 bg-primary-500 shadow-[0_0_12px_rgba(0,102,204,0.8)] animate-scan-vertical z-10"></div>
+              <!-- Scanning Highlight Box -->
+              <div class="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary-500/0 to-primary-500/10 border-b border-primary-500/20 animate-scan-box-vertical z-0 pointer-events-none"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Automated Fixes -->
+  <Section background="gray" class="reveal-on-scroll">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1 rounded-2xl border border-gray-100 bg-[#f4f7fc] p-6 flex flex-col items-center justify-center h-full min-h-[320px] overflow-hidden relative group">
+          <!-- Abstract Background Shapes -->
+          <div class="absolute -top-32 -right-32 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-white/60 rounded-full blur-3xl pointer-events-none"></div>
+
+           <div class="w-[85%] max-w-[260px] bg-[#f8f9fa] rounded-xl shadow-[0_12px_40px_rgba(0,0,0,0.12)] flex flex-col overflow-hidden border border-gray-200/50 relative z-10 transition-transform duration-300 hover:-translate-y-1">
+             <!-- Header -->
+             <div class="bg-[#0066cc] text-white px-3 py-2.5 flex items-center justify-between">
+               <div class="text-[11px] font-bold tracking-wide flex items-center gap-1.5 flex-1">
+                 <img src={`${CDN_URL}/logos/logo-icon.png`} class="w-3.5 h-3.5 brightness-0 invert" alt="" />
+                 {i.home?.widgetMenuTitle || 'Erişilebilirlik Menüsü'}
+               </div>
+               <div class="w-4 h-4 rounded bg-white/20 flex items-center justify-center shrink-0">
+                 <img src={`${CDN_URL}/icons/x.svg`} class="w-2 h-2 brightness-0 invert" alt="" />
+               </div>
+             </div>
+             <!-- Toolbar -->
+             <div class="px-2.5 py-2 bg-[#f0f2f5] border-b border-gray-200">
+               <div class="w-full h-6 bg-white rounded border border-gray-300 flex items-center px-2 justify-between">
+                 <div class="flex items-center gap-1.5">
+                   <img src={`${CDN_URL}/icons/user.svg`} class="w-3 h-3 opacity-70" alt="" />
+                   <span class="text-[9px] text-gray-700 font-medium">{i.home?.widgetProfiles || 'Profiller'}</span>
+                 </div>
+                 <img src={`${CDN_URL}/icons/chevron-down.svg`} class="w-2.5 h-2.5 opacity-50" alt="" />
+               </div>
+             </div>
+             <!-- Grid Content -->
+             <div class="p-2.5 bg-[#f8f9fa] grid grid-cols-2 gap-2">
+               <!-- Theme Toggle -->
+               <div class="toggle-dark-mock bg-white border border-gray-200 rounded-lg flex flex-col items-center justify-center p-3 text-center shadow-sm relative transition-colors duration-300 h-24">
+                 <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mb-2 toggle-dark-icon-bg transition-colors duration-300">
+                   <img src={`${CDN_URL}/icons/moon.svg`} class="w-4 h-4 opacity-70 toggle-dark-icon-mock transition-all duration-300" alt="" />
+                 </div>
+                 <span class="text-[9px] font-medium text-gray-700 toggle-dark-label-mock leading-tight">{i.home?.widgetDarkMode || 'Karanlık Mod'}</span>
+               </div>
+               <!-- Dyslexia Toggle -->
+               <div class="toggle-dyslexia-mock bg-white border border-gray-200 rounded-lg flex flex-col items-center justify-center p-3 text-center shadow-sm relative transition-colors duration-300 h-24">
+                 <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mb-2 toggle-dyslexia-icon-bg transition-colors duration-300">
+                   <img src={`${CDN_URL}/icons/df.svg`} class="w-4 h-4 opacity-70 toggle-dyslexia-icon-mock transition-all duration-300" alt="" />
+                 </div>
+                 <span class="text-[9px] font-medium text-gray-700 toggle-dyslexia-label-mock leading-tight">{i.home?.widgetDyslexia || 'Disleksi Modu'}</span>
+               </div>
+             </div>
+           </div>
+           <!-- Animated Cursor -->
+           <div class="absolute z-50 w-7 h-7 drop-shadow-lg pointer-events-none animate-mock-click-fixes" style="top: 50%; left: 50%">
+             <img src={`${CDN_URL}/icons/arrow-pointer-bold.svg`} alt="" class="w-full h-full" />
+             <div class="absolute top-0 left-0 w-6 h-6 rounded-full bg-[#0066cc]/40 scale-0 opacity-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-mock-ripple"></div>
+           </div>
+        </div>
+        <div class="order-1 lg:order-2">
+
+          <h2 class="text-3xl font-bold text-gray-900">{i.features.fixesTitle}</h2>
+          <p class="mt-4 text-gray-600 leading-relaxed">
+            {i.features.fixesDescription}
+          </p>
+          <ul class="mt-6 space-y-3">
+            {(i.features.fixesFeatures as string[]).map((item) => (
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Monitoring -->
+  <Section background="white" class="reveal-on-scroll">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+
+          <h2 class="text-3xl font-bold text-gray-900">{i.features.monitoringTitle}</h2>
+          <p class="mt-4 text-gray-600 leading-relaxed">
+            {i.features.monitoringDescription}
+          </p>
+          <ul class="mt-6 space-y-3">
+            {(i.features.monitoringFeatures as string[]).map((item) => (
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-primary-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-gray-100 bg-[#f4f7fc] p-6 flex flex-col items-center justify-center h-full min-h-[320px] overflow-hidden relative group">
+          <!-- Abstract Background Shapes -->
+          <div class="absolute -top-32 -right-32 w-80 h-80 bg-blue-100/40 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-white/60 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white p-7 w-[90%] max-w-[300px] flex flex-col items-center relative z-10 transition-transform duration-300 group-hover:-translate-y-1">
+             
+             <!-- Radar Circle -->
+             <div class="w-[100px] h-[100px] mt-2 mb-5 relative z-10 flex items-center justify-center">
+               <!-- Outer ring track -->
+               <div class="absolute inset-0 rounded-full border-2 border-[#d2e3fc]"></div>
+               <!-- Mid ring -->
+               <div class="absolute inset-[14px] rounded-full border border-[#e8f0fe]"></div>
+               <!-- Center dot -->
+               <div class="absolute w-1.5 h-1.5 bg-[#0066cc] rounded-full z-10"></div>
+               <!-- Cross hairs -->
+               <div class="absolute inset-0 flex items-center justify-center">
+                 <div class="w-full h-px bg-[#d2e3fc]/60"></div>
+               </div>
+               <div class="absolute inset-0 flex items-center justify-center">
+                 <div class="h-full w-px bg-[#d2e3fc]/60"></div>
+               </div>
+               <!-- Radar sweep -->
+               <div class="absolute inset-0 rounded-full overflow-hidden">
+                 <div class="w-full h-full animate-radar-sweep" style="background: conic-gradient(from 0deg, transparent 0deg, rgba(0,102,204,0.15) 30deg, rgba(0,102,204,0.5) 60deg, #0066cc 60deg, #0066cc 63deg, transparent 63deg);"></div>
+               </div>
+               <!-- Score text -->
+             </div>
+             
+             <div class="text-[17px] text-[#2c3e50] font-bold mb-2.5 text-center">{i.features?.monitoring247 || '24/7 Monitoring'}</div>
+             <div class="text-[10px] font-bold bg-[#effaf3] text-[#1aa053] px-3.5 py-1 rounded-full flex items-center gap-1.5 mb-2">
+               <div class="w-1.5 h-1.5 bg-[#1aa053] rounded-full"></div> {i.home.healthy}
+             </div>
+             
+             <div class="mt-4 w-full space-y-2.5">
+               <div class="flex justify-between items-center text-[11px] bg-[#fafafa] px-3 py-2.5 rounded-[8px] border border-gray-100/80">
+                 <span class="text-[#4a5568] font-bold tracking-wide">WCAG 2.1 AA</span>
+                 <svg class="w-3.5 h-3.5 text-[#1aa053]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+               </div>
+               <div class="flex justify-between items-center text-[11px] bg-[#fafafa] px-3 py-2.5 rounded-[8px] border border-gray-100/80">
+                 <span class="text-[#4a5568] font-bold tracking-wide">ADA Compliance</span>
+                 <svg class="w-3.5 h-3.5 text-[#1aa053]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Integration Section -->
+  <section class="bg-gray-900 py-14 md:py-20 overflow-hidden reveal-on-scroll" id="integrations">
+    <Container>
+      <div class="text-center mb-10 md:mb-14">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white">{i.features.worksWithTitle}</h2>
+        <p class="mt-3 text-gray-400 text-base max-w-lg mx-auto">{i.features.worksWithDescription}</p>
+      </div>
+    </Container>
+
+    <!-- Carousel Row 1 — scrolls left -->
+    <div class="relative">
+      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="marquee-track">
+        <div class="marquee-scroll">
+          {[
+            { name: 'React', icon: 'react', color: '61DAFB' },
+            { name: 'Next.js', icon: 'nextdotjs', color: 'FFFFFF' },
+            { name: 'Vue.js', icon: 'vuedotjs', color: '4FC08D' },
+            { name: 'Angular', icon: 'angular', color: 'DD0031' },
+            { name: 'Svelte', icon: 'svelte', color: 'FF3E00' },
+            { name: 'WordPress', icon: 'wordpress', color: '21759B' },
+            { name: 'Shopify', icon: 'shopify', color: '7AB55C' },
+            { name: 'Wix', icon: 'wix', color: '0C6EFC' },
+            { name: 'Squarespace', icon: 'squarespace', color: 'FFFFFF' },
+            { name: 'Webflow', icon: 'webflow', color: '4353FF' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt={name} class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+          {[
+            { name: 'React', icon: 'react', color: '61DAFB' },
+            { name: 'Next.js', icon: 'nextdotjs', color: 'FFFFFF' },
+            { name: 'Vue.js', icon: 'vuedotjs', color: '4FC08D' },
+            { name: 'Angular', icon: 'angular', color: 'DD0031' },
+            { name: 'Svelte', icon: 'svelte', color: 'FF3E00' },
+            { name: 'WordPress', icon: 'wordpress', color: '21759B' },
+            { name: 'Shopify', icon: 'shopify', color: '7AB55C' },
+            { name: 'Wix', icon: 'wix', color: '0C6EFC' },
+            { name: 'Squarespace', icon: 'squarespace', color: 'FFFFFF' },
+            { name: 'Webflow', icon: 'webflow', color: '4353FF' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item" aria-hidden="true">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt="" class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Row 2 — scrolls right -->
+    <div class="relative mt-5">
+      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-900 to-transparent z-10 pointer-events-none"></div>
+      <div class="marquee-track">
+        <div class="marquee-scroll marquee-reverse">
+          {[
+            { name: 'Drupal', icon: 'drupal', color: '0678BE' },
+            { name: 'Joomla', icon: 'joomla', color: '5091CD' },
+            { name: 'BigCommerce', icon: 'bigcommerce', color: '121118' },
+            { name: 'Gatsby', icon: 'gatsby', color: '663399' },
+            { name: 'Nuxt', icon: 'nuxt', color: '00DC82' },
+            { name: 'Astro', icon: 'astro', color: 'BC52EE' },
+            { name: 'Laravel', icon: 'laravel', color: 'FF2D20' },
+            { name: 'Ruby on Rails', icon: 'rubyonrails', color: 'D30001' },
+            { name: 'Django', icon: 'django', color: '092E20' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt={name} class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+          {[
+            { name: 'Drupal', icon: 'drupal', color: '0678BE' },
+            { name: 'Joomla', icon: 'joomla', color: '5091CD' },
+            { name: 'BigCommerce', icon: 'bigcommerce', color: '121118' },
+            { name: 'Gatsby', icon: 'gatsby', color: '663399' },
+            { name: 'Nuxt', icon: 'nuxt', color: '00DC82' },
+            { name: 'Astro', icon: 'astro', color: 'BC52EE' },
+            { name: 'Laravel', icon: 'laravel', color: 'FF2D20' },
+            { name: 'Ruby on Rails', icon: 'rubyonrails', color: 'D30001' },
+            { name: 'Django', icon: 'django', color: '092E20' },
+          ].map(({ name, icon, color }) => (
+            <div class="marquee-item" aria-hidden="true">
+              <img src={`https://cdn.simpleicons.org/${icon}/${color}`} alt="" class="w-7 h-7" loading="lazy" />
+              <span class="text-sm font-medium text-gray-300">{name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style is:global>
+    @keyframes scan-vertical {
+      0%, 100% { top: 0; }
+      50% { top: 100%; }
+    }
+    .animate-scan-vertical { animation: scan-vertical 3s ease-in-out infinite; }
+    
+    @keyframes scan-box-vertical {
+      0%, 100% { top: 0; opacity: 1; }
+      50% { top: calc(100% - 4rem); opacity: 0.5; }
+    }
+    .animate-scan-box-vertical { animation: scan-box-vertical 3s ease-in-out infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%) translateY(0px); }
+      50% { transform: translateY(-50%) translateY(-10px); }
+    }
+    .animate-float { animation: float 4s ease-in-out infinite; }
+
+    @keyframes mockClickFixes {
+      0%, 10% { top: 50%; left: 50%; opacity: 0; }
+      12% { opacity: 1; }
+      20%, 35% { top: 57%; left: 28%; opacity: 1; }
+      49% { opacity: 1; }
+      51% { opacity: 1; }
+      55%, 70% { top: 57%; left: 68%; opacity: 1; }
+      82% { opacity: 1; }
+      85%, 100% { top: 50%; left: 50%; opacity: 0; }
+    }
+    .animate-mock-click-fixes { animation: mockClickFixes 8s infinite ease-in-out; }
+    
+    @keyframes mockRipple {
+      0%, 24% { transform: scale(0); opacity: 0; }
+      25% { transform: scale(0.5); opacity: 1; }
+      30% { transform: scale(2); opacity: 0; }
+      59% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(0.5); opacity: 1; }
+      65% { transform: scale(2); opacity: 0; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+    .animate-mock-ripple { animation: mockRipple 8s infinite; }
+
+    @keyframes toggleDarkMockCard {
+      0%, 24.9% { background-color: #ffffff; border-color: #e5e7eb; }
+      25%, 84.9% { background-color: #0066cc; border-color: #0066cc; }
+      85%, 100% { background-color: #ffffff; border-color: #e5e7eb; }
+    }
+    .toggle-dark-mock { animation: toggleDarkMockCard 8s infinite; }
+    
+    @keyframes toggleDarkMockLabel {
+      0%, 24.9% { color: #374151; }
+      25%, 84.9% { color: #ffffff; }
+      85%, 100% { color: #374151; }
+    }
+    .toggle-dark-label-mock { animation: toggleDarkMockLabel 8s infinite; }
+
+    @keyframes toggleDarkMockIcon {
+      0%, 24.9% { filter: invert(0) opacity(0.7); }
+      25%, 84.9% { filter: invert(1) grayscale(1) brightness(2) opacity(1); }
+      85%, 100% { filter: invert(0) opacity(0.7); }
+    }
+    .toggle-dark-icon-mock { animation: toggleDarkMockIcon 8s infinite; }
+    
+    @keyframes toggleDarkIconBg {
+      0%, 24.9% { background-color: #f9fafb; }
+      25%, 84.9% { background-color: rgba(255,255,255,0.2); }
+      85%, 100% { background-color: #f9fafb; }
+    }
+    .toggle-dark-icon-bg { animation: toggleDarkIconBg 8s infinite; }
+
+    @keyframes toggleDyslexiaMockCard {
+      0%, 59.9% { background-color: #ffffff; border-color: #e5e7eb; }
+      60%, 84.9% { background-color: #0066cc; border-color: #0066cc; }
+      85%, 100% { background-color: #ffffff; border-color: #e5e7eb; }
+    }
+    .toggle-dyslexia-mock { animation: toggleDyslexiaMockCard 8s infinite; }
+    
+    @keyframes toggleDyslexiaMockLabel {
+      0%, 59.9% { color: #374151; }
+      60%, 84.9% { color: #ffffff; }
+      85%, 100% { color: #374151; }
+    }
+    .toggle-dyslexia-label-mock { animation: toggleDyslexiaMockLabel 8s infinite; }
+
+    @keyframes toggleDyslexiaMockIcon {
+      0%, 59.9% { filter: invert(0) opacity(0.7); }
+      60%, 84.9% { filter: invert(1) grayscale(1) brightness(2) opacity(1); }
+      85%, 100% { filter: invert(0) opacity(0.7); }
+    }
+    .toggle-dyslexia-icon-mock { animation: toggleDyslexiaMockIcon 8s infinite; }
+    
+    @keyframes toggleDyslexiaIconBg {
+      0%, 59.9% { background-color: #f9fafb; }
+      60%, 84.9% { background-color: rgba(255,255,255,0.2); }
+      85%, 100% { background-color: #f9fafb; }
+    }
+    .toggle-dyslexia-icon-bg { animation: toggleDyslexiaIconBg 8s infinite; }
+
+    @keyframes pingSlow {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { opacity: 0.6; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .animate-ping-slow { animation: pingSlow 3s cubic-bezier(0, 0, 0.2, 1) infinite; }
+    
+    @keyframes strokeDash {
+      0% { stroke-dasharray: 0, 100; }
+      100% { stroke-dasharray: 98, 100; }
+    }
+    .animate-stroke-dash { animation: strokeDash 2s ease-out forwards; }
+
+    @keyframes radarSweep {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-radar-sweep { animation: radarSweep 3s linear infinite; }
+
+    @keyframes spinSlow {
+      from { transform: rotate(-90deg); }
+      to { transform: rotate(270deg); }
+    }
+    .animate-spin-slow { animation: spinSlow 8s linear infinite; }
+
+    @keyframes dashPulse {
+      0%, 100% { stroke-dasharray: 88, 100; opacity: 1; }
+      50% { stroke-dasharray: 70, 100; opacity: 0.8; }
+    }
+    .animate-dash-pulse { animation: dashPulse 3s ease-in-out infinite; }
+  </style>
+
+  <style>
+    .marquee-track {
+      overflow: hidden;
+      width: 100%;
+    }
+    .marquee-scroll {
+      display: flex;
+      width: max-content;
+      animation: marquee-left 35s linear infinite;
+    }
+    .marquee-reverse {
+      animation: marquee-right 35s linear infinite;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.5rem;
+      margin: 0 0.375rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .marquee-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    @keyframes marquee-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marquee-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-scroll {
+        animation: none;
+      }
+    }
+  </style>
+
+  <!-- CTA -->
+  <Section background="white" class="reveal-on-scroll">
+    <Container narrow>
+      <div class="text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">{i.features.ctaTitle}</h2>
+        <p class="mt-4 text-lg text-gray-600">{i.features.ctaDescription}</p>
+        <div class="mt-8">
+          <Button href="#" size="lg" data-cal-link="berkan-bugday-rdudv5/30min">{i.features.startFreeTrial}</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,142 @@
+---
+import SEOHead from '@/components/SEOHead.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import { getOrganizationSchema, getWebSiteSchema, getHreflangAlternates } from '@/lib/seo';
+import { getLangFromUrl, getPathWithoutLang, type Lang } from '@/i18n';
+import '@/styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  publishedAt?: string;
+  jsonLd?: Record<string, any> | Record<string, any>[];
+  lang?: Lang;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType,
+  noindex,
+  publishedAt,
+  jsonLd,
+  lang: langProp,
+} = Astro.props;
+
+const lang = langProp ?? getLangFromUrl(Astro.url);
+const rawPath = getPathWithoutLang(Astro.url.pathname);
+const pagePath = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
+const hreflangAlternates = getHreflangAlternates(pagePath);
+
+const globalSchemas = [getOrganizationSchema(), getWebSiteSchema()];
+const allSchemas = jsonLd
+  ? [...globalSchemas, ...(Array.isArray(jsonLd) ? jsonLd : [jsonLd])]
+  : globalSchemas;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHVDSSZ752" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KHVDSSZ752');
+    </script>
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Hreflang alternate links for SEO -->
+    {hreflangAlternates.map(({ lang: hrefLang, url }) => (
+      <link rel="alternate" hreflang={hrefLang} href={url} />
+    ))}
+
+    <SEOHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+      publishedAt={publishedAt}
+      jsonLd={allSchemas}
+    />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:shadow-lg">
+      Skip to main content
+    </a>
+
+    <Navbar lang={lang} />
+
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+
+    <!-- Cal.com Embed -->
+    <script is:inline>
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", {origin:"https://cal.eu"});
+      Cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    </script>
+    <script is:inline>
+      document.addEventListener('click', function(e) {
+        const btn = e.target.closest('[data-cal-link]');
+        if (btn && window.Cal) {
+          e.preventDefault();
+          Cal("openModal", { calLink: btn.getAttribute('data-cal-link') });
+        }
+      });
+    </script>
+
+    <script>
+      function initScrollAnimations() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.setAttribute('data-visible', 'true');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px',
+          }
+        );
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      // Run on initial load
+      initScrollAnimations();
+
+      // Run on ViewTransition navigation if added
+      document.addEventListener('astro:after-swap', initScrollAnimations);
+    </script>
+  </body>
+</html>

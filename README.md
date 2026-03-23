@@ -1,6 +1,6 @@
 # Inculva
 
-> WCAG-compliant SaaS accessibility widget platform — embed one script tag to give your visitors 16 accessibility features.
+> WCAG-compliant SaaS accessibility widget platform — embed one script tag to give your visitors 24 accessibility features.
 
 [![CI](https://github.com/inculva/inculva/actions/workflows/ci.yml/badge.svg)](https://github.com/inculva/inculva/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
@@ -29,6 +29,7 @@
 Inculva is a full-stack SaaS platform that provides a drop-in accessibility widget for any website. Site owners register, add their domain, and paste one `<script>` tag. Their visitors get a floating panel with 16 WCAG-compliant accessibility features — no page rebuild required.
 
 **Key features:**
+
 - 16 WCAG-mapped accessibility features (text resizing, high contrast, dyslexia font, color-blind mode, etc.)
 - 41-language widget panel (including RTL: Arabic, Hebrew, Farsi, Urdu)
 - Real-time analytics dashboard (feature usage, session tracking, domain loads)
@@ -59,20 +60,20 @@ inculva/                          ← Turborepo + pnpm workspaces root
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Monorepo | Turborepo 2, pnpm 9 workspaces |
-| Language | TypeScript 5.7 (strict ESM) |
-| Database | PostgreSQL 17, Prisma ORM 6 |
-| Backend API | Fastify 5 (Railway.app) |
-| Frontend | Next.js 15 App Router, React 19 (Vercel) |
-| Auth | Better Auth 1.2 (email+password, HTTP-only sessions) |
-| Billing | LemonSqueezy (hosted checkout, HMAC webhooks) |
-| Email | Resend |
-| Widget | Vite IIFE bundle → Cloudflare R2 CDN |
-| Styling | Tailwind CSS 4 |
-| CI/CD | GitHub Actions |
-| Local dev | Docker Compose (Postgres 17 + pgAdmin) |
+| Layer       | Technology                                           |
+| ----------- | ---------------------------------------------------- |
+| Monorepo    | Turborepo 2, pnpm 9 workspaces                       |
+| Language    | TypeScript 5.7 (strict ESM)                          |
+| Database    | PostgreSQL 17, Prisma ORM 6                          |
+| Backend API | Fastify 5 (Railway.app)                              |
+| Frontend    | Next.js 15 App Router, React 19 (Vercel)             |
+| Auth        | Better Auth 1.2 (email+password, HTTP-only sessions) |
+| Billing     | LemonSqueezy (hosted checkout, HMAC webhooks)        |
+| Email       | Resend                                               |
+| Widget      | Vite IIFE bundle → Cloudflare R2 CDN                 |
+| Styling     | Tailwind CSS 4                                       |
+| CI/CD       | GitHub Actions                                       |
+| Local dev   | Docker Compose (Postgres 17 + pgAdmin)               |
 
 ---
 
@@ -116,12 +117,12 @@ make dev
 
 This starts Postgres in Docker and all dev servers concurrently via Turborepo:
 
-| Service | URL |
-|---|---|
-| Next.js dashboard | http://localhost:3000 |
-| Fastify API | http://localhost:3001 |
-| pgAdmin | http://localhost:5050 |
-| Prisma Studio | http://localhost:5555 (run `make db-studio`) |
+| Service           | URL                                          |
+| ----------------- | -------------------------------------------- |
+| Next.js dashboard | http://localhost:3000                        |
+| Fastify API       | http://localhost:3001                        |
+| pgAdmin           | http://localhost:5050                        |
+| Prisma Studio     | http://localhost:5555 (run `make db-studio`) |
 
 ### 5. Seed demo data (optional)
 
@@ -129,7 +130,7 @@ This starts Postgres in Docker and all dev servers concurrently via Turborepo:
 make seed
 ```
 
-Creates `demo@inculva.com` user with a sample site at `demo.example.com`.
+Creates `hi@inculva.com` user with a sample site at `demo.example.com`.
 
 ---
 
@@ -158,7 +159,7 @@ BETTER_AUTH_URL=http://localhost:3000
 
 # Email
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Inculva <noreply@inculva.com>
+EMAIL_FROM=Inculva <hi@inculva.com>
 
 # Billing
 LEMONSQUEEZY_API_KEY=eyJ...
@@ -210,26 +211,26 @@ pnpm lint         # run ESLint across all packages
 
 ### Makefile (recommended for daily dev)
 
-| Command | Description |
-|---|---|
-| `make setup` | One-time first-run setup |
-| `make dev` | Start Docker + all dev servers |
-| `make db-up` | Start Docker Compose (Postgres + pgAdmin) |
-| `make db-down` | Stop Docker Compose |
-| `make db-reset` | Wipe DB volumes + re-migrate |
-| `make db-studio` | Open Prisma Studio (port 5555) |
-| `make migrate` | Run Prisma migrations |
-| `make seed` | Seed demo data |
+| Command          | Description                               |
+| ---------------- | ----------------------------------------- |
+| `make setup`     | One-time first-run setup                  |
+| `make dev`       | Start Docker + all dev servers            |
+| `make db-up`     | Start Docker Compose (Postgres + pgAdmin) |
+| `make db-down`   | Stop Docker Compose                       |
+| `make db-reset`  | Wipe DB volumes + re-migrate              |
+| `make db-studio` | Open Prisma Studio (port 5555)            |
+| `make migrate`   | Run Prisma migrations                     |
+| `make seed`      | Seed demo data                            |
 
 ### pnpm / Turborepo
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start all dev servers (Turborepo TUI) |
-| `pnpm build` | Build all packages |
-| `pnpm typecheck` | TypeScript check all packages |
-| `pnpm lint` | Lint all packages |
-| `pnpm clean` | Remove all build outputs |
+| Command          | Description                           |
+| ---------------- | ------------------------------------- |
+| `pnpm dev`       | Start all dev servers (Turborepo TUI) |
+| `pnpm build`     | Build all packages                    |
+| `pnpm typecheck` | TypeScript check all packages         |
+| `pnpm lint`      | Lint all packages                     |
+| `pnpm clean`     | Remove all build outputs              |
 
 ---
 
@@ -270,12 +271,12 @@ For a deep-dive see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Deployment
 
-| Service | Platform | Trigger |
-|---|---|---|
-| `apps/api` | Railway.app (Docker) | Push to `main` |
-| `apps/web` | Vercel | Push to `main` |
-| `packages/widget` CDN | Cloudflare R2 | Push to `main` (widget src changes only) |
-| Database | Railway PostgreSQL | Managed |
+| Service               | Platform             | Trigger                                  |
+| --------------------- | -------------------- | ---------------------------------------- |
+| `apps/api`            | Railway.app (Docker) | Push to `main`                           |
+| `apps/web`            | Vercel               | Push to `main`                           |
+| `packages/widget` CDN | Cloudflare R2        | Push to `main` (widget src changes only) |
+| Database              | Railway PostgreSQL   | Managed                                  |
 
 For full deployment instructions see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
@@ -283,26 +284,26 @@ For full deployment instructions see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Documentation
 
-| Document | Description |
-|---|---|
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design, data flow, key decisions |
-| [docs/API.md](docs/API.md) | Full API reference (all endpoints) |
-| [docs/DATABASE.md](docs/DATABASE.md) | Schema reference, indexes, relations |
-| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Production deployment guide |
-| [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | Development workflow and conventions |
-| [apps/api/README.md](apps/api/README.md) | Fastify API service docs |
-| [apps/web/README.md](apps/web/README.md) | Next.js dashboard docs |
-| [packages/widget/README.md](packages/widget/README.md) | Embeddable widget docs |
+| Document                                               | Description                             |
+| ------------------------------------------------------ | --------------------------------------- |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)           | System design, data flow, key decisions |
+| [docs/API.md](docs/API.md)                             | Full API reference (all endpoints)      |
+| [docs/DATABASE.md](docs/DATABASE.md)                   | Schema reference, indexes, relations    |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)               | Production deployment guide             |
+| [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)           | Development workflow and conventions    |
+| [apps/api/README.md](apps/api/README.md)               | Fastify API service docs                |
+| [apps/web/README.md](apps/web/README.md)               | Next.js dashboard docs                  |
+| [packages/widget/README.md](packages/widget/README.md) | Embeddable widget docs                  |
 
 ---
 
 ## Plans & Billing
 
-| Plan | Sites | Events/month | Team members | Price |
-|---|---|---|---|---|
-| Free | 1 | 10,000 | — | $0 |
-| Pro | 10 | 100,000 | 5 | $19/mo |
-| Business | Unlimited | Unlimited | Unlimited | $49/mo |
+| Plan     | Sites     | Events/month | Team members | Price  |
+| -------- | --------- | ------------ | ------------ | ------ |
+| Free     | 1         | 10,000       | —            | $0     |
+| Pro      | 10        | 100,000      | 5            | $19/mo |
+| Business | Unlimited | Unlimited    | Unlimited    | $49/mo |
 
 Billing is fully integrated with LemonSqueezy via signed webhooks. On upgrade, the `User.plan` field and `Subscription` record are updated automatically.
 

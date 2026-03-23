@@ -15,7 +15,7 @@ env:
   NEXT_PUBLIC_API_URL: http://localhost:3001
   NEXT_PUBLIC_WIDGET_URL: http://localhost:3000/widget.js
   RESEND_API_KEY: re_ci_placeholder
-  EMAIL_FROM: "Inculva <noreply@inculva.com>"
+  EMAIL_FROM: "Inculva <hi@inculva.com>"
   LEMONSQUEEZY_API_KEY: eyJ_ci_placeholder
   LEMONSQUEEZY_STORE_ID: "12345"
   LEMONSQUEEZY_WEBHOOK_SECRET: ci_webhook_secret_placeholder

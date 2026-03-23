@@ -1,0 +1,83 @@
+---
+import Container from './Container.astro';
+import { t, getLangFromUrl, getLocalizedPath, type Lang } from '@/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
+const i = t(lang);
+
+const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
+
+const footerLinks = {
+  [i.footer.product]: [
+    { label: i.footer.home, href: getLocalizedPath('/', lang) },
+    { label: i.footer.features, href: getLocalizedPath('/features', lang) },
+    { label: i.footer.pricing, href: getLocalizedPath('/pricing', lang) },
+    { label: i.footer.integrations, href: getLocalizedPath('/features', lang) + '#integrations' },
+  ],
+  [i.footer.company]: [
+    { label: i.footer.about, href: getLocalizedPath('/about', lang) },
+    { label: i.footer.contact, href: getLocalizedPath('/contact', lang) },
+    { label: i.footer.privacyPolicy, href: getLocalizedPath('/privacy-policy', lang) },
+  ],
+};
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 text-gray-300" role="contentinfo">
+  <Container>
+    <div class="py-16 lg:py-20">
+      <!-- Top -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-1">
+          <a href={getLocalizedPath('/', lang)} class="inline-flex items-center gap-2 mb-4" aria-label="Inculva home">
+            <img src="/logo.png" alt="Inculva Logo" class="w-40 object-contain" />
+          </a>
+          <p class="text-sm text-gray-400 leading-relaxed max-w-xs">
+            {i.footer.description}
+          </p>
+        </div>
+
+        <!-- Link Columns -->
+        {Object.entries(footerLinks).map(([category, links]) => (
+          <div>
+            <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">{category}</h3>
+            <ul class="space-y-3" role="list">
+              {links.map(({ label, href }) => (
+                <li>
+                  <a href={href} class="text-sm text-gray-400 hover:text-white transition-colors">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Bottom -->
+      <div class="mt-16 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-gray-500">
+          &copy; {currentYear} {i.footer.copyright}
+        </p>
+        <div class="flex items-center gap-4">
+          <a href="https://youtube.com/@inculva" target="_blank" class="text-gray-500 hover:text-white transition-colors" aria-label="YouTube">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="https://x.com/inculva" target="_blank" class="text-gray-500 hover:text-white transition-colors" aria-label="X">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</footer>

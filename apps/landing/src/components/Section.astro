@@ -1,0 +1,19 @@
+---
+export interface Props {
+  id?: string;
+  class?: string;
+  background?: 'white' | 'gray' | 'gradient';
+}
+
+const { id, class: className = '', background = 'white' } = Astro.props;
+
+const bgClasses = {
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  gradient: 'bg-primary-50/30',
+};
+---
+
+<section id={id} class={`section-padding ${bgClasses[background]} ${className}`}>
+  <slot />
+</section>
