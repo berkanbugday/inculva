@@ -7,7 +7,7 @@ export function BrandScene({ lang }: SceneProps) {
   const frame = useCurrentFrame();
   const DURATION = 60;
 
-  const logoOpacity = interpolate(frame, [0, 20], [0, 1], { extrapolateRight: "clamp" });
+  const logoOpacity = interpolate(frame, [0, 20], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const domainOpacity = interpolate(frame, [20, 35], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const exitOpacity = interpolate(frame, [DURATION - 10, DURATION], [1, 0], {
     extrapolateLeft: "clamp",

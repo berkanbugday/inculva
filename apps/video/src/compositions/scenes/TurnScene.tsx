@@ -44,8 +44,9 @@ export function TurnScene({ lang }: SceneProps) {
       gap: 8,
       padding: "0 48px",
       opacity: exitOpacity,
+      position: "relative",
     }}>
-      {/* line1: fades out before silence */}
+      {/* line1: fades out before silence — position:absolute relative to this container */}
       <div style={{ opacity: line1Opacity, transform: `translateY(${y1}px)`, position: "absolute" }}>
         <span style={{ color: "#ffffff", fontSize: 64, fontWeight: 800, letterSpacing: "-0.03em", textAlign: "center" }}>
           {t[lang].turn.line1}
