@@ -1,5 +1,6 @@
 // apps/video/src/components/WidgetPanel.tsx
 import React from "react";
+import { staticFile } from "remotion";
 import type { FeatureKey, Lang } from "../types";
 import { t } from "../translations";
 
@@ -31,7 +32,7 @@ export function WidgetPanel({ activeFeature, lang }: WidgetPanelProps) {
     >
       {/* Header */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-        <img src="logo.png" style={{ width: 20, height: 20 }} alt="Inculva" />
+        <img src={staticFile("logo.png")} style={{ width: 20, height: 20 }} alt="Inculva" />
         <span style={{ color: "#fff", fontSize: 12, fontWeight: 600 }}>Accessibility</span>
       </div>
       {/* Toggles */}
