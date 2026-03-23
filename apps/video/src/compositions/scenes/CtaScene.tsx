@@ -1,9 +1,6 @@
 // apps/video/src/compositions/scenes/CtaScene.tsx
 import React from "react";
 import { useCurrentFrame, interpolate, spring, useVideoConfig, Sequence } from "remotion";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Seq = Sequence as any;
 import type { SceneProps } from "../../types";
 import { t } from "../../translations";
 import { ComplianceBadge } from "../../components/ComplianceBadge";
@@ -43,9 +40,9 @@ export function CtaScene({ lang }: SceneProps) {
       <div style={{ width: "80%", height: "28%" }}>
         <MockWebsite activeFeature={null} mode="fixed" />
       </div>
-      <Seq from={60}>
+      <Sequence from={60}>
         <ComplianceBadge lang={lang} />
-      </Seq>
+      </Sequence>
       <p
         style={{
           color: "#e2e8f0",
