@@ -16,6 +16,7 @@ apps/manage/public/*
 .env
 .env.local
 .env.*.local
+.agents/*
 
 # OS
 .DS_Store
