@@ -64,11 +64,7 @@ export function getOrganizationSchema() {
     logo: `${CDN_URL}/logos/logo.png`,
     description:
       "Web accessibility platform that helps websites achieve WCAG compliance automatically.",
-    sameAs: [
-      "https://twitter.com/inculva",
-      "https://github.com/inculva",
-      "https://linkedin.com/company/inculva",
-    ],
+    sameAs: ["https://youtube.com/@inculva", "https://x.com/inculva"],
   };
 }
 
