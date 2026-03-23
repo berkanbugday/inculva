@@ -77,12 +77,12 @@ export default function ContactForm({ labels }: Props) {
   const onSubmit = async (data: FormData) => {
     setStatus('sending');
     try {
-      // TODO: Replace with your actual form submission endpoint
-      await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+      if (!response.ok) throw new Error(response.statusText);
       setStatus('success');
       reset();
     } catch {

@@ -1,6 +1,10 @@
 import type { FastifyInstance } from "fastify";
 import { db } from "@inculva/db";
 
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 function makeBadge(violations: number | null): string {
   let label: string;
   let bg: string;
@@ -26,8 +30,11 @@ function makeBadge(violations: number | null): string {
   const rightW = 80 + label.length * 6;
   const totalW = leftW + rightW;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="20" role="img" aria-label="WCAG 2.1 AA: ${label}">
-  <title>WCAG 2.1 AA: ${label}</title>
+  const safeLabel = escapeHtml(label);
+  const safeLeftText = escapeHtml(leftText);
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="20" role="img" aria-label="WCAG 2.1 AA: ${safeLabel}">
+  <title>WCAG 2.1 AA: ${safeLabel}</title>
   <linearGradient id="s" x2="0" y2="100%">
     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
@@ -41,10 +48,10 @@ function makeBadge(violations: number | null): string {
     <rect width="${totalW}" height="20" fill="url(#s)"/>
   </g>
   <g fill="${textColor}" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
-    <text x="${leftW / 2}" y="15" fill="#010101" fill-opacity=".3" aria-hidden="true">${leftText}</text>
-    <text x="${leftW / 2}" y="14" fill="#fff">${leftText}</text>
-    <text x="${leftW + rightW / 2}" y="15" fill="#010101" fill-opacity=".3" aria-hidden="true">${label}</text>
-    <text x="${leftW + rightW / 2}" y="14" fill="${textColor}">${label}</text>
+    <text x="${leftW / 2}" y="15" fill="#010101" fill-opacity=".3" aria-hidden="true">${safeLeftText}</text>
+    <text x="${leftW / 2}" y="14" fill="#fff">${safeLeftText}</text>
+    <text x="${leftW + rightW / 2}" y="15" fill="#010101" fill-opacity=".3" aria-hidden="true">${safeLabel}</text>
+    <text x="${leftW + rightW / 2}" y="14" fill="${textColor}">${safeLabel}</text>
   </g>
 </svg>`;
 }
@@ -65,12 +72,11 @@ export async function badgeRoutes(app: FastifyInstance): Promise<void> {
 
       const svg = makeBadge(violations);
 
-      void reply
+      return reply
         .header("Content-Type", "image/svg+xml")
         .header("Cache-Control", "public, max-age=300, s-maxage=300")
-        .header("Access-Control-Allow-Origin", "*");
-
-      return reply.send(svg);
+        .header("Access-Control-Allow-Origin", "*")
+        .send(svg);
     }
   );
 }

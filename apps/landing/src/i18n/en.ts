@@ -16,17 +16,11 @@ export const en = {
     description:
       "Web accessibility solution. Make your website WCAG compliant automatically.",
     product: "Product",
-    resources: "Resources",
     company: "Company",
     home: "Home",
     features: "Features",
     pricing: "Pricing",
     integrations: "Integrations",
-    changelog: "Changelog",
-    blog: "Blog",
-    documentation: "Documentation",
-    wcagGuidelines: "WCAG Guidelines",
-    adaCompliance: "ADA Compliance",
     about: "About",
     contact: "Contact",
     privacyPolicy: "Privacy Policy",
@@ -468,13 +462,6 @@ export const en = {
 
     otherWays: "Other ways to reach us",
     emailLabel: "Email",
-    liveChat: "Live Chat",
-    liveChatHours: "Available Mon-Fri, 9AM-6PM EST",
-    documentationLabel: "Documentation",
-    browseDocs: "Browse our docs →",
-    avgResponseTime: "Average response time",
-    under4Hours: "Under 4 hours",
-    forBusinessHours: "For business hours inquiries",
   },
 } as const;
 

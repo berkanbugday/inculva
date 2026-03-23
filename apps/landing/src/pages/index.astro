@@ -17,7 +17,7 @@ import HomePage from '@/components/pages/HomePage.astro';
     if (preferredLang === 'en') return; // User prefers English
 
     // Detect browser language
-    const browserLang = navigator.language || navigator.userLanguage;
+    const browserLang = navigator.language;
     if (browserLang && browserLang.toLowerCase().startsWith('tr')) {
       window.location.replace('/tr/');
     }

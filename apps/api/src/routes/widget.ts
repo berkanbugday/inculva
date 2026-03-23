@@ -1,7 +1,6 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { db } from "@inculva/db";
 import type { WidgetEvent, WidgetProfiles } from "@inculva/types";
-import { getLabels } from "../i18n/labels.js";
 import {
   sendEmail,
   usageWarningTemplate,
@@ -138,6 +137,45 @@ async function sendUsageAlert(
 const siteEventTimestamps = new Map<string, number[]>();
 const RATE_MAP_MAX_SIZE = 5_000;
 
+const VALID_FEATURES = new Set([
+  // Phase 1
+  "textResizing",
+  "dyslexiaFont",
+  "cursorEnhancement",
+  "keyboardNavigation",
+  "readingGuide",
+  "screenReader",
+  "pauseAnimations",
+  "textSpacing",
+  "highlightLinks",
+  "colorBlindMode",
+  "largeClickTargets",
+  "focusHighlight",
+  "skipNavigation",
+  "muteMedia",
+  "readingMask",
+  "textAlign",
+  "saturation",
+  // Phase 2
+  "blueLightFilter",
+  "hideImages",
+  "darkMode",
+  "contentMagnifier",
+  "lineHeight",
+  "highlightTitles",
+  "toolTips",
+  "sustainabilityMode",
+  "slowCursor",
+  "dictionary",
+]);
+
+const VALID_EVENTS = new Set([
+  "opened",
+  "closed",
+  "feature_enabled",
+  "feature_disabled",
+]);
+
 function checkSiteRateLimit(siteId: string): boolean {
   const now = Date.now();
   const windowMs = 60_000;
@@ -154,10 +192,7 @@ function checkSiteRateLimit(siteId: string): boolean {
   recent.push(now);
 
   // Evict oldest entry if map exceeds cap (simple FIFO eviction)
-  if (
-    !siteEventTimestamps.has(siteId) &&
-    siteEventTimestamps.size >= RATE_MAP_MAX_SIZE
-  ) {
+  if (siteEventTimestamps.size >= RATE_MAP_MAX_SIZE) {
     const firstKey = siteEventTimestamps.keys().next().value;
     if (firstKey !== undefined) siteEventTimestamps.delete(firstKey);
   }
@@ -283,7 +318,7 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
 
   // POST /widget/events — receives beacon events from the widget
   app.post<{ Body: WidgetEvent }>("/events", async (request, reply) => {
-    const { siteId, sessionId, event, feature, timestamp } = request.body;
+    const { siteId, sessionId, event, feature } = request.body;
 
     // Input validation
     if (
@@ -301,37 +336,6 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
         .status(400)
         .send({ success: false, error: "Invalid request body" });
     }
-    const VALID_FEATURES = new Set([
-      // Phase 1
-      "textResizing",
-      "dyslexiaFont",
-      "cursorEnhancement",
-      "keyboardNavigation",
-      "readingGuide",
-      "screenReader",
-      "pauseAnimations",
-      "textSpacing",
-      "highlightLinks",
-      "colorBlindMode",
-      "largeClickTargets",
-      "focusHighlight",
-      "skipNavigation",
-      "muteMedia",
-      "readingMask",
-      "textAlign",
-      "saturation",
-      // Phase 2
-      "blueLightFilter",
-      "hideImages",
-      "darkMode",
-      "contentMagnifier",
-      "lineHeight",
-      "highlightTitles",
-      "toolTips",
-      "sustainabilityMode",
-      "slowCursor",
-      "dictionary",
-    ]);
     if (feature !== undefined && feature !== null) {
       if (typeof feature !== "string" || !VALID_FEATURES.has(feature)) {
         return reply
@@ -341,12 +345,6 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
     }
     // Client timestamps are intentionally ignored — use server time to prevent quota bypass and data backdating
 
-    const VALID_EVENTS = new Set([
-      "opened",
-      "closed",
-      "feature_enabled",
-      "feature_disabled",
-    ]);
     if (!VALID_EVENTS.has(event)) {
       return reply
         .status(400)
@@ -491,6 +489,17 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
 
       const limit = Math.min(Number(limitStr ?? 50), 200);
       const offset = Number(offsetStr ?? 0);
+
+      if (from) {
+        const d = new Date(from);
+        if (isNaN(d.getTime()))
+          return reply.status(400).send({ success: false, error: "Invalid 'from' date" });
+      }
+      if (to) {
+        const d = new Date(to);
+        if (isNaN(d.getTime()))
+          return reply.status(400).send({ success: false, error: "Invalid 'to' date" });
+      }
 
       const where = {
         siteId,

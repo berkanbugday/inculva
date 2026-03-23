@@ -21,13 +21,13 @@ const { post } = Astro.props;
 const lang = 'tr';
 const i = t(lang);
 
-const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+const formattedDate = new Date(post.publishedAt).toLocaleDateString('tr-TR', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
 
-const postUrl = `https://inculva.com/blog/${post.slug.current}`;
+const postUrl = `https://inculva.com/tr/blog/${post.slug.current}`;
 const blogPostSchema = getBlogPostingSchema({
   title: post.title,
   description: post.description,
@@ -51,7 +51,7 @@ const blogPostSchema = getBlogPostingSchema({
     <section class="bg-primary-50/30 pt-20 pb-8 md:pt-28 md:pb-12">
       <Container narrow>
         <div class="max-w-3xl mx-auto">
-          <a href="/blog" class="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors mb-8">
+          <a href="/tr/blog" class="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors mb-8">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
@@ -116,7 +116,7 @@ const blogPostSchema = getBlogPostingSchema({
 
         <!-- Back to Blog -->
         <div class="mt-16 pt-8 border-t border-gray-100 text-center">
-          <Button href="/blog" variant="secondary">
+          <Button href="/tr/blog" variant="secondary">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
