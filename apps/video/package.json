@@ -1,0 +1,29 @@
+{
+  "name": "@inculva/video",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio --port 3003",
+    "render:en-portrait": "remotion render WelcomeVideo-EN-Portrait out/welcome-en-portrait.mp4",
+    "render:tr-portrait": "remotion render WelcomeVideo-TR-Portrait out/welcome-tr-portrait.mp4",
+    "render:en-landscape": "remotion render WelcomeVideo-EN-Landscape out/welcome-en-landscape.mp4",
+    "render:tr-landscape": "remotion render WelcomeVideo-TR-Landscape out/welcome-tr-landscape.mp4",
+    "render:all": "pnpm render:en-portrait && pnpm render:tr-portrait && pnpm render:en-landscape && pnpm render:tr-landscape",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.438",
+    "@remotion/google-fonts": "4.0.438",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "remotion": "4.0.438"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "typescript": "^5.0.0"
+  }
+}
