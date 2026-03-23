@@ -2,8 +2,8 @@
 import SEOHead from '@/components/SEOHead.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
-import { getOrganizationSchema, getWebSiteSchema } from '@/lib/seo';
-import { getLangFromUrl, type Lang } from '@/i18n';
+import { getOrganizationSchema, getWebSiteSchema, getHreflangAlternates } from '@/lib/seo';
+import { getLangFromUrl, getPathWithoutLang, type Lang } from '@/i18n';
 import '@/styles/global.css';
 
 export interface Props {
@@ -31,6 +31,9 @@ const {
 } = Astro.props;
 
 const lang = langProp ?? getLangFromUrl(Astro.url);
+const rawPath = getPathWithoutLang(Astro.url.pathname);
+const pagePath = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
+const hreflangAlternates = getHreflangAlternates(pagePath);
 
 const globalSchemas = [getOrganizationSchema(), getWebSiteSchema()];
 const allSchemas = jsonLd
@@ -51,6 +54,11 @@ const allSchemas = jsonLd
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Hreflang alternate links for SEO -->
+    {hreflangAlternates.map(({ lang: hrefLang, url }) => (
+      <link rel="alternate" hreflang={hrefLang} href={url} />
+    ))}
 
     <SEOHead
       title={title}

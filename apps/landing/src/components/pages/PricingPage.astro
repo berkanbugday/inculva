@@ -5,6 +5,7 @@ import Section from '@/components/Section.astro';
 import PricingCard from '@/components/PricingCard.astro';
 import Button from '@/components/Button.astro';
 import { t, getLocalizedPath, type Lang } from '@/i18n';
+import { getLocalizedCanonical, getFAQSchema, getProductSchema, getBreadcrumbSchema, getWebPageSchema, SITE_URL } from '@/lib/seo';
 
 interface Props {
   lang: Lang;
@@ -25,6 +26,33 @@ function calcYearlySavings(monthly: number): string {
   const savings = monthly * 12 - total;
   return `$${savings.toLocaleString('en-US')}`;
 }
+
+const pricingFaqs = [
+  { question: i.pricing.faq1Q, answer: i.pricing.faq1A },
+  { question: i.pricing.faq2Q, answer: i.pricing.faq2A },
+  { question: i.pricing.faq3Q, answer: i.pricing.faq3A },
+  { question: i.pricing.faq4Q, answer: i.pricing.faq4A },
+];
+
+const productPlans = [
+  { name: i.pricing.small, description: i.pricing.smallDesc, price: '39', features: i.pricing.smallFeatures as string[] },
+  { name: i.pricing.medium, description: i.pricing.mediumDesc, price: '59', features: i.pricing.mediumFeatures as string[] },
+  { name: i.pricing.large, description: i.pricing.largeDesc, price: '119', features: i.pricing.largeFeatures as string[] },
+];
+
+const pricingSchemas = [
+  getFAQSchema(pricingFaqs),
+  ...getProductSchema(productPlans),
+  getBreadcrumbSchema([
+    { name: i.nav.home, url: SITE_URL },
+    { name: i.nav.pricing, url: getLocalizedCanonical('/pricing', lang) },
+  ]),
+  getWebPageSchema({
+    name: i.pricing.title,
+    description: i.pricing.description,
+    url: getLocalizedCanonical('/pricing', lang),
+  }),
+];
 
 const plans = [
   {
@@ -78,8 +106,9 @@ const plans = [
 <BaseLayout
   title={i.pricing.title}
   description={i.pricing.description}
-  canonical="https://inculva.com/pricing"
+  canonical={getLocalizedCanonical('/pricing', lang)}
   lang={lang}
+  jsonLd={pricingSchemas}
 >
   <!-- Hero -->
   <section class="bg-primary-50/30 pt-20 pb-4 md:pt-28 md:pb-8">

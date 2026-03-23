@@ -4,6 +4,7 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import ContactForm from '@/components/ContactForm';
 import { t, getLocalizedPath, type Lang } from '@/i18n';
+import { getLocalizedCanonical, getBreadcrumbSchema, getWebPageSchema, SITE_URL } from '@/lib/seo';
 
 interface Props {
   lang: Lang;
@@ -11,13 +12,27 @@ interface Props {
 
 const { lang } = Astro.props;
 const i = t(lang);
+
+const contactSchemas = [
+  getBreadcrumbSchema([
+    { name: i.nav.home, url: SITE_URL },
+    { name: i.nav.contact, url: getLocalizedCanonical('/contact', lang) },
+  ]),
+  getWebPageSchema({
+    name: i.contact.title,
+    description: i.contact.description,
+    url: getLocalizedCanonical('/contact', lang),
+    type: 'ContactPage',
+  }),
+];
 ---
 
 <BaseLayout
   title={i.contact.title}
   description={i.contact.description}
-  canonical="https://inculva.com/contact"
+  canonical={getLocalizedCanonical('/contact', lang)}
   lang={lang}
+  jsonLd={contactSchemas}
 >
   <!-- Hero -->
   <section class="bg-primary-50/30 pt-20 pb-4 md:pt-28 md:pb-8">

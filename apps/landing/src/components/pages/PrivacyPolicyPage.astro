@@ -2,7 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
-import { t, getLocalizedPath, type Lang } from '@/i18n';
+import { t, type Lang } from '@/i18n';
+import { getLocalizedCanonical, getBreadcrumbSchema, getWebPageSchema, SITE_URL } from '@/lib/seo';
 
 interface Props {
   lang: Lang;
@@ -11,13 +12,26 @@ interface Props {
 const { lang } = Astro.props;
 const i = t(lang);
 const pp = i.privacyPolicy;
+
+const privacySchemas = [
+  getBreadcrumbSchema([
+    { name: i.nav.home, url: SITE_URL },
+    { name: pp.title, url: getLocalizedCanonical('/privacy-policy', lang) },
+  ]),
+  getWebPageSchema({
+    name: pp.title,
+    description: pp.description,
+    url: getLocalizedCanonical('/privacy-policy', lang),
+  }),
+];
 ---
 
 <BaseLayout
   title={pp.title}
   description={pp.description}
-  canonical="https://inculva.com/privacy-policy"
+  canonical={getLocalizedCanonical('/privacy-policy', lang)}
   lang={lang}
+  jsonLd={privacySchemas}
 >
   <!-- Hero -->
   <section class="bg-primary-50/30 pt-20 pb-16 md:pt-28 md:pb-20">

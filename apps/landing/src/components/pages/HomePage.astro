@@ -5,6 +5,7 @@ import Section from '@/components/Section.astro';
 import Button from '@/components/Button.astro';
 import Card from '@/components/Card.astro';
 import { t, getLocalizedPath, type Lang } from '@/i18n';
+import { getLocalizedCanonical, getFAQSchema, getSoftwareApplicationSchema, getHowToSchema, getBreadcrumbSchema, getWebPageSchema, SITE_URL } from '@/lib/seo';
 
 interface Props {
   lang: Lang;
@@ -13,13 +14,42 @@ interface Props {
 const { lang } = Astro.props;
 const i = t(lang);
 const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
+
+const homeFaqs = [
+  { question: i.home.faq1Q, answer: i.home.faq1A },
+  { question: i.home.faq2Q, answer: i.home.faq2A },
+  { question: i.home.faq3Q, answer: i.home.faq3A },
+  { question: i.home.faq4Q, answer: i.home.faq4A },
+  { question: i.home.faq5Q, answer: i.home.faq5A },
+];
+
+const howToSteps = [
+  { name: i.home.step01, text: i.home.step01Desc },
+  { name: i.home.step02, text: i.home.step02Desc },
+  { name: i.home.step03, text: i.home.step03Desc },
+];
+
+const homeSchemas = [
+  getFAQSchema(homeFaqs),
+  getSoftwareApplicationSchema(),
+  getHowToSchema(howToSteps),
+  getBreadcrumbSchema([
+    { name: i.nav.home, url: SITE_URL },
+  ]),
+  getWebPageSchema({
+    name: i.home.title,
+    description: i.home.description,
+    url: getLocalizedCanonical('/', lang),
+  }),
+];
 ---
 
 <BaseLayout
   title={i.home.title}
   description={i.home.description}
-  canonical="https://inculva.com"
+  canonical={getLocalizedCanonical('/', lang)}
   lang={lang}
+  jsonLd={homeSchemas}
 >
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-primary-50/30 pt-20 pb-28 md:pt-28 md:pb-36">

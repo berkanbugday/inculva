@@ -4,6 +4,7 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import Card from '@/components/Card.astro';
 import { t, getLocalizedPath, type Lang } from '@/i18n';
+import { getLocalizedCanonical, getBreadcrumbSchema, getWebPageSchema, SITE_URL } from '@/lib/seo';
 
 interface Props {
   lang: Lang;
@@ -11,13 +12,27 @@ interface Props {
 
 const { lang } = Astro.props;
 const i = t(lang);
+
+const aboutSchemas = [
+  getBreadcrumbSchema([
+    { name: i.nav.home, url: SITE_URL },
+    { name: i.nav.about, url: getLocalizedCanonical('/about', lang) },
+  ]),
+  getWebPageSchema({
+    name: i.about.title,
+    description: i.about.description,
+    url: getLocalizedCanonical('/about', lang),
+    type: 'AboutPage',
+  }),
+];
 ---
 
 <BaseLayout
   title={i.about.title}
   description={i.about.description}
-  canonical="https://inculva.com/about"
+  canonical={getLocalizedCanonical('/about', lang)}
   lang={lang}
+  jsonLd={aboutSchemas}
 >
   <!-- Hero -->
   <section class="bg-primary-50/30 pt-20 pb-16 md:pt-28 md:pb-20">
