@@ -49,7 +49,7 @@ export function paymentFailedTemplate(name: string, plan: string): string {
               </a>
               <p style="margin:32px 0 0;font-size:13px;color:#9ca3af;line-height:1.6;">
                 If you believe this is an error, contact us at
-                <a href="mailto:support@inculva.com" style="color:#2563eb;">support@inculva.com</a>.
+                <a href="mailto:hi@inculva.com" style="color:#2563eb;">hi@inculva.com</a>.
               </p>
             </td>
           </tr>

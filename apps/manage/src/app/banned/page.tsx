@@ -31,14 +31,14 @@ export default function BannedPage() {
         </p>
 
         <a
-          href="mailto:support@inculva.com"
+          href="mailto:hi@inculva.com"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-colors cursor-pointer"
         >
           Contact support
         </a>
 
         <p className="text-xs text-gray-400 dark:text-gray-600 mt-4">
-          support@inculva.com
+          hi@inculva.com
         </p>
       </div>
     </div>

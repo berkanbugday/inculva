@@ -17,12 +17,12 @@
 
 ## Overview
 
-| Service | Platform | Deployment trigger |
-|---|---|---|
-| `apps/api` | Railway.app (Docker) | `railway.toml` on push to `main` |
-| `apps/web` | Vercel | Automatic on push to `main` |
-| Widget CDN | Cloudflare R2 | GitHub Actions (`deploy-widget.yml`) on push to `main` when widget src changes |
-| Database | Railway PostgreSQL | Managed — migrations run manually or in CI |
+| Service    | Platform             | Deployment trigger                                                             |
+| ---------- | -------------------- | ------------------------------------------------------------------------------ |
+| `apps/api` | Railway.app (Docker) | `railway.toml` on push to `main`                                               |
+| `apps/web` | Vercel               | Automatic on push to `main`                                                    |
+| Widget CDN | Cloudflare R2        | GitHub Actions (`deploy-widget.yml`) on push to `main` when widget src changes |
+| Database   | Railway PostgreSQL   | Managed — migrations run manually or in CI                                     |
 
 ---
 
@@ -66,7 +66,7 @@ API_HOST=0.0.0.0
 NODE_ENV=production
 CORS_ORIGIN=https://app.inculva.com
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Inculva <noreply@inculva.com>
+EMAIL_FROM=Inculva <hi@inculva.com>
 NEXT_PUBLIC_APP_URL=https://app.inculva.com
 ```
 
@@ -82,7 +82,7 @@ NEXT_PUBLIC_WIDGET_URL=https://cdn.inculva.com/widget.js
 BETTER_AUTH_SECRET=<openssl rand -base64 32>
 BETTER_AUTH_URL=https://app.inculva.com
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Inculva <noreply@inculva.com>
+EMAIL_FROM=Inculva <hi@inculva.com>
 LEMONSQUEEZY_API_KEY=eyJ...
 LEMONSQUEEZY_STORE_ID=12345
 LEMONSQUEEZY_WEBHOOK_SECRET=xxxx
@@ -129,6 +129,7 @@ restartPolicyType = "on_failure"
 ### Dockerfile
 
 The `apps/api/Dockerfile` uses a multi-stage build:
+
 - **Stage 1 (builder):** Installs all deps, generates Prisma client, compiles TypeScript → `dist/`
 - **Stage 2 (runner):** Copies only `dist/` and production `node_modules`, runs `node dist/server.js`
 
@@ -194,9 +195,10 @@ Vercel requires the Prisma client to be generated at build time. The CI build st
 
 ### Deployment workflow (`.github/workflows/deploy-widget.yml`)
 
-Triggers on push to `main` **only when files in `packages/widget/src/**` change** (path filter).
+Triggers on push to `main` **only when files in `packages/widget/src/**` change\*\* (path filter).
 
 Steps:
+
 1. Install pnpm + Node 20
 2. `pnpm install --frozen-lockfile`
 3. `pnpm --filter @inculva/widget build:cdn` → produces `packages/widget/dist/widget.iife.js`
@@ -230,6 +232,7 @@ railway run pnpm --filter @inculva/db db:migrate
 ### Schema changes
 
 For every schema change:
+
 1. Edit `packages/db/prisma/schema.prisma`
 2. Run locally: `make migrate` (creates migration file)
 3. Commit migration file alongside schema change
@@ -272,7 +275,7 @@ jobs:
 on:
   push:
     branches: [main]
-    paths: ['packages/widget/src/**']
+    paths: ["packages/widget/src/**"]
 
 steps:
   - pnpm --filter @inculva/widget build:cdn
@@ -324,6 +327,7 @@ In Vercel: Project → Deployments → find previous deployment → "Promote to 
 ### Database rollback
 
 Prisma does not support automatic down-migrations. To rollback:
+
 1. Create a new migration that reverses the changes
 2. Apply it to the production database
 

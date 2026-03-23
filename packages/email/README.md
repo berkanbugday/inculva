@@ -16,22 +16,22 @@ await sendEmail({
 
 ## Templates
 
-| Template | Function | When sent |
-|---|---|---|
-| Welcome | `welcomeTemplate(name)` | After registration |
-| Verify Email | `verifyEmailTemplate(name, url)` | Email verification |
-| Reset Password | `resetPasswordTemplate(name, url)` | Password reset request |
-| Team Invite | `teamInviteTemplate(name, teamName, inviteUrl)` | Team invitation |
-| Plan Upgraded | `planUpgradedTemplate(name, plan)` | Subscription upgrade |
-| Usage Warning | `usageWarningTemplate(name, plan, used, limit)` | 80% quota reached |
-| Usage Limit | `usageLimitTemplate(name, plan, limit)` | 100% quota reached |
+| Template       | Function                                        | When sent              |
+| -------------- | ----------------------------------------------- | ---------------------- |
+| Welcome        | `welcomeTemplate(name)`                         | After registration     |
+| Verify Email   | `verifyEmailTemplate(name, url)`                | Email verification     |
+| Reset Password | `resetPasswordTemplate(name, url)`              | Password reset request |
+| Team Invite    | `teamInviteTemplate(name, teamName, inviteUrl)` | Team invitation        |
+| Plan Upgraded  | `planUpgradedTemplate(name, plan)`              | Subscription upgrade   |
+| Usage Warning  | `usageWarningTemplate(name, plan, used, limit)` | 80% quota reached      |
+| Usage Limit    | `usageLimitTemplate(name, plan, limit)`         | 100% quota reached     |
 
 ## Environment Variables
 
-| Variable | Description |
-|---|---|
-| `RESEND_API_KEY` | Resend API key (from resend.com) |
-| `EMAIL_FROM` | Sender address (e.g. `Inculva <noreply@inculva.com>`) |
+| Variable         | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| `RESEND_API_KEY` | Resend API key (from resend.com)                 |
+| `EMAIL_FROM`     | Sender address (e.g. `Inculva <hi@inculva.com>`) |
 
 ## Source Structure
 

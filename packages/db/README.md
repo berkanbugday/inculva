@@ -54,7 +54,8 @@ make db-reset      # Wipe DB + re-migrate
 ## Seed Data
 
 `src/seed.ts` creates:
-- User: `demo@inculva.com` / name "Demo User" (emailVerified: true)
+
+- User: `hi@inculva.com` / name "Demo User" (emailVerified: true)
 - Site: `demo.example.com` with default `WidgetConfig`
 
 ## Client Singleton

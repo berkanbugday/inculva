@@ -236,6 +236,9 @@ export const en = {
       "Full WCAG 2.1 AA & AAA scanning",
       "Automated auto-fixes",
       "Real-time monitoring",
+      "Auto page translation (5 languages)",
+      "Custom branding",
+      "Priority email support",
       "7-day free trial",
     ],
     startFreeTrial: "Book a Call",
@@ -247,6 +250,11 @@ export const en = {
       "Full WCAG 2.1 AA & AAA scanning",
       "Automated auto-fixes",
       "Continuous monitoring",
+      "Auto page translation (41+ languages)",
+      "Custom branding",
+      "Dedicated account manager",
+      "Priority support (phone & email)",
+      "Custom accessibility reports",
       "7-day free trial",
     ],
     contactSales: "Contact Sales",
@@ -347,6 +355,84 @@ export const en = {
     joinDescription:
       "We're always looking for passionate people who believe in an accessible web.",
     getInTouch: "Get in Touch",
+  },
+
+  // Privacy Policy page
+  privacyPolicy: {
+    title: "Privacy Policy",
+    description:
+      "Learn how Inculva collects, uses, and protects your personal data. Read our full privacy policy.",
+    heroTitle1: "Privacy ",
+    heroTitleHighlight: "Policy",
+    lastUpdated: "Last updated: March 2026",
+    intro:
+      "At Inculva, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.",
+
+    section1Title: "1. Information We Collect",
+    section1P1:
+      "We may collect personal information that you voluntarily provide to us when you register for our services, express an interest in obtaining information about us or our products, or otherwise contact us.",
+    section1P2:
+      "The personal information we collect may include: name, email address, company name, website URL, billing information, and any other information you choose to provide.",
+    section1P3:
+      "We automatically collect certain information when you visit our website, including your IP address, browser type, operating system, referring URLs, and information about how you interact with our website.",
+
+    section2Title: "2. How We Use Your Information",
+    section2P1: "We use the information we collect to:",
+    section2Items: [
+      "Provide, operate, and maintain our services",
+      "Improve, personalize, and expand our services",
+      "Understand and analyze how you use our services",
+      "Develop new products, services, features, and functionality",
+      "Communicate with you for customer service, updates, and marketing purposes",
+      "Process transactions and send related information",
+      "Find and prevent fraud",
+    ],
+
+    section3Title: "3. Data Sharing and Disclosure",
+    section3P1:
+      "We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following situations:",
+    section3Items: [
+      "With service providers who assist us in operating our website and services",
+      "To comply with legal obligations or respond to lawful requests",
+      "To protect and defend our rights or property",
+      "With your consent or at your direction",
+    ],
+
+    section4Title: "4. Data Security",
+    section4P1:
+      "We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet is 100% secure.",
+
+    section5Title: "5. Cookies and Tracking Technologies",
+    section5P1:
+      "We use cookies and similar tracking technologies to track activity on our website and hold certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.",
+
+    section6Title: "6. Your Rights",
+    section6P1:
+      "Depending on your location, you may have the following rights regarding your personal data:",
+    section6Items: [
+      "The right to access the personal data we hold about you",
+      "The right to request correction of inaccurate data",
+      "The right to request deletion of your data",
+      "The right to object to or restrict processing of your data",
+      "The right to data portability",
+    ],
+
+    section7Title: "7. Third-Party Services",
+    section7P1:
+      "Our website may contain links to third-party websites and services. We are not responsible for the privacy practices of these third parties. We encourage you to read their privacy policies.",
+
+    section8Title: "8. Children's Privacy",
+    section8P1:
+      "Our services are not intended for individuals under the age of 16. We do not knowingly collect personal information from children under 16.",
+
+    section9Title: "9. Changes to This Policy",
+    section9P1:
+      "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the 'Last updated' date.",
+
+    section10Title: "10. Contact Us",
+    section10P1:
+      "If you have any questions about this Privacy Policy, please contact us at:",
+    contactEmail: "hi@inculva.com",
   },
 
   // Contact page

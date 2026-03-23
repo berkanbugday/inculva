@@ -130,7 +130,7 @@ This starts Postgres in Docker and all dev servers concurrently via Turborepo:
 make seed
 ```
 
-Creates `demo@inculva.com` user with a sample site at `demo.example.com`.
+Creates `hi@inculva.com` user with a sample site at `demo.example.com`.
 
 ---
 
@@ -159,7 +159,7 @@ BETTER_AUTH_URL=http://localhost:3000
 
 # Email
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Inculva <noreply@inculva.com>
+EMAIL_FROM=Inculva <hi@inculva.com>
 
 # Billing
 LEMONSQUEEZY_API_KEY=eyJ...

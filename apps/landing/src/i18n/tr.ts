@@ -239,6 +239,7 @@ export const tr: Translations = {
       "Tam WCAG 2.1 AA & AAA taraması",
       "Otomatik düzeltmeler",
       "Gerçek zamanlı izleme",
+      "Öncelikli e-posta desteği",
       "7 gün ücretsiz deneme",
     ],
     startFreeTrial: "Görüşme Planla",
@@ -250,6 +251,9 @@ export const tr: Translations = {
       "Tam WCAG 2.1 AA & AAA taraması",
       "Otomatik düzeltmeler",
       "Sürekli izleme",
+      "Otomatik sayfa çevirisi (41+ dil)",
+      "Özel markalama",
+      "Öncelikli destek (telefon ve e-posta)",
       "7 gün ücretsiz deneme",
     ],
     contactSales: "Satış ile İletişime Geçin",
@@ -351,6 +355,84 @@ export const tr: Translations = {
     joinDescription:
       "Erişilebilir bir web'e inanan tutkulu insanları her zaman arıyoruz.",
     getInTouch: "İletişime Geçin",
+  },
+
+  // Privacy Policy page
+  privacyPolicy: {
+    title: "Gizlilik Politikası",
+    description:
+      "Inculva'nın kişisel verilerinizi nasıl topladığını, kullandığını ve koruduğunu öğrenin. Tam gizlilik politikamızı okuyun.",
+    heroTitle1: "Gizlilik ",
+    heroTitleHighlight: "Politikası",
+    lastUpdated: "Son güncelleme: Mart 2026",
+    intro:
+      "Inculva olarak gizliliğinizi korumaya kararlıyız. Bu Gizlilik Politikası, web sitemizi ziyaret ettiğinizde ve hizmetlerimizi kullandığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı, açıkladığımızı ve koruduğumuzu açıklar.",
+
+    section1Title: "1. Topladığımız Bilgiler",
+    section1P1:
+      "Hizmetlerimize kaydolduğunuzda, hakkımızda veya ürünlerimiz hakkında bilgi edinmek istediğinizde ya da bizimle iletişime geçtiğinizde gönüllü olarak sağladığınız kişisel bilgileri toplayabiliriz.",
+    section1P2:
+      "Topladığımız kişisel bilgiler şunları içerebilir: ad, e-posta adresi, şirket adı, web sitesi URL'si, fatura bilgileri ve sağlamayı tercih ettiğiniz diğer bilgiler.",
+    section1P3:
+      "Web sitemizi ziyaret ettiğinizde IP adresiniz, tarayıcı türünüz, işletim sisteminiz, yönlendiren URL'ler ve web sitemizle nasıl etkileşim kurduğunuza ilişkin bilgiler dahil olmak üzere belirli bilgileri otomatik olarak toplarız.",
+
+    section2Title: "2. Bilgilerinizi Nasıl Kullanıyoruz",
+    section2P1: "Topladığımız bilgileri şu amaçlarla kullanırız:",
+    section2Items: [
+      "Hizmetlerimizi sağlamak, işletmek ve sürdürmek",
+      "Hizmetlerimizi iyileştirmek, kişiselleştirmek ve genişletmek",
+      "Hizmetlerimizi nasıl kullandığınızı anlamak ve analiz etmek",
+      "Yeni ürünler, hizmetler, özellikler ve işlevler geliştirmek",
+      "Müşteri hizmetleri, güncellemeler ve pazarlama amacıyla sizinle iletişim kurmak",
+      "İşlemleri gerçekleştirmek ve ilgili bilgileri göndermek",
+      "Dolandırıcılığı tespit etmek ve önlemek",
+    ],
+
+    section3Title: "3. Veri Paylaşımı ve Açıklama",
+    section3P1:
+      "Kişisel bilgilerinizi üçüncü taraflara satmıyor, takas etmiyor veya kiralamıyoruz. Bilgilerinizi yalnızca aşağıdaki durumlarda paylaşabiliriz:",
+    section3Items: [
+      "Web sitemizi ve hizmetlerimizi işletmemize yardımcı olan hizmet sağlayıcılarla",
+      "Yasal yükümlülüklere uymak veya yasal taleplere yanıt vermek için",
+      "Haklarımızı veya mülkümüzü korumak ve savunmak için",
+      "Sizin onayınızla veya yönlendirmenizle",
+    ],
+
+    section4Title: "4. Veri Güvenliği",
+    section4P1:
+      "Kişisel bilgilerinizi yetkisiz erişim, değiştirme, ifşa veya imhaya karşı korumak için uygun teknik ve organizasyonel güvenlik önlemleri uyguluyoruz. Ancak internet üzerinden hiçbir iletim yöntemi %100 güvenli değildir.",
+
+    section5Title: "5. Çerezler ve İzleme Teknolojileri",
+    section5P1:
+      "Web sitemizdeki etkinliği izlemek ve belirli bilgileri saklamak için çerezler ve benzeri izleme teknolojileri kullanıyoruz. Tarayıcınıza tüm çerezleri reddetmesi veya bir çerez gönderildiğinde bildirim vermesi talimatı verebilirsiniz.",
+
+    section6Title: "6. Haklarınız",
+    section6P1:
+      "Bulunduğunuz konuma bağlı olarak, kişisel verilerinizle ilgili aşağıdaki haklara sahip olabilirsiniz:",
+    section6Items: [
+      "Hakkınızda tuttuğumuz kişisel verilere erişim hakkı",
+      "Yanlış verilerin düzeltilmesini talep etme hakkı",
+      "Verilerinizin silinmesini talep etme hakkı",
+      "Verilerinizin işlenmesine itiraz etme veya kısıtlama hakkı",
+      "Veri taşınabilirliği hakkı",
+    ],
+
+    section7Title: "7. Üçüncü Taraf Hizmetleri",
+    section7P1:
+      "Web sitemiz üçüncü taraf web sitelerine ve hizmetlere bağlantılar içerebilir. Bu üçüncü tarafların gizlilik uygulamalarından sorumlu değiliz. Gizlilik politikalarını okumanızı öneririz.",
+
+    section8Title: "8. Çocukların Gizliliği",
+    section8P1:
+      "Hizmetlerimiz 16 yaşın altındaki bireyler için tasarlanmamıştır. 16 yaşın altındaki çocuklardan bilerek kişisel bilgi toplamıyoruz.",
+
+    section9Title: "9. Bu Politikadaki Değişiklikler",
+    section9P1:
+      "Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Yeni Gizlilik Politikasını bu sayfada yayınlayarak ve 'Son güncelleme' tarihini güncelleyerek sizi herhangi bir değişiklikten haberdar edeceğiz.",
+
+    section10Title: "10. Bize Ulaşın",
+    section10P1:
+      "Bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin:",
+    contactEmail: "hi@inculva.com",
   },
 
   // Contact page

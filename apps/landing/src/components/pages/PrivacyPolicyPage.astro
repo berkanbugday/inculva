@@ -1,0 +1,120 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import { t, getLocalizedPath, type Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const i = t(lang);
+const pp = i.privacyPolicy;
+---
+
+<BaseLayout
+  title={pp.title}
+  description={pp.description}
+  canonical="https://inculva.com/privacy-policy"
+  lang={lang}
+>
+  <!-- Hero -->
+  <section class="bg-primary-50/30 pt-20 pb-16 md:pt-28 md:pb-20">
+    <Container narrow>
+      <div class="text-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
+          {pp.heroTitle1}
+          <span class="text-gradient">{pp.heroTitleHighlight}</span>
+        </h1>
+        <p class="mt-4 text-sm text-gray-500">{pp.lastUpdated}</p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Content -->
+  <Section background="white">
+    <Container narrow>
+      <div class="prose prose-gray max-w-none">
+        <p class="text-lg text-gray-600 leading-relaxed">{pp.intro}</p>
+
+        <!-- Section 1 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section1Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section1P1}</p>
+        <p class="text-gray-600 leading-relaxed mt-3">{pp.section1P2}</p>
+        <p class="text-gray-600 leading-relaxed mt-3">{pp.section1P3}</p>
+
+        <!-- Section 2 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section2Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section2P1}</p>
+        <ul class="mt-3 space-y-2">
+          {(pp.section2Items as string[]).map((item) => (
+            <li class="flex items-start gap-2 text-gray-600">
+              <svg class="w-5 h-5 text-primary-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <!-- Section 3 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section3Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section3P1}</p>
+        <ul class="mt-3 space-y-2">
+          {(pp.section3Items as string[]).map((item) => (
+            <li class="flex items-start gap-2 text-gray-600">
+              <svg class="w-5 h-5 text-primary-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <!-- Section 4 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section4Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section4P1}</p>
+
+        <!-- Section 5 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section5Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section5P1}</p>
+
+        <!-- Section 6 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section6Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section6P1}</p>
+        <ul class="mt-3 space-y-2">
+          {(pp.section6Items as string[]).map((item) => (
+            <li class="flex items-start gap-2 text-gray-600">
+              <svg class="w-5 h-5 text-primary-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <!-- Section 7 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section7Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section7P1}</p>
+
+        <!-- Section 8 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section8Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section8P1}</p>
+
+        <!-- Section 9 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section9Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section9P1}</p>
+
+        <!-- Section 10 -->
+        <h2 class="text-xl font-bold text-gray-900 mt-10 mb-4">{pp.section10Title}</h2>
+        <p class="text-gray-600 leading-relaxed">{pp.section10P1}</p>
+        <p class="mt-2">
+          <a href={`mailto:${pp.contactEmail}`} class="text-primary-600 hover:text-primary-700 font-medium transition-colors">
+            {pp.contactEmail}
+          </a>
+        </p>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
