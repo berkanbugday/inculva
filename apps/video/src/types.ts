@@ -1,4 +1,4 @@
-export type FeatureKey = "highContrast" | "largerText" | "dyslexiaFont" | "colorBlind";
+// apps/video/src/types.ts
 export type Lang = "en" | "tr";
 export type AspectRatio = "portrait" | "landscape";
 
