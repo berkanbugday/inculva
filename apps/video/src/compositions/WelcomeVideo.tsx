@@ -3,11 +3,11 @@ import React from "react";
 import { Sequence, Audio, staticFile, interpolate } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Inter";
 import type { Lang, AspectRatio } from "../types";
-import { OpeningScene } from "./scenes/OpeningScene";
-import { ProblemScene } from "./scenes/ProblemScene";
-import { SolutionScene } from "./scenes/SolutionScene";
-import { WidgetDemoScene } from "./scenes/WidgetDemoScene";
-import { CtaScene } from "./scenes/CtaScene";
+import { StruggleScene } from "./scenes/StruggleScene";
+import { PlacesScene } from "./scenes/PlacesScene";
+import { RealityScene } from "./scenes/RealityScene";
+import { TurnScene } from "./scenes/TurnScene";
+import { BrandScene } from "./scenes/BrandScene";
 
 loadFont();
 
@@ -18,30 +18,30 @@ type WelcomeVideoProps = {
 
 export function WelcomeVideo({ lang, aspectRatio }: WelcomeVideoProps) {
   return (
-    <div style={{ width: "100%", height: "100%", fontFamily: "Inter, sans-serif", background: "#0f172a" }}>
+    <div style={{ width: "100%", height: "100%", fontFamily: "Inter, sans-serif", background: "#000000" }}>
       <Audio
         src={staticFile("music.mp3")}
         volume={(f) =>
-          interpolate(f, [0, 60, 1680, 1740], [0, 1, 1, 0], {
+          interpolate(f, [0, 30, 1290, 1350], [0, 0.7, 0.7, 0], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
           })
         }
       />
-      <Sequence from={0} durationInFrames={150} style={{ position: "absolute", inset: 0 }}>
-        <OpeningScene lang={lang} aspectRatio={aspectRatio} />
+      <Sequence from={0} durationInFrames={300} style={{ position: "absolute", inset: 0 }}>
+        <StruggleScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={150} durationInFrames={210} style={{ position: "absolute", inset: 0 }}>
-        <ProblemScene lang={lang} aspectRatio={aspectRatio} />
+      <Sequence from={300} durationInFrames={300} style={{ position: "absolute", inset: 0 }}>
+        <PlacesScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={360} durationInFrames={180} style={{ position: "absolute", inset: 0 }}>
-        <SolutionScene lang={lang} aspectRatio={aspectRatio} />
+      <Sequence from={600} durationInFrames={300} style={{ position: "absolute", inset: 0 }}>
+        <RealityScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={540} durationInFrames={900} style={{ position: "absolute", inset: 0 }}>
-        <WidgetDemoScene lang={lang} aspectRatio={aspectRatio} />
+      <Sequence from={900} durationInFrames={390} style={{ position: "absolute", inset: 0 }}>
+        <TurnScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
-      <Sequence from={1440} durationInFrames={300} style={{ position: "absolute", inset: 0 }}>
-        <CtaScene lang={lang} aspectRatio={aspectRatio} />
+      <Sequence from={1290} durationInFrames={60} style={{ position: "absolute", inset: 0 }}>
+        <BrandScene lang={lang} aspectRatio={aspectRatio} />
       </Sequence>
     </div>
   );
