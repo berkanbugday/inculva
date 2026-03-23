@@ -8,15 +8,15 @@ export function StruggleScene({ lang }: SceneProps) {
   const { fps } = useVideoConfig();
 
   // line1: springs up at frame 0
-  const s1 = spring({ frame, fps, config: { damping: 20, stiffness: 180, mass: 0.8 } });
+  const s1 = spring({ frame, fps, config: { damping: 20, stiffness: 280, mass: 0.6 } });
   const y1 = interpolate(s1, [0, 1], [50, 0]);
 
-  // line2: springs up at frame 30
-  const s2 = spring({ frame: Math.max(0, frame - 30), fps, config: { damping: 20, stiffness: 180, mass: 0.8 } });
+  // line2: springs up at frame 8 (0.27s)
+  const s2 = spring({ frame: Math.max(0, frame - 8), fps, config: { damping: 20, stiffness: 280, mass: 0.6 } });
   const y2 = interpolate(s2, [0, 1], [50, 0]);
 
-  // line3: slams in at frame 60 — high stiffness, low damping = snap, no float
-  const s3 = spring({ frame: Math.max(0, frame - 60), fps, config: { damping: 14, stiffness: 300, mass: 0.6 } });
+  // line3: slams in at frame 20 (0.67s)
+  const s3 = spring({ frame: Math.max(0, frame - 20), fps, config: { damping: 12, stiffness: 400, mass: 0.4 } });
   const y3 = interpolate(s3, [0, 1], [40, 0]);
   const op3 = interpolate(s3, [0, 0.05, 1], [0, 1, 1]);
 

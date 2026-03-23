@@ -6,15 +6,15 @@ import { t } from "../../translations";
 export function RealityScene({ lang }: SceneProps) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const DURATION = 300;
+  const DURATION = 60;
 
-  const s1 = spring({ frame, fps, config: { damping: 22, stiffness: 80, mass: 1 } });
+  const s1 = spring({ frame, fps, config: { damping: 22, stiffness: 180, mass: 0.7 } });
   const y1 = interpolate(s1, [0, 1], [40, 0]);
 
-  const s2 = spring({ frame: Math.max(0, frame - 30), fps, config: { damping: 22, stiffness: 80, mass: 1 } });
+  const s2 = spring({ frame: Math.max(0, frame - 10), fps, config: { damping: 22, stiffness: 180, mass: 0.7 } });
   const y2 = interpolate(s2, [0, 1], [40, 0]);
 
-  const exitOpacity = interpolate(frame, [DURATION - 20, DURATION], [1, 0], {
+  const exitOpacity = interpolate(frame, [DURATION - 8, DURATION], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });

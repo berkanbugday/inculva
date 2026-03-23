@@ -6,7 +6,7 @@ interface Translations {
   places: { line1: string; line2: string; line3: string };
   reality: { line1: string; line2: string };
   turn: { line1: string; line2: string; line3: string };
-  brand: { domain: string };
+  brand: { tagline: string };
 }
 
 export const t: Record<Lang, Translations> = {
@@ -31,7 +31,7 @@ export const t: Record<Lang, Translations> = {
       line3: "düzeltebiliriz.",
     },
     brand: {
-      domain: "inculva.com",
+      tagline: "web erişilebilirlik çözümleri",
     },
   },
   en: {
@@ -58,7 +58,7 @@ export const t: Record<Lang, Translations> = {
       line3: "your website.",
     },
     brand: {
-      domain: "inculva.com",
+      tagline: "web accessibility solutions",
     },
   },
 };

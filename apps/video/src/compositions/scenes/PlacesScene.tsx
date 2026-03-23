@@ -8,8 +8,8 @@ export function PlacesScene({ lang }: SceneProps) {
 
   // Visibility windows — hard cuts (no spring, just opacity 0/1)
   const show1 = frame >= 0;
-  const show2 = frame >= 45;
-  const show3 = frame >= 90;
+  const show2 = frame >= 12;  // 0.4s
+  const show3 = frame >= 25;  // 0.83s
 
   const lineStyle = (visible: boolean, color: string, size: number): React.CSSProperties => ({
     color,
