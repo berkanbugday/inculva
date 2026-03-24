@@ -10,6 +10,13 @@ CREATE TABLE "User" (
     "role" TEXT NOT NULL DEFAULT 'user',
     "plan" TEXT NOT NULL DEFAULT 'free',
     "lsCustomerId" TEXT,
+    "usageAlertSent80" TIMESTAMP(3),
+    "usageAlertSent100" TIMESTAMP(3),
+    "referralCode" TEXT,
+    "dripDay3Sent" BOOLEAN NOT NULL DEFAULT false,
+    "dripDay7Sent" BOOLEAN NOT NULL DEFAULT false,
+    "dripDay30Sent" BOOLEAN NOT NULL DEFAULT false,
+    "bannedAt" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -83,9 +90,10 @@ CREATE TABLE "Site" (
     "name" TEXT NOT NULL,
     "domain" TEXT NOT NULL,
     "ownerId" TEXT NOT NULL,
-    "teamId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "lastHealthCheck" TIMESTAMP(3),
+    "healthStatus" TEXT,
 
     CONSTRAINT "Site_pkey" PRIMARY KEY ("id")
 );
@@ -114,7 +122,36 @@ CREATE TABLE "WidgetConfig" (
     "grayscale" BOOLEAN NOT NULL DEFAULT true,
     "skipNavigation" BOOLEAN NOT NULL DEFAULT true,
     "muteMedia" BOOLEAN NOT NULL DEFAULT true,
+    "readingMask" BOOLEAN NOT NULL DEFAULT true,
+    "textAlign" BOOLEAN NOT NULL DEFAULT true,
+    "saturation" BOOLEAN NOT NULL DEFAULT true,
+    "blueLightFilter" BOOLEAN NOT NULL DEFAULT true,
+    "hideImages" BOOLEAN NOT NULL DEFAULT true,
+    "darkMode" BOOLEAN NOT NULL DEFAULT true,
+    "contentMagnifier" BOOLEAN NOT NULL DEFAULT true,
+    "toolTips" BOOLEAN NOT NULL DEFAULT true,
+    "sustainabilityMode" BOOLEAN NOT NULL DEFAULT false,
+    "slowCursor" BOOLEAN NOT NULL DEFAULT true,
+    "dictionary" BOOLEAN NOT NULL DEFAULT false,
+    "lineHeight" BOOLEAN NOT NULL DEFAULT true,
+    "highlightTitles" BOOLEAN NOT NULL DEFAULT true,
+    "profileAdhd" BOOLEAN NOT NULL DEFAULT true,
+    "profileBlind" BOOLEAN NOT NULL DEFAULT true,
+    "profileLowVision" BOOLEAN NOT NULL DEFAULT true,
+    "profileColorBlind" BOOLEAN NOT NULL DEFAULT true,
+    "profileDyslexia" BOOLEAN NOT NULL DEFAULT true,
+    "profileMotorImpaired" BOOLEAN NOT NULL DEFAULT true,
+    "profileCognitive" BOOLEAN NOT NULL DEFAULT true,
+    "profileSeizure" BOOLEAN NOT NULL DEFAULT true,
+    "profileParkinson" BOOLEAN NOT NULL DEFAULT true,
     "accessibilityStatementUrl" TEXT,
+    "whiteLabelText" TEXT,
+    "borderRadius" INTEGER NOT NULL DEFAULT 8,
+    "buttonSize" TEXT NOT NULL DEFAULT 'medium',
+    "fontFamily" TEXT NOT NULL DEFAULT 'system',
+    "allowedDomains" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "lastScanViolations" INTEGER,
+    "lastScanAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -134,6 +171,17 @@ CREATE TABLE "WidgetEvent" (
 );
 
 -- CreateTable
+CREATE TABLE "WidgetLoad" (
+    "id" TEXT NOT NULL,
+    "siteId" TEXT NOT NULL,
+    "domain" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
+    "count" INTEGER NOT NULL DEFAULT 1,
+
+    CONSTRAINT "WidgetLoad_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "ApiKey" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -149,40 +197,56 @@ CREATE TABLE "ApiKey" (
 );
 
 -- CreateTable
-CREATE TABLE "Team" (
+CREATE TABLE "Notification" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "slug" TEXT NOT NULL,
-    "ownerId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
+    "href" TEXT,
+    "readAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Notification_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Webhook" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "url" TEXT NOT NULL,
+    "secret" TEXT NOT NULL,
+    "events" TEXT[],
+    "enabled" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Team_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Webhook_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "TeamMember" (
+CREATE TABLE "AuditLog" (
     "id" TEXT NOT NULL,
-    "teamId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "role" TEXT NOT NULL DEFAULT 'member',
-    "joinedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "TeamMember_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "TeamInvite" (
-    "id" TEXT NOT NULL,
-    "teamId" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "role" TEXT NOT NULL DEFAULT 'member',
-    "token" TEXT NOT NULL,
-    "expiresAt" TIMESTAMP(3) NOT NULL,
-    "acceptedAt" TIMESTAMP(3),
+    "action" TEXT NOT NULL,
+    "resource" TEXT NOT NULL,
+    "resourceId" TEXT,
+    "meta" JSONB,
+    "ip" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "TeamInvite_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "AuditLog_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Referral" (
+    "id" TEXT NOT NULL,
+    "referrerId" TEXT NOT NULL,
+    "referredId" TEXT NOT NULL,
+    "converted" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Referral_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -190,6 +254,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_lsCustomerId_key" ON "User"("lsCustomerId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_referralCode_key" ON "User"("referralCode");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Session_token_key" ON "Session"("token");
@@ -219,31 +286,34 @@ CREATE INDEX "WidgetEvent_siteId_idx" ON "WidgetEvent"("siteId");
 CREATE INDEX "WidgetEvent_siteId_createdAt_idx" ON "WidgetEvent"("siteId", "createdAt");
 
 -- CreateIndex
+CREATE INDEX "WidgetLoad_siteId_date_idx" ON "WidgetLoad"("siteId", "date");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "WidgetLoad_siteId_domain_date_key" ON "WidgetLoad"("siteId", "domain", "date");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "ApiKey_keyHash_key" ON "ApiKey"("keyHash");
 
 -- CreateIndex
 CREATE INDEX "ApiKey_userId_idx" ON "ApiKey"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Team_slug_key" ON "Team"("slug");
+CREATE INDEX "Notification_userId_createdAt_idx" ON "Notification"("userId", "createdAt");
 
 -- CreateIndex
-CREATE INDEX "Team_ownerId_idx" ON "Team"("ownerId");
+CREATE INDEX "Notification_userId_readAt_idx" ON "Notification"("userId", "readAt");
 
 -- CreateIndex
-CREATE INDEX "TeamMember_userId_idx" ON "TeamMember"("userId");
+CREATE INDEX "Webhook_userId_idx" ON "Webhook"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "TeamMember_teamId_userId_key" ON "TeamMember"("teamId", "userId");
+CREATE INDEX "AuditLog_userId_createdAt_idx" ON "AuditLog"("userId", "createdAt");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "TeamInvite_token_key" ON "TeamInvite"("token");
+CREATE UNIQUE INDEX "Referral_referredId_key" ON "Referral"("referredId");
 
 -- CreateIndex
-CREATE INDEX "TeamInvite_token_idx" ON "TeamInvite"("token");
-
--- CreateIndex
-CREATE INDEX "TeamInvite_teamId_idx" ON "TeamInvite"("teamId");
+CREATE INDEX "Referral_referrerId_idx" ON "Referral"("referrerId");
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -258,25 +328,28 @@ ALTER TABLE "Subscription" ADD CONSTRAINT "Subscription_userId_fkey" FOREIGN KEY
 ALTER TABLE "Site" ADD CONSTRAINT "Site_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Site" ADD CONSTRAINT "Site_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "WidgetConfig" ADD CONSTRAINT "WidgetConfig_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "WidgetEvent" ADD CONSTRAINT "WidgetEvent_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "WidgetLoad" ADD CONSTRAINT "WidgetLoad_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "ApiKey" ADD CONSTRAINT "ApiKey_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Team" ADD CONSTRAINT "Team_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Notification" ADD CONSTRAINT "Notification_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TeamMember" ADD CONSTRAINT "TeamMember_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Webhook" ADD CONSTRAINT "Webhook_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TeamMember" ADD CONSTRAINT "TeamMember_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "AuditLog" ADD CONSTRAINT "AuditLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TeamInvite" ADD CONSTRAINT "TeamInvite_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Referral" ADD CONSTRAINT "Referral_referrerId_fkey" FOREIGN KEY ("referrerId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Referral" ADD CONSTRAINT "Referral_referredId_fkey" FOREIGN KEY ("referredId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
