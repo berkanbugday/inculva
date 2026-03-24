@@ -77,9 +77,9 @@ export default function ContactForm({ labels }: Props) {
   const onSubmit = async (data: FormData) => {
     setStatus('sending');
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(import.meta.env.PUBLIC_FORMSPREE_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(data),
       });
       if (!response.ok) throw new Error(response.statusText);

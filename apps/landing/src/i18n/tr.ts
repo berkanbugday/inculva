@@ -455,8 +455,7 @@ export const tr: Translations = {
     sendMessage: "Mesaj Gönder",
     sending: "Gönderiliyor...",
     successTitle: "Mesaj gönderildi!",
-    successDescription:
-      "Bize ulaştığınız için teşekkürler. 1 saat içinde size dönüş yapacağız.",
+    successDescription: "Bize ulaştığınız için teşekkürler.",
     errorTitle: "Bir şeyler ters gitti",
     errorDescription:
       "Lütfen daha sonra tekrar deneyin veya doğrudan e-posta gönderin.",
@@ -465,14 +464,12 @@ export const tr: Translations = {
     validationEmail: "Geçerli bir e-posta adresi girin",
     validationSubject: "Lütfen bir konu seçin",
     validationMessage: "Mesaj en az 10 karakter olmalıdır",
-
-    otherWays: "Bize ulaşmanın diğer yolları",
-    emailLabel: "E-posta",
   },
 
   // Cookie banner
   cookie: {
-    message: "Site kullanımını analiz etmek ve deneyiminizi iyileştirmek için çerezler kullanıyoruz.",
+    message:
+      "Site kullanımını analiz etmek ve deneyiminizi iyileştirmek için çerezler kullanıyoruz.",
     privacyLink: "Gizlilik Politikası",
     dismiss: "Anladım",
     ariaLabel: "Çerez bildirimi",

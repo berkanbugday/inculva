@@ -450,8 +450,7 @@ export const en = {
     sendMessage: "Send Message",
     sending: "Sending...",
     successTitle: "Message sent!",
-    successDescription:
-      "Thank you for reaching out. We'll get back to you within 1 hour.",
+    successDescription: "Thank you for reaching out.",
     errorTitle: "Something went wrong",
     errorDescription: "Please try again later or email us directly.",
     validationFirstName: "First name is required",
@@ -459,14 +458,12 @@ export const en = {
     validationEmail: "Please enter a valid email address",
     validationSubject: "Please select a topic",
     validationMessage: "Message must be at least 10 characters",
-
-    otherWays: "Other ways to reach us",
-    emailLabel: "Email",
   },
 
   // Cookie banner
   cookie: {
-    message: "We use cookies to analyze site usage and improve your experience.",
+    message:
+      "We use cookies to analyze site usage and improve your experience.",
     privacyLink: "Privacy Policy",
     dismiss: "Got it",
     ariaLabel: "Cookie notice",
@@ -477,10 +474,10 @@ type DeepStringRecord<T> = {
   [K in keyof T]: T[K] extends string
     ? string
     : T[K] extends readonly string[]
-      ? readonly string[] | string[]
-      : T[K] extends Record<string, any>
-        ? DeepStringRecord<T[K]>
-        : T[K];
+    ? readonly string[] | string[]
+    : T[K] extends Record<string, any>
+    ? DeepStringRecord<T[K]>
+    : T[K];
 };
 
 export type Translations = DeepStringRecord<typeof en>;
