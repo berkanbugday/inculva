@@ -25,7 +25,13 @@ COPY tsconfig.base.json ./
 # Generate Prisma client
 RUN pnpm --filter @inculva/db db:generate
 
-# Build
+# Build db package first (produces dist/index.js consumed by api)
+RUN pnpm --filter @inculva/db build
+
+# Build email package (produces dist/index.js consumed by api)
+RUN pnpm --filter @inculva/email build
+
+# Build api
 RUN pnpm --filter @inculva/api build
 
 # ── Runtime ───────────────────────────────────────────────────────────────────
@@ -46,9 +52,11 @@ COPY apps/api/package.json apps/api/
 # Production deps only
 RUN pnpm install --frozen-lockfile --prod
 
-# Copy build output + generated Prisma client
+# Copy build output + generated Prisma client + compiled packages
 COPY --from=builder /app/apps/api/dist apps/api/dist
+COPY --from=builder /app/packages/db/dist packages/db/dist
 COPY --from=builder /app/packages/db/prisma packages/db/prisma
+COPY --from=builder /app/packages/email/dist packages/email/dist
 COPY --from=builder /app/node_modules/.pnpm node_modules/.pnpm
 COPY --from=builder /app/packages/db/node_modules packages/db/node_modules
 

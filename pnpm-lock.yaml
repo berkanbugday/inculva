@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@types/react': ^18.3.0
+  '@types/react': 18.3.0
 
 importers:
 
@@ -159,11 +159,11 @@ importers:
         specifier: 22.10.7
         version: 22.10.7
       '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.28
+        specifier: 18.3.0
+        version: 18.3.0
       '@types/react-dom':
         specifier: '19'
-        version: 19.2.3(@types/react@18.3.28)
+        version: 19.2.3(@types/react@18.3.0)
       tailwindcss:
         specifier: 4.2.1
         version: 4.2.1
@@ -187,7 +187,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       sanity:
         specifier: 3.0.0
-        version: 3.0.0(@types/node@24.12.0)(@types/react@18.3.28)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.15(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(terser@5.46.1)
+        version: 3.0.0(@types/node@24.12.0)(@types/react@18.3.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.15(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(terser@5.46.1)
       styled-components:
         specifier: 6.1.15
         version: 6.1.15(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -196,8 +196,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(eslint@8.6.0)(typescript@5.7.3)
       '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.28
+        specifier: 18.3.0
+        version: 18.3.0
       eslint:
         specifier: 8.6.0
         version: 8.6.0
@@ -212,25 +212,25 @@ importers:
     dependencies:
       '@remotion/cli':
         specifier: 4.0.438
-        version: 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       '@remotion/google-fonts':
         specifier: 4.0.438
-        version: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       react:
-        specifier: ^18.3.0
-        version: 18.3.1
+        specifier: 18.3.0
+        version: 18.3.0
       react-dom:
-        specifier: ^18.3.0
-        version: 18.3.1(react@18.3.1)
+        specifier: 18.3.0
+        version: 18.3.0(react@18.3.0)
       remotion:
         specifier: 4.0.438
-        version: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
     devDependencies:
       '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.28
+        specifier: 18.3.0
+        version: 18.3.0
       typescript:
-        specifier: ^5.0.0
+        specifier: 5.7.3
         version: 5.7.3
 
   packages/db:
@@ -287,11 +287,11 @@ importers:
         version: 2.6.0
     devDependencies:
       '@types/react':
-        specifier: ^18.3.0
-        version: 18.3.28
+        specifier: 18.3.0
+        version: 18.3.0
       '@types/react-dom':
         specifier: '19'
-        version: 19.2.3(@types/react@18.3.28)
+        version: 19.2.3(@types/react@18.3.0)
       tailwindcss:
         specifier: 4.2.1
         version: 4.2.1
@@ -359,7 +359,7 @@ packages:
     resolution: {integrity: sha512-1tl95bpGfuaDMDn8O3x/5Dxii1HPvzjvpL2YTuqOOrQehs60I2DKiDgh1jrKc7G8lv+LQT5H15V6QONQ+9waeQ==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
     peerDependencies:
-      '@types/react': ^18.3.0
+      '@types/react': 18.3.0
       '@types/react-dom': ^17.0.17 || ^18.0.6 || ^19.0.0
       react: ^17.0.2 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.2 || ^18.0.0 || ^19.0.0
@@ -2957,13 +2957,13 @@ packages:
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
     peerDependencies:
-      '@types/react': ^18.3.0
+      '@types/react': 18.3.0
 
   '@types/react-is@17.0.7':
     resolution: {integrity: sha512-WrTEiT+c6rgq36QApoy0063uAOdltCrhF0QMXLIgYPaTvIdQhAB8hPb5oGGqX18xToElNILS9UprwU6GyINcJg==}
 
-  '@types/react@18.3.28':
-    resolution: {integrity: sha512-z9VXpC7MWrhfWipitjNdgCauoMLRdIILQsAEV+ZesIzBq/oUlxk0m3ApZuMFCXdnS4U7KrI+l3WRUEGQ8K1QKw==}
+  '@types/react@18.3.0':
+    resolution: {integrity: sha512-DiUcKjzE6soLyln8NNZmyhcQjVv+WsUIFSqetMN0p8927OztKT4VTfFTqsbAi5oAGIcgOmOajlfBqyptDDjZRw==}
 
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
@@ -6332,10 +6332,10 @@ packages:
     peerDependencies:
       react: ^18.2.0
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
+  react-dom@18.3.0:
+    resolution: {integrity: sha512-zaKdLBftQJnvb7FtDIpZtsAIb2MZU087RM8bRDZU8LVCCFYjPTsDZJNFUWPcVz3HFSN1n/caxi0ca4B/aaVQGQ==}
     peerDependencies:
-      react: ^18.3.1
+      react: ^18.3.0
 
   react-dom@19.0.0:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
@@ -6353,7 +6353,7 @@ packages:
   react-focus-lock@2.13.7:
     resolution: {integrity: sha512-20lpZHEQrXPb+pp1tzd4ULL6DyO5D2KnR0G69tTDdydrmNhU7pdFmbQUYVyHUgp+xN29IuFR0PVuhOmvaZL9Og==}
     peerDependencies:
-      '@types/react': ^18.3.0
+      '@types/react': 18.3.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -6425,8 +6425,8 @@ packages:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
 
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
+  react@18.3.0:
+    resolution: {integrity: sha512-RPutkJftSAldDibyrjuku7q11d3oy6wKOyPe5K1HA/HwwrXcEqBdHsLypkC2FFYjP7bPUa6gbzSBhw4sY2JcDg==}
     engines: {node: '>=0.10.0'}
 
   react@19.0.0:
@@ -7473,7 +7473,7 @@ packages:
     resolution: {integrity: sha512-jQL3lRnocaFtu3V00JToYz/4QkNWswxijDaCVNZRiRTO3HQDLsdu1ZtmIUvV4yPp+rvWm5j0y0TG/S61cuijTg==}
     engines: {node: '>=10'}
     peerDependencies:
-      '@types/react': ^18.3.0
+      '@types/react': 18.3.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -7493,7 +7493,7 @@ packages:
     resolution: {integrity: sha512-Fedw0aZvkhynoPYlA5WXrMCAMm+nSWdZt6lzJQ7Ok8S6Q+VsHmHpRWndVRJ8Be0ZbkfPc5LRYH+5XrzXcEeLRQ==}
     engines: {node: '>=10'}
     peerDependencies:
-      '@types/react': ^18.3.0
+      '@types/react': 18.3.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -9862,19 +9862,19 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
       react-promise-suspense: 0.3.4
 
-  '@remotion/bundler@4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/bundler@4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
       '@remotion/media-parser': 4.0.438
-      '@remotion/studio': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/studio-shared': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@remotion/studio': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/studio-shared': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       '@rspack/core': 1.7.6(@swc/helpers@0.5.15)
       '@rspack/plugin-react-refresh': 1.6.1(react-refresh@0.18.0)
       css-loader: 5.2.7(webpack@5.105.0(esbuild@0.25.0))
       esbuild: 0.25.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
       react-refresh: 0.18.0
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       source-map: 0.7.3
       style-loader: 4.0.0(webpack@5.105.0(esbuild@0.25.0))
       webpack: 5.105.0(esbuild@0.25.0)
@@ -9888,21 +9888,21 @@ snapshots:
       - webpack-cli
       - webpack-hot-middleware
 
-  '@remotion/cli@4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/cli@4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
-      '@remotion/bundler': 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/media-utils': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/player': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/renderer': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/studio': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/studio-server': 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/studio-shared': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@remotion/bundler': 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/media-utils': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/player': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/renderer': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/studio': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/studio-server': 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/studio-shared': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       dotenv: 17.3.1
       minimist: 1.2.6
       prompts: 2.4.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/helpers'
@@ -9934,9 +9934,9 @@ snapshots:
   '@remotion/compositor-win32-x64-msvc@4.0.438':
     optional: true
 
-  '@remotion/google-fonts@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/google-fonts@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -9945,28 +9945,28 @@ snapshots:
 
   '@remotion/media-parser@4.0.438': {}
 
-  '@remotion/media-utils@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/media-utils@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
       mediabunny: 1.39.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
 
-  '@remotion/player@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/player@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
 
-  '@remotion/renderer@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/renderer@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
       '@remotion/licensing': 4.0.438
       '@remotion/streaming': 4.0.438
       execa: 5.1.1
       extract-zip: 2.0.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       source-map: 0.8.0-beta.0
       ws: 8.17.1
     optionalDependencies:
@@ -9984,17 +9984,17 @@ snapshots:
 
   '@remotion/streaming@4.0.438': {}
 
-  '@remotion/studio-server@4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/studio-server@4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
       '@babel/parser': 7.24.1
-      '@remotion/bundler': 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/renderer': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/studio-shared': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@remotion/bundler': 4.0.438(@swc/helpers@0.5.15)(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/renderer': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/studio-shared': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       memfs: 3.4.3
       open: 8.4.2
       prettier: 3.8.1
       recast: 0.23.11
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       semver: 7.5.3
       source-map: 0.7.3
     transitivePeerDependencies:
@@ -10009,27 +10009,27 @@ snapshots:
       - webpack-cli
       - webpack-hot-middleware
 
-  '@remotion/studio-shared@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/studio-shared@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
     transitivePeerDependencies:
       - react
       - react-dom
 
-  '@remotion/studio@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/studio@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
-      '@remotion/media-utils': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/player': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/renderer': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/studio-shared': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/web-renderer': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@remotion/zod-types': 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(zod@4.3.6)
+      '@remotion/media-utils': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/player': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/renderer': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/studio-shared': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/web-renderer': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
+      '@remotion/zod-types': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)(zod@4.3.6)
       mediabunny: 1.39.2
       memfs: 3.4.3
       open: 8.4.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       semver: 7.5.3
       source-map: 0.7.3
       zod: 4.3.6
@@ -10038,20 +10038,20 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@remotion/web-renderer@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@remotion/web-renderer@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)':
     dependencies:
       '@mediabunny/aac-encoder': 1.39.2(mediabunny@1.39.2)
       '@mediabunny/flac-encoder': 1.39.2(mediabunny@1.39.2)
       '@mediabunny/mp3-encoder': 1.39.2(mediabunny@1.39.2)
       '@remotion/licensing': 4.0.438
       mediabunny: 1.39.2
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
 
-  '@remotion/zod-types@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(zod@4.3.6)':
+  '@remotion/zod-types@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)(zod@4.3.6)':
     dependencies:
-      remotion: 4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       zod: 4.3.6
     transitivePeerDependencies:
       - react
@@ -10438,7 +10438,7 @@ snapshots:
   '@sanity/types@3.0.0':
     dependencies:
       '@sanity/client': 3.4.1
-      '@types/react': 18.3.28
+      '@types/react': 18.3.0
     transitivePeerDependencies:
       - supports-color
 
@@ -10764,11 +10764,11 @@ snapshots:
 
   '@types/react-copy-to-clipboard@5.0.7':
     dependencies:
-      '@types/react': 18.3.28
+      '@types/react': 18.3.0
 
-  '@types/react-dom@19.2.3(@types/react@18.3.28)':
+  '@types/react-dom@19.2.3(@types/react@18.3.0)':
     dependencies:
-      '@types/react': 18.3.28
+      '@types/react': 18.3.0
 
   '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:
@@ -10776,9 +10776,9 @@ snapshots:
 
   '@types/react-is@17.0.7':
     dependencies:
-      '@types/react': 18.3.28
+      '@types/react': 18.3.0
 
-  '@types/react@18.3.28':
+  '@types/react@18.3.0':
     dependencies:
       '@types/prop-types': 15.7.15
       csstype: 3.2.3
@@ -14844,10 +14844,10 @@ snapshots:
       react: 18.2.0
       scheduler: 0.23.2
 
-  react-dom@18.3.1(react@18.3.1):
+  react-dom@18.3.0(react@18.3.0):
     dependencies:
       loose-envify: 1.4.0
-      react: 18.3.1
+      react: 18.3.0
       scheduler: 0.23.2
 
   react-dom@19.0.0(react@19.0.0):
@@ -14862,17 +14862,17 @@ snapshots:
 
   react-fast-compare@3.2.2: {}
 
-  react-focus-lock@2.13.7(@types/react@18.3.28)(react@18.2.0):
+  react-focus-lock@2.13.7(@types/react@18.3.0)(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.29.2
       focus-lock: 1.3.6
       prop-types: 15.8.1
       react: 18.2.0
       react-clientside-effect: 1.2.8(react@18.2.0)
-      use-callback-ref: 1.3.3(@types/react@18.3.28)(react@18.2.0)
-      use-sidecar: 1.1.3(@types/react@18.3.28)(react@18.2.0)
+      use-callback-ref: 1.3.3(@types/react@18.3.0)(react@18.2.0)
+      use-sidecar: 1.1.3(@types/react@18.3.0)(react@18.2.0)
     optionalDependencies:
-      '@types/react': 18.3.28
+      '@types/react': 18.3.0
 
   react-hook-form@7.54.0(react@19.0.0):
     dependencies:
@@ -14933,7 +14933,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  react@18.3.1:
+  react@18.3.0:
     dependencies:
       loose-envify: 1.4.0
 
@@ -15130,10 +15130,10 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
-  remotion@4.0.438(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  remotion@4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0):
     dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 18.3.0
+      react-dom: 18.3.0(react@18.3.0)
 
   request-light@0.5.8: {}
 
@@ -15305,7 +15305,7 @@ snapshots:
     dependencies:
       diff-match-patch: 1.0.5
 
-  sanity@3.0.0(@types/node@24.12.0)(@types/react@18.3.28)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.15(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(terser@5.46.1):
+  sanity@3.0.0(@types/node@24.12.0)(@types/react@18.3.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(styled-components@6.1.15(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(terser@5.46.1):
     dependencies:
       '@juggle/resize-observer': 3.4.0
       '@portabletext/react': 1.0.6(react@18.2.0)
@@ -15384,7 +15384,7 @@ snapshots:
       react-copy-to-clipboard: 5.1.1(react@18.2.0)
       react-dom: 18.2.0(react@18.2.0)
       react-fast-compare: 3.2.2
-      react-focus-lock: 2.13.7(@types/react@18.3.28)(react@18.2.0)
+      react-focus-lock: 2.13.7(@types/react@18.3.0)(react@18.2.0)
       react-is: 18.3.1
       react-props-stream: 1.0.1(react@18.2.0)(rxjs@6.6.7)
       react-refractor: 2.2.0(react@18.2.0)
@@ -16212,12 +16212,12 @@ snapshots:
       querystringify: 2.2.0
       requires-port: 1.0.0
 
-  use-callback-ref@1.3.3(@types/react@18.3.28)(react@18.2.0):
+  use-callback-ref@1.3.3(@types/react@18.3.0)(react@18.2.0):
     dependencies:
       react: 18.2.0
       tslib: 2.8.1
     optionalDependencies:
-      '@types/react': 18.3.28
+      '@types/react': 18.3.0
 
   use-device-pixel-ratio@1.1.2(react@18.2.0):
     dependencies:
@@ -16227,13 +16227,13 @@ snapshots:
     dependencies:
       react: 18.2.0
 
-  use-sidecar@1.1.3(@types/react@18.3.28)(react@18.2.0):
+  use-sidecar@1.1.3(@types/react@18.3.0)(react@18.2.0):
     dependencies:
       detect-node-es: 1.1.0
       react: 18.2.0
       tslib: 2.8.1
     optionalDependencies:
-      '@types/react': 18.3.28
+      '@types/react': 18.3.0
 
   use-sync-external-store@1.6.0(react@18.2.0):
     dependencies:

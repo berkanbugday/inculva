@@ -22,7 +22,7 @@ export const t: Record<Lang, Translations> = {
       line3: "Hatta internette.",
     },
     reality: {
-      line1: "Web sitelerinin %96'sı",
+      line1: "Yüzbinlerce web sitesi",
       line2: "erişilebilir değil.",
     },
     turn: {
@@ -46,7 +46,7 @@ export const t: Record<Lang, Translations> = {
       line3: "Even online.",
     },
     reality: {
-      line1: "96% of websites",
+      line1: "Hundreds of thousands of websites",
       line2: "are inaccessible.",
     },
     turn: {
