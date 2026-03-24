@@ -42,6 +42,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build widget
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_CDN_URL: ${{ secrets.VITE_CDN_URL }}
         run: pnpm --filter @inculva/widget build:cdn
 
       # ── widget.js ────────────────────────────────────────────────────────────
