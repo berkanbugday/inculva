@@ -295,9 +295,6 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
             profileColorBlind: config.profileColorBlind,
             profileDyslexia: config.profileDyslexia,
             profileMotorImpaired: config.profileMotorImpaired,
-            profileCognitive: config.profileCognitive,
-            profileSeizure: config.profileSeizure,
-            profileParkinson: config.profileParkinson,
           } satisfies WidgetProfiles,
           ...(config.accessibilityStatementUrl
             ? { accessibilityStatementUrl: config.accessibilityStatementUrl }

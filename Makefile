@@ -42,11 +42,11 @@ seed:
 
 ## Docker
 push-api:
-	docker build -f apps/api/Dockerfile -t $(REPO):api .
-	docker push $(REPO):api
+	docker build -f apps/api/Dockerfile -t $(REPO):api-$(TAG) .
+	docker push $(REPO):api-$(TAG)
 
 push-landing:
-	docker build -f apps/landing/Dockerfile -t $(REPO):landing apps/landing
-	docker push $(REPO):landing
+	docker build -f apps/landing/Dockerfile -t $(REPO):landing-$(TAG) apps/landing
+	docker push $(REPO):landing-$(TAG)
 
 push: push-api push-landing
