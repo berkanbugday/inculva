@@ -12,7 +12,7 @@ export async function GET(): Promise<NextResponse> {
   const userId = session.user.id;
   const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
 
-  const [user, sites, apiKeys, subscription] = await Promise.all([
+  const [user, sites, subscription] = await Promise.all([
     db.user.findUnique({
       where: { id: userId },
       select: {
@@ -70,17 +70,6 @@ export async function GET(): Promise<NextResponse> {
         },
       },
     }),
-    db.apiKey.findMany({
-      where: { userId, revokedAt: null },
-      select: {
-        id: true,
-        name: true,
-        keyPrefix: true,
-        createdAt: true,
-        lastUsedAt: true,
-        expiresAt: true,
-      },
-    }),
     db.subscription.findUnique({
       where: { userId },
       select: {
@@ -106,7 +95,6 @@ export async function GET(): Promise<NextResponse> {
       config: s.widgetConfig,
       eventsLast90Days: s._count.widgetEvents,
     })),
-    apiKeys,
   };
 
   return new NextResponse(JSON.stringify(exportData, null, 2), {

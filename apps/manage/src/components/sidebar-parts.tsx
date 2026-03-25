@@ -5,8 +5,6 @@ import Link from "next/link";
 import {
   GlobeIcon,
   UserIcon,
-  KeyIcon,
-  WebhookIcon,
   CreditCardIcon,
   ListIcon,
 } from "./sidebar-icons";
@@ -111,16 +109,6 @@ export function SiteGroup({
 
 const SETTINGS_LINKS = [
   { href: "/dashboard/settings", label: "Account", icon: <UserIcon /> },
-  {
-    href: "/dashboard/settings/api-keys",
-    label: "API Keys",
-    icon: <KeyIcon />,
-  },
-  {
-    href: "/dashboard/settings/webhooks",
-    label: "Webhooks",
-    icon: <WebhookIcon />,
-  },
   {
     href: "/dashboard/settings/billing",
     label: "Billing",

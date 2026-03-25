@@ -24,12 +24,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <DashboardHeader
-        email={session.user.email}
-        name={session.user.name ?? null}
-        locale={locale}
-        isAdmin
-      />
+      <DashboardHeader locale={locale} />
       <AdminNav />
       {children}
     </div>

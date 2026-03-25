@@ -7,6 +7,5 @@ export type {
   WidgetEvent,
   Session,
   Account,
-  ApiKey,
   Subscription,
 } from "@prisma/client";

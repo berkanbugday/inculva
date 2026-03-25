@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
-import { deliverWebhooks } from "@/lib/webhooks";
 import { logAudit } from "@/lib/audit";
 
 interface Params {
@@ -74,7 +73,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     profileCognitive?: boolean;
     profileSeizure?: boolean;
     profileParkinson?: boolean;
-    // Visual customization (Business plan only)
+    // Visual customization (Large plan only)
     borderRadius?: number;
     buttonSize?: string;
     fontFamily?: string;
@@ -142,12 +141,12 @@ export async function PUT(request: NextRequest, { params }: Params) {
       ...(body.primaryColor !== undefined && { primaryColor: body.primaryColor }),
       ...(body.language !== undefined && { language: body.language }),
       ...(body.accessibilityStatementUrl !== undefined && { accessibilityStatementUrl: body.accessibilityStatementUrl || null }),
-      // White-label: only Business plan users may set this
-      ...(body.whiteLabelText !== undefined && user?.plan === "business" && { whiteLabelText: body.whiteLabelText }),
-      // Visual customization: only Business plan users may set these
-      ...(body.borderRadius !== undefined && user?.plan === "business" && { borderRadius: body.borderRadius }),
-      ...(body.buttonSize !== undefined && user?.plan === "business" && { buttonSize: body.buttonSize }),
-      ...(body.fontFamily !== undefined && user?.plan === "business" && { fontFamily: body.fontFamily }),
+      // White-label: only Large plan users may set this
+      ...(body.whiteLabelText !== undefined && user?.plan === "large" && { whiteLabelText: body.whiteLabelText }),
+      // Visual customization: only Large plan users may set these
+      ...(body.borderRadius !== undefined && user?.plan === "large" && { borderRadius: body.borderRadius }),
+      ...(body.buttonSize !== undefined && user?.plan === "large" && { buttonSize: body.buttonSize }),
+      ...(body.fontFamily !== undefined && user?.plan === "large" && { fontFamily: body.fontFamily }),
       ...(sanitizedDomains !== undefined && { allowedDomains: sanitizedDomains }),
       ...(body.textResizing !== undefined && { textResizing: body.textResizing }),
       ...(body.highContrast !== undefined && { highContrast: body.highContrast }),
@@ -190,11 +189,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
     },
   });
 
-  // Fire-and-forget: webhook delivery + audit log
-  void deliverWebhooks(session.user.id, "site.config_updated", {
-    siteId: id,
-    domain: site.domain,
-  });
   logAudit({
     userId: session.user.id,
     action: "site.config_updated",

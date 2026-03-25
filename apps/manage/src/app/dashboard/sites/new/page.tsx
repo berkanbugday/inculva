@@ -2,8 +2,6 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
-import { PLAN_LIMITS } from "@inculva/types";
-import type { Plan } from "@inculva/types";
 import { SiteWizard } from "./site-wizard";
 
 const VALID_POSITIONS = new Set([
@@ -92,24 +90,6 @@ async function createSite(formData: FormData): Promise<void> {
 
   try {
     const site = await db.$transaction(async (tx) => {
-      const user = await tx.user.findUnique({
-        where: { id: session.user.id },
-        select: { plan: true },
-      });
-      const plan = (user?.plan ?? "free") as Plan;
-      const limits = PLAN_LIMITS[plan];
-
-      if (limits.sites !== Infinity) {
-        const siteCount = await tx.site.count({
-          where: { ownerId: session.user.id },
-        });
-        if (siteCount >= limits.sites) {
-          throw new Error(
-            `Your ${plan} plan allows up to ${limits.sites} site${limits.sites === 1 ? "" : "s"}. Upgrade to add more.`,
-          );
-        }
-      }
-
       return tx.site.create({
         data: {
           name: name.trim(),

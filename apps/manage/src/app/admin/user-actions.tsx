@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-type Plan = "free" | "pro" | "business";
+type Plan = "free" | "small" | "medium" | "large";
 
 export function AdminUserActions({ userId, currentPlan }: { userId: string; currentPlan: string }) {
   const router = useRouter();
@@ -24,7 +24,7 @@ export function AdminUserActions({ userId, currentPlan }: { userId: string; curr
     }
   }
 
-  const plans: Plan[] = ["free", "pro", "business"];
+  const plans: Plan[] = ["free", "small", "medium", "large"];
 
   return (
     <div className="flex items-center gap-1 flex-wrap">

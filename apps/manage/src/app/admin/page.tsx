@@ -37,14 +37,24 @@ async function getStats() {
     }),
   ]);
 
-  const planCounts: Record<string, number> = { free: 0, pro: 0, business: 0 };
+  const planCounts: Record<string, number> = { free: 0, small: 0, medium: 0, large: 0 };
   for (const row of usersByPlan) {
     planCounts[row.plan] = row._count._all;
   }
 
-  const proSubs = await db.subscription.count({ where: { plan: "pro", status: "active" } });
-  const businessSubs = await db.subscription.count({ where: { plan: "business", status: "active" } });
-  const mrr = proSubs * 19 + businessSubs * 49;
+  const [smMonth, smYear, mdMonth, mdYear, lgMonth, lgYear] = await Promise.all([
+    db.subscription.count({ where: { plan: "small",  interval: "month", status: "active" } }),
+    db.subscription.count({ where: { plan: "small",  interval: "year",  status: "active" } }),
+    db.subscription.count({ where: { plan: "medium", interval: "month", status: "active" } }),
+    db.subscription.count({ where: { plan: "medium", interval: "year",  status: "active" } }),
+    db.subscription.count({ where: { plan: "large",  interval: "month", status: "active" } }),
+    db.subscription.count({ where: { plan: "large",  interval: "year",  status: "active" } }),
+  ]);
+  const mrr = Math.round(
+    smMonth * 39   + smYear * (375 / 12) +
+    mdMonth * 59   + mdYear * (566 / 12) +
+    lgMonth * 119  + lgYear * (1133 / 12),
+  );
 
   return {
     totalUsers,
@@ -89,13 +99,14 @@ export default async function AdminPage() {
       <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
         <h2 className="font-semibold text-gray-900 dark:text-white mb-4">Users by Plan</h2>
         <div className="grid grid-cols-3 gap-4">
-          {(["free", "pro", "business"] as const).map((plan) => {
+          {(["free", "small", "medium", "large"] as const).map((plan) => {
             const count = stats.planCounts[plan] ?? 0;
             const pct = stats.totalUsers > 0 ? Math.round((count / stats.totalUsers) * 100) : 0;
             const colors: Record<string, string> = {
               free: "bg-gray-200 dark:bg-gray-700",
-              pro: "bg-blue-500",
-              business: "bg-indigo-600",
+              small: "bg-blue-400",
+              medium: "bg-blue-600",
+              large: "bg-indigo-600",
             };
             return (
               <div key={plan} className="space-y-2">
@@ -212,8 +223,9 @@ function StatCard({ label, value, highlight }: { label: string; value: string; h
 function PlanBadge({ plan }: { plan: string }) {
   const styles: Record<string, string> = {
     free: "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400",
-    pro: "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300",
-    business: "bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300",
+    small: "bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300",
+    medium: "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300",
+    large: "bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300",
   };
   return (
     <span className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${styles[plan] ?? styles["free"]}`}>

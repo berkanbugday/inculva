@@ -22,8 +22,8 @@ model User {
   role             String    @default("user")  // "user" | "admin"
 
   // Billing
-  plan             String    @default("free")  // "free" | "pro" | "business"
-  lsCustomerId     String?   @unique
+  plan             String    @default("free")  // "free" | "small" | "medium" | "large"
+  polarCustomerId  String?   @unique
 
   // Usage alerts — track when monthly threshold emails were last sent
   usageAlertSent80  DateTime?
@@ -43,10 +43,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   sites         Site[]
-  apiKeys       ApiKey[]
   subscription  Subscription?
   notifications Notification[]
-  webhooks      Webhook[]
   auditLogs     AuditLog[]
   referrals     Referral[]     @relation("ReferralReferrer")
   referredBy    Referral[]     @relation("ReferralReferred")
@@ -101,14 +99,14 @@ model Verification {
 model Subscription {
   id                   String    @id @default(cuid())
   userId               String    @unique
-  lsSubscriptionId     String    @unique
-  lsVariantId          String
-  plan                 String    // "pro" | "business"
-  status               String    // "active" | "past_due" | "canceled" | "paused"
+  polarSubscriptionId  String    @unique
+  polarProductId       String
+  plan                 String    // "small" | "medium" | "large"
+  interval             String    // "month" | "year"
+  status               String    // "active" | "trialing" | "past_due" | "canceled"
   currentPeriodStart   DateTime
   currentPeriodEnd     DateTime
   canceledAt           DateTime?
-  lsCustomerPortalUrl  String?
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
 
@@ -240,22 +238,6 @@ model WidgetLoad {
   @@index([siteId, date])
 }
 
-model ApiKey {
-  id          String    @id @default(cuid())
-  userId      String
-  name        String
-  keyHash     String    @unique
-  keyPrefix   String
-  lastUsedAt  DateTime?
-  expiresAt   DateTime?
-  createdAt   DateTime  @default(now())
-  revokedAt   DateTime?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-}
-
 // ─── Notifications ────────────────────────────────────────────────────────────
 
 model Notification {
@@ -272,24 +254,6 @@ model Notification {
 
   @@index([userId, createdAt])
   @@index([userId, readAt])
-}
-
-// ─── Webhooks ─────────────────────────────────────────────────────────────────
-
-// Outbound webhooks — POST to customer URLs on platform events
-model Webhook {
-  id        String   @id @default(cuid())
-  userId    String
-  url       String   // destination URL (max 500 chars)
-  secret    String   // HMAC-SHA256 signing secret (stored plaintext, used to sign outgoing payloads)
-  events    String[] // subscribed types: "site.config_updated" | "usage.warning" | "usage.limit" | "payment.failed"
-  enabled   Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
 }
 
 // ─── Audit Log ────────────────────────────────────────────────────────────────

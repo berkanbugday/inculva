@@ -63,7 +63,7 @@ export function ConfigTabGeneral({
   const fontFamily = watch("fontFamily");
 
   const snippet = `<script src="${widgetScriptSrc}" data-site-id="${siteId}" async></script>`;
-  const isBusiness = userPlan === "business";
+  const isBusiness = userPlan === "large";
 
   async function copySnippet() {
     try {

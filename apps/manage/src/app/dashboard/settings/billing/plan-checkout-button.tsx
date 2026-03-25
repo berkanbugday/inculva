@@ -1,32 +1,35 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export function PlanCheckoutButton({ variantId, label }: { variantId: string; label: string }) {
+export function PlanCheckoutButton({
+  productId,
+  label,
+  popular = false,
+}: {
+  productId: string;
+  label: string;
+  popular?: boolean;
+}) {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  async function handleClick() {
-    if (!variantId) return;
+  function handleClick() {
+    if (!productId) return;
     setLoading(true);
-    const res = await fetch("/api/billing/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ variantId }),
-    });
-    const data = (await res.json()) as { url?: string; error?: string };
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      alert(data.error ?? "Failed to start checkout");
-      setLoading(false);
-    }
+    router.push(`/api/billing/checkout?productId=${encodeURIComponent(productId)}`);
   }
 
   return (
     <button
-      onClick={() => void handleClick()}
-      disabled={loading || !variantId}
-      className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      onClick={handleClick}
+      disabled={loading || !productId}
+      className={`w-full py-3 px-6 text-sm font-semibold rounded-full transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+        popular
+          ? "bg-blue-600 hover:bg-blue-700 text-white"
+          : "bg-gray-50 dark:bg-[#2a2a3e] text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-[#333350] border border-gray-200 dark:border-[#3a3a4e]"
+      }`}
     >
       {loading ? "Redirecting…" : label}
     </button>

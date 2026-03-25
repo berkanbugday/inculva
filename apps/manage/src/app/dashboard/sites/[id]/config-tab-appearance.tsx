@@ -48,7 +48,7 @@ export function ConfigTabAppearance({
   onSave,
   userPlan,
 }: Props) {
-  const isBusiness = userPlan === "business";
+  const isBusiness = userPlan === "large";
   const inputClass =
     "w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
 
@@ -154,10 +154,10 @@ export function ConfigTabAppearance({
           </div>
         </div>
 
-        {/* Business plan gates */}
+        {/* Large plan gates */}
         {!isBusiness && (
           <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
-            Upgrade to Business to unlock font family and header/footer colors.
+            Upgrade to Large plan to unlock font family and header/footer colors.
           </p>
         )}
 
@@ -166,7 +166,7 @@ export function ConfigTabAppearance({
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Font family{" "}
-                <span className="text-xs text-amber-600">Business</span>
+                <span className="text-xs text-amber-600">Large plan</span>
               </label>
               <select
                 value={form.fontFamily}
