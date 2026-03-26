@@ -21,12 +21,9 @@ export interface WidgetConfig {
   features: WidgetFeatures;
   /** EAA Article 13 — URL to the site's accessibility statement page */
   accessibilityStatementUrl?: string;
-  /** White-label (Business plan only). null=show "Powered by Inculva", ""=hide, string=show custom */
+  /** White-label (Large plan only). null=show "Powered by Inculva", ""=hide, string=show custom */
   whiteLabelText?: string | null;
-  /** Visual customization — Business plan only */
-  borderRadius?: number;
   buttonSize?: "small" | "medium" | "large";
-  fontFamily?: "system" | "inter" | "roboto" | "opensans";
   /** Custom background color for the panel header (hex/rgb/hsl string) */
   headerBgColor?: string;
   /** Custom background color for the panel footer (hex/rgb/hsl string) */

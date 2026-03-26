@@ -13,8 +13,7 @@ export type Config = {
   whiteLabelText: string;
   allowedDomains: string[];
   buttonSize: "small" | "medium" | "large";
-  borderRadius: number;
-  fontFamily: string;
+  buttonIcon: string;
   textResizing: boolean;
   dyslexiaFont: boolean;
   cursorEnhancement: boolean;
@@ -123,7 +122,6 @@ export function WidgetConfigForm({
             initialName={initialName}
             initialDomain={initialDomain}
             widgetScriptSrc={widgetScriptSrc}
-            badgeSrc={badgeSrc}
             userPlan={userPlan}
           />
         )}

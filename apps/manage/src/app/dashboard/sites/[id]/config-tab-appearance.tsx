@@ -22,13 +22,6 @@ const POSITION_GRID = [
   ],
 ] as const;
 
-const FONT_OPTIONS = [
-  { value: "system", label: "System" },
-  { value: "inter", label: "Inter" },
-  { value: "roboto", label: "Roboto" },
-  { value: "opensans", label: "Open Sans" },
-] as const;
-
 interface Props {
   form: Config;
   setField: <K extends keyof Config>(key: K, value: Config[K]) => void;
@@ -36,7 +29,6 @@ interface Props {
   saved: boolean;
   saveError: string | null;
   onSave: () => void;
-  userPlan: string;
 }
 
 export function ConfigTabAppearance({
@@ -46,11 +38,7 @@ export function ConfigTabAppearance({
   saved,
   saveError,
   onSave,
-  userPlan,
 }: Props) {
-  const isBusiness = userPlan === "large";
-  const inputClass =
-    "w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   return (
     <div className="space-y-6">
@@ -71,7 +59,7 @@ export function ConfigTabAppearance({
               type="text"
               value={form.primaryColor}
               onChange={(e) => setField("primaryColor", e.target.value)}
-              className={`${inputClass} font-mono`}
+              className="w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
               placeholder="#0066cc"
             />
           </div>
@@ -154,35 +142,6 @@ export function ConfigTabAppearance({
           </div>
         </div>
 
-        {/* Large plan gates */}
-        {!isBusiness && (
-          <p className="text-xs text-amber-600 dark:text-amber-400 font-medium">
-            Upgrade to Large plan to unlock font family and header/footer colors.
-          </p>
-        )}
-
-        <div className={isBusiness ? "" : "opacity-50 pointer-events-none"}>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Font family{" "}
-                <span className="text-xs text-amber-600">Large plan</span>
-              </label>
-              <select
-                value={form.fontFamily}
-                onChange={(e) => setField("fontFamily", e.target.value)}
-                className={inputClass}
-                disabled={!isBusiness}
-              >
-                {FONT_OPTIONS.map((f) => (
-                  <option key={f.value} value={f.value}>
-                    {f.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div className="flex items-center gap-3">

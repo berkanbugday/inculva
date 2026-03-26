@@ -17,6 +17,7 @@ import {
   updatePanel,
   updatePreFooterSide,
   createTriggerButton,
+  updateTriggerButtonIcon,
   applyPosition,
   applyPanelPosition,
   getLabels,
@@ -74,6 +75,8 @@ const DEFAULT_CONFIG: Omit<WidgetConfig, "siteId"> = {
 
 class InculvaWidget {
   private config: WidgetConfig;
+  /** Preview-mode overrides that take priority over remote config. */
+  private _previewOverrides: Partial<WidgetConfig> | null = null;
   private activeFeatures: Set<keyof WidgetFeatures> = new Set();
   private activeProfiles: Set<string> = new Set();
   /** Current level (1-N) for leveled features. 0 / absent means feature is off. */
@@ -107,6 +110,10 @@ class InculvaWidget {
         ...partialConfig.features,
       },
     };
+    // In preview mode, remember the caller's overrides so they win over remote config
+    if ((window as Window & { __INCULVA_PREVIEW_CONFIG__?: unknown }).__INCULVA_PREVIEW_CONFIG__) {
+      this._previewOverrides = { ...partialConfig } as Partial<WidgetConfig>;
+    }
     this.apiBase =
       (window as Window & { INCULVA_API_URL?: string }).INCULVA_API_URL ??
       __API_URL__;
@@ -187,7 +194,7 @@ class InculvaWidget {
   }
 
   private renderWidget(): void {
-    this.btn = createTriggerButton(this.config.primaryColor);
+    this.btn = createTriggerButton(this.config.primaryColor, this.config.buttonIcon);
     // Badge is injected into the button by createTriggerButton
     this.badge = this.btn.querySelector<HTMLSpanElement>(
       "#inculva-widget-badge",
@@ -1179,12 +1186,10 @@ class InculvaWidget {
           remote.accessibilityStatementUrl;
       if (remote.whiteLabelText !== undefined)
         this.config.whiteLabelText = remote.whiteLabelText;
-      if (remote.borderRadius !== undefined)
-        this.config.borderRadius = remote.borderRadius;
       if (remote.buttonSize !== undefined)
         this.config.buttonSize = remote.buttonSize;
-      if (remote.fontFamily !== undefined)
-        this.config.fontFamily = remote.fontFamily;
+      if (remote.buttonIcon !== undefined)
+        this.config.buttonIcon = remote.buttonIcon;
       if ((remote as Partial<WidgetConfig>).headerBgColor !== undefined)
         this.config.headerBgColor = (
           remote as Partial<WidgetConfig>
@@ -1194,6 +1199,11 @@ class InculvaWidget {
           remote as Partial<WidgetConfig>
         ).footerBgColor!;
       if (remote.labels) this.labels = remote.labels;
+
+      // In preview mode, re-apply overrides so unsaved form values win
+      if (this._previewOverrides) {
+        Object.assign(this.config, this._previewOverrides);
+      }
 
       return true;
     } catch {
@@ -1207,12 +1217,8 @@ class InculvaWidget {
    * Called after renderWidget() so this.btn and this.panel are guaranteed to exist.
    */
   private applyConfigToDOM(): void {
-    // Business plan visual customization CSS vars
-    if (this.config.borderRadius !== undefined) {
-      document.documentElement.style.setProperty(
-        "--inculva-border-radius",
-        `${this.config.borderRadius}px`,
-      );
+    if (this.config.buttonIcon !== undefined) {
+      updateTriggerButtonIcon(this.btn, this.config.buttonIcon);
     }
     if (this.config.buttonSize !== undefined) {
       document.documentElement.style.setProperty(
@@ -1222,19 +1228,6 @@ class InculvaWidget {
           : this.config.buttonSize === "large"
             ? "64px"
             : "52px",
-      );
-    }
-    // Set the CSS custom property only — no external font request is made.
-    // If the font is already present on the customer's site it will render;
-    // otherwise the stack falls back to sans-serif. This keeps the widget
-    // fully compatible with strict font-src CSP policies.
-    if (
-      this.config.fontFamily !== undefined &&
-      this.config.fontFamily !== "system"
-    ) {
-      document.documentElement.style.setProperty(
-        "--inculva-font",
-        this.getFontStack(this.config.fontFamily),
       );
     }
     if (this.config.headerBgColor) {
@@ -1266,15 +1259,6 @@ class InculvaWidget {
     } else {
       this.panel.removeAttribute("data-panel-side");
     }
-  }
-
-  private getFontStack(fontFamily: string): string {
-    const stacks: Record<string, string> = {
-      inter: "'Inter', sans-serif",
-      roboto: "'Roboto', sans-serif",
-      opensans: "'Open Sans', sans-serif",
-    };
-    return stacks[fontFamily] ?? "inherit";
   }
 
   private trackEvent(

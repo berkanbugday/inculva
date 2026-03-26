@@ -7,6 +7,8 @@ interface PreviewConfig {
   position: string;
   theme: string;
   primaryColor: string;
+  buttonSize: string;
+  buttonIcon: string;
 }
 
 interface Props {
@@ -27,6 +29,8 @@ function buildPreviewHtml(config: PreviewConfig): string {
     position: config.position,
     theme: config.theme,
     primaryColor: config.primaryColor,
+    buttonSize: config.buttonSize,
+    buttonIcon: config.buttonIcon,
   });
 
   return `<!DOCTYPE html>
@@ -79,7 +83,7 @@ export function WidgetPreview({ config }: Props) {
   const srcdoc = useMemo(
     () => buildPreviewHtml(config),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [config.siteId, config.position, config.theme, config.primaryColor],
+    [config.siteId, config.position, config.theme, config.primaryColor, config.buttonSize, config.buttonIcon],
   );
 
   return (

@@ -189,13 +189,12 @@ model WidgetConfig {
   // EAA Article 13 — accessibility statement URL
   accessibilityStatementUrl String?
 
-  // White-label (Business plan only) — null=show "Powered by Inculva", ""=hide, custom string=show that
+  // White-label (Large plan only) — null=show "Powered by Inculva", ""=hide, custom string=show that
   whiteLabelText String?
 
-  // Visual customization (Business plan only)
-  borderRadius Int    @default(8)        // 0–50 px
-  buttonSize   String @default("medium") // "small" | "medium" | "large"
-  fontFamily   String @default("system") // "system" | "inter" | "roboto" | "opensans"
+  // Trigger button customization
+  buttonSize   String @default("medium")            // "small" | "medium" | "large"
+  buttonIcon   String @default("universal-access")  // trigger button icon key
 
   // Domain allowlist — empty array means all domains are allowed
   allowedDomains String[] @default([])

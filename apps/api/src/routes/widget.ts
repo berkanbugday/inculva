@@ -295,13 +295,13 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
           ...(config.accessibilityStatementUrl
             ? { accessibilityStatementUrl: config.accessibilityStatementUrl }
             : {}),
-          // White-label + visual customization: only exposed for Business plan owners
-          ...(ownerPlan === "business"
+          // Trigger button: available to all plans
+          buttonSize: config.buttonSize,
+          buttonIcon: config.buttonIcon,
+          // White-label: Large plan only
+          ...(ownerPlan === "large"
             ? {
                 whiteLabelText: config.whiteLabelText ?? null,
-                borderRadius: config.borderRadius,
-                buttonSize: config.buttonSize,
-                fontFamily: config.fontFamily,
               }
             : {}),
         },
@@ -386,7 +386,7 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
     }
 
     // Enforce monthly event quota per plan — atomically to prevent concurrent bypasses
-    const planLimits: Record<string, number> = { free: 10_000, pro: 100_000 };
+    const planLimits: Record<string, number> = { free: 10_000, small: 100_000, medium: 300_000, large: 1_000_000 };
     const plan = site.owner.plan;
     const limit = planLimits[plan] ?? Infinity;
 

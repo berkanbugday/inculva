@@ -4,6 +4,7 @@ import { LOGO_PNG } from "virtual:logo-svg";
 import { LOGO_ICON_PNG } from "virtual:logo-icon-svg";
 import { TR_TRANSLATIONS } from "./translations-tr.js";
 const ICON_CDN_URL = `${__CDN_URL__}/icons`;
+const BUTTON_CDN_URL = `${__CDN_URL__}/icons/widget-button`;
 
 /** Helper to create an img tag that loads icon from CDN */
 function loadIcon(
@@ -78,14 +79,11 @@ export function getFeatureCategory(feature: keyof WidgetFeatures): string {
 }
 
 // ---------------------------------------------------------------------------
-// Trigger icon — International Symbol of Access (person, arms extended)
+// Trigger icon — loaded from widget-button CDN folder
 // ---------------------------------------------------------------------------
-const ICON_TRIGGER = loadIcon(
-  "universal-access",
-  48,
-  48,
-  'style="filter: brightness(0) invert(1);"',
-);
+function loadTriggerIcon(name: string): string {
+  return `<img src="${BUTTON_CDN_URL}/${name}.svg" width="48" height="48" aria-hidden="true" alt="" style="display:block;filter:brightness(0) invert(1);" />`;
+}
 
 // ---------------------------------------------------------------------------
 // SVG icon set — stroke-based (20×20 or 18×18), aria-hidden
@@ -973,15 +971,40 @@ export function updatePreFooterSide(
 
 // ---------------------------------------------------------------------------
 
-export function createTriggerButton(color: string): HTMLButtonElement {
+const VALID_TRIGGER_ICONS = new Set([
+  "universal-access", "accessible-icon", "eye-slash", "person-walking", "wheelchair",
+]);
+
+export function createTriggerButton(color: string, buttonIcon = "universal-access"): HTMLButtonElement {
+  const safeIcon = VALID_TRIGGER_ICONS.has(buttonIcon) ? buttonIcon : "universal-access";
   const btn = document.createElement("button");
   btn.id = "inculva-widget-btn";
   btn.setAttribute("aria-label", "Open Accessibility Menu");
   btn.setAttribute("aria-expanded", "false");
   btn.setAttribute("aria-haspopup", "dialog");
   btn.style.backgroundColor = color;
-  btn.innerHTML = `${ICON_TRIGGER}<span id="inculva-widget-badge" aria-hidden="true"></span>`;
+
+  const img = document.createElement("img");
+  img.src = `${BUTTON_CDN_URL}/${safeIcon}.svg`;
+  img.width = 48;
+  img.height = 48;
+  img.setAttribute("aria-hidden", "true");
+  img.alt = "";
+  img.style.cssText = "display:block;filter:brightness(0) invert(1);";
+  btn.appendChild(img);
+
+  const badge = document.createElement("span");
+  badge.id = "inculva-widget-badge";
+  badge.setAttribute("aria-hidden", "true");
+  btn.appendChild(badge);
+
   return btn;
+}
+
+export function updateTriggerButtonIcon(btn: HTMLButtonElement, buttonIcon: string): void {
+  const safeIcon = VALID_TRIGGER_ICONS.has(buttonIcon) ? buttonIcon : "universal-access";
+  const img = btn.querySelector("img");
+  if (img) img.src = `${BUTTON_CDN_URL}/${safeIcon}.svg`;
 }
 
 // ---------------------------------------------------------------------------

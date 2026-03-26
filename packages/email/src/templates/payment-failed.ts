@@ -2,7 +2,8 @@ import { APP_URL } from "../client.js";
 import { escapeHtml } from "./base.js";
 
 export function paymentFailedTemplate(name: string, plan: string): string {
-  const planLabel = plan === "business" ? "Business" : "Pro";
+  const planLabel: Record<string, string> = { small: "Small", medium: "Medium", large: "Large" };
+  const label = planLabel[plan] ?? plan;
   const billingUrl = `${APP_URL}/dashboard/settings/billing`;
 
   return `<!DOCTYPE html>
@@ -38,7 +39,7 @@ export function paymentFailedTemplate(name: string, plan: string): string {
                 Hi ${escapeHtml(name || "there")},
               </p>
               <p style="margin:0 0 16px;font-size:15px;color:#6b7280;line-height:1.6;">
-                We were unable to process your payment for the <strong style="color:#111827;">${planLabel}</strong> plan.
+                We were unable to process your payment for the <strong style="color:#111827;">${label}</strong> plan.
                 Your account has been moved to a restricted state — your widget will continue to work, but you won&apos;t be able to create new sites or access premium features until your billing is resolved.
               </p>
               <p style="margin:0 0 24px;font-size:15px;color:#6b7280;line-height:1.6;">

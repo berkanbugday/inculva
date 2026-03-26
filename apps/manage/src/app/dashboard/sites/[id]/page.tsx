@@ -51,8 +51,7 @@ export default async function SitePage({ params }: Props) {
             )
               ? wc.buttonSize
               : "medium") as "small" | "medium" | "large",
-            borderRadius: wc.borderRadius ?? 8,
-            fontFamily: wc.fontFamily ?? "system",
+            buttonIcon: wc.buttonIcon ?? "universal-access",
             textResizing: wc.textResizing,
             dyslexiaFont: wc.dyslexiaFont,
             cursorEnhancement: wc.cursorEnhancement,

@@ -104,7 +104,6 @@ export default async function BillingPage({
     small: "Small",
     medium: "Medium",
     large: "Large",
-    enterprise: "Enterprise",
   };
 
   const renewalDate = sub
@@ -299,7 +298,7 @@ export default async function BillingPage({
       )}
 
       {/* Plan picker */}
-      {plan !== "large" && plan !== "enterprise" && (
+      {plan !== "large" && (
         <BillingPlanCards products={POLAR_PRODUCTS} currentPlan={plan} />
       )}
     </div>

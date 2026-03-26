@@ -75,17 +75,15 @@ export async function PUT(request: NextRequest, { params }: Params) {
     profileCognitive?: boolean;
     profileSeizure?: boolean;
     profileParkinson?: boolean;
-    // Visual customization (Large plan only)
-    borderRadius?: number;
     buttonSize?: string;
-    fontFamily?: string;
+    buttonIcon?: string;
   };
 
   // Validate enum fields
   const VALID_POSITIONS = new Set(["bottom-right", "bottom-left", "top-right", "top-left"]);
   const VALID_THEMES = new Set(["auto", "light", "dark"]);
   const VALID_BUTTON_SIZES = new Set(["small", "medium", "large"]);
-  const VALID_FONT_FAMILIES = new Set(["system", "inter", "roboto", "opensans"]);
+  const VALID_BUTTON_ICONS = new Set(["universal-access", "accessible-icon", "eye-slash", "person-walking", "wheelchair"]);
   const VALID_LANGUAGES = new Set([
     "en","tr","de","fr","es","pt","it","nl","pl","ru","uk","cs","hu","ro","bg","hr",
     "sk","sl","el","fi","sv","no","da","lt","lv","et","ar","he","fa","zh","ja","ko",
@@ -105,16 +103,12 @@ export async function PUT(request: NextRequest, { params }: Params) {
   if (body.primaryColor !== undefined && !HEX_COLOR_RE.test(body.primaryColor)) {
     return NextResponse.json({ error: "Invalid primaryColor — must be a hex color (e.g. #0066cc)" }, { status: 400 });
   }
-  if (body.borderRadius !== undefined && (typeof body.borderRadius !== "number" || body.borderRadius < 0 || body.borderRadius > 50)) {
-    return NextResponse.json({ error: "Invalid borderRadius — must be 0–50" }, { status: 400 });
-  }
   if (body.buttonSize !== undefined && !VALID_BUTTON_SIZES.has(body.buttonSize)) {
     return NextResponse.json({ error: "Invalid buttonSize" }, { status: 400 });
   }
-  if (body.fontFamily !== undefined && !VALID_FONT_FAMILIES.has(body.fontFamily)) {
-    return NextResponse.json({ error: "Invalid fontFamily" }, { status: 400 });
+  if (body.buttonIcon !== undefined && !VALID_BUTTON_ICONS.has(body.buttonIcon)) {
+    return NextResponse.json({ error: "Invalid buttonIcon" }, { status: 400 });
   }
-
   // Sanitize allowedDomains — strip protocols/paths, keep hostname only
   // null = explicit clear (remove all domains), undefined = not sent (leave unchanged)
   const HOSTNAME_RE = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/;
@@ -182,10 +176,9 @@ export async function PUT(request: NextRequest, { params }: Params) {
       ...(body.accessibilityStatementUrl !== undefined && { accessibilityStatementUrl: body.accessibilityStatementUrl || null }),
       // White-label: only Large plan users may set this
       ...(body.whiteLabelText !== undefined && user?.plan === "large" && { whiteLabelText: body.whiteLabelText }),
-      // Visual customization: only Large plan users may set these
-      ...(body.borderRadius !== undefined && user?.plan === "large" && { borderRadius: body.borderRadius }),
-      ...(body.buttonSize !== undefined && user?.plan === "large" && { buttonSize: body.buttonSize }),
-      ...(body.fontFamily !== undefined && user?.plan === "large" && { fontFamily: body.fontFamily }),
+      // Trigger button customization: all plans
+      ...(body.buttonSize !== undefined && { buttonSize: body.buttonSize }),
+      ...(body.buttonIcon !== undefined && { buttonIcon: body.buttonIcon }),
       ...(sanitizedDomains !== undefined && { allowedDomains: sanitizedDomains }),
       ...(body.textResizing !== undefined && { textResizing: body.textResizing }),
       ...(body.highContrast !== undefined && { highContrast: body.highContrast }),

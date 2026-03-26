@@ -8,7 +8,8 @@ export function usageWarningTemplate(
   limit: number,
 ): string {
   const percent = Math.round((used / limit) * 100);
-  const planLabel = plan === "pro" ? "Pro" : "Free";
+  const planLabel: Record<string, string> = { free: "Free", small: "Small", medium: "Medium", large: "Large" };
+  const label = planLabel[plan] ?? "Free";
   const usedFormatted = used.toLocaleString();
   const limitFormatted = limit.toLocaleString();
 
@@ -16,7 +17,7 @@ export function usageWarningTemplate(
     `
     <h2>You've used ${percent}% of your monthly events</h2>
     <p>Hi ${escapeHtml(name || "there")},</p>
-    <p>You're approaching your ${planLabel} plan event limit for this month.</p>
+    <p>You're approaching your ${label} plan event limit for this month.</p>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
       <tr>
         <td style="padding: 16px; background: #fefce8; border: 1px solid #fde047; border-radius: 10px;">
@@ -32,6 +33,6 @@ export function usageWarningTemplate(
     <p class="small">Your usage resets at the start of each calendar month.<br>
     Manage your plan in <a href="${APP_URL}/dashboard/settings/billing" style="color: #1d4ed8;">Billing Settings</a>.</p>
     `,
-    `You've used ${percent}% of your ${planLabel} plan events`,
+    `You've used ${percent}% of your ${label} plan events`,
   );
 }

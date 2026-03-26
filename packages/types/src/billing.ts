@@ -1,16 +1,15 @@
-export type Plan = "free" | "small" | "medium" | "large" | "enterprise";
+export type Plan = "free" | "small" | "medium" | "large";
 
 export interface PlanLimits {
   pageviewsPerMonth: number; // 0 = no access (free plan)
-  maxAllowedSubdomains: number; // Infinity = unlimited; root domains always free
+  maxAllowedSubdomains: number;
 }
 
 export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
-  free:       { pageviewsPerMonth: 0,          maxAllowedSubdomains: 0        },
-  small:      { pageviewsPerMonth: 100_000,    maxAllowedSubdomains: 3        },
-  medium:     { pageviewsPerMonth: 300_000,    maxAllowedSubdomains: 10       },
-  large:      { pageviewsPerMonth: 1_000_000,  maxAllowedSubdomains: 25       },
-  enterprise: { pageviewsPerMonth: Infinity,   maxAllowedSubdomains: Infinity },
+  free:   { pageviewsPerMonth: 0,          maxAllowedSubdomains: 0 },
+  small:  { pageviewsPerMonth: 100_000,    maxAllowedSubdomains: 1 },
+  medium: { pageviewsPerMonth: 300_000,    maxAllowedSubdomains: 3 },
+  large:  { pageviewsPerMonth: 1_000_000,  maxAllowedSubdomains: 5 },
 };
 
 export interface PolarProduct {

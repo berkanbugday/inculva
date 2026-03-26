@@ -6,14 +6,15 @@ export function usageLimitTemplate(
   plan: string,
   limit: number,
 ): string {
-  const planLabel = plan === "pro" ? "Pro" : "Free";
+  const planLabel: Record<string, string> = { free: "Free", small: "Small", medium: "Medium", large: "Large" };
+  const label = planLabel[plan] ?? "Free";
   const limitFormatted = limit.toLocaleString();
 
   return baseTemplate(
     `
     <h2>You've reached your monthly event limit</h2>
     <p>Hi ${escapeHtml(name || "there")},</p>
-    <p>Your ${planLabel} plan has reached its limit of <strong>${limitFormatted} events</strong> for this month.</p>
+    <p>Your ${label} plan has reached its limit of <strong>${limitFormatted} events</strong> for this month.</p>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
       <tr>
         <td style="padding: 16px; background: #fef2f2; border: 1px solid #fca5a5; border-radius: 10px;">

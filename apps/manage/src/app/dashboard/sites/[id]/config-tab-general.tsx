@@ -10,11 +10,41 @@ import { PLAN_LIMITS } from "@inculva/types";
 import type { Plan } from "@inculva/types";
 
 const GENERAL_KEYS: (keyof Config)[] = [
-  "position", "primaryColor", "language", "accessibilityStatementUrl",
-  "whiteLabelText", "allowedDomains", "borderRadius", "buttonSize", "fontFamily",
+  "position",
+  "primaryColor",
+  "language",
+  "accessibilityStatementUrl",
+  "allowedDomains",
+  "buttonSize",
+  "buttonIcon",
 ];
 
-const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"] || "";
+const BUTTON_ICONS = [
+  { value: "universal-access", label: "Universal" },
+  { value: "accessible-icon", label: "Accessible" },
+  { value: "eye-slash", label: "Vision" },
+  { value: "person-walking", label: "Walking" },
+  { value: "wheelchair", label: "Wheelchair" },
+] as const;
+
+const BUTTON_SIZE_OPTIONS = [
+  { value: "small", label: "Small" },
+  { value: "medium", label: "Medium" },
+  { value: "large", label: "Large" },
+] as const;
+
+const CARD_OUTER: Record<string, string> = {
+  small: "w-[44px] h-[44px]",
+  medium: "w-[58px] h-[58px]",
+  large: "w-[72px] h-[72px]",
+};
+const CARD_ICON: Record<string, string> = {
+  small: "w-[35px] h-[35px]",
+  medium: "w-[46px] h-[46px]",
+  large: "w-[58px] h-[58px]",
+};
+
+const BUTTON_ICON_CDN_URL = `${process.env["NEXT_PUBLIC_CDN_URL"]}/icons/widget-button`;
 
 const POSITION_GRID = [
   [
@@ -34,13 +64,6 @@ const POSITION_GRID = [
   ],
 ] as const;
 
-const FONT_OPTIONS = [
-  { value: "system", label: "System" },
-  { value: "inter", label: "Inter" },
-  { value: "roboto", label: "Roboto" },
-  { value: "opensans", label: "Open Sans" },
-] as const;
-
 interface Props {
   siteId: string;
   initialName: string;
@@ -58,7 +81,8 @@ export function ConfigTabGeneral({
   badgeSrc,
   userPlan,
 }: Props) {
-  const { register, watch, setValue, getValues, resetField } = useFormContext<Config>();
+  const { register, watch, setValue, getValues, resetField } =
+    useFormContext<Config>();
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -92,21 +116,21 @@ export function ConfigTabGeneral({
   const [domainInput, setDomainInput] = useState("");
 
   const allowedDomains = watch("allowedDomains");
-  const language = watch("language");
   const primaryColor = watch("primaryColor");
   const buttonSize = watch("buttonSize");
+  const buttonIcon = watch("buttonIcon");
   const position = watch("position");
-  const fontFamily = watch("fontFamily");
 
   const snippet = `<script src="${widgetScriptSrc}" data-site-id="${siteId}" async></script>`;
-  const isBusiness = userPlan === "large" || userPlan === "enterprise";
-
   const domainParts = initialDomain.split(".");
-  const rootDomain = domainParts.length >= 2 ? domainParts.slice(-2).join(".") : initialDomain;
+  const rootDomain =
+    domainParts.length >= 2 ? domainParts.slice(-2).join(".") : initialDomain;
 
-  const subdomainLimit = PLAN_LIMITS[userPlan as Plan]?.maxAllowedSubdomains ?? 0;
+  const subdomainLimit =
+    PLAN_LIMITS[userPlan as Plan]?.maxAllowedSubdomains ?? 0;
   const subdomainCount = allowedDomains.length;
-  const atSubdomainLimit = isFinite(subdomainLimit) && subdomainCount >= subdomainLimit;
+  const atSubdomainLimit =
+    isFinite(subdomainLimit) && subdomainCount >= subdomainLimit;
 
   async function copySnippet() {
     try {
@@ -203,7 +227,13 @@ export function ConfigTabGeneral({
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Allowed subdomains
               {isFinite(subdomainLimit) && (
-                <span className={`ml-2 text-xs font-normal ${atSubdomainLimit ? "text-red-500" : "text-gray-400 dark:text-gray-500"}`}>
+                <span
+                  className={`ml-2 text-xs font-normal ${
+                    atSubdomainLimit
+                      ? "text-red-500"
+                      : "text-gray-400 dark:text-gray-500"
+                  }`}
+                >
                   {subdomainCount}/{subdomainLimit} subdomains used
                 </span>
               )}
@@ -216,9 +246,13 @@ export function ConfigTabGeneral({
                   onKeyDown={(e) =>
                     e.key === "Enter" && (e.preventDefault(), addDomain())
                   }
-                  placeholder={atSubdomainLimit ? "Subdomain limit reached" : "prefix"}
+                  placeholder={
+                    atSubdomainLimit ? "Subdomain limit reached" : "prefix"
+                  }
                   disabled={atSubdomainLimit}
-                  className={`${inputClass} rounded-r-none border-r-0 pr-0 ${atSubdomainLimit ? "opacity-50 cursor-not-allowed" : ""}`}
+                  className={`${inputClass} rounded-r-none border-r-0 pr-0 ${
+                    atSubdomainLimit ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
                 />
                 <span className="px-3 py-2.5 text-sm text-gray-500 dark:text-gray-400 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-r-2xl whitespace-nowrap border-l-0">
                   .{rootDomain}
@@ -253,8 +287,12 @@ export function ConfigTabGeneral({
             </div>
             {atSubdomainLimit && (
               <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">
-                You&apos;ve reached the {subdomainLimit}-subdomain limit on the {userPlan} plan.{" "}
-                <a href="/dashboard/settings/billing" className="underline font-semibold">
+                You&apos;ve reached the {subdomainLimit}-subdomain limit on the{" "}
+                {userPlan} plan.{" "}
+                <a
+                  href="/dashboard/settings/billing"
+                  className="underline font-semibold"
+                >
                   Upgrade
                 </a>{" "}
                 to add more.
@@ -263,105 +301,174 @@ export function ConfigTabGeneral({
           </div>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">
             Widget Appearance
           </h3>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Primary color
-            </label>
-            <div className="flex items-center gap-3">
-              <input
-                type="color"
-                {...register("primaryColor")}
-                className="w-10 h-10 rounded cursor-pointer border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shrink-0"
-              />
-              <input
-                type="text"
-                {...register("primaryColor")}
-                className={`${inputClass} font-mono`}
-                placeholder="#0066cc"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Trigger button preview
-            </label>
-            <div
-              className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
-              style={{ backgroundColor: primaryColor }}
-            >
-              <img
-                src={`${CDN_URL}/icons/universal-access.svg`}
-                alt=""
-                aria-hidden="true"
-                className="w-7 h-7"
-                style={{ filter: "brightness(0) invert(1)" }}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Button size
-            </label>
-            <div className="flex gap-1 bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-1 w-fit">
-              {(
-                [
-                  ["small", "Mini"],
-                  ["medium", "Regular"],
-                  ["large", "Large"],
-                ] as const
-              ).map(([val, label]) => (
-                <button
-                  key={val}
-                  type="button"
-                  onClick={() =>
-                    setValue("buttonSize", val, { shouldDirty: true })
+          <div className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Primary color
+              </label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={primaryColor}
+                  onChange={(e) =>
+                    setValue("primaryColor", e.target.value, { shouldDirty: true })
                   }
-                  className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${buttonSize === val ? "bg-white dark:bg-[#1a1a2e] text-blue-600 dark:text-blue-400 shadow-sm" : "text-gray-500 dark:text-gray-400 hover:text-gray-700"}`}
-                >
-                  {label}
-                </button>
-              ))}
+                  className="w-10 h-10 rounded cursor-pointer border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1a1a2e] shrink-0"
+                />
+                <input
+                  type="text"
+                  value={primaryColor}
+                  onChange={(e) =>
+                    setValue("primaryColor", e.target.value, { shouldDirty: true })
+                  }
+                  className={`${inputClass} font-mono`}
+                  placeholder="#0066cc"
+                />
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Widget position
-            </label>
-            <div className="grid grid-cols-3 gap-2 w-fit">
-              {POSITION_GRID.map((row, ri) =>
-                row.map((cell, ci) => (
-                  <button
-                    key={`${ri}-${ci}`}
-                    type="button"
-                    disabled={!cell.enabled}
-                    onClick={() =>
-                      cell.enabled &&
-                      cell.value &&
-                      setValue("position", cell.value, { shouldDirty: true })
-                    }
-                    className={`w-10 h-10 rounded-xl border-2 transition-colors ${
-                      !cell.enabled
-                        ? "border-transparent bg-[#f8f9fc] dark:bg-[#0e0e10] cursor-default"
-                        : cell.value === position
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Button size
+              </label>
+              <div className="flex gap-5">
+                {BUTTON_SIZE_OPTIONS.map(({ value, label }) => (
+                  <label
+                    key={value}
+                    className="flex items-center gap-2.5 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="buttonSize"
+                      checked={buttonSize === value}
+                      onChange={() =>
+                        setValue("buttonSize", value, { shouldDirty: true })
+                      }
+                      className="w-4 h-4 text-blue-600 accent-blue-600"
+                    />
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      {label}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Button type
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {BUTTON_ICONS.map(({ value, label }) => {
+                  const selected = (buttonIcon ?? "universal-access") === value;
+                  return (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() =>
+                        setValue("buttonIcon", value, { shouldDirty: true })
+                      }
+                      className={`relative flex flex-col items-center justify-center gap-1.5 p-3 rounded-2xl border-2 transition-colors cursor-pointer ${
+                        selected
+                          ? "border-blue-600 bg-blue-50 dark:bg-blue-950/40"
+                          : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-300 dark:hover:border-blue-700"
+                      }`}
+                    >
+                      {selected && (
+                        <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-blue-600 flex items-center justify-center">
+                          <svg
+                            width="8"
+                            height="8"
+                            viewBox="0 0 10 10"
+                            fill="none"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M2 5l2.5 2.5 3.5-4"
+                              stroke="white"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      )}
+                      <div
+                        className={`${
+                          CARD_OUTER[buttonSize ?? "medium"] ?? "w-10 h-10"
+                        } rounded-full flex items-center justify-center transition-all`}
+                        style={{ backgroundColor: primaryColor }}
+                      >
+                        <img
+                          src={`${BUTTON_ICON_CDN_URL}/${value}.svg`}
+                          alt={label}
+                          className={`${
+                            CARD_ICON[buttonSize ?? "medium"] ?? "w-5 h-5"
+                          } transition-all`}
+                          style={{ filter: "brightness(0) invert(1)" }}
+                        />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Widget position
+              </label>
+              <div className="grid grid-cols-3 gap-2 w-fit">
+                {POSITION_GRID.map((row, ri) =>
+                  row.map((cell, ci) => (
+                    <button
+                      key={`${ri}-${ci}`}
+                      type="button"
+                      disabled={!cell.enabled}
+                      onClick={() =>
+                        cell.enabled &&
+                        cell.value &&
+                        setValue("position", cell.value, { shouldDirty: true })
+                      }
+                      className={`w-10 h-10 rounded-xl border-2 transition-colors flex items-center justify-center ${
+                        !cell.enabled
+                          ? "border-transparent bg-[#f8f9fc] dark:bg-[#0e0e10] cursor-default"
+                          : cell.value === position
                           ? "border-blue-600 bg-blue-50 dark:bg-blue-950 cursor-pointer"
                           : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-400 cursor-pointer"
-                    }`}
-                    aria-label={
-                      cell.enabled && cell.value
-                        ? cell.value.replace("-", " ")
-                        : undefined
-                    }
-                  />
-                )),
-              )}
+                      }`}
+                      aria-label={
+                        cell.enabled && cell.value
+                          ? cell.value.replace("-", " ")
+                          : undefined
+                      }
+                    >
+                      {cell.enabled && cell.value === position && (
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M2 5l2.5 2.5 3.5-4"
+                            stroke="#2563eb"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  )),
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -373,7 +480,7 @@ export function ConfigTabGeneral({
             onClick={() => {
               const all = getValues();
               const data = Object.fromEntries(
-                GENERAL_KEYS.map((k) => [k, all[k]])
+                GENERAL_KEYS.map((k) => [k, all[k]]),
               ) as Partial<Config>;
               void onSave(data);
             }}
@@ -382,10 +489,14 @@ export function ConfigTabGeneral({
             {saving ? "Saving…" : "Save Changes"}
           </button>
           {saved && (
-            <span className="text-sm text-green-600 dark:text-green-400">Saved!</span>
+            <span className="text-sm text-green-600 dark:text-green-400">
+              Saved!
+            </span>
           )}
           {saveError && (
-            <span className="text-sm text-red-600 dark:text-red-400">{saveError}</span>
+            <span className="text-sm text-red-600 dark:text-red-400">
+              {saveError}
+            </span>
           )}
         </div>
       </div>
