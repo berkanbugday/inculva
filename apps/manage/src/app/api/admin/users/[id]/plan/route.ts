@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
 
-const VALID_PLANS = ["free", "small", "medium", "large"] as const;
+const VALID_PLANS = ["free", "small", "medium", "large", "enterprise"] as const;
 type Plan = (typeof VALID_PLANS)[number];
 
 export async function POST(
@@ -30,7 +30,7 @@ export async function POST(
 
   if (!plan || !VALID_PLANS.includes(plan)) {
     return NextResponse.json(
-      { error: "Invalid plan. Must be one of: free, small, medium, large" },
+      { error: "Invalid plan. Must be one of: free, small, medium, large, enterprise" },
       { status: 400 }
     );
   }

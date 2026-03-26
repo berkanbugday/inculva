@@ -8,6 +8,18 @@ import type { WidgetFeatures } from "@inculva/types";
 
 const CDN_URL = process.env.NEXT_PUBLIC_CDN_URL || "https://cdn.inculva.com";
 
+const FEATURE_KEYS: (keyof Config)[] = [
+  "textResizing", "dyslexiaFont", "cursorEnhancement", "keyboardNavigation",
+  "readingGuide", "screenReader", "pauseAnimations", "textSpacing",
+  "highlightLinks", "colorBlindMode", "largeClickTargets", "focusHighlight",
+  "skipNavigation", "muteMedia", "readingMask", "textAlign", "saturation",
+  "blueLightFilter", "hideImages", "darkMode", "contentMagnifier", "toolTips",
+  "sustainabilityMode", "slowCursor", "dictionary", "lineHeight", "highlightTitles",
+  "profileAdhd", "profileBlind", "profileLowVision", "profileColorBlind",
+  "profileDyslexia", "profileMotorImpaired", "profileCognitive", "profileSeizure",
+  "profileParkinson",
+];
+
 type FeatureDef = {
   key: keyof WidgetFeatures;
   label: string;
@@ -247,8 +259,41 @@ const PROFILES: {
   },
 ];
 
-export function ConfigTabFeaturesRHF() {
-  const { watch, setValue } = useFormContext<Config>();
+interface Props {
+  siteId: string;
+}
+
+export function ConfigTabFeaturesRHF({ siteId }: Props) {
+  const { watch, setValue, getValues, resetField } = useFormContext<Config>();
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
+  async function onSave(data: Partial<Config>) {
+    setSaving(true);
+    setSaveError(null);
+    setSaved(false);
+    try {
+      const res = await fetch(`/api/sites/${siteId}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        setSaved(true);
+        (Object.keys(data) as (keyof Config)[]).forEach((key) => {
+          resetField(key, { defaultValue: data[key] as Config[typeof key] });
+        });
+      } else {
+        const json = (await res.json()) as { error?: string };
+        setSaveError(json.error ?? "Failed to save — please try again");
+      }
+    } catch {
+      setSaveError("Network error — please check your connection");
+    } finally {
+      setSaving(false);
+    }
+  }
   const [expandedCategories, setExpandedCategories] = useState<
     Record<string, boolean>
   >({});
@@ -440,6 +485,29 @@ export function ConfigTabFeaturesRHF() {
             </div>
           );
         })}
+      </div>
+
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          disabled={saving}
+          onClick={() => {
+            const all = getValues();
+            const data = Object.fromEntries(
+              FEATURE_KEYS.map((k) => [k, all[k]])
+            ) as Partial<Config>;
+            void onSave(data);
+          }}
+          className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {saving ? "Saving…" : "Save Changes"}
+        </button>
+        {saved && (
+          <span className="text-sm text-green-600 dark:text-green-400">Saved!</span>
+        )}
+        {saveError && (
+          <span className="text-sm text-red-600 dark:text-red-400">{saveError}</span>
+        )}
       </div>
     </div>
   );

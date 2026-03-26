@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
 import { logAudit } from "@/lib/audit";
+import { PLAN_LIMITS } from "@inculva/types";
+import type { Plan } from "@inculva/types";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -131,6 +133,43 @@ export async function PUT(request: NextRequest, { params }: Params) {
         }
       })
       .filter((d): d is string => d !== null);
+  }
+
+  // Enforce root domain constraint — all entries must be subdomains of the site's own root domain
+  // Skip for localhost or single-part domains (dev environments)
+  const siteParts = site.domain.split(".");
+  if (sanitizedDomains !== undefined && sanitizedDomains.length > 0 && siteParts.length >= 2) {
+    const rootDomain = siteParts.slice(-2).join(".");
+    const invalid = sanitizedDomains.filter(d => !d.endsWith(`.${rootDomain}`));
+    if (invalid.length > 0) {
+      return NextResponse.json(
+        { error: `All subdomains must belong to ${rootDomain}.` },
+        { status: 400 }
+      );
+    }
+  }
+
+  // Enforce subdomain limit per plan
+  if (sanitizedDomains !== undefined) {
+    const plan = (user?.plan ?? "free") as Plan;
+    const limit = PLAN_LIMITS[plan]?.maxAllowedSubdomains ?? 0;
+
+    if (isFinite(limit)) {
+      const newSubdomainCount = sanitizedDomains.length;
+
+      const currentConfig = await db.widgetConfig.findUnique({
+        where: { siteId: id },
+        select: { allowedDomains: true },
+      });
+      const currentSubdomainCount = currentConfig?.allowedDomains.length ?? 0;
+
+      if (newSubdomainCount > limit && newSubdomainCount > currentSubdomainCount) {
+        return NextResponse.json(
+          { error: `Your ${plan} plan allows up to ${limit} subdomain${limit === 1 ? "" : "s"}. Upgrade to add more.` },
+          { status: 403 }
+        );
+      }
+    }
   }
 
   await db.widgetConfig.update({

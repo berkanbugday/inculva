@@ -7,7 +7,7 @@ interface Props {
   currentPlan: string;
 }
 
-const PLANS = ["free", "small", "medium", "large"] as const;
+const PLANS = ["free", "small", "medium", "large", "enterprise"] as const;
 
 export function ChangePlanForm({ userId, currentPlan }: Props) {
   const [selected, setSelected] = useState(currentPlan);

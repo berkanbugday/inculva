@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { ConfigTabGeneral } from "./config-tab-general";
@@ -92,45 +91,15 @@ export function WidgetConfigForm({
     mode: "onChange",
   });
 
-  const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
-
-  async function handleSave(data: Config) {
-    setSaving(true);
-    setSaveError(null);
-    setSaved(false);
-    try {
-      const res = await fetch(`/api/sites/${siteId}/config`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) {
-        setSaved(true);
-        methods.reset(data);
-      } else {
-        const data = (await res.json()) as { error?: string };
-        setSaveError(data.error ?? "Failed to save — please try again");
-      }
-    } catch {
-      setSaveError("Network error — please check your connection");
-    } finally {
-      setSaving(false);
-    }
-  }
-
   function setTab(tab: TabId) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("tab", tab);
     router.push(`?${params.toString()}`, { scroll: false });
   }
 
-  const onSubmit = methods.handleSubmit(handleSave);
-
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit} className="space-y-6">
+      <div className="space-y-6">
         <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm overflow-x-auto w-full sm:w-fit">
           {TABS.map((tab) => (
             <button
@@ -158,28 +127,10 @@ export function WidgetConfigForm({
             userPlan={userPlan}
           />
         )}
-        {activeTab === "features" && <ConfigTabFeaturesRHF />}
-
-        <div className="flex items-center gap-3">
-          <button
-            type="submit"
-            disabled={saving || !methods.formState.isDirty}
-            className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
-          >
-            {saving ? "Saving…" : "Save Changes"}
-          </button>
-          {saved && (
-            <span className="text-sm text-green-600 dark:text-green-400">
-              Saved!
-            </span>
-          )}
-          {saveError && (
-            <span className="text-sm text-red-600 dark:text-red-400">
-              {saveError}
-            </span>
-          )}
-        </div>
-      </form>
+        {activeTab === "features" && (
+          <ConfigTabFeaturesRHF siteId={siteId} />
+        )}
+      </div>
     </FormProvider>
   );
 }

@@ -1,14 +1,16 @@
-export type Plan = "free" | "small" | "medium" | "large";
+export type Plan = "free" | "small" | "medium" | "large" | "enterprise";
 
 export interface PlanLimits {
   pageviewsPerMonth: number; // 0 = no access (free plan)
+  maxAllowedSubdomains: number; // Infinity = unlimited; root domains always free
 }
 
 export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
-  free:   { pageviewsPerMonth: 0          },
-  small:  { pageviewsPerMonth: 100_000    },
-  medium: { pageviewsPerMonth: 300_000    },
-  large:  { pageviewsPerMonth: 1_000_000  },
+  free:       { pageviewsPerMonth: 0,          maxAllowedSubdomains: 0        },
+  small:      { pageviewsPerMonth: 100_000,    maxAllowedSubdomains: 3        },
+  medium:     { pageviewsPerMonth: 300_000,    maxAllowedSubdomains: 10       },
+  large:      { pageviewsPerMonth: 1_000_000,  maxAllowedSubdomains: 25       },
+  enterprise: { pageviewsPerMonth: Infinity,   maxAllowedSubdomains: Infinity },
 };
 
 export interface PolarProduct {
@@ -22,6 +24,7 @@ export interface PolarProduct {
 
 const smallFeatures = [
   "Up to 100,000 pageviews/mo",
+  "Up to 3 subdomains",
   "Full WCAG 2.1 AA & AAA scanning",
   "Automated auto-fixes",
   "Real-time monitoring",
@@ -30,6 +33,7 @@ const smallFeatures = [
 
 const mediumFeatures = [
   "Up to 300,000 pageviews/mo",
+  "Up to 10 subdomains",
   "Full WCAG 2.1 AA & AAA scanning",
   "Automated auto-fixes",
   "Real-time monitoring",
@@ -39,6 +43,7 @@ const mediumFeatures = [
 
 const largeFeatures = [
   "Up to 1,000,000 pageviews/mo",
+  "Up to 25 subdomains",
   "Full WCAG 2.1 AA & AAA scanning",
   "Automated auto-fixes",
   "Continuous monitoring",

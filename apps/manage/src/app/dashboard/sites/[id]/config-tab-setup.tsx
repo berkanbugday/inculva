@@ -111,7 +111,7 @@ export function ConfigTabSetup({
 
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Allowed domains
+            Allowed subdomains
           </label>
           <div className="flex gap-2 mb-2">
             <input
@@ -120,7 +120,7 @@ export function ConfigTabSetup({
               onKeyDown={(e) =>
                 e.key === "Enter" && (e.preventDefault(), addDomain())
               }
-              placeholder="example.com"
+              placeholder={`subdomain.${initialDomain.split(".").slice(-2).join(".")}`}
               className={inputClass}
             />
             <button

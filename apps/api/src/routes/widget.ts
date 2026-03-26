@@ -34,10 +34,9 @@ function isLocalhost(domain: string): boolean {
 /**
  * Returns true when `requestDomain` is permitted to embed the widget.
  *
- * Allowed if the request domain:
- *  - exactly matches `primaryDomain` or any entry in `allowedDomains`, OR
- *  - is a subdomain of `primaryDomain` or any entry in `allowedDomains`
- *    (e.g. www.example.com and shop.example.com are subdomains of example.com)
+ * Allowed if the request domain exactly matches:
+ *  - the site's primary (root) domain, OR
+ *  - any entry in the explicitly allowed subdomains list
  */
 function isDomainAllowed(
   requestDomain: string,
@@ -45,11 +44,8 @@ function isDomainAllowed(
   allowedDomains: string[],
 ): boolean {
   const req = requestDomain.toLowerCase();
-  const matchesEntry = (entry: string): boolean => {
-    const e = entry.toLowerCase();
-    return req === e || req.endsWith(`.${e}`);
-  };
-  return matchesEntry(primaryDomain) || allowedDomains.some(matchesEntry);
+  if (req === primaryDomain.toLowerCase()) return true;
+  return allowedDomains.some(d => req === d.toLowerCase());
 }
 
 async function sendUsageAlert(

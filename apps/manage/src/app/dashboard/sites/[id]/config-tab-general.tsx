@@ -6,6 +6,13 @@ import { SiteNameForm } from "./site-name-form";
 import { SiteDomainForm } from "./site-domain-form";
 import { LANGUAGES } from "./languages";
 import type { Config } from "./widget-config-form";
+import { PLAN_LIMITS } from "@inculva/types";
+import type { Plan } from "@inculva/types";
+
+const GENERAL_KEYS: (keyof Config)[] = [
+  "position", "primaryColor", "language", "accessibilityStatementUrl",
+  "whiteLabelText", "allowedDomains", "borderRadius", "buttonSize", "fontFamily",
+];
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"] || "";
 
@@ -51,7 +58,36 @@ export function ConfigTabGeneral({
   badgeSrc,
   userPlan,
 }: Props) {
-  const { register, watch, setValue } = useFormContext<Config>();
+  const { register, watch, setValue, getValues, resetField } = useFormContext<Config>();
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
+  async function onSave(data: Partial<Config>) {
+    setSaving(true);
+    setSaveError(null);
+    setSaved(false);
+    try {
+      const res = await fetch(`/api/sites/${siteId}/config`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        setSaved(true);
+        (Object.keys(data) as (keyof Config)[]).forEach((key) => {
+          resetField(key, { defaultValue: data[key] as Config[typeof key] });
+        });
+      } else {
+        const json = (await res.json()) as { error?: string };
+        setSaveError(json.error ?? "Failed to save — please try again");
+      }
+    } catch {
+      setSaveError("Network error — please check your connection");
+    } finally {
+      setSaving(false);
+    }
+  }
   const [copied, setCopied] = useState(false);
   const [domainInput, setDomainInput] = useState("");
 
@@ -63,7 +99,14 @@ export function ConfigTabGeneral({
   const fontFamily = watch("fontFamily");
 
   const snippet = `<script src="${widgetScriptSrc}" data-site-id="${siteId}" async></script>`;
-  const isBusiness = userPlan === "large";
+  const isBusiness = userPlan === "large" || userPlan === "enterprise";
+
+  const domainParts = initialDomain.split(".");
+  const rootDomain = domainParts.length >= 2 ? domainParts.slice(-2).join(".") : initialDomain;
+
+  const subdomainLimit = PLAN_LIMITS[userPlan as Plan]?.maxAllowedSubdomains ?? 0;
+  const subdomainCount = allowedDomains.length;
+  const atSubdomainLimit = isFinite(subdomainLimit) && subdomainCount >= subdomainLimit;
 
   async function copySnippet() {
     try {
@@ -87,21 +130,17 @@ export function ConfigTabGeneral({
     setTimeout(() => setCopied(false), 2000);
   }
 
-  function isValidDomain(domain: string): boolean {
-    const domainRegex = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/i;
-    return domainRegex.test(domain) && !domain.includes("://");
-  }
+  const PREFIX_RE = /^[a-z0-9]+([a-z0-9-]*[a-z0-9])?$/i;
 
   function addDomain() {
-    const trimmed = domainInput.trim().toLowerCase();
-    if (!trimmed) return;
+    const prefix = domainInput.trim().toLowerCase();
+    if (!prefix) return;
+    if (!PREFIX_RE.test(prefix)) return;
+    if (atSubdomainLimit) return;
 
-    if (!isValidDomain(trimmed)) {
-      return;
-    }
-
-    if (!allowedDomains.includes(trimmed)) {
-      setValue("allowedDomains", [...allowedDomains, trimmed], {
+    const full = rootDomain ? `${prefix}.${rootDomain}` : prefix;
+    if (!allowedDomains.includes(full)) {
+      setValue("allowedDomains", [...allowedDomains, full], {
         shouldDirty: true,
       });
     }
@@ -162,21 +201,34 @@ export function ConfigTabGeneral({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Allowed domains
+              Allowed subdomains
+              {isFinite(subdomainLimit) && (
+                <span className={`ml-2 text-xs font-normal ${atSubdomainLimit ? "text-red-500" : "text-gray-400 dark:text-gray-500"}`}>
+                  {subdomainCount}/{subdomainLimit} subdomains used
+                </span>
+              )}
             </label>
             <div className="flex gap-2 mb-2">
-              <input
-                value={domainInput}
-                onChange={(e) => setDomainInput(e.target.value)}
-                onKeyDown={(e) =>
-                  e.key === "Enter" && (e.preventDefault(), addDomain())
-                }
-                placeholder="example.com"
-                className={inputClass}
-              />
+              <div className="relative flex-1 flex items-center">
+                <input
+                  value={domainInput}
+                  onChange={(e) => setDomainInput(e.target.value)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && (e.preventDefault(), addDomain())
+                  }
+                  placeholder={atSubdomainLimit ? "Subdomain limit reached" : "prefix"}
+                  disabled={atSubdomainLimit}
+                  className={`${inputClass} rounded-r-none border-r-0 pr-0 ${atSubdomainLimit ? "opacity-50 cursor-not-allowed" : ""}`}
+                />
+                <span className="px-3 py-2.5 text-sm text-gray-500 dark:text-gray-400 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-r-2xl whitespace-nowrap border-l-0">
+                  .{rootDomain}
+                </span>
+              </div>
               <button
+                type="button"
                 onClick={addDomain}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-2xl transition-colors whitespace-nowrap cursor-pointer"
+                disabled={atSubdomainLimit}
+                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Add
               </button>
@@ -189,6 +241,7 @@ export function ConfigTabGeneral({
                 >
                   {d}
                   <button
+                    type="button"
                     onClick={() => removeDomain(d)}
                     className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
                     aria-label={`Remove ${d}`}
@@ -198,6 +251,15 @@ export function ConfigTabGeneral({
                 </span>
               ))}
             </div>
+            {atSubdomainLimit && (
+              <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">
+                You&apos;ve reached the {subdomainLimit}-subdomain limit on the {userPlan} plan.{" "}
+                <a href="/dashboard/settings/billing" className="underline font-semibold">
+                  Upgrade
+                </a>{" "}
+                to add more.
+              </p>
+            )}
           </div>
         </div>
 
@@ -306,11 +368,25 @@ export function ConfigTabGeneral({
 
         <div className="flex items-center gap-3 pt-6 border-t border-gray-200 dark:border-gray-700">
           <button
-            type="submit"
-            className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer"
+            type="button"
+            disabled={saving}
+            onClick={() => {
+              const all = getValues();
+              const data = Object.fromEntries(
+                GENERAL_KEYS.map((k) => [k, all[k]])
+              ) as Partial<Config>;
+              void onSave(data);
+            }}
+            className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Save Changes
+            {saving ? "Saving…" : "Save Changes"}
           </button>
+          {saved && (
+            <span className="text-sm text-green-600 dark:text-green-400">Saved!</span>
+          )}
+          {saveError && (
+            <span className="text-sm text-red-600 dark:text-red-400">{saveError}</span>
+          )}
         </div>
       </div>
 
