@@ -6,7 +6,6 @@ import {
   GlobeIcon,
   UserIcon,
   CreditCardIcon,
-  ListIcon,
 } from "./sidebar-icons";
 import { useDashboard } from "./dashboard-layout-content";
 
@@ -90,19 +89,25 @@ export function SiteGroup({
 
       {expanded && (
         <div className="ml-8 mt-0.5 space-y-0.5">
-          {subItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
-                isActive(item.href)
-                  ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 font-semibold"
-                  : "text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {subItems.map((item) => {
+            const active =
+              item.href === `/dashboard/sites/${site.id}`
+                ? pathname === `/dashboard/sites/${site.id}`
+                : isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`block px-3 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
+                  active
+                    ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 font-semibold"
+                    : "text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
@@ -123,11 +128,6 @@ export function SettingsGroup({
       href: "/dashboard/settings/billing",
       label: t.settings.billing,
       icon: <CreditCardIcon />,
-    },
-    {
-      href: "/dashboard/settings/audit-log",
-      label: t.settings.auditLog,
-      icon: <ListIcon />,
     },
   ];
 

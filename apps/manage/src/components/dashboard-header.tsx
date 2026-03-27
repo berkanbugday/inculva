@@ -103,8 +103,7 @@ function getPageLabel(pathname: string, t: DashboardMessages): string | null {
   if (pathname.includes("/sites/new")) return t.nav.newSite;
   if (pathname.includes("/sites/")) return t.nav.customize;
   if (pathname.includes("/billing")) return t.settings.billing;
-  if (pathname.includes("/audit-log")) return t.settings.auditLog;
-  if (pathname.includes("/settings")) return t.nav.settings;
+if (pathname.includes("/settings")) return t.nav.settings;
   if (pathname.includes("/notifications")) return t.nav.notifications;
   return null;
 }

@@ -66,38 +66,6 @@ export default async function StatementPage({ params }: Props) {
         </span>
       </nav>
 
-      {/* Sub-nav */}
-      <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
-        {[
-          { label: t.siteTabs.config, href: `/dashboard/sites/${site.id}` },
-          {
-            label: t.nav.statistics,
-            href: `/dashboard/sites/${site.id}/statistics`,
-          },
-          {
-            label: t.siteTabs.wcagScan,
-            href: `/dashboard/sites/${site.id}/scan`,
-          },
-          {
-            label: t.siteTabs.statement,
-            href: `/dashboard/sites/${site.id}/statement`,
-            active: true,
-          },
-        ].map((tab) => (
-          <a
-            key={tab.href}
-            href={tab.href}
-            className={`px-4 py-2 text-sm font-semibold rounded-xl transition-colors ${
-              tab.active
-                ? "bg-blue-600 text-white"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
-            }`}
-          >
-            {tab.label}
-          </a>
-        ))}
-      </nav>
-
       <StatementClient
         siteId={site.id}
         siteName={site.name}

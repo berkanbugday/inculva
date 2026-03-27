@@ -66,3 +66,11 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
 }
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+.dark .scrollbar-thin {
+  scrollbar-color: #374151 transparent;
+}

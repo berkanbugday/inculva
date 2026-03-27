@@ -130,7 +130,6 @@ export interface DashboardMessages {
     profile: string;
     changePassword: string;
     billing: string;
-    auditLog: string;
     exportData: string;
     exportDataDesc: string;
     downloadExport: string;
@@ -324,20 +323,6 @@ export interface DashboardMessages {
     hoursAgo: string;
     daysAgo: string;
   };
-  auditLog: {
-    title: string;
-    description: string;
-    entries: string;
-    noActivity: string;
-    siteCreated: string;
-    siteRenamed: string;
-    siteDeleted: string;
-    configUpdated: string;
-    apiKeyCreated: string;
-    apiKeyRevoked: string;
-    webhookCreated: string;
-    webhookDeleted: string;
-  };
   billing: {
     title: string;
     description: string;
@@ -515,30 +500,16 @@ export interface DashboardMessages {
   };
   statistics: {
     lastDays: string;
-    exportCsv: string;
+    exportExcel: string;
     widgetLoads: string;
     widgetOpens: string;
-    uniqueSessions: string;
     featureActivations: string;
-    dailyEvents: string;
     noEventsYet: string;
-    featureAdoption: string;
-    ofUniqueSessions: string;
-    noFeatureActivations: string;
     feature: string;
-    sessions: string;
-    adoption: string;
-    embedDomains: string;
-    embedDomainsDesc: string;
-    noDomainLoads: string;
-    domain: string;
-    loads: string;
-    lastSeen: string;
     recentEvents: string;
-    showingOf: string;
-    exportAll: string;
     event: string;
     time: string;
+    detail: string;
     eventOpened: string;
     eventClosed: string;
     eventFeatureEnabled: string;
@@ -546,7 +517,6 @@ export interface DashboardMessages {
     eventProfileActivated: string;
   };
   siteTabs: {
-    config: string;
     wcagScan: string;
     statement: string;
   };
@@ -568,21 +538,9 @@ export interface DashboardMessages {
     networkError: string;
   };
   statisticsPage: {
-    title: string;
-    subtitle: string;
-    widgetLoads: string;
-    widgetOpens: string;
-    uniqueSessions: string;
-    featureActivations: string;
-    engagementRate: string;
-    opensLoads: string;
     featureUsage: string;
-    featureUsageDesc: string;
-    last30Days: string;
     profileUsage: string;
-    profileUsageDesc: string;
     featureTextResizing: string;
-    featureHighContrast: string;
     featureTextAlign: string;
     featureReadingGuide: string;
     featureTextSpacing: string;
@@ -596,7 +554,6 @@ export interface DashboardMessages {
     featureColorBlindMode: string;
     featureMuteMedia: string;
     featureSkipNavigation: string;
-    featureGrayscale: string;
     featureSaturation: string;
     featureKeyboardNavigation: string;
     featureLargeClickTargets: string;
@@ -769,7 +726,6 @@ const en: DashboardMessages = {
     profile: "Profile",
     changePassword: "Change Password",
     billing: "Billing",
-    auditLog: "Audit Log",
     exportData: "Export Your Data",
     exportDataDesc:
       "Download a copy of all personal data we hold about you \u2014 your profile, sites, and API keys. This satisfies your GDPR Article 20 right to data portability.",
@@ -975,20 +931,6 @@ const en: DashboardMessages = {
     hoursAgo: "h ago",
     daysAgo: "d ago",
   },
-  auditLog: {
-    title: "Audit Log",
-    description: "Last 100 actions on your account.",
-    entries: "entries",
-    noActivity: "No activity recorded yet.",
-    siteCreated: "Site created",
-    siteRenamed: "Site renamed",
-    siteDeleted: "Site deleted",
-    configUpdated: "Config updated",
-    apiKeyCreated: "API key created",
-    apiKeyRevoked: "API key revoked",
-    webhookCreated: "Webhook created",
-    webhookDeleted: "Webhook deleted",
-  },
   billing: {
     title: "Billing",
     description: "Manage your subscription and payment details",
@@ -1186,32 +1128,17 @@ const en: DashboardMessages = {
   },
   statistics: {
     lastDays: "Last {days} Days",
-    exportCsv: "Export CSV",
+    exportExcel: "Export Excel",
     widgetLoads: "Widget Loads",
     widgetOpens: "Widget Opens",
-    uniqueSessions: "Unique Sessions",
     featureActivations: "Feature Activations",
-    dailyEvents: "Daily Events ({days} days)",
     noEventsYet:
       "No events yet. Embed the widget on your site to start tracking.",
-    featureAdoption: "Feature Adoption",
-    ofUniqueSessions: "% of {count} unique sessions",
-    noFeatureActivations: "No feature activations yet in the last {days} days.",
     feature: "Feature",
-    sessions: "Sessions",
-    adoption: "Adoption",
-    embedDomains: "Embed Domains",
-    embedDomainsDesc:
-      "Domains that loaded your widget in the last {days} days.",
-    noDomainLoads: "No domain loads recorded yet.",
-    domain: "Domain",
-    loads: "Loads",
-    lastSeen: "Last Seen",
     recentEvents: "Recent Events",
-    showingOf: "Showing {shown} of {total}",
-    exportAll: "export all",
     event: "Event",
     time: "Time",
+    detail: "Detail",
     eventOpened: "Opened",
     eventClosed: "Closed",
     eventFeatureEnabled: "Feature enabled",
@@ -1219,7 +1146,6 @@ const en: DashboardMessages = {
     eventProfileActivated: "Profile activated",
   },
   siteTabs: {
-    config: "Config",
     wcagScan: "WCAG Scan",
     statement: "Statement",
   },
@@ -1241,38 +1167,24 @@ const en: DashboardMessages = {
     networkError: "Network error \u2014 please check your connection",
   },
   statisticsPage: {
-    title: "Statistics",
-    subtitle: "Last 30 days across all your sites",
-    widgetLoads: "Widget Loads",
-    widgetOpens: "Widget Opens",
-    uniqueSessions: "Unique Sessions",
-    featureActivations: "Feature Activations",
-    engagementRate: "Widget engagement rate",
-    opensLoads: "opens / loads",
-    featureUsage: "Feature usage",
-    featureUsageDesc:
-      "Unique sessions that activated each feature in the last 30 days",
-    last30Days: "Last 30 days",
-    profileUsage: "Accessibility profile usage",
-    profileUsageDesc: "One-click profile activations in the last 30 days",
+    featureUsage: "Feature Usage",
+    profileUsage: "Accessibility Profile Usage",
     featureTextResizing: "Text Resizing",
-    featureHighContrast: "High Contrast",
     featureTextAlign: "Text Alignment",
     featureReadingGuide: "Reading Guide",
     featureTextSpacing: "Text Spacing",
     featureScreenReader: "Screen Reader",
     featureDyslexiaFont: "Dyslexia Font",
     featureReadingMask: "Reading Mask",
-    featureCursorEnhancement: "Cursor Enhancement",
+    featureCursorEnhancement: "Big Cursor",
     featureHighlightLinks: "Highlight Links",
-    featureFocusHighlight: "Focus Highlight",
+    featureFocusHighlight: "Focus Indicator",
     featurePauseAnimations: "Pause Animations",
     featureColorBlindMode: "Color Blind Mode",
     featureMuteMedia: "Mute Media",
     featureSkipNavigation: "Skip Navigation",
-    featureGrayscale: "Grayscale",
-    featureSaturation: "Saturation",
-    featureKeyboardNavigation: "Keyboard Navigation",
+    featureSaturation: "Contrast+",
+    featureKeyboardNavigation: "Keyboard Nav",
     featureLargeClickTargets: "Large Click Targets",
     featureBlueLightFilter: "Blue Light Filter",
     featureHideImages: "Hide Images",
@@ -1453,7 +1365,6 @@ const tr: DashboardMessages = {
     profile: "Profil",
     changePassword: "\u015Eifre De\u011Fi\u015Ftir",
     billing: "Faturalama",
-    auditLog: "Denetim G\u00FCnl\u00FC\u011F\u00FC",
     exportData: "Verilerinizi D\u0131\u015Fa Aktar\u0131n",
     exportDataDesc:
       "Hakk\u0131n\u0131zda tuttu\u011Fumuz t\u00FCm ki\u015Fisel verilerin bir kopyas\u0131n\u0131 indirin \u2014 profiliniz, siteleriniz ve API anahtarlar\u0131n\u0131z. Bu, KVKK veri ta\u015F\u0131nabilirlik hakk\u0131n\u0131z\u0131 kar\u015F\u0131lar.",
@@ -1671,20 +1582,6 @@ const tr: DashboardMessages = {
     hoursAgo: "sa \u00F6nce",
     daysAgo: "g \u00F6nce",
   },
-  auditLog: {
-    title: "Denetim G\u00FCnl\u00FC\u011F\u00FC",
-    description: "Hesab\u0131n\u0131zdaki son 100 i\u015Flem.",
-    entries: "kay\u0131t",
-    noActivity: "Hen\u00FCz kaydedilmi\u015F etkinlik yok.",
-    siteCreated: "Site olu\u015Fturuldu",
-    siteRenamed: "Site yeniden adland\u0131r\u0131ld\u0131",
-    siteDeleted: "Site silindi",
-    configUpdated: "Yap\u0131land\u0131rma g\u00FCncellendi",
-    apiKeyCreated: "API anahtar\u0131 olu\u015Fturuldu",
-    apiKeyRevoked: "API anahtar\u0131 iptal edildi",
-    webhookCreated: "Webhook olu\u015Fturuldu",
-    webhookDeleted: "Webhook silindi",
-  },
   billing: {
     title: "Faturalama",
     description:
@@ -1889,33 +1786,17 @@ const tr: DashboardMessages = {
   },
   statistics: {
     lastDays: "Son {days} G\u00FCn",
-    exportCsv: "CSV D\u0131\u015Fa Aktar",
+    exportExcel: "Excel D\u0131\u015Fa Aktar",
     widgetLoads: "Widget Y\u00FCklemeleri",
     widgetOpens: "Widget A\u00E7\u0131l\u0131\u015Flar\u0131",
-    uniqueSessions: "Benzersiz Oturumlar",
     featureActivations: "\u00D6zellik Etkinle\u015Ftirmeleri",
-    dailyEvents: "G\u00FCnl\u00FCk Olaylar ({days} g\u00FCn)",
     noEventsYet:
       "Hen\u00FCz olay yok. \u0130zlemeye ba\u015Flamak i\u00E7in widget\u0027\u0131 sitenize g\u00F6m\u00FCn.",
-    featureAdoption: "\u00D6zellik Benimsemesi",
-    ofUniqueSessions: "% / {count} benzersiz oturum",
-    noFeatureActivations:
-      "Son {days} g\u00FCnde \u00F6zellik etkinle\u015Ftirmesi yok.",
     feature: "\u00D6zellik",
-    sessions: "Oturumlar",
-    adoption: "Benimseme",
-    embedDomains: "G\u00F6m\u00FCl\u00FC Alan Adlar\u0131",
-    embedDomainsDesc:
-      "Son {days} g\u00FCnde widget\u0027\u0131n\u0131z\u0131 y\u00FCkleyen alan adlar\u0131.",
-    noDomainLoads: "Hen\u00FCz alan ad\u0131 y\u00FCklemesi kaydedilmedi.",
-    domain: "Alan Ad\u0131",
-    loads: "Y\u00FCklemeler",
-    lastSeen: "Son G\u00F6r\u00FClme",
     recentEvents: "Son Olaylar",
-    showingOf: "{shown} / {total} g\u00F6steriliyor",
-    exportAll: "t\u00FCm\u00FCn\u00FC d\u0131\u015Fa aktar",
     event: "Olay",
     time: "Zaman",
+    detail: "Detay",
     eventOpened: "A\u00E7\u0131ld\u0131",
     eventClosed: "Kapat\u0131ld\u0131",
     eventFeatureEnabled: "\u00D6zellik etkinle\u015Ftirildi",
@@ -1923,7 +1804,6 @@ const tr: DashboardMessages = {
     eventProfileActivated: "Profil etkinle\u015Ftirildi",
   },
   siteTabs: {
-    config: "Yap\u0131land\u0131rma",
     wcagScan: "WCAG Tarama",
     statement: "Beyanname",
   },
@@ -1947,38 +1827,23 @@ const tr: DashboardMessages = {
       "A\u011F hatas\u0131 \u2014 l\u00FCtfen ba\u011Flant\u0131n\u0131z\u0131 kontrol edin",
   },
   statisticsPage: {
-    title: "\u0130statistikler",
-    subtitle: "T\u00fcm sitelerinizde son 30 g\u00fcn",
-    widgetLoads: "Widget Y\u00fcklemeleri",
-    widgetOpens: "Widget A\u00e7\u0131lmalar\u0131",
-    uniqueSessions: "Benzersiz Oturumlar",
-    featureActivations: "\u00d6zellik Etkinle\u015ftirmeleri",
-    engagementRate: "Widget etkile\u015fim oran\u0131",
-    opensLoads: "a\u00e7\u0131lma / y\u00fckleme",
-    featureUsage: "\u00d6zellik kullan\u0131m\u0131",
-    featureUsageDesc:
-      "Son 30 g\u00fcnde her \u00f6zelli\u011fi etkinle\u015ftiren benzersiz oturumlar",
-    last30Days: "Son 30 g\u00fcn",
-    profileUsage: "Eri\u015filebilirlik profili kullan\u0131m\u0131",
-    profileUsageDesc:
-      "Son 30 g\u00fcnde tek t\u0131kla profil etkinle\u015ftirmeleri",
+    featureUsage: "\u00d6zellik Kullan\u0131m\u0131",
+    profileUsage: "Eri\u015filebilirlik Profili Kullan\u0131m\u0131",
     featureTextResizing: "Metin Boyutland\u0131rma",
-    featureHighContrast: "Y\u00FCksek Kontrast",
     featureTextAlign: "Metin Hizalama",
     featureReadingGuide: "Okuma Rehberi",
     featureTextSpacing: "Metin Aral\u0131\u011f\u0131",
     featureScreenReader: "Ekran Okuyucu",
     featureDyslexiaFont: "Disleksi Fontu",
     featureReadingMask: "Okuma Maskesi",
-    featureCursorEnhancement: "\u0130mle\u00e7 \u0130yile\u015ftirme",
+    featureCursorEnhancement: "B\u00fcy\u00fck \u0130mle\u00e7",
     featureHighlightLinks: "Ba\u011flant\u0131lar\u0131 Vurgula",
-    featureFocusHighlight: "Odak Vurgulama",
+    featureFocusHighlight: "Odak G\u00f6stergesi",
     featurePauseAnimations: "Animasyonlar\u0131 Durdur",
     featureColorBlindMode: "Renk K\u00f6rl\u00fc\u011f\u00fc Modu",
     featureMuteMedia: "Medyay\u0131 Sessize Al",
     featureSkipNavigation: "Gezinmeyi Atla",
-    featureGrayscale: "Gri Tonlama",
-    featureSaturation: "Doygunluk",
+    featureSaturation: "Kontrast+",
     featureKeyboardNavigation: "Klavye Gezinme",
     featureLargeClickTargets: "B\u00fcy\u00fck T\u0131klama Hedefleri",
     featureBlueLightFilter: "Mavi I\u015f\u0131k Filtresi",

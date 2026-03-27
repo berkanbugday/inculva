@@ -42,7 +42,7 @@ model User {
   sites         Site[]
   subscription  Subscription?
   notifications Notification[]
-  auditLogs     AuditLog[]
+
 }
 
 model Session {
@@ -247,21 +247,5 @@ model Notification {
   @@index([userId, readAt])
 }
 
-// ─── Audit Log ────────────────────────────────────────────────────────────────
 
-// Immutable record of user-initiated changes to resources
-model AuditLog {
-  id         String   @id @default(cuid())
-  userId     String
-  action     String   // e.g. "site.config_updated" | "site.created" | "site.deleted" | "site.renamed" | "api_key.created" | "api_key.revoked"
-  resource   String   // "site" | "api_key" | "webhook"
-  resourceId String?  // ID of the affected resource
-  meta       Json?    // extra context: diff, domain, name, etc.
-  ip         String?
-  createdAt  DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, createdAt])
-}
 

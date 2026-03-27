@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
-import { logAudit } from "@/lib/audit";
+
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -158,14 +158,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
       ...(body.profileSeizure !== undefined && { profileSeizure: body.profileSeizure }),
       ...(body.profileParkinson !== undefined && { profileParkinson: body.profileParkinson }),
     },
-  });
-
-  logAudit({
-    userId: session.user.id,
-    action: "site.config_updated",
-    resource: "site",
-    resourceId: id,
-    meta: { domain: site.domain },
   });
 
   return NextResponse.json({ success: true });

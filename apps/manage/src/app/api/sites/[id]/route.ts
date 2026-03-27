@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
-import { logAudit } from "@/lib/audit";
+
 import { Prisma } from "@inculva/db";
 
 interface Params {
@@ -73,13 +73,6 @@ export async function PATCH(req: Request, { params }: Params) {
       data: updateData,
       select: { id: true, name: true, domain: true, updatedAt: true },
     });
-
-    if (updateData.name) {
-      logAudit({ userId: session.user.id, action: "site.renamed", resource: "site", resourceId: id, meta: { name: updateData.name } });
-    }
-    if (updateData.domain) {
-      logAudit({ userId: session.user.id, action: "site.domain_updated", resource: "site", resourceId: id, meta: { domain: updateData.domain } });
-    }
 
     return NextResponse.json({ success: true, data: updated });
   } catch (err) {
