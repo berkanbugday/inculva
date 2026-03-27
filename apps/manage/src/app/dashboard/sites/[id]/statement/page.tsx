@@ -71,8 +71,8 @@ export default async function StatementPage({ params }: Props) {
         {[
           { label: t.siteTabs.config, href: `/dashboard/sites/${site.id}` },
           {
-            label: t.siteTabs.analytics,
-            href: `/dashboard/sites/${site.id}/analytics`,
+            label: t.nav.statistics,
+            href: `/dashboard/sites/${site.id}/statistics`,
           },
           {
             label: t.siteTabs.wcagScan,

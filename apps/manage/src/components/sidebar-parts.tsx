@@ -53,7 +53,7 @@ export function SiteGroup({
   const siteActive = pathname.includes(site.id);
   const subItems = [
     { label: t.nav.customize, href: `/dashboard/sites/${site.id}` },
-    { label: t.nav.analytics, href: `/dashboard/sites/${site.id}/analytics` },
+    { label: t.nav.statistics, href: `/dashboard/sites/${site.id}/statistics` },
     { label: t.nav.wcagScan, href: `/dashboard/sites/${site.id}/scan` },
     { label: t.nav.statement, href: `/dashboard/sites/${site.id}/statement` },
   ];

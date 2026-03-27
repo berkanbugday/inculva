@@ -34,7 +34,6 @@ export async function GET(req: Request, { params }: Params) {
     select: { id: true, createdAt: true, event: true, feature: true, sessionId: true },
   });
 
-  // Build CSV
   const lines: string[] = [
     "id,date,event,feature,sessionId",
     ...events.map((e) =>
@@ -46,11 +45,10 @@ export async function GET(req: Request, { params }: Params) {
         e.sessionId,
       ]
         .map((v) => `"${String(v).replace(/"/g, '""')}"`)
-        .join(",")
+        .join(","),
     ),
   ];
   const csv = lines.join("\n");
-
   const filename = `${site.domain}-events-${days}d.csv`;
 
   return new NextResponse(csv, {

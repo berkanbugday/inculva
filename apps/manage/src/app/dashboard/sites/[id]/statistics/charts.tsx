@@ -43,10 +43,7 @@ export function TrendChart({ data, locale }: TrendChartProps) {
     `${padX + innerW},${padY + innerH}`,
   ].join(" ");
 
-  // X-axis labels: show first, middle, last
   const labelIndices = [0, Math.floor(data.length / 2), data.length - 1];
-
-  // Y-axis grid lines
   const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
     y: padY + innerH - ratio * innerH,
     label: Math.round(max * ratio),
@@ -68,7 +65,6 @@ export function TrendChart({ data, locale }: TrendChartProps) {
           </linearGradient>
         </defs>
 
-        {/* Grid lines */}
         {gridLines.map(({ y }) => (
           <line
             key={y}
@@ -82,10 +78,8 @@ export function TrendChart({ data, locale }: TrendChartProps) {
           />
         ))}
 
-        {/* Area fill */}
         <polygon points={areaPoints} fill="url(#trendGrad)" />
 
-        {/* Line */}
         <polyline
           points={points.join(" ")}
           fill="none"
@@ -95,7 +89,6 @@ export function TrendChart({ data, locale }: TrendChartProps) {
           strokeLinecap="round"
         />
 
-        {/* Dots for non-zero days */}
         {data.map((d, i) => {
           if (d.count === 0) return null;
           const x = padX + (i / (data.length - 1)) * innerW;
@@ -103,7 +96,6 @@ export function TrendChart({ data, locale }: TrendChartProps) {
           return <circle key={i} cx={x} cy={y} r="3" fill="#3b82f6" />;
         })}
 
-        {/* X-axis labels */}
         {labelIndices.map((i) => {
           const d = data[i];
           if (!d) return null;

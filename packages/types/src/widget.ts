@@ -80,7 +80,7 @@ export interface WidgetEvent {
   siteId: string;
   sessionId: string;
   event: WidgetEventType;
-  feature?: keyof WidgetFeatures;
+  feature?: keyof WidgetFeatures | keyof WidgetProfiles;
   timestamp: string;
 }
 
@@ -88,4 +88,5 @@ export type WidgetEventType =
   | "opened"
   | "closed"
   | "feature_enabled"
-  | "feature_disabled";
+  | "feature_disabled"
+  | "profile_activated";

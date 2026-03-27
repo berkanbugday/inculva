@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { SidebarLink, SiteGroup, SettingsGroup } from "./sidebar-parts";
-import { GridIcon, ChartIcon } from "./sidebar-icons";
+import { GridIcon } from "./sidebar-icons";
 import { signOut } from "@/lib/auth-client";
 import { useDashboard } from "./dashboard-layout-content";
 
@@ -125,13 +125,6 @@ export function Sidebar({
           ))}
 
           <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] mx-2 my-3" />
-
-          <SidebarLink
-            href="/dashboard/statistics"
-            active={isActive("/dashboard/statistics")}
-            icon={<ChartIcon />}
-            label={t.nav.statistics}
-          />
 
           <SettingsGroup isActive={isActive} />
         </nav>

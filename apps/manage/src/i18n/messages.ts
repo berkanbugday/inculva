@@ -8,7 +8,6 @@ export interface DashboardMessages {
     pricing: string;
     statistics: string;
     customize: string;
-    analytics: string;
     wcagScan: string;
     statement: string;
     notifications: string;
@@ -514,7 +513,7 @@ export interface DashboardMessages {
     active: string;
     noUsersFound: string;
   };
-  analytics: {
+  statistics: {
     lastDays: string;
     exportCsv: string;
     widgetLoads: string;
@@ -548,7 +547,6 @@ export interface DashboardMessages {
   };
   siteTabs: {
     config: string;
-    analytics: string;
     wcagScan: string;
     statement: string;
   };
@@ -643,7 +641,6 @@ const en: DashboardMessages = {
     pricing: "Pricing",
     statistics: "Statistics",
     customize: "Customize",
-    analytics: "Analytics",
     wcagScan: "WCAG Scan",
     statement: "Statement",
     notifications: "Notifications",
@@ -1187,7 +1184,7 @@ const en: DashboardMessages = {
     active: "Active",
     noUsersFound: "No users found.",
   },
-  analytics: {
+  statistics: {
     lastDays: "Last {days} Days",
     exportCsv: "Export CSV",
     widgetLoads: "Widget Loads",
@@ -1223,7 +1220,6 @@ const en: DashboardMessages = {
   },
   siteTabs: {
     config: "Config",
-    analytics: "Analytics",
     wcagScan: "WCAG Scan",
     statement: "Statement",
   },
@@ -1319,7 +1315,6 @@ const tr: DashboardMessages = {
     pricing: "Fiyatland\u0131rma",
     statistics: "\u0130statistikler",
     customize: "\u00D6zelle\u015Ftir",
-    analytics: "Analitik",
     wcagScan: "WCAG Tarama",
     statement: "Beyanname",
     notifications: "Bildirimler",
@@ -1892,7 +1887,7 @@ const tr: DashboardMessages = {
     active: "Aktif",
     noUsersFound: "Kullan\u0131c\u0131 bulunamad\u0131.",
   },
-  analytics: {
+  statistics: {
     lastDays: "Son {days} G\u00FCn",
     exportCsv: "CSV D\u0131\u015Fa Aktar",
     widgetLoads: "Widget Y\u00FCklemeleri",
@@ -1929,7 +1924,6 @@ const tr: DashboardMessages = {
   },
   siteTabs: {
     config: "Yap\u0131land\u0131rma",
-    analytics: "Analitik",
     wcagScan: "WCAG Tarama",
     statement: "Beyanname",
   },

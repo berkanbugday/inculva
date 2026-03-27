@@ -96,7 +96,7 @@ export function DashboardHeader({ canAddSite, onMenuClick }: Props) {
 
 function getPageLabel(pathname: string, t: DashboardMessages): string | null {
   if (pathname === "/dashboard") return null;
-  if (pathname.includes("/analytics")) return t.nav.analytics;
+  if (pathname.includes("/statistics")) return t.nav.statistics;
   if (pathname.includes("/scan")) return t.nav.wcagScan;
   if (pathname.includes("/statement")) return t.nav.statement;
   if (pathname.includes("/delete")) return t.nav.deleteSite;
@@ -105,7 +105,6 @@ function getPageLabel(pathname: string, t: DashboardMessages): string | null {
   if (pathname.includes("/billing")) return t.settings.billing;
   if (pathname.includes("/audit-log")) return t.settings.auditLog;
   if (pathname.includes("/settings")) return t.nav.settings;
-  if (pathname.includes("/statistics")) return t.nav.statistics;
   if (pathname.includes("/notifications")) return t.nav.notifications;
   return null;
 }

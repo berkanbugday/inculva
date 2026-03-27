@@ -21,7 +21,7 @@ export function PeriodTabs({ siteId, current }: Props) {
   function select(days: string) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("days", days);
-    router.push(`/dashboard/sites/${siteId}/analytics?${params.toString()}`);
+    router.push(`/dashboard/sites/${siteId}/statistics?${params.toString()}`);
   }
 
   return (
