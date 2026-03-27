@@ -1,6 +1,9 @@
 import { db } from "@inculva/db";
 import { ChangePlanForm } from "./change-plan-form";
 import { BanButton } from "../user-actions";
+import { cookies } from "next/headers";
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale } from "@/i18n/messages";
 
 export const metadata = { title: "Admin — Users — Inculva" };
 
@@ -39,6 +42,14 @@ export default async function AdminUsersPage({
 }: {
   searchParams: Promise<{ page?: string; q?: string }>;
 }) {
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (
+    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+      ? cookieLocale
+      : "en"
+  ) as Locale;
+  const t = getMessages(locale);
+
   const params = await searchParams;
   const page = Math.max(1, Number(params.page ?? 1));
   const query = params.q ?? "";
@@ -49,10 +60,10 @@ export default async function AdminUsersPage({
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <span className="px-2.5 py-1 bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 text-xs font-bold rounded-full uppercase tracking-wide">
-            Admin
+            {t.adminUsers.badge}
           </span>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Users
+            {t.adminUsers.title}
             <span className="ml-2 text-base font-normal text-gray-400 dark:text-gray-500">
               ({total.toLocaleString()})
             </span>
@@ -64,21 +75,21 @@ export default async function AdminUsersPage({
             type="search"
             name="q"
             defaultValue={query}
-            placeholder="Search by email..."
+            placeholder={t.adminUsers.searchPlaceholder}
             className="px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 w-60"
           />
           <button
             type="submit"
             className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Search
+            {t.adminUsers.search}
           </button>
           {query && (
             <a
               href="/admin/users"
               className="px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
-              Clear
+              {t.adminUsers.clear}
             </a>
           )}
         </form>
@@ -90,22 +101,22 @@ export default async function AdminUsersPage({
             <thead>
               <tr className="border-b border-gray-100 dark:border-gray-800">
                 <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  User
+                  {t.adminUsers.colUser}
                 </th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Plan
+                  {t.adminUsers.colPlan}
                 </th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Verified
+                  {t.adminUsers.colVerified}
                 </th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Joined
+                  {t.adminUsers.colJoined}
                 </th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Change Plan
+                  {t.adminUsers.colChangePlan}
                 </th>
                 <th className="text-left px-4 py-3 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                  Status
+                  {t.adminUsers.colStatus}
                 </th>
               </tr>
             </thead>
@@ -122,7 +133,7 @@ export default async function AdminUsersPage({
                       </div>
                       {user.bannedAt && (
                         <span className="px-1.5 py-0.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 text-[10px] font-bold rounded uppercase tracking-wide">
-                          Banned
+                          {t.adminUsers.banned}
                         </span>
                       )}
                     </div>
@@ -138,11 +149,11 @@ export default async function AdminUsersPage({
                           : "text-amber-600 dark:text-amber-400"
                       }`}
                     >
-                      {user.emailVerified ? "Yes" : "No"}
+                      {user.emailVerified ? t.adminUsers.yes : t.adminUsers.no}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                    {new Date(user.createdAt).toLocaleDateString("en", {
+                    {new Date(user.createdAt).toLocaleDateString(locale, {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
@@ -159,7 +170,7 @@ export default async function AdminUsersPage({
               {users.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-6 py-10 text-center text-gray-400 dark:text-gray-500">
-                    No users found.
+                    {t.adminUsers.noUsersFound}
                   </td>
                 </tr>
               )}

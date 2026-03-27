@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import { db } from "@inculva/db";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale } from "@/i18n/messages";
 
 const landingUrl = process.env["NEXT_PUBLIC_LANDING_URL"]!;
 
@@ -22,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PublicStatementPage({ params }: Props) {
   const { siteId } = await params;
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (
+    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+      ? cookieLocale
+      : "en"
+  ) as Locale;
+  const t = getMessages(locale);
 
   const site = await db.site.findUnique({
     where: { id: siteId },
@@ -37,12 +47,12 @@ export default async function PublicStatementPage({ params }: Props) {
   const { name: siteName, domain: siteDomain, createdAt } = site;
   const lastScanViolations = site.widgetConfig?.lastScanViolations ?? null;
   const lastScanAt = site.widgetConfig?.lastScanAt ?? null;
-  const reviewDate = (lastScanAt ?? new Date()).toLocaleDateString("en", {
+  const reviewDate = (lastScanAt ?? new Date()).toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
-  const complianceDate = createdAt.toLocaleDateString("en", {
+  const complianceDate = createdAt.toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -50,10 +60,13 @@ export default async function PublicStatementPage({ params }: Props) {
 
   const statusNote =
     lastScanViolations === null
-      ? "An automated accessibility scan has not yet been performed."
+      ? t.statement.statusNoteNotScanned
       : lastScanViolations === 0
-      ? "The most recent automated WCAG scan found no violations."
-      : `The most recent automated WCAG scan found ${lastScanViolations} potential violation(s). We are actively working to resolve them.`;
+      ? t.statement.statusNoteNoViolationsPublic
+      : t.statement.statusNoteViolationsPublic.replace(
+          "{count}",
+          String(lastScanViolations),
+        );
 
   return (
     <>
@@ -71,10 +84,10 @@ export default async function PublicStatementPage({ params }: Props) {
       <div className="min-h-screen bg-white text-gray-900" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1.5rem", lineHeight: 1.7 }}>
           <h1 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "0.25rem" }}>
-            Accessibility Statement
+            {t.statement.publicTitle}
           </h1>
           <p style={{ color: "#4b5563", marginBottom: "0.25rem" }}>
-            This statement applies to:{" "}
+            {t.statement.appliesTo}{" "}
             <strong>
               <a href={`https://${siteDomain}`} style={{ color: "#0066cc" }}>
                 {siteDomain}
@@ -82,46 +95,33 @@ export default async function PublicStatementPage({ params }: Props) {
             </strong>
           </p>
           <p style={{ color: "#4b5563" }}>
-            Last reviewed: <strong>{reviewDate}</strong>
+            {t.statement.lastReviewed} <strong>{reviewDate}</strong>
           </p>
 
-          <SectionHeading>Our Commitment</SectionHeading>
-          <p>
-            {siteName} is committed to ensuring digital accessibility for people with disabilities. We continually
-            improve the user experience for everyone and apply relevant accessibility standards.
-          </p>
+          <SectionHeading>{t.statement.ourCommitmentTitle}</SectionHeading>
+          <p>{t.statement.ourCommitmentBody.replace("{siteName}", siteName)}</p>
 
-          <SectionHeading>Conformance Status</SectionHeading>
+          <SectionHeading>{t.statement.conformanceStatusTitle}</SectionHeading>
+          <p>{t.statement.conformanceStatusBody}</p>
           <p>
-            We aim for <strong>WCAG 2.1 Level AA</strong> conformance, as defined by the Web Content Accessibility
-            Guidelines (WCAG) 2.1. This meets the requirements of the European Accessibility Act (EAA) and EN 301 549.
-          </p>
-          <p>
-            Compliance work began on: <strong>{complianceDate}</strong>
+            {t.statement.complianceWorkBegan} <strong>{complianceDate}</strong>
           </p>
           <p>{statusNote}</p>
 
-          <SectionHeading>Technical Specifications</SectionHeading>
-          <p>This website relies on the following technologies for conformance:</p>
+          <SectionHeading>{t.statement.technicalSpecificationsTitle}</SectionHeading>
+          <p>{t.statement.technicalSpecificationsBody}</p>
           <ul style={{ paddingLeft: "1.5rem", marginBottom: "1rem" }}>
             <li>HTML</li>
             <li>CSS</li>
             <li>JavaScript</li>
           </ul>
-          <p>
-            An accessibility widget (powered by Inculva) is embedded on this site to provide on-demand assistive
-            features including text resizing, high contrast, dyslexia-friendly fonts, keyboard navigation, screen
-            reader support, and more.
-          </p>
+          <p>{t.statement.widgetNote}</p>
 
-          <SectionHeading>Feedback and Contact</SectionHeading>
+          <SectionHeading>{t.statement.feedbackAndContactTitle}</SectionHeading>
           <p>
-            We welcome your feedback on the accessibility of {siteName}. If you experience accessibility barriers,
-            please contact the site owner directly via{" "}
-            <a href={`https://${siteDomain}`} style={{ color: "#0066cc" }}>
-              {siteDomain}
-            </a>
-            .
+            {t.statement.feedbackAndContactBody
+              .replace("{siteName}", siteName)
+              .replace("{email}", siteDomain)}
           </p>
           <p>We try to respond to accessibility feedback within 2 business days.</p>
 

@@ -13,27 +13,64 @@ interface Props {
   searchParams: Promise<{ days?: string }>;
 }
 
-const featureLabels: Record<string, string> = {
-  textResizing: "Text Resizing",
-  highContrast: "High Contrast",
-  dyslexiaFont: "Dyslexia Font",
-  cursorEnhancement: "Big Cursor",
-  keyboardNavigation: "Keyboard Nav",
-  readingGuide: "Reading Guide",
-  screenReader: "Screen Reader",
-  pauseAnimations: "Pause Animations",
-  textSpacing: "Text Spacing",
-  highlightLinks: "Highlight Links",
-  colorBlindMode: "Color Blind Mode",
-  largeClickTargets: "Large Click Targets",
-  focusHighlight: "Focus Highlight",
-  grayscale: "Grayscale",
-  skipNavigation: "Skip Navigation",
-  muteMedia: "Mute Media",
-  readingMask: "Reading Mask",
-  textAlign: "Text Alignment",
-  saturation: "Saturation",
-};
+function getFeatureLabel(t: ReturnType<typeof getMessages>, key: string): string {
+  switch (key) {
+    case "textResizing":
+      return t.statisticsPage.featureTextResizing;
+    case "highContrast":
+      return t.statisticsPage.featureHighContrast;
+    case "dyslexiaFont":
+      return t.statisticsPage.featureDyslexiaFont;
+    case "cursorEnhancement":
+      return t.statisticsPage.featureCursorEnhancement;
+    case "keyboardNavigation":
+      return t.statisticsPage.featureKeyboardNavigation;
+    case "readingGuide":
+      return t.statisticsPage.featureReadingGuide;
+    case "screenReader":
+      return t.statisticsPage.featureScreenReader;
+    case "pauseAnimations":
+      return t.statisticsPage.featurePauseAnimations;
+    case "textSpacing":
+      return t.statisticsPage.featureTextSpacing;
+    case "highlightLinks":
+      return t.statisticsPage.featureHighlightLinks;
+    case "colorBlindMode":
+      return t.statisticsPage.featureColorBlindMode;
+    case "largeClickTargets":
+      return t.statisticsPage.featureLargeClickTargets;
+    case "focusHighlight":
+      return t.statisticsPage.featureFocusHighlight;
+    case "grayscale":
+      return t.statisticsPage.featureGrayscale;
+    case "skipNavigation":
+      return t.statisticsPage.featureSkipNavigation;
+    case "muteMedia":
+      return t.statisticsPage.featureMuteMedia;
+    case "readingMask":
+      return t.statisticsPage.featureReadingMask;
+    case "textAlign":
+      return t.statisticsPage.featureTextAlign;
+    case "saturation":
+      return t.statisticsPage.featureSaturation;
+    case "blueLightFilter":
+      return t.statisticsPage.featureBlueLightFilter;
+    case "hideImages":
+      return t.statisticsPage.featureHideImages;
+    case "darkMode":
+      return t.statisticsPage.featureDarkMode;
+    case "contentMagnifier":
+      return t.statisticsPage.featureContentMagnifier;
+    case "slowCursor":
+      return t.statisticsPage.featureSlowCursor;
+    case "lineHeight":
+      return t.statisticsPage.featureLineHeight;
+    case "highlightTitles":
+      return t.statisticsPage.featureHighlightTitles;
+    default:
+      return key;
+  }
+}
 
 const VALID_DAYS = [7, 14, 30, 90] as const;
 type ValidDays = (typeof VALID_DAYS)[number];
@@ -128,7 +165,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
   const featureStats = Object.entries(featureEnableMap)
     .map(([feature, sessions]) => ({
       feature,
-      label: featureLabels[feature] ?? feature,
+      label: getFeatureLabel(t, feature),
       count: sessions.size,
       adoptionPct:
         uniqueSessions > 0
@@ -278,7 +315,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
             {t.analytics.noEventsYet}
           </p>
         ) : (
-          <TrendChart data={daily} />
+          <TrendChart data={daily} locale={locale} />
         )}
       </div>
 
@@ -462,7 +499,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
                     </td>
                     <td className="py-2 pr-4 text-gray-500 dark:text-gray-400">
                       {event.feature
-                        ? featureLabels[event.feature] ?? event.feature
+                        ? getFeatureLabel(t, event.feature)
                         : "—"}
                     </td>
                     <td className="py-2 text-gray-400 dark:text-gray-600 text-xs">

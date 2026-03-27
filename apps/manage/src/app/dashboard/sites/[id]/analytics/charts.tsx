@@ -13,13 +13,14 @@ interface FeatureStat {
 
 interface TrendChartProps {
   data: DailyPoint[];
+  locale?: string;
 }
 
 interface FeatureChartProps {
   data: FeatureStat[];
 }
 
-export function TrendChart({ data }: TrendChartProps) {
+export function TrendChart({ data, locale }: TrendChartProps) {
   if (data.length === 0) return null;
 
   const max = Math.max(...data.map((d) => d.count), 1);
@@ -107,7 +108,7 @@ export function TrendChart({ data }: TrendChartProps) {
           const d = data[i];
           if (!d) return null;
           const x = padX + (i / (data.length - 1)) * innerW;
-          const label = new Date(d.date).toLocaleDateString("en", {
+          const label = new Date(d.date).toLocaleDateString(locale, {
             month: "short",
             day: "numeric",
           });

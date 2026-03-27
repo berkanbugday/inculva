@@ -3,14 +3,12 @@ import { cookies } from "next/headers";
 import "@inculva/ui/globals.css";
 import { CookieBanner } from "@/components/cookie-banner";
 
-const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
-
 export const metadata: Metadata = {
   title: "Inculva — Accessibility Dashboard",
   description: "Manage your web accessibility widget settings and analytics.",
   icons: {
-    icon: `${CDN_URL}/icons/universal-access.svg`,
-    shortcut: `${CDN_URL}/icons/universal-access.svg`,
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 };
 
@@ -19,11 +17,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const theme = (await cookies()).get("theme")?.value;
+  const cookieStore = await cookies();
+  const theme = cookieStore.get("theme")?.value;
   const isDark = theme === "dark";
+  const locale = cookieStore.get("locale")?.value || "en";
 
   return (
-    <html lang="en" className={isDark ? "dark" : ""}>
+    <html
+      lang={locale}
+      className={isDark ? "dark" : ""}
+      suppressHydrationWarning
+    >
       <body>
         {children}
         <CookieBanner />

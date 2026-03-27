@@ -4,20 +4,19 @@ import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
 import { NotificationBell } from "./notification-bell";
-import { getMessages } from "@/i18n/messages";
+import { useMessages } from "@/i18n/useMessages";
 import type { DashboardMessages } from "@/i18n/messages";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
 interface Props {
-  locale: string;
   canAddSite: boolean;
   onMenuClick?: () => void;
 }
 
-export function DashboardHeader({ locale, canAddSite, onMenuClick }: Props) {
+export function DashboardHeader({ canAddSite, onMenuClick }: Props) {
   const pathname = usePathname();
-  const t = getMessages(locale);
+  const t = useMessages();
   const label = getPageLabel(pathname, t);
 
   return (

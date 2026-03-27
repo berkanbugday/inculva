@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { VerificationBanner } from "@/components/verification-banner";
 import { Sidebar } from "@/components/sidebar";
+import { useMessages, useLocale } from "@/i18n/useMessages";
 import { getMessages } from "@/i18n/messages";
 import type { DashboardMessages } from "@/i18n/messages";
 import { PLAN_LIMITS } from "@inculva/types";
@@ -55,6 +56,8 @@ export function DashboardLayoutContent({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const messages = useMessages();
+  const locale = useLocale();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -108,7 +111,6 @@ export function DashboardLayoutContent({
     );
   }
 
-  const messages = getMessages(data.locale);
   const plan = (data.user.plan ?? "free") as Plan;
   const maxSites = PLAN_LIMITS[plan]?.maxSites ?? 1;
   const canAddSite = data.sites.length < maxSites;
@@ -117,14 +119,13 @@ export function DashboardLayoutContent({
     <DashboardContext.Provider
       value={{
         messages,
-        locale: data.locale,
+        locale,
         canAddSite,
         plan: data.user.plan,
       }}
     >
       <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex flex-col">
         <DashboardHeader
-          locale={data.locale}
           canAddSite={canAddSite}
           onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         />

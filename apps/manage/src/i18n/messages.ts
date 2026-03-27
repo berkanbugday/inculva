@@ -23,6 +23,14 @@ export interface DashboardMessages {
   langSwitcher: {
     label: string;
   };
+  theme: {
+    switchToLight: string;
+    switchToDark: string;
+  };
+  notifications: {
+    label: string;
+    unreadCount: string;
+  };
   auth: {
     email: string;
     password: string;
@@ -74,6 +82,16 @@ export interface DashboardMessages {
     continueWithGithub: string;
     orContinueWithEmail: string;
     redirecting: string;
+    somethingWentWrong: string;
+    validEmail: string;
+    passwordRequired: string;
+    nameMinChars: string;
+    nameMaxChars: string;
+    currentPasswordRequired: string;
+    passwordMinChars: string;
+    passwordsDoNotMatch: string;
+    minCharsPlaceholder: string;
+    repeatPasswordPlaceholder: string;
   };
   authFeatures: {
     oneScriptTag: string;
@@ -134,6 +152,10 @@ export interface DashboardMessages {
     emailAddress: string;
     emailChangeHint: string;
     typeDeleteConfirm: string;
+    typeToConfirm: string;
+    failedToUpdateName: string;
+    failedToChangePassword: string;
+    failedToDeleteAccount: string;
   };
   dashboard: {
     title: string;
@@ -376,6 +398,12 @@ export interface DashboardMessages {
     featureAutoTranslation: string;
     featureCustomBranding: string;
     featurePriorityPhoneEmail: string;
+    cancellationFailed: string;
+    upgradeTo: string;
+    monthly: string;
+    annual: string;
+    save17: string;
+    checkoutFailed: string;
   };
   deleteSitePage: {
     breadcrumbDelete: string;
@@ -450,6 +478,41 @@ export interface DashboardMessages {
     saved: string;
     lastScanNoViolations: string;
     lastScanViolations: string;
+    // Public hosted statement page
+    publicTitle: string;
+    appliesTo: string;
+    lastReviewed: string;
+    ourCommitmentTitle: string;
+    ourCommitmentBody: string;
+    conformanceStatusTitle: string;
+    conformanceStatusBody: string;
+    complianceWorkBegan: string;
+    statusNoteNotScanned: string;
+    statusNoteNoViolationsPublic: string;
+    statusNoteViolationsPublic: string;
+    technicalSpecificationsTitle: string;
+    technicalSpecificationsBody: string;
+    widgetNote: string;
+    feedbackAndContactTitle: string;
+    feedbackAndContactBody: string;
+  };
+  adminUsers: {
+    badge: string;
+    title: string;
+    searchPlaceholder: string;
+    search: string;
+    clear: string;
+    colUser: string;
+    colPlan: string;
+    colVerified: string;
+    colJoined: string;
+    colChangePlan: string;
+    colStatus: string;
+    yes: string;
+    no: string;
+    banned: string;
+    active: string;
+    noUsersFound: string;
   };
   analytics: {
     lastDays: string;
@@ -594,6 +657,14 @@ const en: DashboardMessages = {
     toggleMenu: "Toggle menu",
   },
   langSwitcher: { label: "Language" },
+  theme: {
+    switchToLight: "Switch to light mode",
+    switchToDark: "Switch to dark mode",
+  },
+  notifications: {
+    label: "Notifications",
+    unreadCount: "{count} unread",
+  },
   auth: {
     email: "Email address",
     password: "Password",
@@ -650,6 +721,16 @@ const en: DashboardMessages = {
     continueWithGithub: "Continue with GitHub",
     orContinueWithEmail: "or continue with email",
     redirecting: "Redirecting\u2026",
+    somethingWentWrong: "Something went wrong",
+    validEmail: "Please enter a valid email address",
+    passwordRequired: "Password is required",
+    nameMinChars: "Name must be at least 2 characters",
+    nameMaxChars: "Maximum 100 characters",
+    currentPasswordRequired: "Current password is required",
+    passwordMinChars: "Password must be at least 8 characters",
+    passwordsDoNotMatch: "Passwords do not match",
+    minCharsPlaceholder: "Min. 8 characters",
+    repeatPasswordPlaceholder: "Repeat new password",
   },
   authFeatures: {
     oneScriptTag: "One script tag \u2014 live in minutes",
@@ -715,6 +796,10 @@ const en: DashboardMessages = {
     emailAddress: "Email address",
     emailChangeHint: "Contact support to change your email address.",
     typeDeleteConfirm: "delete",
+    typeToConfirm: "Type",
+    failedToUpdateName: "Failed to update name",
+    failedToChangePassword: "Failed to change password",
+    failedToDeleteAccount: "Failed to delete account",
   },
   dashboard: {
     title: "My Websites",
@@ -970,6 +1055,12 @@ const en: DashboardMessages = {
     featureAutoTranslation: "Auto page translation (41+ languages)",
     featureCustomBranding: "Custom branding",
     featurePriorityPhoneEmail: "Priority support (phone & email)",
+    cancellationFailed: "Cancellation failed",
+    upgradeTo: "Upgrade to {plan} \u2192",
+    monthly: "Monthly",
+    annual: "Annual",
+    save17: "SAVE 17%",
+    checkoutFailed: "Failed to start checkout",
   },
   deleteSitePage: {
     breadcrumbDelete: "Delete",
@@ -1053,6 +1144,48 @@ const en: DashboardMessages = {
     lastScanNoViolations: "Last WCAG scan ({date}) found no violations.",
     lastScanViolations:
       "Last WCAG scan ({date}) found {count} potential violation(s). Consider resolving these before generating the statement.",
+    publicTitle: "Accessibility Statement",
+    appliesTo: "This statement applies to:",
+    lastReviewed: "Last reviewed:",
+    ourCommitmentTitle: "Our Commitment",
+    ourCommitmentBody:
+      "{siteName} is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience for everyone and apply relevant accessibility standards.",
+    conformanceStatusTitle: "Conformance Status",
+    conformanceStatusBody:
+      "We aim for WCAG 2.1 Level AA conformance, as defined by the Web Content Accessibility Guidelines (WCAG) 2.1. This meets the requirements of the European Accessibility Act (EAA) and EN 301 549.",
+    complianceWorkBegan: "Compliance work began on:",
+    statusNoteNotScanned:
+      "An automated accessibility scan has not yet been performed.",
+    statusNoteNoViolationsPublic:
+      "The most recent automated WCAG scan found no violations.",
+    statusNoteViolationsPublic:
+      "The most recent automated WCAG scan found {count} potential violation(s). We are actively working to resolve them.",
+    technicalSpecificationsTitle: "Technical Specifications",
+    technicalSpecificationsBody:
+      "This website relies on the following technologies for conformance:",
+    widgetNote:
+      "An accessibility widget (powered by Inculva) is embedded on this site to provide on-demand assistive features including text resizing, high contrast, dyslexia-friendly fonts, keyboard navigation, screen reader support, and more.",
+    feedbackAndContactTitle: "Feedback and Contact",
+    feedbackAndContactBody:
+      "We welcome your feedback on the accessibility of {siteName}. If you experience accessibility barriers, please contact the site owner directly via {email}.",
+  },
+  adminUsers: {
+    badge: "Admin",
+    title: "Users",
+    searchPlaceholder: "Search by email...",
+    search: "Search",
+    clear: "Clear",
+    colUser: "User",
+    colPlan: "Plan",
+    colVerified: "Verified",
+    colJoined: "Joined",
+    colChangePlan: "Change Plan",
+    colStatus: "Status",
+    yes: "Yes",
+    no: "No",
+    banned: "Banned",
+    active: "Active",
+    noUsersFound: "No users found.",
   },
   analytics: {
     lastDays: "Last {days} Days",
@@ -1201,6 +1334,14 @@ const tr: DashboardMessages = {
     toggleMenu: "Men\u00FCy\u00FC a\u00E7/kapat",
   },
   langSwitcher: { label: "Dil" },
+  theme: {
+    switchToLight: "A\u00e7\u0131k moda ge\u00e7",
+    switchToDark: "Karanl\u0131k moda ge\u00e7",
+  },
+  notifications: {
+    label: "Bildirimler",
+    unreadCount: "{count} okunmam\u0131\u015f",
+  },
   auth: {
     email: "E-posta adresi",
     password: "\u015Eifre",
@@ -1261,6 +1402,16 @@ const tr: DashboardMessages = {
     continueWithGithub: "GitHub ile devam et",
     orContinueWithEmail: "veya e-posta ile devam et",
     redirecting: "Y\u00F6nlendiriliyor\u2026",
+    somethingWentWrong: "Bir \u015feyler ters gitti",
+    validEmail: "L\u00fctfen ge\u00e7erli bir e-posta adresi girin",
+    passwordRequired: "\u015eifre gereklidir",
+    nameMinChars: "Ad en az 2 karakter olmal\u0131d\u0131r",
+    nameMaxChars: "En fazla 100 karakter",
+    currentPasswordRequired: "Mevcut \u015fifre gereklidir",
+    passwordMinChars: "\u015eifre en az 8 karakter olmal\u0131d\u0131r",
+    passwordsDoNotMatch: "\u015eifreler e\u015fle\u015fmiyor",
+    minCharsPlaceholder: "En az 8 karakter",
+    repeatPasswordPlaceholder: "Yeni \u015fifreyi tekrarla",
   },
   authFeatures: {
     oneScriptTag: "Tek script etiketi \u2014 dakikalar i\u00E7inde haz\u0131r",
@@ -1335,6 +1486,10 @@ const tr: DashboardMessages = {
     emailChangeHint:
       "E-posta adresinizi de\u011Fi\u015Ftirmek i\u00E7in destekle ileti\u015Fime ge\u00E7in.",
     typeDeleteConfirm: "delete",
+    typeToConfirm: "Yaz\u0131n",
+    failedToUpdateName: "Ad g\u00fcncellenemedi",
+    failedToChangePassword: "\u015eifre de\u011fi\u015ftirilemedi",
+    failedToDeleteAccount: "Hesap silinemedi",
   },
   dashboard: {
     title: "Web Sitelerim",
@@ -1602,6 +1757,12 @@ const tr: DashboardMessages = {
     featureAutoTranslation: "Otomatik sayfa çevirisi (41+ dil)",
     featureCustomBranding: "Özel markalaştırma",
     featurePriorityPhoneEmail: "Öncelikli destek (telefon ve e-posta)",
+    cancellationFailed: "\u0130ptal ba\u015far\u0131s\u0131z",
+    upgradeTo: "{plan} plan\u0131na y\u00fckselt \u2192",
+    monthly: "Ayl\u0131k",
+    annual: "Y\u0131ll\u0131k",
+    save17: "%17 TASARRUF",
+    checkoutFailed: "\u00d6deme ba\u015flat\u0131lamad\u0131",
   },
   deleteSitePage: {
     breadcrumbDelete: "Sil",
@@ -1690,6 +1851,48 @@ const tr: DashboardMessages = {
       "Son WCAG taramas\u0131 ({date}) ihlal bulamad\u0131.",
     lastScanViolations:
       "Son WCAG taramas\u0131 ({date}) {count} potansiyel ihlal buldu. Beyanname olu\u015Fturmadan \u00F6nce bunlar\u0131 \u00E7\u00F6zmeyi d\u00FC\u015F\u00FCn\u00FCn.",
+    publicTitle: "Eri\u015Filebilirlik Beyannamesi",
+    appliesTo: "Bu beyanname \u015Funlar i\u00E7in ge\u00E7erlidir:",
+    lastReviewed: "Son inceleme:",
+    ourCommitmentTitle: "Taahh\u00FCd\u00FCm\u00FCz",
+    ourCommitmentBody:
+      "{siteName}, engelli bireyler i\u00E7in dijital eri\u015Filebilirli\u011Fi sa\u011Flamay\u0131 taahh\u00FCt eder. Herkes i\u00E7in kullan\u0131c\u0131 deneyimini s\u00FCrekli iyile\u015Ftirir ve ilgili eri\u015Filebilirlik standartlar\u0131n\u0131 uygular\u0131z.",
+    conformanceStatusTitle: "Uygunluk Durumu",
+    conformanceStatusBody:
+      "Web \u0130\u00E7eri\u011Fi Eri\u015Filebilirlik Y\u00F6nergeleri (WCAG) 2.1\u2019de tan\u0131mland\u0131\u011F\u0131 \u015Fekilde WCAG 2.1 Seviye AA uygunlu\u011Funu hedefliyoruz. Bu, Avrupa Eri\u015Filebilirlik Yasas\u0131 (EAA) ve EN 301 549 gerekliliklerini kar\u015F\u0131lar.",
+    complianceWorkBegan: "Uyum \u00E7al\u0131\u015Fmalar\u0131 ba\u015Flang\u0131c\u0131:",
+    statusNoteNotScanned:
+      "Hen\u00FCz otomatik bir eri\u015Filebilirlik taramas\u0131 yap\u0131lmad\u0131.",
+    statusNoteNoViolationsPublic:
+      "En son otomatik WCAG taramas\u0131 ihlal bulmad\u0131.",
+    statusNoteViolationsPublic:
+      "En son otomatik WCAG taramas\u0131 {count} potansiyel ihlal buldu. Bunlar\u0131 gidermek i\u00E7in aktif olarak \u00E7al\u0131\u015F\u0131yoruz.",
+    technicalSpecificationsTitle: "Teknik \u00D6zellikler",
+    technicalSpecificationsBody:
+      "Bu web sitesi uygunluk i\u00E7in a\u015Fa\u011F\u0131daki teknolojilere dayan\u0131r:",
+    widgetNote:
+      "Bu sitede, metin b\u00FCy\u00FCtme, y\u00FCksek kontrast, disleksi dostu yaz\u0131 tipleri, klavye ile gezinme, ekran okuyucu deste\u011Fi ve daha fazlas\u0131 gibi iste\u011Fe ba\u011Fl\u0131 yard\u0131mc\u0131 \u00F6zellikler sunan (Inculva taraf\u0131ndan desteklenen) bir eri\u015Filebilirlik widget\u2019\u0131 bulunmaktad\u0131r.",
+    feedbackAndContactTitle: "Geri Bildirim ve \u0130leti\u015Fim",
+    feedbackAndContactBody:
+      "{siteName} sitesinin eri\u015Filebilirli\u011Fi hakk\u0131nda geri bildiriminizi memnuniyetle kar\u015F\u0131lar\u0131z. Eri\u015Filebilirlik engelleriyle kar\u015F\u0131la\u015F\u0131rsan\u0131z l\u00FCtfen do\u011Frudan site sahibiyle {email} \u00FCzerinden ileti\u015Fime ge\u00E7in.",
+  },
+  adminUsers: {
+    badge: "Admin",
+    title: "Kullan\u0131c\u0131lar",
+    searchPlaceholder: "E-posta ile ara...",
+    search: "Ara",
+    clear: "Temizle",
+    colUser: "Kullan\u0131c\u0131",
+    colPlan: "Plan",
+    colVerified: "Do\u011Fruland\u0131",
+    colJoined: "Kat\u0131ld\u0131",
+    colChangePlan: "Plan De\u011Fi\u015Ftir",
+    colStatus: "Durum",
+    yes: "Evet",
+    no: "Hay\u0131r",
+    banned: "Engelli",
+    active: "Aktif",
+    noUsersFound: "Kullan\u0131c\u0131 bulunamad\u0131.",
   },
   analytics: {
     lastDays: "Son {days} G\u00FCn",

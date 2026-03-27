@@ -8,19 +8,8 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@inculva/ui";
 import { useDashboard } from "@/components/dashboard-layout-content";
 
-const nameSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Maximum 100 characters"),
-});
-const pwSchema = z.object({
-  currentPassword: z.string().min(1, "Current password is required"),
-  newPassword: z.string().min(8, "Password must be at least 8 characters"),
-});
-
-type NameData = z.infer<typeof nameSchema>;
-type PwData = z.infer<typeof pwSchema>;
+type NameData = { name: string };
+type PwData = { currentPassword: string; newPassword: string };
 
 interface Props {
   name: string | null;
@@ -35,6 +24,17 @@ export function ProfileForm({ name, email }: Props) {
   const [nameSaved, setNameSaved] = useState(false);
   const [pwSaved, setPwSaved] = useState(false);
 
+  const nameSchema = z.object({
+    name: z
+      .string()
+      .min(1, t.auth.nameMinChars)
+      .max(100, t.auth.nameMaxChars),
+  });
+  const pwSchema = z.object({
+    currentPassword: z.string().min(1, t.auth.currentPasswordRequired),
+    newPassword: z.string().min(8, t.auth.passwordMinChars),
+  });
+
   const nameForm = useForm<NameData>({
     resolver: zodResolver(nameSchema as any),
     defaultValues: { name: name ?? "" },
@@ -46,7 +46,7 @@ export function ProfileForm({ name, email }: Props) {
     const result = await authClient.updateUser({ name: data.name });
     if (result.error) {
       nameForm.setError("root", {
-        message: result.error.message ?? "Failed to update name",
+        message: result.error.message ?? t.settings.failedToUpdateName,
       });
       return;
     }
@@ -62,7 +62,7 @@ export function ProfileForm({ name, email }: Props) {
     });
     if (result.error) {
       pwForm.setError("root", {
-        message: result.error.message ?? "Failed to change password",
+        message: result.error.message ?? t.settings.failedToChangePassword,
       });
       return;
     }
