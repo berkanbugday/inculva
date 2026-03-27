@@ -501,6 +501,51 @@ export interface DashboardMessages {
     failedToSave: string;
     networkError: string;
   };
+  statisticsPage: {
+    title: string;
+    subtitle: string;
+    widgetLoads: string;
+    widgetOpens: string;
+    uniqueSessions: string;
+    featureActivations: string;
+    engagementRate: string;
+    opensLoads: string;
+    featureUsage: string;
+    featureUsageDesc: string;
+    last30Days: string;
+    profileUsage: string;
+    profileUsageDesc: string;
+    featureTextResizing: string;
+    featureTextAlign: string;
+    featureReadingGuide: string;
+    featureTextSpacing: string;
+    featureScreenReader: string;
+    featureDyslexiaFont: string;
+    featureReadingMask: string;
+    featureCursorEnhancement: string;
+    featureHighlightLinks: string;
+    featureFocusHighlight: string;
+    featurePauseAnimations: string;
+    featureColorBlindMode: string;
+    featureMuteMedia: string;
+    featureSkipNavigation: string;
+    featureSaturation: string;
+    featureKeyboardNavigation: string;
+    featureLargeClickTargets: string;
+    featureBlueLightFilter: string;
+    featureHideImages: string;
+    featureDarkMode: string;
+    featureContentMagnifier: string;
+    featureSlowCursor: string;
+    featureLineHeight: string;
+    featureHighlightTitles: string;
+    profileAdhd: string;
+    profileBlind: string;
+    profileLowVision: string;
+    profileColorBlind: string;
+    profileDyslexia: string;
+    profileMotorImpaired: string;
+  };
   referral: {
     title: string;
     description: string;
@@ -1060,6 +1105,52 @@ const en: DashboardMessages = {
     calm: "Calm",
     failedToSave: "Failed to save \u2014 please try again",
     networkError: "Network error \u2014 please check your connection",
+  },
+  statisticsPage: {
+    title: "Statistics",
+    subtitle: "Last 30 days across all your sites",
+    widgetLoads: "Widget Loads",
+    widgetOpens: "Widget Opens",
+    uniqueSessions: "Unique Sessions",
+    featureActivations: "Feature Activations",
+    engagementRate: "Widget engagement rate",
+    opensLoads: "opens / loads",
+    featureUsage: "Feature usage",
+    featureUsageDesc:
+      "Unique sessions that activated each feature in the last 30 days",
+    last30Days: "Last 30 days",
+    profileUsage: "Accessibility profile usage",
+    profileUsageDesc: "One-click profile activations in the last 30 days",
+    featureTextResizing: "Text Resizing",
+    featureTextAlign: "Text Alignment",
+    featureReadingGuide: "Reading Guide",
+    featureTextSpacing: "Text Spacing",
+    featureScreenReader: "Screen Reader",
+    featureDyslexiaFont: "Dyslexia Font",
+    featureReadingMask: "Reading Mask",
+    featureCursorEnhancement: "Cursor Enhancement",
+    featureHighlightLinks: "Highlight Links",
+    featureFocusHighlight: "Focus Highlight",
+    featurePauseAnimations: "Pause Animations",
+    featureColorBlindMode: "Color Blind Mode",
+    featureMuteMedia: "Mute Media",
+    featureSkipNavigation: "Skip Navigation",
+    featureSaturation: "Saturation",
+    featureKeyboardNavigation: "Keyboard Navigation",
+    featureLargeClickTargets: "Large Click Targets",
+    featureBlueLightFilter: "Blue Light Filter",
+    featureHideImages: "Hide Images",
+    featureDarkMode: "Dark Mode",
+    featureContentMagnifier: "Content Magnifier",
+    featureSlowCursor: "Slow Cursor",
+    featureLineHeight: "Line Height",
+    featureHighlightTitles: "Highlight Titles",
+    profileAdhd: "ADHD",
+    profileBlind: "Blind",
+    profileLowVision: "Low Vision",
+    profileColorBlind: "Color Blind",
+    profileDyslexia: "Dyslexia",
+    profileMotorImpaired: "Motor Impaired",
   },
   referral: {
     title: "Refer & Earn",
@@ -1654,6 +1745,53 @@ const tr: DashboardMessages = {
       "Kaydetme ba\u015Far\u0131s\u0131z \u2014 l\u00FCtfen tekrar deneyin",
     networkError:
       "A\u011F hatas\u0131 \u2014 l\u00FCtfen ba\u011Flant\u0131n\u0131z\u0131 kontrol edin",
+  },
+  statisticsPage: {
+    title: "\u0130statistikler",
+    subtitle: "T\u00fcm sitelerinizde son 30 g\u00fcn",
+    widgetLoads: "Widget Y\u00fcklemeleri",
+    widgetOpens: "Widget A\u00e7\u0131lmalar\u0131",
+    uniqueSessions: "Benzersiz Oturumlar",
+    featureActivations: "\u00d6zellik Etkinle\u015ftirmeleri",
+    engagementRate: "Widget etkile\u015fim oran\u0131",
+    opensLoads: "a\u00e7\u0131lma / y\u00fckleme",
+    featureUsage: "\u00d6zellik kullan\u0131m\u0131",
+    featureUsageDesc:
+      "Son 30 g\u00fcnde her \u00f6zelli\u011fi etkinle\u015ftiren benzersiz oturumlar",
+    last30Days: "Son 30 g\u00fcn",
+    profileUsage: "Eri\u015filebilirlik profili kullan\u0131m\u0131",
+    profileUsageDesc:
+      "Son 30 g\u00fcnde tek t\u0131kla profil etkinle\u015ftirmeleri",
+    featureTextResizing: "Metin Boyutland\u0131rma",
+    featureTextAlign: "Metin Hizalama",
+    featureReadingGuide: "Okuma Rehberi",
+    featureTextSpacing: "Metin Aral\u0131\u011f\u0131",
+    featureScreenReader: "Ekran Okuyucu",
+    featureDyslexiaFont: "Disleksi Fontu",
+    featureReadingMask: "Okuma Maskesi",
+    featureCursorEnhancement: "\u0130mle\u00e7 \u0130yile\u015ftirme",
+    featureHighlightLinks: "Ba\u011flant\u0131lar\u0131 Vurgula",
+    featureFocusHighlight: "Odak Vurgulama",
+    featurePauseAnimations: "Animasyonlar\u0131 Durdur",
+    featureColorBlindMode: "Renk K\u00f6rl\u00fc\u011f\u00fc Modu",
+    featureMuteMedia: "Medyay\u0131 Sessize Al",
+    featureSkipNavigation: "Gezinmeyi Atla",
+    featureSaturation: "Doygunluk",
+    featureKeyboardNavigation: "Klavye Gezinme",
+    featureLargeClickTargets: "B\u00fcy\u00fck T\u0131klama Hedefleri",
+    featureBlueLightFilter: "Mavi I\u015f\u0131k Filtresi",
+    featureHideImages: "G\u00f6rselleri Gizle",
+    featureDarkMode: "Karanl\u0131k Mod",
+    featureContentMagnifier: "\u0130\u00e7erik B\u00fcy\u00fcte\u00e7",
+    featureSlowCursor: "Yava\u015f \u0130mle\u00e7",
+    featureLineHeight: "Sat\u0131r Y\u00fcksekli\u011fi",
+    featureHighlightTitles: "Ba\u015fl\u0131klar\u0131 Vurgula",
+    profileAdhd: "DEHB",
+    profileBlind: "G\u00f6rme Engelli",
+    profileLowVision: "Az G\u00f6ren",
+    profileColorBlind: "Renk K\u00f6r\u00fc",
+    profileDyslexia: "Disleksi",
+    profileMotorImpaired: "Motor Engelli",
   },
   referral: {
     title: "Davet Et ve Kazan",

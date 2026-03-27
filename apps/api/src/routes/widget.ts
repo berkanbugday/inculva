@@ -27,18 +27,25 @@ function extractDomain(request: FastifyRequest): string | null {
   return null;
 }
 
-function isLocalhost(domain: string): boolean {
-  return domain === "localhost" || domain === "127.0.0.1" || domain === "::1";
-}
+const isDev = process.env["NODE_ENV"] !== "production";
 
 /**
  * Returns true when `requestDomain` is permitted to embed the widget.
  * Matches the site's primary domain exactly.
+ * In development only, localhost/127.0.0.1 is also allowed.
  */
 function isDomainAllowed(
   requestDomain: string,
   primaryDomain: string,
 ): boolean {
+  if (
+    isDev &&
+    (requestDomain === "localhost" ||
+      requestDomain === "127.0.0.1" ||
+      requestDomain === "::1")
+  ) {
+    return true;
+  }
   return requestDomain.toLowerCase() === primaryDomain.toLowerCase();
 }
 
@@ -157,6 +164,13 @@ const VALID_FEATURES = new Set([
   "sustainabilityMode",
   "slowCursor",
   "dictionary",
+  // Profiles
+  "profileAdhd",
+  "profileBlind",
+  "profileLowVision",
+  "profileColorBlind",
+  "profileDyslexia",
+  "profileMotorImpaired",
 ]);
 
 const VALID_EVENTS = new Set([
@@ -164,6 +178,7 @@ const VALID_EVENTS = new Set([
   "closed",
   "feature_enabled",
   "feature_disabled",
+  "profile_activated",
 ]);
 
 function checkSiteRateLimit(siteId: string): boolean {
@@ -214,17 +229,11 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
       const ownerPlan = config.site.owner.plan;
 
       // Domain enforcement — request origin/referer must match the site's registered domain.
-      // Localhost is always permitted for local development.
       const domain = extractDomain(request);
-      if (!isLocalhost(domain ?? "")) {
-        if (
-          !domain ||
-          !isDomainAllowed(domain, config.site.domain)
-        ) {
-          return reply
-            .status(403)
-            .send({ success: false, error: "Domain not authorized" });
-        }
+      if (!domain || !isDomainAllowed(domain, config.site.domain)) {
+        return reply
+          .status(403)
+          .send({ success: false, error: "Domain not authorized" });
       }
 
       // Record load asynchronously — fire and forget (daily aggregation)
@@ -361,19 +370,19 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
 
     // Domain enforcement — origin must match the site's registered domain.
     const eventDomain = extractDomain(request);
-    if (!isLocalhost(eventDomain ?? "")) {
-      if (
-        !eventDomain ||
-        !isDomainAllowed(eventDomain, site.domain)
-      ) {
-        return reply
-          .status(403)
-          .send({ success: false, error: "Domain not authorized" });
-      }
+    if (!eventDomain || !isDomainAllowed(eventDomain, site.domain)) {
+      return reply
+        .status(403)
+        .send({ success: false, error: "Domain not authorized" });
     }
 
     // Enforce monthly event quota per plan — atomically to prevent concurrent bypasses
-    const planLimits: Record<string, number> = { free: 10_000, small: 100_000, medium: 300_000, large: 1_000_000 };
+    const planLimits: Record<string, number> = {
+      free: 10_000,
+      small: 100_000,
+      medium: 300_000,
+      large: 1_000_000,
+    };
     const plan = site.owner.plan;
     const limit = planLimits[plan] ?? Infinity;
 
@@ -473,12 +482,16 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
       if (from) {
         const d = new Date(from);
         if (isNaN(d.getTime()))
-          return reply.status(400).send({ success: false, error: "Invalid 'from' date" });
+          return reply
+            .status(400)
+            .send({ success: false, error: "Invalid 'from' date" });
       }
       if (to) {
         const d = new Date(to);
         if (isNaN(d.getTime()))
-          return reply.status(400).send({ success: false, error: "Invalid 'to' date" });
+          return reply
+            .status(400)
+            .send({ success: false, error: "Invalid 'to' date" });
       }
 
       const where = {

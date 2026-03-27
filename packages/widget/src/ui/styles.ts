@@ -21,10 +21,10 @@ export const widgetStyles = `
     margin: 0 !important;
   }
   #inculva-widget-btn img {
-    width: 48px !important;
-    height: 48px !important;
-    max-width: 48px !important;
-    max-height: 48px !important;
+    width: calc(var(--inculva-button-size, 58px) * 0.8) !important;
+    height: calc(var(--inculva-button-size, 58px) * 0.8) !important;
+    max-width: calc(var(--inculva-button-size, 58px) * 0.8) !important;
+    max-height: calc(var(--inculva-button-size, 58px) * 0.8) !important;
     flex-shrink: 0 !important;
     display: block !important;
     pointer-events: none !important;

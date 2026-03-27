@@ -6,6 +6,8 @@ import apiKeyPlugin from "./plugins/api-key.js";
 import { widgetRoutes } from "./routes/widget.js";
 import { badgeRoutes } from "./routes/badge.js";
 import { healthRoutes } from "./routes/health.js";
+import { resolve } from "path";
+import { readFileSync } from "fs";
 
 const PORT = Number(process.env["API_PORT"] ?? 3001);
 const HOST = process.env["API_HOST"] ?? "0.0.0.0";
@@ -46,14 +48,19 @@ async function bootstrap(): Promise<void> {
   });
 
   // Global error handler — returns consistent JSON shape instead of HTML error pages
-  app.setErrorHandler((err: Error & { statusCode?: number }, _request, reply) => {
-    const statusCode = err.statusCode ?? 500;
-    app.log.error(err);
-    return reply.status(statusCode).send({
-      success: false,
-      error: statusCode === 500 ? "Internal server error" : (err.message || "Unknown error"),
-    });
-  });
+  app.setErrorHandler(
+    (err: Error & { statusCode?: number }, _request, reply) => {
+      const statusCode = err.statusCode ?? 500;
+      app.log.error(err);
+      return reply.status(statusCode).send({
+        success: false,
+        error:
+          statusCode === 500
+            ? "Internal server error"
+            : err.message || "Unknown error",
+      });
+    },
+  );
 
   app.setNotFoundHandler((_request, reply) => {
     return reply.status(404).send({ success: false, error: "Not found" });
@@ -63,6 +70,32 @@ async function bootstrap(): Promise<void> {
   await app.register(healthRoutes);
   await app.register(widgetRoutes, { prefix: "/widget" });
   await app.register(badgeRoutes, { prefix: "/badge" });
+
+  // Dev-only: serve widget.js so localhost:3001/widget.js works for local testing
+  if (isDev) {
+    const candidates = [
+      resolve(process.cwd(), "packages/widget/dist/widget.js"),
+      resolve(process.cwd(), "../../packages/widget/dist/widget.js"),
+      resolve(process.cwd(), "../widget/dist/widget.js"),
+    ];
+    app.get("/widget.js", (_req, reply) => {
+      for (const p of candidates) {
+        try {
+          const js = readFileSync(p, "utf-8");
+          return reply
+            .header("Content-Type", "application/javascript")
+            .header("Access-Control-Allow-Origin", "*")
+            .send(js);
+        } catch {
+          /* try next */
+        }
+      }
+      return reply.status(404).send({
+        success: false,
+        error: "widget.js not found — run: pnpm --filter @inculva/widget build",
+      });
+    });
+  }
 
   try {
     await app.listen({ port: PORT, host: HOST });

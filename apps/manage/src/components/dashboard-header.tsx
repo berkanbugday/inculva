@@ -88,7 +88,7 @@ export function DashboardHeader({ locale, canAddSite, onMenuClick }: Props) {
           </a>
         )}
         <ThemeToggle />
-        <LanguageSwitcher locale={locale} />
+        <LanguageSwitcher />
         <NotificationBell />
       </div>
     </header>

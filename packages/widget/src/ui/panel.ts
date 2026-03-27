@@ -1,4 +1,8 @@
-import type { ColorBlindType, WidgetFeatures, WidgetProfiles } from "@inculva/types";
+import type {
+  ColorBlindType,
+  WidgetFeatures,
+  WidgetProfiles,
+} from "@inculva/types";
 import { FEATURE_LEVELS } from "../features/index.js";
 import { LOGO_PNG } from "virtual:logo-svg";
 import { LOGO_ICON_PNG } from "virtual:logo-icon-svg";
@@ -538,7 +542,9 @@ function _buildControlsBar(
   ];
   for (const [sizeVal, sizeLabel] of sizeDefs) {
     const btn = document.createElement("button");
-    btn.className = `inculva-ctrl-btn inculva-size-btn${sizeVal === "regular" ? " active" : ""}`;
+    btn.className = `inculva-ctrl-btn inculva-size-btn${
+      sizeVal === "regular" ? " active" : ""
+    }`;
     btn.setAttribute("type", "button");
     btn.setAttribute("aria-label", sizeLabel);
     btn.dataset["size"] = sizeVal;
@@ -552,7 +558,7 @@ function _buildControlsBar(
   return bar;
 }
 
-const PROFILE_KEY_MAP: Record<string, keyof WidgetProfiles> = {
+export const PROFILE_KEY_MAP: Record<string, keyof WidgetProfiles> = {
   blind: "profileBlind",
   lowVision: "profileLowVision",
   dyslexia: "profileDyslexia",
@@ -561,7 +567,10 @@ const PROFILE_KEY_MAP: Record<string, keyof WidgetProfiles> = {
   attention: "profileAdhd",
 };
 
-function _buildProfileSection(labels: Record<string, string>, profiles?: WidgetProfiles): HTMLDivElement {
+function _buildProfileSection(
+  labels: Record<string, string>,
+  profiles?: WidgetProfiles,
+): HTMLDivElement {
   const section = document.createElement("div");
   section.className = "inculva-profiles-section";
 
@@ -571,7 +580,9 @@ function _buildProfileSection(labels: Record<string, string>, profiles?: WidgetP
   toggle.setAttribute("type", "button");
   toggle.setAttribute("aria-expanded", "false");
   toggle.dataset["inculvaAction"] = "toggle-profiles";
-  toggle.innerHTML = `${ICON_PERSON}<span>${labels["profilesTitle"] ?? "Profiles"}</span><span class="inculva-profiles-arrow">${ICON_ARROW_DOWN}</span>`;
+  toggle.innerHTML = `${ICON_PERSON}<span>${
+    labels["profilesTitle"] ?? "Profiles"
+  }</span><span class="inculva-profiles-arrow">${ICON_ARROW_DOWN}</span>`;
   section.appendChild(toggle);
 
   // Card grid — hidden until accordion is opened
@@ -747,8 +758,8 @@ function _buildPreFooter(
   const switchLabel = document.createElement("span");
   switchLabel.className = "inculva-switch-label";
   switchLabel.textContent = isOnLeft
-    ? (labels["switchWidgetRight"] ?? "Switch widget to right")
-    : (labels["switchWidgetLeft"] ?? "Switch widget to left");
+    ? labels["switchWidgetRight"] ?? "Switch widget to right"
+    : labels["switchWidgetLeft"] ?? "Switch widget to left";
 
   const toggleBtn = document.createElement("button");
   toggleBtn.setAttribute("type", "button");
@@ -983,8 +994,8 @@ export function updatePreFooterSide(
   const toggleBtn = panel.querySelector<HTMLElement>(".inculva-switch-track");
   if (switchLabel) {
     const text = isOnLeft
-      ? (labels["switchWidgetRight"] ?? "Switch widget to right")
-      : (labels["switchWidgetLeft"] ?? "Switch widget to left");
+      ? labels["switchWidgetRight"] ?? "Switch widget to right"
+      : labels["switchWidgetLeft"] ?? "Switch widget to left";
     switchLabel.textContent = text;
   }
   if (toggleBtn) {
@@ -996,11 +1007,20 @@ export function updatePreFooterSide(
 // ---------------------------------------------------------------------------
 
 const VALID_TRIGGER_ICONS = new Set([
-  "universal-access", "accessible-icon", "eye-slash", "person-walking", "wheelchair",
+  "universal-access",
+  "accessible-icon",
+  "eye-slash",
+  "person-walking",
+  "wheelchair",
 ]);
 
-export function createTriggerButton(color: string, buttonIcon = "universal-access"): HTMLButtonElement {
-  const safeIcon = VALID_TRIGGER_ICONS.has(buttonIcon) ? buttonIcon : "universal-access";
+export function createTriggerButton(
+  color: string,
+  buttonIcon = "universal-access",
+): HTMLButtonElement {
+  const safeIcon = VALID_TRIGGER_ICONS.has(buttonIcon)
+    ? buttonIcon
+    : "universal-access";
   const btn = document.createElement("button");
   btn.id = "inculva-widget-btn";
   btn.setAttribute("aria-label", "Open Accessibility Menu");
@@ -1025,8 +1045,13 @@ export function createTriggerButton(color: string, buttonIcon = "universal-acces
   return btn;
 }
 
-export function updateTriggerButtonIcon(btn: HTMLButtonElement, buttonIcon: string): void {
-  const safeIcon = VALID_TRIGGER_ICONS.has(buttonIcon) ? buttonIcon : "universal-access";
+export function updateTriggerButtonIcon(
+  btn: HTMLButtonElement,
+  buttonIcon: string,
+): void {
+  const safeIcon = VALID_TRIGGER_ICONS.has(buttonIcon)
+    ? buttonIcon
+    : "universal-access";
   const img = btn.querySelector("img");
   if (img) img.src = `${BUTTON_CDN_URL}/${safeIcon}.svg`;
 }

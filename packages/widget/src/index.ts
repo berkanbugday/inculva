@@ -23,6 +23,7 @@ import {
   getLabels,
   setTranslationCache,
   PROFILES,
+  PROFILE_KEY_MAP,
   FEATURE_CATEGORIES,
   SUPPORTED_LANGUAGES,
 } from "./ui/panel.js";
@@ -123,7 +124,10 @@ class InculvaWidget {
       },
     };
     // In preview mode, remember the caller's overrides so they win over remote config
-    if ((window as Window & { __INCULVA_PREVIEW_CONFIG__?: unknown }).__INCULVA_PREVIEW_CONFIG__) {
+    if (
+      (window as Window & { __INCULVA_PREVIEW_CONFIG__?: unknown })
+        .__INCULVA_PREVIEW_CONFIG__
+    ) {
       this._previewOverrides = { ...partialConfig } as Partial<WidgetConfig>;
     }
     this.apiBase =
@@ -206,7 +210,10 @@ class InculvaWidget {
   }
 
   private renderWidget(): void {
-    this.btn = createTriggerButton(this.config.primaryColor, this.config.buttonIcon);
+    this.btn = createTriggerButton(
+      this.config.primaryColor,
+      this.config.buttonIcon,
+    );
     // Badge is injected into the button by createTriggerButton
     this.badge = this.btn.querySelector<HTMLSpanElement>(
       "#inculva-widget-badge",
@@ -626,10 +633,10 @@ class InculvaWidget {
       feature === "colorBlindMode" && nextLevel > 0
         ? `${featureName}: ${this._cbmTypeName(nextLevel)}`
         : feature === "screenReader" && nextLevel > 0
-          ? `${featureName}: ${this._getSrModeName(nextLevel)}`
-          : nextLevel > 0
-            ? `${featureName} level ${nextLevel} of ${maxLevels}`
-            : `${featureName} disabled`;
+        ? `${featureName}: ${this._getSrModeName(nextLevel)}`
+        : nextLevel > 0
+        ? `${featureName} level ${nextLevel} of ${maxLevels}`
+        : `${featureName} disabled`;
     this.announce(announcement);
 
     this.updateActiveBadge();
@@ -874,6 +881,8 @@ class InculvaWidget {
         }
       }
       this.activeProfiles.add(profileKey);
+      const apiKey = PROFILE_KEY_MAP[profileKey];
+      if (apiKey) this.trackEvent("profile_activated", apiKey);
     }
 
     // Update profile item active state
@@ -955,17 +964,17 @@ class InculvaWidget {
       text =
         level > 0
           ? this._cbmTypeName(level)
-          : (this._labels["colorBlindMode"] ?? "Color Blind");
+          : this._labels["colorBlindMode"] ?? "Color Blind";
     } else if (feature === "saturation") {
       text =
         level === 1
-          ? (this._labels["highContrast"] ?? "High Contrast")
-          : (this._labels["saturation"] ?? "Contrast+");
+          ? this._labels["highContrast"] ?? "High Contrast"
+          : this._labels["saturation"] ?? "Contrast+";
     } else if (feature === "screenReader") {
       text =
         level > 0
           ? this._getSrModeName(level)
-          : (this._labels["screenReader"] ?? "Screen reader");
+          : this._labels["screenReader"] ?? "Screen reader";
     }
     if (text !== undefined) {
       labelEl.textContent = text;
@@ -1166,7 +1175,9 @@ class InculvaWidget {
 
       if (res.status === 404 || res.status === 403) {
         console.warn(
-          `[Inculva] Widget disabled — ${res.status === 404 ? "site not found" : "domain not authorized"}.`,
+          `[Inculva] Widget disabled — ${
+            res.status === 404 ? "site not found" : "domain not authorized"
+          }.`,
         );
         return false;
       }
@@ -1243,8 +1254,8 @@ class InculvaWidget {
         this.config.buttonSize === "small"
           ? "44px"
           : this.config.buttonSize === "large"
-            ? "64px"
-            : "52px",
+          ? "64px"
+          : "52px",
       );
     }
     if (this.config.headerBgColor) {
@@ -1280,8 +1291,13 @@ class InculvaWidget {
   }
 
   private trackEvent(
-    event: "opened" | "closed" | "feature_enabled" | "feature_disabled",
-    feature?: keyof WidgetFeatures,
+    event:
+      | "opened"
+      | "closed"
+      | "feature_enabled"
+      | "feature_disabled"
+      | "profile_activated",
+    feature?: string,
   ): void {
     const payload = {
       siteId: this.config.siteId,

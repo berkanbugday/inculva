@@ -1,45 +1,76 @@
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale, DashboardMessages } from "@/i18n/messages";
 
-const PROFILE_LABELS: Record<string, string> = {
-  profileAdhd: "ADHD",
-  profileBlind: "Blind",
-  profileLowVision: "Low Vision",
-  profileColorBlind: "Color Blind",
-  profileDyslexia: "Dyslexia",
-  profileMotorImpaired: "Motor Impaired",
-  profileCognitive: "Cognitive & Learning",
-  profileSeizure: "Seizure & Epilepsy",
-  profileParkinson: "Parkinson's",
-};
+function getProfileLabels(t: DashboardMessages): Record<string, string> {
+  return {
+    profileAdhd: t.statisticsPage.profileAdhd,
+    profileBlind: t.statisticsPage.profileBlind,
+    profileLowVision: t.statisticsPage.profileLowVision,
+    profileColorBlind: t.statisticsPage.profileColorBlind,
+    profileDyslexia: t.statisticsPage.profileDyslexia,
+    profileMotorImpaired: t.statisticsPage.profileMotorImpaired,
+  };
+}
 
-const ALL_FEATURES = [
-  { key: "highContrast", label: "High Contrast" },
-  { key: "textResizing", label: "Text Resizing" },
-  { key: "textAlign", label: "Text Alignment" },
-  { key: "readingGuide", label: "Reading Guide" },
-  { key: "textSpacing", label: "Text Spacing" },
-  { key: "screenReader", label: "Screen Reader" },
-  { key: "dyslexiaFont", label: "Dyslexia Font" },
-  { key: "readingMask", label: "Reading Mask" },
-  { key: "cursorEnhancement", label: "Cursor Enhancement" },
-  { key: "highlightLinks", label: "Highlight Links" },
-  { key: "focusHighlight", label: "Focus Highlight" },
-  { key: "grayscale", label: "Grayscale" },
-  { key: "pauseAnimations", label: "Pause Animations" },
-  { key: "colorBlindMode", label: "Color Blind Mode" },
-  { key: "muteMedia", label: "Mute Media" },
-  { key: "skipNavigation", label: "Skip Navigation" },
-  { key: "saturation", label: "Saturation" },
-  { key: "keyboardNavigation", label: "Keyboard Navigation" },
-  { key: "largeClickTargets", label: "Large Click Targets" },
-];
+function getAllFeatures(t: DashboardMessages) {
+  return [
+    { key: "textResizing", label: t.statisticsPage.featureTextResizing },
+    { key: "textAlign", label: t.statisticsPage.featureTextAlign },
+    { key: "readingGuide", label: t.statisticsPage.featureReadingGuide },
+    { key: "textSpacing", label: t.statisticsPage.featureTextSpacing },
+    { key: "screenReader", label: t.statisticsPage.featureScreenReader },
+    { key: "dyslexiaFont", label: t.statisticsPage.featureDyslexiaFont },
+    { key: "readingMask", label: t.statisticsPage.featureReadingMask },
+    {
+      key: "cursorEnhancement",
+      label: t.statisticsPage.featureCursorEnhancement,
+    },
+    { key: "highlightLinks", label: t.statisticsPage.featureHighlightLinks },
+    { key: "focusHighlight", label: t.statisticsPage.featureFocusHighlight },
+    { key: "pauseAnimations", label: t.statisticsPage.featurePauseAnimations },
+    { key: "colorBlindMode", label: t.statisticsPage.featureColorBlindMode },
+    { key: "muteMedia", label: t.statisticsPage.featureMuteMedia },
+    { key: "skipNavigation", label: t.statisticsPage.featureSkipNavigation },
+    { key: "saturation", label: t.statisticsPage.featureSaturation },
+    {
+      key: "keyboardNavigation",
+      label: t.statisticsPage.featureKeyboardNavigation,
+    },
+    {
+      key: "largeClickTargets",
+      label: t.statisticsPage.featureLargeClickTargets,
+    },
+    { key: "blueLightFilter", label: t.statisticsPage.featureBlueLightFilter },
+    { key: "hideImages", label: t.statisticsPage.featureHideImages },
+    { key: "darkMode", label: t.statisticsPage.featureDarkMode },
+    {
+      key: "contentMagnifier",
+      label: t.statisticsPage.featureContentMagnifier,
+    },
+    { key: "slowCursor", label: t.statisticsPage.featureSlowCursor },
+    { key: "lineHeight", label: t.statisticsPage.featureLineHeight },
+    { key: "highlightTitles", label: t.statisticsPage.featureHighlightTitles },
+  ];
+}
 
 export default async function StatisticsPage() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect("/login");
+
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (
+    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+      ? cookieLocale
+      : "en"
+  ) as Locale;
+  const t = getMessages(locale);
+
+  const PROFILE_LABELS = getProfileLabels(t);
+  const ALL_FEATURES = getAllFeatures(t);
 
   const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
@@ -90,11 +121,9 @@ export default async function StatisticsPage() {
     key: f.key,
     label: f.label,
     count: featureCounts[f.key]?.size ?? 0,
-    pct:
-      totalSessions > 0
-        ? Math.round(((featureCounts[f.key]?.size ?? 0) / totalSessions) * 100)
-        : 0,
   })).sort((a, b) => b.count - a.count);
+
+  const maxFeatureCount = Math.max(...featureStats.map((f) => f.count), 1);
 
   const profileCounts: Record<string, number> = {};
   for (const ev of profileEvents) {
@@ -122,10 +151,10 @@ export default async function StatisticsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-black text-gray-900 dark:text-white">
-          Statistics
+          {t.statisticsPage.title}
         </h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-          Last 30 days across all your sites
+          {t.statisticsPage.subtitle}
         </p>
       </div>
 
@@ -133,7 +162,7 @@ export default async function StatisticsPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           {
-            label: "Widget Loads",
+            label: t.statisticsPage.widgetLoads,
             value: (widgetLoadTotal._sum.count ?? 0).toLocaleString(),
             color: "text-blue-600 dark:text-blue-400",
             bg: "bg-blue-50 dark:bg-blue-950",
@@ -162,7 +191,7 @@ export default async function StatisticsPage() {
             ),
           },
           {
-            label: "Widget Opens",
+            label: t.statisticsPage.widgetOpens,
             value: openCount.toLocaleString(),
             color: "text-violet-600 dark:text-violet-400",
             bg: "bg-violet-50 dark:bg-violet-950",
@@ -191,7 +220,7 @@ export default async function StatisticsPage() {
             ),
           },
           {
-            label: "Unique Sessions",
+            label: t.statisticsPage.uniqueSessions,
             value: totalSessions.toLocaleString(),
             color: "text-emerald-600 dark:text-emerald-400",
             bg: "bg-emerald-50 dark:bg-emerald-950",
@@ -220,7 +249,7 @@ export default async function StatisticsPage() {
             ),
           },
           {
-            label: "Feature Activations",
+            label: t.statisticsPage.featureActivations,
             value: totalFeatureActivations.toLocaleString(),
             color: "text-amber-600 dark:text-amber-400",
             bg: "bg-amber-50 dark:bg-amber-950",
@@ -285,7 +314,7 @@ export default async function StatisticsPage() {
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
             <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Widget engagement rate
+              {t.statisticsPage.engagementRate}
             </p>
             <span className="text-sm font-bold text-gray-900 dark:text-white">
               {engagement}%
@@ -299,7 +328,7 @@ export default async function StatisticsPage() {
           </div>
         </div>
         <p className="text-xs text-gray-400 dark:text-gray-600 shrink-0">
-          opens / loads
+          {t.statisticsPage.opensLoads}
         </p>
       </div>
 
@@ -308,14 +337,14 @@ export default async function StatisticsPage() {
         <div className="flex items-center justify-between mb-5">
           <div>
             <h2 className="text-base font-semibold text-gray-900 dark:text-white">
-              Feature usage
+              {t.statisticsPage.featureUsage}
             </h2>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              Unique sessions that activated each feature in the last 30 days
+              {t.statisticsPage.featureUsageDesc}
             </p>
           </div>
           <span className="text-xs text-gray-400 dark:text-gray-600 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-lg">
-            Last 30 days
+            {t.statisticsPage.last30Days}
           </span>
         </div>
 
@@ -330,17 +359,14 @@ export default async function StatisticsPage() {
               <div className="flex-1 h-2 bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-full overflow-hidden">
                 <div
                   className="h-full bg-blue-500 rounded-full transition-all"
-                  style={{ width: f.pct > 0 ? `${f.pct}%` : "0%" }}
+                  style={{
+                    width: `${Math.round((f.count / maxFeatureCount) * 100)}%`,
+                  }}
                 />
               </div>
-              <div className="flex items-center gap-2 shrink-0 w-20 justify-end">
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {f.count.toLocaleString()}
-                </span>
-                <span className="text-xs font-medium text-gray-400 dark:text-gray-600 w-8 text-right">
-                  {f.pct}%
-                </span>
-              </div>
+              <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0 w-10 text-right">
+                {f.count.toLocaleString()}
+              </span>
             </div>
           ))}
         </div>
@@ -350,10 +376,10 @@ export default async function StatisticsPage() {
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="mb-5">
           <h2 className="text-base font-semibold text-gray-900 dark:text-white">
-            Accessibility profile usage
+            {t.statisticsPage.profileUsage}
           </h2>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            One-click profile activations in the last 30 days
+            {t.statisticsPage.profileUsageDesc}
           </p>
         </div>
 
