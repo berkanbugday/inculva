@@ -3,8 +3,6 @@ import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
 import { logAudit } from "@/lib/audit";
-import { PLAN_LIMITS } from "@inculva/types";
-import type { Plan } from "@inculva/types";
 
 interface Params {
   params: Promise<{ id: string }>;
@@ -34,7 +32,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
     language?: string;
     accessibilityStatementUrl?: string;
     whiteLabelText?: string;
-    allowedDomains?: string[];
     textResizing?: boolean;
     highContrast?: boolean;
     dyslexiaFont?: boolean;
@@ -109,63 +106,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
   if (body.buttonIcon !== undefined && !VALID_BUTTON_ICONS.has(body.buttonIcon)) {
     return NextResponse.json({ error: "Invalid buttonIcon" }, { status: 400 });
   }
-  // Sanitize allowedDomains — strip protocols/paths, keep hostname only
-  // null = explicit clear (remove all domains), undefined = not sent (leave unchanged)
-  const HOSTNAME_RE = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/;
-  let sanitizedDomains: string[] | undefined;
-  if (body.allowedDomains === null) {
-    sanitizedDomains = []; // explicit clear
-  } else if (Array.isArray(body.allowedDomains)) {
-    sanitizedDomains = body.allowedDomains
-      .map((d): string | null => {
-        const trimmed = d.trim().toLowerCase();
-        try {
-          const hostname = new URL(trimmed.startsWith("http") ? trimmed : `https://${trimmed}`).hostname;
-          return HOSTNAME_RE.test(hostname) ? hostname : null;
-        } catch {
-          return null;
-        }
-      })
-      .filter((d): d is string => d !== null);
-  }
-
-  // Enforce root domain constraint — all entries must be subdomains of the site's own root domain
-  // Skip for localhost or single-part domains (dev environments)
-  const siteParts = site.domain.split(".");
-  if (sanitizedDomains !== undefined && sanitizedDomains.length > 0 && siteParts.length >= 2) {
-    const rootDomain = siteParts.slice(-2).join(".");
-    const invalid = sanitizedDomains.filter(d => !d.endsWith(`.${rootDomain}`));
-    if (invalid.length > 0) {
-      return NextResponse.json(
-        { error: `All subdomains must belong to ${rootDomain}.` },
-        { status: 400 }
-      );
-    }
-  }
-
-  // Enforce subdomain limit per plan
-  if (sanitizedDomains !== undefined) {
-    const plan = (user?.plan ?? "free") as Plan;
-    const limit = PLAN_LIMITS[plan]?.maxAllowedSubdomains ?? 0;
-
-    if (isFinite(limit)) {
-      const newSubdomainCount = sanitizedDomains.length;
-
-      const currentConfig = await db.widgetConfig.findUnique({
-        where: { siteId: id },
-        select: { allowedDomains: true },
-      });
-      const currentSubdomainCount = currentConfig?.allowedDomains.length ?? 0;
-
-      if (newSubdomainCount > limit && newSubdomainCount > currentSubdomainCount) {
-        return NextResponse.json(
-          { error: `Your ${plan} plan allows up to ${limit} subdomain${limit === 1 ? "" : "s"}. Upgrade to add more.` },
-          { status: 403 }
-        );
-      }
-    }
-  }
-
   await db.widgetConfig.update({
     where: { siteId: id },
     data: {
@@ -179,7 +119,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
       // Trigger button customization: all plans
       ...(body.buttonSize !== undefined && { buttonSize: body.buttonSize }),
       ...(body.buttonIcon !== undefined && { buttonIcon: body.buttonIcon }),
-      ...(sanitizedDomains !== undefined && { allowedDomains: sanitizedDomains }),
       ...(body.textResizing !== undefined && { textResizing: body.textResizing }),
       ...(body.highContrast !== undefined && { highContrast: body.highContrast }),
       ...(body.dyslexiaFont !== undefined && { dyslexiaFont: body.dyslexiaFont }),

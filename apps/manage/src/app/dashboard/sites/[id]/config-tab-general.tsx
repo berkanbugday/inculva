@@ -6,15 +6,13 @@ import { SiteNameForm } from "./site-name-form";
 import { SiteDomainForm } from "./site-domain-form";
 import { LANGUAGES } from "./languages";
 import type { Config } from "./widget-config-form";
-import { PLAN_LIMITS } from "@inculva/types";
-import type { Plan } from "@inculva/types";
+import { useDashboard } from "@/components/dashboard-layout-content";
 
 const GENERAL_KEYS: (keyof Config)[] = [
   "position",
   "primaryColor",
   "language",
   "accessibilityStatementUrl",
-  "allowedDomains",
   "buttonSize",
   "buttonIcon",
 ];
@@ -27,11 +25,7 @@ const BUTTON_ICONS = [
   { value: "wheelchair", label: "Wheelchair" },
 ] as const;
 
-const BUTTON_SIZE_OPTIONS = [
-  { value: "small", label: "Small" },
-  { value: "medium", label: "Medium" },
-  { value: "large", label: "Large" },
-] as const;
+const BUTTON_SIZE_VALUES = ["small", "medium", "large"] as const;
 
 const CARD_OUTER: Record<string, string> = {
   small: "w-[44px] h-[44px]",
@@ -69,8 +63,6 @@ interface Props {
   initialName: string;
   initialDomain: string;
   widgetScriptSrc: string;
-  badgeSrc: string;
-  userPlan: string;
 }
 
 export function ConfigTabGeneral({
@@ -78,9 +70,8 @@ export function ConfigTabGeneral({
   initialName,
   initialDomain,
   widgetScriptSrc,
-  badgeSrc,
-  userPlan,
 }: Props) {
+  const { messages: t } = useDashboard();
   const { register, watch, setValue, getValues, resetField } =
     useFormContext<Config>();
   const [saving, setSaving] = useState(false);
@@ -113,24 +104,13 @@ export function ConfigTabGeneral({
     }
   }
   const [copied, setCopied] = useState(false);
-  const [domainInput, setDomainInput] = useState("");
 
-  const allowedDomains = watch("allowedDomains");
   const primaryColor = watch("primaryColor");
   const buttonSize = watch("buttonSize");
   const buttonIcon = watch("buttonIcon");
   const position = watch("position");
 
   const snippet = `<script src="${widgetScriptSrc}" data-site-id="${siteId}" async></script>`;
-  const domainParts = initialDomain.split(".");
-  const rootDomain =
-    domainParts.length >= 2 ? domainParts.slice(-2).join(".") : initialDomain;
-
-  const subdomainLimit =
-    PLAN_LIMITS[userPlan as Plan]?.maxAllowedSubdomains ?? 0;
-  const subdomainCount = allowedDomains.length;
-  const atSubdomainLimit =
-    isFinite(subdomainLimit) && subdomainCount >= subdomainLimit;
 
   async function copySnippet() {
     try {
@@ -154,31 +134,6 @@ export function ConfigTabGeneral({
     setTimeout(() => setCopied(false), 2000);
   }
 
-  const PREFIX_RE = /^[a-z0-9]+([a-z0-9-]*[a-z0-9])?$/i;
-
-  function addDomain() {
-    const prefix = domainInput.trim().toLowerCase();
-    if (!prefix) return;
-    if (!PREFIX_RE.test(prefix)) return;
-    if (atSubdomainLimit) return;
-
-    const full = rootDomain ? `${prefix}.${rootDomain}` : prefix;
-    if (!allowedDomains.includes(full)) {
-      setValue("allowedDomains", [...allowedDomains, full], {
-        shouldDirty: true,
-      });
-    }
-    setDomainInput("");
-  }
-
-  function removeDomain(domain: string) {
-    setValue(
-      "allowedDomains",
-      allowedDomains.filter((d) => d !== domain),
-      { shouldDirty: true },
-    );
-  }
-
   const inputClass =
     "w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500";
 
@@ -186,7 +141,7 @@ export function ConfigTabGeneral({
     <div className="space-y-6">
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
-          Embed Code
+          {t.config.embedCode}
         </h3>
         <div className="relative">
           <pre className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-4 text-xs text-gray-700 dark:text-gray-300 border border-[#e8eaf0] dark:border-[#2a2a3e] overflow-x-auto whitespace-pre-wrap break-all">
@@ -196,7 +151,7 @@ export function ConfigTabGeneral({
             onClick={() => void copySnippet()}
             className="absolute top-2 right-2 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors cursor-pointer"
           >
-            {copied ? "Copied!" : "Copy"}
+            {copied ? t.config.copied : t.config.copy}
           </button>
         </div>
       </div>
@@ -204,7 +159,7 @@ export function ConfigTabGeneral({
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6 space-y-6">
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-            Site Configuration
+            {t.config.siteConfiguration}
           </h3>
 
           <SiteNameForm siteId={siteId} initialName={initialName} />
@@ -212,7 +167,7 @@ export function ConfigTabGeneral({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Language
+              {t.config.languageLabel}
             </label>
             <select {...register("language")} className={inputClass}>
               {LANGUAGES.map((l) => (
@@ -223,93 +178,17 @@ export function ConfigTabGeneral({
             </select>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Allowed subdomains
-              {isFinite(subdomainLimit) && (
-                <span
-                  className={`ml-2 text-xs font-normal ${
-                    atSubdomainLimit
-                      ? "text-red-500"
-                      : "text-gray-400 dark:text-gray-500"
-                  }`}
-                >
-                  {subdomainCount}/{subdomainLimit} subdomains used
-                </span>
-              )}
-            </label>
-            <div className="flex gap-2 mb-2">
-              <div className="relative flex-1 flex items-center">
-                <input
-                  value={domainInput}
-                  onChange={(e) => setDomainInput(e.target.value)}
-                  onKeyDown={(e) =>
-                    e.key === "Enter" && (e.preventDefault(), addDomain())
-                  }
-                  placeholder={
-                    atSubdomainLimit ? "Subdomain limit reached" : "prefix"
-                  }
-                  disabled={atSubdomainLimit}
-                  className={`${inputClass} rounded-r-none border-r-0 pr-0 ${
-                    atSubdomainLimit ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                />
-                <span className="px-3 py-2.5 text-sm text-gray-500 dark:text-gray-400 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-r-2xl whitespace-nowrap border-l-0">
-                  .{rootDomain}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={addDomain}
-                disabled={atSubdomainLimit}
-                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Add
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {allowedDomains.map((d) => (
-                <span
-                  key={d}
-                  className="flex items-center gap-1.5 px-3 py-1 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-xs font-medium text-gray-700 dark:text-gray-300"
-                >
-                  {d}
-                  <button
-                    type="button"
-                    onClick={() => removeDomain(d)}
-                    className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer"
-                    aria-label={`Remove ${d}`}
-                  >
-                    ×
-                  </button>
-                </span>
-              ))}
-            </div>
-            {atSubdomainLimit && (
-              <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">
-                You&apos;ve reached the {subdomainLimit}-subdomain limit on the{" "}
-                {userPlan} plan.{" "}
-                <a
-                  href="/dashboard/settings/billing"
-                  className="underline font-semibold"
-                >
-                  Upgrade
-                </a>{" "}
-                to add more.
-              </p>
-            )}
-          </div>
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">
-            Widget Appearance
+            {t.config.widgetAppearance}
           </h3>
 
           <div className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Primary color
+                {t.config.primaryColor}
               </label>
               <div className="flex items-center gap-3">
                 <input
@@ -334,34 +213,37 @@ export function ConfigTabGeneral({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Button size
+                {t.config.buttonSize}
               </label>
               <div className="flex gap-5">
-                {BUTTON_SIZE_OPTIONS.map(({ value, label }) => (
-                  <label
-                    key={value}
-                    className="flex items-center gap-2.5 cursor-pointer"
-                  >
-                    <input
-                      type="radio"
-                      name="buttonSize"
-                      checked={buttonSize === value}
-                      onChange={() =>
-                        setValue("buttonSize", value, { shouldDirty: true })
-                      }
-                      className="w-4 h-4 text-blue-600 accent-blue-600"
-                    />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      {label}
-                    </span>
-                  </label>
-                ))}
+                {BUTTON_SIZE_VALUES.map((value) => {
+                  const sizeLabel = value === "small" ? t.config.buttonSizeSmall : value === "medium" ? t.config.buttonSizeMedium : t.config.buttonSizeLarge;
+                  return (
+                    <label
+                      key={value}
+                      className="flex items-center gap-2.5 cursor-pointer"
+                    >
+                      <input
+                        type="radio"
+                        name="buttonSize"
+                        checked={buttonSize === value}
+                        onChange={() =>
+                          setValue("buttonSize", value, { shouldDirty: true })
+                        }
+                        className="w-4 h-4 text-blue-600 accent-blue-600"
+                      />
+                      <span className="text-sm text-gray-700 dark:text-gray-300">
+                        {sizeLabel}
+                      </span>
+                    </label>
+                  );
+                })}
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Button type
+                {t.config.buttonType}
               </label>
               <div className="grid grid-cols-3 gap-2">
                 {BUTTON_ICONS.map(({ value, label }) => {
@@ -421,7 +303,7 @@ export function ConfigTabGeneral({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Widget position
+                {t.config.widgetPositionLabel}
               </label>
               <div className="grid grid-cols-3 gap-2 w-fit">
                 {POSITION_GRID.map((row, ri) =>
@@ -486,11 +368,11 @@ export function ConfigTabGeneral({
             }}
             className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {saving ? "Saving…" : "Save Changes"}
+            {saving ? t.config.savingChanges : t.config.saveChanges}
           </button>
           {saved && (
             <span className="text-sm text-green-600 dark:text-green-400">
-              Saved!
+              {t.config.savedLabel}
             </span>
           )}
           {saveError && (
@@ -503,16 +385,16 @@ export function ConfigTabGeneral({
 
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 border-l-4 border-red-500">
         <h3 className="font-bold text-red-600 dark:text-red-400 mb-1">
-          Danger Zone
+          {t.config.dangerZone}
         </h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">
-          Permanently delete this site and all its data.
+          {t.config.dangerZoneDesc}
         </p>
         <a
           href={`/dashboard/sites/${siteId}/delete`}
           className="inline-flex px-5 py-2.5 bg-red-50 dark:bg-red-950 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-full text-sm font-semibold hover:bg-red-100 dark:hover:bg-red-900 transition-colors cursor-pointer"
         >
-          Delete site
+          {t.config.deleteSite}
         </a>
       </div>
     </div>

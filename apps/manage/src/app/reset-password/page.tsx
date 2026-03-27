@@ -9,14 +9,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@inculva/ui";
 import { AuthBrandPanel } from "@/components/auth-brand-panel";
+import { useMessages } from "@/i18n/useMessages";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
-
-const TIPS = [
-  "Use at least 8 characters",
-  "Mix letters, numbers, and symbols",
-  "Avoid reusing old passwords",
-];
 
 const schema = z
   .object({
@@ -38,28 +33,33 @@ const btnPrimary =
 function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useMessages();
   const token = searchParams.get("token");
+
+  const TIPS = [
+    t.authTips.useEightChars,
+    t.authTips.mixCharacters,
+    t.authTips.avoidReuse,
+  ];
 
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(schema as any) });
 
   useEffect(() => {
     if (!token) {
-      setError("root", {
-        message: "Invalid or missing reset token. Please request a new reset link.",
-      });
+      setError("root", { message: t.auth.invalidToken });
     }
-  }, [token, setError]);
+  }, [token, setError, t.auth.invalidToken]);
 
   async function onSubmit(data: FormData) {
     if (!token) return;
     const result = await authClient.resetPassword({ newPassword: data.password, token });
     if (result.error) {
-      setError("root", { message: result.error.message ?? "Reset failed. The link may have expired." });
+      setError("root", { message: result.error.message ?? t.auth.resetFailed });
       return;
     }
     router.push("/login?reset=1");
@@ -70,10 +70,12 @@ function ResetPasswordForm() {
       <AuthBrandPanel>
         <div>
           <h2 className="text-3xl font-bold text-white leading-tight mb-3">
-            Set a strong<br />new password.
+            {t.auth.strongPasswordTitle.split("\n").map((line, i) => (
+              <span key={i}>{line}{i === 0 && <br />}</span>
+            ))}
           </h2>
           <p className="text-blue-100 text-sm mb-8 leading-relaxed">
-            Choose a password you haven&apos;t used before to keep your account secure.
+            {t.auth.strongPasswordDesc}
           </p>
           <ul className="space-y-3" role="list">
             {TIPS.map((tip) => (
@@ -93,7 +95,7 @@ function ResetPasswordForm() {
       <main className="flex-1 flex items-center justify-center p-6 bg-[#f8f9fc] dark:bg-[#0e0e10]">
         <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-10 w-full max-w-md">
           <div className="lg:hidden text-center mb-8">
-            <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva — Web Accessibility Platform" className="h-10 w-auto mx-auto" />
+            <img src={`${CDN_URL}/logos/logo.png`} alt="Inculva" className="h-10 w-auto mx-auto" />
           </div>
 
           <div className="flex items-center gap-3 mb-7">
@@ -105,26 +107,26 @@ function ResetPasswordForm() {
               </svg>
             </div>
             <div>
-              <h1 className="text-2xl font-black text-gray-900 dark:text-white leading-tight">Set new password</h1>
-              <p className="text-base text-gray-500 dark:text-gray-400">Must be at least 8 characters.</p>
+              <h1 className="text-2xl font-black text-gray-900 dark:text-white leading-tight">{t.auth.setNewPasswordTitle}</h1>
+              <p className="text-base text-gray-500 dark:text-gray-400">{t.auth.setNewPasswordDesc}</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Set your new password" className="space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
             <div>
-              <label htmlFor="password" className={labelCls}>New password</label>
+              <label htmlFor="password" className={labelCls}>{t.auth.newPassword}</label>
               <input
                 id="password" type="password" autoComplete="new-password" placeholder="Min. 8 characters"
                 aria-describedby={["pw-hint", errors.password ? "pw-error" : undefined].filter(Boolean).join(" ")}
                 aria-invalid={!!errors.password} aria-required="true"
                 className={inputCls} {...register("password")}
               />
-              <p id="pw-hint" className="mt-1 text-sm text-gray-400 dark:text-gray-600">At least 8 characters.</p>
+              <p id="pw-hint" className="mt-1 text-sm text-gray-400 dark:text-gray-600">{t.auth.minChars}</p>
               {errors.password && <p id="pw-error" role="alert" className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password.message}</p>}
             </div>
 
             <div>
-              <label htmlFor="confirm" className={labelCls}>Confirm new password</label>
+              <label htmlFor="confirm" className={labelCls}>{t.auth.confirmPassword}</label>
               <input
                 id="confirm" type="password" autoComplete="new-password" placeholder="Repeat new password"
                 aria-describedby={errors.confirm ? "confirm-error" : undefined}
@@ -146,7 +148,6 @@ function ResetPasswordForm() {
 
             <button
               type="submit" disabled={isSubmitting || !token} aria-busy={isSubmitting}
-              aria-label={isSubmitting ? "Updating password, please wait" : "Set your new password"}
               className={cn(btnPrimary)}
             >
               {isSubmitting && (
@@ -155,15 +156,15 @@ function ResetPasswordForm() {
                   <path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               )}
-              {isSubmitting ? "Updating…" : "Set new password"}
+              {isSubmitting ? t.auth.updatingPassword : t.auth.setNewPassword}
             </button>
 
             <p className="text-center text-base">
-              <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold inline-flex items-center gap-1" aria-label="Go back to the sign in page">
+              <a href="/login" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold inline-flex items-center gap-1">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                   <path d="M7 2L3 6l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                Back to sign in
+                {t.auth.backToSignIn}
               </a>
             </p>
           </form>

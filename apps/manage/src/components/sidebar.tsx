@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { SidebarLink, SiteGroup, SettingsGroup } from "./sidebar-parts";
 import { GridIcon, ChartIcon } from "./sidebar-icons";
 import { signOut } from "@/lib/auth-client";
+import { useDashboard } from "./dashboard-layout-content";
 
 interface Site {
   id: string;
@@ -28,6 +29,7 @@ export function Sidebar({
   onClose,
 }: Props) {
   const pathname = usePathname();
+  const { messages: t } = useDashboard();
   const [expandedSites, setExpandedSites] = useState<Set<string>>(() => {
     const matched = sites.find((s) => pathname.includes(s.id));
     return matched ? new Set([matched.id]) : new Set();
@@ -108,7 +110,7 @@ export function Sidebar({
             href="/dashboard"
             active={pathname === "/dashboard"}
             icon={<GridIcon />}
-            label="My Websites"
+            label={t.nav.sites}
           />
 
           {sites.map((site) => (
@@ -128,7 +130,7 @@ export function Sidebar({
             href="/dashboard/statistics"
             active={isActive("/dashboard/statistics")}
             icon={<ChartIcon />}
-            label="Statistics"
+            label={t.nav.statistics}
           />
 
           <SettingsGroup isActive={isActive} />
@@ -163,7 +165,7 @@ export function Sidebar({
                 onClick={handleSignOut}
                 className="w-full text-left px-4 py-3 text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors cursor-pointer"
               >
-                Sign out
+                {t.header.signOut}
               </button>
             </div>
           )}

@@ -2,31 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { cn } from "@inculva/ui";
-
-const POSITIONS = [
-  { value: "bottom-right", label: "Bottom Right" },
-  { value: "bottom-left", label: "Bottom Left" },
-  { value: "top-right", label: "Top Right" },
-  { value: "top-left", label: "Top Left" },
-] as const;
-
-const LANGUAGES = [
-  { value: "en", label: "English" },
-  { value: "tr", label: "Turkish (Türkçe)" },
-  { value: "de", label: "German (Deutsch)" },
-  { value: "fr", label: "French (Français)" },
-  { value: "es", label: "Spanish (Español)" },
-  { value: "pt", label: "Portuguese (Português)" },
-  { value: "it", label: "Italian (Italiano)" },
-  { value: "nl", label: "Dutch (Nederlands)" },
-  { value: "pl", label: "Polish (Polski)" },
-  { value: "ru", label: "Russian (Русский)" },
-  { value: "zh", label: "Chinese (中文)" },
-  { value: "ja", label: "Japanese (日本語)" },
-  { value: "ko", label: "Korean (한국어)" },
-  { value: "ar", label: "Arabic (العربية)" },
-  { value: "hi", label: "Hindi (हिन्दी)" },
-] as const;
+import { useMessages } from "@/i18n/useMessages";
+import { LANGUAGES } from "../[id]/languages";
 
 const PRESET_COLORS = [
   "#0066cc",
@@ -39,6 +16,27 @@ const PRESET_COLORS = [
   "#4F46E5",
 ] as const;
 
+const POSITION_GRID = [
+  [
+    { value: "top-left", enabled: true },
+    { value: null, enabled: false },
+    { value: "top-right", enabled: true },
+  ],
+  [
+    { value: null, enabled: false },
+    { value: null, enabled: false },
+    { value: null, enabled: false },
+  ],
+  [
+    { value: "bottom-left", enabled: true },
+    { value: null, enabled: false },
+    { value: "bottom-right", enabled: true },
+  ],
+] as const;
+
+const DOMAIN_RE =
+  /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/i;
+
 interface WizardState {
   name: string;
   domain: string;
@@ -47,20 +45,13 @@ interface WizardState {
   language: string;
 }
 
-const STEPS = [
-  { label: "Site Info", description: "Name and domain" },
-  { label: "Brand Color", description: "Widget color" },
-  { label: "Position", description: "Widget placement" },
-  { label: "Language", description: "Widget language" },
-  { label: "Review", description: "Create your site" },
-] as const;
-
 interface Props {
   createSite: (formData: FormData) => Promise<void>;
   error: string | undefined;
 }
 
 export function SiteWizard({ createSite, error }: Props) {
+  const t = useMessages();
   const [step, setStep] = useState(0);
   const [state, setState] = useState<WizardState>({
     name: "",
@@ -70,9 +61,63 @@ export function SiteWizard({ createSite, error }: Props) {
     language: "en",
   });
   const [isPending, startTransition] = useTransition();
+  const [dnsStatus, setDnsStatus] = useState<
+    "idle" | "checking" | "valid" | "invalid" | "error"
+  >("idle");
+
+  const STEPS = [
+    { label: t.wizard.siteInfo },
+    { label: t.wizard.brandColor },
+    { label: t.wizard.position },
+    { label: t.wizard.language },
+    { label: t.wizard.review },
+  ];
+
+  const POSITION_LABELS: Record<string, string> = {
+    "top-left": t.positions.topLeft,
+    "top-right": t.positions.topRight,
+    "bottom-left": t.positions.bottomLeft,
+    "bottom-right": t.positions.bottomRight,
+  };
 
   function update<K extends keyof WizardState>(key: K, value: WizardState[K]) {
     setState((prev) => ({ ...prev, [key]: value }));
+    if (key === "domain") setDnsStatus("idle");
+  }
+
+  function normalizeDomain(raw: string): string {
+    return raw
+      .trim()
+      .replace(/^https?:\/\//i, "")
+      .replace(/\/.*$/, "")
+      .toLowerCase();
+  }
+
+  async function checkDns(): Promise<boolean> {
+    const domain = normalizeDomain(state.domain);
+    if (!domain || !DOMAIN_RE.test(domain)) {
+      setDnsStatus("invalid");
+      return false;
+    }
+
+    setDnsStatus("checking");
+    try {
+      const res = await fetch("/api/dns-check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ domain }),
+      });
+      const data = (await res.json()) as { ok: boolean; error?: string };
+      if (data.ok) {
+        setDnsStatus("valid");
+        return true;
+      }
+      setDnsStatus("invalid");
+      return false;
+    } catch {
+      setDnsStatus("error");
+      return false;
+    }
   }
 
   function canAdvance(): boolean {
@@ -81,10 +126,18 @@ export function SiteWizard({ createSite, error }: Props) {
     return true;
   }
 
+  async function handleNext() {
+    if (step === 0) {
+      const ok = await checkDns();
+      if (!ok) return;
+    }
+    setStep((s) => s + 1);
+  }
+
   function handleSubmit() {
     const formData = new FormData();
     formData.append("name", state.name);
-    formData.append("domain", state.domain);
+    formData.append("domain", normalizeDomain(state.domain));
     formData.append("primaryColor", state.primaryColor);
     formData.append("position", state.position);
     formData.append("language", state.language);
@@ -101,7 +154,7 @@ export function SiteWizard({ createSite, error }: Props) {
       {/* Error banner */}
       {error && (
         <div className="mb-6 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-xl p-4 flex items-start gap-3">
-          <span className="text-amber-500 text-lg">⚠</span>
+          <span className="text-amber-500 text-lg">&#9888;</span>
           <div>
             <p className="text-sm font-medium text-amber-800 dark:text-amber-300">
               {decodeURIComponent(error)}
@@ -110,7 +163,7 @@ export function SiteWizard({ createSite, error }: Props) {
               href="/dashboard/settings/billing"
               className="text-sm text-amber-700 dark:text-amber-400 hover:underline font-medium mt-1 inline-block"
             >
-              View upgrade options →
+              {t.wizard.viewUpgradeOptions}
             </a>
           </div>
         </div>
@@ -188,11 +241,10 @@ export function SiteWizard({ createSite, error }: Props) {
           <div className="space-y-5">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                Name your site
+                {t.wizard.nameYourSite}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Enter a friendly name and the domain you want to embed the
-                widget on.
+                {t.wizard.nameYourSiteDesc}
               </p>
             </div>
             <div>
@@ -200,14 +252,14 @@ export function SiteWizard({ createSite, error }: Props) {
                 className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
                 htmlFor="wizard-name"
               >
-                Site name
+                {t.wizard.siteName}
               </label>
               <input
                 id="wizard-name"
                 type="text"
                 value={state.name}
                 onChange={(e) => update("name", e.target.value)}
-                placeholder="My Company Website"
+                placeholder={t.wizard.siteNamePlaceholder}
                 className={inputClass}
                 autoFocus
               />
@@ -217,19 +269,43 @@ export function SiteWizard({ createSite, error }: Props) {
                 className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
                 htmlFor="wizard-domain"
               >
-                Domain
+                {t.wizard.domainLabel}
               </label>
               <input
                 id="wizard-domain"
                 type="text"
                 value={state.domain}
                 onChange={(e) => update("domain", e.target.value)}
-                placeholder="example.com"
+                placeholder={t.wizard.domainPlaceholder}
                 className={inputClass}
               />
               <p className="text-xs text-gray-400 dark:text-gray-600 mt-1">
-                Without protocol — e.g. <code>example.com</code>
+                {t.wizard.domainHint} <code>example.com</code>
               </p>
+              {dnsStatus === "checking" && (
+                <p className="mt-2 text-sm text-blue-600 dark:text-blue-400 flex items-center gap-2">
+                  <span className="inline-block w-3.5 h-3.5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                  {t.wizard.dnsChecking}
+                </p>
+              )}
+              {dnsStatus === "valid" && (
+                <p className="mt-2 text-sm text-green-600 dark:text-green-400 flex items-center gap-1.5">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {t.wizard.dnsValid}
+                </p>
+              )}
+              {dnsStatus === "invalid" && (
+                <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+                  {t.wizard.dnsInvalid}
+                </p>
+              )}
+              {dnsStatus === "error" && (
+                <p className="mt-2 text-sm text-amber-600 dark:text-amber-400">
+                  {t.wizard.dnsError}
+                </p>
+              )}
             </div>
           </div>
         )}
@@ -238,10 +314,10 @@ export function SiteWizard({ createSite, error }: Props) {
           <div className="space-y-5">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                Choose your brand color
+                {t.wizard.chooseBrandColor}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                This color will be used for the widget button and accents.
+                {t.wizard.chooseBrandColorDesc}
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -261,7 +337,7 @@ export function SiteWizard({ createSite, error }: Props) {
             </div>
             <div>
               <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
-                Presets
+                {t.wizard.presets}
               </p>
               <div className="flex flex-wrap gap-2">
                 {PRESET_COLORS.map((color) => (
@@ -296,7 +372,7 @@ export function SiteWizard({ createSite, error }: Props) {
                 />
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Widget button preview
+                {t.wizard.widgetButtonPreview}
               </p>
             </div>
           </div>
@@ -306,38 +382,61 @@ export function SiteWizard({ createSite, error }: Props) {
           <div className="space-y-5">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                Widget position
+                {t.wizard.widgetPosition}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Choose where the widget button appears on your site.
+                {t.wizard.widgetPositionDesc}
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              {POSITIONS.map((pos) => (
-                <button
-                  key={pos.value}
-                  type="button"
-                  onClick={() => update("position", pos.value)}
-                  className={cn(
-                    "p-4 rounded-2xl border-2 text-left transition-all",
-                    state.position === pos.value
-                      ? "border-blue-500 bg-blue-50 dark:bg-blue-950/40"
-                      : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-300 dark:hover:border-blue-700",
-                  )}
-                >
-                  <p
-                    className={cn(
-                      "text-sm font-medium",
-                      state.position === pos.value
-                        ? "text-blue-700 dark:text-blue-300"
-                        : "text-gray-800 dark:text-gray-200",
-                    )}
+            <div className="grid grid-cols-3 gap-2 w-fit">
+              {POSITION_GRID.map((row, ri) =>
+                row.map((cell, ci) => (
+                  <button
+                    key={`${ri}-${ci}`}
+                    type="button"
+                    disabled={!cell.enabled}
+                    onClick={() =>
+                      cell.enabled &&
+                      cell.value &&
+                      update("position", cell.value)
+                    }
+                    className={`w-16 h-16 rounded-xl border-2 transition-colors flex items-center justify-center ${
+                      !cell.enabled
+                        ? "border-transparent bg-[#f8f9fc] dark:bg-[#0e0e10] cursor-default"
+                        : cell.value === state.position
+                        ? "border-blue-600 bg-blue-50 dark:bg-blue-950 cursor-pointer"
+                        : "border-[#e8eaf0] dark:border-[#2a2a3e] hover:border-blue-400 cursor-pointer"
+                    }`}
+                    aria-label={
+                      cell.enabled && cell.value
+                        ? POSITION_LABELS[cell.value]
+                        : undefined
+                    }
                   >
-                    {pos.label}
-                  </p>
-                </button>
-              ))}
+                    {cell.enabled && cell.value === state.position && (
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 10 10"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M2 5l2.5 2.5 3.5-4"
+                          stroke="#2563eb"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                )),
+              )}
             </div>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {POSITION_LABELS[state.position]}
+            </p>
           </div>
         )}
 
@@ -345,10 +444,10 @@ export function SiteWizard({ createSite, error }: Props) {
           <div className="space-y-5">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                Choose language
+                {t.wizard.chooseLanguage}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                The widget supports 41 languages. Select the default.
+                {t.wizard.chooseLanguageDesc}
               </p>
             </div>
             <select
@@ -363,7 +462,7 @@ export function SiteWizard({ createSite, error }: Props) {
               ))}
             </select>
             <p className="text-xs text-gray-400 dark:text-gray-600">
-              You can change this later in widget settings.
+              {t.wizard.languageChangeHint}
             </p>
           </div>
         )}
@@ -372,24 +471,22 @@ export function SiteWizard({ createSite, error }: Props) {
           <div className="space-y-5">
             <div>
               <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                Review and create
+                {t.wizard.reviewAndCreate}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                Everything looks good? Click Create site to finish.
+                {t.wizard.reviewAndCreateDesc}
               </p>
             </div>
             <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl divide-y divide-[#e8eaf0] dark:divide-[#2a2a3e] border border-[#e8eaf0] dark:border-[#2a2a3e]">
               {[
-                { label: "Site name", value: state.name },
-                { label: "Domain", value: state.domain },
+                { label: t.wizard.siteName, value: state.name },
+                { label: t.wizard.domainLabel, value: normalizeDomain(state.domain) },
                 {
-                  label: "Position",
-                  value:
-                    POSITIONS.find((p) => p.value === state.position)?.label ??
-                    state.position,
+                  label: t.wizard.position,
+                  value: POSITION_LABELS[state.position] ?? state.position,
                 },
                 {
-                  label: "Language",
+                  label: t.wizard.language,
                   value:
                     LANGUAGES.find((l) => l.value === state.language)?.label ??
                     state.language,
@@ -409,7 +506,7 @@ export function SiteWizard({ createSite, error }: Props) {
               ))}
               <div className="flex items-center justify-between px-4 py-3">
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  Brand color
+                  {t.wizard.brandColor}
                 </span>
                 <span className="flex items-center gap-2">
                   <span
@@ -435,17 +532,17 @@ export function SiteWizard({ createSite, error }: Props) {
             disabled={isPending}
             className="px-5 py-3 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] text-gray-700 dark:text-gray-300 rounded-full text-base font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
-            Back
+            {t.wizard.back}
           </button>
         )}
         {step < STEPS.length - 1 ? (
           <button
             type="button"
-            onClick={() => setStep((s) => s + 1)}
-            disabled={!canAdvance()}
+            onClick={() => void handleNext()}
+            disabled={!canAdvance() || dnsStatus === "checking"}
             className="px-5 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Continue
+            {dnsStatus === "checking" ? t.wizard.dnsChecking : t.wizard.continue}
           </button>
         ) : (
           <button
@@ -454,14 +551,14 @@ export function SiteWizard({ createSite, error }: Props) {
             disabled={isPending}
             className="px-6 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {isPending ? "Creating…" : "Create site"}
+            {isPending ? t.wizard.creating : t.wizard.createSite}
           </button>
         )}
         <a
           href="/dashboard"
           className="px-5 py-3 text-gray-500 dark:text-gray-400 rounded-full text-base font-semibold hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
         >
-          Cancel
+          {t.wizard.cancelLabel}
         </a>
       </div>
     </div>

@@ -1,47 +1,23 @@
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale } from "@/i18n/messages";
 
-function getComplianceScore(violations: number | null | undefined): {
-  label: string;
-  color: string;
-  dot: string;
-} {
-  if (violations === null || violations === undefined)
-    return {
-      label: "Not scanned",
-      color: "text-gray-400 dark:text-gray-600",
-      dot: "bg-gray-300 dark:bg-gray-700",
-    };
-  if (violations === 0)
-    return {
-      label: "Perfect",
-      color: "text-green-600 dark:text-green-400",
-      dot: "bg-green-500",
-    };
-  if (violations <= 3)
-    return {
-      label: "Good",
-      color: "text-blue-600 dark:text-blue-400",
-      dot: "bg-blue-500",
-    };
-  if (violations <= 8)
-    return {
-      label: "Fair",
-      color: "text-amber-600 dark:text-amber-400",
-      dot: "bg-amber-500",
-    };
-  return {
-    label: "Needs work",
-    color: "text-red-600 dark:text-red-400",
-    dot: "bg-red-500",
-  };
+function getServerLocale(cookieLocale: string | undefined): Locale {
+  if (cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)) {
+    return cookieLocale as Locale;
+  }
+  return "en";
 }
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect("/login");
+
+  const locale = getServerLocale((await cookies()).get("locale")?.value);
+  const t = getMessages(locale);
 
   const sites = await db.site.findMany({
     where: { ownerId: session.user.id },
@@ -65,17 +41,59 @@ export default async function DashboardPage() {
   const totalOpens = sites.reduce((a, s) => a + s._count.widgetEvents, 0);
   const liveSites = sites.filter((s) => s.healthStatus === "healthy").length;
 
+  function getComplianceScore(violations: number | null | undefined): {
+    label: string;
+    color: string;
+    dot: string;
+  } {
+    if (violations === null || violations === undefined)
+      return {
+        label: t.siteHealth.notScanned,
+        color: "text-gray-400 dark:text-gray-600",
+        dot: "bg-gray-300 dark:bg-gray-700",
+      };
+    if (violations === 0)
+      return {
+        label: t.siteHealth.perfect,
+        color: "text-green-600 dark:text-green-400",
+        dot: "bg-green-500",
+      };
+    if (violations <= 3)
+      return {
+        label: t.siteHealth.good,
+        color: "text-blue-600 dark:text-blue-400",
+        dot: "bg-blue-500",
+      };
+    if (violations <= 8)
+      return {
+        label: t.siteHealth.fair,
+        color: "text-amber-600 dark:text-amber-400",
+        dot: "bg-amber-500",
+      };
+    return {
+      label: t.siteHealth.needsWork,
+      color: "text-red-600 dark:text-red-400",
+      dot: "bg-red-500",
+    };
+  }
+
+  function getHealthLabel(status: string | null) {
+    if (status === "healthy") return t.siteHealth.live;
+    if (status === "degraded") return t.siteHealth.offline;
+    return t.siteHealth.checking;
+  }
+
   return (
     <div>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-black text-gray-900 dark:text-white">
-          My Websites
+          {t.dashboard.title}
         </h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
           {sites.length === 0
-            ? "No sites yet"
-            : `${sites.length} site${sites.length !== 1 ? "s" : ""} connected`}
+            ? t.dashboard.noSites
+            : `${sites.length} ${sites.length !== 1 ? t.dashboard.sitesConnected : t.dashboard.siteConnected}`}
         </p>
       </div>
 
@@ -83,9 +101,9 @@ export default async function DashboardPage() {
       {sites.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
           {[
-            { label: "Total sites", value: sites.length },
-            { label: "Widget opens", value: totalOpens },
-            { label: "Live sites", value: liveSites },
+            { label: t.dashboard.totalSites, value: sites.length },
+            { label: t.dashboard.widgetOpens, value: totalOpens },
+            { label: t.dashboard.liveSites, value: liveSites },
           ].map((stat) => (
             <div
               key={stat.label}
@@ -128,17 +146,16 @@ export default async function DashboardPage() {
             </svg>
           </div>
           <h2 className="text-xl font-black text-gray-900 dark:text-white mb-3">
-            Add your first site
+            {t.dashboard.noSitesAction}
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-8 leading-relaxed">
-            Register your domain and get an embed snippet. Your accessibility
-            widget goes live in under 5 minutes.
+            {t.dashboard.noSitesDesc}
           </p>
           <a
             href="/dashboard/sites/new"
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-colors cursor-pointer"
           >
-            Add first site
+            {t.dashboard.noSitesAction}
           </a>
         </div>
       ) : (
@@ -204,20 +221,20 @@ export default async function DashboardPage() {
                       <span
                         className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-green-500" : isDown ? "bg-red-500" : "bg-gray-400"}`}
                       />
-                      {isLive ? "Live" : isDown ? "Offline" : "Checking"}
+                      {getHealthLabel(site.healthStatus)}
                     </span>
                   )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-3">
-                    <p className="text-xs text-gray-400 mb-0.5">Widget opens</p>
+                    <p className="text-xs text-gray-400 mb-0.5">{t.sites.opens}</p>
                     <p className="text-lg font-black text-gray-900 dark:text-white">
                       {site._count.widgetEvents.toLocaleString()}
                     </p>
                   </div>
                   <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-3">
-                    <p className="text-xs text-gray-400 mb-0.5">WCAG score</p>
+                    <p className="text-xs text-gray-400 mb-0.5">{t.sites.wcagScore}</p>
                     <p
                       className={`text-sm font-bold flex items-center gap-1.5 mt-0.5 ${score.color}`}
                     >
@@ -234,7 +251,7 @@ export default async function DashboardPage() {
                     href={`/dashboard/sites/${site.id}`}
                     className="block text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors cursor-pointer"
                   >
-                    Open →
+                    {t.dashboard.open} &rarr;
                   </a>
                 </div>
               </div>

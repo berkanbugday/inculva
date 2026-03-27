@@ -11,7 +11,6 @@ export type Config = {
   language: string;
   accessibilityStatementUrl: string;
   whiteLabelText: string;
-  allowedDomains: string[];
   buttonSize: "small" | "medium" | "large";
   buttonIcon: string;
   textResizing: boolean;
@@ -61,21 +60,17 @@ type TabId = (typeof TABS)[number]["id"];
 
 interface Props {
   siteId: string;
-  userPlan: string;
   initialName: string;
   initialDomain: string;
   widgetScriptSrc: string;
-  badgeSrc: string;
   config: Config;
 }
 
 export function WidgetConfigForm({
   siteId,
-  userPlan,
   initialName,
   initialDomain,
   widgetScriptSrc,
-  badgeSrc,
   config,
 }: Props) {
   const searchParams = useSearchParams();
@@ -122,7 +117,6 @@ export function WidgetConfigForm({
             initialName={initialName}
             initialDomain={initialDomain}
             widgetScriptSrc={widgetScriptSrc}
-            userPlan={userPlan}
           />
         )}
         {activeTab === "features" && (

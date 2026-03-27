@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { canCreateSite } from "@/lib/plan";
 import { db } from "@inculva/db";
 import { headers } from "next/headers";
 import { SiteWizard } from "./site-wizard";
@@ -69,6 +70,11 @@ async function createSite(formData: FormData): Promise<void> {
   if (!name?.trim() || !domain?.trim()) return;
   if (name.trim().length > 100 || domain.trim().length > 253) return;
 
+  const { allowed, reason } = await canCreateSite(session.user.id);
+  if (!allowed) {
+    redirect(`/dashboard/sites/new?error=${encodeURIComponent(reason ?? "Site limit reached")}`);
+  }
+
   const primaryColor =
     rawColor && HEX_COLOR_RE.test(rawColor) ? rawColor : "#0066cc";
   const position =
@@ -124,6 +130,15 @@ interface Props {
 }
 
 export default async function NewSitePage({ searchParams }: Props) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) redirect("/login");
+
+  // Redirect users who already have a site — they shouldn't see this page
+  const { allowed } = await canCreateSite(session.user.id);
+  if (!allowed) {
+    redirect("/dashboard");
+  }
+
   const { error } = await searchParams;
   return (
     <main>

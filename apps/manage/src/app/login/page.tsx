@@ -9,15 +9,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@inculva/ui";
 import { OAuthButtons, OAuthDivider } from "@/components/oauth-buttons";
 import { AuthBrandPanel } from "@/components/auth-brand-panel";
+import { useMessages } from "@/i18n/useMessages";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
-
-const FEATURES = [
-  "One script tag — live in minutes",
-  "24 real accessibility features",
-  "41 languages including RTL",
-  "WCAG 2.1 AA & EAA 2025 ready",
-];
 
 const schema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -35,6 +29,7 @@ const btnPrimary =
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useMessages();
   const rawCallback = searchParams.get("callbackUrl") ?? "/dashboard";
   const callbackUrl =
     rawCallback.startsWith("/") && !rawCallback.startsWith("//")
@@ -47,7 +42,7 @@ function LoginForm() {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(schema as any) });
 
   async function onSubmit(data: FormData) {
     const result = await signIn.email({
@@ -55,23 +50,30 @@ function LoginForm() {
       password: data.password,
     });
     if (result.error) {
-      setError("root", { message: result.error.message ?? "Login failed" });
+      setError("root", { message: result.error.message ?? t.auth.loginFailed });
       return;
     }
     router.push(callbackUrl);
   }
+
+  const FEATURES = [
+    t.authFeatures.oneScriptTag,
+    t.authFeatures.accessibilityFeatures,
+    t.authFeatures.languages,
+    t.authFeatures.wcagReady,
+  ];
 
   return (
     <div className="min-h-screen flex">
       <AuthBrandPanel>
         <div>
           <h2 className="text-3xl font-black text-white leading-tight mb-3">
-            Make your website
-            <br />
-            accessible to everyone.
+            {t.authBrand.makeAccessible.split("\n").map((line, i) => (
+              <span key={i}>{line}{i === 0 && <br />}</span>
+            ))}
           </h2>
           <p className="text-blue-100 text-sm mb-8 leading-relaxed">
-            Add real accessibility features to any site in under 5 minutes.
+            {t.authBrand.makeAccessibleDesc}
           </p>
           <ul className="space-y-3" role="list">
             {FEATURES.map((f) => (
@@ -105,16 +107,16 @@ function LoginForm() {
           <div className="lg:hidden text-center mb-8">
             <img
               src={`${CDN_URL}/logos/logo.png`}
-              alt="Inculva — Web Accessibility Platform"
+              alt="Inculva"
               className="h-10 w-auto mx-auto"
             />
           </div>
 
           <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-1">
-            Welcome back
+            {t.auth.welcomeBack}
           </h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
-            Sign in to manage your accessible sites.
+            {t.auth.welcomeBackDesc}
           </p>
 
           {passwordReset && (
@@ -146,7 +148,7 @@ function LoginForm() {
                   strokeLinejoin="round"
                 />
               </svg>
-              Password updated successfully. Sign in with your new password.
+              {t.auth.passwordResetSuccess}
             </div>
           )}
 
@@ -156,12 +158,11 @@ function LoginForm() {
           <form
             onSubmit={handleSubmit(onSubmit)}
             noValidate
-            aria-label="Sign in to your account"
             className="space-y-5"
           >
             <div>
               <label htmlFor="email" className={labelCls}>
-                Email address
+                {t.auth.email}
               </label>
               <input
                 id="email"
@@ -191,13 +192,13 @@ function LoginForm() {
                   htmlFor="password"
                   className="text-sm font-semibold text-gray-700 dark:text-gray-300"
                 >
-                  Password
+                  {t.auth.password}
                 </label>
                 <a
                   href="/forgot-password"
                   className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
                 >
-                  Forgot password?
+                  {t.auth.forgotPassword}
                 </a>
               </div>
               <input
@@ -259,11 +260,6 @@ function LoginForm() {
               type="submit"
               disabled={isSubmitting}
               aria-busy={isSubmitting}
-              aria-label={
-                isSubmitting
-                  ? "Signing in, please wait"
-                  : "Sign in to your account"
-              }
               className={cn(btnPrimary)}
             >
               {isSubmitting && (
@@ -291,16 +287,16 @@ function LoginForm() {
                   />
                 </svg>
               )}
-              {isSubmitting ? "Signing in…" : "Sign in"}
+              {isSubmitting ? t.auth.signingIn : t.auth.signIn}
             </button>
 
             <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-              Don&apos;t have an account?{" "}
+              {t.auth.noAccount}{" "}
               <a
                 href="/register"
                 className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
               >
-                Sign up free
+                {t.auth.signUpFree}
               </a>
             </p>
           </form>

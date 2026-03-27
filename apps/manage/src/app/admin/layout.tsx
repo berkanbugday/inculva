@@ -24,7 +24,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <DashboardHeader locale={locale} />
+      <DashboardHeader locale={locale} canAddSite={false} />
       <AdminNav />
       {children}
     </div>

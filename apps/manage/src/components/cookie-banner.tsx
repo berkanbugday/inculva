@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useMessages } from "@/i18n/useMessages";
 
 const STORAGE_KEY = "inculva_cookie_consent";
 
 export function CookieBanner() {
+  const t = useMessages();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -28,20 +30,19 @@ export function CookieBanner() {
     >
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
         <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-          We use cookies for authentication only — no tracking, no advertising,
-          no third-party analytics.{" "}
+          {t.cookie.message}{" "}
           <a
             href="/privacy"
             className="underline text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
           >
-            Privacy Policy
+            {t.cookie.privacyPolicy}
           </a>
         </p>
         <button
           onClick={accept}
           className="shrink-0 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors cursor-pointer"
         >
-          Got it
+          {t.cookie.accept}
         </button>
       </div>
     </div>

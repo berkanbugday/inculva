@@ -8,6 +8,7 @@ import {
   CreditCardIcon,
   ListIcon,
 } from "./sidebar-icons";
+import { useDashboard } from "./dashboard-layout-content";
 
 export function SidebarLink({
   href,
@@ -48,12 +49,13 @@ export function SiteGroup({
   isActive: (href: string) => boolean;
   pathname: string;
 }) {
+  const { messages: t } = useDashboard();
   const siteActive = pathname.includes(site.id);
   const subItems = [
-    { label: "Customize", href: `/dashboard/sites/${site.id}` },
-    { label: "Analytics", href: `/dashboard/sites/${site.id}/analytics` },
-    { label: "WCAG Scan", href: `/dashboard/sites/${site.id}/scan` },
-    { label: "Statement", href: `/dashboard/sites/${site.id}/statement` },
+    { label: t.nav.customize, href: `/dashboard/sites/${site.id}` },
+    { label: t.nav.analytics, href: `/dashboard/sites/${site.id}/analytics` },
+    { label: t.nav.wcagScan, href: `/dashboard/sites/${site.id}/scan` },
+    { label: t.nav.statement, href: `/dashboard/sites/${site.id}/statement` },
   ];
 
   return (
@@ -107,32 +109,34 @@ export function SiteGroup({
   );
 }
 
-const SETTINGS_LINKS = [
-  { href: "/dashboard/settings", label: "Account", icon: <UserIcon /> },
-  {
-    href: "/dashboard/settings/billing",
-    label: "Billing",
-    icon: <CreditCardIcon />,
-  },
-  {
-    href: "/dashboard/settings/audit-log",
-    label: "Audit Log",
-    icon: <ListIcon />,
-  },
-] as const;
-
 export function SettingsGroup({
   isActive,
 }: {
   isActive: (href: string) => boolean;
 }) {
   const pathname = usePathname();
+  const { messages: t } = useDashboard();
+
+  const settingsLinks = [
+    { href: "/dashboard/settings", label: t.settings.account, icon: <UserIcon /> },
+    {
+      href: "/dashboard/settings/billing",
+      label: t.settings.billing,
+      icon: <CreditCardIcon />,
+    },
+    {
+      href: "/dashboard/settings/audit-log",
+      label: t.settings.auditLog,
+      icon: <ListIcon />,
+    },
+  ];
+
   return (
     <div>
       <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-600 select-none">
-        Settings
+        {t.nav.settings}
       </p>
-      {SETTINGS_LINKS.map((item) => {
+      {settingsLinks.map((item) => {
         const active =
           item.href === "/dashboard/settings"
             ? pathname === "/dashboard/settings"

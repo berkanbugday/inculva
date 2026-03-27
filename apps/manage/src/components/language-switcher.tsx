@@ -2,13 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { SUPPORTED_LOCALES } from "@/i18n/messages";
+import { setLocale } from "@/i18n/useMessages";
+import type { Locale } from "@/i18n/messages";
 
-const LOCALE_LABELS: Record<string, string> = {
+const LOCALE_LABELS: Record<Locale, string> = {
   en: "English",
   tr: "Türkçe",
-  de: "Deutsch",
-  fr: "Français",
-  es: "Español",
 };
 
 interface Props {
@@ -19,8 +18,8 @@ export function LanguageSwitcher({ locale }: Props) {
   const router = useRouter();
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const next = e.target.value;
-    document.cookie = `locale=${next}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+    const next = e.target.value as Locale;
+    setLocale(next);
     router.refresh();
   }
 

@@ -1,19 +1,25 @@
 import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ProfileForm } from "./profile-form";
 import { DeleteAccount } from "./delete-account";
 import { ReferralBanner } from "@/components/referral-banner";
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale } from "@/i18n/messages";
 
 export default async function SettingsPage() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect("/login");
 
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale) ? cookieLocale : "en") as Locale;
+  const t = getMessages(locale);
+
   return (
     <main className="space-y-8">
       <div>
-        <h2 className="text-3xl font-black text-gray-900 dark:text-white">Account</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your profile and account settings.</p>
+        <h2 className="text-3xl font-black text-gray-900 dark:text-white">{t.settings.title}</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t.settings.titleDesc}</p>
       </div>
 
       <ProfileForm
@@ -26,9 +32,9 @@ export default async function SettingsPage() {
       {/* GDPR Data Export */}
       <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-3">
         <div>
-          <h3 className="text-base font-semibold text-gray-900 dark:text-white">Export Your Data</h3>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">{t.settings.exportData}</h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            Download a copy of all personal data we hold about you — your profile, sites, and API keys. This satisfies your GDPR Article 20 right to data portability.
+            {t.settings.exportDataDesc}
           </p>
         </div>
         <a
@@ -39,7 +45,7 @@ export default async function SettingsPage() {
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M8 1v9M4 7l4 4 4-4M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          Download data export (JSON)
+          {t.settings.downloadExport}
         </a>
       </section>
 

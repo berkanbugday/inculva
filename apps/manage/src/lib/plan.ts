@@ -23,42 +23,23 @@ export async function getFreeTrialEnd(userId: string): Promise<Date | null> {
   return new Date(firstSite.createdAt.getTime() + FREE_TRIAL_DAYS * 24 * 60 * 60 * 1000);
 }
 
-export async function canCreateSite(_userId: string): Promise<{
+export async function canCreateSite(userId: string): Promise<{
   allowed: boolean;
   reason?: string;
 }> {
-  return { allowed: true };
-}
+  const plan = await getUserPlan(userId);
+  const limit = PLAN_LIMITS[plan].maxSites;
 
-export async function canTrackEvent(siteId: string): Promise<boolean> {
-  const site = await db.site.findUnique({
-    where: { id: siteId },
-    select: { ownerId: true },
+  const siteCount = await db.site.count({
+    where: { ownerId: userId },
   });
-  if (!site) return false;
 
-  const plan = await getUserPlan(site.ownerId);
-
-  // Free plan: 7-day trial from first site creation
-  if (plan === "free") {
-    const trialEnd = await getFreeTrialEnd(site.ownerId);
-    if (!trialEnd) return false;
-    return Date.now() < trialEnd.getTime();
+  if (siteCount >= limit) {
+    return {
+      allowed: false,
+      reason: `Your ${plan} plan allows up to ${limit} site${limit === 1 ? "" : "s"}. Please remove an existing site or upgrade your plan.`,
+    };
   }
 
-  const limits = PLAN_LIMITS[plan];
-  if (limits.pageviewsPerMonth === Infinity) return true;
-
-  const startOfMonth = new Date();
-  startOfMonth.setDate(1);
-  startOfMonth.setHours(0, 0, 0, 0);
-
-  const eventCount = await db.widgetEvent.count({
-    where: {
-      site: { ownerId: site.ownerId },
-      createdAt: { gte: startOfMonth },
-    },
-  });
-
-  return eventCount < limits.pageviewsPerMonth;
+  return { allowed: true };
 }

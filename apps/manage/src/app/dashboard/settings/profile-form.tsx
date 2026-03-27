@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@inculva/ui";
+import { useDashboard } from "@/components/dashboard-layout-content";
 
 const nameSchema = z.object({
   name: z
@@ -30,14 +31,15 @@ const inputCls =
   "w-full px-4 py-3 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow";
 
 export function ProfileForm({ name, email }: Props) {
+  const { messages: t } = useDashboard();
   const [nameSaved, setNameSaved] = useState(false);
   const [pwSaved, setPwSaved] = useState(false);
 
   const nameForm = useForm<NameData>({
-    resolver: zodResolver(nameSchema),
+    resolver: zodResolver(nameSchema as any),
     defaultValues: { name: name ?? "" },
   });
-  const pwForm = useForm<PwData>({ resolver: zodResolver(pwSchema) });
+  const pwForm = useForm<PwData>({ resolver: zodResolver(pwSchema as any) });
 
   async function onNameSave(data: NameData) {
     setNameSaved(false);
@@ -70,7 +72,7 @@ export function ProfileForm({ name, email }: Props) {
 
   return (
     <div className="space-y-6">
-      {/* ── Profile section ── */}
+      {/* Profile section */}
       <section
         className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8"
         aria-labelledby="profile-heading"
@@ -79,12 +81,11 @@ export function ProfileForm({ name, email }: Props) {
           id="profile-heading"
           className="text-lg font-bold text-gray-900 dark:text-white mb-5"
         >
-          Profile
+          {t.settings.profile}
         </h3>
         <form
           onSubmit={nameForm.handleSubmit(onNameSave)}
           noValidate
-          aria-label="Update your display name"
           className="space-y-5"
         >
           <div>
@@ -92,7 +93,7 @@ export function ProfileForm({ name, email }: Props) {
               htmlFor="display-name"
               className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
             >
-              Name
+              {t.settings.name}
             </label>
             <input
               id="display-name"
@@ -123,16 +124,15 @@ export function ProfileForm({ name, email }: Props) {
 
           <div>
             <label className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-              Email address
+              {t.settings.emailAddress}
             </label>
             <p
               className="px-4 py-3 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-base text-gray-600 dark:text-gray-400"
-              aria-label={`Your email address is ${email}. Contact support to change it.`}
             >
               {email}
             </p>
             <p className="text-sm text-gray-400 dark:text-gray-600 mt-1">
-              Contact support to change your email address.
+              {t.settings.emailChangeHint}
             </p>
           </div>
 
@@ -155,7 +155,7 @@ export function ProfileForm({ name, email }: Props) {
                   "opacity-60 cursor-not-allowed",
               )}
             >
-              {nameForm.formState.isSubmitting ? "Saving…" : "Save"}
+              {nameForm.formState.isSubmitting ? t.settings.saving : t.settings.save}
             </button>
             {nameSaved && (
               <span
@@ -163,14 +163,14 @@ export function ProfileForm({ name, email }: Props) {
                 aria-live="polite"
                 className="text-sm text-green-600 dark:text-green-400 font-medium"
               >
-                ✓ Saved
+                &#10003; {t.settings.saved}
               </span>
             )}
           </div>
         </form>
       </section>
 
-      {/* ── Change Password section ── */}
+      {/* Change Password section */}
       <section
         className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8"
         aria-labelledby="pw-heading"
@@ -179,12 +179,11 @@ export function ProfileForm({ name, email }: Props) {
           id="pw-heading"
           className="text-lg font-bold text-gray-900 dark:text-white mb-5"
         >
-          Change Password
+          {t.settings.changePassword}
         </h3>
         <form
           onSubmit={pwForm.handleSubmit(onPasswordChange)}
           noValidate
-          aria-label="Change your account password"
           className="space-y-5"
         >
           <div>
@@ -192,7 +191,7 @@ export function ProfileForm({ name, email }: Props) {
               htmlFor="current-password"
               className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
             >
-              Current password
+              {t.auth.currentPassword}
             </label>
             <input
               id="current-password"
@@ -228,7 +227,7 @@ export function ProfileForm({ name, email }: Props) {
               htmlFor="new-password"
               className="block text-base font-semibold text-gray-700 dark:text-gray-300 mb-1.5"
             >
-              New password
+              {t.auth.newPassword}
             </label>
             <input
               id="new-password"
@@ -255,7 +254,7 @@ export function ProfileForm({ name, email }: Props) {
               id="new-pw-hint"
               className="text-sm text-gray-400 dark:text-gray-600 mt-1"
             >
-              Must be at least 8 characters.
+              {t.auth.minChars}
             </p>
             {pwForm.formState.errors.newPassword && (
               <p
@@ -287,7 +286,7 @@ export function ProfileForm({ name, email }: Props) {
                   "opacity-60 cursor-not-allowed",
               )}
             >
-              {pwForm.formState.isSubmitting ? "Updating…" : "Change password"}
+              {pwForm.formState.isSubmitting ? t.settings.updating : t.settings.changePasswordBtn}
             </button>
             {pwSaved && (
               <span
@@ -295,7 +294,7 @@ export function ProfileForm({ name, email }: Props) {
                 aria-live="polite"
                 className="text-sm text-green-600 dark:text-green-400 font-medium"
               >
-                ✓ Password updated
+                &#10003; {t.settings.passwordUpdated}
               </span>
             )}
           </div>

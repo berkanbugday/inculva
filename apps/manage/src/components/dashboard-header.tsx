@@ -4,17 +4,21 @@ import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
 import { NotificationBell } from "./notification-bell";
+import { getMessages } from "@/i18n/messages";
+import type { DashboardMessages } from "@/i18n/messages";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
 interface Props {
   locale: string;
+  canAddSite: boolean;
   onMenuClick?: () => void;
 }
 
-export function DashboardHeader({ locale, onMenuClick }: Props) {
+export function DashboardHeader({ locale, canAddSite, onMenuClick }: Props) {
   const pathname = usePathname();
-  const label = getPageLabel(pathname);
+  const t = getMessages(locale);
+  const label = getPageLabel(pathname, t);
 
   return (
     <header className="h-14 bg-white dark:bg-[#1a1a2e] border-b border-[#e8eaf0] dark:border-[#2a2a3e] px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">
@@ -23,7 +27,7 @@ export function DashboardHeader({ locale, onMenuClick }: Props) {
           <button
             onClick={onMenuClick}
             className="lg:hidden p-2 -ml-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-            aria-label="Toggle menu"
+            aria-label={t.header.toggleMenu}
           >
             <svg
               width="20"
@@ -61,26 +65,28 @@ export function DashboardHeader({ locale, onMenuClick }: Props) {
       </div>
 
       <div className="flex items-center gap-1 sm:gap-2">
-        <a
-          href="/dashboard/sites/new"
-          className="flex items-center gap-1.5 px-3 sm:px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors cursor-pointer"
-        >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            aria-hidden="true"
+        {canAddSite && (
+          <a
+            href="/dashboard/sites/new"
+            className="flex items-center gap-1.5 px-3 sm:px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors cursor-pointer"
           >
-            <path
-              d="M6 1v10M1 6h10"
-              stroke="white"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span className="hidden sm:inline">New site</span>
-        </a>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M6 1v10M1 6h10"
+                stroke="white"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="hidden sm:inline">{t.dashboard.newSite}</span>
+          </a>
+        )}
         <ThemeToggle />
         <LanguageSwitcher locale={locale} />
         <NotificationBell />
@@ -89,18 +95,18 @@ export function DashboardHeader({ locale, onMenuClick }: Props) {
   );
 }
 
-function getPageLabel(pathname: string): string | null {
+function getPageLabel(pathname: string, t: DashboardMessages): string | null {
   if (pathname === "/dashboard") return null;
-  if (pathname.includes("/analytics")) return "Analytics";
-  if (pathname.includes("/scan")) return "WCAG Scan";
-  if (pathname.includes("/statement")) return "Statement";
-  if (pathname.includes("/delete")) return "Delete Site";
-  if (pathname.includes("/sites/new")) return "New Site";
-  if (pathname.includes("/sites/")) return "Customize";
-  if (pathname.includes("/billing")) return "Billing";
-  if (pathname.includes("/audit-log")) return "Audit Log";
-  if (pathname.includes("/settings")) return "Settings";
-  if (pathname.includes("/statistics")) return "Statistics";
-  if (pathname.includes("/notifications")) return "Notifications";
+  if (pathname.includes("/analytics")) return t.nav.analytics;
+  if (pathname.includes("/scan")) return t.nav.wcagScan;
+  if (pathname.includes("/statement")) return t.nav.statement;
+  if (pathname.includes("/delete")) return t.nav.deleteSite;
+  if (pathname.includes("/sites/new")) return t.nav.newSite;
+  if (pathname.includes("/sites/")) return t.nav.customize;
+  if (pathname.includes("/billing")) return t.settings.billing;
+  if (pathname.includes("/audit-log")) return t.settings.auditLog;
+  if (pathname.includes("/settings")) return t.nav.settings;
+  if (pathname.includes("/statistics")) return t.nav.statistics;
+  if (pathname.includes("/notifications")) return t.nav.notifications;
   return null;
 }

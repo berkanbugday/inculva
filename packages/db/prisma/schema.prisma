@@ -196,9 +196,6 @@ model WidgetConfig {
   buttonSize   String @default("medium")            // "small" | "medium" | "large"
   buttonIcon   String @default("universal-access")  // trigger button icon key
 
-  // Domain allowlist — empty array means all domains are allowed
-  allowedDomains String[] @default([])
-
   // Last WCAG scan result — persisted so the badge can reflect actual state
   lastScanViolations Int?
   lastScanAt         DateTime?

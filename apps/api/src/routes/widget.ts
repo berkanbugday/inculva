@@ -33,19 +33,13 @@ function isLocalhost(domain: string): boolean {
 
 /**
  * Returns true when `requestDomain` is permitted to embed the widget.
- *
- * Allowed if the request domain exactly matches:
- *  - the site's primary (root) domain, OR
- *  - any entry in the explicitly allowed subdomains list
+ * Matches the site's primary domain exactly.
  */
 function isDomainAllowed(
   requestDomain: string,
   primaryDomain: string,
-  allowedDomains: string[],
 ): boolean {
-  const req = requestDomain.toLowerCase();
-  if (req === primaryDomain.toLowerCase()) return true;
-  return allowedDomains.some(d => req === d.toLowerCase());
+  return requestDomain.toLowerCase() === primaryDomain.toLowerCase();
 }
 
 async function sendUsageAlert(
@@ -219,14 +213,13 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
 
       const ownerPlan = config.site.owner.plan;
 
-      // Domain enforcement — request origin/referer must match the site's registered
-      // domain (or a subdomain of it) or one of the explicit allowedDomains entries.
+      // Domain enforcement — request origin/referer must match the site's registered domain.
       // Localhost is always permitted for local development.
       const domain = extractDomain(request);
       if (!isLocalhost(domain ?? "")) {
         if (
           !domain ||
-          !isDomainAllowed(domain, config.site.domain, config.allowedDomains)
+          !isDomainAllowed(domain, config.site.domain)
         ) {
           return reply
             .status(403)
@@ -359,7 +352,6 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
         domain: true,
         ownerId: true,
         owner: { select: { plan: true } },
-        widgetConfig: { select: { allowedDomains: true } },
       },
     });
 
@@ -367,17 +359,12 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
       return reply.status(404).send({ success: false, error: "Unknown site" });
     }
 
-    // Domain enforcement — same rules as /config: origin must match the site's
-    // registered domain (or a subdomain) or one of the explicit allowedDomains.
+    // Domain enforcement — origin must match the site's registered domain.
     const eventDomain = extractDomain(request);
     if (!isLocalhost(eventDomain ?? "")) {
       if (
         !eventDomain ||
-        !isDomainAllowed(
-          eventDomain,
-          site.domain,
-          site.widgetConfig?.allowedDomains ?? [],
-        )
+        !isDomainAllowed(eventDomain, site.domain)
       ) {
         return reply
           .status(403)

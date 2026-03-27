@@ -13,39 +13,29 @@ export default async function SitePage({ params }: Props) {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) notFound();
 
-  const [site, user] = await Promise.all([
-    db.site.findFirst({
-      where: { id, ownerId: session.user.id },
-      include: { widgetConfig: true },
-    }),
-    db.user.findUnique({
-      where: { id: session.user.id },
-      select: { plan: true },
-    }),
-  ]);
+  const site = await db.site.findFirst({
+    where: { id, ownerId: session.user.id },
+    include: { widgetConfig: true },
+  });
 
   if (!site) notFound();
 
   const wc = site.widgetConfig;
-  const apiUrl = process.env["NEXT_PUBLIC_API_URL"]!;
 
   return (
     <main className="space-y-6">
       {wc && (
         <WidgetConfigForm
           siteId={site.id}
-          userPlan={user?.plan ?? "free"}
           initialName={site.name}
           initialDomain={site.domain}
           widgetScriptSrc={process.env["NEXT_PUBLIC_WIDGET_URL"]!}
-          badgeSrc={`${apiUrl}/badge/${site.id}.svg`}
           config={{
             position: wc.position,
             primaryColor: wc.primaryColor,
             language: wc.language,
             accessibilityStatementUrl: wc.accessibilityStatementUrl ?? "",
             whiteLabelText: wc.whiteLabelText ?? "",
-            allowedDomains: wc.allowedDomains,
             buttonSize: (["small", "medium", "large"].includes(
               wc.buttonSize as string,
             )

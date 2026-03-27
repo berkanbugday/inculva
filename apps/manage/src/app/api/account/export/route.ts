@@ -37,7 +37,6 @@ export async function GET(): Promise<NextResponse> {
             theme: true,
             language: true,
             primaryColor: true,
-            allowedDomains: true,
             accessibilityStatementUrl: true,
             whiteLabelText: true,
             lastScanAt: true,

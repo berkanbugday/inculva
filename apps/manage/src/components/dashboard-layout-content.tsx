@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { VerificationBanner } from "@/components/verification-banner";
 import { Sidebar } from "@/components/sidebar";
+import { getMessages } from "@/i18n/messages";
+import type { DashboardMessages } from "@/i18n/messages";
+import { PLAN_LIMITS } from "@inculva/types";
+import type { Plan } from "@inculva/types";
 
 interface Site {
   id: string;
@@ -18,12 +22,31 @@ interface User {
   name: string | null;
   emailVerified: boolean;
   bannedAt: Date | null;
+  plan: string;
 }
 
 interface DashboardData {
   user: User;
   sites: Site[];
   locale: string;
+}
+
+interface DashboardCtx {
+  messages: DashboardMessages;
+  locale: string;
+  canAddSite: boolean;
+  plan: string;
+}
+
+const DashboardContext = createContext<DashboardCtx>({
+  messages: getMessages("en"),
+  locale: "en",
+  canAddSite: false,
+  plan: "free",
+});
+
+export function useDashboard() {
+  return useContext(DashboardContext);
 }
 
 export function DashboardLayoutContent({
@@ -85,27 +108,42 @@ export function DashboardLayoutContent({
     );
   }
 
+  const messages = getMessages(data.locale);
+  const plan = (data.user.plan ?? "free") as Plan;
+  const maxSites = PLAN_LIMITS[plan]?.maxSites ?? 1;
+  const canAddSite = data.sites.length < maxSites;
+
   return (
-    <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex flex-col">
-      <DashboardHeader
-        locale={data.locale}
-        onMenuClick={() => setSidebarOpen(!sidebarOpen)}
-      />
-      {!data.user.emailVerified && (
-        <VerificationBanner email={data.user.email} />
-      )}
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar
-          sites={data.sites}
-          userName={data.user.name}
-          userEmail={data.user.email}
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
+    <DashboardContext.Provider
+      value={{
+        messages,
+        locale: data.locale,
+        canAddSite,
+        plan: data.user.plan,
+      }}
+    >
+      <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex flex-col">
+        <DashboardHeader
+          locale={data.locale}
+          canAddSite={canAddSite}
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
         />
-        <main className="flex-1 min-w-0 overflow-y-auto lg:ml-64 p-4 sm:p-6 lg:p-8">
-          {children}
-        </main>
+        {!data.user.emailVerified && (
+          <VerificationBanner email={data.user.email} />
+        )}
+        <div className="flex flex-1 overflow-hidden">
+          <Sidebar
+            sites={data.sites}
+            userName={data.user.name}
+            userEmail={data.user.email}
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
+          />
+          <main className="flex-1 min-w-0 overflow-y-auto lg:ml-64 p-4 sm:p-6 lg:p-8">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </DashboardContext.Provider>
   );
 }
