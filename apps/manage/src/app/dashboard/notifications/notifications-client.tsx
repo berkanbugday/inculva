@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMessages } from "@/i18n/useMessages";
 
 const TYPE_ICON: Record<string, React.ReactNode> = {
   usage_warning: (
@@ -111,16 +112,6 @@ const DEFAULT_ICON = (
   </svg>
 );
 
-function timeAgo(dateStr: string): string {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const mins = Math.floor(diff / 60_000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return `${mins}m ago`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours}h ago`;
-  return `${Math.floor(hours / 24)}d ago`;
-}
-
 function NotificationItem({
   id,
   type,
@@ -139,7 +130,18 @@ function NotificationItem({
   createdAt: string;
 }) {
   const router = useRouter();
+  const t = useMessages();
   const [isRead, setIsRead] = useState(!!readAt);
+
+  function timeAgo(dateStr: string): string {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60_000);
+    if (mins < 1) return t.timeAgo.justNow;
+    if (mins < 60) return `${mins}${t.timeAgo.minutesAgo}`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours}${t.timeAgo.hoursAgo}`;
+    return `${Math.floor(hours / 24)}${t.timeAgo.daysAgo}`;
+  }
 
   async function markRead() {
     if (isRead) return;
@@ -177,7 +179,11 @@ function NotificationItem({
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-2">
           <p
-            className={`text-sm font-medium leading-snug ${isRead ? "text-gray-700 dark:text-gray-300" : "text-gray-900 dark:text-white"}`}
+            className={`text-sm font-medium leading-snug ${
+              isRead
+                ? "text-gray-700 dark:text-gray-300"
+                : "text-gray-900 dark:text-white"
+            }`}
           >
             {title}
           </p>
@@ -201,6 +207,7 @@ function NotificationItem({
 
 function MarkAllRead() {
   const router = useRouter();
+  const t = useMessages();
   const [busy, setBusy] = useState(false);
 
   async function markAll() {
@@ -219,7 +226,7 @@ function MarkAllRead() {
       disabled={busy}
       className="px-4 py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full font-semibold transition-colors disabled:opacity-50"
     >
-      Mark all read
+      {t.notificationsPage.markAllRead}
     </button>
   );
 }

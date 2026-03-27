@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useMessages } from "@/i18n/useMessages";
 
 interface ReferralData {
   code: string;
@@ -9,6 +10,7 @@ interface ReferralData {
 }
 
 export function ReferralBanner() {
+  const t = useMessages();
   const [data, setData] = useState<ReferralData | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -30,11 +32,10 @@ export function ReferralBanner() {
     <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-4">
       <div>
         <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-          Refer &amp; Earn
+          {t.referral.title}
         </h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          Share your unique link. Every friend who signs up is counted toward
-          your referrals.
+          {t.referral.description}
         </p>
       </div>
 
@@ -48,14 +49,14 @@ export function ReferralBanner() {
               onClick={() => void handleCopy()}
               className="shrink-0 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-colors cursor-pointer"
             >
-              {copied ? "Copied!" : "Copy link"}
+              {copied ? t.referral.copied : t.referral.copyLink}
             </button>
           </div>
 
           <div className="flex items-center gap-6 text-sm">
             <div>
               <p className="text-xs text-gray-400 dark:text-gray-600 uppercase tracking-wide font-medium">
-                Your code
+                {t.referral.yourCode}
               </p>
               <p className="font-mono font-semibold text-gray-900 dark:text-white mt-0.5">
                 {data.code}
@@ -63,7 +64,7 @@ export function ReferralBanner() {
             </div>
             <div>
               <p className="text-xs text-gray-400 dark:text-gray-600 uppercase tracking-wide font-medium">
-                Referrals
+                {t.referral.referrals}
               </p>
               <p className="font-semibold text-gray-900 dark:text-white mt-0.5">
                 {data.referralCount}

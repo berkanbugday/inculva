@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useMessages } from "@/i18n/useMessages";
 
 type Status = "idle" | "checking" | "installed" | "not-installed" | "error";
 
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function InstallChecker({ siteId, domain }: Props) {
+  const t = useMessages();
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -39,26 +41,28 @@ export function InstallChecker({ siteId, domain }: Props) {
         disabled={status === "checking"}
         className="px-4 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] text-gray-700 dark:text-gray-300 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-sm font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
       >
-        {status === "checking" ? "Checking…" : "Check installation"}
+        {status === "checking"
+          ? t.installChecker.checking
+          : t.installChecker.checkInstallation}
       </button>
 
       {status === "installed" && (
         <span className="flex items-center gap-1.5 text-sm text-green-700 font-medium">
           <span className="w-2 h-2 rounded-full bg-green-500 inline-block" />
-          Widget detected on {domain}
+          {t.installChecker.widgetDetected.replace("{domain}", domain)}
         </span>
       )}
 
       {status === "not-installed" && (
         <span className="flex items-center gap-1.5 text-sm text-amber-700">
           <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
-          Widget not detected yet — add the snippet below
+          {t.installChecker.widgetNotDetected}
         </span>
       )}
 
       {status === "error" && (
         <span className="text-sm text-red-600">
-          {errorMsg ?? "Could not reach site"}
+          {errorMsg ?? t.installChecker.couldNotReach}
         </span>
       )}
     </div>

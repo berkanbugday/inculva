@@ -1,6 +1,9 @@
-export const metadata = { title: "Account Suspended — Inculva" };
+"use client";
+
+import { useMessages } from "@/i18n/useMessages";
 
 export default function BannedPage() {
+  const t = useMessages();
   return (
     <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex items-center justify-center px-4">
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-12 w-full max-w-md text-center">
@@ -23,18 +26,17 @@ export default function BannedPage() {
         </div>
 
         <h1 className="text-2xl font-black text-gray-900 dark:text-white mb-3">
-          Account Suspended
+          {t.banned.title}
         </h1>
         <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8">
-          Your account has been suspended. If you believe this is a mistake,
-          please contact our support team.
+          {t.banned.description}
         </p>
 
         <a
           href="mailto:hi@inculva.com"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-semibold transition-colors cursor-pointer"
         >
-          Contact support
+          {t.banned.contactSupport}
         </a>
 
         <p className="text-xs text-gray-400 dark:text-gray-600 mt-4">

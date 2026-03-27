@@ -2,9 +2,11 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { TrendChart, FeatureBarChart } from "./charts";
 import { PeriodTabs } from "./period-tabs";
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale } from "@/i18n/messages";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -51,6 +53,14 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
     where: { id, ownerId: session!.user.id },
   });
   if (!site) notFound();
+
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (
+    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+      ? cookieLocale
+      : "en"
+  ) as Locale;
+  const t = getMessages(locale);
 
   const since = new Date();
   since.setDate(since.getDate() - days);
@@ -128,10 +138,18 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
     .sort((a, b) => b.count - a.count);
 
   const statCards = [
-    { label: "Widget Loads", value: widgetLoads, color: "blue" },
-    { label: "Widget Opens", value: openCount, color: "purple" },
-    { label: "Unique Sessions", value: uniqueSessions, color: "green" },
-    { label: "Feature Activations", value: totalActivations, color: "gray" },
+    { label: t.analytics.widgetLoads, value: widgetLoads, color: "blue" },
+    { label: t.analytics.widgetOpens, value: openCount, color: "purple" },
+    {
+      label: t.analytics.uniqueSessions,
+      value: uniqueSessions,
+      color: "green",
+    },
+    {
+      label: t.analytics.featureActivations,
+      value: totalActivations,
+      color: "gray",
+    },
   ] as const;
 
   const colorMap: Record<string, string> = {
@@ -151,7 +169,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
           href="/dashboard"
           className="text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400"
         >
-          Dashboard
+          {t.breadcrumb.dashboard}
         </a>
         <span className="text-gray-300 dark:text-gray-700">/</span>
         <a
@@ -162,21 +180,24 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
         </a>
         <span className="text-gray-300 dark:text-gray-700">/</span>
         <span className="text-gray-700 dark:text-gray-300 font-medium">
-          Analytics
+          {t.siteTabs.analytics}
         </span>
       </nav>
 
       {/* Sub-nav */}
       <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm w-fit">
         {[
-          { label: "Config", href: `/dashboard/sites/${id}` },
+          { label: t.siteTabs.config, href: `/dashboard/sites/${id}` },
           {
-            label: "Analytics",
+            label: t.siteTabs.analytics,
             href: `/dashboard/sites/${id}/analytics`,
             active: true,
           },
-          { label: "WCAG Scan", href: `/dashboard/sites/${id}/scan` },
-          { label: "Statement", href: `/dashboard/sites/${id}/statement` },
+          { label: t.siteTabs.wcagScan, href: `/dashboard/sites/${id}/scan` },
+          {
+            label: t.siteTabs.statement,
+            href: `/dashboard/sites/${id}/statement`,
+          },
         ].map((tab) => (
           <a
             key={tab.href}
@@ -196,7 +217,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
           <h2 className="text-xl font-black text-gray-900 dark:text-white">
-            {site.name} — Last {days} Days
+            {site.name} — {t.analytics.lastDays.replace("{days}", String(days))}
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             {site.domain}
@@ -225,7 +246,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            Export CSV
+            {t.analytics.exportCsv}
           </a>
         </div>
       </div>
@@ -250,11 +271,11 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       {/* Daily trend chart */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-5">
-          Daily Events ({days} days)
+          {t.analytics.dailyEvents} ({days})
         </h3>
         {events.length === 0 ? (
           <p className="text-sm text-gray-400 dark:text-gray-600 text-center py-8">
-            No events yet. Embed the widget on your site to start tracking.
+            {t.analytics.noEventsYet}
           </p>
         ) : (
           <TrendChart data={daily} />
@@ -265,17 +286,21 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="flex items-center justify-between mb-5">
           <h3 className="font-semibold text-gray-900 dark:text-white">
-            Feature Adoption
+            {t.analytics.featureAdoption}
           </h3>
           {uniqueSessions > 0 && (
             <span className="text-xs text-gray-400 dark:text-gray-600">
-              % of {uniqueSessions.toLocaleString()} unique sessions
+              %{" "}
+              {t.analytics.ofUniqueSessions.replace(
+                "{count}",
+                uniqueSessions.toLocaleString(),
+              )}
             </span>
           )}
         </div>
         {featureStats.length === 0 ? (
           <p className="text-sm text-gray-400 dark:text-gray-600 text-center py-8">
-            No feature activations yet in the last {days} days.
+            {t.analytics.noFeatureActivations.replace("{days}", String(days))}
           </p>
         ) : (
           <div className="space-y-3">
@@ -286,13 +311,13 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
                 <thead>
                   <tr className="border-b border-[#e8eaf0] dark:border-[#2a2a3e]">
                     <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                      Feature
+                      {t.analytics.feature}
                     </th>
                     <th className="text-right py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                      Sessions
+                      {t.analytics.sessions}
                     </th>
                     <th className="text-right py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                      Adoption
+                      {t.analytics.adoption}
                     </th>
                   </tr>
                 </thead>
@@ -310,7 +335,11 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
                       </td>
                       <td className="py-2 text-right">
                         <span
-                          className={`font-medium ${f.adoptionPct >= 20 ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}`}
+                          className={`font-medium ${
+                            f.adoptionPct >= 20
+                              ? "text-green-600 dark:text-green-400"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
                         >
                           {f.adoptionPct}%
                         </span>
@@ -327,14 +356,14 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       {/* Embed Domains */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
-          Embed Domains
+          {t.analytics.embedDomains}
         </h3>
         <p className="text-xs text-gray-400 dark:text-gray-600 mb-4">
-          Domains that loaded your widget in the last {days} days.
+          {t.analytics.embedDomainsDesc.replace("{days}", String(days))}
         </p>
         {domainLoads.length === 0 ? (
           <p className="text-sm text-gray-400 dark:text-gray-600 text-center py-8">
-            No domain loads recorded yet.
+            {t.analytics.noDomainLoads}
           </p>
         ) : (
           <div className="overflow-x-auto">
@@ -342,13 +371,13 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
               <thead>
                 <tr className="border-b border-[#e8eaf0] dark:border-[#2a2a3e]">
                   <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                    Domain
+                    {t.analytics.domain}
                   </th>
                   <th className="text-right py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                    Loads
+                    {t.analytics.loads}
                   </th>
                   <th className="text-right py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                    Last Seen
+                    {t.analytics.lastSeen}
                   </th>
                 </tr>
               </thead>
@@ -381,24 +410,28 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-gray-900 dark:text-white">
-            Recent Events
+            {t.analytics.recentEvents}
           </h3>
           {events.length > 50 && (
             <span className="text-xs text-gray-400 dark:text-gray-600">
-              Showing 50 of {events.length.toLocaleString()} —{" "}
+              {t.analytics.showingOf.replace(
+                "{total}",
+                events.length.toLocaleString(),
+              )}{" "}
+              —{" "}
               <a
                 href={`/api/sites/${id}/analytics/export?days=${days}`}
                 download
                 className="text-blue-600 dark:text-blue-400 hover:underline"
               >
-                export all
+                {t.analytics.exportAll}
               </a>
             </span>
           )}
         </div>
         {events.length === 0 ? (
           <p className="text-sm text-gray-400 dark:text-gray-600 text-center py-8">
-            No events yet. Embed the widget on your site to start tracking.
+            {t.analytics.noEventsYet}
           </p>
         ) : (
           <div className="overflow-x-auto">
@@ -406,13 +439,13 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
               <thead>
                 <tr className="border-b border-[#e8eaf0] dark:border-[#2a2a3e]">
                   <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                    Event
+                    {t.analytics.event}
                   </th>
                   <th className="text-left py-2 pr-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                    Feature
+                    {t.analytics.feature}
                   </th>
                   <th className="text-left py-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                    Time
+                    {t.analytics.time}
                   </th>
                 </tr>
               </thead>
@@ -429,7 +462,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
                     </td>
                     <td className="py-2 pr-4 text-gray-500 dark:text-gray-400">
                       {event.feature
-                        ? (featureLabels[event.feature] ?? event.feature)
+                        ? featureLabels[event.feature] ?? event.feature
                         : "—"}
                     </td>
                     <td className="py-2 text-gray-400 dark:text-gray-600 text-xs">

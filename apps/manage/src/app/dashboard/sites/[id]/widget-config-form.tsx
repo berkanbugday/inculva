@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { ConfigTabGeneral } from "./config-tab-general";
 import { ConfigTabFeaturesRHF } from "./config-tab-features-rhf";
+import { useMessages } from "@/i18n/useMessages";
 
 export type Config = {
   position: string;
@@ -51,12 +52,9 @@ export type Config = {
   profileParkinson: boolean;
 };
 
-const TABS = [
-  { id: "general", label: "General" },
-  { id: "features", label: "Features & Profiles" },
-] as const;
+const TAB_IDS = ["general", "features"] as const;
 
-type TabId = (typeof TABS)[number]["id"];
+type TabId = (typeof TAB_IDS)[number];
 
 interface Props {
   siteId: string;
@@ -75,10 +73,16 @@ export function WidgetConfigForm({
 }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const t = useMessages();
   const tabParam = searchParams.get("tab");
-  const activeTab: TabId = TABS.some((t) => t.id === tabParam)
+  const activeTab: TabId = TAB_IDS.includes(tabParam as TabId)
     ? (tabParam as TabId)
     : "general";
+
+  const TABS = [
+    { id: "general" as const, label: t.configTabs.general },
+    { id: "features" as const, label: t.configTabs.featuresAndProfiles },
+  ];
 
   const methods = useForm<Config>({
     defaultValues: config,
@@ -95,7 +99,7 @@ export function WidgetConfigForm({
     <FormProvider {...methods}>
       <div className="space-y-6">
         <nav className="flex gap-1 bg-white dark:bg-[#1a1a2e] rounded-2xl p-1.5 shadow-sm overflow-x-auto w-full sm:w-fit">
-          {TABS.map((tab) => (
+          {TABS.map((tab: { id: TabId; label: string }) => (
             <button
               key={tab.id}
               type="button"
@@ -119,9 +123,7 @@ export function WidgetConfigForm({
             widgetScriptSrc={widgetScriptSrc}
           />
         )}
-        {activeTab === "features" && (
-          <ConfigTabFeaturesRHF siteId={siteId} />
-        )}
+        {activeTab === "features" && <ConfigTabFeaturesRHF siteId={siteId} />}
       </div>
     </FormProvider>
   );

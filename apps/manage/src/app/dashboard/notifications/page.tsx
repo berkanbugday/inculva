@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { NotificationsClient } from "./notifications-client";
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale } from "@/i18n/messages";
 
 export const metadata = { title: "Notifications — Inculva" };
 
@@ -13,6 +15,14 @@ interface Props {
 export default async function NotificationsPage({ searchParams }: Props) {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect("/login");
+
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (
+    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+      ? cookieLocale
+      : "en"
+  ) as Locale;
+  const t = getMessages(locale);
 
   const params = await searchParams;
   const page = Math.max(1, Number(params.page ?? 1));
@@ -54,7 +64,7 @@ export default async function NotificationsPage({ searchParams }: Props) {
     <main className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-2xl font-black text-gray-900 dark:text-white">
-          Notifications
+          {t.notificationsPage.title}
           {unreadCount > 0 && (
             <span className="ml-2 px-2 py-0.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 text-sm font-semibold rounded-full">
               {unreadCount}
@@ -73,7 +83,7 @@ export default async function NotificationsPage({ searchParams }: Props) {
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
               }`}
             >
-              All
+              {t.notificationsPage.filterAll}
             </a>
             <a
               href="/dashboard/notifications?filter=unread"
@@ -83,7 +93,7 @@ export default async function NotificationsPage({ searchParams }: Props) {
                   : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
               }`}
             >
-              Unread
+              {t.notificationsPage.filterUnread}
             </a>
           </div>
         </div>
@@ -111,8 +121,8 @@ export default async function NotificationsPage({ searchParams }: Props) {
             </div>
             <p className="text-gray-500 dark:text-gray-400 text-sm">
               {filter === "unread"
-                ? "No unread notifications"
-                : "No notifications yet"}
+                ? t.notificationsPage.noUnread
+                : t.notificationsPage.noNotifications}
             </p>
           </div>
         ) : (
@@ -134,23 +144,32 @@ export default async function NotificationsPage({ searchParams }: Props) {
       {pages > 1 && (
         <div className="flex items-center justify-between">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Page {page} of {pages} · {total} total
+            {t.notificationsPage.pageOf
+              .replace("{page}", String(page))
+              .replace("{pages}", String(pages))}{" "}
+            · {total} {t.notificationsPage.total}
           </p>
           <div className="flex gap-2">
             {page > 1 && (
               <a
-                href={`/dashboard/notifications?${new URLSearchParams({ filter, page: String(page - 1) })}`}
+                href={`/dashboard/notifications?${new URLSearchParams({
+                  filter,
+                  page: String(page - 1),
+                })}`}
                 className="px-4 py-2 text-sm font-semibold border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                Previous
+                {t.notificationsPage.previous}
               </a>
             )}
             {page < pages && (
               <a
-                href={`/dashboard/notifications?${new URLSearchParams({ filter, page: String(page + 1) })}`}
+                href={`/dashboard/notifications?${new URLSearchParams({
+                  filter,
+                  page: String(page + 1),
+                })}`}
                 className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors cursor-pointer"
               >
-                Next
+                {t.notificationsPage.next}
               </a>
             )}
           </div>

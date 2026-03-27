@@ -5,18 +5,46 @@ import { useFormContext } from "react-hook-form";
 import { FeatureToggle } from "./feature-toggle";
 import type { Config } from "./widget-config-form";
 import type { WidgetFeatures } from "@inculva/types";
+import { useMessages } from "@/i18n/useMessages";
 
 const CDN_URL = process.env.NEXT_PUBLIC_CDN_URL || "https://cdn.inculva.com";
 
 const FEATURE_KEYS: (keyof Config)[] = [
-  "textResizing", "dyslexiaFont", "cursorEnhancement", "keyboardNavigation",
-  "readingGuide", "screenReader", "pauseAnimations", "textSpacing",
-  "highlightLinks", "colorBlindMode", "largeClickTargets", "focusHighlight",
-  "skipNavigation", "muteMedia", "readingMask", "textAlign", "saturation",
-  "blueLightFilter", "hideImages", "darkMode", "contentMagnifier", "toolTips",
-  "sustainabilityMode", "slowCursor", "dictionary", "lineHeight", "highlightTitles",
-  "profileAdhd", "profileBlind", "profileLowVision", "profileColorBlind",
-  "profileDyslexia", "profileMotorImpaired", "profileCognitive", "profileSeizure",
+  "textResizing",
+  "dyslexiaFont",
+  "cursorEnhancement",
+  "keyboardNavigation",
+  "readingGuide",
+  "screenReader",
+  "pauseAnimations",
+  "textSpacing",
+  "highlightLinks",
+  "colorBlindMode",
+  "largeClickTargets",
+  "focusHighlight",
+  "skipNavigation",
+  "muteMedia",
+  "readingMask",
+  "textAlign",
+  "saturation",
+  "blueLightFilter",
+  "hideImages",
+  "darkMode",
+  "contentMagnifier",
+  "toolTips",
+  "sustainabilityMode",
+  "slowCursor",
+  "dictionary",
+  "lineHeight",
+  "highlightTitles",
+  "profileAdhd",
+  "profileBlind",
+  "profileLowVision",
+  "profileColorBlind",
+  "profileDyslexia",
+  "profileMotorImpaired",
+  "profileCognitive",
+  "profileSeizure",
   "profileParkinson",
 ];
 
@@ -264,6 +292,7 @@ interface Props {
 }
 
 export function ConfigTabFeaturesRHF({ siteId }: Props) {
+  const t = useMessages();
   const { watch, setValue, getValues, resetField } = useFormContext<Config>();
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -286,10 +315,10 @@ export function ConfigTabFeaturesRHF({ siteId }: Props) {
         });
       } else {
         const json = (await res.json()) as { error?: string };
-        setSaveError(json.error ?? "Failed to save — please try again");
+        setSaveError(json.error ?? t.featuresTab.failedToSave);
       }
     } catch {
-      setSaveError("Network error — please check your connection");
+      setSaveError(t.featuresTab.networkError);
     } finally {
       setSaving(false);
     }
@@ -317,11 +346,11 @@ export function ConfigTabFeaturesRHF({ siteId }: Props) {
           className="w-full flex items-center justify-between text-left hover:opacity-80 transition-opacity cursor-pointer mb-5"
         >
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-            Accessibility Profiles
+            {t.featuresTab.accessibilityProfiles}
           </h3>
           <div className="flex items-center gap-3">
             <span className="text-xs text-gray-400 dark:text-gray-600">
-              {enabledProfilesCount} of {PROFILES.length} enabled
+              {enabledProfilesCount} {t.featuresTab.ofEnabled} {PROFILES.length}
             </span>
             <svg
               width="16"
@@ -494,19 +523,23 @@ export function ConfigTabFeaturesRHF({ siteId }: Props) {
           onClick={() => {
             const all = getValues();
             const data = Object.fromEntries(
-              FEATURE_KEYS.map((k) => [k, all[k]])
+              FEATURE_KEYS.map((k) => [k, all[k]]),
             ) as Partial<Config>;
             void onSave(data);
           }}
           className="px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {saving ? "Saving…" : "Save Changes"}
+          {saving ? t.featuresTab.saving : t.featuresTab.saveChanges}
         </button>
         {saved && (
-          <span className="text-sm text-green-600 dark:text-green-400">Saved!</span>
+          <span className="text-sm text-green-600 dark:text-green-400">
+            {t.featuresTab.saved}
+          </span>
         )}
         {saveError && (
-          <span className="text-sm text-red-600 dark:text-red-400">{saveError}</span>
+          <span className="text-sm text-red-600 dark:text-red-400">
+            {saveError}
+          </span>
         )}
       </div>
     </div>

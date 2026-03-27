@@ -31,13 +31,19 @@ export function getLocale(): Locale {
 }
 
 export function setLocale(locale: Locale): void {
-  document.cookie = `locale=${locale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+  document.cookie = `locale=${locale}; path=/; max-age=${
+    60 * 60 * 24 * 365
+  }; SameSite=Lax`;
+  window.dispatchEvent(new Event("locale-change"));
 }
 
 function subscribe(cb: () => void): () => void {
-  // Re-check when the cookie might change (storage events, etc.)
   window.addEventListener("languagechange", cb);
-  return () => window.removeEventListener("languagechange", cb);
+  window.addEventListener("locale-change", cb);
+  return () => {
+    window.removeEventListener("languagechange", cb);
+    window.removeEventListener("locale-change", cb);
+  };
 }
 
 function getSnapshot(): DashboardMessages {
@@ -53,9 +59,5 @@ export function useMessages(): DashboardMessages {
 }
 
 export function useLocale(): Locale {
-  return useSyncExternalStore(
-    subscribe,
-    getLocale,
-    () => "en" as Locale,
-  );
+  return useSyncExternalStore(subscribe, getLocale, () => "en" as Locale);
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useMessages } from "@/i18n/useMessages";
 
 interface Props {
   siteId: string;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export function SiteNameForm({ siteId, initialName }: Props) {
+  const t = useMessages();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(initialName);
   const [draft, setDraft] = useState(initialName);
@@ -21,7 +23,7 @@ export function SiteNameForm({ siteId, initialName }: Props) {
       return;
     }
     if (trimmed.length < 1 || trimmed.length > 100) {
-      setError("Name must be 1–100 characters.");
+      setError(t.siteName.nameLengthError);
       return;
     }
     setSaving(true);
@@ -40,7 +42,7 @@ export function SiteNameForm({ siteId, initialName }: Props) {
       setName(trimmed);
       setEditing(false);
     } catch {
-      setError("Network error.");
+      setError(t.siteName.networkError);
     } finally {
       setSaving(false);
     }
@@ -48,7 +50,11 @@ export function SiteNameForm({ siteId, initialName }: Props) {
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") handleSave();
-    if (e.key === "Escape") { setDraft(name); setEditing(false); setError(""); }
+    if (e.key === "Escape") {
+      setDraft(name);
+      setEditing(false);
+      setError("");
+    }
   }
 
   if (editing) {
@@ -69,13 +75,17 @@ export function SiteNameForm({ siteId, initialName }: Props) {
             disabled={saving}
             className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
           >
-            {saving ? "Saving…" : "Save"}
+            {saving ? t.siteName.saving : t.siteName.save}
           </button>
           <button
-            onClick={() => { setDraft(name); setEditing(false); setError(""); }}
+            onClick={() => {
+              setDraft(name);
+              setEditing(false);
+              setError("");
+            }}
             className="text-xs px-3 py-1.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
           >
-            Cancel
+            {t.siteName.cancel}
           </button>
         </div>
         {error && <p className="text-xs text-red-500">{error}</p>}
@@ -85,14 +95,25 @@ export function SiteNameForm({ siteId, initialName }: Props) {
 
   return (
     <button
-      onClick={() => { setDraft(name); setEditing(true); }}
+      onClick={() => {
+        setDraft(name);
+        setEditing(true);
+      }}
       className="group flex items-center gap-2 text-left"
-      title="Click to rename"
+      title={t.siteName.clickToRename}
     >
-      <span className="text-xl font-bold text-gray-900 dark:text-white">{name}</span>
+      <span className="text-xl font-bold text-gray-900 dark:text-white">
+        {name}
+      </span>
       <svg
-        width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />

@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { POLAR_PRODUCTS } from "@inculva/types";
 import type { Plan } from "@inculva/types";
 import { CancelSubscriptionButton } from "./cancel-button";
@@ -9,13 +9,8 @@ import { getFreeTrialEnd } from "@/lib/plan";
 import { polar, isPolarConfigured } from "@/lib/polar";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
-const STATUS_LABEL: Record<string, string> = {
-  active: "Active",
-  trialing: "Trial",
-  past_due: "Payment overdue",
-  canceled: "Canceled",
-};
+import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
+import type { Locale } from "@/i18n/messages";
 
 export default async function BillingPage({
   searchParams,
@@ -99,11 +94,26 @@ export default async function BillingPage({
   const plan = (user?.plan ?? "free") as Plan;
   const sub = user?.subscription;
 
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (
+    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+      ? cookieLocale
+      : "en"
+  ) as Locale;
+  const t = getMessages(locale);
+
   const planLabel: Record<Plan, string> = {
-    free: "Free",
-    small: "Small",
-    medium: "Medium",
-    large: "Large",
+    free: t.billing.planNameFree,
+    small: t.billing.planNameSmall,
+    medium: t.billing.planNameMedium,
+    large: t.billing.planNameLarge,
+  };
+
+  const STATUS_LABEL: Record<string, string> = {
+    active: t.billing.statusActive,
+    trialing: t.billing.statusTrial,
+    past_due: t.billing.statusPaymentOverdue,
+    canceled: t.billing.statusCanceled,
   };
 
   const renewalDate = sub
@@ -130,10 +140,10 @@ export default async function BillingPage({
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Billing
+          {t.billing.title}
         </h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          Manage your subscription and payment details
+          {t.billing.description}
         </p>
       </div>
 
@@ -141,7 +151,7 @@ export default async function BillingPage({
       <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl border border-gray-100 dark:border-[#2a2a3e] overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100 dark:border-[#2a2a3e]">
           <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wide">
-            Current subscription
+            {t.billing.currentSubscription}
           </p>
         </div>
         <div className="px-6 py-5 flex flex-wrap items-center justify-between gap-4">
@@ -179,25 +189,26 @@ export default async function BillingPage({
             </div>
             <div>
               <p className="font-semibold text-gray-900 dark:text-white">
-                {planLabel[plan]} Plan
+                {planLabel[plan]} {t.billing.plan}
                 {freeTrialActive && (
                   <span className="ml-2 text-xs font-bold text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 rounded-full">
-                    {freeTrialDaysLeft}d left
+                    {freeTrialDaysLeft} {t.billing.daysLeft}
                   </span>
                 )}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                 {sub
                   ? sub.canceledAt
-                    ? `Access until ${renewalDate}`
-                    : `Renews ${renewalDate}`
+                    ? `${t.billing.accessUntil} ${renewalDate}`
+                    : `${t.billing.renewsOn} ${renewalDate}`
                   : freeTrialActive
-                  ? `Free trial — ${freeTrialDaysLeft} day${
-                      freeTrialDaysLeft === 1 ? "" : "s"
-                    } remaining`
+                  ? t.billing.freeTrialDaysRemaining.replace(
+                      "{days}",
+                      String(freeTrialDaysLeft),
+                    )
                   : freeTrialEnd
-                  ? "Free trial expired — subscribe to continue"
-                  : "No active subscription"}
+                  ? t.billing.freeTrialExpiredSubscribe
+                  : t.billing.noActiveSubscription}
               </p>
             </div>
           </div>
@@ -208,7 +219,7 @@ export default async function BillingPage({
                 href="/api/billing/customer-portal"
                 className="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
               >
-                Manage billing
+                {t.billing.manageBilling}
                 <svg
                   width="14"
                   height="14"
@@ -236,15 +247,22 @@ export default async function BillingPage({
           <div className="px-6 py-3 bg-gray-50 dark:bg-[#0e0e10] border-t border-gray-100 dark:border-[#2a2a3e] flex flex-wrap gap-x-8 gap-y-1 bg-white">
             {[
               [
-                "Status",
+                t.billing.statusLabel,
                 sub.canceledAt
-                  ? "Canceling"
+                  ? t.billing.statusCanceling
                   : STATUS_LABEL[sub.status] ?? sub.status,
               ],
-              ["Billing", sub.interval === "year" ? "Annual" : "Monthly"],
               [
-                "Period start",
-                new Date(sub.currentPeriodStart).toLocaleDateString("en-GB"),
+                t.billing.billingLabel,
+                sub.interval === "year"
+                  ? t.billing.intervalAnnual
+                  : t.billing.intervalMonthly,
+              ],
+              [
+                t.billing.periodStart,
+                new Date(sub.currentPeriodStart).toLocaleDateString(
+                  locale === "tr" ? "tr-TR" : "en-GB",
+                ),
               ],
             ].map(([label, value]) => (
               <p
@@ -287,11 +305,10 @@ export default async function BillingPage({
           </svg>
           <div>
             <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">
-              Your free trial has ended
+              {t.billing.freeTrialEnded}
             </p>
             <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
-              Subscribe to a plan below to continue using the accessibility
-              widget on your sites.
+              {t.billing.freeTrialEndedDesc}
             </p>
           </div>
         </div>
