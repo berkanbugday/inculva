@@ -63,7 +63,7 @@ export function DashboardHeader({ canAddSite, onMenuClick }: Props) {
         )}
       </div>
 
-      <div className="flex items-center gap-1 sm:gap-2">
+      <div className="flex items-center gap-1 sm:gap-3 mr-5">
         {canAddSite && (
           <a
             href="/dashboard/sites/new"
@@ -103,7 +103,7 @@ function getPageLabel(pathname: string, t: DashboardMessages): string | null {
   if (pathname.includes("/sites/new")) return t.nav.newSite;
   if (pathname.includes("/sites/")) return t.nav.customize;
   if (pathname.includes("/billing")) return t.settings.billing;
-if (pathname.includes("/settings")) return t.nav.settings;
+  if (pathname.includes("/settings")) return t.nav.settings;
   if (pathname.includes("/notifications")) return t.nav.notifications;
   return null;
 }

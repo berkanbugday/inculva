@@ -161,7 +161,7 @@ export function SiteWizard({ createSite, error }: Props) {
             </p>
             <a
               href="/dashboard/settings/billing"
-              className="text-sm text-amber-700 dark:text-amber-400 hover:underline font-medium mt-1 inline-block"
+              className="text-sm text-amber-700 dark:text-amber-400 hover:underline font-medium mt-1 inline-block cursor-pointer"
             >
               {t.wizard.viewUpgradeOptions}
             </a>
@@ -346,7 +346,7 @@ export function SiteWizard({ createSite, error }: Props) {
                     type="button"
                     onClick={() => update("primaryColor", color)}
                     className={cn(
-                      "w-9 h-9 rounded-full border-2 transition-transform hover:scale-110",
+                      "w-9 h-9 rounded-full border-2 transition-transform hover:scale-110 cursor-pointer",
                       state.primaryColor === color
                         ? "border-gray-900 dark:border-white scale-110"
                         : "border-transparent",
@@ -530,7 +530,7 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={() => setStep((s) => s - 1)}
             disabled={isPending}
-            className="px-5 py-3 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] text-gray-700 dark:text-gray-300 rounded-full text-base font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="px-5 py-3 bg-[#f8f9fc] dark:bg-[#0e0e10] border border-[#e8eaf0] dark:border-[#2a2a3e] text-gray-700 dark:text-gray-300 rounded-full text-base font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
           >
             {t.wizard.back}
           </button>
@@ -540,7 +540,7 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={() => void handleNext()}
             disabled={!canAdvance() || dnsStatus === "checking"}
-            className="px-5 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-5 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
           >
             {dnsStatus === "checking" ? t.wizard.dnsChecking : t.wizard.continue}
           </button>
@@ -549,14 +549,14 @@ export function SiteWizard({ createSite, error }: Props) {
             type="button"
             onClick={handleSubmit}
             disabled={isPending}
-            className="px-6 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 cursor-pointer disabled:cursor-not-allowed"
           >
             {isPending ? t.wizard.creating : t.wizard.createSite}
           </button>
         )}
         <a
           href="/dashboard"
-          className="px-5 py-3 text-gray-500 dark:text-gray-400 rounded-full text-base font-semibold hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+          className="px-5 py-3 text-gray-500 dark:text-gray-400 rounded-full text-base font-semibold hover:text-gray-700 dark:hover:text-gray-300 transition-colors cursor-pointer"
         >
           {t.wizard.cancelLabel}
         </a>

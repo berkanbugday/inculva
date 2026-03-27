@@ -78,11 +78,11 @@ export function NotificationBell() {
       <button
         onClick={handleOpen}
         aria-label={`Notifications${unread > 0 ? ` (${unread} unread)` : ""}`}
-        className="relative w-9 h-9 flex items-center justify-center rounded-2xl text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#0e0e10] transition-colors cursor-pointer"
+        className="relative w-9 h-9 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#0e0e10] transition-colors cursor-pointer"
       >
         <svg
-          width="18"
-          height="18"
+          width="22"
+          height="22"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -101,7 +101,7 @@ export function NotificationBell() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-10 w-80 bg-white dark:bg-[#1a1a2e] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-3xl shadow-xl z-50 overflow-hidden">
+        <div className="absolute right-0 top-10 w-80 bg-white dark:bg-[#1a1a2e] border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl shadow-xl z-50 overflow-hidden">
           <div className="px-4 py-3 border-b border-[#e8eaf0] dark:border-[#2a2a3e] flex items-center justify-between">
             <span className="text-sm font-semibold text-gray-900 dark:text-white">
               {t.notificationsPage.title}

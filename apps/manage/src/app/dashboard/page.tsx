@@ -38,9 +38,6 @@ export default async function DashboardPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  const totalOpens = sites.reduce((a, s) => a + s._count.widgetEvents, 0);
-  const liveSites = sites.filter((s) => s.healthStatus === "healthy").length;
-
   function getComplianceScore(violations: number | null | undefined): {
     label: string;
     color: string;
@@ -49,8 +46,8 @@ export default async function DashboardPage() {
     if (violations === null || violations === undefined)
       return {
         label: t.siteHealth.notScanned,
-        color: "text-gray-400 dark:text-gray-600",
-        dot: "bg-gray-300 dark:bg-gray-700",
+        color: "text-gray-400 dark:text-gray-500",
+        dot: "bg-gray-300 dark:bg-gray-600",
       };
     if (violations === 0)
       return {
@@ -77,48 +74,25 @@ export default async function DashboardPage() {
     };
   }
 
-  function getHealthLabel(status: string | null) {
-    if (status === "healthy") return t.siteHealth.live;
-    if (status === "degraded") return t.siteHealth.offline;
-    return t.siteHealth.checking;
-  }
-
   return (
     <div>
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-black text-gray-900 dark:text-white">
-          {t.dashboard.title}
-        </h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          {sites.length === 0
-            ? t.dashboard.noSites
-            : `${sites.length} ${sites.length !== 1 ? t.dashboard.sitesConnected : t.dashboard.siteConnected}`}
-        </p>
-      </div>
-
-      {/* Stats row */}
-      {sites.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
-          {[
-            { label: t.dashboard.totalSites, value: sites.length },
-            { label: t.dashboard.widgetOpens, value: totalOpens },
-            { label: t.dashboard.liveSites, value: liveSites },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-6 sm:p-8"
-            >
-              <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                {stat.label}
-              </p>
-              <p className="text-3xl sm:text-4xl font-black bg-gradient-to-br from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                {stat.value.toLocaleString()}
-              </p>
-            </div>
-          ))}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-black text-gray-900 dark:text-white">
+            {t.dashboard.title}
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+            {sites.length === 0
+              ? t.dashboard.noSites
+              : `${sites.length} ${
+                  sites.length !== 1
+                    ? t.dashboard.sitesConnected
+                    : t.dashboard.siteConnected
+                }`}
+          </p>
         </div>
-      )}
+      </div>
 
       {sites.length === 0 ? (
         <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl border-2 border-dashed border-blue-200 dark:border-blue-900 p-8 sm:p-16 text-center">
@@ -159,102 +133,94 @@ export default async function DashboardPage() {
           </a>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-3">
           {sites.map((site) => {
             const score = getComplianceScore(
               site.widgetConfig?.lastScanViolations,
             );
-            const isLive = site.healthStatus === "healthy";
-            const isDown = site.healthStatus === "degraded";
+            const opens = site._count.widgetEvents;
 
             return (
-              <div
+              <a
                 key={site.id}
-                className="bg-white dark:bg-[#1a1a2e] rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col gap-4"
+                href={`/dashboard/sites/${site.id}`}
+                className="flex items-center gap-4 bg-white dark:bg-[#1a1a2e] rounded-2xl px-5 py-4 shadow-sm hover:shadow-md transition-shadow group cursor-pointer"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950 flex items-center justify-center shrink-0">
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        className="text-blue-600 dark:text-blue-400"
-                        aria-hidden="true"
-                      >
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="9"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                        />
-                        <path
-                          d="M12 3C10 5.5 9 8.7 9 12s1 6.5 3 9M12 3c2 2.5 3 5.7 3 9s-1 6.5-3 9M3 12h18"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                        />
-                      </svg>
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-bold text-gray-900 dark:text-white text-sm truncate">
-                        {site.domain}
-                      </p>
-                      {site.name !== site.domain && (
-                        <p className="text-xs text-gray-400 truncate">
-                          {site.name}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                  {site.healthStatus && (
-                    <span
-                      className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 ${
-                        isLive
-                          ? "bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-400"
-                          : isDown
-                            ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-400"
-                            : "bg-gray-100 dark:bg-gray-800 text-gray-500"
-                      }`}
-                    >
-                      <span
-                        className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-green-500" : isDown ? "bg-red-500" : "bg-gray-400"}`}
-                      />
-                      {getHealthLabel(site.healthStatus)}
-                    </span>
+                {/* Site icon */}
+                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950 flex items-center justify-center shrink-0">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="text-blue-600 dark:text-blue-400"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="9"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <path
+                      d="M12 3C10 5.5 9 8.7 9 12s1 6.5 3 9M12 3c2 2.5 3 5.7 3 9s-1 6.5-3 9M3 12h18"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                  </svg>
+                </div>
+
+                {/* Domain & name */}
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-sm text-gray-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    {site.domain}
+                  </p>
+                  {site.name !== site.domain && (
+                    <p className="text-xs text-gray-400 dark:text-gray-500 truncate">
+                      {site.name}
+                    </p>
                   )}
                 </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-3">
-                    <p className="text-xs text-gray-400 mb-0.5">{t.sites.opens}</p>
-                    <p className="text-lg font-black text-gray-900 dark:text-white">
-                      {site._count.widgetEvents.toLocaleString()}
+                <div className="flex gap-10 mr-5">
+                  {/* Widget opens */}
+                  <div className="hidden sm:block text-center shrink-0">
+                    <p className="text-sm font-bold text-xl text-black dark:text-white tabular-nums">
+                      {opens.toLocaleString()}
+                    </p>
+                    <p className="text-xs  text-gray-400 dark:text-gray-500">
+                      {t.sites.opens}
                     </p>
                   </div>
-                  <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl p-3">
-                    <p className="text-xs text-gray-400 mb-0.5">{t.sites.wcagScore}</p>
-                    <p
-                      className={`text-sm font-bold flex items-center gap-1.5 mt-0.5 ${score.color}`}
-                    >
-                      <span
-                        className={`w-2 h-2 rounded-full shrink-0 ${score.dot}`}
-                      />
+
+                  {/* WCAG score */}
+                  <div className="hidden sm:flex items-center justify-end gap-1.5 shrink-0 min-w-[100px]">
+                    <span
+                      className={`w-2 h-2 rounded-full shrink-0 ${score.dot}`}
+                    />
+                    <span className={`text-sm font-semibold ${score.color}`}>
                       {score.label}
-                    </p>
+                    </span>
                   </div>
                 </div>
-
-                <div className="pt-2 border-t border-[#e8eaf0] dark:border-[#2a2a3e]">
-                  <a
-                    href={`/dashboard/sites/${site.id}`}
-                    className="block text-center text-xs font-semibold text-blue-600 dark:text-blue-400 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-950 transition-colors cursor-pointer"
-                  >
-                    {t.dashboard.open} &rarr;
-                  </a>
-                </div>
-              </div>
+                {/* Arrow */}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  className="text-gray-300 dark:text-gray-600 group-hover:text-blue-500 transition-colors shrink-0"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M6 3l5 5-5 5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
             );
           })}
         </div>

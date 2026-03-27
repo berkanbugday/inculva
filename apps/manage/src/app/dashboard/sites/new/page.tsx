@@ -146,7 +146,7 @@ export default async function NewSitePage({ searchParams }: Props) {
       <nav className="flex items-center gap-2 text-sm mb-8">
         <a
           href="/dashboard"
-          className="text-gray-400 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-400"
+          className="text-gray-400 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-400 cursor-pointer"
         >
           Dashboard
         </a>
