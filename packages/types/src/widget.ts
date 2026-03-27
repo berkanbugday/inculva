@@ -24,6 +24,8 @@ export interface WidgetConfig {
   /** White-label (Large plan only). null=show "Powered by Inculva", ""=hide, string=show custom */
   whiteLabelText?: string | null;
   buttonSize?: "small" | "medium" | "large";
+  buttonIcon?: string;
+  profiles?: WidgetProfiles;
   /** Custom background color for the panel header (hex/rgb/hsl string) */
   headerBgColor?: string;
   /** Custom background color for the panel footer (hex/rgb/hsl string) */

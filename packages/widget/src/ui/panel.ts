@@ -1,4 +1,4 @@
-import type { ColorBlindType, WidgetFeatures } from "@inculva/types";
+import type { ColorBlindType, WidgetFeatures, WidgetProfiles } from "@inculva/types";
 import { FEATURE_LEVELS } from "../features/index.js";
 import { LOGO_PNG } from "virtual:logo-svg";
 import { LOGO_ICON_PNG } from "virtual:logo-icon-svg";
@@ -552,7 +552,16 @@ function _buildControlsBar(
   return bar;
 }
 
-function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
+const PROFILE_KEY_MAP: Record<string, keyof WidgetProfiles> = {
+  blind: "profileBlind",
+  lowVision: "profileLowVision",
+  dyslexia: "profileDyslexia",
+  colorBlind: "profileColorBlind",
+  motorImpaired: "profileMotorImpaired",
+  attention: "profileAdhd",
+};
+
+function _buildProfileSection(labels: Record<string, string>, profiles?: WidgetProfiles): HTMLDivElement {
   const section = document.createElement("div");
   section.className = "inculva-profiles-section";
 
@@ -571,8 +580,12 @@ function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
   grid.hidden = true;
 
   for (const profile of PROFILES) {
+    const apiKey = PROFILE_KEY_MAP[profile.key];
+    const visible = !profiles || !apiKey || profiles[apiKey] !== false;
+
     const card = document.createElement("button");
     card.className = "inculva-profile-card";
+    if (!visible) card.classList.add("inculva-hidden");
     card.setAttribute("type", "button");
     card.setAttribute("aria-pressed", "false");
     card.dataset["profile"] = profile.key;
@@ -580,7 +593,8 @@ function _buildProfileSection(labels: Record<string, string>): HTMLDivElement {
     const iconWrap = document.createElement("span");
     iconWrap.className = "inculva-profile-card-icon";
     iconWrap.setAttribute("aria-hidden", "true");
-    iconWrap.innerHTML = profile.icon;
+    // profile.icon is a hardcoded SVG constant, not user input
+    iconWrap.innerHTML = profile.icon; // eslint-disable-line no-unsanitized/property
 
     const labelSpan = document.createElement("span");
     labelSpan.textContent = labels[`profile_${profile.key}`] ?? profile.label;
@@ -793,6 +807,7 @@ export function createPanel(
   accessibilityStatementUrl?: string,
   whiteLabelText?: string | null,
   isOnLeft = false,
+  profiles?: WidgetProfiles,
 ): HTMLDivElement {
   const labels = getLabels(language);
 
@@ -805,7 +820,7 @@ export function createPanel(
   if (RTL_LANGS.has(language)) panel.setAttribute("dir", "rtl");
 
   panel.appendChild(_buildHeader(labels));
-  panel.appendChild(_buildProfileSection(labels));
+  panel.appendChild(_buildProfileSection(labels, profiles));
   panel.appendChild(_buildControlsBar(language, labels));
   panel.appendChild(_buildBody(features, labels));
   panel.appendChild(_buildMiniActions());
@@ -825,6 +840,7 @@ export function updatePanel(
   remoteLabels?: Record<string, string>,
   accessibilityStatementUrl?: string,
   whiteLabelText?: string | null,
+  profiles?: WidgetProfiles,
 ): void {
   const labels: Record<string, string> = remoteLabels
     ? { ...EN_LABELS, ...remoteLabels }
@@ -909,12 +925,20 @@ export function updatePanel(
     }
   }
 
-  // Update profile card labels
+  // Update profile card labels and visibility
   for (const profile of PROFILES) {
     const card = panel.querySelector<HTMLElement>(
       `[data-profile="${profile.key}"]`,
     );
     if (!card) continue;
+
+    // Hide/show based on profiles config
+    if (profiles) {
+      const apiKey = PROFILE_KEY_MAP[profile.key];
+      const visible = !apiKey || profiles[apiKey] !== false;
+      card.classList.toggle("inculva-hidden", !visible);
+    }
+
     // The last span in the card is the text label
     const spans = card.querySelectorAll<HTMLElement>("span");
     const labelEl = spans[spans.length - 1];

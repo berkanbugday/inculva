@@ -71,6 +71,14 @@ const DEFAULT_CONFIG: Omit<WidgetConfig, "siteId"> = {
     lineHeight: true,
     highlightTitles: true,
   },
+  profiles: {
+    profileAdhd: true,
+    profileBlind: true,
+    profileLowVision: true,
+    profileColorBlind: true,
+    profileDyslexia: true,
+    profileMotorImpaired: true,
+  },
 };
 
 class InculvaWidget {
@@ -108,6 +116,10 @@ class InculvaWidget {
       features: {
         ...DEFAULT_CONFIG.features,
         ...partialConfig.features,
+      },
+      profiles: {
+        ...DEFAULT_CONFIG.profiles,
+        ...partialConfig.profiles,
       },
     };
     // In preview mode, remember the caller's overrides so they win over remote config
@@ -206,6 +218,7 @@ class InculvaWidget {
       this.config.accessibilityStatementUrl,
       this.config.whiteLabelText,
       this.config.position.includes("left"),
+      this.config.profiles,
     );
 
     // Transparent backdrop — captures click-outside-to-close without dimming
@@ -722,6 +735,7 @@ class InculvaWidget {
       this._labels,
       this.config.accessibilityStatementUrl,
       this.config.whiteLabelText,
+      this.config.profiles,
     );
     // Re-apply dynamic labels for active leveled features (screenReader, colorBlindMode, saturation)
     // updatePanel resets all labels to the base translation; re-applying restores the mode-specific label.
@@ -1033,6 +1047,7 @@ class InculvaWidget {
         this._labels,
         this.config.accessibilityStatementUrl,
         this.config.whiteLabelText,
+        this.config.profiles,
       );
     }
 
@@ -1178,6 +1193,8 @@ class InculvaWidget {
       if (remote.primaryColor) this.config.primaryColor = remote.primaryColor;
       if (remote.features)
         this.config.features = { ...this.config.features, ...remote.features };
+      if (remote.profiles)
+        this.config.profiles = { ...this.config.profiles, ...remote.profiles };
       if (remote.language) this.config.language = remote.language;
       if (remote.position) this.config.position = remote.position;
       if (remote.theme) this.config.theme = remote.theme;
@@ -1251,6 +1268,7 @@ class InculvaWidget {
       this._labels,
       this.config.accessibilityStatementUrl,
       this.config.whiteLabelText,
+      this.config.profiles,
     );
 
     // Sync panel side attribute with final config position (remote may override it)
