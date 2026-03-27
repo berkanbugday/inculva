@@ -101,6 +101,7 @@ export default async function BillingPage({
       : "en"
   ) as Locale;
   const t = getMessages(locale);
+  const dateLocale = locale === "tr" ? "tr-TR" : "en-US";
 
   const planLabel: Record<Plan, string> = {
     free: t.billing.planNameFree,
@@ -116,12 +117,12 @@ export default async function BillingPage({
     canceled: t.billing.statusCanceled,
   };
 
-  const renewalDate = sub
-    ? new Date(sub.currentPeriodEnd).toLocaleDateString("en", {
+  const renewalDateLocalized = sub
+    ? new Intl.DateTimeFormat(dateLocale, {
         month: "long",
         day: "numeric",
         year: "numeric",
-      })
+      }).format(new Date(sub.currentPeriodEnd))
     : "";
 
   // Free trial countdown
@@ -199,8 +200,8 @@ export default async function BillingPage({
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
                 {sub
                   ? sub.canceledAt
-                    ? `${t.billing.accessUntil} ${renewalDate}`
-                    : `${t.billing.renewsOn} ${renewalDate}`
+                    ? `${t.billing.accessUntil} ${renewalDateLocalized}`
+                    : `${t.billing.renewsOn} ${renewalDateLocalized}`
                   : freeTrialActive
                   ? t.billing.freeTrialDaysRemaining.replace(
                       "{days}",
@@ -238,7 +239,7 @@ export default async function BillingPage({
               </Link>
             )}
             {sub?.status === "active" && !sub.canceledAt && (
-              <CancelSubscriptionButton renewalDate={renewalDate} />
+              <CancelSubscriptionButton renewalDate={renewalDateLocalized} />
             )}
           </div>
         </div>
@@ -260,8 +261,8 @@ export default async function BillingPage({
               ],
               [
                 t.billing.periodStart,
-                new Date(sub.currentPeriodStart).toLocaleDateString(
-                  locale === "tr" ? "tr-TR" : "en-GB",
+                new Intl.DateTimeFormat(dateLocale).format(
+                  new Date(sub.currentPeriodStart),
                 ),
               ],
             ].map(([label, value]) => (

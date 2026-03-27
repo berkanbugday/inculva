@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Snackbar } from "@/components/ui/snackbar";
 
 interface Props {
   userId: string;
@@ -28,7 +29,7 @@ export function ChangePlanForm({ userId, currentPlan }: Props) {
       if (res.ok) {
         setSaved(true);
         // Brief success flash then reload row data
-        setTimeout(() => setSaved(false), 2000);
+        setTimeout(() => setSaved(false), 4000);
       }
     } finally {
       setLoading(false);
@@ -53,8 +54,9 @@ export function ChangePlanForm({ userId, currentPlan }: Props) {
         disabled={loading || selected === currentPlan}
         className="text-xs px-2.5 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        {loading ? "Saving…" : saved ? "Saved!" : "Save"}
+        {loading ? "Saving…" : "Save"}
       </button>
+      <Snackbar open={saved} message="Changes saved successfully." />
     </form>
   );
 }

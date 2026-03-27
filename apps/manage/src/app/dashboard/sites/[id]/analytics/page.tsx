@@ -72,6 +72,26 @@ function getFeatureLabel(t: ReturnType<typeof getMessages>, key: string): string
   }
 }
 
+function getEventLabel(
+  t: ReturnType<typeof getMessages>,
+  event: string,
+): string {
+  switch (event) {
+    case "opened":
+      return t.analytics.eventOpened;
+    case "closed":
+      return t.analytics.eventClosed;
+    case "feature_enabled":
+      return t.analytics.eventFeatureEnabled;
+    case "feature_disabled":
+      return t.analytics.eventFeatureDisabled;
+    case "profile_activated":
+      return t.analytics.eventProfileActivated;
+    default:
+      return event;
+  }
+}
+
 const VALID_DAYS = [7, 14, 30, 90] as const;
 type ValidDays = (typeof VALID_DAYS)[number];
 
@@ -98,6 +118,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
       : "en"
   ) as Locale;
   const t = getMessages(locale);
+  const dateLocale = locale === "tr" ? "tr-TR" : "en-US";
 
   const since = new Date();
   since.setDate(since.getDate() - days);
@@ -432,7 +453,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
                     </td>
                     <td className="py-2 text-right text-gray-400 dark:text-gray-600 text-xs">
                       {row._max.date
-                        ? new Date(row._max.date).toLocaleDateString()
+                        ? new Date(row._max.date).toLocaleDateString(dateLocale)
                         : "—"}
                     </td>
                   </tr>
@@ -494,7 +515,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
                   >
                     <td className="py-2 pr-4">
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
-                        {event.event}
+                        {getEventLabel(t, event.event)}
                       </span>
                     </td>
                     <td className="py-2 pr-4 text-gray-500 dark:text-gray-400">
@@ -503,7 +524,7 @@ export default async function AnalyticsPage({ params, searchParams }: Props) {
                         : "—"}
                     </td>
                     <td className="py-2 text-gray-400 dark:text-gray-600 text-xs">
-                      {new Date(event.createdAt).toLocaleString()}
+                      {new Date(event.createdAt).toLocaleString(dateLocale)}
                     </td>
                   </tr>
                 ))}

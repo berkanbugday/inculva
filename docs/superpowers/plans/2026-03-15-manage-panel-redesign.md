@@ -1347,7 +1347,6 @@ git commit -m "design: redesign settings, billing, audit log, statistics, and no
 
 - Modify: `apps/manage/src/components/verification-banner.tsx`
 - Modify: `apps/manage/src/components/cookie-banner.tsx`
-- Modify: `apps/manage/src/components/referral-banner.tsx`
 - Modify: `apps/manage/src/components/notification-bell.tsx`
 - Modify: `apps/manage/src/components/theme-toggle.tsx`
 - Modify: `apps/manage/src/components/language-switcher.tsx`
@@ -1356,7 +1355,6 @@ git commit -m "design: redesign settings, billing, audit log, statistics, and no
 
 - [ ] **Step 1: Read and update `verification-banner.tsx`** — `rounded-2xl bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 px-5 py-3.5`, action button `rounded-full bg-amber-500 text-white px-4 py-1.5 text-sm font-semibold`.
 - [ ] **Step 2: Read and update `cookie-banner.tsx`** — `rounded-3xl shadow-xl` floating card at bottom, accept button `rounded-full bg-blue-600`.
-- [ ] **Step 3: Read and update `referral-banner.tsx`** — `rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 text-white px-6 py-4`, CTA `rounded-full bg-white text-blue-600`.
 
 ### Task 26: Update header micro-components
 

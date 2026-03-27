@@ -3,7 +3,6 @@ import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ProfileForm } from "./profile-form";
 import { DeleteAccount } from "./delete-account";
-import { ReferralBanner } from "@/components/referral-banner";
 import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
 import type { Locale } from "@/i18n/messages";
 
@@ -26,8 +25,6 @@ export default async function SettingsPage() {
         name={session.user.name ?? null}
         email={session.user.email}
       />
-
-      <ReferralBanner />
 
       {/* GDPR Data Export */}
       <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-3">

@@ -7,6 +7,7 @@ import { SiteDomainForm } from "./site-domain-form";
 import { LANGUAGES } from "./languages";
 import type { Config } from "./widget-config-form";
 import { useDashboard } from "@/components/dashboard-layout-content";
+import { Snackbar } from "@/components/ui/snackbar";
 
 const GENERAL_KEYS: (keyof Config)[] = [
   "position",
@@ -90,6 +91,7 @@ export function ConfigTabGeneral({
       });
       if (res.ok) {
         setSaved(true);
+        setTimeout(() => setSaved(false), 4000);
         (Object.keys(data) as (keyof Config)[]).forEach((key) => {
           resetField(key, { defaultValue: data[key] as Config[typeof key] });
         });
@@ -370,11 +372,6 @@ export function ConfigTabGeneral({
           >
             {saving ? t.config.savingChanges : t.config.saveChanges}
           </button>
-          {saved && (
-            <span className="text-sm text-green-600 dark:text-green-400">
-              {t.config.savedLabel}
-            </span>
-          )}
           {saveError && (
             <span className="text-sm text-red-600 dark:text-red-400">
               {saveError}
@@ -382,6 +379,7 @@ export function ConfigTabGeneral({
           )}
         </div>
       </div>
+      <Snackbar open={saved} message={t.config.savedLabel} />
 
       <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 border-l-4 border-red-500">
         <h3 className="font-bold text-red-600 dark:text-red-400 mb-1">

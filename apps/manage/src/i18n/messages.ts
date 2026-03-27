@@ -540,6 +540,11 @@ export interface DashboardMessages {
     exportAll: string;
     event: string;
     time: string;
+    eventOpened: string;
+    eventClosed: string;
+    eventFeatureEnabled: string;
+    eventFeatureDisabled: string;
+    eventProfileActivated: string;
   };
   siteTabs: {
     config: string;
@@ -579,6 +584,7 @@ export interface DashboardMessages {
     profileUsage: string;
     profileUsageDesc: string;
     featureTextResizing: string;
+    featureHighContrast: string;
     featureTextAlign: string;
     featureReadingGuide: string;
     featureTextSpacing: string;
@@ -592,6 +598,7 @@ export interface DashboardMessages {
     featureColorBlindMode: string;
     featureMuteMedia: string;
     featureSkipNavigation: string;
+    featureGrayscale: string;
     featureSaturation: string;
     featureKeyboardNavigation: string;
     featureLargeClickTargets: string;
@@ -608,14 +615,6 @@ export interface DashboardMessages {
     profileColorBlind: string;
     profileDyslexia: string;
     profileMotorImpaired: string;
-  };
-  referral: {
-    title: string;
-    description: string;
-    copyLink: string;
-    copied: string;
-    yourCode: string;
-    referrals: string;
   };
   installChecker: {
     checking: string;
@@ -914,7 +913,7 @@ const en: DashboardMessages = {
     widgetPositionLabel: "Widget position",
     saveChanges: "Save Changes",
     savingChanges: "Saving\u2026",
-    savedLabel: "Saved!",
+    savedLabel: "Changes saved successfully.",
     dangerZone: "Danger Zone",
     dangerZoneDesc: "Permanently delete this site and all its data.",
     deleteSite: "Delete site",
@@ -1028,7 +1027,8 @@ const en: DashboardMessages = {
     freeTrialEndedDesc:
       "Subscribe to a plan below to continue using the accessibility widget on your sites.",
     choosePlan: "Choose a plan",
-    choosePlanDesc: "Subscribe anytime \u2014 cancel at end of billing period",
+    choosePlanDesc:
+      "Start now. You can end your plan at anytime.",
     mostPopular: "Most Popular",
     currentBadge: "Current",
     currentPlan: "Current plan",
@@ -1140,7 +1140,7 @@ const en: DashboardMessages = {
     statementUrl: "Accessibility Statement URL",
     saveUrl: "Save URL",
     saving: "Saving\u2026",
-    saved: "Saved!",
+    saved: "Changes saved successfully.",
     lastScanNoViolations: "Last WCAG scan ({date}) found no violations.",
     lastScanViolations:
       "Last WCAG scan ({date}) found {count} potential violation(s). Consider resolving these before generating the statement.",
@@ -1215,6 +1215,11 @@ const en: DashboardMessages = {
     exportAll: "export all",
     event: "Event",
     time: "Time",
+    eventOpened: "Opened",
+    eventClosed: "Closed",
+    eventFeatureEnabled: "Feature enabled",
+    eventFeatureDisabled: "Feature disabled",
+    eventProfileActivated: "Profile activated",
   },
   siteTabs: {
     config: "Config",
@@ -1231,7 +1236,7 @@ const en: DashboardMessages = {
     ofEnabled: "{count} of {total} enabled",
     saveChanges: "Save Changes",
     saving: "Saving\u2026",
-    saved: "Saved!",
+    saved: "Changes saved successfully.",
     vision: "Vision",
     reading: "Reading",
     motor: "Motor",
@@ -1255,6 +1260,7 @@ const en: DashboardMessages = {
     profileUsage: "Accessibility profile usage",
     profileUsageDesc: "One-click profile activations in the last 30 days",
     featureTextResizing: "Text Resizing",
+    featureHighContrast: "High Contrast",
     featureTextAlign: "Text Alignment",
     featureReadingGuide: "Reading Guide",
     featureTextSpacing: "Text Spacing",
@@ -1268,6 +1274,7 @@ const en: DashboardMessages = {
     featureColorBlindMode: "Color Blind Mode",
     featureMuteMedia: "Mute Media",
     featureSkipNavigation: "Skip Navigation",
+    featureGrayscale: "Grayscale",
     featureSaturation: "Saturation",
     featureKeyboardNavigation: "Keyboard Navigation",
     featureLargeClickTargets: "Large Click Targets",
@@ -1284,15 +1291,6 @@ const en: DashboardMessages = {
     profileColorBlind: "Color Blind",
     profileDyslexia: "Dyslexia",
     profileMotorImpaired: "Motor Impaired",
-  },
-  referral: {
-    title: "Refer & Earn",
-    description:
-      "Share your unique link. Every friend who signs up is counted toward your referrals.",
-    copyLink: "Copy link",
-    copied: "Copied!",
-    yourCode: "Your code",
-    referrals: "Referrals",
   },
   installChecker: {
     checking: "Checking\u2026",
@@ -1610,7 +1608,7 @@ const tr: DashboardMessages = {
     widgetPositionLabel: "Widget konumu",
     saveChanges: "De\u011Fi\u015Fiklikleri Kaydet",
     savingChanges: "Kaydediliyor\u2026",
-    savedLabel: "Kaydedildi!",
+    savedLabel: "Değişiklikler başarıyla kaydedildi.",
     dangerZone: "Tehlikeli B\u00F6lge",
     dangerZoneDesc:
       "Bu siteyi ve t\u00FCm verilerini kal\u0131c\u0131 olarak silin.",
@@ -1730,7 +1728,7 @@ const tr: DashboardMessages = {
       "Sitelerinizde eri\u015Filebilirlik widget\u0027\u0131n\u0131 kullanmaya devam etmek i\u00E7in a\u015Fa\u011F\u0131dan bir plana abone olun.",
     choosePlan: "Bir plan se\u00E7in",
     choosePlanDesc:
-      "Diledi\u011Finiz zaman abone olun \u2014 fatura d\u00F6nemi sonunda iptal edin",
+      "Hemen ba\u015Flay\u0131n. Plan\u0131n\u0131z\u0131 istedi\u011Finiz zaman sonland\u0131rabilirsiniz.",
     mostPopular: "En Pop\u00FCler",
     currentBadge: "Mevcut",
     currentPlan: "Mevcut plan",
@@ -1846,7 +1844,7 @@ const tr: DashboardMessages = {
     statementUrl: "Eri\u015Filebilirlik Beyannamesi URL\u2019si",
     saveUrl: "URL\u2019yi Kaydet",
     saving: "Kaydediliyor\u2026",
-    saved: "Kaydedildi!",
+    saved: "Değişiklikler başarıyla kaydedildi.",
     lastScanNoViolations:
       "Son WCAG taramas\u0131 ({date}) ihlal bulamad\u0131.",
     lastScanViolations:
@@ -1923,6 +1921,11 @@ const tr: DashboardMessages = {
     exportAll: "t\u00FCm\u00FCn\u00FC d\u0131\u015Fa aktar",
     event: "Olay",
     time: "Zaman",
+    eventOpened: "A\u00E7\u0131ld\u0131",
+    eventClosed: "Kapat\u0131ld\u0131",
+    eventFeatureEnabled: "\u00D6zellik etkinle\u015Ftirildi",
+    eventFeatureDisabled: "\u00D6zellik devre d\u0131\u015F\u0131 b\u0131rak\u0131ld\u0131",
+    eventProfileActivated: "Profil etkinle\u015Ftirildi",
   },
   siteTabs: {
     config: "Yap\u0131land\u0131rma",
@@ -1939,7 +1942,7 @@ const tr: DashboardMessages = {
     ofEnabled: "{total} \u00FCzerinden {count} etkin",
     saveChanges: "De\u011Fi\u015Fiklikleri Kaydet",
     saving: "Kaydediliyor\u2026",
-    saved: "Kaydedildi!",
+    saved: "Değişiklikler başarıyla kaydedildi.",
     vision: "G\u00F6rme",
     reading: "Okuma",
     motor: "Motor",
@@ -1966,6 +1969,7 @@ const tr: DashboardMessages = {
     profileUsageDesc:
       "Son 30 g\u00fcnde tek t\u0131kla profil etkinle\u015ftirmeleri",
     featureTextResizing: "Metin Boyutland\u0131rma",
+    featureHighContrast: "Y\u00FCksek Kontrast",
     featureTextAlign: "Metin Hizalama",
     featureReadingGuide: "Okuma Rehberi",
     featureTextSpacing: "Metin Aral\u0131\u011f\u0131",
@@ -1979,6 +1983,7 @@ const tr: DashboardMessages = {
     featureColorBlindMode: "Renk K\u00f6rl\u00fc\u011f\u00fc Modu",
     featureMuteMedia: "Medyay\u0131 Sessize Al",
     featureSkipNavigation: "Gezinmeyi Atla",
+    featureGrayscale: "Gri Tonlama",
     featureSaturation: "Doygunluk",
     featureKeyboardNavigation: "Klavye Gezinme",
     featureLargeClickTargets: "B\u00fcy\u00fck T\u0131klama Hedefleri",
@@ -1995,15 +2000,6 @@ const tr: DashboardMessages = {
     profileColorBlind: "Renk K\u00f6r\u00fc",
     profileDyslexia: "Disleksi",
     profileMotorImpaired: "Motor Engelli",
-  },
-  referral: {
-    title: "Davet Et ve Kazan",
-    description:
-      "Benzersiz ba\u011Flant\u0131n\u0131z\u0131 payla\u015F\u0131n. Kay\u0131t olan her arkada\u015F\u0131n\u0131z davetlerinize say\u0131l\u0131r.",
-    copyLink: "Ba\u011Flant\u0131y\u0131 kopyala",
-    copied: "Kopyaland\u0131!",
-    yourCode: "Kodunuz",
-    referrals: "Davetler",
   },
   installChecker: {
     checking: "Kontrol ediliyor\u2026",

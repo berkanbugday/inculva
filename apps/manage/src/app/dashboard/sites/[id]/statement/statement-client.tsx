@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Snackbar } from "@/components/ui/snackbar";
 import { useMessages } from "@/i18n/useMessages";
 
 interface Props {
@@ -185,7 +186,7 @@ export function StatementClient({
       });
       if (res.ok) {
         setUrlSaved(true);
-        setTimeout(() => setUrlSaved(false), 3000);
+        setTimeout(() => setUrlSaved(false), 4000);
       }
     } finally {
       setUrlSaving(false);
@@ -400,13 +401,9 @@ export function StatementClient({
           >
             {urlSaving ? t.statement.saving : t.statement.saveUrl}
           </button>
-          {urlSaved && (
-            <span className="text-sm text-green-600 dark:text-green-400">
-              {t.statement.saved}
-            </span>
-          )}
         </div>
       </div>
+      <Snackbar open={urlSaved} message={t.statement.saved} />
     </div>
   );
 }

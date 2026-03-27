@@ -1,6 +1,7 @@
 "use client";
 
 import type { Config } from "./widget-config-form";
+import { Snackbar } from "@/components/ui/snackbar";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"] || "";
 
@@ -152,17 +153,13 @@ export function ConfigTabAppearance({
         >
           {saving ? "Saving…" : "Save"}
         </button>
-        {saved && (
-          <span className="text-sm text-green-600 dark:text-green-400">
-            Saved!
-          </span>
-        )}
         {saveError && (
           <span className="text-sm text-red-600 dark:text-red-400">
             {saveError}
           </span>
         )}
       </div>
+      <Snackbar open={saved} message="Changes saved successfully." />
     </div>
   );
 }

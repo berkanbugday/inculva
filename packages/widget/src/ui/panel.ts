@@ -567,12 +567,22 @@ export const PROFILE_KEY_MAP: Record<string, keyof WidgetProfiles> = {
   attention: "profileAdhd",
 };
 
+function _hasVisibleProfiles(profiles?: WidgetProfiles): boolean {
+  // If no profile config is provided, keep current behavior and show profiles.
+  if (!profiles) return true;
+  return PROFILES.some((profile) => {
+    const apiKey = PROFILE_KEY_MAP[profile.key];
+    return !apiKey || profiles[apiKey] !== false;
+  });
+}
+
 function _buildProfileSection(
   labels: Record<string, string>,
   profiles?: WidgetProfiles,
 ): HTMLDivElement {
   const section = document.createElement("div");
   section.className = "inculva-profiles-section";
+  section.hidden = !_hasVisibleProfiles(profiles);
 
   // Accordion toggle button
   const toggle = document.createElement("button");
@@ -963,6 +973,25 @@ export function updatePanel(
   );
   if (profilesToggleLabel)
     profilesToggleLabel.textContent = labels["profilesTitle"] ?? "Profiles";
+
+  // Hide the entire profiles accordion if all profiles are disabled.
+  const profilesSection = panel.querySelector<HTMLElement>(
+    ".inculva-profiles-section",
+  );
+  if (profilesSection) {
+    const hasVisibleProfiles = _hasVisibleProfiles(profiles);
+    profilesSection.hidden = !hasVisibleProfiles;
+    if (!hasVisibleProfiles) {
+      const toggle = profilesSection.querySelector<HTMLElement>(
+        ".inculva-profiles-toggle",
+      );
+      const grid = profilesSection.querySelector<HTMLElement>(
+        ".inculva-profiles-grid",
+      );
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      if (grid) grid.hidden = true;
+    }
+  }
 
   // Update pre-footer — rebuild with current state
   const prePre = panel.querySelector<HTMLElement>(".inculva-prefooter");

@@ -76,7 +76,7 @@ Each section becomes its own focused page. No inline tab nav on any settings pag
 
 | Route | Content | DB query needed |
 |---|---|---|
-| `/dashboard/settings` | Profile form + Referral banner + Data export + Delete account | none (session only) |
+| `/dashboard/settings` | Profile form + Data export + Delete account | none (session only) |
 | `/dashboard/settings/api-keys` | API Keys manager | `db.apiKey.findMany(...)` (move from current settings/page.tsx) |
 | `/dashboard/settings/webhooks` | Webhooks manager | `db.webhook.findMany(...)` (move from current settings/page.tsx) |
 | `/dashboard/settings/billing` | Existing page, unchanged | — |
@@ -87,7 +87,7 @@ Each section becomes its own focused page. No inline tab nav on any settings pag
 - Remove their DB queries (`db.apiKey.findMany`, `db.webhook.findMany`) from the `Promise.all`
 - Remove `<ApiKeysManager>` and `<WebhooksManager>` from JSX
 - Remove inline tab nav (`<div className="flex gap-1 ...">`) — sidebar nav replaces it
-- Keep: `ProfileForm`, `ReferralBanner`, data export section, `DeleteAccount`
+- Keep: `ProfileForm`, data export section, `DeleteAccount`
 
 **New page wrappers** (`api-keys/page.tsx`, `webhooks/page.tsx`) each:
 1. Call `auth.api.getSession` (redirect to `/login` if none)

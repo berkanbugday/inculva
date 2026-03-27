@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signUp } from "@/lib/auth-client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { cn } from "@inculva/ui";
 import { OAuthButtons, OAuthDivider } from "@/components/oauth-buttons";
 import { AuthBrandPanel } from "@/components/auth-brand-panel";
@@ -28,7 +28,6 @@ const btnPrimary =
 
 function RegisterForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const t = useMessages();
   const {
     register,
@@ -48,14 +47,6 @@ function RegisterForm() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: data.name, email: data.email }),
     });
-    const ref = searchParams.get("ref");
-    if (ref) {
-      void fetch("/api/referrals/apply", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: ref }),
-      });
-    }
     router.push("/dashboard");
   }
 

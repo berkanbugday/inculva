@@ -566,7 +566,6 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { ProfileForm } from "./profile-form";
 import { DeleteAccount } from "./delete-account";
-import { ReferralBanner } from "@/components/referral-banner";
 
 export default async function SettingsPage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -584,7 +583,6 @@ export default async function SettingsPage() {
         email={session!.user.email}
       />
 
-      <ReferralBanner />
 
       {/* GDPR Data Export */}
       <section className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 space-y-3">
@@ -1935,7 +1933,7 @@ Expected: zero errors across all packages.
 | Click outside popup | Popup closes |
 | Dashboard `/dashboard` | Stats row + site cards with single "Open →" button |
 | Header | New site button left of ThemeToggle/Lang/Bell |
-| `/settings` | Account page only: Profile, referral, data export, delete |
+| `/settings` | Account page only: Profile, data export, delete |
 | `/settings/api-keys` | API keys page, sidebar "API Keys" highlighted |
 | `/settings/webhooks` | Webhooks page, sidebar "Webhooks" highlighted |
 | `/settings/billing` | Full width, no max-w |

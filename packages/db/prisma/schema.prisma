@@ -29,9 +29,6 @@ model User {
   usageAlertSent80  DateTime?
   usageAlertSent100 DateTime?
 
-  // Referral
-  referralCode String? @unique
-
   // Email drip flags
   dripDay3Sent  Boolean @default(false)
   dripDay7Sent  Boolean @default(false)
@@ -46,8 +43,6 @@ model User {
   subscription  Subscription?
   notifications Notification[]
   auditLogs     AuditLog[]
-  referrals     Referral[]     @relation("ReferralReferrer")
-  referredBy    Referral[]     @relation("ReferralReferred")
 }
 
 model Session {
@@ -270,17 +265,3 @@ model AuditLog {
   @@index([userId, createdAt])
 }
 
-// ─── Referrals ────────────────────────────────────────────────────────────────
-
-model Referral {
-  id         String   @id @default(cuid())
-  referrerId String
-  referredId String   @unique
-  converted  Boolean  @default(false)
-  createdAt  DateTime @default(now())
-
-  referrer User @relation("ReferralReferrer", fields: [referrerId], references: [id], onDelete: Cascade)
-  referred User @relation("ReferralReferred", fields: [referredId], references: [id], onDelete: Cascade)
-
-  @@index([referrerId])
-}

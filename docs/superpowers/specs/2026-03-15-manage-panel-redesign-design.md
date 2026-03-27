@@ -262,7 +262,6 @@ Cards use shadow instead of heavy borders.
 - `apps/manage/src/components/language-switcher.tsx`
 - `apps/manage/src/components/cookie-banner.tsx`
 - `apps/manage/src/components/verification-banner.tsx`
-- `apps/manage/src/components/referral-banner.tsx`
 - `apps/manage/src/components/oauth-buttons.tsx`
 
 ### Auth Pages (redesign)
