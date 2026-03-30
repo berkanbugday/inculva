@@ -1,4 +1,4 @@
 administer inculva widget:
-  title: 'Administer Inculva Widget'
-  description: 'Configure the Inculva accessibility widget settings.'
+  title: "Administer inculva Widget"
+  description: "Configure the inculva accessibility widget settings."
   restrict access: true

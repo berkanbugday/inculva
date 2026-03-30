@@ -15,11 +15,23 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { siteId } = await params;
-  const site = await db.site.findUnique({ where: { id: siteId }, select: { name: true } });
+  const site = await db.site.findUnique({
+    where: { id: siteId },
+    select: { name: true },
+  });
   if (!site) return { title: "Not Found" };
+  const cookieLocale = (await cookies()).get("locale")?.value;
+  const locale = (
+    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+      ? cookieLocale
+      : "en"
+  ) as Locale;
+  const t = getMessages(locale);
   return {
-    title: `Accessibility Statement — ${site.name}`,
-    description: `WCAG 2.1 Level AA accessibility statement for ${site.name}.`,
+    title: `${t.statement.publicTitle} — ${site.name}`,
+    description: t.statement.conformanceBodyGeneric
+      .replace("{level}", "AA")
+      .replace(/\.$/, ` — ${site.name}.`),
   };
 }
 
@@ -81,9 +93,28 @@ export default async function PublicStatementPage({ params }: Props) {
           p, li { orphans: 3; widows: 3; }
         }
       `}</style>
-      <div className="min-h-screen bg-white text-gray-900" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1.5rem", lineHeight: 1.7 }}>
-          <h1 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "0.25rem" }}>
+      <div
+        className="min-h-screen bg-white text-gray-900"
+        style={{
+          fontFamily:
+            "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 800,
+            margin: "0 auto",
+            padding: "2rem 1.5rem",
+            lineHeight: 1.7,
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "2rem",
+              fontWeight: 700,
+              marginBottom: "0.25rem",
+            }}
+          >
             {t.statement.publicTitle}
           </h1>
           <p style={{ color: "#4b5563", marginBottom: "0.25rem" }}>
@@ -108,7 +139,9 @@ export default async function PublicStatementPage({ params }: Props) {
           </p>
           <p>{statusNote}</p>
 
-          <SectionHeading>{t.statement.technicalSpecificationsTitle}</SectionHeading>
+          <SectionHeading>
+            {t.statement.technicalSpecificationsTitle}
+          </SectionHeading>
           <p>{t.statement.technicalSpecificationsBody}</p>
           <ul style={{ paddingLeft: "1.5rem", marginBottom: "1rem" }}>
             <li>HTML</li>
@@ -123,28 +156,49 @@ export default async function PublicStatementPage({ params }: Props) {
               .replace("{siteName}", siteName)
               .replace("{email}", siteDomain)}
           </p>
-          <p>We try to respond to accessibility feedback within 2 business days.</p>
+          <p>{t.statement.responseTime}</p>
 
-          <SectionHeading>Enforcement Procedure</SectionHeading>
-          <p>
-            If you are not satisfied with our response, you may contact the relevant national supervisory body
-            responsible for enforcing the European Accessibility Act in your country.
-          </p>
+          <SectionHeading>{t.statement.enforcementTitle}</SectionHeading>
+          <p>{t.statement.enforcementBody}</p>
 
-          <footer style={{ marginTop: "3rem", fontSize: "0.875rem", color: "#6b7280", borderTop: "1px solid #e5e7eb", paddingTop: "1rem" }}>
+          <footer
+            style={{
+              marginTop: "3rem",
+              fontSize: "0.875rem",
+              color: "#6b7280",
+              borderTop: "1px solid #e5e7eb",
+              paddingTop: "1rem",
+            }}
+          >
             <p>
-              This accessibility statement was prepared in accordance with{" "}
-              <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882" style={{ color: "#0066cc" }}>
-                Directive (EU) 2019/882
-              </a>{" "}
-              (European Accessibility Act) and WCAG 2.1.
+              {t.statement.footerPrepared.split("{directive}")[0]}
+              <a
+                href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882"
+                style={{ color: "#0066cc" }}
+              >
+                {t.statement.footerDirectiveName}
+              </a>
+              {t.statement.footerPrepared.split("{directive}")[1]}
             </p>
             <p>
-              Powered by{" "}
+              {t.statement.footerPowered.split("{inculva}")[0]}
               <a href={landingUrl} style={{ color: "#0066cc" }}>
-                Inculva
-              </a>{" "}
-              accessibility platform.
+                inculva
+              </a>
+              {t.statement.footerPowered.split("{inculva}")[1]}
+            </p>
+            <p>
+              {
+                t.statement.footerGenerated
+                  .replace("{date}", reviewDate)
+                  .split("{inculva}")[0]
+              }
+              <a href={landingUrl} style={{ color: "#0066cc" }}>
+                inculva
+              </a>
+              {t.statement.footerGenerated
+                .replace("{date}", reviewDate)
+                .split("{inculva}")[1] ?? ""}
             </p>
           </footer>
         </div>

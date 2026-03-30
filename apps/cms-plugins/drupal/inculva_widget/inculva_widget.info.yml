@@ -1,6 +1,6 @@
-name: Inculva Widget
+name: inculva Widget
 type: module
-description: "Adds the Inculva accessibility widget to your Drupal site."
+description: "Adds the inculva accessibility widget to your Drupal site."
 core_version_requirement: 9.4 || 10 || 11
 package: Accessibility
 version: "1.0.0"

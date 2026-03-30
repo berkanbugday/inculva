@@ -4,13 +4,13 @@ import { headers } from "next/headers";
 import { sendEmail, welcomeTemplate } from "@inculva/email";
 
 export async function POST(): Promise<NextResponse> {
-  // Auth required — prevents abuse of Inculva's email sender for spam
+  // Auth required — prevents abuse of inculva's email sender for spam
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) return NextResponse.json({ ok: false }, { status: 401 });
 
   void sendEmail({
     to: session.user.email,
-    subject: "Welcome to Inculva 👋",
+    subject: "Welcome to inculva 👋",
     html: welcomeTemplate(session.user.name ?? ""),
   }).catch((err) => console.error("[email] Welcome failed:", err));
 

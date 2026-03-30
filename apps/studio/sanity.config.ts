@@ -5,7 +5,7 @@ import { schemaTypes } from "./schemaTypes";
 
 export default defineConfig({
   name: "default",
-  title: "Inculva Blog",
+  title: "inculva Blog",
 
   projectId: "0w6yrm5e",
   dataset: "production",

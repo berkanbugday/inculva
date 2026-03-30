@@ -104,8 +104,8 @@ async function sendUsageAlert(
 
   const subject =
     level === 80
-      ? `You've used 80% of your monthly events — Inculva`
-      : `Monthly event limit reached — Inculva`;
+      ? `You've used 80% of your monthly events — inculva`
+      : `Monthly event limit reached — inculva`;
 
   const notificationTitle =
     level === 80 ? `80% of monthly events used` : `Monthly event limit reached`;

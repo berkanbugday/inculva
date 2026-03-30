@@ -7,7 +7,7 @@
 
 ## Context
 
-Inculva's manage app currently uses Lemon Squeezy for subscription billing. The product is an accessibility widget with three subscription tiers (Small, Medium, Large). The goal is to migrate entirely to Polar.sh — a Merchant of Record platform with a TypeScript SDK and official Next.js adapter — removing all Lemon Squeezy dependencies. No existing paid subscribers, so a clean cutover is safe.
+inculva's manage app currently uses Lemon Squeezy for subscription billing. The product is an accessibility widget with three subscription tiers (Small, Medium, Large). The goal is to migrate entirely to Polar.sh — a Merchant of Record platform with a TypeScript SDK and official Next.js adapter — removing all Lemon Squeezy dependencies. No existing paid subscribers, so a clean cutover is safe.
 
 Polar handles tax compliance (EU VAT, UK VAT, US Sales Tax) automatically as MoR, which removes a compliance burden going forward.
 
@@ -16,10 +16,10 @@ Polar handles tax compliance (EU VAT, UK VAT, US Sales Tax) automatically as MoR
 ## Plans (Source of Truth: Landing Page)
 
 | Plan   | Monthly | Annual (20% off) |
-|--------|---------|-----------------|
-| Small  | $39     | $375/yr         |
-| Medium | $59     | $566/yr         |
-| Large  | $119    | $1,133/yr       |
+| ------ | ------- | ---------------- |
+| Small  | $39     | $375/yr          |
+| Medium | $59     | $566/yr          |
+| Large  | $119    | $1,133/yr        |
 
 All plans include a 7-day free trial. During trial, `user.plan` is set to the trial tier immediately so the user can access plan features.
 
@@ -88,19 +88,19 @@ Return { url } → redirect to pre-authenticated portal
 
 ### User model
 
-| Before | After |
-|--------|-------|
-| `lsCustomerId String? @unique` | `polarCustomerId String? @unique` |
+| Before                            | After                                      |
+| --------------------------------- | ------------------------------------------ |
+| `lsCustomerId String? @unique`    | `polarCustomerId String? @unique`          |
 | `plan: "free"\|"pro"\|"business"` | `plan: "free"\|"small"\|"medium"\|"large"` |
 
 ### Subscription model
 
-| Before | After |
-|--------|-------|
-| `lsSubscriptionId String @unique` | `polarSubscriptionId String @unique` |
-| `lsVariantId String` | `polarProductId String` |
-| `lsCustomerPortalUrl String?` | *(removed — generated dynamically)* |
-| *(missing)* | `interval String` — `"month"` or `"year"` |
+| Before                            | After                                     |
+| --------------------------------- | ----------------------------------------- |
+| `lsSubscriptionId String @unique` | `polarSubscriptionId String @unique`      |
+| `lsVariantId String`              | `polarProductId String`                   |
+| `lsCustomerPortalUrl String?`     | _(removed — generated dynamically)_       |
+| _(missing)_                       | `interval String` — `"month"` or `"year"` |
 
 **New field:** `interval` must be stored to distinguish monthly/annual subscribers for correct MRR calculation and billing UI display.
 
@@ -163,22 +163,23 @@ export const POLAR_PRODUCTS: PolarProduct[] = [
 
 These files check `user.plan === "business"` or `user.plan === "pro"` and must be updated to use the new plan names. Replace `=== "business"` with `=== "large"` and `=== "pro"` with `=== "small" || user.plan === "medium"` (or the appropriate tier).
 
-| File | What to update |
-|------|----------------|
-| `apps/manage/src/app/api/sites/[id]/config/route.ts` | `=== "business"` → `=== "large"` |
-| `apps/manage/src/app/dashboard/sites/[id]/config-tab-general.tsx` | same |
-| `apps/manage/src/app/dashboard/sites/[id]/config-tab-appearance.tsx` | same |
-| `apps/manage/src/app/dashboard/sites/[id]/widget-config-form.tsx` | same |
-| `apps/manage/src/app/dashboard/sites/[id]/page.tsx` | same |
-| `apps/manage/src/app/s/[siteId]/page.tsx` | same |
-| `apps/manage/src/app/api/account/export/route.ts` | same |
-| `apps/manage/src/app/api/keys/route.ts` | same |
+| File                                                                 | What to update                   |
+| -------------------------------------------------------------------- | -------------------------------- |
+| `apps/manage/src/app/api/sites/[id]/config/route.ts`                 | `=== "business"` → `=== "large"` |
+| `apps/manage/src/app/dashboard/sites/[id]/config-tab-general.tsx`    | same                             |
+| `apps/manage/src/app/dashboard/sites/[id]/config-tab-appearance.tsx` | same                             |
+| `apps/manage/src/app/dashboard/sites/[id]/widget-config-form.tsx`    | same                             |
+| `apps/manage/src/app/dashboard/sites/[id]/page.tsx`                  | same                             |
+| `apps/manage/src/app/s/[siteId]/page.tsx`                            | same                             |
+| `apps/manage/src/app/api/account/export/route.ts`                    | same                             |
+| `apps/manage/src/app/api/keys/route.ts`                              | same                             |
 
 ---
 
 ## Environment Variables
 
 ### Remove (all Lemon Squeezy vars)
+
 ```
 LEMONSQUEEZY_API_KEY
 LEMONSQUEEZY_STORE_ID
@@ -190,6 +191,7 @@ LS_BUSINESS_ANNUAL_VARIANT_ID
 ```
 
 ### Add (Polar vars)
+
 ```
 POLAR_ACCESS_TOKEN              # Organization Access Token from Polar dashboard
 POLAR_WEBHOOK_SECRET            # Webhook signing secret (auto-generated by Polar)
@@ -207,19 +209,23 @@ POLAR_LARGE_ANNUAL_PRODUCT_ID
 ## Files: Create / Replace / Delete / Update
 
 ### Create
+
 - `apps/manage/src/lib/polar.ts` — Polar SDK client singleton
 - `apps/manage/src/app/api/billing/customer-portal/route.ts` — generates pre-authenticated portal URL
 - `apps/manage/src/app/api/webhooks/polar/route.ts` — Polar webhook handler
 
 ### Replace
+
 - `apps/manage/src/app/api/billing/checkout/route.ts` — Polar checkout (GET, not POST)
 - `apps/manage/src/app/api/billing/cancel-subscription/route.ts` — uses `polar.subscriptions.update({ cancelAtPeriodEnd: true })`
 
 ### Delete
+
 - `apps/manage/src/lib/lemonsqueezy.ts`
 - `apps/manage/src/app/api/webhooks/lemonsqueezy/` (entire directory)
 
 ### Update
+
 - `packages/types/src/billing.ts` — Plan type, PLAN_LIMITS, POLAR_PRODUCTS
 - `packages/db/prisma/schema.prisma` — field renames + new migration
 - `apps/manage/src/lib/plan.ts` — plan names + PlanLimits field references
@@ -238,13 +244,13 @@ POLAR_LARGE_ANNUAL_PRODUCT_ID
 
 ### Event Table
 
-| Polar Event | Status | Action |
-|-------------|--------|--------|
-| `subscription.created` | `trialing` | Upsert Subscription (status: "trialing"), set `user.plan` to tier, send welcome email |
-| `subscription.active` | `active` | Confirm `user.plan` is set (idempotent), send `planUpgradedTemplate()` email + in-app notification |
-| `subscription.past_due` | `past_due` | Send `paymentFailedTemplate()` email + in-app notification |
-| `subscription.canceled` | `active` (cancel scheduled) | Set `canceledAt` on Subscription; keep status `"active"` (user retains access) |
-| `subscription.revoked` | *(terminal)* | Set `user.plan = "free"`, set Subscription status `"canceled"` |
+| Polar Event             | Status                      | Action                                                                                             |
+| ----------------------- | --------------------------- | -------------------------------------------------------------------------------------------------- |
+| `subscription.created`  | `trialing`                  | Upsert Subscription (status: "trialing"), set `user.plan` to tier, send welcome email              |
+| `subscription.active`   | `active`                    | Confirm `user.plan` is set (idempotent), send `planUpgradedTemplate()` email + in-app notification |
+| `subscription.past_due` | `past_due`                  | Send `paymentFailedTemplate()` email + in-app notification                                         |
+| `subscription.canceled` | `active` (cancel scheduled) | Set `canceledAt` on Subscription; keep status `"active"` (user retains access)                     |
+| `subscription.revoked`  | _(terminal)_                | Set `user.plan = "free"`, set Subscription status `"canceled"`                                     |
 
 **Note:** `subscription.canceled` (American spelling, single-l) is the correct Polar event name.
 
@@ -252,8 +258,8 @@ POLAR_LARGE_ANNUAL_PRODUCT_ID
 
 ```typescript
 const PRODUCT_TO_PLAN: Record<string, Plan> = {
-  [process.env.POLAR_SMALL_MONTHLY_PRODUCT_ID ?? "~"]:  "small",
-  [process.env.POLAR_SMALL_ANNUAL_PRODUCT_ID ?? "~~"]:  "small",
+  [process.env.POLAR_SMALL_MONTHLY_PRODUCT_ID ?? "~"]: "small",
+  [process.env.POLAR_SMALL_ANNUAL_PRODUCT_ID ?? "~~"]: "small",
   [process.env.POLAR_MEDIUM_MONTHLY_PRODUCT_ID ?? "~~~"]: "medium",
   [process.env.POLAR_MEDIUM_ANNUAL_PRODUCT_ID ?? "~~~~"]: "medium",
   [process.env.POLAR_LARGE_MONTHLY_PRODUCT_ID ?? "~~~~~"]: "large",
@@ -274,9 +280,9 @@ if (!plan) {
 import { validateEvent } from "@polar-sh/sdk/webhooks";
 
 const event = validateEvent(
-  await request.text(),   // raw body string
+  await request.text(), // raw body string
   Object.fromEntries(request.headers),
-  process.env.POLAR_WEBHOOK_SECRET!
+  process.env.POLAR_WEBHOOK_SECRET!,
 );
 ```
 
@@ -318,17 +324,32 @@ export const polar = new Polar({
 
 ```typescript
 // MRR — separate monthly vs annual for accuracy
-const smallMonthly  = await db.subscription.count({ where: { plan: "small",  interval: "month", status: "active" } });
-const smallAnnual   = await db.subscription.count({ where: { plan: "small",  interval: "year",  status: "active" } });
-const mediumMonthly = await db.subscription.count({ where: { plan: "medium", interval: "month", status: "active" } });
-const mediumAnnual  = await db.subscription.count({ where: { plan: "medium", interval: "year",  status: "active" } });
-const largeMonthly  = await db.subscription.count({ where: { plan: "large",  interval: "month", status: "active" } });
-const largeAnnual   = await db.subscription.count({ where: { plan: "large",  interval: "year",  status: "active" } });
+const smallMonthly = await db.subscription.count({
+  where: { plan: "small", interval: "month", status: "active" },
+});
+const smallAnnual = await db.subscription.count({
+  where: { plan: "small", interval: "year", status: "active" },
+});
+const mediumMonthly = await db.subscription.count({
+  where: { plan: "medium", interval: "month", status: "active" },
+});
+const mediumAnnual = await db.subscription.count({
+  where: { plan: "medium", interval: "year", status: "active" },
+});
+const largeMonthly = await db.subscription.count({
+  where: { plan: "large", interval: "month", status: "active" },
+});
+const largeAnnual = await db.subscription.count({
+  where: { plan: "large", interval: "year", status: "active" },
+});
 
 const mrr =
-  smallMonthly * 39  + smallAnnual * (375/12) +
-  mediumMonthly * 59 + mediumAnnual * (566/12) +
-  largeMonthly * 119 + largeAnnual * (1133/12);
+  smallMonthly * 39 +
+  smallAnnual * (375 / 12) +
+  mediumMonthly * 59 +
+  mediumAnnual * (566 / 12) +
+  largeMonthly * 119 +
+  largeAnnual * (1133 / 12);
 
 // Plan distribution chart — update from ["free","pro","business"] to:
 const planCounts = { free: 0, small: 0, medium: 0, large: 0 };

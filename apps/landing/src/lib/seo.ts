@@ -1,5 +1,5 @@
 export const SITE_URL = "https://inculva.com";
-export const SITE_NAME = "Inculva";
+export const SITE_NAME = "inculva";
 const CDN_URL = import.meta.env.PUBLIC_CDN_URL || "https://cdn.inculva.com";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
@@ -177,7 +177,7 @@ export function getHowToSchema(steps: { name: string; text: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "How to make your website WCAG compliant with Inculva",
+    name: "How to make your website WCAG compliant with inculva",
     description:
       "From installation to full WCAG compliance in minutes, not months.",
     step: steps.map((step, index) => ({

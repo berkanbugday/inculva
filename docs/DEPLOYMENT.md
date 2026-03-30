@@ -66,7 +66,7 @@ API_HOST=0.0.0.0
 NODE_ENV=production
 CORS_ORIGIN=https://app.inculva.com
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Inculva <hi@inculva.com>
+EMAIL_FROM=inculva <hi@inculva.com>
 NEXT_PUBLIC_APP_URL=https://app.inculva.com
 ```
 
@@ -82,7 +82,7 @@ NEXT_PUBLIC_WIDGET_URL=https://cdn.inculva.com/widget.js
 BETTER_AUTH_SECRET=<openssl rand -base64 32>
 BETTER_AUTH_URL=https://app.inculva.com
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Inculva <hi@inculva.com>
+EMAIL_FROM=inculva <hi@inculva.com>
 LEMONSQUEEZY_API_KEY=eyJ...
 LEMONSQUEEZY_STORE_ID=12345
 LEMONSQUEEZY_WEBHOOK_SECRET=xxxx

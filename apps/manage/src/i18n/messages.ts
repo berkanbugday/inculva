@@ -434,8 +434,76 @@ export interface DashboardMessages {
     allChecksPassed: string;
     allChecksPassedDesc: string;
     affectedElements: string;
+    needsReview: string;
+    needsManualReview: string;
+    needsManualReviewDesc: string;
+    reviewReason: string;
     wcagDocument: string;
     instances: string;
+    scanHistory: string;
+    noScanHistory: string;
+    scanTab: string;
+    historyTab: string;
+    singlePage: string;
+    fullSite: string;
+    fullSiteDesc: string;
+    pageLimit: string;
+    crawlProgress: string;
+    pagesScanned: string;
+    scanType: string;
+    reportTitle: string;
+    methodology: string;
+    methodologyDesc: string;
+    wcagPrinciples: string;
+    perceivable: string;
+    perceivableDesc: string;
+    operable: string;
+    operableDesc: string;
+    understandable: string;
+    understandableDesc: string;
+    robust: string;
+    robustDesc: string;
+    passedChecks: string;
+    passedChecksDesc: string;
+    rulesPassed: string;
+    elementsChecked: string;
+    noViolations: string;
+    scanSummary: string;
+    wcagLevel: string;
+    rulesEvaluated: string;
+    scanDuration: string;
+    scannedPages: string;
+    scannedPagesDesc: string;
+    pageCompleted: string;
+    pageFailed: string;
+    showAllPages: string;
+    showFewerPages: string;
+    learnMore: string;
+    bestPractice: string;
+    cssSelector: string;
+    passed: string;
+    failedStatus: string;
+    rules: string;
+    elements: string;
+    showSummary: string;
+    showAllPassedRules: string;
+    perceivableCategory: string;
+    operableCategory: string;
+    understandableCategory: string;
+    robustCategory: string;
+    statusCompleted: string;
+    statusFailed: string;
+    statusScanning: string;
+    statusCrawling: string;
+    statusPending: string;
+    pagesAbbrev: string;
+    scanFailed: string;
+    fetchStatusFailed: string;
+    wcagDocs: string;
+    pageOf: string;
+    prev: string;
+    next: string;
+    totalScans: string;
   };
   statement: {
     hostedTitle: string;
@@ -444,12 +512,17 @@ export interface DashboardMessages {
     copied: string;
     preview: string;
     hidePreview: string;
+    previewIframeTitle: string;
     eaaTitle: string;
     eaaDesc: string;
     detailsTitle: string;
     contactName: string;
+    contactNamePlaceholder: string;
     contactEmail: string;
     conformanceLevel: string;
+    conformanceLevelA: string;
+    conformanceLevelAA: string;
+    conformanceLevelAAA: string;
     reviewDate: string;
     knownLimitations: string;
     knownLimitationsPlaceholder: string;
@@ -457,6 +530,7 @@ export interface DashboardMessages {
     linkInWidget: string;
     linkInWidgetDesc: string;
     statementUrl: string;
+    statementUrlPlaceholder: string;
     saveUrl: string;
     saving: string;
     saved: string;
@@ -479,6 +553,19 @@ export interface DashboardMessages {
     widgetNote: string;
     feedbackAndContactTitle: string;
     feedbackAndContactBody: string;
+    feedbackIntro: string;
+    contactNameLabel: string;
+    contactEmailLabel: string;
+    contactWebsiteLabel: string;
+    responseTime: string;
+    enforcementTitle: string;
+    enforcementBody: string;
+    footerPrepared: string;
+    footerDirectiveName: string;
+    footerPowered: string;
+    footerGenerated: string;
+    conformanceBodyGeneric: string;
+    conformanceEaaNote: string;
   };
   adminUsers: {
     badge: string;
@@ -966,8 +1053,7 @@ const en: DashboardMessages = {
     freeTrialEndedDesc:
       "Subscribe to a plan below to continue using the accessibility widget on your sites.",
     choosePlan: "Choose a plan",
-    choosePlanDesc:
-      "Start now. You can end your plan at anytime.",
+    choosePlanDesc: "Start now. You can end your plan at anytime.",
     mostPopular: "Most Popular",
     currentBadge: "Current",
     currentPlan: "Current plan",
@@ -1050,24 +1136,105 @@ const en: DashboardMessages = {
     allChecksPassedDesc:
       "No detectable violations in the static HTML. Consider running a full browser-based audit with axe DevTools for dynamic content.",
     affectedElements: "Affected elements",
+    needsReview: "Needs Review",
+    needsManualReview: "Needs Manual Review",
+    needsManualReviewDesc:
+      "These elements could not be automatically verified. A human reviewer should check them to confirm compliance.",
+    reviewReason: "Why manual review is needed",
     wcagDocument: "WCAG {wcag} understanding document",
     instances: "instances",
+    scanHistory: "Scan History",
+    noScanHistory: "No scans yet. Run your first scan to see results here.",
+    scanTab: "Scan",
+    historyTab: "History",
+    singlePage: "Single Page",
+    fullSite: "Full Site Scan",
+    fullSiteDesc:
+      "Crawls your entire site and scans every page for WCAG violations",
+    pageLimit: "Up to {count} pages",
+    crawlProgress: "Scanning page {current} of {total}\u2026",
+    pagesScanned: "{count} pages scanned",
+    scanType: "Scan Type",
+    reportTitle: "Accessibility Compliance Report",
+    methodology: "How this score is calculated",
+    methodologyDesc:
+      "This scan uses axe-core, an open-source WCAG testing engine by Deque Systems. Each page is rendered in a real browser (Chromium) with JavaScript enabled, then evaluated against {ruleCount} accessibility rules mapped to WCAG {level} success criteria. The compliance score is weighted by severity: critical violations (4x), serious (3x), moderate (2x), minor (1x), normalized against total checks.",
+    wcagPrinciples: "WCAG Compliance by Principle",
+    perceivable: "Perceivable",
+    perceivableDesc:
+      "Content must be presentable to users in ways they can perceive",
+    operable: "Operable",
+    operableDesc: "UI components and navigation must be operable",
+    understandable: "Understandable",
+    understandableDesc:
+      "Information and operation of UI must be understandable",
+    robust: "Robust",
+    robustDesc:
+      "Content must be robust enough to be interpreted by assistive technologies",
+    passedChecks: "Passed Checks",
+    passedChecksDesc:
+      "These accessibility rules were evaluated and passed successfully",
+    rulesPassed: "{count} rules passed",
+    elementsChecked: "{count} elements checked",
+    noViolations: "No violations detected",
+    scanSummary: "Scan Summary",
+    wcagLevel: "WCAG Level",
+    rulesEvaluated: "Rules Evaluated",
+    scanDuration: "Duration",
+    scannedPages: "Scanned Pages",
+    scannedPagesDesc:
+      "All pages discovered and scanned during this full site scan",
+    pageCompleted: "completed",
+    pageFailed: "failed",
+    showAllPages: "Show all {count} pages",
+    showFewerPages: "Show fewer",
+    learnMore: "Learn more",
+    bestPractice: "Best Practice",
+    cssSelector: "CSS Selector",
+    passed: "passed",
+    failedStatus: "failed",
+    rules: "rules",
+    elements: "elements",
+    showSummary: "Show summary",
+    showAllPassedRules: "Show all {count} passed rules",
+    perceivableCategory: "Perceivable (1.x)",
+    operableCategory: "Operable (2.x)",
+    understandableCategory: "Understandable (3.x)",
+    robustCategory: "Robust (4.x)",
+    statusCompleted: "Completed",
+    statusFailed: "Failed",
+    statusScanning: "Scanning",
+    statusCrawling: "Crawling",
+    statusPending: "Pending",
+    pagesAbbrev: "pg",
+    scanFailed: "Scan failed",
+    fetchStatusFailed: "Failed to fetch scan status",
+    wcagDocs: "WCAG docs",
+    pageOf: "Page {current} of {total}",
+    prev: "Previous",
+    next: "Next",
+    totalScans: "{count} scans",
   },
   statement: {
     hostedTitle: "Hosted Accessibility Statement",
     hostedDesc:
-      "Inculva hosts your accessibility statement automatically \u2014 no self-hosting required. Copy the URL below and use it as your accessibilityStatementUrl in the widget config.",
+      "inculva hosts your accessibility statement automatically \u2014 no self-hosting required. Copy the URL below and use it as your accessibilityStatementUrl in the widget config.",
     copyUrl: "Copy URL",
     copied: "Copied!",
     preview: "Preview",
     hidePreview: "Hide Preview",
+    previewIframeTitle: "Accessibility statement preview",
     eaaTitle: "EAA Article 13 Compliance",
     eaaDesc:
       "The European Accessibility Act (EAA) requires all digital products and services to publish an accessibility statement. Generate one below, host it on your site, then paste the URL in the widget config to link it from your widget.",
     detailsTitle: "Statement Details",
     contactName: "Contact Name",
+    contactNamePlaceholder: "Jane Smith",
     contactEmail: "Contact Email",
     conformanceLevel: "Conformance Level",
+    conformanceLevelA: "WCAG 2.1 Level A",
+    conformanceLevelAA: "WCAG 2.1 Level AA (EAA required)",
+    conformanceLevelAAA: "WCAG 2.1 Level AAA",
     reviewDate: "Review Date",
     knownLimitations: "Known Limitations (optional)",
     knownLimitationsPlaceholder:
@@ -1077,6 +1244,8 @@ const en: DashboardMessages = {
     linkInWidgetDesc:
       "After hosting the HTML file on your site (or using the hosted URL above), add the URL below so it appears as a link in the widget panel footer.",
     statementUrl: "Accessibility Statement URL",
+    statementUrlPlaceholder:
+      "https://example.com/accessibility or use hosted URL above",
     saveUrl: "Save URL",
     saving: "Saving\u2026",
     saved: "Changes saved successfully.",
@@ -1103,10 +1272,29 @@ const en: DashboardMessages = {
     technicalSpecificationsBody:
       "This website relies on the following technologies for conformance:",
     widgetNote:
-      "An accessibility widget (powered by Inculva) is embedded on this site to provide on-demand assistive features including text resizing, high contrast, dyslexia-friendly fonts, keyboard navigation, screen reader support, and more.",
+      "An accessibility widget (powered by inculva) is embedded on this site to provide on-demand assistive features including text resizing, high contrast, dyslexia-friendly fonts, keyboard navigation, screen reader support, and more.",
     feedbackAndContactTitle: "Feedback and Contact",
     feedbackAndContactBody:
       "We welcome your feedback on the accessibility of {siteName}. If you experience accessibility barriers, please contact the site owner directly via {email}.",
+    feedbackIntro:
+      "We welcome your feedback on the accessibility of {siteName}. If you experience accessibility barriers, please contact us:",
+    contactNameLabel: "Name:",
+    contactEmailLabel: "Email:",
+    contactWebsiteLabel: "Website:",
+    responseTime:
+      "We try to respond to accessibility feedback within 2 business days.",
+    enforcementTitle: "Enforcement Procedure",
+    enforcementBody:
+      "If you are not satisfied with our response, you may contact the relevant national supervisory body responsible for enforcing the European Accessibility Act in your country.",
+    footerPrepared:
+      "This accessibility statement was prepared in accordance with {directive} (European Accessibility Act) and WCAG 2.1.",
+    footerDirectiveName: "Directive (EU) 2019/882",
+    footerPowered: "Powered by {inculva} accessibility platform.",
+    footerGenerated: "Statement generated by {inculva} on {date}.",
+    conformanceBodyGeneric:
+      "We aim for WCAG 2.1 Level {level} conformance, as defined by the Web Content Accessibility Guidelines (WCAG) 2.1.",
+    conformanceEaaNote:
+      "This meets the requirements of the European Accessibility Act (EAA) and EN 301 549.",
   },
   adminUsers: {
     badge: "Admin",
@@ -1706,24 +1894,107 @@ const tr: DashboardMessages = {
     allChecksPassedDesc:
       "Statik HTML\u2019de tespit edilebilir ihlal yok. Dinamik i\u00E7erik i\u00E7in axe DevTools ile tam taray\u0131c\u0131 tabanl\u0131 denetim \u00F6nerilir.",
     affectedElements: "Etkilenen \u00F6\u011Feler",
+    needsReview: "\u0130nceleme Gerekli",
+    needsManualReview: "Manuel \u0130nceleme Gerekli",
+    needsManualReviewDesc:
+      "Bu \u00F6\u011Feler otomatik olarak do\u011Frulanamad\u0131. Uyumlulu\u011Fu onaylamak i\u00E7in bir ki\u015Finin kontrol etmesi gerekir.",
+    reviewReason: "Neden manuel inceleme gerekli",
     wcagDocument: "WCAG {wcag} anlama belgesi",
     instances: "\u00F6rnek",
+    scanHistory: "Tarama Ge\u00E7mi\u015Fi",
+    noScanHistory:
+      "Hen\u00FCz tarama yok. Sonu\u00E7lar\u0131 burada g\u00F6rmek i\u00E7in ilk taraman\u0131z\u0131 ba\u015Flat\u0131n.",
+    scanTab: "Tarama",
+    historyTab: "Ge\u00E7mi\u015F",
+    singlePage: "Tek Sayfa",
+    fullSite: "Tam Site Taramas\u0131",
+    fullSiteDesc:
+      "T\u00FCm sitenizi tarar ve her sayfay\u0131 WCAG ihlalleri i\u00E7in kontrol eder",
+    pageLimit: "{count} sayfaya kadar",
+    crawlProgress: "Sayfa {current} / {total} taran\u0131yor\u2026",
+    pagesScanned: "{count} sayfa tarand\u0131",
+    scanType: "Tarama T\u00FCr\u00FC",
+    reportTitle: "Eri\u015Filebilirlik Uyumluluk Raporu",
+    methodology: "Bu skor nas\u0131l hesaplan\u0131r",
+    methodologyDesc:
+      "Bu tarama, Deque Systems taraf\u0131ndan geli\u015Ftirilen a\u00E7\u0131k kaynak WCAG test motoru axe-core kullan\u0131r. Her sayfa ger\u00E7ek bir taray\u0131c\u0131da (Chromium) JavaScript etkin olarak render edilir, ard\u0131ndan WCAG {level} ba\u015Far\u0131 kriterlerine e\u015Flenen {ruleCount} eri\u015Filebilirlik kural\u0131na g\u00F6re de\u011Ferlendirilir. Uyumluluk skoru ciddiyet a\u011F\u0131rl\u0131kl\u0131d\u0131r: kritik ihlaller (4x), ciddi (3x), orta (2x), k\u00FC\u00E7\u00FCk (1x), toplam kontrollere g\u00F6re normalize edilir.",
+    wcagPrinciples: "WCAG \u0130lkelerine G\u00F6re Uyumluluk",
+    perceivable: "Alg\u0131lanabilir",
+    perceivableDesc:
+      "\u0130\u00E7erik kullan\u0131c\u0131lara alg\u0131layabilecekleri \u015Fekillerde sunulmal\u0131d\u0131r",
+    operable: "\u00C7al\u0131\u015Ft\u0131r\u0131labilir",
+    operableDesc:
+      "Kullan\u0131c\u0131 aray\u00FCz\u00FC bile\u015Fenleri ve gezinme \u00E7al\u0131\u015Ft\u0131r\u0131labilir olmal\u0131d\u0131r",
+    understandable: "Anla\u015F\u0131labilir",
+    understandableDesc:
+      "Bilgi ve kullan\u0131c\u0131 aray\u00FCz\u00FC i\u015Fletimi anla\u015F\u0131labilir olmal\u0131d\u0131r",
+    robust: "Sa\u011Flam",
+    robustDesc:
+      "\u0130\u00E7erik yard\u0131mc\u0131 teknolojiler taraf\u0131ndan yorumlanabilecek kadar sa\u011Flam olmal\u0131d\u0131r",
+    passedChecks: "Ge\u00E7en Kontroller",
+    passedChecksDesc:
+      "Bu eri\u015Filebilirlik kurallar\u0131 de\u011Ferlendirildi ve ba\u015Far\u0131yla ge\u00E7ti",
+    rulesPassed: "{count} kural ge\u00E7ti",
+    elementsChecked: "{count} \u00F6\u011Fe kontrol edildi",
+    noViolations: "\u0130hlal tespit edilmedi",
+    scanSummary: "Tarama \u00D6zeti",
+    wcagLevel: "WCAG Seviyesi",
+    rulesEvaluated: "De\u011Ferlendirilen Kurallar",
+    scanDuration: "S\u00FCre",
+    scannedPages: "Taranan Sayfalar",
+    scannedPagesDesc:
+      "Bu tam site taramas\u0131nda ke\u015Ffedilen ve taranan t\u00FCm sayfalar",
+    pageCompleted: "tamamland\u0131",
+    pageFailed: "ba\u015Far\u0131s\u0131z",
+    showAllPages: "T\u00FCm {count} sayfay\u0131 g\u00F6ster",
+    showFewerPages: "Daha az g\u00F6ster",
+    learnMore: "Daha fazla bilgi",
+    bestPractice: "En \u0130yi Uygulama",
+    cssSelector: "CSS Se\u00E7ici",
+    passed: "ge\u00E7ti",
+    failedStatus: "ba\u015Far\u0131s\u0131z",
+    rules: "kural",
+    elements: "\u00F6\u011Fe",
+    showSummary: "\u00D6zeti g\u00F6ster",
+    showAllPassedRules: "T\u00FCm {count} ge\u00E7en kural\u0131 g\u00F6ster",
+    perceivableCategory: "Alg\u0131lanabilir (1.x)",
+    operableCategory: "\u00C7al\u0131\u015Ft\u0131r\u0131labilir (2.x)",
+    understandableCategory: "Anla\u015F\u0131labilir (3.x)",
+    robustCategory: "Sa\u011Flam (4.x)",
+    statusCompleted: "Tamamland\u0131",
+    statusFailed: "Ba\u015Far\u0131s\u0131z",
+    statusScanning: "Taran\u0131yor",
+    statusCrawling: "Taran\u0131yor",
+    statusPending: "Bekliyor",
+    pagesAbbrev: "sf",
+    scanFailed: "Tarama ba\u015Far\u0131s\u0131z",
+    fetchStatusFailed: "Tarama durumu al\u0131namad\u0131",
+    wcagDocs: "WCAG belgeleri",
+    pageOf: "Sayfa {current} / {total}",
+    prev: "\u00D6nceki",
+    next: "Sonraki",
+    totalScans: "{count} tarama",
   },
   statement: {
     hostedTitle: "Bar\u0131nd\u0131r\u0131lan Eri\u015Filebilirlik Beyannamesi",
     hostedDesc:
-      "Inculva eri\u015Filebilirlik beyannamenizi otomatik olarak bar\u0131nd\u0131r\u0131r \u2014 kendi sunucunuz gerekmez. A\u015Fa\u011F\u0131daki URL\u2019yi kopyalay\u0131n ve widget yap\u0131land\u0131rman\u0131zda accessibilityStatementUrl olarak kullan\u0131n.",
+      "inculva eri\u015Filebilirlik beyannamenizi otomatik olarak bar\u0131nd\u0131r\u0131r \u2014 kendi sunucunuz gerekmez. A\u015Fa\u011F\u0131daki URL\u2019yi kopyalay\u0131n ve widget yap\u0131land\u0131rman\u0131zda accessibilityStatementUrl olarak kullan\u0131n.",
     copyUrl: "URL\u2019yi Kopyala",
     copied: "Kopyaland\u0131!",
     preview: "\u00D6nizleme",
     hidePreview: "\u00D6nizlemeyi Gizle",
+    previewIframeTitle: "Eri\u015Filebilirlik beyannamesi \u00F6nizlemesi",
     eaaTitle: "EAA Madde 13 Uyumlulu\u011Fu",
     eaaDesc:
       "Avrupa Eri\u015Filebilirlik Yasas\u0131 (EAA), t\u00FCm dijital \u00FCr\u00FCn ve hizmetlerin bir eri\u015Filebilirlik beyannamesi yay\u0131nlamas\u0131n\u0131 gerektirir. A\u015Fa\u011F\u0131da bir tane olu\u015Fturun, sitenizde bar\u0131nd\u0131r\u0131n, ard\u0131ndan URL\u2019yi widget yap\u0131land\u0131rmas\u0131na yap\u0131\u015Ft\u0131r\u0131n.",
     detailsTitle: "Beyanname Detaylar\u0131",
     contactName: "\u0130leti\u015Fim Ad\u0131",
+    contactNamePlaceholder: "Ad\u0131 Soyad\u0131",
     contactEmail: "\u0130leti\u015Fim E-postas\u0131",
     conformanceLevel: "Uygunluk Seviyesi",
+    conformanceLevelA: "WCAG 2.1 Seviye A",
+    conformanceLevelAA: "WCAG 2.1 Seviye AA (EAA gerekli)",
+    conformanceLevelAAA: "WCAG 2.1 Seviye AAA",
     reviewDate: "\u0130nceleme Tarihi",
     knownLimitations:
       "Bilinen K\u0131s\u0131tlamalar (iste\u011Fe ba\u011Fl\u0131)",
@@ -1734,6 +2005,8 @@ const tr: DashboardMessages = {
     linkInWidgetDesc:
       "HTML dosyas\u0131n\u0131 sitenizde bar\u0131nd\u0131rd\u0131ktan (veya yukar\u0131daki bar\u0131nd\u0131r\u0131lan URL\u2019yi kulland\u0131ktan) sonra, widget panel alt bilgisinde bir ba\u011Flant\u0131 olarak g\u00F6r\u00FCnmesi i\u00E7in a\u015Fa\u011F\u0131ya URL\u2019yi ekleyin.",
     statementUrl: "Eri\u015Filebilirlik Beyannamesi URL\u2019si",
+    statementUrlPlaceholder:
+      "https://ornek.com/erisim veya yukar\u0131daki bar\u0131nd\u0131r\u0131lan URL\u2019yi kullan\u0131n",
     saveUrl: "URL\u2019yi Kaydet",
     saving: "Kaydediliyor\u2026",
     saved: "Değişiklikler başarıyla kaydedildi.",
@@ -1750,7 +2023,8 @@ const tr: DashboardMessages = {
     conformanceStatusTitle: "Uygunluk Durumu",
     conformanceStatusBody:
       "Web \u0130\u00E7eri\u011Fi Eri\u015Filebilirlik Y\u00F6nergeleri (WCAG) 2.1\u2019de tan\u0131mland\u0131\u011F\u0131 \u015Fekilde WCAG 2.1 Seviye AA uygunlu\u011Funu hedefliyoruz. Bu, Avrupa Eri\u015Filebilirlik Yasas\u0131 (EAA) ve EN 301 549 gerekliliklerini kar\u015F\u0131lar.",
-    complianceWorkBegan: "Uyum \u00E7al\u0131\u015Fmalar\u0131 ba\u015Flang\u0131c\u0131:",
+    complianceWorkBegan:
+      "Uyum \u00E7al\u0131\u015Fmalar\u0131 ba\u015Flang\u0131c\u0131:",
     statusNoteNotScanned:
       "Hen\u00FCz otomatik bir eri\u015Filebilirlik taramas\u0131 yap\u0131lmad\u0131.",
     statusNoteNoViolationsPublic:
@@ -1761,10 +2035,31 @@ const tr: DashboardMessages = {
     technicalSpecificationsBody:
       "Bu web sitesi uygunluk i\u00E7in a\u015Fa\u011F\u0131daki teknolojilere dayan\u0131r:",
     widgetNote:
-      "Bu sitede, metin b\u00FCy\u00FCtme, y\u00FCksek kontrast, disleksi dostu yaz\u0131 tipleri, klavye ile gezinme, ekran okuyucu deste\u011Fi ve daha fazlas\u0131 gibi iste\u011Fe ba\u011Fl\u0131 yard\u0131mc\u0131 \u00F6zellikler sunan (Inculva taraf\u0131ndan desteklenen) bir eri\u015Filebilirlik widget\u2019\u0131 bulunmaktad\u0131r.",
+      "Bu sitede, metin b\u00FCy\u00FCtme, y\u00FCksek kontrast, disleksi dostu yaz\u0131 tipleri, klavye ile gezinme, ekran okuyucu deste\u011Fi ve daha fazlas\u0131 gibi iste\u011Fe ba\u011Fl\u0131 yard\u0131mc\u0131 \u00F6zellikler sunan (inculva taraf\u0131ndan desteklenen) bir eri\u015Filebilirlik widget\u2019\u0131 bulunmaktad\u0131r.",
     feedbackAndContactTitle: "Geri Bildirim ve \u0130leti\u015Fim",
     feedbackAndContactBody:
       "{siteName} sitesinin eri\u015Filebilirli\u011Fi hakk\u0131nda geri bildiriminizi memnuniyetle kar\u015F\u0131lar\u0131z. Eri\u015Filebilirlik engelleriyle kar\u015F\u0131la\u015F\u0131rsan\u0131z l\u00FCtfen do\u011Frudan site sahibiyle {email} \u00FCzerinden ileti\u015Fime ge\u00E7in.",
+    feedbackIntro:
+      "{siteName} sitesinin eri\u015Filebilirli\u011Fi hakk\u0131nda geri bildiriminizi memnuniyetle kar\u015F\u0131lar\u0131z. Eri\u015Filebilirlik engelleriyle kar\u015F\u0131la\u015F\u0131rsan\u0131z l\u00FCtfen bizimle ileti\u015Fime ge\u00E7in:",
+    contactNameLabel: "Ad:",
+    contactEmailLabel: "E-posta:",
+    contactWebsiteLabel: "Web sitesi:",
+    responseTime:
+      "Eri\u015Filebilirlik geri bildirimlerine 2 i\u015F g\u00FCn\u00FC i\u00E7inde yan\u0131t vermeye \u00E7al\u0131\u015F\u0131yoruz.",
+    enforcementTitle: "Uygulama Prosed\u00FCr\u00FC",
+    enforcementBody:
+      "Yan\u0131t\u0131m\u0131zdan memnun de\u011Filseniz, \u00FClkenizdeki Avrupa Eri\u015Filebilirlik Yasas\u0131\u2019n\u0131n uygulanmas\u0131ndan sorumlu ulusal denetim kurumuna ba\u015Fvurabilirsiniz.",
+    footerPrepared:
+      "Bu eri\u015Filebilirlik beyannamesi {directive} (Avrupa Eri\u015Filebilirlik Yasas\u0131) ve WCAG 2.1 uyar\u0131nca haz\u0131rlanm\u0131\u015Ft\u0131r.",
+    footerDirectiveName: "Direktif (AB) 2019/882",
+    footerPowered:
+      "{inculva} eri\u015Filebilirlik platformu taraf\u0131ndan desteklenmektedir.",
+    footerGenerated:
+      "Beyanname {date} tarihinde {inculva} taraf\u0131ndan olu\u015Fturulmu\u015Ftur.",
+    conformanceBodyGeneric:
+      "Web \u0130\u00E7eri\u011Fi Eri\u015Filebilirlik Y\u00F6nergeleri (WCAG) 2.1\u2019de tan\u0131mland\u0131\u011F\u0131 \u015Fekilde WCAG 2.1 Seviye {level} uygunlu\u011Funu hedefliyoruz.",
+    conformanceEaaNote:
+      "Bu, Avrupa Eri\u015Filebilirlik Yasas\u0131 (EAA) ve EN 301 549 gerekliliklerini kar\u015F\u0131lar.",
   },
   adminUsers: {
     badge: "Admin",
@@ -1800,7 +2095,8 @@ const tr: DashboardMessages = {
     eventOpened: "A\u00E7\u0131ld\u0131",
     eventClosed: "Kapat\u0131ld\u0131",
     eventFeatureEnabled: "\u00D6zellik etkinle\u015Ftirildi",
-    eventFeatureDisabled: "\u00D6zellik devre d\u0131\u015F\u0131 b\u0131rak\u0131ld\u0131",
+    eventFeatureDisabled:
+      "\u00D6zellik devre d\u0131\u015F\u0131 b\u0131rak\u0131ld\u0131",
     eventProfileActivated: "Profil etkinle\u015Ftirildi",
   },
   siteTabs: {

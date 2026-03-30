@@ -1,4 +1,4 @@
-# Inculva
+# inculva
 
 > WCAG-compliant SaaS accessibility widget platform — embed one script tag to give your visitors 24 accessibility features.
 
@@ -26,7 +26,7 @@
 
 ## Overview
 
-Inculva is a full-stack SaaS platform that provides a drop-in accessibility widget for any website. Site owners register, add their domain, and paste one `<script>` tag. Their visitors get a floating panel with 16 WCAG-compliant accessibility features — no page rebuild required.
+inculva is a full-stack SaaS platform that provides a drop-in accessibility widget for any website. Site owners register, add their domain, and paste one `<script>` tag. Their visitors get a floating panel with 16 WCAG-compliant accessibility features — no page rebuild required.
 
 **Key features:**
 
@@ -159,7 +159,7 @@ BETTER_AUTH_URL=http://localhost:3000
 
 # Email
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Inculva <hi@inculva.com>
+EMAIL_FROM=inculva <hi@inculva.com>
 
 # Billing
 LEMONSQUEEZY_API_KEY=eyJ...
@@ -243,7 +243,7 @@ Browser (visitor on external site)
         ├── POST https://api.inculva.com/widget/events  (sendBeacon)
         └── Persists settings in localStorage
 
-Browser (Inculva dashboard user)
+Browser (inculva dashboard user)
   └── Next.js 15 App Router (Vercel)
         ├── Server Components → direct Prisma queries
         ├── Route Handlers → REST mutations

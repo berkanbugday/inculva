@@ -77,7 +77,14 @@ export function NotificationBell() {
     <div ref={ref} className="relative">
       <button
         onClick={handleOpen}
-        aria-label={`Notifications${unread > 0 ? ` (${unread} unread)` : ""}`}
+        aria-label={`${t.notifications.label}${
+          unread > 0
+            ? ` (${t.notifications.unreadCount.replace(
+                "{count}",
+                String(unread),
+              )})`
+            : ""
+        }`}
         className="relative w-9 h-9 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#0e0e10] transition-colors cursor-pointer"
       >
         <svg

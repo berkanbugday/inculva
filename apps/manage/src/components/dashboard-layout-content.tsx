@@ -1,7 +1,13 @@
 "use client";
 
-import { useState, useEffect, createContext, useContext } from "react";
-import { useRouter } from "next/navigation";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  createContext,
+  useContext,
+} from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { VerificationBanner } from "@/components/verification-banner";
 import { Sidebar } from "@/components/sidebar";
@@ -37,6 +43,7 @@ interface DashboardCtx {
   locale: string;
   canAddSite: boolean;
   plan: string;
+  refreshSites: () => void;
 }
 
 const DashboardContext = createContext<DashboardCtx>({
@@ -44,6 +51,7 @@ const DashboardContext = createContext<DashboardCtx>({
   locale: "en",
   canAddSite: false,
   plan: "free",
+  refreshSites: () => {},
 });
 
 export function useDashboard() {
@@ -56,38 +64,39 @@ export function DashboardLayoutContent({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const messages = useMessages();
   const locale = useLocale();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch("/api/dashboard/data");
-        if (!res.ok) {
-          if (res.status === 401) {
-            router.push("/login");
-            return;
-          }
-          if (res.status === 403) {
-            router.push("/banned");
-            return;
-          }
-          throw new Error("Failed to fetch dashboard data");
+  const fetchData = useCallback(async () => {
+    try {
+      const res = await fetch("/api/dashboard/data");
+      if (!res.ok) {
+        if (res.status === 401) {
+          router.push("/login");
+          return;
         }
-        const dashboardData = await res.json();
-        setData(dashboardData);
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      } finally {
-        setLoading(false);
+        if (res.status === 403) {
+          router.push("/banned");
+          return;
+        }
+        throw new Error("Failed to fetch dashboard data");
       }
+      const dashboardData = await res.json();
+      setData(dashboardData);
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setLoading(false);
     }
-
-    fetchData();
   }, [router]);
+
+  useEffect(() => {
+    void fetchData();
+  }, [fetchData, pathname]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -122,6 +131,7 @@ export function DashboardLayoutContent({
         locale,
         canAddSite,
         plan: data.user.plan,
+        refreshSites: fetchData,
       }}
     >
       <div className="min-h-screen bg-[#f8f9fc] dark:bg-[#0e0e10] flex flex-col">

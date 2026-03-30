@@ -44,7 +44,7 @@ export function DashboardHeader({ canAddSite, onMenuClick }: Props) {
         <a href="/dashboard">
           <img
             src={`${CDN_URL}/logos/logo-dark.png`}
-            alt="Inculva"
+            alt="inculva"
             className="h-7 w-auto"
           />
         </a>

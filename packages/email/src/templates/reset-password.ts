@@ -5,7 +5,7 @@ export function resetPasswordTemplate(resetUrl: string): string {
     `
     <h2>Reset your password</h2>
     <p>Hi there,</p>
-    <p>We received a request to reset the password for your Inculva account.
+    <p>We received a request to reset the password for your inculva account.
        Click the button below to choose a new password. This link expires in <strong>1 hour</strong>.</p>
     <a href="${resetUrl}" class="btn">Reset Password →</a>
     <hr class="divider">
@@ -13,6 +13,6 @@ export function resetPasswordTemplate(resetUrl: string): string {
        Your password will not be changed.<br>
        Or copy this link: <span style="word-break: break-all; color: #6b7280;">${resetUrl}</span></p>
     `,
-    "Reset your Inculva password"
+    "Reset your inculva password",
   );
 }

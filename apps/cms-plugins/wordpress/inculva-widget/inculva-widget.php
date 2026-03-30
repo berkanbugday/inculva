@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: Inculva Accessibility Widget
+ * Plugin Name: inculva Accessibility Widget
  * Plugin URI:  https://inculva.com
- * Description: Adds the Inculva accessibility widget to your WordPress site.
+ * Description: Adds the inculva accessibility widget to your WordPress site.
  * Version:     1.0.0
- * Author:      Inculva
+ * Author:      inculva
  * Author URI:  https://inculva.com
  * License:     GPL-2.0+
  * Text Domain: inculva-widget
@@ -66,7 +66,7 @@ function inculva_enqueue_widget() {
     wp_add_inline_script(
         'inculva-widget',
         'window.INCULVA_API_URL = ' . wp_json_encode( $api_url ) . ';' .
-        'window.InculvaConfig = ' . wp_json_encode( [ 'siteId' => $site_id ] ) . ';',
+        'window.inculvaConfig = ' . wp_json_encode( [ 'siteId' => $site_id ] ) . ';',
         'before'
     );
 }

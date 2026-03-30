@@ -7,10 +7,15 @@ export const maxDuration = 300;
 
 export async function GET(req: Request) {
   const secret = process.env["CRON_SECRET"];
-  if (!secret) return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 503 });
+  if (!secret)
+    return NextResponse.json(
+      { error: "CRON_SECRET not configured" },
+      { status: 503 },
+    );
 
   const auth = req.headers.get("authorization");
-  if (auth !== `Bearer ${secret}`) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (auth !== `Bearer ${secret}`)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const sites = await db.site.findMany({
     select: {
@@ -41,15 +46,19 @@ export async function GET(req: Request) {
         await Promise.allSettled([
           sendEmail({
             to: site.owner.email,
-            subject: `Widget may be offline on ${site.domain} — Inculva`,
-            html: healthDegradedTemplate(site.owner.name ?? "", site.domain, site.id),
+            subject: `Widget may be offline on ${site.domain} — inculva`,
+            html: healthDegradedTemplate(
+              site.owner.name ?? "",
+              site.domain,
+              site.id,
+            ),
           }),
           db.notification.create({
             data: {
               userId: site.owner.id,
               type: "health_degraded",
               title: `Widget offline on ${site.domain}`,
-              body: "The Inculva widget was not detected on your site. Check your embed snippet.",
+              body: "The inculva widget was not detected on your site. Check your embed snippet.",
               href: `/dashboard/sites/${site.id}`,
             },
           }),
@@ -63,5 +72,11 @@ export async function GET(req: Request) {
     }
   }
 
-  return NextResponse.json({ success: true, checked, alerts, errors, total: sites.length });
+  return NextResponse.json({
+    success: true,
+    checked,
+    alerts,
+    errors,
+    total: sites.length,
+  });
 }

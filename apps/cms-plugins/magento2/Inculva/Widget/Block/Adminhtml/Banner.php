@@ -1,5 +1,5 @@
 <?php
-namespace Inculva\Widget\Block\Adminhtml;
+namespace inculva\Widget\Block\Adminhtml;
 
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Backend\Block\Template\Context;
@@ -15,7 +15,7 @@ class Banner extends Field {
     }
 
     protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element): string {
-        $bannerText    = $this->escapeHtml((string) __('Your accessibility widget is active. Manage settings, view reports, and monitor compliance from the Inculva Dashboard.'));
+        $bannerText    = $this->escapeHtml((string) __('Your accessibility widget is active. Manage settings, view reports, and monitor compliance from the inculva Dashboard.'));
         $goDashboard   = $this->escapeHtml((string) __('Go to Dashboard'));
         $dismiss       = $this->escapeHtmlAttr((string) __('Dismiss'));
 
@@ -32,7 +32,7 @@ class Banner extends Field {
                 position:absolute;top:12px;right:14px;background:none;border:none;
                 cursor:pointer;font-size:18px;line-height:1;color:#888;padding:0;
             " type="button" aria-label="' . $dismiss . '">&#x2715;</button>
-            <img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="Inculva"
+            <img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="inculva"
                  style="display:block;margin-bottom:10px;" />
             <p style="margin:0 0 16px;color:#3c434a;font-size:15px;line-height:1.5;">
                 ' . $bannerText . '

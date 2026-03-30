@@ -3,17 +3,17 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <tab id="inculva" translate="label" sortOrder="999">
-            <label>Inculva</label>
+            <label>inculva</label>
         </tab>
         <section id="inculva_widget" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Accessibility Widget</label>
             <tab>inculva</tab>
-            <resource>Inculva_Widget::config</resource>
+            <resource>inculva_Widget::config</resource>
             <group id="banner" translate="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label></label>
                 <field id="dashboard_banner" translate="label" type="note" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label></label>
-                    <frontend_model>Inculva\Widget\Block\Adminhtml\Banner</frontend_model>
+                    <frontend_model>inculva\Widget\Block\Adminhtml\Banner</frontend_model>
                 </field>
             </group>
             <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">

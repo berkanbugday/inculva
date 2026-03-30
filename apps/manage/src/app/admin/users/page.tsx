@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
 import type { Locale } from "@/i18n/messages";
 
-export const metadata = { title: "Admin — Users — Inculva" };
+export const metadata = { title: "Admin — Users — inculva" };
 
 const PAGE_SIZE = 50;
 
@@ -122,14 +122,21 @@ export default async function AdminUsersPage({
             </thead>
             <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
               {users.map((user) => (
-                <tr key={user.id} className={`hover:bg-gray-50 dark:hover:bg-gray-800/50 ${user.bannedAt ? "opacity-60" : ""}`}>
+                <tr
+                  key={user.id}
+                  className={`hover:bg-gray-50 dark:hover:bg-gray-800/50 ${
+                    user.bannedAt ? "opacity-60" : ""
+                  }`}
+                >
                   <td className="px-6 py-3">
                     <div className="flex items-center gap-2">
                       <div>
                         <p className="font-medium text-gray-900 dark:text-white">
                           {user.name ?? "—"}
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {user.email}
+                        </p>
                       </div>
                       {user.bannedAt && (
                         <span className="px-1.5 py-0.5 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 text-[10px] font-bold rounded uppercase tracking-wide">
@@ -169,7 +176,10 @@ export default async function AdminUsersPage({
               ))}
               {users.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-6 py-10 text-center text-gray-400 dark:text-gray-500">
+                  <td
+                    colSpan={6}
+                    className="px-6 py-10 text-center text-gray-400 dark:text-gray-500"
+                  >
                     {t.adminUsers.noUsersFound}
                   </td>
                 </tr>
@@ -187,7 +197,10 @@ export default async function AdminUsersPage({
           <div className="flex gap-2">
             {page > 1 && (
               <a
-                href={`/admin/users?${new URLSearchParams({ ...(query && { q: query }), page: String(page - 1) })}`}
+                href={`/admin/users?${new URLSearchParams({
+                  ...(query && { q: query }),
+                  page: String(page - 1),
+                })}`}
                 className="px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 Previous
@@ -195,7 +208,10 @@ export default async function AdminUsersPage({
             )}
             {page < pages && (
               <a
-                href={`/admin/users?${new URLSearchParams({ ...(query && { q: query }), page: String(page + 1) })}`}
+                href={`/admin/users?${new URLSearchParams({
+                  ...(query && { q: query }),
+                  page: String(page + 1),
+                })}`}
                 className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Next
@@ -212,11 +228,14 @@ function PlanBadge({ plan }: { plan: string }) {
   const styles: Record<string, string> = {
     free: "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400",
     pro: "bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300",
-    business: "bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300",
+    business:
+      "bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300",
   };
   return (
     <span
-      className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${styles[plan] ?? styles["free"]}`}
+      className={`px-2 py-0.5 rounded-full text-xs font-medium capitalize ${
+        styles[plan] ?? styles["free"]
+      }`}
     >
       {plan}
     </span>

@@ -1,29 +1,29 @@
 <?php
 if (!defined('_PS_VERSION_')) exit;
 
-class InculvaWidget extends Module {
+class inculvaWidget extends Module {
 
     private static array $i18n = [
         'en' => [
-            'plugin_name'     => 'Inculva Accessibility Widget',
-            'plugin_desc'     => 'Adds the Inculva accessibility widget to your PrestaShop store.',
-            'banner_text'     => 'Your accessibility widget is active. Manage settings, view reports, and monitor compliance from the Inculva Dashboard.',
+            'plugin_name'     => 'inculva Accessibility Widget',
+            'plugin_desc'     => 'Adds the inculva accessibility widget to your PrestaShop store.',
+            'banner_text'     => 'Your accessibility widget is active. Manage settings, view reports, and monitor compliance from the inculva Dashboard.',
             'go_to_dashboard' => 'Go to Dashboard',
             'dismiss'         => 'Dismiss',
             'site_id'         => 'Site ID',
-            'site_id_desc'    => 'Find your Site ID in your Inculva dashboard.',
+            'site_id_desc'    => 'Find your Site ID in your inculva dashboard.',
             'api_url'         => 'Widget API URL',
             'api_url_desc'    => 'Leave default unless you use a self-hosted API.',
             'save'            => 'Save',
         ],
         'tr' => [
-            'plugin_name'     => 'Inculva Erişilebilirlik Widget\'ı',
-            'plugin_desc'     => 'Inculva erişilebilirlik widget\'ını PrestaShop mağazanıza ekler.',
-            'banner_text'     => 'Erişilebilirlik widget\'ınız aktif. Inculva Dashboard\'dan ayarları yönetin, raporları görüntüleyin ve uyumluluğu izleyin.',
+            'plugin_name'     => 'inculva Erişilebilirlik Widget\'ı',
+            'plugin_desc'     => 'inculva erişilebilirlik widget\'ını PrestaShop mağazanıza ekler.',
+            'banner_text'     => 'Erişilebilirlik widget\'ınız aktif. inculva Dashboard\'dan ayarları yönetin, raporları görüntüleyin ve uyumluluğu izleyin.',
             'go_to_dashboard' => 'Panele Git',
             'dismiss'         => 'Kapat',
             'site_id'         => 'Site ID',
-            'site_id_desc'    => 'Site ID\'nizi Inculva panonuzda bulabilirsiniz.',
+            'site_id_desc'    => 'Site ID\'nizi inculva panonuzda bulabilirsiniz.',
             'api_url'         => 'Widget API URL',
             'api_url_desc'    => 'Kendi API\'nizi barındırmıyorsanız varsayılanı bırakın.',
             'save'            => 'Kaydet',
@@ -39,7 +39,7 @@ class InculvaWidget extends Module {
         $this->name          = 'inculvawidget';
         $this->tab           = 'front_office_features';
         $this->version       = '1.0.0';
-        $this->author        = 'Inculva';
+        $this->author        = 'inculva';
         $this->need_instance = 0;
         parent::__construct();
         $this->displayName = $this->t('plugin_name');
@@ -56,7 +56,7 @@ class InculvaWidget extends Module {
 
         $apiUrl = Configuration::get('INCULVA_API_URL') ?: 'https://api.inculva.com';
         $inline = 'window.INCULVA_API_URL=' . json_encode($apiUrl) . ';'
-                . 'window.InculvaConfig=' . json_encode(['siteId' => $siteId]) . ';';
+                . 'window.inculvaConfig=' . json_encode(['siteId' => $siteId]) . ';';
 
         return '<script>' . $inline . '</script>'
              . '<script src="https://cdn.inculva.com/widget.js"'
@@ -85,7 +85,7 @@ class InculvaWidget extends Module {
                 position:absolute;top:12px;right:14px;background:none;border:none;
                 cursor:pointer;font-size:18px;line-height:1;color:#888;padding:0;
             " aria-label="' . htmlspecialchars($this->t('dismiss'), ENT_QUOTES) . '">&#x2715;</button>
-            <img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="Inculva"
+            <img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="inculva"
                  style="display:block;margin-bottom:10px;" />
             <p style="margin:0 0 16px;color:#3c434a;font-size:15px;line-height:1.5;">'
                 . htmlspecialchars($this->t('banner_text'), ENT_QUOTES) .

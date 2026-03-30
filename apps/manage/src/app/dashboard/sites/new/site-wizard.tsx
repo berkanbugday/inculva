@@ -37,6 +37,9 @@ const POSITION_GRID = [
 const DOMAIN_RE =
   /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)*[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/i;
 
+/** Dev-only site under test; skips DNS (would not match DOMAIN_RE because of :port). */
+const CREATE_SITE_DNS_BYPASS_NORMALIZED = "localhost:4321";
+
 interface WizardState {
   name: string;
   domain: string;
@@ -95,7 +98,15 @@ export function SiteWizard({ createSite, error }: Props) {
 
   async function checkDns(): Promise<boolean> {
     const domain = normalizeDomain(state.domain);
-    if (!domain || !DOMAIN_RE.test(domain)) {
+    if (domain === CREATE_SITE_DNS_BYPASS_NORMALIZED) {
+      setDnsStatus("valid");
+      return true;
+    }
+    if (!domain) {
+      setDnsStatus("invalid");
+      return false;
+    }
+    if (!DOMAIN_RE.test(domain)) {
       setDnsStatus("invalid");
       return false;
     }
@@ -290,8 +301,20 @@ export function SiteWizard({ createSite, error }: Props) {
               )}
               {dnsStatus === "valid" && (
                 <p className="mt-2 text-sm text-green-600 dark:text-green-400 flex items-center gap-1.5">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 7l3 3 5-5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                   {t.wizard.dnsValid}
                 </p>
@@ -480,7 +503,10 @@ export function SiteWizard({ createSite, error }: Props) {
             <div className="bg-[#f8f9fc] dark:bg-[#0e0e10] rounded-2xl divide-y divide-[#e8eaf0] dark:divide-[#2a2a3e] border border-[#e8eaf0] dark:border-[#2a2a3e]">
               {[
                 { label: t.wizard.siteName, value: state.name },
-                { label: t.wizard.domainLabel, value: normalizeDomain(state.domain) },
+                {
+                  label: t.wizard.domainLabel,
+                  value: normalizeDomain(state.domain),
+                },
                 {
                   label: t.wizard.position,
                   value: POSITION_LABELS[state.position] ?? state.position,
@@ -542,7 +568,9 @@ export function SiteWizard({ createSite, error }: Props) {
             disabled={!canAdvance() || dnsStatus === "checking"}
             className="px-5 py-3 bg-blue-600 text-white rounded-full text-base font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
           >
-            {dnsStatus === "checking" ? t.wizard.dnsChecking : t.wizard.continue}
+            {dnsStatus === "checking"
+              ? t.wizard.dnsChecking
+              : t.wizard.continue}
           </button>
         ) : (
           <button

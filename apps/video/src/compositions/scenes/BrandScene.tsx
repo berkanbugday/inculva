@@ -37,7 +37,7 @@ export function BrandScene({ lang }: SceneProps) {
       <img
         src={staticFile("logo.png")}
         style={{ height: 130, opacity: logoOpacity }}
-        alt="Inculva"
+        alt="inculva"
       />
       <span
         style={{

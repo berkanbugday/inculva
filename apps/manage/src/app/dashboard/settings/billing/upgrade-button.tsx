@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useMessages } from "@/i18n/useMessages";
 
 interface Props {
   monthlyVariantId: string;
@@ -17,6 +18,7 @@ export function UpgradeButton({
   monthlyUsd,
   annualUsd,
 }: Props) {
+  const t = useMessages();
   const [interval, setInterval] = useState<"month" | "year">("month");
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +36,7 @@ export function UpgradeButton({
     if (data.url) {
       window.location.href = data.url;
     } else {
-      alert(data.error ?? "Failed to start checkout");
+      alert(data.error ?? t.billing.checkoutFailed);
       setLoading(false);
     }
   }
@@ -51,7 +53,8 @@ export function UpgradeButton({
               : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
           }`}
         >
-          Monthly — ${monthlyUsd}/mo
+          {t.billing.monthly} — ${monthlyUsd}
+          {t.billing.perMonth}
         </button>
         <button
           onClick={() => setInterval("year")}
@@ -61,9 +64,10 @@ export function UpgradeButton({
               : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
           }`}
         >
-          Annual — ${monthlyEquiv}/mo
+          {t.billing.annual} — ${monthlyEquiv}
+          {t.billing.perMonth}
           <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-            SAVE 17%
+            {t.billing.save17}
           </span>
         </button>
       </div>
@@ -73,7 +77,9 @@ export function UpgradeButton({
         disabled={loading || !variantId}
         className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {loading ? "Redirecting…" : `Upgrade to ${planName} →`}
+        {loading
+          ? t.billing.redirecting
+          : t.billing.upgradeTo.replace("{plan}", planName)}
       </button>
     </div>
   );

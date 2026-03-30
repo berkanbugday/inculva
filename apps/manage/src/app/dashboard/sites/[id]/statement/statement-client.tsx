@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Snackbar } from "@/components/ui/snackbar";
-import { useMessages } from "@/i18n/useMessages";
+import type { DashboardMessages } from "@/i18n/messages";
+import { useMessages, useLocale } from "@/i18n/useMessages";
 
 interface Props {
   siteId: string;
@@ -25,6 +26,8 @@ function generateHtml(opts: {
   limitations: string;
   lastScanViolations: number | null;
   landingUrl: string;
+  t: DashboardMessages;
+  locale: string;
 }): string {
   const {
     siteName,
@@ -36,21 +39,55 @@ function generateHtml(opts: {
     limitations,
     lastScanViolations,
     landingUrl,
+    t,
+    locale,
   } = opts;
 
   const statusNote =
     lastScanViolations === null
-      ? "An automated accessibility scan has not yet been performed."
+      ? t.statement.statusNoteNotScanned
       : lastScanViolations === 0
-      ? "The most recent automated WCAG scan found no violations."
-      : `The most recent automated WCAG scan found ${lastScanViolations} potential violation(s). We are actively working to resolve them.`;
+      ? t.statement.statusNoteNoViolationsPublic
+      : t.statement.statusNoteViolationsPublic.replace(
+          "{count}",
+          String(lastScanViolations),
+        );
+
+  const conformanceBody = t.statement.conformanceBodyGeneric.replace(
+    "{level}",
+    conformanceLevel,
+  );
+  const eaaNote =
+    conformanceLevel === "AA" ? ` ${t.statement.conformanceEaaNote}` : "";
+
+  const formattedReviewDate = new Date(reviewDate).toLocaleDateString(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const footerPreparedParts = t.statement.footerPrepared.split("{directive}");
+  const generatedDate = new Date().toLocaleDateString(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const footerGeneratedWithDate = t.statement.footerGenerated.replace(
+    "{date}",
+    generatedDate,
+  );
+  const footerGeneratedParts = footerGeneratedWithDate.split("{inculva}");
+  const footerGeneratedText =
+    footerGeneratedParts[0] +
+    `<a href="${landingUrl}">inculva</a>` +
+    (footerGeneratedParts[1] ?? "");
 
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="${locale}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accessibility Statement — ${siteName}</title>
+  <title>${t.statement.publicTitle} — ${siteName}</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem; line-height: 1.6; color: #1a1a1a; }
     h1 { font-size: 2rem; margin-bottom: 0.5rem; }
@@ -62,57 +99,64 @@ function generateHtml(opts: {
   </style>
 </head>
 <body>
-  <h1>Accessibility Statement</h1>
-  <p>This statement applies to: <strong><a href="https://${siteDomain}">${siteDomain}</a></strong></p>
-  <p>Last reviewed: <strong>${reviewDate}</strong></p>
+  <h1>${t.statement.publicTitle}</h1>
+  <p>${
+    t.statement.appliesTo
+  } <strong><a href="https://${siteDomain}">${siteDomain}</a></strong></p>
+  <p>${t.statement.lastReviewed} <strong>${formattedReviewDate}</strong></p>
 
-  <h2>Our Commitment</h2>
-  <p>${siteName} is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience for everyone and apply relevant accessibility standards.</p>
+  <h2>${t.statement.ourCommitmentTitle}</h2>
+  <p>${t.statement.ourCommitmentBody.replace("{siteName}", siteName)}</p>
 
-  <h2>Conformance Status</h2>
-  <p>We aim for <strong>WCAG 2.1 Level ${conformanceLevel}</strong> conformance, as defined by the Web Content Accessibility Guidelines (WCAG) 2.1. ${
-    conformanceLevel === "AA"
-      ? "This meets the requirements of the European Accessibility Act (EAA) and EN 301 549."
-      : ""
-  }</p>
+  <h2>${t.statement.conformanceStatusTitle}</h2>
+  <p>${conformanceBody}${eaaNote}</p>
   <p>${statusNote}</p>
 
-  <h2>Technical Specifications</h2>
-  <p>This website relies on the following technologies for conformance:</p>
+  <h2>${t.statement.technicalSpecificationsTitle}</h2>
+  <p>${t.statement.technicalSpecificationsBody}</p>
   <ul>
     <li>HTML</li>
     <li>CSS</li>
     <li>JavaScript</li>
   </ul>
-  <p>An accessibility widget (powered by Inculva) is embedded on this site to provide on-demand assistive features including text resizing, high contrast, dyslexia-friendly fonts, keyboard navigation, screen reader support, and more.</p>
+  <p>${t.statement.widgetNote}</p>
 
   ${
     limitations
-      ? `<h2>Known Limitations</h2>\n  <p>${limitations.replace(
+      ? `<h2>${t.statement.knownLimitations}</h2>\n  <p>${limitations.replace(
           /\n/g,
           "</p>\n  <p>",
         )}</p>`
       : ""
   }
 
-  <h2>Feedback and Contact</h2>
-  <p>We welcome your feedback on the accessibility of ${siteName}. If you experience accessibility barriers, please contact us:</p>
+  <h2>${t.statement.feedbackAndContactTitle}</h2>
+  <p>${t.statement.feedbackIntro.replace("{siteName}", siteName)}</p>
   <ul>
-    ${contactName ? `<li><strong>Name:</strong> ${contactName}</li>` : ""}
-    <li><strong>Email:</strong> <a href="mailto:${contactEmail}">${contactEmail}</a></li>
-    <li><strong>Website:</strong> <a href="https://${siteDomain}">${siteDomain}</a></li>
+    ${
+      contactName
+        ? `<li><strong>${t.statement.contactNameLabel}</strong> ${contactName}</li>`
+        : ""
+    }
+    <li><strong>${
+      t.statement.contactEmailLabel
+    }</strong> <a href="mailto:${contactEmail}">${contactEmail}</a></li>
+    <li><strong>${
+      t.statement.contactWebsiteLabel
+    }</strong> <a href="https://${siteDomain}">${siteDomain}</a></li>
   </ul>
-  <p>We try to respond to accessibility feedback within <strong>2 business days</strong>.</p>
+  <p>${t.statement.responseTime}</p>
 
-  <h2>Enforcement Procedure</h2>
-  <p>If you are not satisfied with our response, you may contact the relevant national supervisory body responsible for enforcing the European Accessibility Act in your country.</p>
+  <h2>${t.statement.enforcementTitle}</h2>
+  <p>${t.statement.enforcementBody}</p>
 
   <footer>
-    <p>This accessibility statement was prepared in accordance with <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882">Directive (EU) 2019/882</a> (European Accessibility Act) and WCAG 2.1.</p>
-    <p>Statement generated by <a href="${landingUrl}">Inculva</a> on ${new Date().toLocaleDateString(
-      "en",
-      { year: "numeric", month: "long", day: "numeric" },
-    )}.</p>
+    <p>${
+      footerPreparedParts[0]
+    }<a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0882">${
+      t.statement.footerDirectiveName
+    }</a>${footerPreparedParts[1] ?? ""}</p>
+    <p>${footerGeneratedText}</p>
   </footer>
 </body>
 </html>`;
@@ -129,6 +173,7 @@ export function StatementClient({
   currentStatementUrl,
 }: Props) {
   const t = useMessages();
+  const locale = useLocale();
   const today = new Date().toISOString().slice(0, 10);
 
   const [form, setForm] = useState({
@@ -164,6 +209,8 @@ export function StatementClient({
     siteDomain,
     lastScanViolations,
     landingUrl,
+    t,
+    locale,
   });
 
   function downloadHtml() {
@@ -246,12 +293,16 @@ export function StatementClient({
           }`}
         >
           {lastScanViolations === 0
-            ? `Last WCAG scan (${new Date(
-                lastScanAt,
-              ).toLocaleDateString()}) found no violations.`
-            : `Last WCAG scan (${new Date(
-                lastScanAt,
-              ).toLocaleDateString()}) found ${lastScanViolations} potential violation(s). Consider resolving these before generating the statement.`}
+            ? t.statement.lastScanNoViolations.replace(
+                "{date}",
+                new Date(lastScanAt).toLocaleDateString(locale),
+              )
+            : t.statement.lastScanViolations
+                .replace(
+                  "{date}",
+                  new Date(lastScanAt).toLocaleDateString(locale),
+                )
+                .replace("{count}", String(lastScanViolations))}
         </div>
       )}
 
@@ -273,7 +324,7 @@ export function StatementClient({
                 setForm((f) => ({ ...f, contactName: e.target.value }))
               }
               className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Jane Smith"
+              placeholder={t.statement.contactNamePlaceholder}
             />
           </div>
 
@@ -303,9 +354,9 @@ export function StatementClient({
               }
               className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="A">WCAG 2.1 Level A</option>
-              <option value="AA">WCAG 2.1 Level AA (EAA required)</option>
-              <option value="AAA">WCAG 2.1 Level AAA</option>
+              <option value="A">{t.statement.conformanceLevelA}</option>
+              <option value="AA">{t.statement.conformanceLevelAA}</option>
+              <option value="AAA">{t.statement.conformanceLevelAAA}</option>
             </select>
           </div>
 
@@ -335,7 +386,7 @@ export function StatementClient({
             }
             rows={3}
             className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-            placeholder="Describe any known accessibility barriers and your plan to fix them..."
+            placeholder={t.statement.knownLimitationsPlaceholder}
           />
         </div>
 
@@ -365,7 +416,7 @@ export function StatementClient({
             srcDoc={html}
             className="w-full border border-gray-200 dark:border-gray-700 rounded-lg"
             style={{ height: 480 }}
-            title="Accessibility statement preview"
+            title={t.statement.previewIframeTitle}
           />
         </div>
       )}
@@ -390,7 +441,7 @@ export function StatementClient({
               setUrlSaved(false);
             }}
             className="w-full px-4 py-2.5 text-sm rounded-2xl border border-[#e8eaf0] dark:border-[#2a2a3e] bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="https://example.com/accessibility or use hosted URL above"
+            placeholder={t.statement.statementUrlPlaceholder}
           />
         </div>
         <div className="flex items-center gap-3">

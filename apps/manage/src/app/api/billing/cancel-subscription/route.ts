@@ -63,7 +63,7 @@ export async function POST(_req: NextRequest): Promise<NextResponse> {
     const message = err instanceof Error ? err.message : String(err);
     const body = (err as Record<string, unknown>)?.body;
     console.error("[cancel-subscription] error:", message, "| body:", body);
-    return NextResponse.json({ ok: false, error: "Cancellation failed", detail: message }, { status: 500 });
+    return NextResponse.json({ ok: false, error: "Cancellation failed" }, { status: 500 });
   }
 
   await db.subscription.update({

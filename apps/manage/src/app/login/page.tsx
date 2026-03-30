@@ -13,11 +13,7 @@ import { useMessages } from "@/i18n/useMessages";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
-const schema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(1, "Password is required"),
-});
-type FormData = z.infer<typeof schema>;
+type FormData = { email: string; password: string };
 
 const inputCls =
   "w-full px-5 py-4 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl bg-white dark:bg-[#1a1a2e] text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-shadow text-base";
@@ -37,6 +33,10 @@ function LoginForm() {
       : "/dashboard";
   const passwordReset = searchParams.get("reset") === "1";
 
+  const schema = z.object({
+    email: z.string().email(t.auth.validEmail),
+    password: z.string().min(1, t.auth.passwordRequired),
+  });
   const {
     register,
     handleSubmit,
@@ -69,7 +69,10 @@ function LoginForm() {
         <div>
           <h2 className="text-3xl font-black text-white leading-tight mb-3">
             {t.authBrand.makeAccessible.split("\n").map((line, i) => (
-              <span key={i}>{line}{i === 0 && <br />}</span>
+              <span key={i}>
+                {line}
+                {i === 0 && <br />}
+              </span>
             ))}
           </h2>
           <p className="text-blue-100 text-sm mb-8 leading-relaxed">
@@ -107,7 +110,7 @@ function LoginForm() {
           <div className="lg:hidden text-center mb-8">
             <img
               src={`${CDN_URL}/logos/logo.png`}
-              alt="Inculva"
+              alt="inculva"
               className="h-10 w-auto mx-auto"
             />
           </div>

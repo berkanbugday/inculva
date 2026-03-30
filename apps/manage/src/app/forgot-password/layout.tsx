@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Reset your password — Inculva",
+  title: "Reset your password — inculva",
 };
 
-export default function ForgotPasswordLayout({ children }: { children: React.ReactNode }) {
+export default function ForgotPasswordLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }

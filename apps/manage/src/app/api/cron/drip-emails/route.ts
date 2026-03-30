@@ -1,15 +1,25 @@
 import { NextResponse } from "next/server";
 import { db } from "@inculva/db";
-import { sendEmail, dripDay3Template, dripDay7Template, dripDay30Template } from "@inculva/email";
+import {
+  sendEmail,
+  dripDay3Template,
+  dripDay7Template,
+  dripDay30Template,
+} from "@inculva/email";
 
 export const maxDuration = 300;
 
 export async function GET(req: Request) {
   const secret = process.env["CRON_SECRET"];
-  if (!secret) return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 503 });
+  if (!secret)
+    return NextResponse.json(
+      { error: "CRON_SECRET not configured" },
+      { status: 503 },
+    );
 
   const auth = req.headers.get("authorization");
-  if (auth !== `Bearer ${secret}`) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (auth !== `Bearer ${secret}`)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const now = new Date();
   const dayMs = 24 * 60 * 60 * 1000;
@@ -27,7 +37,10 @@ export async function GET(req: Request) {
   const day3Users = await db.user.findMany({
     where: {
       dripDay3Sent: false,
-      createdAt: { gte: new Date(day3Cutoff.getTime() - windowMs), lte: day3Cutoff },
+      createdAt: {
+        gte: new Date(day3Cutoff.getTime() - windowMs),
+        lte: day3Cutoff,
+      },
     },
     select: { id: true, name: true, email: true },
   });
@@ -36,10 +49,13 @@ export async function GET(req: Request) {
     try {
       await sendEmail({
         to: user.email,
-        subject: "Have you installed the Inculva widget yet?",
+        subject: "Have you installed the inculva widget yet?",
         html: dripDay3Template(user.name ?? ""),
       });
-      await db.user.update({ where: { id: user.id }, data: { dripDay3Sent: true } });
+      await db.user.update({
+        where: { id: user.id },
+        data: { dripDay3Sent: true },
+      });
       sent++;
     } catch {
       errors++;
@@ -51,7 +67,10 @@ export async function GET(req: Request) {
     where: {
       dripDay3Sent: true,
       dripDay7Sent: false,
-      createdAt: { gte: new Date(day7Cutoff.getTime() - windowMs), lte: day7Cutoff },
+      createdAt: {
+        gte: new Date(day7Cutoff.getTime() - windowMs),
+        lte: day7Cutoff,
+      },
     },
     select: { id: true, name: true, email: true },
   });
@@ -60,10 +79,13 @@ export async function GET(req: Request) {
     try {
       await sendEmail({
         to: user.email,
-        subject: "Run your free WCAG accessibility scan — Inculva",
+        subject: "Run your free WCAG accessibility scan — inculva",
         html: dripDay7Template(user.name ?? ""),
       });
-      await db.user.update({ where: { id: user.id }, data: { dripDay7Sent: true } });
+      await db.user.update({
+        where: { id: user.id },
+        data: { dripDay7Sent: true },
+      });
       sent++;
     } catch {
       errors++;
@@ -75,7 +97,10 @@ export async function GET(req: Request) {
     where: {
       dripDay30Sent: false,
       plan: "free",
-      createdAt: { gte: new Date(day30Cutoff.getTime() - windowMs), lte: day30Cutoff },
+      createdAt: {
+        gte: new Date(day30Cutoff.getTime() - windowMs),
+        lte: day30Cutoff,
+      },
     },
     select: {
       id: true,
@@ -94,13 +119,19 @@ export async function GET(req: Request) {
 
   for (const user of day30Users) {
     try {
-      const eventCount = user.sites.reduce((sum, s) => sum + s.widgetEvents.length, 0);
+      const eventCount = user.sites.reduce(
+        (sum, s) => sum + s.widgetEvents.length,
+        0,
+      );
       await sendEmail({
         to: user.email,
-        subject: "You've been with Inculva for a month — ready to upgrade?",
+        subject: "You've been with inculva for a month — ready to upgrade?",
         html: dripDay30Template(user.name ?? "", eventCount),
       });
-      await db.user.update({ where: { id: user.id }, data: { dripDay30Sent: true } });
+      await db.user.update({
+        where: { id: user.id },
+        data: { dripDay30Sent: true },
+      });
       sent++;
     } catch {
       errors++;
@@ -111,6 +142,10 @@ export async function GET(req: Request) {
     success: true,
     sent,
     errors,
-    breakdown: { day3: day3Users.length, day7: day7Users.length, day30: day30Users.length },
+    breakdown: {
+      day3: day3Users.length,
+      day7: day7Users.length,
+      day30: day30Users.length,
+    },
   });
 }

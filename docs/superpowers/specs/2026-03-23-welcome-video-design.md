@@ -1,26 +1,27 @@
 # Welcome Video Design Spec
+
 **Date:** 2026-03-23
-**Product:** Inculva — Web Accessibility Widget Platform
+**Product:** inculva — Web Accessibility Widget Platform
 **Tool:** Remotion
 
 ---
 
 ## Overview
 
-A 42-second welcome/marketing video for Inculva, produced in two language versions (English & Turkish). Targets landing page hero section and YouTube/social media distribution. Tone: modern & energetic + warm & human.
+A 42-second welcome/marketing video for inculva, produced in two language versions (English & Turkish). Targets landing page hero section and YouTube/social media distribution. Tone: modern & energetic + warm & human.
 
 ---
 
 ## Video Specs
 
-| Property | Value |
-|----------|-------|
-| Duration | ~42 seconds |
-| FPS | 60 |
-| Primary format | 1080×1920 (9:16 portrait) |
-| Secondary format | 1920×1080 (16:9 landscape) |
-| Languages | English + Turkish (two compositions) |
-| Narration | None — screen text only (silent-viewing optimized) |
+| Property         | Value                                              |
+| ---------------- | -------------------------------------------------- |
+| Duration         | ~42 seconds                                        |
+| FPS              | 60                                                 |
+| Primary format   | 1080×1920 (9:16 portrait)                          |
+| Secondary format | 1920×1080 (16:9 landscape)                         |
+| Languages        | English + Turkish (two compositions)               |
+| Narration        | None — screen text only (silent-viewing optimized) |
 
 ---
 
@@ -33,15 +34,17 @@ The video follows a 3-act arc designed to create emotional resonance and clearly
 ## Scene Breakdown
 
 ### Scene 1 — Opening (0–5s)
+
 - **Background:** Dark (`#0f172a`), slight blur
 - **Animation:** Text fade-in with `spring` interpolation
-- **EN text:** *"The web wasn't built for everyone."*
-- **TR text:** *"İnternet herkes için tasarlanmadı."*
+- **EN text:** _"The web wasn't built for everyone."_
+- **TR text:** _"İnternet herkes için tasarlanmadı."_
 - **Transition out:** Slide-left into Scene 2
 
 ---
 
 ### Scene 2 — Problem (5–12s)
+
 - **Content:** Mock website component showing poor accessibility: low contrast text, tiny buttons, chaotic layout
 - **Animation:** Subtle glitch/shake effect to emphasize dysfunction
 - **Text:** None (visual storytelling)
@@ -50,9 +53,10 @@ The video follows a 3-act arc designed to create emotional resonance and clearly
 ---
 
 ### Scene 3 — Solution Entry (12–18s)
+
 - **Content:**
-  1. Inculva logo slides up with spring animation
-  2. *"One line of code."* / *"Tek satır kod."* appears below
+  1. inculva logo slides up with spring animation
+  2. _"One line of code."_ / _"Tek satır kod."_ appears below
   3. Script tag appears with typewriter effect:
      `<script src="cdn.inculva.com/widget.js" data-site-id="...">`
 - **Transition out:** Fade/slide into Scene 4
@@ -60,13 +64,14 @@ The video follows a 3-act arc designed to create emotional resonance and clearly
 ---
 
 ### Scene 4 — Widget Demo (18–34s)
+
 - **Total:** 16 seconds = 960 frames
 - **Timing breakdown:**
   - 0–30f (0.5s): Widget panel slides in (spring open animation)
-  - 30–270f (4s): Feature 1 — **High Contrast** / *Yüksek Kontrast*
-  - 270–510f (4s): Feature 2 — **Larger Text** / *Büyük Yazı*
-  - 510–750f (4s): Feature 3 — **Dyslexia Font** / *Disleksi Fontu*
-  - 750–930f (3s): Feature 4 — **Color Blind Mode** / *Renk Körlüğü Modu* *(shorter to allow close animation)*
+  - 30–270f (4s): Feature 1 — **High Contrast** / _Yüksek Kontrast_
+  - 270–510f (4s): Feature 2 — **Larger Text** / _Büyük Yazı_
+  - 510–750f (4s): Feature 3 — **Dyslexia Font** / _Disleksi Fontu_
+  - 750–930f (3s): Feature 4 — **Color Blind Mode** / _Renk Körlüğü Modu_ _(shorter to allow close animation)_
   - 930–960f (0.5s): Widget panel slides out (spring close)
   - **Note:** Features 1–3 get 4s (240f) each; Feature 4 gets 3s (180f) to fit the close animation within 16s total.
 - **Each feature:** Toggle animates on, small label badge fades in, `MockWebsite` behind panel reflects the active feature state simultaneously
@@ -75,12 +80,13 @@ The video follows a 3-act arc designed to create emotional resonance and clearly
 ---
 
 ### Scene 5 — Result & CTA (34–42s)
+
 - **Content:**
   1. Clean, accessible version of mock site shown briefly
-  2. `ComplianceBadge` component animates in: *"WCAG 2.1 AA Compliant ✓"*
+  2. `ComplianceBadge` component animates in: _"WCAG 2.1 AA Compliant ✓"_
   3. Tagline appears:
-     - EN: *"Make your website accessible to everyone."*
-     - TR: *"Web sitenizi herkese erişilebilir yapın."*
+     - EN: _"Make your website accessible to everyone."_
+     - TR: _"Web sitenizi herkese erişilebilir yapın."_
   4. **inculva.com** fades in bold
 - **Transition:** Final hold, fade to black
 
@@ -88,27 +94,27 @@ The video follows a 3-act arc designed to create emotional resonance and clearly
 
 ## Transcript Summary
 
-| Scene | English | Turkish |
-|-------|---------|---------|
-| 1 | "The web wasn't built for everyone." | "İnternet herkes için tasarlanmadı." |
-| 2 | *(no text)* | *(no text)* |
-| 3 | "One line of code." + script tag | "Tek satır kod." + script tag |
-| 4 | Feature labels: High Contrast, Larger Text, Dyslexia Font, Color Blind Mode | Yüksek Kontrast, Büyük Yazı, Disleksi Fontu, Renk Körlüğü Modu |
-| 5 | "WCAG 2.1 AA Compliant ✓" → "Make your website accessible to everyone." → inculva.com | "WCAG 2.1 AA Uyumlu ✓" → "Web sitenizi herkese erişilebilir yapın." → inculva.com |
+| Scene | English                                                                               | Turkish                                                                           |
+| ----- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 1     | "The web wasn't built for everyone."                                                  | "İnternet herkes için tasarlanmadı."                                              |
+| 2     | _(no text)_                                                                           | _(no text)_                                                                       |
+| 3     | "One line of code." + script tag                                                      | "Tek satır kod." + script tag                                                     |
+| 4     | Feature labels: High Contrast, Larger Text, Dyslexia Font, Color Blind Mode           | Yüksek Kontrast, Büyük Yazı, Disleksi Fontu, Renk Körlüğü Modu                    |
+| 5     | "WCAG 2.1 AA Compliant ✓" → "Make your website accessible to everyone." → inculva.com | "WCAG 2.1 AA Uyumlu ✓" → "Web sitenizi herkese erişilebilir yapın." → inculva.com |
 
 ---
 
 ## Visual Style
 
-| Property | Value |
-|----------|-------|
-| Background | `#0f172a` (dark slate) |
-| Primary color | `#0066cc` |
-| Accent | `#3493ff` |
-| Text color | White (`#ffffff`) |
-| Font | Inter (via `@remotion/google-fonts`) |
-| Border radius | `0.75rem` (buttons/inputs), `1rem` (cards) |
-| Transitions | `spring()` interpolation throughout — no hard cuts |
+| Property      | Value                                              |
+| ------------- | -------------------------------------------------- |
+| Background    | `#0f172a` (dark slate)                             |
+| Primary color | `#0066cc`                                          |
+| Accent        | `#3493ff`                                          |
+| Text color    | White (`#ffffff`)                                  |
+| Font          | Inter (via `@remotion/google-fonts`)               |
+| Border radius | `0.75rem` (buttons/inputs), `1rem` (cards)         |
+| Transitions   | `spring()` interpolation throughout — no hard cuts |
 
 ---
 
@@ -151,7 +157,7 @@ apps/video/
 │   │       └── CtaScene.tsx
 │   └── components/
 │       ├── MockWebsite.tsx           # Accepts: activeFeature: FeatureKey | null, mode: "broken" | "fixed"
-│       ├── WidgetPanel.tsx           # Remotion recreation of Inculva widget UI, accepts: activeFeature prop
+│       ├── WidgetPanel.tsx           # Remotion recreation of inculva widget UI, accepts: activeFeature prop
 │       ├── WidgetFeatureStep.tsx     # Single feature activation step (toggle + badge + timing)
 │       └── ComplianceBadge.tsx       # Animated WCAG compliance badge
 ├── public/

@@ -17,7 +17,7 @@
 
 ## System Overview
 
-Inculva is a **TypeScript monorepo** built on Turborepo with pnpm workspaces. It has two deployable applications and four shared packages.
+inculva is a **TypeScript monorepo** built on Turborepo with pnpm workspaces. It has two deployable applications and four shared packages.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -91,6 +91,7 @@ packages/widget  ┘  (standalone — no deps on other packages)
 The Fastify API is the **only service exposed to the open internet with permissive CORS**. It exists because the widget is embedded on external domains, and those browsers must be able to fetch config and send events cross-origin.
 
 Responsibilities:
+
 - Serve widget configuration to embedded scripts
 - Receive and store interaction events from visitors
 - Enforce monthly event quotas per plan
@@ -118,6 +119,7 @@ Next.js Server Components query the database **directly via Prisma** — there i
 ### `packages/db` — Database Layer
 
 Single source of truth for all database access:
+
 - Prisma schema (`schema.prisma`) with 15 models
 - Singleton `PrismaClient` with `global` caching to survive Next.js hot-reload
 - Seed script for demo data
@@ -127,6 +129,7 @@ Both `apps/api` and `apps/web` import from `@inculva/db` — they share the same
 ### `packages/widget` — Embeddable Widget
 
 A completely **self-contained IIFE bundle** built with Vite. At runtime it has zero framework dependencies. It:
+
 - Auto-initializes via the `DOMContentLoaded` event listener
 - Reads `data-site-id` from the `<script>` tag
 - Fetches configuration from `apps/api`
@@ -145,7 +148,7 @@ A completely **self-contained IIFE bundle** built with Vite. At runtime it has z
 ```
 1. Browser loads page with <script src="widget.js" data-site-id="cm...">
 2. widget.iife.js auto-executes (IIFE)
-3. DOMContentLoaded → InculvaWidget.init()
+3. DOMContentLoaded → inculvaWidget.init()
 4. GET /widget/config/:siteId
    ├── Server extracts domain from Origin/Referer header
    ├── Checks allowedDomains allowlist
@@ -220,6 +223,7 @@ Dashboard Server Components use Prisma directly — no REST layer between Next.j
 ### 3. Widget as IIFE, not a framework component
 
 The widget must work on any site regardless of tech stack. An IIFE:
+
 - Adds zero dependencies to the host site
 - Works with React, Vue, Angular, or plain HTML
 - Has maximum browser compatibility (ES2018 target)
@@ -229,6 +233,7 @@ The widget must work on any site regardless of tech stack. An IIFE:
 ### 4. Shared `packages/db` between both apps
 
 A single Prisma schema means:
+
 - Schema changes propagate to both apps simultaneously
 - No schema drift between services
 - One migration history
@@ -259,12 +264,12 @@ Raw keys are never stored. Only the SHA-256 hash is persisted. The raw key is sh
 
 ### Role-Based Access Control
 
-| Role | Access |
-|---|---|
-| `user` | Own sites, teams (if Pro/Business), settings, billing |
-| `admin` | All `user` permissions + `/admin/*` routes + force-set any user's plan |
-| Team `admin` | Manage team members, send invites |
-| Team `member` | Read-only access to team resources |
+| Role          | Access                                                                 |
+| ------------- | ---------------------------------------------------------------------- |
+| `user`        | Own sites, teams (if Pro/Business), settings, billing                  |
+| `admin`       | All `user` permissions + `/admin/*` routes + force-set any user's plan |
+| Team `admin`  | Manage team members, send invites                                      |
+| Team `member` | Read-only access to team resources                                     |
 
 ---
 
@@ -276,19 +281,20 @@ Defined in `packages/types/src/billing.ts`:
 
 ```typescript
 export const PLAN_LIMITS = {
-  free:     { sites: 1,         events: 10_000,  members: 0 },
-  pro:      { sites: 10,        events: 100_000, members: 5 },
-  business: { sites: Infinity,  events: Infinity, members: Infinity },
+  free: { sites: 1, events: 10_000, members: 0 },
+  pro: { sites: 10, events: 100_000, members: 5 },
+  business: { sites: Infinity, events: Infinity, members: Infinity },
 };
 ```
 
 ### White-label
 
-Only `business` plan users receive `whiteLabelText` in widget config responses. For all other plans, the "Powered by Inculva" footer is always shown.
+Only `business` plan users receive `whiteLabelText` in widget config responses. For all other plans, the "Powered by inculva" footer is always shown.
 
 ### Usage Alerts
 
 The Fastify API checks event count at each `POST /widget/events` call:
+
 - At **80%** of monthly quota: sends email + in-app notification (once per calendar month)
 - At **100%** of monthly quota: events are dropped (HTTP 429), email + notification sent
 
@@ -331,17 +337,17 @@ On push to main (GitHub Actions):
 
 ## Security Model
 
-| Vector | Mitigation |
-|---|---|
-| XSS via widget | Widget is IIFE, no innerHTML with untrusted data; labels come from server config |
-| CSRF | Better Auth uses `SameSite=Lax` cookies + CSRF token for mutations |
-| API key leakage | Only SHA-256 hash stored; raw key shown once |
-| Webhook forgery | HMAC-SHA256 signature verified on every LemonSqueezy webhook |
-| Domain spoofing | Widget `allowedDomains` list enforced server-side using Origin/Referer headers |
-| Rate limiting | 100 req/min per IP on `apps/api` via `@fastify/rate-limit` |
-| Security headers | `@fastify/helmet` on API; Next.js default headers on web |
-| SQL injection | Prisma parameterized queries only |
-| Password storage | Better Auth bcrypt hashing |
+| Vector           | Mitigation                                                                       |
+| ---------------- | -------------------------------------------------------------------------------- |
+| XSS via widget   | Widget is IIFE, no innerHTML with untrusted data; labels come from server config |
+| CSRF             | Better Auth uses `SameSite=Lax` cookies + CSRF token for mutations               |
+| API key leakage  | Only SHA-256 hash stored; raw key shown once                                     |
+| Webhook forgery  | HMAC-SHA256 signature verified on every LemonSqueezy webhook                     |
+| Domain spoofing  | Widget `allowedDomains` list enforced server-side using Origin/Referer headers   |
+| Rate limiting    | 100 req/min per IP on `apps/api` via `@fastify/rate-limit`                       |
+| Security headers | `@fastify/helmet` on API; Next.js default headers on web                         |
+| SQL injection    | Prisma parameterized queries only                                                |
+| Password storage | Better Auth bcrypt hashing                                                       |
 
 ---
 

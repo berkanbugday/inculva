@@ -5,7 +5,7 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
-class PlgSystemInculva extends CMSPlugin {
+class PlgSysteminculva extends CMSPlugin {
 
     public function __construct(&$subject, $config = []) {
         parent::__construct($subject, $config);
@@ -24,7 +24,7 @@ class PlgSystemInculva extends CMSPlugin {
         $doc = Factory::getDocument();
         $doc->addScriptDeclaration(
             'window.INCULVA_API_URL=' . json_encode($api_url) . ';'
-          . 'window.InculvaConfig=' . json_encode(['siteId' => $site_id]) . ';'
+          . 'window.inculvaConfig=' . json_encode(['siteId' => $site_id]) . ';'
         );
         $doc->addScript('https://cdn.inculva.com/widget.js', [], ['data-site-id' => $site_id, 'defer' => true]);
     }
@@ -48,7 +48,7 @@ class PlgSystemInculva extends CMSPlugin {
             . ' style="position:absolute;top:12px;right:14px;background:none;border:none;'
             . 'cursor:pointer;font-size:18px;line-height:1;color:#888;padding:0;"'
             . ' aria-label="' . $dismiss . '">&#x2715;</button>'
-            . '<img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="Inculva"'
+            . '<img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="inculva"'
             . ' style="display:block;margin-bottom:10px;" />'
             . '<p style="margin:0 0 16px;color:#3c434a;font-size:15px;line-height:1.5;">'
             . $banner_text . '</p>'

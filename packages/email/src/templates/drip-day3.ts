@@ -6,7 +6,7 @@ export function dripDay3Template(userName: string): string {
     `
     <h2>Have you installed the widget yet?</h2>
     <p>Hi ${escapeHtml(userName || "there")},</p>
-    <p>You signed up for Inculva a few days ago — great to have you! One quick question: have you added the widget to your site?</p>
+    <p>You signed up for inculva a few days ago — great to have you! One quick question: have you added the widget to your site?</p>
     <p>It only takes 30 seconds — paste a single line of HTML before your closing <code>&lt;/body&gt;</code> tag and you're live.</p>
     <a href="${APP_URL}/dashboard" class="btn">Install the widget →</a>
     <hr class="divider">

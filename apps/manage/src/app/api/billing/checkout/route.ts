@@ -36,13 +36,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     return NextResponse.redirect(checkout.url);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    const body = (err as Record<string, unknown>)?.body;
     const statusCode = (err as Record<string, unknown>)?.statusCode;
-    console.error("[checkout] error:", message, "| status:", statusCode, "| body:", body);
-    let detail: unknown = message;
-    if (typeof body === "string") {
-      try { detail = JSON.parse(body); } catch { detail = body; }
-    }
-    return NextResponse.json({ error: "Failed to create checkout", detail, statusCode }, { status: 500 });
+    console.error("[checkout] error:", message, "| status:", statusCode);
+    return NextResponse.json({ error: "Failed to create checkout" }, { status: 500 });
   }
 }

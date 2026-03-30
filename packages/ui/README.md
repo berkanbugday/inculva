@@ -1,6 +1,6 @@
 # @inculva/ui — Shared UI Utilities
 
-Shared React component utilities for the Inculva monorepo. Provides the `cn()` class merging utility, Tailwind CSS globals, and re-exports for CVA and Lucide icons.
+Shared React component utilities for the inculva monorepo. Provides the `cn()` class merging utility, Tailwind CSS globals, and re-exports for CVA and Lucide icons.
 
 ## Usage
 
@@ -59,9 +59,9 @@ import { Settings, Bell, ChevronDown } from "lucide-react";
 
 ## Dependencies
 
-| Package | Version | Purpose |
-|---|---|---|
-| `clsx` | ^2.1.1 | Conditional class names |
-| `tailwind-merge` | ^2.6.0 | Tailwind class conflict resolution |
-| `class-variance-authority` | ^0.7.1 | Component variant patterns |
-| `lucide-react` | ^0.474.0 | Icon library |
+| Package                    | Version  | Purpose                            |
+| -------------------------- | -------- | ---------------------------------- |
+| `clsx`                     | ^2.1.1   | Conditional class names            |
+| `tailwind-merge`           | ^2.6.0   | Tailwind class conflict resolution |
+| `class-variance-authority` | ^0.7.1   | Component variant patterns         |
+| `lucide-react`             | ^0.474.0 | Icon library                       |

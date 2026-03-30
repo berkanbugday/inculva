@@ -30,7 +30,10 @@ export async function GET(req: Request) {
   // Protect with bearer token
   const secret = process.env["CRON_SECRET"];
   if (!secret) {
-    return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 503 });
+    return NextResponse.json(
+      { error: "CRON_SECRET not configured" },
+      { status: 503 },
+    );
   }
   const auth = req.headers.get("authorization");
   if (auth !== `Bearer ${secret}`) {
@@ -72,7 +75,14 @@ export async function GET(req: Request) {
 
   const now = new Date();
   const weekStart = new Date(since);
-  const weekLabel = `${weekStart.toLocaleDateString("en-US", { month: "short", day: "numeric" })} – ${now.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
+  const weekLabel = `${weekStart.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  })} – ${now.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  })}`;
 
   let sent = 0;
   let errors = 0;
@@ -84,14 +94,19 @@ export async function GET(req: Request) {
       .map((s) => {
         const featureCounts: Record<string, number> = {};
         for (const ev of s.widgetEvents) {
-          if (ev.feature) featureCounts[ev.feature] = (featureCounts[ev.feature] ?? 0) + 1;
+          if (ev.feature)
+            featureCounts[ev.feature] = (featureCounts[ev.feature] ?? 0) + 1;
         }
-        const topFeatureKey = Object.entries(featureCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
+        const topFeatureKey = Object.entries(featureCounts).sort(
+          (a, b) => b[1] - a[1],
+        )[0]?.[0];
         return {
           name: s.name,
           domain: s.domain,
           events: s.widgetEvents.length,
-          topFeature: topFeatureKey ? (featureLabels[topFeatureKey] ?? topFeatureKey) : null,
+          topFeature: topFeatureKey
+            ? featureLabels[topFeatureKey] ?? topFeatureKey
+            : null,
         };
       })
       .sort((a, b) => b.events - a.events);
@@ -101,8 +116,13 @@ export async function GET(req: Request) {
     try {
       await sendEmail({
         to: user.email,
-        subject: `Your Inculva weekly digest — ${totalEvents.toLocaleString()} events`,
-        html: weeklyDigestTemplate(user.name ?? "", totalEvents, siteStats, weekLabel),
+        subject: `Your inculva weekly digest — ${totalEvents.toLocaleString()} events`,
+        html: weeklyDigestTemplate(
+          user.name ?? "",
+          totalEvents,
+          siteStats,
+          weekLabel,
+        ),
       });
       sent++;
     } catch {
@@ -110,5 +130,10 @@ export async function GET(req: Request) {
     }
   }
 
-  return NextResponse.json({ success: true, sent, errors, total: activeUsers.length });
+  return NextResponse.json({
+    success: true,
+    sent,
+    errors,
+    total: activeUsers.length,
+  });
 }

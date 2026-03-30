@@ -16,8 +16,12 @@ export function baseTemplate(content: string, previewText = ""): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="x-apple-disable-message-reformatting">
-  <title>Inculva</title>
-  ${previewText ? `<span style="display:none;max-height:0;overflow:hidden;">${previewText}</span>` : ""}
+  <title>inculva</title>
+  ${
+    previewText
+      ? `<span style="display:none;max-height:0;overflow:hidden;">${previewText}</span>`
+      : ""
+  }
   <style>
     body { margin: 0; padding: 0; background: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     .wrapper { max-width: 560px; margin: 40px auto; }
@@ -37,15 +41,15 @@ export function baseTemplate(content: string, previewText = ""): string {
   <div class="wrapper">
     <div class="card">
       <div class="header">
-        <img src="${landingUrl}/logo.svg" alt="Inculva" />
+        <img src="${landingUrl}/logo.svg" alt="inculva" />
       </div>
       <div class="body">
         ${content}
       </div>
     </div>
     <div class="footer">
-      <p>© ${new Date().getFullYear()} Inculva. All rights reserved.</p>
-      <p>You're receiving this because you signed up for Inculva.</p>
+      <p>© ${new Date().getFullYear()} inculva. All rights reserved.</p>
+      <p>You're receiving this because you signed up for inculva.</p>
     </div>
   </div>
 </body>

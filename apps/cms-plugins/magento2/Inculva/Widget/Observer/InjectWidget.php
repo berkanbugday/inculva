@@ -1,5 +1,5 @@
 <?php
-namespace Inculva\Widget\Observer;
+namespace inculva\Widget\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
@@ -24,7 +24,7 @@ class InjectWidget implements ObserverInterface {
                   ?: 'https://api.inculva.com';
 
         $inline = 'window.INCULVA_API_URL=' . json_encode($apiUrl) . ';'
-                . 'window.InculvaConfig=' . json_encode(['siteId' => $siteId]) . ';';
+                . 'window.inculvaConfig=' . json_encode(['siteId' => $siteId]) . ';';
 
         $this->pageConfig->addScript(
             'https://cdn.inculva.com/widget.js',

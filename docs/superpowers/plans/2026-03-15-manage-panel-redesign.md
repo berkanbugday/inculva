@@ -152,7 +152,7 @@ export function Sidebar({ sites, userName, userEmail }: Props) {
         .join("")
         .toUpperCase()
         .slice(0, 2)
-    : (userEmail[0]?.toUpperCase() ?? "?");
+    : userEmail[0]?.toUpperCase() ?? "?";
 
   return (
     <aside className="w-64 shrink-0 bg-white dark:bg-[#1a1a2e] border-r border-[#e8eaf0] dark:border-[#2a2a3e] min-h-[calc(100vh-56px)] flex flex-col overflow-y-auto">
@@ -304,7 +304,9 @@ function SiteGroup({
           height="12"
           viewBox="0 0 12 12"
           fill="none"
-          className={`shrink-0 transition-transform ${expanded ? "rotate-90" : ""}`}
+          className={`shrink-0 transition-transform ${
+            expanded ? "rotate-90" : ""
+          }`}
           aria-hidden="true"
         >
           <path
@@ -519,7 +521,7 @@ export function DashboardHeader({ locale }: Props) {
         <a href="/dashboard">
           <img
             src={`${CDN_URL}/logos/logo-dark.png`}
-            alt="Inculva"
+            alt="inculva"
             className="h-7 w-auto"
           />
         </a>
@@ -715,7 +717,7 @@ Full replacement of the `<main>` section:
     <div className="lg:hidden text-center mb-8">
       <img
         src={`${CDN_URL}/logos/logo.png`}
-        alt="Inculva"
+        alt="inculva"
         className="h-10 w-auto mx-auto"
       />
     </div>
@@ -1135,12 +1137,18 @@ return (
                       isLive
                         ? "bg-green-100 dark:bg-green-950 text-green-700 dark:text-green-400"
                         : isDown
-                          ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-400"
-                          : "bg-gray-100 dark:bg-gray-800 text-gray-500"
+                        ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-400"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-500"
                     }`}
                   >
                     <span
-                      className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-green-500" : isDown ? "bg-red-500" : "bg-gray-400"}`}
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        isLive
+                          ? "bg-green-500"
+                          : isDown
+                          ? "bg-red-500"
+                          : "bg-gray-400"
+                      }`}
                     />
                     {isLive ? "Live" : isDown ? "Offline" : "Checking"}
                   </span>
@@ -1327,6 +1335,7 @@ git commit -m "design: redesign dashboard home and site management pages"
 
 - [ ] **Step 1: Read `apps/manage/src/app/dashboard/notifications/page.tsx`** and `notifications-client.tsx`
 - [ ] **Step 2: Update `notifications-client.tsx`**
+
   - Container: `rounded-3xl shadow-sm` card
   - Unread rows: `bg-blue-50 dark:bg-blue-950/30`
   - Unread dot: `w-2 h-2 rounded-full bg-blue-600`

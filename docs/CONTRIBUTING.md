@@ -19,11 +19,11 @@
 
 ## Prerequisites
 
-| Tool | Version | Install |
-|---|---|---|
-| Node.js | 20+ | [nodejs.org](https://nodejs.org) |
-| pnpm | 9+ | `npm i -g pnpm` |
-| Docker Desktop | Latest | [docker.com](https://www.docker.com/products/docker-desktop/) |
+| Tool           | Version | Install                                                       |
+| -------------- | ------- | ------------------------------------------------------------- |
+| Node.js        | 20+     | [nodejs.org](https://nodejs.org)                              |
+| pnpm           | 9+      | `npm i -g pnpm`                                               |
+| Docker Desktop | Latest  | [docker.com](https://www.docker.com/products/docker-desktop/) |
 
 ---
 
@@ -87,7 +87,7 @@ packages/types/src/
   widget.ts          ← WidgetConfig and WidgetEvent interfaces
 
 packages/widget/src/
-  index.ts           ← InculvaWidget class + auto-init
+  index.ts           ← inculvaWidget class + auto-init
   features/          ← Feature implementations (DOM manipulation)
   ui/                ← Panel HTML and CSS
   utils/             ← Session and localStorage utilities
@@ -217,7 +217,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await request.json();
   // ... validate and process
@@ -363,11 +364,14 @@ Currently the project does not have automated unit/integration tests. Manual tes
 2. Open `http://localhost:3000/dashboard/sites/[id]` to get your site ID
 3. Create a test HTML file:
    ```html
-   <!DOCTYPE html>
+   <!doctype html>
    <html>
      <body>
        <h1>Test page</h1>
-       <script src="http://localhost:3000/widget.js" data-site-id="YOUR_SITE_ID"></script>
+       <script
+         src="http://localhost:3000/widget.js"
+         data-site-id="YOUR_SITE_ID"
+       ></script>
      </body>
    </html>
    ```

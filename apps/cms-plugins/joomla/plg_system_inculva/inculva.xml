@@ -2,9 +2,9 @@
 <extension type="plugin" group="system" method="upgrade">
     <name>PLG_SYSTEM_INCULVA</name>
     <creationDate>2024</creationDate>
-    <author>Inculva</author>
+    <author>inculva</author>
     <authorUrl>https://inculva.com</authorUrl>
-    <copyright>Inculva</copyright>
+    <copyright>inculva</copyright>
     <license>GPL v2</license>
     <version>1.0.0</version>
     <description>PLG_SYSTEM_INCULVA_XML_DESCRIPTION</description>

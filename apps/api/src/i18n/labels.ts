@@ -9,7 +9,7 @@ export const RTL_LANGS = new Set(["ar", "he", "fa", "ur"]);
 export const WIDGET_LABELS: Record<string, LabelMap> = {
   en: {
     title: "Accessibility",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Bigger Text",
     highContrast: "High Contrast",
     dyslexiaFont: "Dyslexia Font",
@@ -42,7 +42,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   tr: {
     title: "Erişilebilirlik",
-    poweredBy: "Inculva tarafından",
+    poweredBy: "inculva tarafından",
     textResizing: "Büyük Yazı",
     highContrast: "Yüksek Kontrast",
     dyslexiaFont: "Disleksi Yazı Tipi",
@@ -70,7 +70,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   de: {
     title: "Barrierefreiheit",
-    poweredBy: "Unterstützt von Inculva",
+    poweredBy: "Unterstützt von inculva",
     textResizing: "Größerer Text",
     highContrast: "Hoher Kontrast",
     dyslexiaFont: "Legasthenie-Schrift",
@@ -98,7 +98,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   fr: {
     title: "Accessibilité",
-    poweredBy: "Propulsé par Inculva",
+    poweredBy: "Propulsé par inculva",
     textResizing: "Texte agrandi",
     highContrast: "Contraste élevé",
     dyslexiaFont: "Police dyslexie",
@@ -119,7 +119,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Alignement texte",
     saturation: "Saturation",
     accessibilityStatement: "Déclaration d'accessibilité",
-  
+
     slowCursor: "Curseur lent",
     resetSettings: "Réinitialiser",
     switchWidgetLeft: "Déplacer à gauche",
@@ -127,7 +127,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   es: {
     title: "Accesibilidad",
-    poweredBy: "Desarrollado por Inculva",
+    poweredBy: "Desarrollado por inculva",
     textResizing: "Texto más grande",
     highContrast: "Alto contraste",
     dyslexiaFont: "Fuente dislexia",
@@ -148,7 +148,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Alineación texto",
     saturation: "Saturación",
     accessibilityStatement: "Declaración de accesibilidad",
-  
+
     slowCursor: "Cursor lento",
     resetSettings: "Restablecer",
     switchWidgetLeft: "Mover a la izquierda",
@@ -156,7 +156,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   pt: {
     title: "Acessibilidade",
-    poweredBy: "Desenvolvido por Inculva",
+    poweredBy: "Desenvolvido por inculva",
     textResizing: "Texto maior",
     highContrast: "Alto contraste",
     dyslexiaFont: "Fonte dislexia",
@@ -177,7 +177,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Alinhamento texto",
     saturation: "Saturação",
     accessibilityStatement: "Declaração de acessibilidade",
-  
+
     slowCursor: "Cursor lento",
     resetSettings: "Redefinir",
     switchWidgetLeft: "Mover para esquerda",
@@ -185,7 +185,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   it: {
     title: "Accessibilità",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Testo più grande",
     highContrast: "Alto contrasto",
     dyslexiaFont: "Font dislessia",
@@ -206,7 +206,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Allineamento testo",
     saturation: "Saturazione",
     accessibilityStatement: "Dichiarazione di accessibilità",
-  
+
     slowCursor: "Cursore lento",
     resetSettings: "Ripristina",
     switchWidgetLeft: "Sposta a sinistra",
@@ -214,7 +214,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   nl: {
     title: "Toegankelijkheid",
-    poweredBy: "Mogelijk gemaakt door Inculva",
+    poweredBy: "Mogelijk gemaakt door inculva",
     textResizing: "Grotere tekst",
     highContrast: "Hoog contrast",
     dyslexiaFont: "Dyslexie lettertype",
@@ -235,7 +235,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstuitlijning",
     saturation: "Verzadiging",
     accessibilityStatement: "Toegankelijkheidsverklaring",
-  
+
     slowCursor: "Trage cursor",
     resetSettings: "Resetten",
     switchWidgetLeft: "Naar links",
@@ -243,7 +243,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   pl: {
     title: "Dostępność",
-    poweredBy: "Wspierane przez Inculva",
+    poweredBy: "Wspierane przez inculva",
     textResizing: "Większy tekst",
     highContrast: "Wysoki kontrast",
     dyslexiaFont: "Czcionka dla dyslektyków",
@@ -264,7 +264,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Wyrównanie tekstu",
     saturation: "Nasycenie",
     accessibilityStatement: "Deklaracja dostępności",
-  
+
     slowCursor: "Wolny kursor",
     resetSettings: "Resetuj",
     switchWidgetLeft: "Przesuń w lewo",
@@ -272,7 +272,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   ru: {
     title: "Доступность",
-    poweredBy: "Работает на Inculva",
+    poweredBy: "Работает на inculva",
     textResizing: "Крупный текст",
     highContrast: "Высокий контраст",
     dyslexiaFont: "Шрифт для дислексии",
@@ -293,7 +293,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Выравнивание текста",
     saturation: "Насыщенность",
     accessibilityStatement: "Заявление о доступности",
-  
+
     slowCursor: "Медленный курсор",
     resetSettings: "Сбросить",
     switchWidgetLeft: "Влево",
@@ -301,7 +301,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   uk: {
     title: "Доступність",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Більший текст",
     highContrast: "Високий контраст",
     dyslexiaFont: "Шрифт для дислексії",
@@ -322,7 +322,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Вирівнювання тексту",
     saturation: "Насиченість",
     accessibilityStatement: "Заява про доступність",
-  
+
     slowCursor: "Повільний курсор",
     resetSettings: "Скинути",
     switchWidgetLeft: "Вліво",
@@ -330,7 +330,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   cs: {
     title: "Přístupnost",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Větší text",
     highContrast: "Vysoký kontrast",
     dyslexiaFont: "Písmo pro dyslektiky",
@@ -351,7 +351,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Zarovnání textu",
     saturation: "Sytost",
     accessibilityStatement: "Prohlášení o přístupnosti",
-  
+
     slowCursor: "Pomalý kurzor",
     resetSettings: "Resetovat",
     switchWidgetLeft: "Doleva",
@@ -359,7 +359,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   hu: {
     title: "Akadálymentesség",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Nagyobb szöveg",
     highContrast: "Magas kontraszt",
     dyslexiaFont: "Diszlexia betűtípus",
@@ -380,7 +380,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Szövegigazítás",
     saturation: "Telítettség",
     accessibilityStatement: "Akadálymentességi nyilatkozat",
-  
+
     slowCursor: "Lassú kurzor",
     resetSettings: "Visszaállítás",
     switchWidgetLeft: "Balra",
@@ -388,7 +388,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   ro: {
     title: "Accesibilitate",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Text mai mare",
     highContrast: "Contrast ridicat",
     dyslexiaFont: "Font pentru dislexie",
@@ -409,7 +409,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Aliniere text",
     saturation: "Saturație",
     accessibilityStatement: "Declarație de accesibilitate",
-  
+
     slowCursor: "Cursor lent",
     resetSettings: "Resetare",
     switchWidgetLeft: "La stânga",
@@ -417,7 +417,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   bg: {
     title: "Достъпност",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "По-голям текст",
     highContrast: "Висок контраст",
     dyslexiaFont: "Шрифт за дислексия",
@@ -438,7 +438,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Подравняване на текст",
     saturation: "Наситеност",
     accessibilityStatement: "Декларация за достъпност",
-  
+
     slowCursor: "Бавен курсор",
     resetSettings: "Нулиране",
     switchWidgetLeft: "Наляво",
@@ -446,7 +446,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   hr: {
     title: "Pristupačnost",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Veći tekst",
     highContrast: "Visoki kontrast",
     dyslexiaFont: "Font za disleksiju",
@@ -467,7 +467,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Poravnanje teksta",
     saturation: "Zasićenost",
     accessibilityStatement: "Izjava o pristupačnosti",
-  
+
     slowCursor: "Spori kursor",
     resetSettings: "Resetiraj",
     switchWidgetLeft: "Ulijevo",
@@ -475,7 +475,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   sk: {
     title: "Prístupnosť",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Väčší text",
     highContrast: "Vysoký kontrast",
     dyslexiaFont: "Písmo pre dyslektikov",
@@ -496,7 +496,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Zarovnanie textu",
     saturation: "Sýtosť",
     accessibilityStatement: "Vyhlásenie o prístupnosti",
-  
+
     slowCursor: "Pomalý kurzor",
     resetSettings: "Resetovať",
     switchWidgetLeft: "Doľava",
@@ -504,7 +504,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   sl: {
     title: "Dostopnost",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Večje besedilo",
     highContrast: "Visok kontrast",
     dyslexiaFont: "Pisava za disleksijo",
@@ -525,7 +525,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Poravnava besedila",
     saturation: "Nasičenost",
     accessibilityStatement: "Izjava o dostopnosti",
-  
+
     slowCursor: "Počasni kurzor",
     resetSettings: "Ponastavitev",
     switchWidgetLeft: "Levo",
@@ -533,7 +533,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   el: {
     title: "Προσβασιμότητα",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Μεγαλύτερο κείμενο",
     highContrast: "Υψηλή αντίθεση",
     dyslexiaFont: "Γραμματοσειρά δυσλεξίας",
@@ -554,7 +554,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Στοίχιση κειμένου",
     saturation: "Κορεσμός",
     accessibilityStatement: "Δήλωση προσβασιμότητας",
-  
+
     slowCursor: "Αργός κέρσορας",
     resetSettings: "Επαναφορά",
     switchWidgetLeft: "Αριστερά",
@@ -562,7 +562,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   fi: {
     title: "Saavutettavuus",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Suurempi teksti",
     highContrast: "Korkea kontrasti",
     dyslexiaFont: "Dysleksiakirjasin",
@@ -583,7 +583,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstin tasaus",
     saturation: "Kylläisyys",
     accessibilityStatement: "Saavutettavuusseloste",
-  
+
     slowCursor: "Hidas kursori",
     resetSettings: "Nollaa",
     switchWidgetLeft: "Vasemmalle",
@@ -591,7 +591,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   sv: {
     title: "Tillgänglighet",
-    poweredBy: "Drivs av Inculva",
+    poweredBy: "Drivs av inculva",
     textResizing: "Större text",
     highContrast: "Hög kontrast",
     dyslexiaFont: "Dyslexi-teckensnitt",
@@ -612,7 +612,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Textjustering",
     saturation: "Mättnad",
     accessibilityStatement: "Tillgänglighetsredogörelse",
-  
+
     slowCursor: "Långsam markör",
     resetSettings: "Återställ",
     switchWidgetLeft: "Till vänster",
@@ -620,7 +620,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   no: {
     title: "Tilgjengelighet",
-    poweredBy: "Drevet av Inculva",
+    poweredBy: "Drevet av inculva",
     textResizing: "Større tekst",
     highContrast: "Høy kontrast",
     dyslexiaFont: "Dysleksiskrift",
@@ -641,7 +641,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstjustering",
     saturation: "Metning",
     accessibilityStatement: "Tilgjengelighetserklæring",
-  
+
     slowCursor: "Sakte markør",
     resetSettings: "Tilbakestill",
     switchWidgetLeft: "Til venstre",
@@ -649,7 +649,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   da: {
     title: "Tilgængelighed",
-    poweredBy: "Drevet af Inculva",
+    poweredBy: "Drevet af inculva",
     textResizing: "Større tekst",
     highContrast: "Høj kontrast",
     dyslexiaFont: "Dyslexi-skrifttype",
@@ -670,7 +670,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Tekstjustering",
     saturation: "Mætning",
     accessibilityStatement: "Tilgængelhedserklæring",
-  
+
     slowCursor: "Langsom markør",
     resetSettings: "Nulstil",
     switchWidgetLeft: "Til venstre",
@@ -678,7 +678,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   lt: {
     title: "Prieinamumas",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Didesnis tekstas",
     highContrast: "Didelis kontrastas",
     dyslexiaFont: "Disleksijos šriftas",
@@ -699,7 +699,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Teksto lygiavimas",
     saturation: "Sodrumas",
     accessibilityStatement: "Prieinamumo pareiškimas",
-  
+
     slowCursor: "Lėtas žymeklis",
     resetSettings: "Atstatyti",
     switchWidgetLeft: "Į kairę",
@@ -707,7 +707,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   lv: {
     title: "Pieejamība",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Lielāks teksts",
     highContrast: "Augsts kontrasts",
     dyslexiaFont: "Disleksijas fonts",
@@ -728,7 +728,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Teksta izlīdzināšana",
     saturation: "Piesātinājums",
     accessibilityStatement: "Pieejamības paziņojums",
-  
+
     slowCursor: "Lēns kursors",
     resetSettings: "Atiestatīt",
     switchWidgetLeft: "Pa kreisi",
@@ -736,7 +736,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   et: {
     title: "Juurdepääsetavus",
-    poweredBy: "Powered by Inculva",
+    poweredBy: "Powered by inculva",
     textResizing: "Suurem tekst",
     highContrast: "Kõrge kontrast",
     dyslexiaFont: "Düsleksia font",
@@ -757,7 +757,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Teksti joondus",
     saturation: "Küllastus",
     accessibilityStatement: "Ligipääsetavuse avaldus",
-  
+
     slowCursor: "Aeglane kursor",
     resetSettings: "Lähtesta",
     switchWidgetLeft: "Vasakule",
@@ -765,7 +765,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   ar: {
     title: "إمكانية الوصول",
-    poweredBy: "مدعوم من Inculva",
+    poweredBy: "مدعوم من inculva",
     textResizing: "نص أكبر",
     highContrast: "تباين عالٍ",
     dyslexiaFont: "خط عسر القراءة",
@@ -786,7 +786,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "محاذاة النص",
     saturation: "التشبع",
     accessibilityStatement: "بيان إمكانية الوصول",
-  
+
     slowCursor: "مؤشر بطيء",
     resetSettings: "إعادة تعيين",
     switchWidgetLeft: "إلى اليسار",
@@ -794,7 +794,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   he: {
     title: "נגישות",
-    poweredBy: "מופעל על ידי Inculva",
+    poweredBy: "מופעל על ידי inculva",
     textResizing: "טקסט גדול יותר",
     highContrast: "ניגודיות גבוהה",
     dyslexiaFont: "גופן לקריאה",
@@ -815,7 +815,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "יישור טקסט",
     saturation: "רוויה",
     accessibilityStatement: "הצהרת נגישות",
-  
+
     slowCursor: "סמן איטי",
     resetSettings: "איפוס",
     switchWidgetLeft: "שמאלה",
@@ -823,7 +823,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   fa: {
     title: "دسترسی‌پذیری",
-    poweredBy: "با Inculva",
+    poweredBy: "با inculva",
     textResizing: "متن بزرگ‌تر",
     highContrast: "کنتراست بالا",
     dyslexiaFont: "فونت دیسلکسی",
@@ -844,7 +844,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "تراز متن",
     saturation: "اشباع",
     accessibilityStatement: "بیانیه دسترسی‌پذیری",
-  
+
     slowCursor: "مکان‌نمای کند",
     resetSettings: "بازنشانی",
     switchWidgetLeft: "به چپ",
@@ -852,7 +852,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   zh: {
     title: "无障碍功能",
-    poweredBy: "由 Inculva 提供",
+    poweredBy: "由 inculva 提供",
     textResizing: "较大文本",
     highContrast: "高对比度",
     dyslexiaFont: "阅读障碍字体",
@@ -873,7 +873,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "文字对齐",
     saturation: "饱和度",
     accessibilityStatement: "无障碍声明",
-  
+
     slowCursor: "慢速光标",
     resetSettings: "重置设置",
     switchWidgetLeft: "移到左侧",
@@ -881,7 +881,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   ja: {
     title: "アクセシビリティ",
-    poweredBy: "Inculva 提供",
+    poweredBy: "inculva 提供",
     textResizing: "文字拡大",
     highContrast: "高コントラスト",
     dyslexiaFont: "読みやすいフォント",
@@ -902,7 +902,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "テキスト揃え",
     saturation: "彩度",
     accessibilityStatement: "アクセシビリティ声明",
-  
+
     slowCursor: "ゆっくりカーソル",
     resetSettings: "リセット",
     switchWidgetLeft: "左に移動",
@@ -910,7 +910,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   ko: {
     title: "접근성",
-    poweredBy: "Inculva 제공",
+    poweredBy: "inculva 제공",
     textResizing: "큰 글자",
     highContrast: "고대비",
     dyslexiaFont: "난독증 글꼴",
@@ -931,7 +931,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "텍스트 정렬",
     saturation: "채도",
     accessibilityStatement: "접근성 성명",
-  
+
     slowCursor: "느린 커서",
     resetSettings: "초기화",
     switchWidgetLeft: "왼쪽으로",
@@ -939,7 +939,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   th: {
     title: "การช่วยการเข้าถึง",
-    poweredBy: "ขับเคลื่อนโดย Inculva",
+    poweredBy: "ขับเคลื่อนโดย inculva",
     textResizing: "ข้อความใหญ่ขึ้น",
     highContrast: "คอนทราสต์สูง",
     dyslexiaFont: "แบบอักษรดิสเล็กเซีย",
@@ -960,7 +960,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "การจัดตำแหน่งข้อความ",
     saturation: "ความอิ่มตัว",
     accessibilityStatement: "คำชี้แจงการเข้าถึง",
-  
+
     slowCursor: "เคอร์เซอร์ช้า",
     resetSettings: "รีเซ็ต",
     switchWidgetLeft: "ย้ายไปซ้าย",
@@ -968,7 +968,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   vi: {
     title: "Khả năng tiếp cận",
-    poweredBy: "Được hỗ trợ bởi Inculva",
+    poweredBy: "Được hỗ trợ bởi inculva",
     textResizing: "Chữ lớn hơn",
     highContrast: "Tương phản cao",
     dyslexiaFont: "Phông chữ khó đọc",
@@ -989,7 +989,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Căn chỉnh văn bản",
     saturation: "Độ bão hòa",
     accessibilityStatement: "Tuyên bố khả năng tiếp cận",
-  
+
     slowCursor: "Con trỏ chậm",
     resetSettings: "Đặt lại",
     switchWidgetLeft: "Sang trái",
@@ -997,7 +997,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   id: {
     title: "Aksesibilitas",
-    poweredBy: "Didukung oleh Inculva",
+    poweredBy: "Didukung oleh inculva",
     textResizing: "Teks lebih besar",
     highContrast: "Kontras tinggi",
     dyslexiaFont: "Font disleksia",
@@ -1018,7 +1018,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Rata teks",
     saturation: "Saturasi",
     accessibilityStatement: "Pernyataan aksesibilitas",
-  
+
     slowCursor: "Kursor lambat",
     resetSettings: "Atur ulang",
     switchWidgetLeft: "Ke kiri",
@@ -1026,7 +1026,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   ms: {
     title: "Kebolehaksesan",
-    poweredBy: "Dikuasakan oleh Inculva",
+    poweredBy: "Dikuasakan oleh inculva",
     textResizing: "Teks lebih besar",
     highContrast: "Kontras tinggi",
     dyslexiaFont: "Fon disleksia",
@@ -1047,7 +1047,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Penjajaran teks",
     saturation: "Ketepuan",
     accessibilityStatement: "Pernyataan kebolehaksesan",
-  
+
     slowCursor: "Kursor perlahan",
     resetSettings: "Set semula",
     switchWidgetLeft: "Ke kiri",
@@ -1055,7 +1055,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   hi: {
     title: "अभिगम्यता",
-    poweredBy: "Inculva द्वारा संचालित",
+    poweredBy: "inculva द्वारा संचालित",
     textResizing: "बड़ा पाठ",
     highContrast: "उच्च कंट्रास्ट",
     dyslexiaFont: "डिस्लेक्सिया फ़ॉन्ट",
@@ -1076,7 +1076,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "पाठ संरेखण",
     saturation: "संतृप्ति",
     accessibilityStatement: "अभिगम्यता वक्तव्य",
-  
+
     slowCursor: "धीमा कर्सर",
     resetSettings: "रीसेट करें",
     switchWidgetLeft: "बाएं जाएं",
@@ -1084,7 +1084,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   bn: {
     title: "অ্যাক্সেসিবিলিটি",
-    poweredBy: "Inculva দ্বারা পরিচালিত",
+    poweredBy: "inculva দ্বারা পরিচালিত",
     textResizing: "বড় টেক্সট",
     highContrast: "উচ্চ কনট্রাস্ট",
     dyslexiaFont: "ডিসলেক্সিয়া ফন্ট",
@@ -1105,7 +1105,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "টেক্সট সারিবদ্ধকরণ",
     saturation: "স্যাচুরেশন",
     accessibilityStatement: "অ্যাক্সেসিবিলিটি বিবৃতি",
-  
+
     slowCursor: "ধীর কার্সার",
     resetSettings: "রিসেট",
     switchWidgetLeft: "বাম দিকে",
@@ -1113,7 +1113,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   ur: {
     title: "رسائی",
-    poweredBy: "Inculva کی طرف سے",
+    poweredBy: "inculva کی طرف سے",
     textResizing: "بڑا متن",
     highContrast: "اعلی کنٹراسٹ",
     dyslexiaFont: "ڈسلیکسیا فونٹ",
@@ -1134,7 +1134,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "متن سیدھ",
     saturation: "سیریت",
     accessibilityStatement: "رسائی بیان",
-  
+
     slowCursor: "سست کرسر",
     resetSettings: "ری سیٹ",
     switchWidgetLeft: "بائیں جانب",
@@ -1142,7 +1142,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
   },
   sw: {
     title: "Ufikiaji",
-    poweredBy: "Inculva inawezesha",
+    poweredBy: "inculva inawezesha",
     textResizing: "Maandishi makubwa zaidi",
     highContrast: "Tofauti kubwa",
     dyslexiaFont: "Fonti ya dyslexia",
@@ -1163,7 +1163,7 @@ export const WIDGET_LABELS: Record<string, LabelMap> = {
     textAlign: "Mpangilio wa maandishi",
     saturation: "Msisitizo wa rangi",
     accessibilityStatement: "Taarifa ya ufikiaji",
-  
+
     slowCursor: "Kishale polepole",
     resetSettings: "Weka upya",
     switchWidgetLeft: "Nenda kushoto",

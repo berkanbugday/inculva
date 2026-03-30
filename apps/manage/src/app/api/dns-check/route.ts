@@ -26,8 +26,13 @@ export async function POST(request: NextRequest) {
 
   try {
     const addresses = await dns.resolve4(raw).catch(() => null);
-    const addresses6 = addresses ? null : await dns.resolve6(raw).catch(() => null);
-    const cname = !addresses && !addresses6 ? await dns.resolveCname(raw).catch(() => null) : null;
+    const addresses6 = addresses
+      ? null
+      : await dns.resolve6(raw).catch(() => null);
+    const cname =
+      !addresses && !addresses6
+        ? await dns.resolveCname(raw).catch(() => null)
+        : null;
 
     if (addresses || addresses6 || cname) {
       return NextResponse.json({ ok: true });

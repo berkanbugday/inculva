@@ -26,19 +26,19 @@ export const tr: Translations = {
     about: "Hakkımızda",
     contact: "İletişim",
     privacyPolicy: "Gizlilik Politikası",
-    copyright: "Inculva. Tüm hakları saklıdır.",
+    copyright: "inculva. Tüm hakları saklıdır.",
   },
 
   // Home page
   home: {
-    title: "Inculva",
+    title: "inculva",
     description:
       "Web sitelerinin otomatik olarak WCAG uyumluluğu sağlamasına yardımcı olan web erişilebilirlik platformu. Web sitenizi herkes için erişilebilir hale getirin.",
     heroTitle1: "Web sitenizi herkes için",
     heroTitleHighlight: " erişilebilir ",
     heroTitle2: "hale getirin",
     heroDescription:
-      "Inculva, web erişilebilirlik sorunlarını otomatik olarak tespit eder, düzeltir ve izler. Kodunuzu yeniden yazmadan WCAG 2.1 AA uyumluluğunu sağlayın.",
+      "inculva, web erişilebilirlik sorunlarını otomatik olarak tespit eder, düzeltir ve izler. Kodunuzu yeniden yazmadan WCAG 2.1 AA uyumluluğunu sağlayın.",
     startFreeTrial: "Görüşme Planla",
     seeHowItWorks: "Nasıl Çalışır?",
     noCreditCard: "Kredi kartı gerekmez • 7 gün ücretsiz deneme",
@@ -95,7 +95,7 @@ export const tr: Translations = {
     // CTA
     ctaTitle: "Web sitenizi erişilebilir hale getirmeye hazır mısınız?",
     ctaDescription:
-      "Inculva ile web sitenizin erişilebilirliğini bugün iyileştirmeye başlayın.",
+      "inculva ile web sitenizin erişilebilirliğini bugün iyileştirmeye başlayın.",
     talkToSales: "Satış ile Görüşün",
 
     // Hero mockup decorator
@@ -129,16 +129,16 @@ export const tr: Translations = {
     faq1Q: "WCAG uyumluluğu nedir?",
     faq1A:
       "WCAG (Web İçeriği Erişilebilirlik Kılavuzları), web içeriğini engelli bireyler için erişilebilir hale getirmeye yönelik uluslararası bir standarttır. Uyumluluk, web sitenizin ekran okuyucu kullanan, az gören veya motor bozuklukları olan kişiler dahil herkes tarafından kullanılabilmesini sağlar.",
-    faq2Q: "Inculva'yı kullanmak için teknik bilgiye ihtiyacım var mı?",
+    faq2Q: "inculva'yı kullanmak için teknik bilgiye ihtiyacım var mı?",
     faq2A:
-      "Hayır. Inculva herkes tarafından kullanılmak üzere tasarlanmıştır. Web sitenize tek satır kod yapıştırın, otomatik platformumuz gerisini halleder. Yaygın erişilebilirlik düzeltmeleri için kodlama becerisi gerekmez.",
-    faq3Q: "Inculva web sitemi yavaşlatır mı?",
+      "Hayır. inculva herkes tarafından kullanılmak üzere tasarlanmıştır. Web sitenize tek satır kod yapıştırın, otomatik platformumuz gerisini halleder. Yaygın erişilebilirlik düzeltmeleri için kodlama becerisi gerekmez.",
+    faq3Q: "inculva web sitemi yavaşlatır mı?",
     faq3A:
-      "Hayır. Inculva widget'ı asenkron olarak yüklenir ve performans için optimize edilmiştir.",
-    faq4Q: "Inculva hangi erişilebilirlik standartlarını destekler?",
+      "Hayır. inculva widget'ı asenkron olarak yüklenir ve performans için optimize edilmiştir.",
+    faq4Q: "inculva hangi erişilebilirlik standartlarını destekler?",
     faq4A:
-      "Inculva; WCAG 2.1 Seviye AA, ADA (Engelli Amerikalılar Yasası), Section 508, EN 301 549 ve diğer bölgesel erişilebilirlik düzenlemelerini destekler.",
-    faq5Q: "Inculva'yı ücretsiz deneyebilir miyim?",
+      "inculva; WCAG 2.1 Seviye AA, ADA (Engelli Amerikalılar Yasası), Section 508, EN 301 549 ve diğer bölgesel erişilebilirlik düzenlemelerini destekler.",
+    faq5Q: "inculva'yı ücretsiz deneyebilir miyim?",
     faq5A:
       "Evet! Tüm planlarımız 7 günlük ücretsiz deneme içerir. Başlamak için kredi kartı gerekmez.",
   },
@@ -147,7 +147,7 @@ export const tr: Translations = {
   features: {
     title: "Özellikler",
     description:
-      "Inculva'nın güçlü erişilebilirlik özelliklerini keşfedin: otomatik tarama, otomatik düzeltmeler, gerçek zamanlı izleme, çoklu dil desteği ve sorunsuz entegrasyon.",
+      "inculva'nın güçlü erişilebilirlik özelliklerini keşfedin: otomatik tarama, otomatik düzeltmeler, gerçek zamanlı izleme, çoklu dil desteği ve sorunsuz entegrasyon.",
     heroTitle1: "Tam uyumluluk için",
     heroTitleHighlight: "güçlü özellikler",
     heroDescription:
@@ -170,7 +170,7 @@ export const tr: Translations = {
 
     fixesTitle: "Tek Tıkla Erişilebilirlik Düzeltmeleri",
     fixesDescription:
-      "Sorunları bulmakla kalmayın, otomatik olarak düzeltin. Inculva, kaynak kodunuza dokunmadan canlı web sitenize akıllı yamalar uygular. Düzeltmeler hafif widget'ımız aracılığıyla uygulanır.",
+      "Sorunları bulmakla kalmayın, otomatik olarak düzeltin. inculva, kaynak kodunuza dokunmadan canlı web sitenize akıllı yamalar uygular. Düzeltmeler hafif widget'ımız aracılığıyla uygulanır.",
     fixesFeatures: [
       "Görseller için alt metin üretimi",
       "ARIA etiket enjeksiyonu",
@@ -182,7 +182,7 @@ export const tr: Translations = {
 
     monitoringTitle: "Sürekli Uyumluluk İzleme",
     monitoringDescription:
-      "Web siteniz sürekli değişiyor. Inculva, sayfalarınızı yeni erişilebilirlik sorunları için sürekli izler ve sorunlar büyümeden önce sizi uyarır.",
+      "Web siteniz sürekli değişiyor. inculva, sayfalarınızı yeni erişilebilirlik sorunları için sürekli izler ve sorunlar büyümeden önce sizi uyarır.",
     monitoringFeatures: [
       "Zamanlanmış otomatik taramalar",
       "Anlık e-posta uyarıları",
@@ -198,7 +198,7 @@ export const tr: Translations = {
 
     ctaTitle: "Başlamaya hazır mısınız?",
     ctaDescription:
-      "Inculva'yı ücretsiz deneyin ve erişilebilirlik puanınızın anında iyileştiğini görün.",
+      "inculva'yı ücretsiz deneyin ve erişilebilirlik puanınızın anında iyileştiğini görün.",
     startFreeTrial: "Görüşme Planla",
   },
 
@@ -290,7 +290,7 @@ export const tr: Translations = {
   blog: {
     title: "Blog",
     description:
-      "Inculva ekibinden web erişilebilirliği, WCAG uyumluluğu, ADA gereksinimleri ve erişilebilir tasarım en iyi uygulamaları hakkında uzman kılavuzları.",
+      "inculva ekibinden web erişilebilirliği, WCAG uyumluluğu, ADA gereksinimleri ve erişilebilir tasarım en iyi uygulamaları hakkında uzman kılavuzları.",
     heroTitle1: "Erişilebilirlik ",
     heroTitleHighlight: "içgörüleri",
     heroDescription:
@@ -310,18 +310,18 @@ export const tr: Translations = {
   about: {
     title: "Hakkımızda",
     description:
-      "Inculva'nın web'i herkes için erişilebilir hale getirme misyonunu öğrenin. Otomatik platformumuz binlerce web sitesinin WCAG uyumluluğunu sağlamasına yardımcı olur.",
+      "inculva'nın web'i herkes için erişilebilir hale getirme misyonunu öğrenin. Otomatik platformumuz binlerce web sitesinin WCAG uyumluluğunu sağlamasına yardımcı olur.",
     heroTitle1: "Web'i herkes için",
     heroTitleHighlight: "erişilebilir ",
     heroTitle2: "hale getiriyoruz",
     heroDescription:
-      "İnternetin yeteneğinden bağımsız olarak herkes tarafından kullanılabilir olması gerektiğine inanıyoruz. Inculva bunu gerçekleştirmek için var.",
+      "İnternetin yeteneğinden bağımsız olarak herkes tarafından kullanılabilir olması gerektiğine inanıyoruz. inculva bunu gerçekleştirmek için var.",
 
     missionTitle: "Misyonumuz",
     missionP1:
       "Dünya genelinde 1 milyardan fazla insan bir tür engellilikle yaşıyor. Ancak web sitelerinin büyük çoğunluğu erişilemez durumda ve bilgi, hizmet ve fırsatlara erişimde engeller oluşturuyor.",
     missionP2:
-      "Inculva bunu değiştirmek için kuruldu. Web sitelerindeki erişilebilirlik sorunlarını otomatik olarak tespit etmek, düzeltmek ve izlemek için yapay zeka kullanıyoruz, uyumluluğu zahmetsiz ve kapsayıcı tasarımı varsayılan hale getiriyoruz.",
+      "inculva bunu değiştirmek için kuruldu. Web sitelerindeki erişilebilirlik sorunlarını otomatik olarak tespit etmek, düzeltmek ve izlemek için yapay zeka kullanıyoruz, uyumluluğu zahmetsiz ve kapsayıcı tasarımı varsayılan hale getiriyoruz.",
     missionP3:
       "Hedefimiz basit: her web sitesinin herkes için çalıştığı bir dünya.",
     missionStat: "Dünya genelinde engelli bireyler",
@@ -355,12 +355,12 @@ export const tr: Translations = {
   privacyPolicy: {
     title: "Gizlilik Politikası",
     description:
-      "Inculva'nın kişisel verilerinizi nasıl topladığını, kullandığını ve koruduğunu öğrenin. Tam gizlilik politikamızı okuyun.",
+      "inculva'nın kişisel verilerinizi nasıl topladığını, kullandığını ve koruduğunu öğrenin. Tam gizlilik politikamızı okuyun.",
     heroTitle1: "Gizlilik ",
     heroTitleHighlight: "Politikası",
     lastUpdated: "Son güncelleme: Mart 2026",
     intro:
-      "Inculva olarak gizliliğinizi korumaya kararlıyız. Bu Gizlilik Politikası, web sitemizi ziyaret ettiğinizde ve hizmetlerimizi kullandığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı, açıkladığımızı ve koruduğumuzu açıklar.",
+      "inculva olarak gizliliğinizi korumaya kararlıyız. Bu Gizlilik Politikası, web sitemizi ziyaret ettiğinizde ve hizmetlerimizi kullandığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı, açıkladığımızı ve koruduğumuzu açıklar.",
 
     section1Title: "1. Topladığımız Bilgiler",
     section1P1:
@@ -433,11 +433,11 @@ export const tr: Translations = {
   contact: {
     title: "İletişim",
     description:
-      "Inculva ekibiyle iletişime geçin. Satış soruları, destek soruları, ortaklık fırsatları veya özel erişilebilirlik çözümleri için bize ulaşın.",
+      "inculva ekibiyle iletişime geçin. Satış soruları, destek soruları, ortaklık fırsatları veya özel erişilebilirlik çözümleri için bize ulaşın.",
     heroTitle1: "Bizimle ",
     heroTitleHighlight: "iletişime geçin",
     heroDescription:
-      "Inculva hakkında sorularınız mı var? Yardımcı olmak için buradayız.",
+      "inculva hakkında sorularınız mı var? Yardımcı olmak için buradayız.",
     firstName: "Ad",
     lastName: "Soyad",
     email: "E-posta",

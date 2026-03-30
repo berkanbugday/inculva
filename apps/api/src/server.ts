@@ -3,9 +3,17 @@ import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
 import apiKeyPlugin from "./plugins/api-key.js";
+import redisPlugin from "./plugins/redis.js";
+import bullPlugin from "./plugins/bull.js";
+import internalAuthPlugin from "./plugins/internal-auth.js";
 import { widgetRoutes } from "./routes/widget.js";
 import { badgeRoutes } from "./routes/badge.js";
 import { healthRoutes } from "./routes/health.js";
+import { scanRoutes } from "./routes/scan.js";
+import { scanScheduleRoutes } from "./routes/scan-schedule.js";
+import { createScanPageWorker } from "./workers/scan-page.worker.js";
+import { createScanReportWorker } from "./workers/scan-report.worker.js";
+import { createScanSiteWorker } from "./workers/scan-site.worker.js";
 import { resolve } from "path";
 import { readFileSync } from "fs";
 
@@ -67,9 +75,25 @@ async function bootstrap(): Promise<void> {
   });
 
   await app.register(apiKeyPlugin);
+  await app.register(redisPlugin);
+  await app.register(bullPlugin);
+  await app.register(internalAuthPlugin);
   await app.register(healthRoutes);
   await app.register(widgetRoutes, { prefix: "/widget" });
   await app.register(badgeRoutes, { prefix: "/badge" });
+  await app.register(scanRoutes);
+  await app.register(scanScheduleRoutes);
+
+  // Start BullMQ workers (same process as API)
+  const scanPageWorker = createScanPageWorker(app.redis, app.scanReportQueue);
+  const scanReportWorker = createScanReportWorker(app.redis);
+  const scanSiteWorker = createScanSiteWorker(app.redis);
+
+  app.addHook("onClose", async () => {
+    await scanPageWorker.close();
+    await scanReportWorker.close();
+    await scanSiteWorker.close();
+  });
 
   // Dev-only: serve widget.js so localhost:3001/widget.js works for local testing
   if (isDev) {

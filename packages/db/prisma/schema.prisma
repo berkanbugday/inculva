@@ -126,6 +126,12 @@ model Site {
   widgetConfig WidgetConfig?
   widgetEvents WidgetEvent[]
   widgetLoads  WidgetLoad[]
+
+  // Scanning
+  scans               Scan[]
+  scanIssues          ScanIssue[]
+  scanSchedule        ScanSchedule?
+  complianceSnapshots ComplianceSnapshot[]
 }
 
 model WidgetConfig {
@@ -184,7 +190,7 @@ model WidgetConfig {
   // EAA Article 13 — accessibility statement URL
   accessibilityStatementUrl String?
 
-  // White-label (Large plan only) — null=show "Powered by Inculva", ""=hide, custom string=show that
+  // White-label (Large plan only) — null=show "Powered by inculva", ""=hide, custom string=show that
   whiteLabelText String?
 
   // Trigger button customization
@@ -192,8 +198,9 @@ model WidgetConfig {
   buttonIcon   String @default("universal-access")  // trigger button icon key
 
   // Last WCAG scan result — persisted so the badge can reflect actual state
-  lastScanViolations Int?
-  lastScanAt         DateTime?
+  lastScanViolations  Int?
+  lastScanAt          DateTime?
+  lastComplianceScore Float?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -247,5 +254,183 @@ model Notification {
   @@index([userId, readAt])
 }
 
+// ─── Accessibility Scanning ──────────────────────────────────────────────────
 
+model Scan {
+  id          String    @id @default(cuid())
+  siteId      String
+  status      String    @default("pending") // "pending" | "crawling" | "scanning" | "completed" | "failed"
+  trigger     String    @default("manual")  // "manual" | "scheduled" | "webhook"
 
+  // Configuration snapshot at time of scan
+  maxPages    Int       @default(1)
+  wcagLevel   String    @default("AA") // "A" | "AA" | "AAA"
+
+  // Aggregate results (computed on completion)
+  totalPages       Int?
+  totalViolations  Int?
+  totalPasses      Int?
+  totalIncomplete  Int?
+  complianceScore  Float? // 0-100 percentage
+
+  // Timing
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Error info if failed
+  errorMessage String?
+
+  site        Site              @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  pages       ScanPage[]
+  issues      ScanIssue[]
+  passedRules ScanPassedRule[]
+  incompleteRules ScanIncomplete[]
+
+  @@index([siteId, createdAt])
+  @@index([siteId, status])
+}
+
+model ScanPage {
+  id     String @id @default(cuid())
+  scanId String
+  url    String
+  status String @default("pending") // "pending" | "scanning" | "completed" | "failed"
+
+  // Per-page results
+  violations   Int?
+  passes       Int?
+  incomplete   Int?
+  score        Float?
+  errorMessage String?
+
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+
+  scan        Scan              @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  issues      ScanIssue[]
+  passedRules ScanPassedRule[]
+  incompleteRules ScanIncomplete[]
+
+  @@index([scanId])
+  @@unique([scanId, url])
+}
+
+model ScanIssue {
+  id     String @id @default(cuid())
+  scanId String
+  pageId String
+  siteId String
+
+  // Rule identification
+  ruleId      String // e.g. "img-alt", "color-contrast"
+  description String
+  impact      String // "critical" | "serious" | "moderate" | "minor"
+  wcag        String // "1.1.1", "2.4.4", etc.
+  wcagLevel   String // "A" | "AA" | "AAA"
+  category    String // "perceivable" | "operable" | "understandable" | "robust"
+
+  // Element context
+  selector String? // CSS selector of affected element
+  html     String? // Truncated outer HTML snippet
+  helpUrl  String?
+
+  // Issue lifecycle
+  status      String    @default("open") // "open" | "fixed" | "ignored" | "false_positive"
+  firstSeenAt DateTime  @default(now())
+  fixedAt     DateTime?
+
+  // AI fix suggestion (populated async)
+  fixSuggestion String?
+
+  createdAt DateTime @default(now())
+
+  scan Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  page ScanPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  site Site     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, ruleId, selector])
+  @@index([scanId])
+  @@index([pageId])
+  @@index([siteId, status])
+}
+
+model ScanPassedRule {
+  id     String @id @default(cuid())
+  scanId String
+  pageId String
+
+  ruleId      String // e.g. "img-alt", "color-contrast"
+  description String // Human-readable rule description
+  helpText    String? // Short help text from axe-core
+  wcag        String // "1.1.1", "2.4.4", etc.
+  wcagLevel   String // "A" | "AA" | "AAA"
+  category    String // "perceivable" | "operable" | "understandable" | "robust"
+  helpUrl     String? // Link to WCAG documentation
+  nodeCount   Int     @default(1) // Number of elements that passed this rule
+
+  createdAt DateTime @default(now())
+
+  scan Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  page ScanPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([scanId])
+  @@index([pageId])
+  @@unique([scanId, pageId, ruleId])
+}
+
+model ScanIncomplete {
+  id     String @id @default(cuid())
+  scanId String
+  pageId String
+
+  ruleId      String // e.g. "color-contrast"
+  description String // Human-readable rule description
+  impact      String // "critical" | "serious" | "moderate" | "minor"
+  wcag        String // "1.4.3", etc.
+  wcagLevel   String // "A" | "AA" | "AAA"
+  category    String // "perceivable" | "operable" | "understandable" | "robust"
+  selector    String? // CSS selector of affected element
+  html        String? // Truncated outer HTML snippet
+  helpUrl     String?
+  message     String // Why axe-core couldn't determine pass/fail
+
+  createdAt DateTime @default(now())
+
+  scan Scan     @relation(fields: [scanId], references: [id], onDelete: Cascade)
+  page ScanPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([scanId])
+  @@index([pageId])
+  @@unique([scanId, pageId, ruleId, selector])
+}
+
+model ComplianceSnapshot {
+  id         String   @id @default(cuid())
+  siteId     String
+  date       DateTime // truncated to UTC day
+  score      Float
+  violations Int
+  passes     Int
+  scanId     String?
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([siteId, date])
+  @@index([siteId, date])
+}
+
+model ScanSchedule {
+  id        String    @id @default(cuid())
+  siteId    String    @unique
+  frequency String    @default("weekly") // "daily" | "weekly" | "monthly"
+  enabled   Boolean   @default(true)
+  lastRunAt DateTime?
+  nextRunAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+}

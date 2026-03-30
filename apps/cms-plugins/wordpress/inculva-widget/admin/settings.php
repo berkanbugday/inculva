@@ -37,7 +37,7 @@ function inculva_settings_page() {
                 cursor:pointer;font-size:18px;line-height:1;color:#888;padding:0;
             " aria-label="<?php echo esc_attr( inculva_t( 'dismiss' ) ); ?>">&#x2715;</button>
 
-            <img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="Inculva"
+            <img src="https://cdn.inculva.com/logos/logo-dark.png" width="150" alt="inculva"
                  style="display:block;margin-bottom:10px;" />
 
             <p style="margin:0 0 16px;color:#3c434a;font-size:15px;line-height:1.5;">

@@ -88,7 +88,9 @@ export async function GET(req: Request, { params }: Params) {
 
   const buffer = await workbook.xlsx.writeBuffer();
   const today = new Date().toISOString().slice(0, 10);
-  const filename = `${site.name}_stats_${today}.xlsx`;
+  // Sanitize filename: strip characters that could inject HTTP headers
+  const safeName = site.name.replace(/["\\\r\n;]/g, "_").slice(0, 100);
+  const filename = `${safeName}_stats_${today}.xlsx`;
 
   return new NextResponse(buffer, {
     headers: {

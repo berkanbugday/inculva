@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { SiteNameForm } from "./site-name-form";
-import { SiteDomainForm } from "./site-domain-form";
 import { LANGUAGES } from "./languages";
 import type { Config } from "./widget-config-form";
 import { useDashboard } from "@/components/dashboard-layout-content";
@@ -97,10 +96,10 @@ export function ConfigTabGeneral({
         });
       } else {
         const json = (await res.json()) as { error?: string };
-        setSaveError(json.error ?? "Failed to save — please try again");
+        setSaveError(json.error ?? t.featuresTab.failedToSave);
       }
     } catch {
-      setSaveError("Network error — please check your connection");
+      setSaveError(t.featuresTab.networkError);
     } finally {
       setSaving(false);
     }
@@ -165,7 +164,11 @@ export function ConfigTabGeneral({
           </h3>
 
           <SiteNameForm siteId={siteId} initialName={initialName} />
-          <SiteDomainForm siteId={siteId} initialDomain={initialDomain} />
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">
+              {initialDomain}
+            </span>
+          </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -179,7 +182,6 @@ export function ConfigTabGeneral({
               ))}
             </select>
           </div>
-
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
@@ -197,7 +199,9 @@ export function ConfigTabGeneral({
                   type="color"
                   value={primaryColor}
                   onChange={(e) =>
-                    setValue("primaryColor", e.target.value, { shouldDirty: true })
+                    setValue("primaryColor", e.target.value, {
+                      shouldDirty: true,
+                    })
                   }
                   className="w-10 h-10 rounded cursor-pointer border border-gray-300 dark:border-gray-700 bg-white dark:bg-[#1a1a2e] shrink-0"
                 />
@@ -205,7 +209,9 @@ export function ConfigTabGeneral({
                   type="text"
                   value={primaryColor}
                   onChange={(e) =>
-                    setValue("primaryColor", e.target.value, { shouldDirty: true })
+                    setValue("primaryColor", e.target.value, {
+                      shouldDirty: true,
+                    })
                   }
                   className={`${inputClass} font-mono`}
                   placeholder="#0066cc"
@@ -219,7 +225,12 @@ export function ConfigTabGeneral({
               </label>
               <div className="flex gap-5">
                 {BUTTON_SIZE_VALUES.map((value) => {
-                  const sizeLabel = value === "small" ? t.config.buttonSizeSmall : value === "medium" ? t.config.buttonSizeMedium : t.config.buttonSizeLarge;
+                  const sizeLabel =
+                    value === "small"
+                      ? t.config.buttonSizeSmall
+                      : value === "medium"
+                      ? t.config.buttonSizeMedium
+                      : t.config.buttonSizeLarge;
                   return (
                     <label
                       key={value}

@@ -5,7 +5,7 @@
 export const TRANSLATIONS: Record<string, Record<string, string>> = {
   tr: {
     title: "Erişilebilirlik Menüsü",
-    poweredBy: "Inculva tarafından desteklenir",
+    poweredBy: "inculva tarafından desteklenir",
     resetAll: "Tümünü Sıfırla",
     profilesTitle: "Profiller",
     closeMenu: "Menüyü kapat",
@@ -64,7 +64,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   de: {
     title: "Barrierefreiheit Menü",
-    poweredBy: "Unterstützt von Inculva",
+    poweredBy: "Unterstützt von inculva",
     resetAll: "Alles zurücksetzen",
     profilesTitle: "Profile",
     closeMenu: "Menü schließen",
@@ -123,7 +123,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   fr: {
     title: "Menu d'accessibilité",
-    poweredBy: "Propulsé par Inculva",
+    poweredBy: "Propulsé par inculva",
     resetAll: "Tout réinitialiser",
     profilesTitle: "Profils",
     closeMenu: "Fermer le menu",
@@ -182,7 +182,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   es: {
     title: "Menú de accesibilidad",
-    poweredBy: "Desarrollado por Inculva",
+    poweredBy: "Desarrollado por inculva",
     resetAll: "Restablecer todo",
     profilesTitle: "Perfiles",
     closeMenu: "Cerrar menú",
@@ -241,7 +241,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   it: {
     title: "Menu di accessibilità",
-    poweredBy: "Sviluppato da Inculva",
+    poweredBy: "Sviluppato da inculva",
     resetAll: "Reimposta tutto",
     profilesTitle: "Profili",
     closeMenu: "Chiudi menu",
@@ -300,7 +300,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   pt: {
     title: "Menu de acessibilidade",
-    poweredBy: "Desenvolvido pela Inculva",
+    poweredBy: "Desenvolvido pela inculva",
     resetAll: "Redefinir tudo",
     profilesTitle: "Perfis",
     closeMenu: "Fechar menu",
@@ -359,7 +359,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   nl: {
     title: "Toegankelijkheidsmenu",
-    poweredBy: "Ondersteund door Inculva",
+    poweredBy: "Ondersteund door inculva",
     resetAll: "Alles resetten",
     profilesTitle: "Profielen",
     closeMenu: "Menu sluiten",
@@ -418,7 +418,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ar: {
     title: "قائمة إمكانية الوصول",
-    poweredBy: "مدعوم من Inculva",
+    poweredBy: "مدعوم من inculva",
     resetAll: "إعادة تعيين الكل",
     profilesTitle: "الملفات الشخصية",
     closeMenu: "إغلاق القائمة",
@@ -477,7 +477,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   he: {
     title: "תפריט נגישות",
-    poweredBy: "מופעל על ידי Inculva",
+    poweredBy: "מופעל על ידי inculva",
     resetAll: "אפס הכל",
     profilesTitle: "פרופילים",
     closeMenu: "סגור תפריט",
@@ -536,7 +536,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   fa: {
     title: "منوی دسترسی‌پذیری",
-    poweredBy: "ارائه‌شده توسط Inculva",
+    poweredBy: "ارائه‌شده توسط inculva",
     resetAll: "بازنشانی همه",
     profilesTitle: "پروفایل‌ها",
     closeMenu: "بستن منو",
@@ -595,7 +595,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ur: {
     title: "قابل رسائی مینو",
-    poweredBy: "Inculva کی جانب سے",
+    poweredBy: "inculva کی جانب سے",
     resetAll: "سب ری سیٹ کریں",
     profilesTitle: "پروفائل",
     closeMenu: "مینو بند کریں",
@@ -654,7 +654,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   zh: {
     title: "无障碍功能菜单",
-    poweredBy: "由 Inculva 提供支持",
+    poweredBy: "由 inculva 提供支持",
     resetAll: "全部重置",
     profilesTitle: "配置文件",
     closeMenu: "关闭菜单",
@@ -713,7 +713,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ja: {
     title: "アクセシビリティメニュー",
-    poweredBy: "Inculva 提供",
+    poweredBy: "inculva 提供",
     resetAll: "すべてリセット",
     profilesTitle: "プロファイル",
     closeMenu: "メニューを閉じる",
@@ -772,7 +772,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ko: {
     title: "접근성 메뉴",
-    poweredBy: "Inculva 제공",
+    poweredBy: "inculva 제공",
     resetAll: "모두 초기화",
     profilesTitle: "프로필",
     closeMenu: "메뉴 닫기",
@@ -831,7 +831,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ru: {
     title: "Меню доступности",
-    poweredBy: "При поддержке Inculva",
+    poweredBy: "При поддержке inculva",
     resetAll: "Сбросить всё",
     profilesTitle: "Профили",
     closeMenu: "Закрыть меню",
@@ -890,7 +890,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   pl: {
     title: "Menu dostępności",
-    poweredBy: "Wspierane przez Inculva",
+    poweredBy: "Wspierane przez inculva",
     resetAll: "Resetuj wszystko",
     profilesTitle: "Profile",
     closeMenu: "Zamknij menu",
@@ -949,7 +949,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   cs: {
     title: "Menu přístupnosti",
-    poweredBy: "Podporováno Inculva",
+    poweredBy: "Podporováno inculva",
     resetAll: "Obnovit vše",
     profilesTitle: "Profily",
     closeMenu: "Zavřít menu",
@@ -1008,7 +1008,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   da: {
     title: "Tilgængelighedsmenu",
-    poweredBy: "Drevet af Inculva",
+    poweredBy: "Drevet af inculva",
     resetAll: "Nulstil alt",
     profilesTitle: "Profiler",
     closeMenu: "Luk menu",
@@ -1067,7 +1067,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   fi: {
     title: "Saavutettavuusvalikko",
-    poweredBy: "Inculvan tarjoama",
+    poweredBy: "inculvan tarjoama",
     resetAll: "Nollaa kaikki",
     profilesTitle: "Profiilit",
     closeMenu: "Sulje valikko",
@@ -1126,7 +1126,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   el: {
     title: "Μενού προσβασιμότητας",
-    poweredBy: "Από το Inculva",
+    poweredBy: "Από το inculva",
     resetAll: "Επαναφορά όλων",
     profilesTitle: "Προφίλ",
     closeMenu: "Κλείσιμο μενού",
@@ -1185,7 +1185,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   hu: {
     title: "Akadálymentességi menü",
-    poweredBy: "Az Inculva segítségével",
+    poweredBy: "Az inculva segítségével",
     resetAll: "Összes visszaállítása",
     profilesTitle: "Profilok",
     closeMenu: "Menü bezárása",
@@ -1244,7 +1244,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ro: {
     title: "Meniu de accesibilitate",
-    poweredBy: "Susținut de Inculva",
+    poweredBy: "Susținut de inculva",
     resetAll: "Resetați tot",
     profilesTitle: "Profiluri",
     closeMenu: "Închideți meniul",
@@ -1303,7 +1303,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   sv: {
     title: "Tillgänglighetsmeny",
-    poweredBy: "Drivs av Inculva",
+    poweredBy: "Drivs av inculva",
     resetAll: "Återställ allt",
     profilesTitle: "Profiler",
     closeMenu: "Stäng meny",
@@ -1362,7 +1362,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   uk: {
     title: "Меню доступності",
-    poweredBy: "На базі Inculva",
+    poweredBy: "На базі inculva",
     resetAll: "Скинути все",
     profilesTitle: "Профілі",
     closeMenu: "Закрити меню",
@@ -1421,7 +1421,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   sk: {
     title: "Menu prístupnosti",
-    poweredBy: "Podporované Inculva",
+    poweredBy: "Podporované inculva",
     resetAll: "Obnoviť všetko",
     profilesTitle: "Profily",
     closeMenu: "Zavrieť menu",
@@ -1480,7 +1480,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   bg: {
     title: "Меню за достъпност",
-    poweredBy: "Поддържа се от Inculva",
+    poweredBy: "Поддържа се от inculva",
     resetAll: "Нулиране на всичко",
     profilesTitle: "Профили",
     closeMenu: "Затвори менюто",
@@ -1539,7 +1539,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   hr: {
     title: "Izbornik pristupačnosti",
-    poweredBy: "Podržano od Inculva",
+    poweredBy: "Podržano od inculva",
     resetAll: "Resetiraj sve",
     profilesTitle: "Profili",
     closeMenu: "Zatvori izbornik",
@@ -1598,7 +1598,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   lt: {
     title: "Pritaikomumo meniu",
-    poweredBy: "Palaikoma Inculva",
+    poweredBy: "Palaikoma inculva",
     resetAll: "Iš naujo nustatyti viską",
     profilesTitle: "Profiliai",
     closeMenu: "Uždaryti meniu",
@@ -1657,7 +1657,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   lv: {
     title: "Pieejamības izvēlne",
-    poweredBy: "Darbina Inculva",
+    poweredBy: "Darbina inculva",
     resetAll: "Atiestatīt visu",
     profilesTitle: "Profili",
     closeMenu: "Aizvērt izvēlni",
@@ -1716,7 +1716,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   et: {
     title: "Ligipääsetavuse menüü",
-    poweredBy: "Inculva toel",
+    poweredBy: "inculva toel",
     resetAll: "Lähtesta kõik",
     profilesTitle: "Profiilid",
     closeMenu: "Sulge menüü",
@@ -1775,7 +1775,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   sl: {
     title: "Dostopnost",
-    poweredBy: "Poganja Inculva",
+    poweredBy: "Poganja inculva",
     resetAll: "Ponastavi vse",
     profilesTitle: "Profili",
     closeMenu: "Zapri meni",
@@ -1834,7 +1834,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   sr: {
     title: "Pristupačnost",
-    poweredBy: "Podržava Inculva",
+    poweredBy: "Podržava inculva",
     resetAll: "Resetuj sve",
     profilesTitle: "Profili",
     closeMenu: "Zatvori meni",
@@ -1893,7 +1893,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   no: {
     title: "Tilgjengelighetsmeny",
-    poweredBy: "Drevet av Inculva",
+    poweredBy: "Drevet av inculva",
     resetAll: "Tilbakestill alt",
     profilesTitle: "Profiler",
     closeMenu: "Lukk meny",
@@ -1952,7 +1952,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   th: {
     title: "เมนูการเข้าถึง",
-    poweredBy: "ขับเคลื่อนโดย Inculva",
+    poweredBy: "ขับเคลื่อนโดย inculva",
     resetAll: "รีเซ็ตทั้งหมด",
     profilesTitle: "โปรไฟล์",
     closeMenu: "ปิดเมนู",
@@ -2011,7 +2011,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   vi: {
     title: "Menu khả năng tiếp cận",
-    poweredBy: "Được hỗ trợ bởi Inculva",
+    poweredBy: "Được hỗ trợ bởi inculva",
     resetAll: "Đặt lại tất cả",
     profilesTitle: "Hồ sơ",
     closeMenu: "Đóng menu",
@@ -2070,7 +2070,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   id: {
     title: "Menu aksesibilitas",
-    poweredBy: "Didukung oleh Inculva",
+    poweredBy: "Didukung oleh inculva",
     resetAll: "Atur ulang semua",
     profilesTitle: "Profil",
     closeMenu: "Tutup menu",
@@ -2129,7 +2129,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ms: {
     title: "Menu kebolehcapaian",
-    poweredBy: "Dikuasakan oleh Inculva",
+    poweredBy: "Dikuasakan oleh inculva",
     resetAll: "Set semula semua",
     profilesTitle: "Profil",
     closeMenu: "Tutup menu",
@@ -2188,7 +2188,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   ca: {
     title: "Menú d'accessibilitat",
-    poweredBy: "Impulsat per Inculva",
+    poweredBy: "Impulsat per inculva",
     resetAll: "Restablir tot",
     profilesTitle: "Perfils",
     closeMenu: "Tancar menú",
@@ -2247,7 +2247,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   sq: {
     title: "Menuja e aksesueshmërisë",
-    poweredBy: "Mbështetur nga Inculva",
+    poweredBy: "Mbështetur nga inculva",
     resetAll: "Rivendos të gjitha",
     profilesTitle: "Profile",
     closeMenu: "Mbyll menunë",
@@ -2306,7 +2306,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
   sw: {
     title: "Menyu ya upatikanaji",
-    poweredBy: "Inculva inasaidia",
+    poweredBy: "inculva inasaidia",
     resetAll: "Weka upya yote",
     profilesTitle: "Maelezo",
     closeMenu: "Funga menyu",

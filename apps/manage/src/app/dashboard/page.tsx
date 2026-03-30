@@ -185,11 +185,11 @@ export default async function DashboardPage() {
                 <div className="flex gap-10 mr-5">
                   {/* Widget opens */}
                   <div className="hidden sm:block text-center shrink-0">
-                    <p className="text-sm font-bold text-xl text-black dark:text-white tabular-nums">
-                      {opens.toLocaleString()}
-                    </p>
                     <p className="text-xs  text-gray-400 dark:text-gray-500">
                       {t.sites.opens}
+                    </p>
+                    <p className="text-sm font-bold text-xl text-black dark:text-white tabular-nums">
+                      {opens.toLocaleString()}
                     </p>
                   </div>
 

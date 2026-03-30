@@ -58,22 +58,22 @@ The global cache prevents multiple PrismaClient instances during Next.js hot-rel
 
 ## Schema Overview
 
-| Model | Rows type | Purpose |
-|---|---|---|
-| `User` | One per registered user | Auth, billing, roles |
-| `Session` | Many per user | Better Auth HTTP sessions |
-| `Account` | Many per user | OAuth provider linkage |
-| `Verification` | Transient | Email verification / password reset tokens |
-| `Subscription` | One per user | Active LemonSqueezy subscription |
-| `Site` | Many per user/team | A domain with the widget installed |
-| `WidgetConfig` | One per site | Widget appearance + feature flags |
-| `WidgetEvent` | Many per site | Raw interaction events from visitors |
-| `WidgetLoad` | One per (site, domain, day) | Daily aggregated page-load counts |
-| `ApiKey` | Many per user | Hashed API keys for programmatic access |
-| `Notification` | Many per user | In-app notification inbox |
-| `Team` | Many per user | Organization/workspace |
-| `TeamMember` | Many per team | User ↔ Team with role |
-| `TeamInvite` | Many per team | Pending email invitations |
+| Model          | Rows type                   | Purpose                                    |
+| -------------- | --------------------------- | ------------------------------------------ |
+| `User`         | One per registered user     | Auth, billing, roles                       |
+| `Session`      | Many per user               | Better Auth HTTP sessions                  |
+| `Account`      | Many per user               | OAuth provider linkage                     |
+| `Verification` | Transient                   | Email verification / password reset tokens |
+| `Subscription` | One per user                | Active LemonSqueezy subscription           |
+| `Site`         | Many per user/team          | A domain with the widget installed         |
+| `WidgetConfig` | One per site                | Widget appearance + feature flags          |
+| `WidgetEvent`  | Many per site               | Raw interaction events from visitors       |
+| `WidgetLoad`   | One per (site, domain, day) | Daily aggregated page-load counts          |
+| `ApiKey`       | Many per user               | Hashed API keys for programmatic access    |
+| `Notification` | Many per user               | In-app notification inbox                  |
+| `Team`         | Many per user               | Organization/workspace                     |
+| `TeamMember`   | Many per team               | User ↔ Team with role                     |
+| `TeamInvite`   | Many per team               | Pending email invitations                  |
 
 ---
 
@@ -113,6 +113,7 @@ model User {
 ```
 
 **Key fields:**
+
 - `role`: `"user"` (default) or `"admin"`. Admin users can access `/admin/*` routes.
 - `plan`: `"free"` (default), `"pro"`, or `"business"`. Updated by the LemonSqueezy webhook.
 - `lsCustomerId`: Set when a LemonSqueezy checkout is completed. Used for customer portal URL generation.
@@ -219,7 +220,7 @@ Created/updated by the `/api/webhooks/lemonsqueezy` route handler.
 
 ### Site
 
-A website that has the Inculva widget installed.
+A website that has the inculva widget installed.
 
 ```prisma
 model Site {
@@ -240,6 +241,7 @@ model Site {
 ```
 
 **Notes:**
+
 - `domain` must be unique across the entire platform (one site per domain).
 - `teamId` is optional. A site can be personal (no team) or team-owned.
 - When a site is created, a `WidgetConfig` record is automatically created with all defaults.
@@ -278,7 +280,7 @@ model WidgetConfig {
   muteMedia          Boolean @default(true)
 
   accessibilityStatementUrl String?   // EAA Article 13
-  whiteLabelText            String?   // null = show "Powered by Inculva", "" = hide, "Acme" = show custom
+  whiteLabelText            String?   // null = show "Powered by inculva", "" = hide, "Acme" = show custom
   allowedDomains            String[]  @default([])   // empty = allow all
 
   createdAt DateTime @default(now())
@@ -477,30 +479,30 @@ Invite tokens expire after 7 days. The invite URL is `/invites/:token`.
 
 ## Indexes
 
-| Model | Index | Purpose |
-|---|---|---|
-| `User` | `email` (unique) | Sign-in lookup |
-| `User` | `lsCustomerId` (unique) | Billing webhook lookup |
-| `Session` | `token` (unique) | Session cookie validation |
-| `Account` | `[providerId, accountId]` (unique) | OAuth account lookup |
-| `Verification` | `[identifier, value]` (unique) | Token verification |
-| `Subscription` | `lsSubscriptionId` (unique) | Webhook idempotency |
-| `Site` | `domain` (unique) | Config fetch by domain |
-| `WidgetConfig` | `siteId` (unique) | One-to-one with Site |
-| `WidgetEvent` | `[siteId]` | Count events per site |
-| `WidgetEvent` | `[siteId, createdAt]` | Date-range event queries |
-| `WidgetLoad` | `[siteId, domain, date]` (unique) | Daily load upsert |
-| `WidgetLoad` | `[siteId, date]` | Load aggregation queries |
-| `ApiKey` | `keyHash` (unique) | Auth header verification |
-| `ApiKey` | `[userId]` | List keys per user |
-| `Notification` | `[userId, createdAt]` | Fetch recent notifications |
-| `Notification` | `[userId, readAt]` | Unread count queries |
-| `Team` | `slug` (unique) | URL routing |
-| `Team` | `[ownerId]` | List owned teams |
-| `TeamMember` | `[teamId, userId]` (unique) | Prevent duplicate members |
-| `TeamMember` | `[userId]` | List user's team memberships |
-| `TeamInvite` | `[token]` | Invite acceptance lookup |
-| `TeamInvite` | `[teamId]` | List pending invites |
+| Model          | Index                              | Purpose                      |
+| -------------- | ---------------------------------- | ---------------------------- |
+| `User`         | `email` (unique)                   | Sign-in lookup               |
+| `User`         | `lsCustomerId` (unique)            | Billing webhook lookup       |
+| `Session`      | `token` (unique)                   | Session cookie validation    |
+| `Account`      | `[providerId, accountId]` (unique) | OAuth account lookup         |
+| `Verification` | `[identifier, value]` (unique)     | Token verification           |
+| `Subscription` | `lsSubscriptionId` (unique)        | Webhook idempotency          |
+| `Site`         | `domain` (unique)                  | Config fetch by domain       |
+| `WidgetConfig` | `siteId` (unique)                  | One-to-one with Site         |
+| `WidgetEvent`  | `[siteId]`                         | Count events per site        |
+| `WidgetEvent`  | `[siteId, createdAt]`              | Date-range event queries     |
+| `WidgetLoad`   | `[siteId, domain, date]` (unique)  | Daily load upsert            |
+| `WidgetLoad`   | `[siteId, date]`                   | Load aggregation queries     |
+| `ApiKey`       | `keyHash` (unique)                 | Auth header verification     |
+| `ApiKey`       | `[userId]`                         | List keys per user           |
+| `Notification` | `[userId, createdAt]`              | Fetch recent notifications   |
+| `Notification` | `[userId, readAt]`                 | Unread count queries         |
+| `Team`         | `slug` (unique)                    | URL routing                  |
+| `Team`         | `[ownerId]`                        | List owned teams             |
+| `TeamMember`   | `[teamId, userId]` (unique)        | Prevent duplicate members    |
+| `TeamMember`   | `[userId]`                         | List user's team memberships |
+| `TeamInvite`   | `[token]`                          | Invite acceptance lookup     |
+| `TeamInvite`   | `[teamId]`                         | List pending invites         |
 
 ---
 

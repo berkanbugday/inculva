@@ -23,7 +23,7 @@ export function CancelSubscriptionButton({
     });
     const data = (await res.json()) as { ok: boolean; error?: string };
     if (!data.ok) {
-      setError(data.error ?? "Cancellation failed");
+      setError(data.error ?? t.billing.cancellationFailed);
       setLoading(false);
       return;
     }

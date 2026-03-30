@@ -235,7 +235,7 @@ export const PROFILES: ProfileDef[] = [
 // ---------------------------------------------------------------------------
 const EN_LABELS: Record<string, string> = {
   title: "Accessibility Menu",
-  poweredBy: "Powered by Inculva",
+  poweredBy: "Powered by inculva",
   resetAll: "Reset All",
   profilesTitle: "Profiles",
   closeMenu: "Close accessibility menu",

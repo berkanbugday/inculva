@@ -1,15 +1,24 @@
 export type Plan = "free" | "small" | "medium" | "large";
 
+export type ScanFrequency = "monthly" | "weekly" | "daily";
+
 export interface PlanLimits {
   pageviewsPerMonth: number; // 0 = no access (free plan)
   maxSites: number;
+  // Scanning limits
+  maxPagesPerScan: number;
+  scanFrequency: ScanFrequency;
+  maxScansPerDay: number;
+  scanHistoryDays: number;
+  pdfReports: boolean;
+  aiFixSuggestions: boolean;
 }
 
 export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
-  free:   { pageviewsPerMonth: 0,          maxSites: 1 },
-  small:  { pageviewsPerMonth: 100_000,    maxSites: 5 },
-  medium: { pageviewsPerMonth: 300_000,    maxSites: 10 },
-  large:  { pageviewsPerMonth: 1_000_000,  maxSites: 25 },
+  free: { pageviewsPerMonth: 0, maxSites: 1, maxPagesPerScan: 5, scanFrequency: "monthly", maxScansPerDay: 3, scanHistoryDays: 30, pdfReports: false, aiFixSuggestions: false },
+  small: { pageviewsPerMonth: 100_000, maxSites: 5, maxPagesPerScan: 25, scanFrequency: "weekly", maxScansPerDay: 50, scanHistoryDays: 90, pdfReports: true, aiFixSuggestions: false },
+  medium: { pageviewsPerMonth: 300_000, maxSites: 10, maxPagesPerScan: 100, scanFrequency: "weekly", maxScansPerDay: 20, scanHistoryDays: 180, pdfReports: true, aiFixSuggestions: true },
+  large: { pageviewsPerMonth: 1_000_000, maxSites: 25, maxPagesPerScan: 500, scanFrequency: "daily", maxScansPerDay: 50, scanHistoryDays: 365, pdfReports: true, aiFixSuggestions: true },
 };
 
 export interface PolarProduct {

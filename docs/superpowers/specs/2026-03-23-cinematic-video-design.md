@@ -14,42 +14,42 @@
 
 ### Türkçe (TR)
 
-| Satır | Renk | Sahne |
-|---|---|---|
-| 1.3 milyar insan. | Beyaz | Struggle |
-| Her gün. | Beyaz | Struggle |
-| Engellere çarpıyor. | Kırmızı (#ef4444) | Struggle |
-| Sokakta. | Beyaz | Places |
-| İşte. | Beyaz | Places |
-| Hatta internette. | Kırmızı (#ef4444) | Places |
-| Web sitelerinin %96'sı | Beyaz | Reality |
-| erişilebilir değil. | Kırmızı, altı çizili | Reality |
-| Sokakları düzeltemeyiz. | Beyaz | Turn |
-| *(45f = 1.5s boş ekran)* | — | Turn |
-| Ama web sitenizi | Mavi (#3493ff) | Turn |
-| düzeltebiliriz. | Beyaz, büyük | Turn |
-| *(hold 2s = 60f)* | — | Turn |
-| [logo + inculva.com] | — | Brand |
+| Satır                    | Renk                 | Sahne    |
+| ------------------------ | -------------------- | -------- |
+| 1.3 milyar insan.        | Beyaz                | Struggle |
+| Her gün.                 | Beyaz                | Struggle |
+| Engellere çarpıyor.      | Kırmızı (#ef4444)    | Struggle |
+| Sokakta.                 | Beyaz                | Places   |
+| İşte.                    | Beyaz                | Places   |
+| Hatta internette.        | Kırmızı (#ef4444)    | Places   |
+| Web sitelerinin %96'sı   | Beyaz                | Reality  |
+| erişilebilir değil.      | Kırmızı, altı çizili | Reality  |
+| Sokakları düzeltemeyiz.  | Beyaz                | Turn     |
+| _(45f = 1.5s boş ekran)_ | —                    | Turn     |
+| Ama web sitenizi         | Mavi (#3493ff)       | Turn     |
+| düzeltebiliriz.          | Beyaz, büyük         | Turn     |
+| _(hold 2s = 60f)_        | —                    | Turn     |
+| [logo + inculva.com]     | —                    | Brand    |
 
 ### English (EN)
 
-| Line | Color | Scene |
-|---|---|---|
-| 1.3 billion people. | White | Struggle |
-| Every day. | White | Struggle |
-| Hit barriers. | Red (#ef4444) | Struggle |
-| On the streets. | White | Places |
-| At work. | White | Places |
-| Even online. | Red (#ef4444) | Places |
-| 96% of websites | White | Reality |
-| are inaccessible. | Red, underlined | Reality |
-| We can't fix the streets. | White | Turn |
-| *(45f = 1.5s empty screen)* | — | Turn |
-| But we can fix your website. | Blue (#3493ff) | Turn |
-| *(hold 2s = 60f)* | — | Turn |
-| [logo + inculva.com] | — | Brand |
+| Line                         | Color           | Scene    |
+| ---------------------------- | --------------- | -------- |
+| 1.3 billion people.          | White           | Struggle |
+| Every day.                   | White           | Struggle |
+| Hit barriers.                | Red (#ef4444)   | Struggle |
+| On the streets.              | White           | Places   |
+| At work.                     | White           | Places   |
+| Even online.                 | Red (#ef4444)   | Places   |
+| 96% of websites              | White           | Reality  |
+| are inaccessible.            | Red, underlined | Reality  |
+| We can't fix the streets.    | White           | Turn     |
+| _(45f = 1.5s empty screen)_  | —               | Turn     |
+| But we can fix your website. | Blue (#3493ff)  | Turn     |
+| _(hold 2s = 60f)_            | —               | Turn     |
+| [logo + inculva.com]         | —               | Brand    |
 
-*Both TR and EN hold on the final line for 60f (2s) — pacing is identical.*
+_Both TR and EN hold on the final line for 60f (2s) — pacing is identical._
 
 ---
 
@@ -85,18 +85,18 @@ Hard cut rhythm — each word holds then hard cuts.
 
 The pivot. Pacing slows dramatically.
 
-| Frame | Content |
-|---|---|
-| 0–60f | "Sokakları düzeltemeyiz." springs in (stiffness: 60, damping: 28 — heavy, weighted) |
-| 60–105f | 45f pure black — silence |
-| 105–150f | "Ama web sitenizi" slides in from left, blue (#3493ff), 52px |
-| 150–210f | "düzeltebiliriz." springs up, white, 80px bold |
-| 210–270f | Hold — both lines visible together |
-| 270–390f | Slow fade to black (120f) |
+| Frame    | Content                                                                             |
+| -------- | ----------------------------------------------------------------------------------- |
+| 0–60f    | "Sokakları düzeltemeyiz." springs in (stiffness: 60, damping: 28 — heavy, weighted) |
+| 60–105f  | 45f pure black — silence                                                            |
+| 105–150f | "Ama web sitenizi" slides in from left, blue (#3493ff), 52px                        |
+| 150–210f | "düzeltebiliriz." springs up, white, 80px bold                                      |
+| 210–270f | Hold — both lines visible together                                                  |
+| 270–390f | Slow fade to black (120f)                                                           |
 
 ### Scene 5 — Brand (43–45s, frames 1290–1349, 60f)
 
-- Inculva logo, centered, fade in over 20f
+- inculva logo, centered, fade in over 20f
 - `inculva.com` below, 24px, blue (#3493ff)
 - Fade to black last 10f
 
@@ -104,16 +104,16 @@ The pivot. Pacing slows dramatically.
 
 ## Technical Decisions
 
-| Property | Value | Reason |
-|---|---|---|
-| FPS | 30 | Social ads standard; halves render time |
-| Background | `#000000` | Pure black hits harder than `#0f172a` |
-| Primary font size | 64–88px | Fills screen, readable on mobile |
-| Animation style | Hard cut + spring snap | Manifesto rhythm |
-| Scene transitions | Hard cut (not cross-fade) | Momentum, urgency |
-| Pause before turn | 45f (1.5s) | Audience sits in the problem |
-| Text underline | `textDecoration` not `borderBottom` | Remotion headless renderer compatibility |
-| Widget demo | Removed | Narrative > product demo for social ads |
+| Property          | Value                               | Reason                                   |
+| ----------------- | ----------------------------------- | ---------------------------------------- |
+| FPS               | 30                                  | Social ads standard; halves render time  |
+| Background        | `#000000`                           | Pure black hits harder than `#0f172a`    |
+| Primary font size | 64–88px                             | Fills screen, readable on mobile         |
+| Animation style   | Hard cut + spring snap              | Manifesto rhythm                         |
+| Scene transitions | Hard cut (not cross-fade)           | Momentum, urgency                        |
+| Pause before turn | 45f (1.5s)                          | Audience sits in the problem             |
+| Text underline    | `textDecoration` not `borderBottom` | Remotion headless renderer compatibility |
+| Widget demo       | Removed                             | Narrative > product demo for social ads  |
 
 ---
 
@@ -121,24 +121,26 @@ The pivot. Pacing slows dramatically.
 
 Keep existing 4 compositions (Portrait + Landscape for each language):
 
-| Composition ID | Lang | Ratio | durationInFrames |
-|---|---|---|---|
-| WelcomeVideo-TR-Portrait | tr | 9:16 | 1350 |
-| WelcomeVideo-TR-Landscape | tr | 16:9 | 1350 |
-| WelcomeVideo-EN-Portrait | en | 9:16 | 1350 |
-| WelcomeVideo-EN-Landscape | en | 16:9 | 1350 |
+| Composition ID            | Lang | Ratio | durationInFrames |
+| ------------------------- | ---- | ----- | ---------------- |
+| WelcomeVideo-TR-Portrait  | tr   | 9:16  | 1350             |
+| WelcomeVideo-TR-Landscape | tr   | 16:9  | 1350             |
+| WelcomeVideo-EN-Portrait  | en   | 9:16  | 1350             |
+| WelcomeVideo-EN-Landscape | en   | 16:9  | 1350             |
 
 ---
 
 ## File Changes
 
 ### Files to delete
+
 - `ProblemScene.tsx`
 - `SolutionScene.tsx`
 - `WidgetDemoScene.tsx`
 - `CtaScene.tsx`
 
 ### Files to create
+
 - `StruggleScene.tsx`
 - `PlacesScene.tsx`
 - `RealityScene.tsx`

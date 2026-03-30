@@ -1,3 +1,9 @@
+/**
+ * @deprecated Use `@inculva/scanner` package instead.
+ * This legacy scanner uses Cheerio (static HTML only, 12 rules).
+ * The new scanner uses Playwright + axe-core (80+ rules with JS rendering).
+ * Kept temporarily for backward compatibility.
+ */
 import * as cheerio from "cheerio";
 
 export type ImpactLevel = "critical" | "serious" | "moderate" | "minor";
@@ -32,22 +38,8 @@ function outerHtml($: cheerio.CheerioAPI, el: any): string {
   return trimStr($.html(el) ?? "").slice(0, 200);
 }
 
-// Block private/internal IP ranges and cloud metadata hostnames
-const PRIVATE_HOSTNAME_RE =
-  /^(localhost|127\.|0\.0\.0\.0|::1|fd[0-9a-f]{2}:|fc[0-9a-f]{2}:|10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.|169\.254\.|100\.64\.)/i;
-const BLOCKED_HOSTNAMES = new Set([
-  "metadata.google.internal",
-  "metadata.gcp.internal",
-  "kubernetes.default",
-  "kubernetes.default.svc",
-]);
-
-function assertSafeHostname(hostname: string): void {
-  const h = hostname.toLowerCase();
-  if (PRIVATE_HOSTNAME_RE.test(h) || BLOCKED_HOSTNAMES.has(h)) {
-    throw new Error("URL resolves to a blocked host");
-  }
-}
+// SSRF protection — reuse from @inculva/scanner to avoid duplication
+import { assertSafeHostname } from "@inculva/scanner";
 
 export async function scanUrl(rawUrl: string): Promise<ScanResult> {
   const scannedAt = new Date().toISOString();
@@ -59,8 +51,8 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
   const res = await fetch(rawUrl, {
     signal: AbortSignal.timeout(15_000),
     headers: {
-      "User-Agent":
-        `Inculva-Scanner/1.0 (WCAG Accessibility Checker; +${process.env["NEXT_PUBLIC_LANDING_URL"]!})`,
+      "User-Agent": `inculva-Scanner/1.0 (WCAG Accessibility Checker; +${process
+        .env["NEXT_PUBLIC_LANDING_URL"]!})`,
       Accept: "text/html,application/xhtml+xml",
     },
     redirect: "manual",
@@ -88,7 +80,7 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
     violations.push({
       id: "html-lang",
       description:
-        'The <html> element is missing a lang attribute. Screen readers need this to announce content in the correct language.',
+        "The <html> element is missing a lang attribute. Screen readers need this to announce content in the correct language.",
       impact: "serious",
       wcag: "3.1.1",
       wcagLevel: "A",
@@ -148,7 +140,7 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
   // ── 4. form-label (WCAG 1.3.1 A) ────────────────────────────────────────
   const unlabeledInputs: string[] = [];
   $(
-    "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='button']):not([type='image']), select, textarea"
+    "input:not([type='hidden']):not([type='submit']):not([type='reset']):not([type='button']):not([type='image']), select, textarea",
   ).each((_, el) => {
     const $el = $(el);
     const id = $el.attr("id");
@@ -157,7 +149,13 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
     const ariaLabel = $el.attr("aria-label");
     const ariaLabelledBy = $el.attr("aria-labelledby");
     const title = $el.attr("title");
-    if (!hasForLabel && !hasWrappingLabel && !ariaLabel && !ariaLabelledBy && !title) {
+    if (
+      !hasForLabel &&
+      !hasWrappingLabel &&
+      !ariaLabel &&
+      !ariaLabelledBy &&
+      !title
+    ) {
       unlabeledInputs.push(outerHtml($, el));
     }
   });
@@ -171,7 +169,8 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
       wcagLevel: "A",
       count: unlabeledInputs.length,
       elements: unlabeledInputs.slice(0, 5),
-      helpUrl: "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships",
+      helpUrl:
+        "https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships",
     });
   } else {
     passed.push("form-label");
@@ -199,7 +198,8 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
       wcagLevel: "A",
       count: emptyLinks.length,
       elements: emptyLinks.slice(0, 5),
-      helpUrl: "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context",
+      helpUrl:
+        "https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context",
     });
   } else {
     passed.push("link-name");
@@ -249,13 +249,18 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
     if (skips.length > 0) {
       violations.push({
         id: "heading-order",
-        description: `Heading levels are skipped (${skips.slice(0, 3).join(", ")}). Skipping heading levels breaks document structure for screen reader users navigating by heading.`,
+        description: `Heading levels are skipped (${skips
+          .slice(0, 3)
+          .join(
+            ", ",
+          )}). Skipping heading levels breaks document structure for screen reader users navigating by heading.`,
         impact: "moderate",
         wcag: "2.4.6",
         wcagLevel: "AA",
         count: skips.length,
         elements: skips,
-        helpUrl: "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels",
+        helpUrl:
+          "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels",
       });
     } else {
       passed.push("heading-order");
@@ -280,7 +285,8 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
         wcagLevel: "AA",
         count: emptyHeadings.length,
         elements: emptyHeadings.slice(0, 5),
-        helpUrl: "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels",
+        helpUrl:
+          "https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels",
       });
     } else {
       passed.push("empty-heading");
@@ -291,7 +297,10 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
 
   // ── 9. meta-viewport (WCAG 1.4.4 AA) ────────────────────────────────────
   const viewport = $("meta[name='viewport']").attr("content") ?? "";
-  if (/maximum-scale\s*=\s*1/i.test(viewport) || /user-scalable\s*=\s*no/i.test(viewport)) {
+  if (
+    /maximum-scale\s*=\s*1/i.test(viewport) ||
+    /user-scalable\s*=\s*no/i.test(viewport)
+  ) {
     violations.push({
       id: "meta-viewport",
       description:
@@ -354,7 +363,7 @@ export async function scanUrl(rawUrl: string): Promise<ScanResult> {
     violations.push({
       id: "landmark-main",
       description:
-        'No <main> landmark found. Screen reader users rely on landmarks to navigate directly to main content.',
+        "No <main> landmark found. Screen reader users rely on landmarks to navigate directly to main content.",
       impact: "moderate",
       wcag: "1.3.6",
       wcagLevel: "AAA",

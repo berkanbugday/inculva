@@ -21,7 +21,7 @@ export interface WidgetConfig {
   features: WidgetFeatures;
   /** EAA Article 13 — URL to the site's accessibility statement page */
   accessibilityStatementUrl?: string;
-  /** White-label (Large plan only). null=show "Powered by Inculva", ""=hide, string=show custom */
+  /** White-label (Large plan only). null=show "Powered by inculva", ""=hide, string=show custom */
   whiteLabelText?: string | null;
   buttonSize?: "small" | "medium" | "large";
   buttonIcon?: string;

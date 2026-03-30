@@ -23,19 +23,23 @@ const isDev = process.env.NODE_ENV !== "production";
  * In dev, localhost gets http:// (no TLS). Everything else gets https://.
  */
 function buildUrl(domain: string): string {
-  if (domain.startsWith("http://") || domain.startsWith("https://")) return domain;
+  if (domain.startsWith("http://") || domain.startsWith("https://"))
+    return domain;
   if (isDev && LOCALHOST_RE.test(domain)) return `http://${domain}`;
   return `https://${domain}`;
 }
 
 /**
- * Fetch a site's homepage and check whether the Inculva widget is present.
+ * Fetch a site's homepage and check whether the inculva widget is present.
  *
  * SSRF prevention: private IPs and cloud metadata endpoints are blocked in
  * production. In development the check is relaxed so engineers can verify
  * a local install (e.g. localhost:3002) without deploying first.
  */
-export async function checkSiteHealth(domain: string, siteId: string): Promise<HealthCheckResult> {
+export async function checkSiteHealth(
+  domain: string,
+  siteId: string,
+): Promise<HealthCheckResult> {
   const url = buildUrl(domain);
 
   let parsedHost: string;
@@ -55,7 +59,8 @@ export async function checkSiteHealth(domain: string, siteId: string): Promise<H
   if (!isDev && PRIVATE_HOST_RE.test(parsedHost)) {
     return {
       installed: false,
-      error: "Localhost domains can't be reached from a remote server — deploy your site first",
+      error:
+        "Localhost domains can't be reached from a remote server — deploy your site first",
     };
   }
 
@@ -65,7 +70,7 @@ export async function checkSiteHealth(domain: string, siteId: string): Promise<H
 
     const res = await fetch(url, {
       signal: controller.signal,
-      headers: { "User-Agent": "InculvaBot/1.0 (health check)" },
+      headers: { "User-Agent": "inculvaBot/1.0 (health check)" },
     });
     clearTimeout(timeout);
 
@@ -79,7 +84,7 @@ export async function checkSiteHealth(domain: string, siteId: string): Promise<H
       html.includes(`data-site-id="${siteId}"`) ||
       html.includes(`data-site-id='${siteId}'`);
 
-    // Looser fallback: the siteId is present alongside an Inculva asset reference
+    // Looser fallback: the siteId is present alongside an inculva asset reference
     // (catches custom embed patterns that don't use the data attribute).
     const hasSiteIdWithScript =
       html.includes(siteId) &&

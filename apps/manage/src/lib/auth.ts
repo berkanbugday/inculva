@@ -1,7 +1,11 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { db } from "@inculva/db";
-import { sendEmail, verifyEmailTemplate, resetPasswordTemplate } from "@inculva/email";
+import {
+  sendEmail,
+  verifyEmailTemplate,
+  resetPasswordTemplate,
+} from "@inculva/email";
 
 export const auth = betterAuth({
   database: prismaAdapter(db, {
@@ -14,7 +18,7 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Reset your Inculva password",
+        subject: "Reset your inculva password",
         html: resetPasswordTemplate(url),
       });
     },
@@ -26,7 +30,7 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Verify your Inculva email",
+        subject: "Verify your inculva email",
         html: verifyEmailTemplate(user.name ?? "", url),
       });
     },

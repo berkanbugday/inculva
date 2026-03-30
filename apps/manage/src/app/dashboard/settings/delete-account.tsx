@@ -21,7 +21,7 @@ export function DeleteAccount() {
     const data = (await res.json()) as { ok: boolean; error?: string };
 
     if (!data.ok) {
-      setError(data.error ?? "Failed to delete account");
+      setError(data.error ?? t.settings.failedToDeleteAccount);
       setLoading(false);
       return;
     }
@@ -31,7 +31,9 @@ export function DeleteAccount() {
 
   return (
     <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-8 border-l-4 border-red-500">
-      <h3 className="font-semibold text-red-700 mb-1">{t.settings.dangerZone}</h3>
+      <h3 className="font-semibold text-red-700 mb-1">
+        {t.settings.dangerZone}
+      </h3>
       <p className="text-sm text-gray-500 mb-4">
         {t.settings.deleteAccountDesc}
       </p>
@@ -46,7 +48,11 @@ export function DeleteAccount() {
       ) : (
         <div className="space-y-4">
           <p className="text-sm text-gray-700">
-            Type <strong className="font-mono">{t.settings.typeDeleteConfirm}</strong> to confirm:
+            Type{" "}
+            <strong className="font-mono">
+              {t.settings.typeDeleteConfirm}
+            </strong>{" "}
+            to confirm:
           </p>
           <input
             type="text"
@@ -56,19 +62,22 @@ export function DeleteAccount() {
             placeholder={t.settings.typeDeleteConfirm}
             autoComplete="off"
           />
-          {error && (
-            <p className="text-sm text-red-600">{error}</p>
-          )}
+          {error && <p className="text-sm text-red-600">{error}</p>}
           <div className="flex gap-2">
             <button
               onClick={() => void handleDelete()}
               disabled={confirm !== t.settings.typeDeleteConfirm || loading}
               className="px-5 py-2.5 bg-red-600 text-white text-sm font-semibold rounded-full hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? t.settings.deleting : t.settings.deleteAccountPermanent}
+              {loading
+                ? t.settings.deleting
+                : t.settings.deleteAccountPermanent}
             </button>
             <button
-              onClick={() => { setOpen(false); setConfirm(""); }}
+              onClick={() => {
+                setOpen(false);
+                setConfirm("");
+              }}
               className="px-5 py-2.5 bg-[#f8f9fc] dark:bg-[#0e0e10] text-gray-700 dark:text-gray-300 text-sm font-semibold rounded-full border border-[#e8eaf0] dark:border-[#2a2a3e] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               {t.settings.cancel}

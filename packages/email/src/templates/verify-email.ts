@@ -8,9 +8,9 @@ export function verifyEmailTemplate(name: string, verifyUrl: string): string {
     <p>Click the button below to verify your email address. This link expires in <strong>24 hours</strong>.</p>
     <a href="${verifyUrl}" class="btn">Verify Email →</a>
     <hr class="divider">
-    <p class="small">If you didn't create an Inculva account, you can safely ignore this email.<br>
+    <p class="small">If you didn't create an inculva account, you can safely ignore this email.<br>
     Or copy this link: <span style="word-break: break-all; color: #6b7280;">${verifyUrl}</span></p>
     `,
-    "Verify your Inculva email address"
+    "Verify your inculva email address",
   );
 }

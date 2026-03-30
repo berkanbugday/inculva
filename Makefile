@@ -11,7 +11,7 @@ setup:
 	@echo "Waiting for PostgreSQL..."
 	@sleep 3
 	cd packages/db && pnpm db:generate && pnpm db:migrate
-	@echo "\n✅ Inculva is ready. Run 'make dev' to start."
+	@echo "\n✅ inculva is ready. Run 'make dev' to start."
 
 ## Start dev servers
 dev:

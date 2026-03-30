@@ -36,7 +36,7 @@ export function SiteNameForm({ siteId, initialName }: Props) {
       });
       if (!res.ok) {
         const json = await res.json().catch(() => ({}));
-        setError((json as { error?: string }).error ?? "Failed to save.");
+        setError((json as { error?: string }).error ?? t.siteName.networkError);
         return;
       }
       setName(trimmed);

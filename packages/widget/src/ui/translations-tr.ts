@@ -4,7 +4,7 @@
  */
 export const TR_TRANSLATIONS: Record<string, string> = {
   title: "Erişilebilirlik Menüsü",
-  poweredBy: "Inculva tarafından desteklenir",
+  poweredBy: "inculva tarafından desteklenir",
   resetAll: "Tümünü Sıfırla",
   profilesTitle: "Profiller",
   closeMenu: "Menüyü kapat",

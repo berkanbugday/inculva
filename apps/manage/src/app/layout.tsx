@@ -4,7 +4,7 @@ import "@inculva/ui/globals.css";
 import { CookieBanner } from "@/components/cookie-banner";
 
 export const metadata: Metadata = {
-  title: "Inculva — Accessibility Dashboard",
+  title: "inculva — Accessibility Dashboard",
   description: "Manage your web accessibility widget settings and statistics.",
   icons: {
     icon: "/favicon.ico",

@@ -19,8 +19,12 @@ export function weeklyDigestTemplate(
       (s) => `
       <tr>
         <td style="padding: 10px 12px; border-bottom: 1px solid #f3f4f6;">
-          <p style="margin: 0; font-size: 14px; font-weight: 600; color: #111827;">${escapeHtml(s.name)}</p>
-          <p style="margin: 0; font-size: 12px; color: #9ca3af;">${escapeHtml(s.domain)}</p>
+          <p style="margin: 0; font-size: 14px; font-weight: 600; color: #111827;">${escapeHtml(
+            s.name,
+          )}</p>
+          <p style="margin: 0; font-size: 12px; color: #9ca3af;">${escapeHtml(
+            s.domain,
+          )}</p>
         </td>
         <td style="padding: 10px 12px; border-bottom: 1px solid #f3f4f6; text-align: right; font-size: 14px; font-weight: 600; color: #1d4ed8;">
           ${s.events.toLocaleString()}
@@ -38,7 +42,9 @@ export function weeklyDigestTemplate(
     `
     <h2>Your weekly accessibility digest</h2>
     <p>Hi ${escapeHtml(userName || "there")},</p>
-    <p>Here's a summary of your widget activity for <strong>${escapeHtml(weekLabel)}</strong>.</p>
+    <p>Here's a summary of your widget activity for <strong>${escapeHtml(
+      weekLabel,
+    )}</strong>.</p>
 
     <table width="100%" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
       <tr>
@@ -68,7 +74,7 @@ export function weeklyDigestTemplate(
 
     <hr class="divider">
     <p class="small">
-      You're receiving this weekly digest because you have an active Inculva account.<br>
+      You're receiving this weekly digest because you have an active inculva account.<br>
       Manage your notification preferences in <a href="${APP_URL}/dashboard/settings" style="color: #1d4ed8;">Account Settings</a>.
     </p>
     `,

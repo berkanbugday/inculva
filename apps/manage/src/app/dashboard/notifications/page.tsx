@@ -6,7 +6,7 @@ import { NotificationsClient } from "./notifications-client";
 import { getMessages, SUPPORTED_LOCALES } from "@/i18n/messages";
 import type { Locale } from "@/i18n/messages";
 
-export const metadata = { title: "Notifications — Inculva" };
+export const metadata = { title: "Notifications — inculva" };
 
 interface Props {
   searchParams: Promise<{ page?: string; filter?: string }>;

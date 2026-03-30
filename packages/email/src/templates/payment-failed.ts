@@ -2,7 +2,11 @@ import { APP_URL } from "../client.js";
 import { escapeHtml } from "./base.js";
 
 export function paymentFailedTemplate(name: string, plan: string): string {
-  const planLabel: Record<string, string> = { small: "Small", medium: "Medium", large: "Large" };
+  const planLabel: Record<string, string> = {
+    small: "Small",
+    medium: "Medium",
+    large: "Large",
+  };
   const label = planLabel[plan] ?? plan;
   const billingUrl = `${APP_URL}/dashboard/settings/billing`;
 
@@ -11,7 +15,7 @@ export function paymentFailedTemplate(name: string, plan: string): string {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment failed — Inculva</title>
+  <title>Payment failed — inculva</title>
 </head>
 <body style="margin:0;padding:0;background:#f9fafb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;padding:40px 20px;">
@@ -26,7 +30,7 @@ export function paymentFailedTemplate(name: string, plan: string): string {
                   <td style="background:rgba(255,255,255,0.15);border-radius:8px;width:32px;height:32px;text-align:center;vertical-align:middle;">
                     <span style="color:#ffffff;font-size:16px;font-weight:700;">A</span>
                   </td>
-                  <td style="padding-left:10px;color:#ffffff;font-size:18px;font-weight:700;">Inculva</td>
+                  <td style="padding-left:10px;color:#ffffff;font-size:18px;font-weight:700;">inculva</td>
                 </tr>
               </table>
             </td>
@@ -58,7 +62,7 @@ export function paymentFailedTemplate(name: string, plan: string): string {
           <tr>
             <td style="background:#f9fafb;border-top:1px solid #e5e7eb;padding:20px 40px;text-align:center;">
               <p style="margin:0;font-size:12px;color:#9ca3af;">
-                © ${new Date().getFullYear()} Inculva · <a href="${APP_URL}/privacy" style="color:#9ca3af;">Privacy</a> · <a href="${APP_URL}/terms" style="color:#9ca3af;">Terms</a>
+                © ${new Date().getFullYear()} inculva · <a href="${APP_URL}/privacy" style="color:#9ca3af;">Privacy</a> · <a href="${APP_URL}/terms" style="color:#9ca3af;">Terms</a>
               </p>
             </td>
           </tr>

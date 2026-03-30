@@ -24,19 +24,19 @@ export const en = {
     about: "About",
     contact: "Contact",
     privacyPolicy: "Privacy Policy",
-    copyright: "Inculva. All rights reserved.",
+    copyright: "inculva. All rights reserved.",
   },
 
   // Home page
   home: {
-    title: "Inculva",
+    title: "inculva",
     description:
       "Web accessibility platform that helps websites achieve WCAG compliance automatically. Make your website accessible to everyone.",
     heroTitle1: "Make your website",
     heroTitleHighlight: " accessible ",
     heroTitle2: "to everyone",
     heroDescription:
-      "Inculva detects, fixes, and monitors web accessibility issues automatically. Achieve WCAG 2.1 AA compliance without rewriting your code.",
+      "inculva detects, fixes, and monitors web accessibility issues automatically. Achieve WCAG 2.1 AA compliance without rewriting your code.",
     startFreeTrial: "Book a Call",
     seeHowItWorks: "See How It Works",
     noCreditCard: "No credit card required • 7-day free trial",
@@ -93,7 +93,7 @@ export const en = {
     // CTA
     ctaTitle: "Ready to make your website accessible?",
     ctaDescription:
-      "Start improving your website's accessibility today with Inculva.",
+      "Start improving your website's accessibility today with inculva.",
     talkToSales: "Talk to Sales",
 
     // Hero mockup decorator
@@ -127,16 +127,16 @@ export const en = {
     faq1Q: "What is WCAG compliance?",
     faq1A:
       "WCAG (Web Content Accessibility Guidelines) is an international standard for making web content accessible to people with disabilities. Compliance ensures your website can be used by everyone, including people who use screen readers, have low vision, or have motor impairments.",
-    faq2Q: "Do I need technical knowledge to use Inculva?",
+    faq2Q: "Do I need technical knowledge to use inculva?",
     faq2A:
-      "No. Inculva is designed to be used by anyone. Simply paste one line of code into your website, and our automated platform handles the rest. No coding skills are needed for common accessibility fixes.",
-    faq3Q: "Does Inculva slow down my website?",
+      "No. inculva is designed to be used by anyone. Simply paste one line of code into your website, and our automated platform handles the rest. No coding skills are needed for common accessibility fixes.",
+    faq3Q: "Does inculva slow down my website?",
     faq3A:
-      "No. The Inculva widget is loaded asynchronously and optimized for performance.",
-    faq4Q: "Which accessibility standards does Inculva support?",
+      "No. The inculva widget is loaded asynchronously and optimized for performance.",
+    faq4Q: "Which accessibility standards does inculva support?",
     faq4A:
-      "Inculva supports WCAG 2.1 Level AA, ADA (Americans with Disabilities Act), Section 508, EN 301 549, and other regional accessibility regulations.",
-    faq5Q: "Can I try Inculva for free?",
+      "inculva supports WCAG 2.1 Level AA, ADA (Americans with Disabilities Act), Section 508, EN 301 549, and other regional accessibility regulations.",
+    faq5Q: "Can I try inculva for free?",
     faq5A:
       "Yes! All our plans come with a 7-day free trial. No credit card required to get started.",
   },
@@ -145,7 +145,7 @@ export const en = {
   features: {
     title: "Features",
     description:
-      "Explore Inculva's powerful accessibility features: automated scanning, automated fixes, real-time monitoring, multi-language support, and seamless integration.",
+      "Explore inculva's powerful accessibility features: automated scanning, automated fixes, real-time monitoring, multi-language support, and seamless integration.",
     heroTitle1: "Powerful features for",
     heroTitleHighlight: "complete compliance",
     heroDescription:
@@ -168,7 +168,7 @@ export const en = {
 
     fixesTitle: "One-Click Accessibility Fixes",
     fixesDescription:
-      "Don't just find issues. Fix them automatically. Inculva applies smart patches to your live website without touching your source code. Fixes are applied via our lightweight widget.",
+      "Don't just find issues. Fix them automatically. inculva applies smart patches to your live website without touching your source code. Fixes are applied via our lightweight widget.",
     fixesFeatures: [
       "Alt text generation for images",
       "ARIA label injection",
@@ -180,7 +180,7 @@ export const en = {
 
     monitoringTitle: "Continuous Compliance Monitoring",
     monitoringDescription:
-      "Your website changes constantly. Inculva continuously monitors your pages for new accessibility issues and alerts you before they become problems.",
+      "Your website changes constantly. inculva continuously monitors your pages for new accessibility issues and alerts you before they become problems.",
     monitoringFeatures: [
       "Scheduled automated scans",
       "Instant email alerts",
@@ -196,7 +196,7 @@ export const en = {
 
     ctaTitle: "Ready to get started?",
     ctaDescription:
-      "Try Inculva free and see your accessibility score improve instantly.",
+      "Try inculva free and see your accessibility score improve instantly.",
     startFreeTrial: "Book a Call",
   },
 
@@ -287,7 +287,7 @@ export const en = {
   blog: {
     title: "Blog",
     description:
-      "Expert guides on web accessibility, WCAG compliance, ADA requirements, and accessible design best practices from the Inculva team.",
+      "Expert guides on web accessibility, WCAG compliance, ADA requirements, and accessible design best practices from the inculva team.",
     heroTitle1: "Accessibility ",
     heroTitleHighlight: "insights",
     heroDescription:
@@ -306,18 +306,18 @@ export const en = {
   about: {
     title: "About",
     description:
-      "Learn about Inculva's mission to make the web accessible to everyone. Our automated platform helps thousands of websites achieve WCAG compliance.",
+      "Learn about inculva's mission to make the web accessible to everyone. Our automated platform helps thousands of websites achieve WCAG compliance.",
     heroTitle1: "Making the web",
     heroTitleHighlight: "accessible ",
     heroTitle2: "for everyone",
     heroDescription:
-      "We believe the internet should be usable by every person, regardless of ability. Inculva exists to make that a reality.",
+      "We believe the internet should be usable by every person, regardless of ability. inculva exists to make that a reality.",
 
     missionTitle: "Our mission",
     missionP1:
       "Over 1 billion people worldwide live with some form of disability. Yet the vast majority of websites remain inaccessible, creating barriers to information, services, and opportunities.",
     missionP2:
-      "Inculva was founded to change that. We use artificial intelligence to automatically detect, fix, and monitor accessibility issues on websites, making compliance effortless and inclusive design the default.",
+      "inculva was founded to change that. We use artificial intelligence to automatically detect, fix, and monitor accessibility issues on websites, making compliance effortless and inclusive design the default.",
     missionP3:
       "Our goal is simple: a world where every website works for every person.",
     missionStat: "People with disabilities worldwide",
@@ -351,12 +351,12 @@ export const en = {
   privacyPolicy: {
     title: "Privacy Policy",
     description:
-      "Learn how Inculva collects, uses, and protects your personal data. Read our full privacy policy.",
+      "Learn how inculva collects, uses, and protects your personal data. Read our full privacy policy.",
     heroTitle1: "Privacy ",
     heroTitleHighlight: "Policy",
     lastUpdated: "Last updated: March 2026",
     intro:
-      "At Inculva, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.",
+      "At inculva, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.",
 
     section1Title: "1. Information We Collect",
     section1P1:
@@ -429,10 +429,10 @@ export const en = {
   contact: {
     title: "Contact",
     description:
-      "Get in touch with the Inculva team. Reach out for sales inquiries, support questions, partnership opportunities, or custom accessibility solutions.",
+      "Get in touch with the inculva team. Reach out for sales inquiries, support questions, partnership opportunities, or custom accessibility solutions.",
     heroTitle1: "Get in ",
     heroTitleHighlight: "touch",
-    heroDescription: "Have questions about Inculva? We're here to help.",
+    heroDescription: "Have questions about inculva? We're here to help.",
     firstName: "First name",
     lastName: "Last name",
     email: "Email",

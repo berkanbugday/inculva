@@ -9,7 +9,7 @@ import { sendEmail, welcomeTemplate, teamInviteTemplate } from "@inculva/email";
 
 await sendEmail({
   to: "user@example.com",
-  subject: "Welcome to Inculva!",
+  subject: "Welcome to inculva!",
   html: welcomeTemplate("Alice"),
 });
 ```
@@ -31,7 +31,7 @@ await sendEmail({
 | Variable         | Description                                      |
 | ---------------- | ------------------------------------------------ |
 | `RESEND_API_KEY` | Resend API key (from resend.com)                 |
-| `EMAIL_FROM`     | Sender address (e.g. `Inculva <hi@inculva.com>`) |
+| `EMAIL_FROM`     | Sender address (e.g. `inculva <hi@inculva.com>`) |
 
 ## Source Structure
 

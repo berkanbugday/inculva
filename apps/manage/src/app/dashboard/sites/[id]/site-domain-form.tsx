@@ -10,10 +10,18 @@ interface Props {
 }
 
 function normalizeDomain(raw: string): string {
-  return raw.trim().replace(/^https?:\/\//i, "").replace(/\/.*$/, "").toLowerCase();
+  return raw
+    .trim()
+    .replace(/^https?:\/\//i, "")
+    .replace(/\/.*$/, "")
+    .toLowerCase();
 }
 
-export function SiteDomainForm({ siteId, initialDomain, onDomainChange }: Props) {
+export function SiteDomainForm({
+  siteId,
+  initialDomain,
+  onDomainChange,
+}: Props) {
   const { messages: t } = useDashboard();
   const [editing, setEditing] = useState(false);
   const [domain, setDomain] = useState(initialDomain);
@@ -70,7 +78,9 @@ export function SiteDomainForm({ siteId, initialDomain, onDomainChange }: Props)
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError((json as { error?: string }).error ?? "Failed to save.");
+        setError(
+          (json as { error?: string }).error ?? t.config.domainNetworkError,
+        );
         return;
       }
       setDomain(trimmed);
@@ -87,7 +97,12 @@ export function SiteDomainForm({ siteId, initialDomain, onDomainChange }: Props)
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") void handleSave();
-    if (e.key === "Escape") { setDraft(domain); setEditing(false); setError(""); setDnsStatus("idle"); }
+    if (e.key === "Escape") {
+      setDraft(domain);
+      setEditing(false);
+      setError("");
+      setDnsStatus("idle");
+    }
   }
 
   function handleCancel() {
@@ -101,12 +116,17 @@ export function SiteDomainForm({ siteId, initialDomain, onDomainChange }: Props)
     return (
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-400 select-none">{t.config.domainLabel}</span>
+          <span className="text-sm text-gray-400 select-none">
+            {t.config.domainLabel}
+          </span>
           <input
             autoFocus
             type="text"
             value={draft}
-            onChange={(e) => { setDraft(e.target.value); setDnsStatus("idle"); }}
+            onChange={(e) => {
+              setDraft(e.target.value);
+              setDnsStatus("idle");
+            }}
             onKeyDown={handleKeyDown}
             maxLength={253}
             placeholder="example.com"
@@ -117,7 +137,11 @@ export function SiteDomainForm({ siteId, initialDomain, onDomainChange }: Props)
             disabled={saving || dnsStatus === "checking"}
             className="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors"
           >
-            {saving ? t.config.domainSaving : dnsStatus === "checking" ? t.config.dnsChecking : t.config.domainSave}
+            {saving
+              ? t.config.domainSaving
+              : dnsStatus === "checking"
+              ? t.config.dnsChecking
+              : t.config.domainSave}
           </button>
           <button
             onClick={handleCancel}
@@ -144,7 +168,9 @@ export function SiteDomainForm({ siteId, initialDomain, onDomainChange }: Props)
           <p className="text-xs text-red-500 ml-14">{t.config.dnsInvalid}</p>
         )}
         {dnsStatus === "error" && (
-          <p className="text-xs text-amber-600 dark:text-amber-400 ml-14">{t.config.dnsError}</p>
+          <p className="text-xs text-amber-600 dark:text-amber-400 ml-14">
+            {t.config.dnsError}
+          </p>
         )}
         {error && <p className="text-xs text-red-500 ml-14">{error}</p>}
       </div>
@@ -153,14 +179,25 @@ export function SiteDomainForm({ siteId, initialDomain, onDomainChange }: Props)
 
   return (
     <button
-      onClick={() => { setDraft(domain); setEditing(true); }}
+      onClick={() => {
+        setDraft(domain);
+        setEditing(true);
+      }}
       className="group flex items-center gap-1.5 text-left"
       title={t.config.domainClickToChange}
     >
-      <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">{domain}</span>
+      <span className="text-sm text-gray-500 dark:text-gray-400 font-mono">
+        {domain}
+      </span>
       <svg
-        width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
