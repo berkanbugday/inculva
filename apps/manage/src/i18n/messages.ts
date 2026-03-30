@@ -78,7 +78,6 @@ export interface DashboardMessages {
     resetFailed: string;
     invalidToken: string;
     continueWithGoogle: string;
-    continueWithGithub: string;
     orContinueWithEmail: string;
     redirecting: string;
     somethingWentWrong: string;
@@ -94,9 +93,32 @@ export interface DashboardMessages {
   };
   authFeatures: {
     oneScriptTag: string;
-    accessibilityFeatures: string;
     languages: string;
     wcagReady: string;
+    featureDarkMode: string;
+    featureBlueLightFilter: string;
+    featureTextResizing: string;
+    featureTextAlign: string;
+    featureLineHeight: string;
+    featureTextSpacing: string;
+    featureScreenReader: string;
+    featureDyslexiaFont: string;
+    featureReadingMask: string;
+    featureReadingGuide: string;
+    featureContentMagnifier: string;
+    featureHighlightLinks: string;
+    featureHighlightTitles: string;
+    featureHideImages: string;
+    featurePauseAnimations: string;
+    featureCursorEnhancement: string;
+    featureColorBlindMode: string;
+    featureSaturation: string;
+    featureFocusHighlight: string;
+    featureLargeClickTargets: string;
+    featureSlowCursor: string;
+    featureSkipNavigation: string;
+    featureMuteMedia: string;
+    featureKeyboardNavigation: string;
   };
   authStats: {
     features: string;
@@ -720,19 +742,19 @@ const en: DashboardMessages = {
     sendingResetLink: "Sending\u2026",
     setNewPassword: "Set new password",
     updatingPassword: "Updating\u2026",
-    createAccount: "Create free account",
-    creatingAccount: "Creating account\u2026",
+    createAccount: "Create account",
+    creatingAccount: "Creating account…",
     backToSignIn: "Back to sign in",
-    noAccount: "Don\u2019t have an account?",
+    noAccount: "Don't have an account?",
     haveAccount: "Already have an account?",
     rememberPassword: "Remember it?",
-    signUpFree: "Sign up free",
+    signUpFree: "Sign up",
     welcomeBack: "Welcome back",
     welcomeBackDesc: "Sign in to manage your accessible sites.",
     passwordResetSuccess:
       "Password updated successfully. Sign in with your new password.",
     createYourAccount: "Create your account",
-    createAccountDesc: "Free forever. No credit card required.",
+    createAccountDesc: "7-day free trial. No credit card required.",
     forgotPasswordTitle: "Forgot password?",
     forgotPasswordDesc:
       "Enter your email and we\u2019ll send you a reset link.",
@@ -758,7 +780,6 @@ const en: DashboardMessages = {
     invalidToken:
       "Invalid or missing reset token. Please request a new reset link.",
     continueWithGoogle: "Continue with Google",
-    continueWithGithub: "Continue with GitHub",
     orContinueWithEmail: "or continue with email",
     redirecting: "Redirecting\u2026",
     somethingWentWrong: "Something went wrong",
@@ -774,9 +795,32 @@ const en: DashboardMessages = {
   },
   authFeatures: {
     oneScriptTag: "One script tag \u2014 live in minutes",
-    accessibilityFeatures: "24 real accessibility features",
     languages: "41 languages including RTL",
     wcagReady: "WCAG 2.1 AA & EAA 2025 ready",
+    featureDarkMode: "Dark Mode",
+    featureBlueLightFilter: "Blue Light Filter",
+    featureTextResizing: "Larger Text",
+    featureTextAlign: "Text Alignment",
+    featureLineHeight: "Line Height",
+    featureTextSpacing: "Text Spacing",
+    featureScreenReader: "Screen Reader",
+    featureDyslexiaFont: "Dyslexia Mode",
+    featureReadingMask: "Reading Mask",
+    featureReadingGuide: "Reading Guide",
+    featureContentMagnifier: "Magnifier",
+    featureHighlightLinks: "Link Selection",
+    featureHighlightTitles: "Highlight Titles",
+    featureHideImages: "Hide Images",
+    featurePauseAnimations: "Stop Animation",
+    featureCursorEnhancement: "Cursor",
+    featureColorBlindMode: "Color Blind",
+    featureSaturation: "Contrast+",
+    featureFocusHighlight: "Focus Indicator",
+    featureLargeClickTargets: "Large Targets",
+    featureSlowCursor: "Slow Cursor",
+    featureSkipNavigation: "Skip to Main",
+    featureMuteMedia: "Mute Media",
+    featureKeyboardNavigation: "Keyboard Nav",
   },
   authStats: {
     features: "Accessibility features",
@@ -794,8 +838,8 @@ const en: DashboardMessages = {
   authTestimonial: {
     quote:
       "\u201CSet up in 3 minutes. Our accessibility score went from D to A.\u201D",
-    name: "Maria V.",
-    role: "Frontend Lead, EU SaaS",
+    name: "Alex T.",
+    role: "Product Manager, US Tech",
   },
   authBrand: {
     makeAccessible: "Make your website\naccessible to everyone.",
@@ -803,7 +847,7 @@ const en: DashboardMessages = {
       "Add real accessibility features to any site in under 5 minutes.",
     joinSites: "Join thousands of sites\nmaking the web inclusive.",
     joinSitesDesc:
-      "Free plan forever. No credit card required. Up and running in under 5 minutes.",
+      "7-day free trial. No credit card required. Up and running in under 5 minutes.",
     standards: "Standards",
   },
   settings: {
@@ -1450,20 +1494,20 @@ const tr: DashboardMessages = {
     sendingResetLink: "G\u00F6nderiliyor\u2026",
     setNewPassword: "Yeni \u015Fifre belirle",
     updatingPassword: "G\u00FCncelleniyor\u2026",
-    createAccount: "\u00DCcretsiz hesap olu\u015Ftur",
+    createAccount: "Hesap olu\u015Ftur",
     creatingAccount: "Hesap olu\u015Fturuluyor\u2026",
     backToSignIn: "Giri\u015Fe d\u00F6n",
     noAccount: "Hesab\u0131n\u0131z yok mu?",
     haveAccount: "Zaten hesab\u0131n\u0131z var m\u0131?",
     rememberPassword: "Hat\u0131rlad\u0131n\u0131z m\u0131?",
-    signUpFree: "\u00DCcretsiz kay\u0131t ol",
+    signUpFree: "Kay\u0131t ol",
     welcomeBack: "Tekrar ho\u015F geldiniz",
     welcomeBackDesc:
       "Eri\u015Filebilir sitelerinizi y\u00F6netmek i\u00E7in giri\u015F yap\u0131n.",
     passwordResetSuccess:
       "\u015Eifre ba\u015Far\u0131yla g\u00FCncellendi. Yeni \u015Fifrenizle giri\u015F yap\u0131n.",
     createYourAccount: "Hesab\u0131n\u0131z\u0131 olu\u015Fturun",
-    createAccountDesc: "Daima \u00FCcretsiz. Kredi kart\u0131 gerekmez.",
+    createAccountDesc: "7 g\u00FCnl\u00FCk \u00FCcretsiz deneme. Kredi kart\u0131 gerekmez.",
     forgotPasswordTitle: "\u015Eifrenizi mi unuttunuz?",
     forgotPasswordDesc:
       "E-postan\u0131z\u0131 girin, size bir s\u0131f\u0131rlama ba\u011Flant\u0131s\u0131 g\u00F6nderelim.",
@@ -1492,7 +1536,6 @@ const tr: DashboardMessages = {
     invalidToken:
       "Ge\u00E7ersiz veya eksik s\u0131f\u0131rlama jetonu. L\u00FCtfen yeni bir ba\u011Flant\u0131 isteyin.",
     continueWithGoogle: "Google ile devam et",
-    continueWithGithub: "GitHub ile devam et",
     orContinueWithEmail: "veya e-posta ile devam et",
     redirecting: "Y\u00F6nlendiriliyor\u2026",
     somethingWentWrong: "Bir \u015feyler ters gitti",
@@ -1508,10 +1551,32 @@ const tr: DashboardMessages = {
   },
   authFeatures: {
     oneScriptTag: "Tek script etiketi \u2014 dakikalar i\u00E7inde haz\u0131r",
-    accessibilityFeatures:
-      "24 ger\u00E7ek eri\u015Filebilirlik \u00F6zelli\u011Fi",
     languages: "RTL dahil 41 dil",
     wcagReady: "WCAG 2.1 AA ve EAA 2025 uyumlu",
+    featureDarkMode: "Karanl\u0131k Mod",
+    featureBlueLightFilter: "Mavi I\u015F\u0131k Filtresi",
+    featureTextResizing: "B\u00FCy\u00FCk Metin",
+    featureTextAlign: "Metin Hizalama",
+    featureLineHeight: "Sat\u0131r Y\u00FCksekli\u011Fi",
+    featureTextSpacing: "Harf Aral\u0131\u011F\u0131",
+    featureScreenReader: "Ekran Okuyucu",
+    featureDyslexiaFont: "Disleksi Modu",
+    featureReadingMask: "Okuma Maskesi",
+    featureReadingGuide: "Okuma K\u0131lavuzu",
+    featureContentMagnifier: "B\u00FCy\u00FCte\u00E7",
+    featureHighlightLinks: "Ba\u011Flant\u0131lar\u0131 Vurgula",
+    featureHighlightTitles: "Ba\u015Fl\u0131klar\u0131 Vurgula",
+    featureHideImages: "G\u00F6rselleri Gizle",
+    featurePauseAnimations: "Animasyonu Durdur",
+    featureCursorEnhancement: "\u0130mle\u00E7",
+    featureColorBlindMode: "Renk K\u00F6r\u00FC",
+    featureSaturation: "Kontrast+",
+    featureFocusHighlight: "Odak G\u00F6stergesi",
+    featureLargeClickTargets: "B\u00FCy\u00FCk Hedefler",
+    featureSlowCursor: "Yava\u015F \u0130mle\u00E7",
+    featureSkipNavigation: "\u0130\u00E7eri\u011Fe Atla",
+    featureMuteMedia: "Medyay\u0131 Sessize Al",
+    featureKeyboardNavigation: "Klavye Navigasyonu",
   },
   authStats: {
     features: "Eri\u015Filebilirlik \u00F6zellikleri",
@@ -1532,8 +1597,8 @@ const tr: DashboardMessages = {
   authTestimonial: {
     quote:
       "\u201C3 dakikada kurduk. Eri\u015Filebilirlik puanl\u0131m\u0131z D\u2019den A\u2019ya y\u00FCkseldi.\u201D",
-    name: "Maria V.",
-    role: "Frontend Lider, AB SaaS",
+    name: "Ay\u015Fe Y.",
+    role: "Ürün M\u00FCd\u00FCr\u00FC, TR Tech",
   },
   authBrand: {
     makeAccessible:
@@ -1543,7 +1608,7 @@ const tr: DashboardMessages = {
     joinSites:
       "Web\u2019i kapsay\u0131c\u0131 yapan\nbinlerce siteye kat\u0131l\u0131n.",
     joinSitesDesc:
-      "Daima \u00FCcretsiz plan. Kredi kart\u0131 gerekmez. 5 dakikadan k\u0131sa s\u00FCrede haz\u0131r.",
+      "7 g\u00FCnl\u00FCk \u00FCcretsiz deneme. Kredi kart\u0131 gerekmez. 5 dakikadan k\u0131sa s\u00FCrede haz\u0131r.",
     standards: "Standartlar",
   },
   settings: {

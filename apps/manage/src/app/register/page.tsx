@@ -57,12 +57,6 @@ function RegisterForm() {
     router.push("/dashboard");
   }
 
-  const STATS = [
-    { value: "25", label: t.authStats.features },
-    { value: "41", label: t.authStats.languages },
-    { value: "24KB", label: t.authStats.bundleSize },
-  ];
-
   return (
     <div className="min-h-screen flex">
       <AuthBrandPanel>
@@ -75,39 +69,58 @@ function RegisterForm() {
               </span>
             ))}
           </h2>
-          <p className="text-indigo-100 text-sm mb-10 leading-relaxed">
+          <p className="text-indigo-100 text-md mb-6 leading-relaxed">
             {t.authBrand.joinSitesDesc}
           </p>
-          <div className="grid grid-cols-3 gap-3 mb-8">
-            {STATS.map((s) => (
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              t.authFeatures.featureDarkMode,
+              t.authFeatures.featureBlueLightFilter,
+              t.authFeatures.featureTextResizing,
+              t.authFeatures.featureTextAlign,
+              t.authFeatures.featureLineHeight,
+              t.authFeatures.featureTextSpacing,
+              t.authFeatures.featureScreenReader,
+              t.authFeatures.featureDyslexiaFont,
+              t.authFeatures.featureReadingMask,
+              t.authFeatures.featureReadingGuide,
+              t.authFeatures.featureContentMagnifier,
+              t.authFeatures.featureHighlightLinks,
+              t.authFeatures.featureHighlightTitles,
+              t.authFeatures.featureHideImages,
+              t.authFeatures.featurePauseAnimations,
+              t.authFeatures.featureCursorEnhancement,
+              t.authFeatures.featureColorBlindMode,
+              t.authFeatures.featureSaturation,
+              t.authFeatures.featureFocusHighlight,
+              t.authFeatures.featureLargeClickTargets,
+              t.authFeatures.featureSlowCursor,
+              t.authFeatures.featureSkipNavigation,
+              t.authFeatures.featureMuteMedia,
+              t.authFeatures.featureKeyboardNavigation,
+            ].map((feature, i) => (
               <div
-                key={s.label}
-                className="bg-white/10 border border-white/10 rounded-xl p-3 text-center"
+                key={i}
+                className="flex items-center gap-2 text-indigo-100 text-sm"
               >
-                <p className="text-white font-bold text-xl">{s.value}</p>
-                <p className="text-indigo-200 text-xs mt-0.5 leading-tight">
-                  {s.label}
-                </p>
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                {feature}
               </div>
             ))}
-          </div>
-          <div className="bg-white/10 border border-white/15 rounded-2xl px-5 py-4">
-            <p className="text-white/90 text-sm leading-relaxed italic mb-3">
-              {t.authTestimonial.quote}
-            </p>
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-bold">
-                M
-              </div>
-              <div>
-                <p className="text-white text-xs font-semibold">
-                  {t.authTestimonial.name}
-                </p>
-                <p className="text-indigo-200 text-xs">
-                  {t.authTestimonial.role}
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </AuthBrandPanel>
@@ -145,7 +158,6 @@ function RegisterForm() {
                 id="name"
                 type="text"
                 autoComplete="name"
-                placeholder="Jane Smith"
                 aria-describedby={errors.name ? "name-error" : undefined}
                 aria-invalid={!!errors.name}
                 aria-required="true"
@@ -171,7 +183,6 @@ function RegisterForm() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
                 aria-describedby={errors.email ? "email-error" : undefined}
                 aria-invalid={!!errors.email}
                 aria-required="true"
@@ -197,7 +208,6 @@ function RegisterForm() {
                 id="password"
                 type="password"
                 autoComplete="new-password"
-                placeholder="Min. 8 characters"
                 aria-describedby={[
                   "pw-hint",
                   errors.password ? "pw-error" : undefined,

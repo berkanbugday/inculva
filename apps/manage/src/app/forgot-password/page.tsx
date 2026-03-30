@@ -190,7 +190,6 @@ export default function ForgotPasswordPage() {
                     id="email"
                     type="email"
                     autoComplete="email"
-                    placeholder="you@example.com"
                     aria-describedby={errors.email ? "email-error" : undefined}
                     aria-invalid={!!errors.email}
                     aria-required="true"

@@ -174,7 +174,6 @@ function ResetPasswordForm() {
                 id="password"
                 type="password"
                 autoComplete="new-password"
-                placeholder="Min. 8 characters"
                 aria-describedby={[
                   "pw-hint",
                   errors.password ? "pw-error" : undefined,
@@ -211,7 +210,6 @@ function ResetPasswordForm() {
                 id="confirm"
                 type="password"
                 autoComplete="new-password"
-                placeholder="Repeat new password"
                 aria-describedby={errors.confirm ? "confirm-error" : undefined}
                 aria-invalid={!!errors.confirm}
                 aria-required="true"

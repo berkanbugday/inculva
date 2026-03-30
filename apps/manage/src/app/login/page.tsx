@@ -58,9 +58,8 @@ function LoginForm() {
 
   const FEATURES = [
     t.authFeatures.oneScriptTag,
-    t.authFeatures.accessibilityFeatures,
-    t.authFeatures.languages,
     t.authFeatures.wcagReady,
+    t.authFeatures.languages,
   ];
 
   return (
@@ -79,9 +78,9 @@ function LoginForm() {
             {t.authBrand.makeAccessibleDesc}
           </p>
           <ul className="space-y-3" role="list">
-            {FEATURES.map((f) => (
+            {FEATURES.map((f, i) => (
               <li
-                key={f}
+                key={i}
                 className="flex items-center gap-3 text-white/90 text-sm"
               >
                 <div
@@ -171,7 +170,6 @@ function LoginForm() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
                 aria-describedby={errors.email ? "email-error" : undefined}
                 aria-invalid={!!errors.email}
                 aria-required="true"
@@ -208,7 +206,6 @@ function LoginForm() {
                 id="password"
                 type="password"
                 autoComplete="current-password"
-                placeholder="••••••••"
                 aria-describedby={
                   errors.password ? "password-error" : undefined
                 }
