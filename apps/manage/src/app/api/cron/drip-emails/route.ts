@@ -47,11 +47,8 @@ export async function GET(req: Request) {
 
   for (const user of day3Users) {
     try {
-      await sendEmail({
-        to: user.email,
-        subject: "Have you installed the inculva widget yet?",
-        html: dripDay3Template(user.name ?? ""),
-      });
+      const { html, subject } = dripDay3Template(user.name ?? "", "en");
+      await sendEmail({ to: user.email, subject, html });
       await db.user.update({
         where: { id: user.id },
         data: { dripDay3Sent: true },
@@ -77,11 +74,8 @@ export async function GET(req: Request) {
 
   for (const user of day7Users) {
     try {
-      await sendEmail({
-        to: user.email,
-        subject: "Run your free WCAG accessibility scan — inculva",
-        html: dripDay7Template(user.name ?? ""),
-      });
+      const { html, subject } = dripDay7Template(user.name ?? "", "en");
+      await sendEmail({ to: user.email, subject, html });
       await db.user.update({
         where: { id: user.id },
         data: { dripDay7Sent: true },
@@ -123,11 +117,8 @@ export async function GET(req: Request) {
         (sum, s) => sum + s.widgetEvents.length,
         0,
       );
-      await sendEmail({
-        to: user.email,
-        subject: "You've been with inculva for a month — ready to upgrade?",
-        html: dripDay30Template(user.name ?? "", eventCount),
-      });
+      const { html, subject } = dripDay30Template(user.name ?? "", eventCount, "en");
+      await sendEmail({ to: user.email, subject, html });
       await db.user.update({
         where: { id: user.id },
         data: { dripDay30Sent: true },

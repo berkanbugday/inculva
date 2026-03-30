@@ -90,12 +90,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         ]);
 
         const planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
+        const { html, subject } = planUpgradedTemplate(user.name ?? "", plan, "en");
         void Promise.all([
-          sendEmail({
-            to: user.email,
-            subject: `You're now on the ${planLabel} plan`,
-            html: planUpgradedTemplate(user.name ?? "", plan),
-          }),
+          sendEmail({ to: user.email, subject, html }),
           db.notification.create({
             data: {
               userId: user.id,
@@ -144,12 +141,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         });
 
         const planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
+        const { html, subject } = paymentFailedTemplate(user.name ?? "", plan, "en");
         void Promise.all([
-          sendEmail({
-            to: user.email,
-            subject: "Payment failed — action required",
-            html: paymentFailedTemplate(user.name ?? "", plan),
-          }),
+          sendEmail({ to: user.email, subject, html }),
           db.notification.create({
             data: {
               userId: user.id,

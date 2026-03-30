@@ -97,15 +97,11 @@ async function sendUsageAlert(
 
   if (!claimed) return; // Another concurrent request already sent this alert
 
-  const html =
+  const template =
     level === 80
-      ? usageWarningTemplate(user.name ?? "", plan, used, limit)
-      : usageLimitTemplate(user.name ?? "", plan, limit);
-
-  const subject =
-    level === 80
-      ? `You've used 80% of your monthly events — inculva`
-      : `Monthly event limit reached — inculva`;
+      ? usageWarningTemplate(user.name ?? "", plan, used, limit, "en")
+      : usageLimitTemplate(user.name ?? "", plan, limit, "en");
+  const { html, subject } = template;
 
   const notificationTitle =
     level === 80 ? `80% of monthly events used` : `Monthly event limit reached`;

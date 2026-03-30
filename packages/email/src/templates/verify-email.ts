@@ -1,16 +1,23 @@
 import { baseTemplate } from "./base.js";
+import { t, type Locale } from "../i18n/messages.js";
 
-export function verifyEmailTemplate(name: string, verifyUrl: string): string {
-  return baseTemplate(
+export function verifyEmailTemplate(
+  name: string,
+  verifyUrl: string,
+  locale: Locale = "en",
+) {
+  const html = baseTemplate(
+    locale,
     `
-    <h2>Verify your email address</h2>
-    <p>Hi ${name || "there"},</p>
-    <p>Click the button below to verify your email address. This link expires in <strong>24 hours</strong>.</p>
-    <a href="${verifyUrl}" class="btn">Verify Email →</a>
+    <h2>${t(locale, "verifyTitle")}</h2>
+    <p>${t(locale, "hi")} ${name || t(locale, "there")},</p>
+    <p>${t(locale, "verifyDesc")}</p>
+    <a href="${verifyUrl}" class="btn">${t(locale, "verifyCta")} →</a>
     <hr class="divider">
-    <p class="small">If you didn't create an inculva account, you can safely ignore this email.<br>
-    Or copy this link: <span style="word-break: break-all; color: #6b7280;">${verifyUrl}</span></p>
+    <p class="small">${t(locale, "ifYouDidntCreate")}<br>
+    ${t(locale, "orCopyLink")}: <span style="word-break: break-all; color: #6b7280;">${verifyUrl}</span></p>
     `,
-    "Verify your inculva email address",
+    t(locale, "verifyTitle"),
   );
+  return { html, subject: t(locale, "verifySubject") };
 }

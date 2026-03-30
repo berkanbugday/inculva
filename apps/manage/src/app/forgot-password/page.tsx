@@ -40,8 +40,7 @@ export default function ForgotPasswordPage() {
   ];
 
   async function onSubmit(data: FormData) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = await (authClient as any).requestPasswordReset({
+    const result = await (authClient as any).forgetPassword({
       email: data.email,
       redirectTo: "/reset-password",
     });

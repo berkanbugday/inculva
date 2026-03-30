@@ -1,33 +1,33 @@
 import { baseTemplate, escapeHtml } from "./base.js";
 import { APP_URL } from "../client.js";
+import { t, type Locale } from "../i18n/messages.js";
 
 export function healthDegradedTemplate(
   userName: string,
   domain: string,
   siteId: string,
-): string {
-  return baseTemplate(
+  locale: Locale = "en",
+) {
+  const html = baseTemplate(
+    locale,
     `
-    <h2>Widget may be offline on ${escapeHtml(domain)}</h2>
-    <p>Hi ${escapeHtml(userName || "there")},</p>
-    <p>Our health monitor couldn't detect the inculva widget on <strong>${escapeHtml(
-      domain,
-    )}</strong>. This might mean:</p>
+    <h2>${t(locale, "healthTitle")} ${escapeHtml(domain)}</h2>
+    <p>${t(locale, "hi")} ${escapeHtml(userName || t(locale, "there"))},</p>
+    <p>${t(locale, "healthDesc")} <strong>${escapeHtml(domain)}</strong>. ${t(locale, "healthMightMean")}</p>
     <ul style="margin: 0 0 20px; padding-left: 20px; color: #4b5563; font-size: 15px; line-height: 1.8;">
-      <li>The embed snippet was accidentally removed</li>
-      <li>A deployment removed the widget script</li>
-      <li>The site is temporarily down</li>
+      <li>${t(locale, "healthReason1")}</li>
+      <li>${t(locale, "healthReason2")}</li>
+      <li>${t(locale, "healthReason3")}</li>
     </ul>
-    <p>If accessibility tracking is interrupted, visitors won't be able to use the widget until it's restored.</p>
-    <a href="${APP_URL}/dashboard/sites/${escapeHtml(
-      siteId,
-    )}" class="btn">Check site settings →</a>
+    <p>${t(locale, "healthImpact")}</p>
+    <a href="${APP_URL}/dashboard/sites/${escapeHtml(siteId)}" class="btn">${t(locale, "healthCheckSettings")} →</a>
     <hr class="divider">
     <p class="small">
-      You'll only receive one notification per outage — we won't repeat this until the widget is healthy again.<br>
-      <a href="${APP_URL}/dashboard/settings" style="color: #1d4ed8;">Manage notification preferences</a>
+      ${t(locale, "healthOneNotification")}<br>
+      <a href="${APP_URL}/dashboard/settings" style="color: #1d4ed8;">${t(locale, "managePreferences")}</a>
     </p>
     `,
     `Widget may be offline on ${domain}`,
   );
+  return { html, subject: `${t(locale, "healthSubject")} ${domain}` };
 }

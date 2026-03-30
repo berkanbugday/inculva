@@ -5,6 +5,7 @@ import {
   sendEmail,
   verifyEmailTemplate,
   resetPasswordTemplate,
+  detectLocale,
 } from "@inculva/email";
 
 export const auth = betterAuth({
@@ -15,24 +16,20 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
-    sendResetPassword: async ({ user, url }) => {
-      await sendEmail({
-        to: user.email,
-        subject: "Reset your inculva password",
-        html: resetPasswordTemplate(url),
-      });
+    sendResetPassword: async ({ user, url }, request) => {
+      const locale = request ? detectLocale(request) : "en";
+      const { html, subject } = resetPasswordTemplate(url, locale);
+      await sendEmail({ to: user.email, subject, html });
     },
   },
 
   emailVerification: {
     sendOnSignUp: true,
     expiresIn: 60 * 60 * 24, // 24 hours
-    sendVerificationEmail: async ({ user, url }) => {
-      await sendEmail({
-        to: user.email,
-        subject: "Verify your inculva email",
-        html: verifyEmailTemplate(user.name ?? "", url),
-      });
+    sendVerificationEmail: async ({ user, url }, request) => {
+      const locale = request ? detectLocale(request) : "en";
+      const { html, subject } = verifyEmailTemplate(user.name ?? "", url, locale);
+      await sendEmail({ to: user.email, subject, html });
     },
   },
 

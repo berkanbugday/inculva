@@ -1,5 +1,6 @@
 import { baseTemplate, escapeHtml } from "./base.js";
 import { APP_URL } from "../client.js";
+import { t, type Locale } from "../i18n/messages.js";
 
 interface DigestSite {
   name: string;
@@ -13,18 +14,15 @@ export function weeklyDigestTemplate(
   totalEvents: number,
   sites: DigestSite[],
   weekLabel: string,
-): string {
+  locale: Locale = "en",
+) {
   const sitesHtml = sites
     .map(
       (s) => `
       <tr>
         <td style="padding: 10px 12px; border-bottom: 1px solid #f3f4f6;">
-          <p style="margin: 0; font-size: 14px; font-weight: 600; color: #111827;">${escapeHtml(
-            s.name,
-          )}</p>
-          <p style="margin: 0; font-size: 12px; color: #9ca3af;">${escapeHtml(
-            s.domain,
-          )}</p>
+          <p style="margin: 0; font-size: 14px; font-weight: 600; color: #111827;">${escapeHtml(s.name)}</p>
+          <p style="margin: 0; font-size: 12px; color: #9ca3af;">${escapeHtml(s.domain)}</p>
         </td>
         <td style="padding: 10px 12px; border-bottom: 1px solid #f3f4f6; text-align: right; font-size: 14px; font-weight: 600; color: #1d4ed8;">
           ${s.events.toLocaleString()}
@@ -38,18 +36,17 @@ export function weeklyDigestTemplate(
 
   const noActivity = totalEvents === 0;
 
-  return baseTemplate(
+  const html = baseTemplate(
+    locale,
     `
-    <h2>Your weekly accessibility digest</h2>
-    <p>Hi ${escapeHtml(userName || "there")},</p>
-    <p>Here's a summary of your widget activity for <strong>${escapeHtml(
-      weekLabel,
-    )}</strong>.</p>
+    <h2>${t(locale, "digestTitle")}</h2>
+    <p>${t(locale, "digestHi")} ${escapeHtml(userName || t(locale, "there"))},</p>
+    <p>${t(locale, "digestDesc")} <strong>${escapeHtml(weekLabel)}</strong>.</p>
 
     <table width="100%" cellpadding="0" cellspacing="0" style="margin: 20px 0;">
       <tr>
         <td style="padding: 16px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; text-align: center;">
-          <p style="margin: 0 0 4px; font-size: 12px; color: #1d4ed8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Total Events This Week</p>
+          <p style="margin: 0 0 4px; font-size: 12px; color: #1d4ed8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">${t(locale, "digestTotalEvents")}</p>
           <p style="margin: 0; font-size: 36px; font-weight: 700; color: #1e40af;">${totalEvents.toLocaleString()}</p>
         </td>
       </tr>
@@ -57,27 +54,28 @@ export function weeklyDigestTemplate(
 
     ${
       noActivity
-        ? `<p style="color: #6b7280;">It looks like your widget didn't receive any events this week. Make sure it's installed correctly on your site.</p>
-           <a href="${APP_URL}/dashboard" class="btn">Check your sites →</a>`
+        ? `<p style="color: #6b7280;">${t(locale, "digestNoActivity")}</p>
+           <a href="${APP_URL}/dashboard" class="btn">${t(locale, "digestCheckSites")} →</a>`
         : `<table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
              <thead>
                <tr style="background: #f9fafb;">
-                 <th style="padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Site</th>
-                 <th style="padding: 10px 12px; text-align: right; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Events</th>
-                 <th style="padding: 10px 12px; text-align: right; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">Top Feature</th>
+                 <th style="padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">${t(locale, "digestSite")}</th>
+                 <th style="padding: 10px 12px; text-align: right; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">${t(locale, "digestEvents")}</th>
+                 <th style="padding: 10px 12px; text-align: right; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em;">${t(locale, "digestTopFeature")}</th>
                </tr>
              </thead>
              <tbody>${sitesHtml}</tbody>
            </table>
-           <a href="${APP_URL}/dashboard" class="btn">View full analytics →</a>`
+           <a href="${APP_URL}/dashboard" class="btn">${t(locale, "digestViewAnalytics")} →</a>`
     }
 
     <hr class="divider">
     <p class="small">
-      You're receiving this weekly digest because you have an active inculva account.<br>
-      Manage your notification preferences in <a href="${APP_URL}/dashboard/settings" style="color: #1d4ed8;">Account Settings</a>.
+      ${t(locale, "digestManage")}<br>
+      <a href="${APP_URL}/dashboard/settings" style="color: #1d4ed8;">${t(locale, "managePreferences")}</a>
     </p>
     `,
-    `${totalEvents.toLocaleString()} accessibility events this week`,
+    t(locale, "digestTitle"),
   );
+  return { html, subject: t(locale, "digestSubject") };
 }

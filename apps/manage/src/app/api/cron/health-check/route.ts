@@ -43,16 +43,14 @@ export async function GET(req: Request) {
 
       // Only alert on healthy/null → degraded transition (no duplicate alerts)
       if (newStatus === "degraded" && previousStatus !== "degraded") {
+        const { html, subject } = healthDegradedTemplate(
+          site.owner.name ?? "",
+          site.domain,
+          site.id,
+          "en",
+        );
         await Promise.allSettled([
-          sendEmail({
-            to: site.owner.email,
-            subject: `Widget may be offline on ${site.domain} — inculva`,
-            html: healthDegradedTemplate(
-              site.owner.name ?? "",
-              site.domain,
-              site.id,
-            ),
-          }),
+          sendEmail({ to: site.owner.email, subject, html }),
           db.notification.create({
             data: {
               userId: site.owner.id,

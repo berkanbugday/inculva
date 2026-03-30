@@ -1,7 +1,6 @@
-export { resend, FROM_ADDRESS, APP_URL } from "./client.js";
+export { resend, FROM_ADDRESS, APP_URL, CDN_URL } from "./client.js";
 export { welcomeTemplate } from "./templates/welcome.js";
 export { verifyEmailTemplate } from "./templates/verify-email.js";
-export { teamInviteTemplate } from "./templates/team-invite.js";
 export { planUpgradedTemplate } from "./templates/plan-upgraded.js";
 export { resetPasswordTemplate } from "./templates/reset-password.js";
 export { usageWarningTemplate } from "./templates/usage-warning.js";
@@ -12,6 +11,7 @@ export { dripDay3Template } from "./templates/drip-day3.js";
 export { dripDay7Template } from "./templates/drip-day7.js";
 export { dripDay30Template } from "./templates/drip-day30.js";
 export { healthDegradedTemplate } from "./templates/health-degraded.js";
+export { detectLocale, type Locale } from "./i18n/messages.js";
 
 import { resend, FROM_ADDRESS } from "./client.js";
 
@@ -45,7 +45,6 @@ export async function sendEmail({ to, subject, html }: SendOptions): Promise<voi
     }
   }
 
-  // Dead-letter: log permanently failed emails in structured format for manual retry
   const dlqEntry = {
     timestamp: new Date().toISOString(),
     to,

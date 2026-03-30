@@ -1,20 +1,23 @@
 import { baseTemplate, escapeHtml } from "./base.js";
 import { APP_URL } from "../client.js";
+import { t, type Locale } from "../i18n/messages.js";
 
-export function dripDay7Template(userName: string): string {
-  return baseTemplate(
+export function dripDay7Template(userName: string, locale: Locale = "en") {
+  const html = baseTemplate(
+    locale,
     `
-    <h2>Run your free WCAG scan</h2>
-    <p>Hi ${escapeHtml(userName || "there")},</p>
-    <p>Did you know inculva includes a built-in <strong>WCAG 2.1 AA scanner</strong>? It checks your site for the most common accessibility issues and shows you exactly what to fix.</p>
-    <p>It's free for all plans — just click below to scan your first site.</p>
-    <a href="${APP_URL}/dashboard" class="btn">Run WCAG scan →</a>
+    <h2>${t(locale, "drip7Title")}</h2>
+    <p>${t(locale, "hi")} ${escapeHtml(userName || t(locale, "there"))},</p>
+    <p>${t(locale, "drip7Desc")} <strong>${t(locale, "drip7Scanner")}</strong>${t(locale, "drip7Desc2")}</p>
+    <p>${t(locale, "drip7Desc3")}</p>
+    <a href="${APP_URL}/dashboard" class="btn">${t(locale, "drip7Cta")} →</a>
     <hr class="divider">
     <p class="small">
-      The European Accessibility Act requires digital products to be WCAG 2.1 AA compliant.<br>
-      <a href="${APP_URL}/dashboard/settings" style="color: #1d4ed8;">Manage email preferences</a>
+      ${t(locale, "drip7Ea")}<br>
+      <a href="${APP_URL}/dashboard/settings" style="color: #1d4ed8;">${t(locale, "managePreferences")}</a>
     </p>
     `,
     "Free WCAG scan included with your inculva account",
   );
+  return { html, subject: t(locale, "drip7Subject") };
 }

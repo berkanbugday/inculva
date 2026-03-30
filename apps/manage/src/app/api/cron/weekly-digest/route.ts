@@ -114,16 +114,14 @@ export async function GET(req: Request) {
     const totalEvents = siteStats.reduce((sum, s) => sum + s.events, 0);
 
     try {
-      await sendEmail({
-        to: user.email,
-        subject: `Your inculva weekly digest — ${totalEvents.toLocaleString()} events`,
-        html: weeklyDigestTemplate(
-          user.name ?? "",
-          totalEvents,
-          siteStats,
-          weekLabel,
-        ),
-      });
+      const { html, subject } = weeklyDigestTemplate(
+        user.name ?? "",
+        totalEvents,
+        siteStats,
+        weekLabel,
+        "en",
+      );
+      await sendEmail({ to: user.email, subject, html });
       sent++;
     } catch {
       errors++;
