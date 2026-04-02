@@ -182,7 +182,7 @@ const rules = [
 
         heading('Nasıl Düzeltilir'),
         p('En iyi yaklaşım sesi hiçbir zaman otomatik oynatmamaktır. Medyayı başlatmak için kullanıcı etkileşimi gerektirin:'),
-        code('<video controls>\n  <source src="tanitim.mp4" type="video/mp4" />\n  <track kind="captions" src="altyazi.vtt" srclang="tr" label="Türkçe" />\n</video>\n\n<!-- autoplay ile ses kullanmayın -->\n<!-- Kötü: <video autoplay> -->', 'html'),
+        code('<video controls>\n  <source src="tanıtım.mp4" type="video/mp4" />\n  <track kind="captions" src="altyazi.vtt" srclang="tr" label="Türkçe" />\n</video>\n\n<!-- autoplay ile ses kullanmayın -->\n<!-- Kötü: <video autoplay> -->', 'html'),
         p('Otomatik oynatma zorunluysa sesin varsayılan olarak kapalı olmasını sağlayın:'),
         code('<video autoplay muted controls>\n  <source src="arka-plan.mp4" type="video/mp4" />\n</video>\n\n<button id="unmute-btn" aria-label="Videoyu sesli yap">\n  Sesi Aç\n</button>', 'html'),
         p('Arka plan sesi çalması gerekiyorsa, hemen erişilebilir bir durdurma kontrolü sağlayın:'),
@@ -409,7 +409,7 @@ const rules = [
 
         heading('İlgili axe-core Kuralları'),
         bullet('meta-viewport — Viewport meta etiketinin maximum-scale değerini 2\'den küçük ayarladığı veya user-scalable=no olarak belirlediği sayfaları işaretler.'),
-        bullet('meta-viewport-large — maximum-scale değerinin 5\'ten küçük ayarlandığı sayfaları işaretler; bu doğrudan bir WCAG hatası olmasa da %200\'den fazla yakınlaştırma ihtiyacı olan kullanıcıları kısıtlar.'),
+        bullet('meta-viewport-large — maximum-scale değerinin 5\'ten küçük ayarlandığı sayfaları işaretler; bu doğrudan bir WCAG hatası olmasa da %200\'den fazla yakınlaştırma ihtiyaçı olan kullanıcıları kısıtlar.'),
 
         heading('Nasıl Test Edilir'),
         numbered('Sayfayı masaüstü tarayıcısında açın ve Ctrl+Plus (Mac\'te Cmd+Plus) ile %200 yakınlaştırın.'),
@@ -697,7 +697,7 @@ const rules = [
         heading('Common Mistakes'),
         bullet('Background music at the same level as narration, making speech hard to distinguish for hearing-impaired users.'),
         bullet('Ambient sound effects that spike during speech, temporarily masking words.'),
-        bullet('Podcast intros with loud music that continues at the same volume once speech begins.'),
+        bullet('Podcast intros with loud music that continues at the same volume önce speech begins.'),
         bullet('No option to disable background audio when separate tracks are technically available.'),
         bullet('Applying this requirement to primarily musical content, which is actually exempt.'),
       ],
@@ -722,7 +722,7 @@ const rules = [
 
         heading('Nasıl Düzeltilir'),
         p('Ses prodüksiyonu sırasında arka plan seviyelerini uygun şekilde ayarlayın:'),
-        code('<!-- Mümkün olduğunda ayrı ses parçaları sağlayın -->\n<audio controls>\n  <source src="yalnizca-anlatim.mp3" type="audio/mpeg" />\n</audio>\n<label>\n  <input type="checkbox" id="bg-audio-toggle" />\n  Arka plan müziğini etkinleştir\n</label>', 'html'),
+        code('<!-- Mümkün olduğunda ayrı ses parçaları sağlayın -->\n<audio controls>\n  <source src="yalnızca-anlatim.mp3" type="audio/mpeg" />\n</audio>\n<label>\n  <input type="checkbox" id="bg-audio-toggle" />\n  Arka plan müziğini etkinleştir\n</label>', 'html'),
         p('Konuşma segmentleri sırasında arka plan sesini otomatik olarak düşürmek için ses kısma (audio ducking) tekniği kullanın. Prodüksiyon iş akışlarında, konuşmanın arka plan seviyesinin düşmesini tetiklediği yan zincir sıkıştırma uygulayın.'),
 
         heading('Sık Yapılan Hatalar'),
@@ -923,7 +923,7 @@ const rules = [
 
         heading('Nasıl Düzeltilir'),
         p('Kalan tüm metin görsellerini HTML\'ye dönüştürün. Karmaşık görsel efektler için modern CSS kullanın:'),
-        code('/* Görsel ihtiyacını ortadan kaldıran metin efektleri */\n.outlined-text {\n  -webkit-text-stroke: 2px #333;\n  color: transparent;\n  font-size: 4rem;\n  font-weight: 900;\n}\n\n.shadowed-text {\n  text-shadow:\n    3px 3px 0 #e0e0e0,\n    6px 6px 0 #c0c0c0;\n  font-size: 3rem;\n}\n\n.clipped-bg-text {\n  background: url(\'/img/texture.jpg\') center/cover;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 5rem;\n  font-weight: 900;\n}', 'css'),
+        code('/* Görsel ihtiyaçını ortadan kaldıran metin efektleri */\n.outlined-text {\n  -webkit-text-stroke: 2px #333;\n  color: transparent;\n  font-size: 4rem;\n  font-weight: 900;\n}\n\n.shadowed-text {\n  text-shadow:\n    3px 3px 0 #e0e0e0,\n    6px 6px 0 #c0c0c0;\n  font-size: 3rem;\n}\n\n.clipped-bg-text {\n  background: url(\'/img/texture.jpg\') center/cover;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  font-size: 5rem;\n  font-weight: 900;\n}', 'css'),
 
         heading('Sık Yapılan Hatalar'),
         bullet('Arka plan görselleri üzerinde HTML kaplama metni yerine tanıtım metinli görsel afişler kullanmak.'),
@@ -1044,8 +1044,8 @@ const rules = [
         p('Mobil öncelikli duyarlı bir yaklaşımla oluşturun. Baştan 320px minimum genişlik için tasarlayın:'),
         code('/* Mobil öncelikli temel stiller (320px minimum) */\n.container {\n  width: 100%;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 1rem;\n}\n\n/* Dar görüntü alanlarında ızgara öğelerini istifleyin */\n.grid {\n  display: grid;\n  grid-template-columns: 1fr;\n  gap: 1rem;\n}\n\n@media (min-width: 640px) {\n  .grid {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n\n@media (min-width: 1024px) {\n  .grid {\n    grid-template-columns: repeat(3, 1fr);\n  }\n}', 'css'),
         p('Gezinmeyi duyarlı biçimde ele alın — dar genişliklerde mobil menüye daraltın:'),
-        code('<nav aria-label="Ana gezinme">\n  <button\n    class="menu-toggle"\n    aria-expanded="false"\n    aria-controls="nav-menu"\n  >\n    <span class="sr-only">Menü</span>\n    <svg aria-hidden="true"><!-- hamburger simgesi --></svg>\n  </button>\n  <ul id="nav-menu" class="nav-list" role="list">\n    <li><a href="/hakkimizda">Hakkımızda</a></li>\n    <li><a href="/hizmetler">Hizmetler</a></li>\n    <li><a href="/iletisim">İletişim</a></li>\n  </ul>\n</nav>', 'html'),
-        code('/* Gezinme yeniden akışı */\n.nav-list {\n  display: none;\n  flex-direction: column;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  background: white;\n}\n\n.menu-toggle[aria-expanded="true"] + .nav-list {\n  display: flex;\n}\n\n.menu-toggle {\n  display: block;\n}\n\n@media (min-width: 768px) {\n  .nav-list {\n    display: flex;\n    flex-direction: row;\n    position: static;\n  }\n  .menu-toggle {\n    display: none;\n  }\n}', 'css'),
+        code('<nav aria-label="Ana gezinme">\n  <button\n    class="menü-toggle"\n    aria-expanded="false"\n    aria-controls="nav-menü"\n  >\n    <span class="sr-only">Menü</span>\n    <svg aria-hidden="true"><!-- hamburger simgesi --></svg>\n  </button>\n  <ul id="nav-menü" class="nav-list" role="list">\n    <li><a href="/hakkımızda">Hakkımızda</a></li>\n    <li><a href="/hizmetler">Hizmetler</a></li>\n    <li><a href="/iletişim">İletişim</a></li>\n  </ul>\n</nav>', 'html'),
+        code('/* Gezinme yeniden akışı */\n.nav-list {\n  display: none;\n  flex-direction: column;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  background: white;\n}\n\n.menü-toggle[aria-expanded="true"] + .nav-list {\n  display: flex;\n}\n\n.menü-toggle {\n  display: block;\n}\n\n@media (min-width: 768px) {\n  .nav-list {\n    display: flex;\n    flex-direction: row;\n    position: static;\n  }\n  .menü-toggle {\n    display: none;\n  }\n}', 'css'),
         p('Veri tablolarını duyarlı kalıplarla ele alın:'),
         code('/* Duyarlı tablo: kapsayıcı içinde yatay kaydırma */\n.table-wrapper {\n  overflow-x: auto;\n  -webkit-overflow-scrolling: touch;\n  max-width: 100%;\n}\n\n/* Alternatif: basit tablolar için istiflenmiş düzen */\n@media (max-width: 640px) {\n  .responsive-table thead {\n    display: none;\n  }\n  .responsive-table tr {\n    display: block;\n    margin-bottom: 1rem;\n    border: 1px solid #ddd;\n    border-radius: 4px;\n    padding: 0.5rem;\n  }\n  .responsive-table td {\n    display: flex;\n    justify-content: space-between;\n    padding: 0.25rem 0;\n  }\n  .responsive-table td::before {\n    content: attr(data-label);\n    font-weight: 700;\n    margin-right: 1rem;\n  }\n}', 'css'),
         p('Yeniden akışı engelleyen sabit genişlikli öğelerden kaçının:'),
@@ -1349,7 +1349,7 @@ const rules = [
         code('/* CSS for hoverable, persistent tooltip */\n.tooltip-content {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  background: #1a1a2e;\n  color: #ffffff;\n  padding: 0.75rem 1rem;\n  border-radius: 4px;\n  max-width: 300px;\n  /* Pointer gap bridge — prevents dismiss when moving to tooltip */\n  margin-top: -2px;\n}\n\n/* Show on hover of wrapper (covers both trigger and content) */\n.tooltip-wrapper:hover .tooltip-content,\n.tooltip-wrapper:focus-within .tooltip-content {\n  display: block;\n}\n\n/* Keep tooltip visible when hovering the tooltip itself */\n.tooltip-content:hover {\n  display: block;\n}', 'css'),
         code('// JavaScript for Escape dismissal\ndocument.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'Escape\') {\n    const visibleTooltips = document.querySelectorAll(\n      \'.tooltip-content[style*=\"display: block\"], .tooltip-content:hover\'\n    );\n    visibleTooltips.forEach(tip => {\n      tip.style.display = \'none\';\n    });\n\n    // Also close any open popovers\n    const openPopovers = document.querySelectorAll(\n      \'[data-popover-open=\"true\"]\'\n    );\n    openPopovers.forEach(popover => {\n      popover.setAttribute(\'data-popover-open\', \'false\');\n    });\n  }\n});', 'javascript'),
         p('For dropdown menus, use the wrapper-based hover approach to maintain the hoverable path:'),
-        code('<nav>\n  <ul class="menu">\n    <li class="menu-item has-submenu">\n      <a href="/services" aria-expanded="false" aria-haspopup="true">\n        Services\n      </a>\n      <ul class="submenu" role="menu">\n        <li role="menuitem"><a href="/services/audit">Audit</a></li>\n        <li role="menuitem"><a href="/services/remediation">Remediation</a></li>\n      </ul>\n    </li>\n  </ul>\n</nav>', 'html'),
+        code('<nav>\n  <ul class="menü">\n    <li class="menü-item has-submenu">\n      <a href="/services" aria-expanded="false" aria-haspopup="true">\n        Services\n      </a>\n      <ul class="submenu" role="menü">\n        <li role="menuitem"><a href="/services/audit">Audit</a></li>\n        <li role="menuitem"><a href="/services/remediation">Remediation</a></li>\n      </ul>\n    </li>\n  </ul>\n</nav>', 'html'),
         code('/* Submenu hover pattern — hoverable by design */\n.submenu {\n  display: none;\n  position: absolute;\n  top: 100%;\n  left: 0;\n  min-width: 200px;\n  background: white;\n  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);\n}\n\n/* Wrapper hover keeps submenu open when moving to it */\n.has-submenu:hover .submenu,\n.has-submenu:focus-within .submenu {\n  display: block;\n}', 'css'),
 
         heading('Common Mistakes'),

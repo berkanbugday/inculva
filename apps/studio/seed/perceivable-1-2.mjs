@@ -75,7 +75,7 @@ const rules = [
 
         heading('Nasıl düzeltilir'),
         p('Yalnızca ses içerikleri için, konuşmacı tanımlaması, tüm söylenen sözler ve anlamlı seslerin açıklamalarını içeren tam bir transkript sağlayın:'),
-        code('<audio controls>\n  <source src="/podcast-bolum-12.mp3" type="audio/mpeg" />\n  Tarayıcınız ses öğesini desteklemiyor.\n</audio>\n<details>\n  <summary>Transkripti oku</summary>\n  <div class="transcript">\n    <p><strong>Sunucu:</strong> On ikinci bölüme hoş geldiniz...</p>\n    <p><strong>Konuk:</strong> Beni ağırladığınız için teşekkürler...</p>\n  </div>\n</details>', 'html'),
+        code('<audio controls>\n  <source src="/podcast-bölüm-12.mp3" type="audio/mpeg" />\n  Tarayıcınız ses öğesini desteklemiyor.\n</audio>\n<details>\n  <summary>Transkripti oku</summary>\n  <div class="transcript">\n    <p><strong>Sunucu:</strong> On ikinci bölüme hoş geldiniz...</p>\n    <p><strong>Konuk:</strong> Beni ağırladığınız için teşekkürler...</p>\n  </div>\n</details>', 'html'),
         p('Yalnızca video içerikleri için açıklayıcı bir transkript veya sesli alternatif sağlayın:'),
         code('<video controls>\n  <source src="/montaj-talimatlari.mp4" type="video/mp4" />\n  <track kind="descriptions" src="/montaj-betimleme.vtt" srclang="tr" label="Sesli Betimleme" />\n</video>\n<a href="/montaj-transkript.html">Montaj adımlarının tam metin açıklaması</a>', 'html'),
 
@@ -170,7 +170,7 @@ const rules = [
 
         heading('Neden önemlidir'),
         p('Dünya genelinde yaklaşık 466 milyon kişi engelleyici düzeyde işitme kaybı yaşamaktadır. Altyazılar olmadan bu kullanıcılar video içeriklerinden tamamen dışlanır. Altyazılar ayrıca sessiz ortamlarda izleyenlere, ana dili farklı olanlara ve yazılı metni daha etkili işleyen bilişsel engelli kullanıcılara fayda sağlar.'),
-        p('Hukuki açıdan, altyazı sağlama en sık atıfta bulunulan erişilebilirlik gereksinimlerinden biridir. Altyazı eksikliği, özellikle eğitim ve eğlence sektörlerinde çok sayıda erişilebilirlik davasının temelini oluşturmuştur.'),
+        p('Hukuki açıdan, altyazı sağlama en sık atıfta bulunulan erişilebilirlik gereksinimlerinden biridir. Altyazı eksikliği, özellikle eğitim ve eğlence sektörlerinde çok sayıda erişilebilirlik davasının temelini oluşturmuştür.'),
         blockquote('Altyazılar isteğe bağlı değildir — her video içerik stratejisinin temel bir parçası ve çoğu yargı alanında yasal bir gerekliliktir.'),
 
         heading('İlgili axe-core kuralları'),
@@ -179,7 +179,7 @@ const rules = [
 
         heading('Nasıl test edilir'),
         numbered('Sayfadaki her önceden kaydedilmiş videoyu oynatın ve altyazıları etkinleştirin.'),
-        numbered('Altyazıların konuşulan sesle 1-2 saniye içinde eşzamanlandığını doğrulayın.'),
+        numbered('Altyazıların konuşulan sesle 1-2 saniye içinde eşzamanlandığini doğrulayın.'),
         numbered('Tüm diyaloğun doğru şekilde yazıya döküldüğünü, birden fazla konuşmacı varsa konuşmacı tanımlamasının yapıldığını onaylayın.'),
         numbered('Anlamlı konuşma dışı seslerin (örn. [kapı çarpması], [telefon çalması], [hafif müzik]) tanımlandığını kontrol edin.'),
         numbered('Altyazıların önemli görsel içeriği engellemediğinden ve video arka planına karşı okunabilir olduğundan emin olun.'),
@@ -614,7 +614,7 @@ const rules = [
         heading('Neden önemlidir'),
         p('Doğuştan veya erken çocukluktan itibaren işitme engelli olan birçok kişi için işaret dili, birincil ve en akıcı dilleridir. Yazılı metin — altyazı formunda bile — daha zor işlenebilen ikinci bir dili temsil eder. İşaret dili çevirisi, içeriği en erişilebilir iletişim biçimlerinde sunar.'),
         p('Bu özellikle eğitim materyalleri, hukuki süreçler, tıbbi bilgiler ve kavramanın kritik olduğu devlet iletişimleri gibi karmaşık içerikler için önemlidir.'),
-        blockquote('Altyazılar zorunludur ancak işaret dili ihtiyacının yerini tutmaz. Birçok işitme engelli birey için işaret dili, birincil iletişim ve anlama biçimidir.'),
+        blockquote('Altyazılar zorunludur ancak işaret dili ihtiyaçının yerini tutmaz. Birçok işitme engelli birey için işaret dili, birincil iletişim ve anlama biçimidir.'),
 
         heading('İlgili axe-core kuralları'),
         p('İşaret dili çevirisini test eden axe-core kuralı yoktur. Bu tamamen, işaret dili içeriğinin varlığını ve kalitesini doğrulamak için insan değerlendirmesi gerektiren manuel bir test kriteridir.'),
@@ -624,7 +624,7 @@ const rules = [
         numbered('İşaret dili çevirisinin mevcut olup olmadığını kontrol edin — videoya gömülü veya ayrı bir eşzamanlanmış seçenek olarak.'),
         numbered('Çevirinin ses içeriğini doğru bir şekilde aktarıp aktarmadığını değerlendirmek için bir işaret dili kullanıcısından yardım alın.'),
         numbered('İşaret dili çevirmeninin yeterli aydınlatma, kontrast ve çözünürlükle net bir şekilde görülebildiğini doğrulayın.'),
-        numbered('Çevirinin sesle eşzamanlandığını ve tüm konuşulan içeriği kapsadığını onaylayın.'),
+        numbered('Çevirinin sesle eşzamanlandığini ve tüm konuşulan içeriği kapsadığını onaylayın.'),
 
         heading('Nasıl düzeltilir'),
         p('Video içine bir işaret dili çevirisi penceresi yerleştirin:'),
@@ -680,7 +680,7 @@ const rules = [
     content: {
       en: [
         heading('What this rule means'),
-        p('WCAG 1.2.7 addresses situations where the natural pauses in a video\'s audio track are too short to fit adequate audio descriptions. In these cases, the video must be paused to allow the description to play, then resumed once the description is complete. This is known as "extended audio description."'),
+        p('WCAG 1.2.7 addresses situations where the natural pauses in a video\'s audio track are too short to fit adequate audio descriptions. In these cases, the video must be paused to allow the description to play, then resumed önce the description is complete. This is known as "extended audio description."'),
         p('This Level AAA criterion builds on 1.2.5 by removing the constraint that descriptions must fit within natural pauses. It ensures that even dialogue-heavy or fast-paced content can be fully described for blind and low-vision users.'),
 
         heading('Why it matters'),
@@ -841,7 +841,7 @@ const rules = [
 
         heading('Nasıl düzeltilir'),
         p('Yapılandırılmış bir medya alternatifi belgesi oluşturun ve video oynatıcıdan bağlantı verin:'),
-        code('<video controls>\n  <source src="/urun-tanitim.mp4" type="video/mp4" />\n  <track kind="captions" src="/urun-tanitim.vtt" srclang="tr" default />\n</video>\n<a href="/urun-tanitim-transkript.html">\n  Eksiksiz medya alternatifi (görsel açıklamalarla tam transkript)\n</a>', 'html'),
+        code('<video controls>\n  <source src="/urun-tanıtım.mp4" type="video/mp4" />\n  <track kind="captions" src="/urun-tanıtım.vtt" srclang="tr" default />\n</video>\n<a href="/urun-tanıtım-transkript.html">\n  Eksiksiz medya alternatifi (görsel açıklamalarla tam transkript)\n</a>', 'html'),
         p('Medya alternatifi belgesi şu yapıyı izlemelidir:'),
         code('<article class="media-alternatifi">\n  <h1>Medya Alternatifi: Ürün Tanıtım Videosu</h1>\n  <p><strong>Süre:</strong> 4 dakika 32 saniye</p>\n\n  <section>\n    <h2>Sahne 1: Giriş (0:00 – 0:45)</h2>\n    <p><em>[Enerjik arka plan müziği çalar]</em></p>\n    <p><em>[Modern bir ofisin geniş çekimi. Şirket logosu\n    mavi arka plan üzerinde beyaz metinle ekranın ortasında belirir.]</em></p>\n    <p><strong>Anlatıcı:</strong> Ürün tanıtımına hoş geldiniz.\n    Bugün platformumuzun üç temel özelliğini inceleyeceğiz.</p>\n    <p><em>[Ekran, kenar çubuğu gezintisi ve grafiklerle\n    ana içerik alanı gösteren bir kontrol paneli arayüzüne geçer.]</em></p>\n  </section>\n\n  <section>\n    <h2>Sahne 2: Özellik Demosu (0:45 – 2:30)</h2>\n    <p><em>[Kontrol panelinin yakın çekimi. İmleç kenar çubuğundaki\n    "Analitik" seçeneğine tıklar.]</em></p>\n    <p><strong>Anlatıcı:</strong> Analitik paneli, ekibinizin\n    performansı hakkında gerçek zamanlı bilgiler sunar.</p>\n    <p><em>[Aylık verileri gösteren bir çubuk grafik animasyonla belirir.\n    Y ekseni "Tamamlanan Görevler" olarak etiketlenmiştir ve 0-500 aralığındadır.\n    Mart ayı yaklaşık 450 ile en yüksek çubuğu gösterir.]</em></p>\n  </section>\n</article>', 'html'),
 
@@ -898,7 +898,7 @@ const rules = [
         p('This Level AAA criterion extends the concept of live captions (1.2.4, which covers synchronized media) to audio-only live content. The key difference is that there is no video component — only audio being broadcast in real time.'),
 
         heading('Why it matters'),
-        p('Live audio events exclude deaf and hard-of-hearing users entirely without a text alternative. Unlike prerecorded content where a transcript can be provided after the fact, live audio is time-sensitive — the information has immediate value that diminishes or disappears once the event is over.'),
+        p('Live audio events exclude deaf and hard-of-hearing users entirely without a text alternative. Unlike prerecorded content where a transcript can be provided after the fact, live audio is time-sensitive — the information has immediate value that diminishes or disappears önce the event is over.'),
         p('Real-time text alternatives are critical for emergency communications, live news audio feeds, and interactive audio events like radio call-in shows where participation depends on understanding the content as it happens.'),
         blockquote('A post-event transcript is better than nothing, but it does not satisfy this criterion. The requirement is for real-time access during the live broadcast.'),
 
@@ -956,7 +956,7 @@ const rules = [
         p('WebSocket aracılığıyla gerçek zamanlı bir altyazılama hizmetine bağlanın:'),
         code('const transkriptEl = document.getElementById("canli-transkript");\nconst ws = new WebSocket("wss://altyazi-hizmeti.ornek.com/akis");\n\nws.onmessage = (event) => {\n  const veri = JSON.parse(event.data);\n  const satir = document.createElement("p");\n\n  if (veri.konusmaci) {\n    const konusmaci = document.createElement("strong");\n    konusmaci.textContent = `${veri.konusmaci}: `;\n    satir.appendChild(konusmaci);\n  }\n\n  satir.appendChild(document.createTextNode(veri.metin));\n  transkriptEl.appendChild(satir);\n\n  // En son satıra otomatik kaydır\n  transkriptEl.scrollTop = transkriptEl.scrollHeight;\n};', 'javascript'),
         p('Gerçek zamanlı bir yedek olarak Web Speech API kullanan daha basit bir yaklaşım için:'),
-        code('const recognition = new webkitSpeechRecognition();\nrecognition.continuous = true;\nrecognition.interimResults = true;\nrecognition.lang = "tr-TR";\n\nconst transkriptEl = document.getElementById("canli-transkript");\nlet mevcutParagraf = null;\n\nrecognition.onresult = (event) => {\n  if (!mevcutParagraf) {\n    mevcutParagraf = document.createElement("p");\n    transkriptEl.appendChild(mevcutParagraf);\n  }\n\n  const sonuc = event.results[event.results.length - 1];\n  mevcutParagraf.textContent = sonuc[0].transcript;\n\n  if (sonuc.isFinal) {\n    mevcutParagraf = null;\n  }\n};\n\nrecognition.start();', 'javascript'),
+        code('const recognition = new webkitSpeechRecognition();\nrecognition.continuous = true;\nrecognition.interimResults = true;\nrecognition.lang = "tr-TR";\n\nconst transkriptEl = document.getElementById("canli-transkript");\nlet mevcutParagraf = null;\n\nrecognition.onresult = (event) => {\n  if (!mevcutParagraf) {\n    mevcutParagraf = document.createElement("p");\n    transkriptEl.appendChild(mevcutParagraf);\n  }\n\n  const sonuç = event.results[event.results.length - 1];\n  mevcutParagraf.textContent = sonuç[0].transcript;\n\n  if (sonuç.isFinal) {\n    mevcutParagraf = null;\n  }\n};\n\nrecognition.start();', 'javascript'),
 
         heading('Sık yapılan hatalar'),
         bullet('Canlı yayın sırasında gerçek zamanlı metin yerine yalnızca etkinlik sonrası transkript sağlamak.'),

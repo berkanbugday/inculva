@@ -235,9 +235,9 @@ const rules = [
         p('HTML kaynak sırasının amaçlanan okuma sırasıyla eşleştiğinden emin olun. DOM\'u yeniden sıralayan özelliklere dayanmadan görsel sunum için CSS kullanın:'),
         code('<!-- Doğru: kaynak sırası görsel sıra ile eşleşir -->\n<article>\n  <h2>Adım 1: Bağımlılıkları yükleyin</h2>\n  <p>Projeyi kurmak için npm install çalıştırın.</p>\n  <h2>Adım 2: Ortamı yapılandırın</h2>\n  <p>Ayarlarınızla bir .env dosyası oluşturun.</p>\n  <h2>Adım 3: Sunucuyu başlatın</h2>\n  <p>Uygulamayı başlatmak için npm start çalıştırın.</p>\n</article>'),
         p('Anlamlı sıralamaya sahip içeriği yeniden düzenlemek için CSS order veya grid yerleşimini kullanmaktan kaçının:'),
-        code('/* Okuma sırası önemliyken bundan kaçının */\n.adim-1 { order: 3; }  /* Görsel olarak son ama DOM\'da ilk */\n.adim-2 { order: 1; }  /* Görsel olarak ilk ama DOM\'da ikinci */\n.adim-3 { order: 2; }\n\n/* Bunun yerine HTML kaynak sırasını düzeltin */'),
+        code('/* Okuma sırası önemliyken bundan kaçının */\n.adım-1 { order: 3; }  /* Görsel olarak son ama DOM\'da ilk */\n.adım-2 { order: 1; }  /* Görsel olarak ilk ama DOM\'da ikinci */\n.adım-3 { order: 2; }\n\n/* Bunun yerine HTML kaynak sırasını düzeltin */'),
         p('CSS Grid kullanırken içeriği yeniden sıralayan açık yerleşimlere dikkat edin:'),
-        code('/* Güvenli: öğeler grid içinde doğal olarak akar */\n.grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n}\n\n/* Riskli: açık yerleşim okuma sırasını bozabilir */\n.kenar-cubugu { grid-row: 1 / 3; grid-column: 2; }\n.ana-icerik   { grid-column: 1; }'),
+        code('/* Güvenli: öğeler grid içinde doğal olarak akar */\n.grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n}\n\n/* Riskli: açık yerleşim okuma sırasını bozabilir */\n.kenar-cubugu { grid-row: 1 / 3; grid-column: 2; }\n.ana-içerik   { grid-column: 1; }'),
 
         heading('Sık yapılan hatalar'),
         bullet('Numaralanmış adımları veya talimatları yeniden düzenlemek için flexbox order özelliğini kullanmak.'),
@@ -659,7 +659,7 @@ const rules = [
 
         heading('Nasıl düzeltilir'),
         p('Sayfa bölgelerini tanımlamak için semantik HTML ve ARIA belirgin bölgeleri kullanın:'),
-        code('<header role="banner">\n  <nav aria-label="Ana gezinti">\n    <ul>\n      <li><a href="/">Ana Sayfa</a></li>\n      <li><a href="/hakkimizda">Hakkımızda</a></li>\n    </ul>\n  </nav>\n</header>\n\n<main>\n  <article>\n    <h1>Makale Başlığı</h1>\n    <p>Makale içeriği...</p>\n  </article>\n</main>\n\n<aside aria-label="İlgili makaleler">\n  <h2>İlgili</h2>\n  <ul>...</ul>\n</aside>\n\n<footer role="contentinfo">\n  <nav aria-label="Alt bilgi gezintisi">...</nav>\n</footer>'),
+        code('<header role="banner">\n  <nav aria-label="Ana gezinti">\n    <ul>\n      <li><a href="/">Ana Sayfa</a></li>\n      <li><a href="/hakkımızda">Hakkımızda</a></li>\n    </ul>\n  </nav>\n</header>\n\n<main>\n  <article>\n    <h1>Makale Başlığı</h1>\n    <p>Makale içeriği...</p>\n  </article>\n</main>\n\n<aside aria-label="İlgili makaleler">\n  <h2>İlgili</h2>\n  <ul>...</ul>\n</aside>\n\n<footer role="contentinfo">\n  <nav aria-label="Alt bilgi gezintisi">...</nav>\n</footer>'),
         p('Her yalnızca simge içeren kontrole programatik bir ad verin:'),
         code('<!-- Erişilebilir ada sahip yalnızca simge düğmesi -->\n<button aria-label="Ara" type="submit">\n  <svg aria-hidden="true" focusable="false">\n    <use href="#icon-search" />\n  </svg>\n</button>\n\n<!-- Görsel olarak gizli metinli yalnızca simge bağlantısı -->\n<a href="/ayarlar">\n  <svg aria-hidden="true"><use href="#icon-gear" /></svg>\n  <span class="sr-only">Ayarlar</span>\n</a>'),
         p('Arama işlevi için search belirgin bölge rolünü kullanın:'),

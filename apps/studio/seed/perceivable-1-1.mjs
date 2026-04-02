@@ -21,12 +21,12 @@ export default [
 
     title: {
       en: 'Non-text Content',
-      tr: 'Metin Disi Icerik',
+      tr: 'Metin Dışı İçerik',
     },
 
     description: {
       en: 'All non-text content presented to the user has a text alternative that serves the equivalent purpose.',
-      tr: 'Kullaniciya sunulan tum metin disi iceriklerin, ayni amaci karsilayan bir metin alternatifi bulunmalidir.',
+      tr: 'Kullanıcıya sunulan tüm metin dışı içeriklerin, aynı amacı karşılayan bir metin alternatifi bulunmalıdır.',
     },
 
     content: {
@@ -113,81 +113,81 @@ export default [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 1.1.1, kullaniciya sunulan her metin disi icerigin — gorseller, simgeler, grafikler, ses ve video dosyalari, CAPTCHA ve dekoratif ogeler — ayni bilgiyi veya islevi tasiyan bir metin alternatifine sahip olmasini gerektirir. Ekran okuyucular, braille ekranlar ve arama motorlari gorsel icerigi anlamak icin bu metin alternatiflerine basvurur.'
+          'WCAG 1.1.1, kullanıcıya sunulan her metin dışı içeriğin — görseller, simgeler, grafikler, ses ve video dosyaları, CAPTCHA ve dekoratif öğeler — aynı bilgiyi veya işlevi taşıyan bir metin alternatifine sahip olmasını gerektirir. Ekran okuyucular, braille ekranlar ve arama motorları görsel içeriği anlamak için bu metin alternatiflerine başvurur.'
         ),
         p(
-          'Metin alternatifi, metin disi icerigin sundugu amacin ayrisini karsilamalidir. Bilgi veren bir fotograf icin gorselin ilettigi mesaj betimlenmeli, islevsel bir dugme icin dugmenin gerceklestirdigi eylem belirtilmeli, tamamen dekoratif ogeler icin ise yardimci teknolojinin bunlari atlayabilmesi saglanmalidir.'
+          'Metin alternatifi, metin dışı içeriğin sunduğu amacın ayrısını karşılamalıdır. Bilgi veren bir fotoğraf için görselin ilettiği mesaj betimlenmeli, işlevsel bir düğme için düğmenin gerçekleştirdiği eylem belirtilmeli, tamamen dekoratif öğeler için ise yardımcı teknolojinin bunları atlayabilmesi sağlanmalıdır.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Dunya genelinde yaklasik 2,2 milyar kisinin bir tur gorme bozuklugu bulunmaktadir. Bir ekran okuyucu alt metni olmayan bir gorselle karsilastiginda genellikle dosya adini okur — ornegin "DSC_0042.jpg" — ve bu kullaniciya hicbir faydali bilgi saglamaz. Metinden sese, braille cikisa veya yalnizca metin tabanli tarayicilara dayanan kullanicilar, gorseller araciligiyla iletilen anlamdan tamamen mahrum kalir.'
+          'Dünya genelinde yaklaşık 2,2 milyar kişinin bir tür görme bozukluğu bulunmaktadır. Bir ekran okuyucu alt metni olmayan bir görselle karşılaştığında genellikle dosya adını okur — örneğin "DSC_0042.jpg" — ve bu kullanıcıya hiçbir faydalı bilgi sağlamaz. Metinden sese, braille çıkışa veya yalnızca metin tabanlı tarayıcılara dayanan kullanıcılar, görseller aracılığıyla iletilen anlamdan tamamen mahrum kalır.'
         ),
         p(
-          'Erisilebilirligin otesinde, metin alternatifleri arama motoru optimizasyonunu iyilestirir, yavas baglantilarda gorselleri devre disi birakan kullanicilari destekler ve gorseller yuklenemediginde yedek icerik saglar. Dogru alt metni, yapabileceginiz en etkili ve en az efor gerektiren erisilebilirlik iyilestirmelerinden biridir.'
+          'Erişilebilirliğin ötesinde, metin alternatifleri arama motoru optimizasyonunu iyileştirir, yavaş bağlantılarda görselleri devre dışı bırakan kullanıcıları destekler ve görseller yüklenemediğinde yedek içerik sağlar. Doğru alt metni, yapabileceğiniz en etkili ve en az efor gerektiren erişilebilirlik iyileştirmelerinden biridir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
-        bullet('image-alt — <img> ogelerinin metin alternatifine sahip olmasini dogrular.'),
-        bullet('input-image-alt — <input type="image"> ogelerinin metin alternatifine sahip olmasini dogrular.'),
-        bullet('area-alt — Gorsel haritasi icindeki <area> ogelerinin metin alternatifine sahip olmasini dogrular.'),
-        bullet('object-alt — <object> ogelerinin metin alternatifine sahip olmasini dogrular.'),
-        bullet('svg-img-alt — img rolune sahip SVG ogelerinin erisilebilir bir ada sahip olmasini dogrular.'),
-        bullet('role-img-alt — role="img" atanmis ogelerin metin alternatifine sahip olmasini dogrular.'),
-        bullet('image-redundant-alt — Alt metninin bitisik metin icerigiyle ayni olmamasini dogrular.'),
+        heading('İlgili axe-core kuralları', 'h2'),
+        bullet('image-alt — <img> öğelerinin metin alternatifine sahip olmasını doğrular.'),
+        bullet('input-image-alt — <input type="image"> öğelerinin metin alternatifine sahip olmasını doğrular.'),
+        bullet('area-alt — Görsel haritası içindeki <area> öğelerinin metin alternatifine sahip olmasını doğrular.'),
+        bullet('object-alt — <object> öğelerinin metin alternatifine sahip olmasını doğrular.'),
+        bullet('svg-img-alt — img rolune sahip SVG öğelerinin erişilebilir bir ada sahip olmasını doğrular.'),
+        bullet('role-img-alt — role="img" atanmis öğelerin metin alternatifine sahip olmasını doğrular.'),
+        bullet('image-redundant-alt — Alt metninin bitişik metin içeriğiyle aynı olmamasını doğrular.'),
 
-        heading('Nasil test edilir', 'h2'),
+        heading('Nasıl test edilir', 'h2'),
         p(
-          'Oncelikle axe-core veya Lighthouse ile otomatik bir tarama yapin. Bu araclar eksik alt niteliklerini guvenilir bicimde yakalar. Ancak otomatik araclar alt metninin dogru veya anlamli olup olmadigini degerlenderemez — bu, elle inceleme gerektirir.'
+          'Oncelikle axe-core veya Lighthouse ile otomatik bir tarama yapın. Bu araçlar eksik alt niteliklerini güvenilir biçimde yakalar. Ancak otomatik araçlar alt metninin doğru veya anlamlı olup olmadığını değerlendiremez — bu, elle inceleme gerektirir.'
         ),
-        bullet('Chrome DevTools icinde axe DevTools veya Lighthouse calistirin ve image-alt bulgularini inceleyin.'),
-        bullet('Web Developer Toolbar ile gorselleri alt metinleriyle degistirin ve sayfanin hala anlamli olup olmadigini dogrulayin.'),
-        bullet('Sayfada bir ekran okuyucu (NVDA, VoiceOver veya JAWS) ile gezinin ve her gorselin faydali bilgiyle duyuruldugundan emin olun.'),
-        bullet('Dekoratif gorsellerin alt="" veya role="presentation" ile yardimci teknolojiden gizlendigini kontrol edin.'),
-        bullet('SVG, <object> ogeleri ve gorsel haritalarini inceleyin — bunlar otomatik kontrollerde siklikla gozden kacar.'),
+        bullet('Chrome DevTools içinde axe DevTools veya Lighthouse çalıştırın ve image-alt bulgularini inceleyin.'),
+        bullet('Web Developer Toolbar ile görselleri alt metinleriyle değiştirin ve sayfanın hala anlamlı olup olmadığını doğrulayın.'),
+        bullet('Sayfada bir ekran okuyucu (NVDA, VoiceOver veya JAWS) ile gezinin ve her görselin faydalı bilgiyle duyuruldugundan emin olun.'),
+        bullet('Dekoratif gorsellerin alt="" veya role="presentation" ile yardımcı teknolojiden gizlendiğini kontrol edin.'),
+        bullet('SVG, <object> öğeleri ve görsel haritalarini inceleyin — bunlar otomatik kontrollerde sıklıkla gözden kaçar.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Asagida en yaygin metin disi icerik kaliplari icin dogru ve yanlis uygulamalar yer almaktadir.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Aşağıda en yaygın metin dışı içerik kalıpları için doğru ve yanlış uygulamalar yer almaktadır.'),
 
-        heading('Gorseller — yanlis uygulama', 'h3'),
+        heading('Görseller — yanlış uygulama', 'h3'),
         code(
-          '<!-- alt niteligi tamamen eksik -->\n<img src="takim-fotografi.jpg">\n\n<!-- Bilgilendirici gorselde bos alt -->\n<img src="ceyrek-grafigi.png" alt="">\n\n<!-- Dosya adi veya genel metin alt olarak kullanilmis -->\n<img src="hero.jpg" alt="hero.jpg">\n<img src="banner.png" alt="gorsel">',
+          '<!-- alt niteliği tamamen eksik -->\n<img src="takım-fotografi.jpg">\n\n<!-- Bilgilendirici gorselde boş alt -->\n<img src="çeyrek-grafiği.png" alt="">\n\n<!-- Dosya adı veya genel metin alt olarak kullanılmış -->\n<img src="hero.jpg" alt="hero.jpg">\n<img src="banner.png" alt="görsel">',
           'html'
         ),
 
-        heading('Gorseller — dogru uygulama', 'h3'),
+        heading('Görseller — doğru uygulama', 'h3'),
         code(
-          '<!-- Aciklayici alt metni olan bilgilendirici gorsel -->\n<img src="takim-fotografi.jpg" alt="Inculva muhendislik ekibi 2025 erisilebilirlik zirvesinde">\n\n<!-- Anlamli aciklama iceren grafik -->\n<img src="ceyrek-grafigi.png" alt="3. ceyrek geliri 2. ceyrege gore %18 artarak 4,2 milyon dolara ulasti">\n\n<!-- Dekoratif gorsel dogru sekilde gizlenmis -->\n<img src="dekoratif-spiral.svg" alt="" role="presentation">',
+          '<!-- Açıklayıcı alt metni olan bilgilendirici görsel -->\n<img src="takım-fotografi.jpg" alt="Inculva mühendislik ekibi 2025 erişilebilirlik zirvesinde">\n\n<!-- Anlamlı açıklama içeren grafik -->\n<img src="çeyrek-grafiği.png" alt="3. çeyrek geliri 2. çeyreğe göre %18 artarak 4,2 milyon dolara ulaştı">\n\n<!-- Dekoratif görsel doğru şekilde gizlenmiş -->\n<img src="dekoratif-spiral.svg" alt="" role="presentation">',
           'html'
         ),
 
-        heading('SVG ogeleri', 'h3'),
+        heading('SVG öğeleri', 'h3'),
         code(
-          '<!-- Yanlis: Erisilebilir adi olmayan SVG -->\n<svg viewBox="0 0 24 24">\n  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."/>\n</svg>\n\n<!-- Dogru: role ve aria-label ile SVG -->\n<svg role="img" aria-label="Basariyi gosteren onay isareti simgesi" viewBox="0 0 24 24">\n  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."/>\n</svg>\n\n<!-- Dogru: Dekoratif SVG yardimci teknolojiden gizlenmis -->\n<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">\n  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."/>\n</svg>',
+          '<!-- Yanlış: Erişilebilir adı olmayan SVG -->\n<svg viewBox="0 0 24 24">\n  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."/>\n</svg>\n\n<!-- Doğru: role ve aria-label ile SVG -->\n<svg role="img" aria-label="Basariyi gösteren onay işareti simgesi" viewBox="0 0 24 24">\n  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."/>\n</svg>\n\n<!-- Doğru: Dekoratif SVG yardımcı teknolojiden gizlenmiş -->\n<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">\n  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10..."/>\n</svg>',
           'html'
         ),
 
-        heading('input type="image" ve gorsel haritalari', 'h3'),
+        heading('input type="image" ve görsel haritaları', 'h3'),
         code(
-          '<!-- Yanlis: alt olmadan input image -->\n<input type="image" src="arama-simgesi.png">\n\n<!-- Dogru: aciklayici alt ile input image -->\n<input type="image" src="arama-simgesi.png" alt="Ara">\n\n<!-- Yanlis: alt olmadan area -->\n<map name="gezinme">\n  <area shape="rect" coords="0,0,100,50" href="/hakkimizda">\n</map>\n\n<!-- Dogru: alt metni olan area -->\n<map name="gezinme">\n  <area shape="rect" coords="0,0,100,50" href="/hakkimizda" alt="Hakkimizda">\n</map>',
+          '<!-- Yanlış: alt olmadan input image -->\n<input type="image" src="arama-simgesi.png">\n\n<!-- Doğru: açıklayıcı alt ile input image -->\n<input type="image" src="arama-simgesi.png" alt="Ara">\n\n<!-- Yanlış: alt olmadan area -->\n<map name="gezinme">\n  <area shape="rect" coords="0,0,100,50" href="/hakkımızda">\n</map>\n\n<!-- Doğru: alt metni olan area -->\n<map name="gezinme">\n  <area shape="rect" coords="0,0,100,50" href="/hakkımızda" alt="Hakkımızda">\n</map>',
           'html'
         ),
 
-        heading('Object ve embed ogeleri', 'h3'),
+        heading('Object ve embed öğeleri', 'h3'),
         code(
-          '<!-- Yanlis: metin alternatifi olmayan object -->\n<object data="animasyon.swf" type="application/x-shockwave-flash"></object>\n\n<!-- Dogru: yedek metin iceren object -->\n<object data="animasyon.swf" type="application/x-shockwave-flash">\n  <p>Odeme akisini gosteren animasyonlu tanitim: sepet inceleme, odeme ve onay olmak uzere uc adim icerir.</p>\n</object>',
+          '<!-- Yanlış: metin alternatifi olmayan object -->\n<object data="animasyon.swf" type="application/x-shockwave-flash"></object>\n\n<!-- Doğru: yedek metin içeren object -->\n<object data="animasyon.swf" type="application/x-shockwave-flash">\n  <p>Ödeme akışını gösteren animasyonlu tanıtım: sepet inceleme, ödeme ve onay olmak üzere üç adım içerir.</p>\n</object>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Dosya adini alt metni olarak kullanmak (ornegin alt="IMG_3021.jpg").'),
-        bullet('Alt metninde "gorseli" veya "resmi" ifadelerini kullanmak — ekran okuyucular ogeyi zaten gorsel olarak duyurur.'),
-        bullet('Dekoratif gorsellere aciklayici alt metni eklemek, bu da ekran okuyucu kullanicilari icin gereksiz gurultu olusturur.'),
-        bullet('Grafik, diyagram veya urun fotograflari gibi bilgilendirici gorsellerde alt metnini bos birakmak.'),
-        bullet('Bitisikteki gorunen metni alt niteligi icinde tekrarlamak, bu da ekran okuyucularin ayni icerigi iki kez okumasina neden olur.'),
-        bullet('Gorsel haritalari icindeki <area> ogelerinde alt metnini unutmak — bunlar etkilesimli ogelerdir ve etiket gerektirir.'),
-        bullet('Anlamli icerik icin CSS arka plan gorselleri kullanip DOM icinde metin alternatifi saglamamak.'),
-        bullet('Asiri uzun alt metni yazmak (150+ kelime) — bunun yerine kisa bir alt ile birlikte aria-describedby veya baglantili bir aciklama sayfasi kullanilmalidir.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Dosya adını alt metni olarak kullanmak (örneğin alt="IMG_3021.jpg").'),
+        bullet('Alt metninde "görseli" veya "resmi" ifadelerini kullanmak — ekran okuyucular öğeyi zaten görsel olarak duyurur.'),
+        bullet('Dekoratif gorsellere açıklayıcı alt metni eklemek, bu da ekran okuyucu kullanıcıları için gereksiz gürültü oluşturur.'),
+        bullet('Grafik, diyagram veya ürün fotoğrafları gibi bilgilendirici görsellerde alt metnini boş bırakmak.'),
+        bullet('Bitisikteki görünen metni alt niteliği içinde tekrarlamak, bu da ekran okuyucuların aynı içeriği iki kez okumasına neden olur.'),
+        bullet('Görsel haritaları içindeki <area> öğelerinde alt metnini unutmak — bunlar etkileşimli ogelerdir ve etiket gerektirir.'),
+        bullet('Anlamlı içerik için CSS arka plan görselleri kullanıp DOM içinde metin alternatifi sağlamamak.'),
+        bullet('Aşırı uzun alt metni yazmak (150+ kelime) — bunun yerine kısa bir alt ile birlikte aria-describedby veya bağlantılı bir açıklama sayfası kullanılmalıdır.'),
       ],
     },
 
@@ -257,9 +257,9 @@ export default [
           'Learn how to meet WCAG 1.1.1 Non-text Content. Practical guidance on writing effective alt text for images, SVGs, image maps, and embedded objects with code examples.',
       },
       tr: {
-        metaTitle: 'WCAG 1.1.1 Metin Disi Icerik — Alt Metin Rehberi',
+        metaTitle: 'WCAG 1.1.1 Metin Dışı İçerik — Alt Metin Rehberi',
         metaDescription:
-          'WCAG 1.1.1 Metin Disi Icerik kriterini nasil karsilayacaginizi ogrenin. Gorseller, SVG ogeleri, gorsel haritalari ve gomulu nesneler icin etkili alt metni yazma rehberi.',
+          'WCAG 1.1.1 Metin Dışı İçerik kriterini nasıl karşılayacağınızı öğrenin. Görseller, SVG öğeleri, görsel haritaları ve gömülü nesneler için etkili alt metni yazma rehberi.',
       },
     },
   },

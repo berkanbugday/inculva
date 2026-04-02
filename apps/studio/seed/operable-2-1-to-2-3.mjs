@@ -19,7 +19,7 @@ const rules = [
 
     description: {
       en: 'All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes.',
-      tr: 'Icerigin tum islevselligi, bireysel tus vuruslari icin belirli zamanlamalar gerektirmeden bir klavye arayuzu araciligiyla calistirilamalidir.',
+      tr: 'İçeriğin tüm işlevselliği, bireysel tuş vuruşları için belirli zamanlamalar gerektirmeden bir klavye arayüzü aracılığıyla çalıştırılmalıdır.',
     },
 
     content: {
@@ -93,67 +93,67 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.1.1, icerik tarafindan saglanan tum islevselligin bir klavye arayuzu araciligiyla calistirilamasini gerektirir. Bu, her etkilesimli ogenin — baglantilar, dugmeler, form alanlari, ozel bilesenleri ve medya kontrolleri — yalnizca klavye kullanilarak ulasitabilir ve etkinlestirilebilir olmasi gerektigini ifade eder. Hicbir islevsellik yalnizca fareye ozgu olaylara bagimli olmamalidir.'
+          'WCAG 2.1.1, içerik tarafından sağlanan tüm işlevselliğin bir klavye arayüzü aracılığıyla çalıştırılmasını gerektirir. Bu, her etkileşimli öğenin — bağlantılar, düğmeler, form alanları, özel bileşenleri ve medya kontrolleri — yalnızca klavye kullanılarak ulasitabilir ve etkinleştirilebilir olması gerektiğini ifade eder. Hiçbir işlevsellik yalnızca fareye özgü olaylara bağımlı olmamalıdır.'
         ),
         p(
-          'Bu kriter yalnizca temel islevin, klavye ile temelden gerceklestirilemeyen analog, yol bagimli giris gerektirdigi durumlarda (serbest cizim gibi) istisnalara izin verir. Bununla birlikte, en yaygin web etkilecimleri — tiklama, secme, genisletme, gonderme — klavye araciligiyla calismalidir. Kriter, bireysel tus vuruslari icin belirli zamanlama gerektirmeyi acikca yasaklar.'
+          'Bu kriter yalnızca temel işlevin, klavye ile temelden gerçekleştirilemeyen analog, yol bağımlı giriş gerektirdiği durumlarda (serbest çizim gibi) istisnalara izin verir. Bununla birlikte, en yaygın web etkilecimleri — tıklama, seçme, genişletme, gönderme — klavye aracılığıyla çalışmalıdır. Kriter, bireysel tuş vuruşları için belirli zamanlama gerektirmeyi açıkça yasaklar.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Klavye erisilebilirligi, web erisilebilirliginin temelidir. Gorme engelli kullanicilar, klavye komutlariyla calisan ekran okuyuculara guvenirler. Motor engelli kullanicilar, tumu klavye olaylarina donusen anahtar cihazlar, ufle-ve-em sistemleri veya ses girisi kullanabilirler. Deneyimli kullanicilar ve gelistiriciler de hiz ve verimlilik icin klavye gezinmesini tercih ederler.'
+          'Klavye erişilebilirliği, web erisilebilirliginin temelidir. Görme engelli kullanıcılar, klavye komutlariyla çalışan ekran okuyuculara guvenirler. Motor engelli kullanıcılar, tümü klavye olaylarina donusen anahtar cihazlar, ufle-ve-em sistemleri veya ses girişi kullanabilirler. Deneyimli kullanıcılar ve geliştiriciler de hız ve verimlilik için klavye gezinmesini tercih ederler.'
         ),
         p(
-          'Etkilesimli ogeler klavye ile erisilebilir olmadiginda, tum kullanici gruplari islevsellikten tamamen dislanir. Bu kucuk bir rahatsizlik degil — tam bir engeldir. Yalnizca fare tiklamalarina yanit veren bir dugme, klavye kullanicisi icin gorunmezdir ve klavye alternatifleri olmayan bir surukle-birak arayuzu tum ozellikleri kullanilamaz hale getirir.'
+          'Etkileşimli öğeler klavye ile erişilebilir olmadığında, tüm kullanıcı grupları islevsellikten tamamen dışlanır. Bu küçük bir rahatsızlık değil — tam bir engeldir. Yalnızca fare tiklamalarina yanıt veren bir düğme, klavye kullanıcısı için görünmezdir ve klavye alternatifleri olmayan bir sürükle-birak arayüzü tüm özellikleri kullanılamaz hale getirir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
-        bullet('scrollable-region-focusable — Kaydirilaabilir alanlarin odaklanabilir olarak klavye erisimi saglamasini dogrular. Bu olmadan klavye kullanicilari tasan icerigi kaydiramaz.'),
-        bullet('server-side-image-map — Sunucu tarafli goruntu haritalarinin kullanilmamasini saglar. Sunucu tarafli goruntu haritalari fare koordinatlarina bagimlidir ve klavye ile calistirilamaz.'),
+        heading('İlgili axe-core kuralları', 'h2'),
+        bullet('scrollable-region-focusable — Kaydirilaabilir alanların odaklanabilir olarak klavye erişimi sağlamasını doğrular. Bu olmadan klavye kullanıcıları taşan içeriği kaydiramaz.'),
+        bullet('server-side-image-map — Sunucu tarafli görüntü haritalarinin kullanilmamasini sağlar. Sunucu tarafli görüntü haritaları fare koordinatlarina bağımlıdır ve klavye ile calistirilamaz.'),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Klavye erisilebilirligini test etmek, yalnizca klavye kullanarak tum etkilesimli ogelerde gezinmeyi gerektirir.'),
-        numbered('Farenizi devre disi birakin ve sayfayi yalnizca klavye ile kullanmaya calisin.'),
-        numbered('Tum etkilesimli ogeler arasinda ileri gitmek icin Tab tusuna basin. Her dugme, baglanti, form alani ve bilesenin odak aldigini dogrulayin.'),
-        numbered('Geri gitmek icin Shift+Tab tusuna basin. Ters gezinmenin dogru calistigini onaylayin.'),
-        numbered('Dugmeleri ve baglantilari etkinlestirmek icin Enter veya Bosluk tusuna basin. Beklenen eylemi gerceklestirdiklerini dogrulayin.'),
-        numbered('Ozel bilecenleri test edin: acilir menuler Enter/Bosluk ile acilmali, diyaloglar odagi yakalamaladi, sekme panelleri ok tuslariyla degismelidir.'),
-        numbered('axe-core calistirin ve scrollable-region-focusable ile server-side-image-map ihlallerini kontrol edin.'),
-        bullet('Tum etkilesimli ogelerin duyuruldugunu ve calistirildabildigini onaylamak icin bir ekran okuyucu (VoiceOver, NVDA, JAWS) kullanin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Klavye erişilebilirliğini test etmek, yalnızca klavye kullanarak tüm etkileşimli ogelerde gezinmeyi gerektirir.'),
+        numbered('Farenizi devre dışı bırakın ve sayfayı yalnızca klavye ile kullanmaya çalışın.'),
+        numbered('Tüm etkileşimli öğeler arasında ileri gitmek için Tab tuşuna basın. Her düğme, bağlantı, form alanı ve bileşenin odak aldığını doğrulayın.'),
+        numbered('Geri gitmek için Shift+Tab tuşuna basın. Ters gezinmenin doğru çalıştığını onaylayın.'),
+        numbered('Dugmeleri ve bağlantıları etkinleştirmek için Enter veya Bosluk tuşuna basın. Beklenen eylemi gerçekleştirdiklerini doğrulayın.'),
+        numbered('Özel bilecenleri test edin: açılır menüler Enter/Bosluk ile acilmali, diyaloglar odağı yakalamaladi, sekme panelleri ok tuşlarıyla değişmelidir.'),
+        numbered('axe-core çalıştırın ve scrollable-region-focusable ile server-side-image-map ihlallerini kontrol edin.'),
+        bullet('Tüm etkileşimli öğelerin duyurulduğunu ve calistirildabildigini onaylamak için bir ekran okuyucu (VoiceOver, NVDA, JAWS) kullanın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Yerlesik klavye destegi sundukari icin mumkun oldugunda yerel HTML ogelerini kullanin. Ozel ogeler gerektiginde acik klavye isleme ekleyin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Yerleşik klavye desteği sundukari için mümkün olduğunda yerel HTML öğelerini kullanın. Özel öğeler gerektiğinde açık klavye işleme ekleyin.'),
 
-        heading('Yerel etkilesimli ogeleri kullanin', 'h3'),
+        heading('Yerel etkileşimli öğeleri kullanın', 'h3'),
         code(
-          '<!-- Yanlis: dugme olarak div, klavye destegi yok -->\n<div class="btn" onclick="formuGonder()">Gonder</div>\n\n<!-- Dogru: yerel dugme, varsayilan olarak klavye erisimli -->\n<button type="submit" onclick="formuGonder()">Gonder</button>',
+          '<!-- Yanlış: düğme olarak div, klavye desteği yok -->\n<div class="btn" onclick="formuGonder()">Gönder</div>\n\n<!-- Doğru: yerel düğme, varsayılan olarak klavye erisimli -->\n<button type="submit" onclick="formuGonder()">Gönder</button>',
           'html'
         ),
 
-        heading('Ozel bilecenlere klavye isleyicileri ekleyin', 'h3'),
+        heading('Özel bilecenlere klavye isleyicileri ekleyin', 'h3'),
         code(
-          '<!-- Yanlis: klavye destegi olmayan ozel acilir menu -->\n<div class="acilir-menu" onclick="menuAcKapa()">\n  <span>Secenek secin</span>\n  <ul class="menu">\n    <li onclick="sec(1)">Secenek 1</li>\n    <li onclick="sec(2)">Secenek 2</li>\n  </ul>\n</div>\n\n<!-- Dogru: klavye erisimli ozel acilir menu -->\n<div class="acilir-menu"\n  role="combobox"\n  tabindex="0"\n  aria-expanded="false"\n  aria-haspopup="listbox"\n  onkeydown="acilirMenuTuslama(event)">\n  <span>Secenek secin</span>\n  <ul role="listbox" class="menu">\n    <li role="option" tabindex="-1"\n      onkeydown="secenekTuslama(event)">Secenek 1</li>\n    <li role="option" tabindex="-1"\n      onkeydown="secenekTuslama(event)">Secenek 2</li>\n  </ul>\n</div>',
+          '<!-- Yanlış: klavye desteği olmayan özel açılır menü -->\n<div class="açılır-menü" onclick="menuAcKapa()">\n  <span>Seçenek seçin</span>\n  <ul class="menü">\n    <li onclick="sec(1)">Seçenek 1</li>\n    <li onclick="sec(2)">Seçenek 2</li>\n  </ul>\n</div>\n\n<!-- Doğru: klavye erisimli özel açılır menü -->\n<div class="açılır-menü"\n  role="combobox"\n  tabindex="0"\n  aria-expanded="false"\n  aria-haspopup="listbox"\n  onkeydown="acilirMenuTuslama(event)">\n  <span>Seçenek seçin</span>\n  <ul role="listbox" class="menü">\n    <li role="option" tabindex="-1"\n      onkeydown="secenekTuslama(event)">Seçenek 1</li>\n    <li role="option" tabindex="-1"\n      onkeydown="secenekTuslama(event)">Seçenek 2</li>\n  </ul>\n</div>',
           'html'
         ),
 
-        heading('Klavye isleyici ornegi', 'h3'),
+        heading('Klavye isleyici örneği', 'h3'),
         code(
           'function acilirMenuTuslama(event) {\n  switch (event.key) {\n    case \'Enter\':\n    case \' \':\n      event.preventDefault();\n      menuAcKapa();\n      break;\n    case \'ArrowDown\':\n      event.preventDefault();\n      sonrakiSecenegeSec();\n      break;\n    case \'ArrowUp\':\n      event.preventDefault();\n      oncekiSecenegeSec();\n      break;\n    case \'Escape\':\n      menuKapat();\n      break;\n  }\n}',
           'javascript'
         ),
 
-        heading('Kaydiriliabilir alanlari odaklanabilir yapin', 'h3'),
+        heading('Kaydiriliabilir alanları odaklanabilir yapın', 'h3'),
         code(
-          '<!-- Yanlis: odaklanamayan kaydiriliabilir alan -->\n<div style="overflow: auto; height: 200px;">\n  <p>Tasan uzun icerik...</p>\n</div>\n\n<!-- Dogru: odaklanabilir kaydiriliabilir alan -->\n<div tabindex="0" role="region"\n  aria-label="Kaydiriliabilir icerik"\n  style="overflow: auto; height: 200px;">\n  <p>Tasan uzun icerik...</p>\n</div>',
+          '<!-- Yanlış: odaklanamayan kaydiriliabilir alan -->\n<div style="overflow: auto; height: 200px;">\n  <p>Tasan uzun içerik...</p>\n</div>\n\n<!-- Doğru: odaklanabilir kaydiriliabilir alan -->\n<div tabindex="0" role="region"\n  aria-label="Kaydiriliabilir içerik"\n  style="overflow: auto; height: 200px;">\n  <p>Tasan uzun içerik...</p>\n</div>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Tiklama isleyicileri olan ancak tabindex, role veya klavye olay dinleyicisi olmayan div veya span ogeleri kullanmak.'),
-        bullet('Klavye tabanli yeniden siralama alternatifleri saglamadan surukle-birak islevi uygulamak.'),
-        bullet('Yalnizca fare hareketine yanit veren, ok tusu destegi olmayan ozel kaydiricilar veya aralik kontrolleri.'),
-        bullet('Klavye ile tetiklenen esdegeri olmayan (odak veya Enter/Bosluk) fareyle uzerine gelme ile tetiklenen menuler veya ipuclari.'),
-        bullet('Klavye odagi alamayan etkilesimli olmayan ogeler uzerinde tiklama isleyicileri.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Tiklama isleyicileri olan ancak tabindex, role veya klavye olay dinleyicisi olmayan div veya span öğeleri kullanmak.'),
+        bullet('Klavye tabanlı yeniden sıralama alternatifleri sağlamadan sürükle-birak işlevi uygulamak.'),
+        bullet('Yalnızca fare hareketine yanıt veren, ok tuşu desteği olmayan özel kaydırıcılar veya aralık kontrolleri.'),
+        bullet('Klavye ile tetiklenen eşdeğeri olmayan (odak veya Enter/Bosluk) fareyle üzerine gelme ile tetiklenen menüler veya ipuçları.'),
+        bullet('Klavye odağı alamayan etkileşimli olmayan öğeler üzerinde tıklama isleyicileri.'),
         bullet('Karsilik gelen onkeydown veya onkeyup isleyicileri olmadan onmousedown veya onmouseup kullanmak.'),
       ],
     },
@@ -210,9 +210,9 @@ const rules = [
           'Learn how to meet WCAG 2.1.1 Keyboard. Ensure all interactive content is operable through a keyboard interface without requiring mouse input.',
       },
       tr: {
-        metaTitle: 'WCAG 2.1.1 Klavye — Tam Klavye Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.1.1 Klavye — Tam Klavye Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.1.1 Klavye kriterini nasil karsilayacaginizi ogrenin. Tum etkilesimli icerigin fare girisi gerektirmeden klavye arayuzu ile calistirilabilir olmasini saglayin.',
+          'WCAG 2.1.1 Klavye kriterini nasıl karşılayacağınızı öğrenin. Tüm etkileşimli içeriğin fare girişi gerektirmeden klavye arayüzü ile çalıştırılabilir olmasını sağlayın.',
       },
     },
   },
@@ -230,12 +230,12 @@ const rules = [
 
     title: {
       en: 'No Keyboard Trap',
-      tr: 'Klavye Tuzagi Yok',
+      tr: 'Klavye Tuzağı Yok',
     },
 
     description: {
       en: 'If keyboard focus can be moved to a component of the page using a keyboard interface, then focus can be moved away from that component using only a keyboard interface.',
-      tr: 'Klavye odagi bir klavye arayuzu kullanilarak sayfanin bir bilesenine tasitabiliyorsa, odak yalnizca bir klavye arayuzu kullanilarak o bilesenden uzaklastirabilmalidir.',
+      tr: 'Klavye odağı bir klavye arayüzü kullanılarak sayfanın bir bilesenine taşınabiliyorsa, odak yalnızca bir klavye arayüzü kullanılarak o bileşenden uzaklaştırılabilmelidir.',
     },
 
     content: {
@@ -275,7 +275,7 @@ const rules = [
 
         heading('Modal dialog with proper focus management', 'h3'),
         code(
-          '<!-- Modal that traps focus intentionally but provides escape -->\n<div role="dialog" aria-modal="true"\n  aria-labelledby="modal-title" id="modal">\n  <h2 id="modal-title">Confirm Action</h2>\n  <p>Are you sure you want to proceed?</p>\n  <button onclick="confirm()">Yes</button>\n  <button onclick="closeModal()">Cancel</button>\n</div>\n\n<script>\nconst modal = document.getElementById(\'modal\');\nconst focusableEls = modal.querySelectorAll(\n  \'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])\'\n);\nconst firstEl = focusableEls[0];\nconst lastEl = focusableEls[focusableEls.length - 1];\n\nmodal.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'Escape\') {\n    closeModal();\n    return;\n  }\n  if (e.key === \'Tab\') {\n    if (e.shiftKey && document.activeElement === firstEl) {\n      e.preventDefault();\n      lastEl.focus();\n    } else if (!e.shiftKey && document.activeElement === lastEl) {\n      e.preventDefault();\n      firstEl.focus();\n    }\n  }\n});\n</script>',
+          '<!-- Modal that traps focus intentionally but provides escape -->\n<div role="dialog" aria-modal="true"\n  aria-labelledby="modal-title" id="modal">\n  <h2 id="modal-title">Confirm Action</h2>\n  <p>Are you süre you want to proceed?</p>\n  <button onclick="confirm()">Yes</button>\n  <button onclick="closeModal()">Cancel</button>\n</div>\n\n<script>\nconst modal = document.getElementById(\'modal\');\nconst focusableEls = modal.querySelectorAll(\n  \'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])\'\n);\nconst firstEl = focusableEls[0];\nconst lastEl = focusableEls[focusableEls.length - 1];\n\nmodal.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'Escape\') {\n    closeModal();\n    return;\n  }\n  if (e.key === \'Tab\') {\n    if (e.shiftKey && document.activeElement === firstEl) {\n      e.preventDefault();\n      lastEl.focus();\n    } else if (!e.shiftKey && document.activeElement === lastEl) {\n      e.preventDefault();\n      firstEl.focus();\n    }\n  }\n});\n</script>',
           'html'
         ),
 
@@ -287,7 +287,7 @@ const rules = [
 
         heading('Embedded content escape', 'h3'),
         code(
-          '<!-- Provide instructions for non-standard exit -->\n<p class="sr-only">\n  Press Escape to exit the embedded editor and return\n  to the main page.\n</p>\n<div id="editor" tabindex="0"\n  aria-label="Rich text editor. Press Escape to exit.">\n  <!-- Editor content -->\n</div>',
+          '<!-- Provide instructions for non-standard exit -->\n<p class="sr-only">\n  Press Escape to exit the embedded editör and return\n  to the main page.\n</p>\n<div id="editör" tabindex="0"\n  aria-label="Rich text editör. Press Escape to exit.">\n  <!-- Editor content -->\n</div>',
           'html'
         ),
 
@@ -303,62 +303,62 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.1.2, bir klavye kullanicisi sayfadaki herhangi bir bilesene odak tasidiginida, standart klavye mekanizmalari kullanarak odagi o bilesenden uzaklastirabilmesini gerektirir. Odak, kullanicinin fare veya baska bir isaret aygiti kullanmadan cikamayacagi sekilde asla tuzaga dusurulmemelidir.'
+          'WCAG 2.1.2, bir klavye kullanıcısı sayfadaki herhangi bir bileşene odak tasidiginida, standart klavye mekanizmaları kullanarak odağı o bileşenden uzaklastirabilmesini gerektirir. Odak, kullanıcının fare veya başka bir işaret aygiti kullanmadan cikamayacagi şekilde asla tuzaga dusurulmemelidir.'
         ),
         p(
-          'Bir bilesen cikmak icin standart olmayan klavye davranisi gerektiriyorsa (bir modali kapatmak icin Escape tusuna basmak gibi), kullanici bu yontem hakkinda bilgilendirilmelidir. Temel ilke, hicbir klavye kullanicisinin cikis yolu olmadan bir bilesende asili kalmamasidir.'
+          'Bir bileşen çıkmak için standart olmayan klavye davranisi gerektiriyorsa (bir modali kapatmak için Escape tuşuna basmak gibi), kullanıcı bu yöntem hakkında bilgilendirilmelidir. Temel ilke, hiçbir klavye kullanicisinin çıkış yolu olmadan bir bilesende asili kalmamasidir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Klavye tuzagi, en ciddi erisilebilirlik engellerinden biridir. Bir kullanici bir bilesende takildiginda, sayfanin geri kalanyla etkilesim yetenegi tamamen kaybolur. Diger iceriklere gidemez, form gonderemez ve hatta klavye komutlari kullanarak tarayici sekmesini bile kapatamaz. Tek kacis yolu tarayiciyi kapatip yeniden acmaktir — tum sayfa durumunu ve kaydedilmemis calismalarini kaybeder.'
+          'Klavye tuzağı, en ciddi erişilebilirlik engellerinden biridir. Bir kullanıcı bir bilesende takildiginda, sayfanın geri kalanyla etkileşim yetenegi tamamen kaybolur. Diger içeriklere gidemez, form gonderemez ve hatta klavye komutlari kullanarak tarayıcı sekmesini bile kapatamaz. Tek kacis yolu tarayıcıyı kapatip yeniden acmaktir — tüm sayfa durumunu ve kaydedilmemis calismalarini kaybeder.'
         ),
         p(
-          'Bu ozellikle yalnizca klavye girisine guvenenen kullanicilar icin tehlikelidir. Gorme engelli kullanicilar, anahtar cihazlar kullanan motor engelli kullanicilar ve ses girisi kullanicilari tamami, ongurelebilir odak hareketine bagimlidir. Bir klavye tuzagi, kucuk bir gezinme sorununu tamamen cikmaz bir yola cevirir.'
+          'Bu özellikle yalnızca klavye girisine guvenenen kullanıcılar için tehlikelidir. Görme engelli kullanıcılar, anahtar cihazlar kullanan motor engelli kullanıcılar ve ses girişi kullanıcıları tamami, ongurelebilir odak hareketine bağımlıdır. Bir klavye tuzağı, küçük bir gezinme sorununu tamamen cikmaz bir yola cevirir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Klavye tuzaklarini dogrudan test eden otomatik axe-core kurali bulunmamaktadir. Odak tuzaklarini tespit etmek manuel test gerektirir cunku otomatik araclar, odagin bir bilesenden ayrilip ayrilamadigini belirlemek icin gereken ardisik klavye etkilesimini tam olarak simule edemez.'
+          'Klavye tuzaklarını doğrudan test eden otomatik axe-core kuralı bulunmamaktadır. Odak tuzaklarını tespit etmek manuel test gerektirir çünkü otomatik araçlar, odağın bir bileşenden ayrilip ayrilamadigini belirlemek için gereken ardisik klavye etkilesimini tam olarak simüle edemez.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Manuel klavye testi, klavye tuzaklarini tespit etmenin en guvenilir yoludur.'),
-        numbered('Yalnizca Tab ve Shift+Tab tuslariyla sayfadaki her etkilesimli ogede gezinin.'),
-        numbered('Odak ozel bir bilesene (modal, bilesen, gomulu icerik) girdiginde, Tab ile cikmaya calisin.'),
-        numbered('Yalnizca Tab odagi cikarmiyorsa Escape, ok tuslari ve diger standart klavye kisayollarini deneyin.'),
-        numbered('Gomulu icerikleri test edin: iframe\'ler, ucuncu parti bilesenler, gomulu medya oynaticilari ve WYSIWYG editorler yaygin tuzak kaynaklaridir.'),
-        numbered('Modal diyaloglarin Escape veya bir kapatma dugmesi ile kapatildiginda odagin serbest birakildigini dogrulayin.'),
-        bullet('Ozel tarih secicilere, otomatik tamamlama alanlarina, zengin metin editorlerine ve gomulu haritalara ozellikle dikkat edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Manuel klavye testi, klavye tuzaklarını tespit etmenin en güvenilir yoludur.'),
+        numbered('Yalnızca Tab ve Shift+Tab tuşlarıyla sayfadaki her etkileşimli öğede gezinin.'),
+        numbered('Odak özel bir bileşene (modal, bileşen, gömülü içerik) girdiginde, Tab ile cikmaya çalışın.'),
+        numbered('Yalnızca Tab odağı cikarmiyorsa Escape, ok tuşları ve diğer standart klavye kısayollarını deneyin.'),
+        numbered('Gömülü içerikleri test edin: iframe\'ler, üçüncü parti bileşenler, gömülü medya oynaticilari ve WYSIWYG editorler yaygın tuzak kaynaklaridir.'),
+        numbered('Modal diyalogların Escape veya bir kapatma düğmesi ile kapatıldığında odağın serbest birakildigini doğrulayın.'),
+        bullet('Özel tarih secicilere, otomatik tamamlama alanlarına, zengin metin editorlerine ve gömülü haritalara özellikle dikkat edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Her bilesenin odagi tasimak icin bir klavye mekanizmasi sagladigindan emin olun. Kasitli odak yakalama (modaller) bir cikis yolu icermelidir.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Her bileşenin odağı tasimak için bir klavye mekanizması sagladigindan emin olun. Kasitli odak yakalama (modaller) bir çıkış yolu içermelidir.'),
 
-        heading('Uygun odak yonetimi ile modal diyalog', 'h3'),
+        heading('Uygun odak yönetimi ile modal diyalog', 'h3'),
         code(
-          '<!-- Kasitli olarak odagi yakalayan ancak cikis saglayan modal -->\n<div role="dialog" aria-modal="true"\n  aria-labelledby="modal-baslik" id="modal">\n  <h2 id="modal-baslik">Islemi Onayla</h2>\n  <p>Devam etmek istediginizden emin misiniz?</p>\n  <button onclick="onayla()">Evet</button>\n  <button onclick="modalKapat()">Iptal</button>\n</div>\n\n<script>\nconst modal = document.getElementById(\'modal\');\nconst odaklanabilirOgeler = modal.querySelectorAll(\n  \'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])\'\n);\nconst ilkOge = odaklanabilirOgeler[0];\nconst sonOge = odaklanabilirOgeler[odaklanabilirOgeler.length - 1];\n\nmodal.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'Escape\') {\n    modalKapat();\n    return;\n  }\n  if (e.key === \'Tab\') {\n    if (e.shiftKey && document.activeElement === ilkOge) {\n      e.preventDefault();\n      sonOge.focus();\n    } else if (!e.shiftKey && document.activeElement === sonOge) {\n      e.preventDefault();\n      ilkOge.focus();\n    }\n  }\n});\n</script>',
+          '<!-- Kasitli olarak odağı yakalayan ancak çıkış sağlayan modal -->\n<div role="dialog" aria-modal="true"\n  aria-labelledby="modal-başlık" id="modal">\n  <h2 id="modal-başlık">Islemi Onayla</h2>\n  <p>Devam etmek istediginizden emin misiniz?</p>\n  <button onclick="onayla()">Evet</button>\n  <button onclick="modalKapat()">Iptal</button>\n</div>\n\n<script>\nconst modal = document.getElementById(\'modal\');\nconst odaklanabilirOgeler = modal.querySelectorAll(\n  \'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])\'\n);\nconst ilkOge = odaklanabilirOgeler[0];\nconst sonOge = odaklanabilirOgeler[odaklanabilirOgeler.length - 1];\n\nmodal.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'Escape\') {\n    modalKapat();\n    return;\n  }\n  if (e.key === \'Tab\') {\n    if (e.shiftKey && document.activeElement === ilkOge) {\n      e.preventDefault();\n      sonOge.focus();\n    } else if (!e.shiftKey && document.activeElement === sonOge) {\n      e.preventDefault();\n      ilkOge.focus();\n    }\n  }\n});\n</script>',
           'html'
         ),
 
-        heading('Ozel bilecenlerde kazara tuzaklari onleme', 'h3'),
+        heading('Özel bilecenlerde kazara tuzakları onleme', 'h3'),
         code(
-          '// Yanlis: keydown isleyicisi tum varsayilan davranisi engelliyor\nwidget.addEventListener(\'keydown\', (e) => {\n  e.preventDefault(); // Bu odagi tuzaga dusurur!\n  bilesenTuslama(e);\n});\n\n// Dogru: yalnizca islenen tuslar icin varsayilani engelle\nwidget.addEventListener(\'keydown\', (e) => {\n  if ([\'ArrowUp\', \'ArrowDown\', \'Enter\', \' \'].includes(e.key)) {\n    e.preventDefault();\n    bilesenTuslama(e);\n  }\n  // Tab ve diger tuslar dogal olarak gecer\n});',
+          '// Yanlış: keydown işleyicisi tüm varsayılan davranisi engelliyor\nwidget.addEventListener(\'keydown\', (e) => {\n  e.preventDefault(); // Bu odağı tuzaga dusurur!\n  bilesenTuslama(e);\n});\n\n// Doğru: yalnızca islenen tuşlar için varsayilani engelle\nwidget.addEventListener(\'keydown\', (e) => {\n  if ([\'ArrowUp\', \'ArrowDown\', \'Enter\', \' \'].includes(e.key)) {\n    e.preventDefault();\n    bilesenTuslama(e);\n  }\n  // Tab ve diğer tuşlar doğal olarak geçer\n});',
           'javascript'
         ),
 
-        heading('Gomulu icerik cikisi', 'h3'),
+        heading('Gömülü içerik çıkışı', 'h3'),
         code(
-          '<!-- Standart olmayan cikis icin talimatlar saglayin -->\n<p class="sr-only">\n  Gomulu editordan cikmak ve ana sayfaya donmek icin\n  Escape tusuna basin.\n</p>\n<div id="editor" tabindex="0"\n  aria-label="Zengin metin editoru. Cikmak icin Escape tusuna basin.">\n  <!-- Editor icerigi -->\n</div>',
+          '<!-- Standart olmayan çıkış için talimatlar sağlayın -->\n<p class="sr-only">\n  Gömülü editordan çıkmak ve ana sayfaya dönmek için\n  Escape tuşuna basın.\n</p>\n<div id="editör" tabindex="0"\n  aria-label="Zengin metin editörü. Çıkmak için Escape tuşuna basın.">\n  <!-- Editor içeriği -->\n</div>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Bir bilesen icindeki tum keydown olaylarinda e.preventDefault() cagirmak, Tab tusunun odagi tasitmasini engellemek.'),
-        bullet('Escape tusuna basildiginda kapanmayan modal diyaloglar, klavye kullanicilarini icine hapseder.'),
-        bullet('Tum klavye girisini yakalayan ucuncu parti gomulu bilesenler (sohbet, harita, video oynaticilar).'),
-        bullet('Tab tusunun alt ogeler arasinda cikisi olmadan sonsuz dongu yapmasina neden olan ozel bilecenlerdeki sonsuz odak dongleri.'),
-        bullet('Kullanici uzaklastiktan sonra odagi zorla bir bilesene geri donduren JavaScript tabanli odak yonetimi.'),
-        bullet('Bir bilesenden cikmak icin standart olmayan tuslar (Escape gibi) gerektiginde eksik talimatlar.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Bir bileşen içindeki tüm keydown olaylarinda e.preventDefault() cagirmak, Tab tusunun odağı tasitmasini engellemek.'),
+        bullet('Escape tuşuna basildiginda kapanmayan modal diyaloglar, klavye kullanıcılarını içine hapseder.'),
+        bullet('Tüm klavye girisini yakalayan üçüncü parti gömülü bileşenler (sohbet, harita, video oynatıcılar).'),
+        bullet('Tab tusunun alt öğeler arasında çıkışı olmadan sonsuz döngü yapmasina neden olan özel bilecenlerdeki sonsuz odak dongleri.'),
+        bullet('Kullanıcı uzaklastiktan sonra odağı zorla bir bileşene geri donduren JavaScript tabanlı odak yönetimi.'),
+        bullet('Bir bileşenden çıkmak için standart olmayan tuşlar (Escape gibi) gerektiğinde eksik talimatlar.'),
       ],
     },
 
@@ -414,9 +414,9 @@ const rules = [
           'Learn how to meet WCAG 2.1.2 No Keyboard Trap. Ensure keyboard users can always move focus away from any component using standard keyboard mechanisms.',
       },
       tr: {
-        metaTitle: 'WCAG 2.1.2 Klavye Tuzagi Yok — Odak Yonetimi Rehberi',
+        metaTitle: 'WCAG 2.1.2 Klavye Tuzağı Yok — Odak Yönetimi Rehberi',
         metaDescription:
-          'WCAG 2.1.2 Klavye Tuzagi Yok kriterini nasil karsilayacaginizi ogrenin. Klavye kullanicilarinin standart klavye mekanizmalari ile her bilesenden odagi tasiyabilmesini saglayin.',
+          'WCAG 2.1.2 Klavye Tuzağı Yok kriterini nasıl karşılayacağınızı öğrenin. Klavye kullanıcılarının standart klavye mekanizmaları ile her bileşenden odağı tasiyabilmesini sağlayın.',
       },
     },
   },
@@ -434,12 +434,12 @@ const rules = [
 
     title: {
       en: 'Keyboard (No Exception)',
-      tr: 'Klavye (Istisnasiz)',
+      tr: 'Klavye (İstisnasız)',
     },
 
     description: {
       en: 'All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes, with no exceptions.',
-      tr: 'Icerigin tum islevselligi, hicbir istisna olmaksizin, bireysel tus vuruslari icin belirli zamanlamalar gerektirmeden bir klavye arayuzu araciligiyla calistirilamalidir.',
+      tr: 'İçeriğin tüm işlevselliği, hiçbir istisna olmaksızın, bireysel tuş vuruşları için belirli zamanlamalar gerektirmeden bir klavye arayüzü aracılığıyla çalıştırılmalıdır.',
     },
 
     content: {
@@ -493,60 +493,60 @@ const rules = [
         bullet('Providing degraded keyboard alternatives that do not offer the same functionality as the mouse-based version.'),
         bullet('Omitting keyboard support for third-party components or embedded content, assuming exceptions apply.'),
         bullet('Not testing complex interaction patterns (multi-step workflows, drag operations) thoroughly with keyboard.'),
-        bullet('Relying on 2.1.1 compliance and assuming AAA is automatically met.'),
+        bullet('Relying on 2.1.1 compliance and assuming AAA iş automatically met.'),
       ],
 
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.1.3, 2.1.1 (Klavye) kriterinin AAA seviyesindeki versiyonudur. 2.1.1 temelden yol bagimli giris gerektiren islevsellik icin istisnalara izin verirken (serbest cizim gibi), 2.1.3 tum istisnalari kaldirir. Her bir islevsellik parcasi, islevselligin nasil tasarlandigina bakilmaksizin, klavye arayuzu araciligiyla tamamen calistirilamalidir.'
+          'WCAG 2.1.3, 2.1.1 (Klavye) kriterinin AAA seviyesindeki versiyonudur. 2.1.1 temelden yol bağımlı giriş gerektiren işlevsellik için istisnalara izin verirken (serbest çizim gibi), 2.1.3 tüm istisnalari kaldırır. Her bir işlevsellik parçası, işlevselliğin nasıl tasarlandigina bakilmaksizin, klavye arayüzü aracılığıyla tamamen çalıştırılmalıdır.'
         ),
         p(
-          'Bu, 2.1.1\'den onemli olcude daha yuksek bir cubuktur. Bu kriteri karsilamak, serbest cizim, el yazisi girisi veya ucus simulatoru kontrolleri gibi ozelliklerin bile klavye ile calistirilamablair alternatifleri saglamasi gerektigini ifade eder. AAA uyumlulugunu hedefleyen kuruluslar, her ozelligi bastan itibaren yalnizca klavye ile calisma gerekliligi ile tasarlamalidir.'
+          'Bu, 2.1.1\'den önemli ölçüde daha yüksek bir cubuktur. Bu kriteri karşılamak, serbest çizim, el yazisi girişi veya ucus simulatoru kontrolleri gibi ozelliklerin bile klavye ile calistirilamablair alternatifleri saglamasi gerektiğini ifade eder. AAA uyumluluğunu hedefleyen kuruluşlar, her özelliği bastan itibaren yalnızca klavye ile çalışma gerekliliği ile tasarlamalidir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          '2.1.1, dogasi geregi yol bagimli giris icin istisnalara izin vererek pratik duzeltmeler saglarkeni, bu AAA kriteri, maksimum kapsayicilik icin bu uc durumlarin bile klavye alternatifleri olmasi gerektigini kabul eder. Bazi kullanicilar fiziksel olarak herhangi bir isaret aygiti kullanamaz ve tum bilgisayar etkilesimi icin tamamen klavye girisine bagimlidir.'
+          '2.1.1, doğası gereği yol bağımlı giriş için istisnalara izin vererek pratik duzeltmeler saglarkeni, bu AAA kriteri, maksimum kapsayicilik için bu üç durumların bile klavye alternatifleri olması gerektiğini kabul eder. Bazi kullanıcılar fiziksel olarak herhangi bir işaret aygiti kullanamaz ve tüm bilgisayar etkileşimi için tamamen klavye girisine bağımlıdır.'
         ),
         p(
-          'Bu kriteri karsilamak, giris yontemlerine bakilmaksizin hicbir kullanicinin herhangi bir islevsellikten dislanmamasini saglar. Klavye erisilebilirliginin altin standardi olup ozellikle evrensel erisilebilirligin temel bir gereklilik olducu devlet, saglik ve egitim platformlari icin onemlidir.'
+          'Bu kriteri karşılamak, giriş yontemlerine bakilmaksizin hiçbir kullanıcının herhangi bir islevsellikten dislanmamasini sağlar. Klavye erisilebilirliginin altin standardi olup özellikle evrensel erişilebilirliğin temel bir gereklilik olducu devlet, saglik ve eğitim platformlari için önemlidir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. 2.1.1\'in istisnasiz bir uzantisi oldugundan, test, her etkilesimli ozelligin kapsamli bir sekilde manuel incelenmesini gerektirir ve hicbir istisnaya izin verilmez.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. 2.1.1\'in istisnasiz bir uzantisi olduğundan, test, her etkileşimli ozelligin kapsamlı bir şekilde manuel incelenmesini gerektirir ve hiçbir istisnaya izin verilmez.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, 2.1.1 ile aynidir ancak daha siki gereksinimlerle — hicbir istisnaya izin verilmez.'),
-        numbered('Sitedeki her ozelligin eksiksiz bir yalnizca-klavye denetimini gerceklestirin. Tum etkilesimli islevselligi belirleyin.'),
-        numbered('Her ozellik icin yalnizca klavye girisi (Tab, Shift+Tab, Enter, Bosluk, Ok tuslari, Escape) kullanilarak tam olarak calistirilabildignii dogrulayin.'),
-        numbered('2.1.1 kapsaminda muaf tutulabilecek ozellikleri ozellikle test edin: cizim araclari, surukle-birak, hareket tabanli etkilesimler.'),
-        numbered('Klavye alternatiflerinin esdeger sonuclar uretigini — islevselligin bozulmus versiyonlarini degil — dogrulayin.'),
-        numbered('Klavye ile calistirilamazligi olmayan herhangi bir islevselligi AAA hatasi olarak belgeleyin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, 2.1.1 ile aynıdır ancak daha sıkı gereksinimlerle — hiçbir istisnaya izin verilmez.'),
+        numbered('Sitedeki her ozelligin eksiksiz bir yalnızca-klavye denetimini gerçekleştirin. Tüm etkileşimli işlevselliği belirleyin.'),
+        numbered('Her özellik için yalnızca klavye girişi (Tab, Shift+Tab, Enter, Bosluk, Ok tuşları, Escape) kullanılarak tam olarak calistirilabildignii doğrulayın.'),
+        numbered('2.1.1 kapsamında muaf tutulabilecek özellikleri özellikle test edin: çizim araçları, sürükle-birak, hareket tabanlı etkilesimler.'),
+        numbered('Klavye alternatiflerinin eşdeğer sonuçlar uretigini — işlevselliğin bozulmus versiyonlarini değil — doğrulayın.'),
+        numbered('Klavye ile calistirilamazligi olmayan herhangi bir işlevselliği AAA hatası olarak belgeleyin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('2.1.1 kapsaminda muaf tutulacak olanlar da dahil olmak uzere her etkilesim icin klavye alternatifleri saglayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('2.1.1 kapsamında muaf tutulacak olanlar da dahil olmak üzere her etkileşim için klavye alternatifleri sağlayın.'),
 
-        heading('Klavye alternatifli cizim araci', 'h3'),
+        heading('Klavye alternatifli çizim araçı', 'h3'),
         code(
-          '<!-- Klavye alternatifi olarak koordinat tabanli giris saglayin -->\n<canvas id="cizim-tuvali" aria-label="Cizim alani"></canvas>\n\n<!-- Klavye erisimli alternatif -->\n<div role="group" aria-label="Cizim koordinatlari">\n  <label for="x-koord">X koordinati:</label>\n  <input type="number" id="x-koord" min="0" max="500">\n  <label for="y-koord">Y koordinati:</label>\n  <input type="number" id="y-koord" min="0" max="500">\n  <button onclick="noktaEkle()">Nokta Ekle</button>\n  <button onclick="noktalariBagla()">Noktalari Bagla</button>\n  <button onclick="sonIslemGeriAl()">Geri Al</button>\n</div>',
+          '<!-- Klavye alternatifi olarak koordinat tabanlı giriş sağlayın -->\n<canvas id="çizim-tuvali" aria-label="Cizim alanı"></canvas>\n\n<!-- Klavye erisimli alternatif -->\n<div role="group" aria-label="Cizim koordinatlari">\n  <label for="x-koord">X koordinati:</label>\n  <input type="number" id="x-koord" min="0" max="500">\n  <label for="y-koord">Y koordinati:</label>\n  <input type="number" id="y-koord" min="0" max="500">\n  <button onclick="noktaEkle()">Nokta Ekle</button>\n  <button onclick="noktalariBagla()">Noktaları Bagla</button>\n  <button onclick="sonIslemGeriAl()">Geri Al</button>\n</div>',
           'html'
         ),
 
-        heading('Klavye ile yeniden siralama destekli surukle-birak', 'h3'),
+        heading('Klavye ile yeniden sıralama destekli sürükle-birak', 'h3'),
         code(
-          '<!-- Klavye destekli siralanabilir liste -->\n<ul role="listbox" aria-label="Yeniden siralanabilir liste">\n  <li role="option" tabindex="0"\n    aria-grabbed="false"\n    onkeydown="siralamayiYonet(event, this)">\n    Oge 1\n    <button aria-label="Oge 1 yukari tasi"\n      onclick="yukariTasi(this)">&#9650;</button>\n    <button aria-label="Oge 1 asagi tasi"\n      onclick="asagiTasi(this)">&#9660;</button>\n  </li>\n</ul>\n\n<script>\nfunction siralamayiYonet(e, oge) {\n  if (e.altKey && e.key === \'ArrowUp\') {\n    e.preventDefault();\n    yukariTasi(oge);\n  } else if (e.altKey && e.key === \'ArrowDown\') {\n    e.preventDefault();\n    asagiTasi(oge);\n  }\n}\n</script>',
+          '<!-- Klavye destekli sıralanabilir liste -->\n<ul role="listbox" aria-label="Yeniden sıralanabilir liste">\n  <li role="option" tabindex="0"\n    aria-grabbed="false"\n    onkeydown="siralamayiYonet(event, this)">\n    Öğe 1\n    <button aria-label="Öğe 1 yukarı tasi"\n      onclick="yukariTasi(this)">&#9650;</button>\n    <button aria-label="Öğe 1 aşağı tasi"\n      onclick="asagiTasi(this)">&#9660;</button>\n  </li>\n</ul>\n\n<script>\nfunction siralamayiYonet(e, öğe) {\n  if (e.altKey && e.key === \'ArrowUp\') {\n    e.preventDefault();\n    yukariTasi(öğe);\n  } else if (e.altKey && e.key === \'ArrowDown\') {\n    e.preventDefault();\n    asagiTasi(öğe);\n  }\n}\n</script>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Yol bagimli ozelliklerin (cizim, hareket girisi) A Seviyesi altinda muaf olduklari icin klavye alternatifleri gerektirmedigini varsaymak.'),
-        bullet('Fare tabanli versiyonla ayni islevselligi sunmayan dusuk kaliteli klavye alternatifleri saglamak.'),
-        bullet('Istisnalarin gecerli oldugunu varsayarak ucuncu parti bilesenler veya gomulu icerik icin klavye destegini ihmal etmek.'),
-        bullet('Karmasik etkilesim kaliplarini (cok adimli is akislari, surukle islemleri) klavye ile kapsamli olarak test etmemek.'),
-        bullet('2.1.1 uyumluluguna guvenip AAA\'nin otomatik olarak karsilandigini varsaymak.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Yol bağımlı ozelliklerin (çizim, hareket girişi) A Seviyesi altında muaf olduklari için klavye alternatifleri gerektirmedigini varsaymak.'),
+        bullet('Fare tabanlı versiyonla aynı işlevselliği sunmayan düşük kaliteli klavye alternatifleri sağlamak.'),
+        bullet('Istisnalarin geçerli olduğunu varsayarak üçüncü parti bileşenler veya gömülü içerik için klavye destegini ihmal etmek.'),
+        bullet('Karmaşık etkileşim kalıplarını (çok adımlı iş akışları, sürükle islemleri) klavye ile kapsamlı olarak test etmemek.'),
+        bullet('2.1.1 uyumluluğuna guvenip AAA\'nın otomatik olarak karsilandigini varsaymak.'),
       ],
     },
 
@@ -595,9 +595,9 @@ const rules = [
           'Learn about WCAG 2.1.3 Keyboard (No Exception). This AAA criterion requires all functionality to be keyboard operable with no exceptions whatsoever.',
       },
       tr: {
-        metaTitle: 'WCAG 2.1.3 Klavye Istisnasiz — AAA Klavye Rehberi',
+        metaTitle: 'WCAG 2.1.3 Klavye İstisnasız — AAA Klavye Rehberi',
         metaDescription:
-          'WCAG 2.1.3 Klavye (Istisnasiz) hakkinda bilgi edinin. Bu AAA kriteri, tum islevselligin hicbir istisna olmaksizin klavye ile calistirilamabilir olmasini gerektirir.',
+          'WCAG 2.1.3 Klavye (İstisnasız) hakkında bilgi edinin. Bu AAA kriteri, tüm işlevselliğin hiçbir istisna olmaksızın klavye ile calistirilamabilir olmasını gerektirir.',
       },
     },
   },
@@ -615,12 +615,12 @@ const rules = [
 
     title: {
       en: 'Character Key Shortcuts',
-      tr: 'Karakter Tusu Kisayollari',
+      tr: 'Karakter Tuşu Kısayolları',
     },
 
     description: {
       en: 'If a keyboard shortcut is implemented using only letter, punctuation, number, or symbol characters, then a mechanism is available to turn it off, remap it, or make it active only on focus.',
-      tr: 'Bir klavye kisayolu yalnizca harf, noktalama, sayi veya sembol karakterleri kullanilarak uygulanmissa, onu kapatmak, yeniden eslestirmek veya yalnizca odakta etkin kilmak icin bir mekanizma saglanmalidir.',
+      tr: 'Bir klavye kısayolu yalnızca harf, noktalama, sayı veya sembol karakterleri kullanılarak uygulanmışsa, onu kapatmak, yeniden eşleştirmek veya yalnızca odakta etkin kılmak için bir mekanizma sağlanmalıdır.',
     },
 
     content: {
@@ -660,7 +660,7 @@ const rules = [
 
         heading('Shortcut that can be turned off or remapped', 'h3'),
         code(
-          '// Shortcut configuration object\nconst shortcuts = {\n  search: { key: \'s\', enabled: true },\n  help: { key: \'?\', enabled: true },\n  newItem: { key: \'n\', enabled: true },\n};\n\n// User preferences loaded from storage\nconst prefs = loadUserPreferences();\nObject.keys(shortcuts).forEach(action => {\n  if (prefs[action]) {\n    shortcuts[action] = { ...shortcuts[action], ...prefs[action] };\n  }\n});\n\ndocument.addEventListener(\'keydown\', (e) => {\n  // Skip if user is typing in an input field\n  if (e.target.matches(\'input, textarea, [contenteditable]\')) return;\n  // Skip if modifier key is held (not a single-char shortcut)\n  if (e.ctrlKey || e.altKey || e.metaKey) return;\n\n  Object.entries(shortcuts).forEach(([action, config]) => {\n    if (config.enabled && e.key === config.key) {\n      e.preventDefault();\n      executeAction(action);\n    }\n  });\n});',
+          '// Shortcut configuration object\nconst shortcuts = {\n  search: { key: \'s\', enabled: true },\n  help: { key: \'?\', enabled: true },\n  newItem: { key: \'n\', enabled: true },\n};\n\n// User preferences loaded from storage\nconst prefs = loadUserPreferences();\nObject.keys(shortcuts).forEach(action => {\n  if (prefs[action]) {\n    shortcuts[action] = { ...shortcuts[action], ...prefs[action] };\n  }\n});\n\ndocument.addEventListener(\'keydown\', (e) => {\n  // Skip if user iş typing in an input field\n  if (e.target.matches(\'input, textarea, [contenteditable]\')) return;\n  // Skip if modifier key iş held (not a single-char shortcut)\n  if (e.ctrlKey || e.altKey || e.metaKey) return;\n\n  Object.entries(shortcuts).forEach(([action, config]) => {\n    if (config.enabled && e.key === config.key) {\n      e.preventDefault();\n      executeAction(action);\n    }\n  });\n});',
           'javascript'
         ),
 
@@ -688,62 +688,62 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.1.4, degistirici tuslar (Ctrl, Alt, Cmd) olmadan tek karakter tuslari (harf, sayi, noktalama veya sembol) kullanan klavye kisayollarini ele alir. Bu tur kisayollar varsa, arayuz su uc secenekten en az birini sunmalidir: kisayolu kapatma, bir degistirici tus icereck yeniden eslestirme veya kisayolu yalnizca ilgili bilesen odakta oldugunda etkin kilma.'
+          'WCAG 2.1.4, değiştirici tuşlar (Ctrl, Alt, Cmd) olmadan tek karakter tuşları (harf, sayı, noktalama veya sembol) kullanan klavye kısayollarını ele alır. Bu tür kısayollar varsa, arayüz şu üç seçenekten en az birini sunmalıdır: kısayolu kapatma, bir değiştirici tuş içerecek yeniden eşleştirme veya kısayolu yalnızca ilgili bileşen odakta olduğunda etkin kılma.'
         ),
         p(
-          'Bu kriter, belirli bir sorunu gidermek icin WCAG 2.1\'de tanitildi: ses girisi kullanicilari metin dikte eder ve yazilimlari konusulan sozcukleri bireysel tus vuruslari olarak yorumlar. Arama icin "s" gibi tek karakterli bir kisayol, kullanici "save" kelimesini dikte etmeye calistiginda kazara tetiklenebilir. Benzer sekilde, motor engelli kullanicilar gezinirken kazara karakter tuslarina basabilir.'
+          'Bu kriter, belirli bir sorunu gidermek için WCAG 2.1\'de tanıtıldı: ses girişi kullanıcıları metin dikte eder ve yazılımları konuşulan sözcükleri bireysel tuş vuruşları olarak yorumlar. Arama için "s" gibi tek karakterli bir kısayol, kullanıcı "save" kelimesini dikte etmeye çalıştığında kazara tetiklenebilir. Benzer şekilde, motor engelli kullanıcılar gezinirken kazara karakter tuşlarına basabilir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Dragon NaturallySpeaking gibi ses girisi yazilimlari, konusulan sozcukleri tus basma dizilerine donusturur. Bir web uygulamasinin tek karakterli kisayollari oldugunda, normal dikte istenmeyen komutlari tetikleyebilir. Ornegin, "send" demek "s", "e", "n" veya "d" tuslarinin hizli bir sekilde ardisik olarak kisayollarini etkinlestirebilir ve kullanici ne oldugunu anlamadan dort istenmeyen eylem gerceklestirilir.'
+          'Dragon NaturallySpeaking gibi ses girişi yazılımları, konuşulan sözcükleri tuş basma dizilerine dönüştürür. Bir web uygulamasinin tek karakterli kısayolları olduğunda, normal dikte istenmeyen komutlari tetikleyebilir. Örneğin, "send" demek "s", "e", "n" veya "d" tuslarinin hızlı bir şekilde ardisik olarak kısayollarını etkinlestirebilir ve kullanıcı ne olduğunu anlamadan dört istenmeyen eylem gerçekleştirilir.'
         ),
         p(
-          'Ekran klavyesi kullanan veya titremeye sahip motor engelli kullanicilar da tek karakterli kisayollari kazara tetikleyebilir. Bu kisayollari devre disi birakma veya yeniden eslestirme mekanizmasi olmadan arayuz ongurulmez ve sinir bozucu hale gelir. Degistirici tus kombinasyonlari (Ctrl+S, Alt+N) bu soruna sahip degildir cunku ses girisi yazilimi kazara degistirici tus kombinasyonlari uretmez.'
+          'Ekran klavyesi kullanan veya titremeye sahip motor engelli kullanıcılar da tek karakterli kısayolları kazara tetikleyebilir. Bu kısayolları devre dışı bırakma veya yeniden eşleştirme mekanizması olmadan arayüz ongurulmez ve sınır bozucu hale gelir. Degistirici tuş kombinasyonlari (Ctrl+S, Alt+N) bu soruna sahip değildir çünkü ses girişi yazılımı kazara değiştirici tuş kombinasyonlari uretmez.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Tek karakterli kisayollari tespit etmek, ses girisi yazilimiyla manuel kod incelemesi ve test gerektirir cunku kisayollar JavaScript ile uygulanir ve yalnizca DOM analizi ile guvenilir sekilde tespit edilemez.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Tek karakterli kısayolları tespit etmek, ses girişi yazilimiyla manuel kod incelemesi ve test gerektirir çünkü kısayollar JavaScript ile uygulanır ve yalnızca DOM analizi ile güvenilir şekilde tespit edilemez.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, tum klavye kisayollarinin belirlenmesini ve gereksinimleri karsilayip karsilamadiklarinin dogrulanmasini gerektirir.'),
-        numbered('Klavye kisayolu uygulamalari icin uygulama belgelerini ve kodu inceleyin.'),
-        numbered('Sayfada her harf, sayi, noktalama ve sembol tusunu tek tek basin. Degistirici tus olmadan tetiklenen kisayollari not edin.'),
-        numbered('Bulunan her tek karakterli kisayol icin, devre disi birakma veya yeniden eslestirme mekanizmasi oldugunu dogrulayin.'),
-        numbered('Belirli bilecenlere kapsamli kisayollarin yalnizca o bilesen odakta oldugunca etkin oldugunu dogrulayin.'),
-        numbered('Mumkunse ses girisi yazilimiyla (Dragon NaturallySpeaking) test edin ve sayfada metin dikte etmeyi deneyin.'),
-        bullet('Tum kisayollarin envanterini cikarimak icin klavye kisayolu belgelerini kontrol edin (genellikle "?" tusuyla goruntulenir).'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, tüm klavye kisayollarinin belirlenmesini ve gereksinimleri karşılayıp karsilamadiklarinin dogrulanmasini gerektirir.'),
+        numbered('Klavye kısayolu uygulamaları için uygulama belgelerini ve kodu inceleyin.'),
+        numbered('Sayfada her harf, sayı, noktalama ve sembol tusunu tek tek basın. Degistirici tuş olmadan tetiklenen kısayolları not edin.'),
+        numbered('Bulunan her tek karakterli kısayol için, devre dışı bırakma veya yeniden eşleştirme mekanizması olduğunu doğrulayın.'),
+        numbered('Belirli bilecenlere kapsamlı kisayollarin yalnızca o bileşen odakta olduğunca etkin olduğunu doğrulayın.'),
+        numbered('Mumkunse ses girişi yazilimiyla (Dragon NaturallySpeaking) test edin ve sayfada metin dikte etmeyi deneyin.'),
+        bullet('Tüm kisayollarin envanterini cikarimak için klavye kısayolu belgelerini kontrol edin (genellikle "?" tuşuyla görüntülenir).'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Karakter tusu kisayollarini uygun sekilde devre disi birakma, yeniden eslestirme veya kapsam belirleme mekanizmasi saglayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Karakter tuşu kısayollarını uygun şekilde devre dışı bırakma, yeniden eşleştirme veya kapsam belirleme mekanizması sağlayın.'),
 
-        heading('Kapatilaabilien veya yeniden eslestirilebilen kisayol', 'h3'),
+        heading('Kapatilaabilien veya yeniden eslestirilebilen kısayol', 'h3'),
         code(
-          '// Kisayol yapilandirma nesnesi\nconst kisayollar = {\n  ara: { tus: \'s\', etkin: true },\n  yardim: { tus: \'?\', etkin: true },\n  yeniOge: { tus: \'n\', etkin: true },\n};\n\n// Depolamadan yuklenen kullanici tercihleri\nconst tercihler = kullaniciTercihleriniYukle();\nObject.keys(kisayollar).forEach(eylem => {\n  if (tercihler[eylem]) {\n    kisayollar[eylem] = { ...kisayollar[eylem], ...tercihler[eylem] };\n  }\n});\n\ndocument.addEventListener(\'keydown\', (e) => {\n  // Kullanici giris alaninda yaziyorsa atla\n  if (e.target.matches(\'input, textarea, [contenteditable]\')) return;\n  // Degistirici tus basiliysa atla\n  if (e.ctrlKey || e.altKey || e.metaKey) return;\n\n  Object.entries(kisayollar).forEach(([eylem, yapilandirma]) => {\n    if (yapilandirma.etkin && e.key === yapilandirma.tus) {\n      e.preventDefault();\n      eylemiCalistir(eylem);\n    }\n  });\n});',
+          '// Kisayol yapılandırma nesnesi\nconst kısayollar = {\n  ara: { tuş: \'s\', etkin: true },\n  yardım: { tuş: \'?\', etkin: true },\n  yeniOge: { tuş: \'n\', etkin: true },\n};\n\n// Depolamadan yüklenen kullanıcı tercihleri\nconst tercihler = kullaniciTercihleriniYukle();\nObject.keys(kısayollar).forEach(eylem => {\n  if (tercihler[eylem]) {\n    kısayollar[eylem] = { ...kısayollar[eylem], ...tercihler[eylem] };\n  }\n});\n\ndocument.addEventListener(\'keydown\', (e) => {\n  // Kullanıcı giriş alanında yaziyorsa atla\n  if (e.target.matches(\'input, textarea, [contenteditable]\')) return;\n  // Degistirici tuş basiliysa atla\n  if (e.ctrlKey || e.altKey || e.metaKey) return;\n\n  Object.entries(kısayollar).forEach(([eylem, yapılandırma]) => {\n    if (yapılandırma.etkin && e.key === yapılandırma.tuş) {\n      e.preventDefault();\n      eylemiCalistir(eylem);\n    }\n  });\n});',
           'javascript'
         ),
 
-        heading('Kisayol yonetimi icin ayarlar arayuzu', 'h3'),
+        heading('Kisayol yönetimi için ayarlar arayüzü', 'h3'),
         code(
-          '<fieldset>\n  <legend>Klavye Kisayollari</legend>\n  <div>\n    <label>\n      <input type="checkbox" id="kisayollar-etkin"\n        checked onchange="tumKisayollariAcKapa(this.checked)">\n      Klavye kisayollarini etkinlestir\n    </label>\n  </div>\n  <table>\n    <thead>\n      <tr><th>Eylem</th><th>Tus</th><th>Etkin</th></tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Arama</td>\n        <td><input type="text" value="s" maxlength="1"\n          onchange="kisayoluYenidenEsle(\'ara\', this.value)"></td>\n        <td><input type="checkbox" checked\n          onchange="kisayoluAcKapa(\'ara\', this.checked)"></td>\n      </tr>\n    </tbody>\n  </table>\n</fieldset>',
+          '<fieldset>\n  <legend>Klavye Kısayolları</legend>\n  <div>\n    <label>\n      <input type="checkbox" id="kısayollar-etkin"\n        checked onchange="tumKisayollariAcKapa(this.checked)">\n      Klavye kısayollarını etkinleştir\n    </label>\n  </div>\n  <table>\n    <thead>\n      <tr><th>Eylem</th><th>Tus</th><th>Etkin</th></tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Arama</td>\n        <td><input type="text" value="s" maxlength="1"\n          onchange="kisayoluYenidenEsle(\'ara\', this.value)"></td>\n        <td><input type="checkbox" checked\n          onchange="kisayoluAcKapa(\'ara\', this.checked)"></td>\n      </tr>\n    </tbody>\n  </table>\n</fieldset>',
           'html'
         ),
 
-        heading('Kisayollari odakli bilecenlere kapsama', 'h3'),
+        heading('Kısayolları odaklı bilecenlere kapsama', 'h3'),
         code(
-          '// Yanlis: tek karakterli genel kisayol\ndocument.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'j\') sonrakineKaydir();\n  if (e.key === \'k\') oncekineKaydir();\n});\n\n// Dogru: kisayol yalnizca liste odakta oldugunca etkin\nconst liste = document.getElementById(\'oge-listesi\');\nliste.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'j\') sonrakineKaydir();\n  if (e.key === \'k\') oncekineKaydir();\n});',
+          '// Yanlış: tek karakterli genel kısayol\ndocument.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'j\') sonrakineKaydir();\n  if (e.key === \'k\') oncekineKaydir();\n});\n\n// Doğru: kısayol yalnızca liste odakta olduğunca etkin\nconst liste = document.getElementById(\'öğe-listesi\');\nliste.addEventListener(\'keydown\', (e) => {\n  if (e.key === \'j\') sonrakineKaydir();\n  if (e.key === \'k\') oncekineKaydir();\n});',
           'javascript'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Gmail tarzi tek tuslu kisayollari (gezinme icin j/k, yildiz icin s, arsivleme icin e) devre disi birakma secenegi olmadan uygulamak.'),
-        bullet('Oyun disi arayuzlerde kapatma yolu olmadan oyun tarzi klavye kontrolleri.'),
-        bullet('Kullanici arama alaninda veya metin alaninda yazarken etkin kalan tek karakterli kisayollar.'),
-        bullet('Kullanicilarin klavye kisayollarini goruntulemesi, devre disi birakmalari veya yeniden esletirmesi icin ayarlar sayfasi veya mekanizma olmamasi.'),
-        bullet('Kisayollarin bazi kullanicilar icin verimliligi artirdigi icin kontroller olmadan kabul edilebilir oldugunu varsaymak.'),
-        bullet('Degistirici olmadan tek karakter kullanan accesskey nitelikleri — tarayicilar bunlari tutarsiz sekilde isler.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Gmail tarzı tek tuslu kısayolları (gezinme için j/k, yıldız için s, arsivleme için e) devre dışı bırakma seçeneği olmadan uygulamak.'),
+        bullet('Oyun dışı arayuzlerde kapatma yolu olmadan oyun tarzı klavye kontrolleri.'),
+        bullet('Kullanıcı arama alanında veya metin alanında yazarken etkin kalan tek karakterli kısayollar.'),
+        bullet('Kullanıcıların klavye kısayollarını goruntulemesi, devre dışı birakmalari veya yeniden esletirmesi için ayarlar sayfası veya mekanizma olmaması.'),
+        bullet('Kisayollarin bazı kullanıcılar için verimliligi artırdığı için kontroller olmadan kabul edilebilir olduğunu varsaymak.'),
+        bullet('Degistirici olmadan tek karakter kullanan accesskey nitelikleri — tarayıcılar bunları tutarsız şekilde işler.'),
       ],
     },
 
@@ -792,9 +792,9 @@ const rules = [
           'Learn how to meet WCAG 2.1.4 Character Key Shortcuts. Provide mechanisms to disable or remap single-character keyboard shortcuts for speech input users.',
       },
       tr: {
-        metaTitle: 'WCAG 2.1.4 Karakter Tusu Kisayollari — Klavye Guvenlik Rehberi',
+        metaTitle: 'WCAG 2.1.4 Karakter Tuşu Kısayolları — Klavye Güvenlik Rehberi',
         metaDescription:
-          'WCAG 2.1.4 Karakter Tusu Kisayollari kriterini nasil karsilayacaginizi ogrenin. Ses girisi kullanicilari icin tek karakterli kisayollari devre disi birakma veya yeniden eslestirme mekanizmalari saglayin.',
+          'WCAG 2.1.4 Karakter Tuşu Kısayolları kriterini nasıl karşılayacağınızı öğrenin. Ses girişi kullanıcıları için tek karakterli kısayolları devre dışı bırakma veya yeniden eşleştirme mekanizmaları sağlayın.',
       },
     },
   },
@@ -817,7 +817,7 @@ const rules = [
 
     description: {
       en: 'For each time limit that is set by the content, the user can turn off, adjust, or extend the time limit.',
-      tr: 'Icerik tarafindan belirlenen her zaman siniri icin kullanici zaman sinirini kapatabilmeli, ayarlayabilmeli veya uzatabilmelidir.',
+      tr: 'İçerik tarafından belirlenen her zaman sınırı için kullanıcı zaman sınırını kapatabilmeli, ayarlayabilmeli veya uzatabilmelidir.',
     },
 
     content: {
@@ -885,62 +885,62 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.2.1, icerik bir zaman siniri uyguladiginda, kullanicilara bunu kapatma, ayarlama veya uzatma olanagi verilmesini gerektirir. Her zaman siniri icin su kosullardan en az biri dogru olmalidir: kullanici karsilasmadan once kapatabilmeli, varsayilanin en az 10 katina ayarlayabilmeli veya sure dolmadan once uyarilmali ve basit bir eylemle (bir tusa basmak gibi) en az 20 saniye uzatma firsati verilmeli ve en az 10 kez uzatabilmelidir.'
+          'WCAG 2.2.1, içerik bir zaman sınırı uyguladığında, kullanıcılara bunu kapatma, ayarlama veya uzatma olanagi verilmesini gerektirir. Her zaman sınırı için şu koşullardan en az biri doğru olmalıdır: kullanıcı karsilasmadan önce kapatabilmeli, varsayilanin en az 10 katina ayarlayabilmeli veya süre dolmadan önce uyarilmali ve basit bir eylemle (bir tusa basmak gibi) en az 20 saniye uzatma firsati verilmeli ve en az 10 kez uzatabilmelidir.'
         ),
         p(
-          'Sinirli istisnalar vardir: zaman sinirinin temel oldugu gercek zamanli olaylar (muzayede gibi), zaman sinirinin 20 saatten uzun oldugu durumlar ve faaliyeti gecersiz kilmadan degistirilemeyen temel zaman sinirlari. Guvenlik amaali oturum zaman asimlari yine de bir uyari ve uzatma mekanizmasi saglamalidir.'
+          'Sınırlı istisnalar vardır: zaman sınırının temel olduğu gerçek zamanlı olaylar (muzayede gibi), zaman sınırının 20 saatten uzun olduğu durumlar ve faaliyeti geçersiz kilmadan değiştirilemeyen temel zaman sınırları. Güvenlik amaali oturum zaman asimlari yine de bir uyarı ve uzatma mekanizması sağlamalıdır.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Engelli kullanicilar genellikle gorevleri tamamlamak icin onemli olcude daha fazla zamana ihtiyac duyar. Ekran okuyucu ile karmasik bir formda gezinen gorme engelli bir kullanici, gorebilen bir kullanicidan 5-10 kat daha uzun surede tamamlayabilir. Bilissel engelli kullanicilar icerigi okumak ve anlamak icin daha fazla zamana ihtiyac duyabilir. Motor engelli kullanicilar, varsayilan zaman asimi degerlerinin beklediginden cok daha yavas yazabilir veya gezinebilir.'
+          'Engelli kullanıcılar genellikle gorevleri tamamlamak için önemli ölçüde daha fazla zamana ihtiyaç duyar. Ekran okuyucu ile karmaşık bir formda gezinen görme engelli bir kullanıcı, gorebilen bir kullanicidan 5-10 kat daha uzun surede tamamlayabilir. Bilişsel engelli kullanıcılar içeriği okumak ve anlamak için daha fazla zamana ihtiyaç duyabilir. Motor engelli kullanıcılar, varsayılan zaman asimi değerlerinin beklediginden çok daha yavaş yazabilir veya gezinebilir.'
         ),
         p(
-          'Sessizce sona eren oturum zaman asimlari, kullanicilarin tum calismasini kaybetmelerine neden olabilir — yardimci teknoloji kullanarak 30 dakika boyunca dikkatlice bir formu dolduran biri icin ozellikle yikici bir deneyim. Ayarlanabilir zamanlama, hicbir kullanicinin daha fazla zamana ihtiyac duydugu icin haksiz yere cezalandirilmamasini saglar.'
+          'Sessizce sona eren oturum zaman asimlari, kullanıcıların tüm çalışmasını kaybetmelerine neden olabilir — yardımcı teknoloji kullanarak 30 dakika boyunca dikkatlice bir formu dolduran biri için özellikle yikici bir deneyim. Ayarlanabilir zamanlama, hiçbir kullanıcının daha fazla zamana ihtiyaç duydugu için haksiz yere cezalandirilmamasini sağlar.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Zaman sinirlari sunucu tarafi mantigi ve istemci tarafi JavaScript ile uygulanir, bu da otomatik DOM analizi ile tespit edilmesini zorlastirir. Kasitli olarak yavas etkilesimle manuel test gereklidir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Zaman sınırları sunucu tarafı mantigi ve istemci tarafı JavaScript ile uygulanır, bu da otomatik DOM analizi ile tespit edilmesini zorlaştırır. Kasitli olarak yavaş etkilesimle manuel test gereklidir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, tum zaman sinirli islevselliklerin belirlenmesini ve kullanicilarin zamanlamayi kontrol edebildiginin dogrulanmasini gerektirir.'),
-        numbered('Uygulamadaki tum zaman sinirlarini belirleyin: oturum zaman asimlari, form gonderme son tarihleri, otomatik ilerleyen slaytlar, gecici bildirimler.'),
-        numbered('Her zaman siniri icin kullanicinin kapatabilecegini, ayarlayabilecegini veya uzatabilecegini dogrulayin.'),
-        numbered('Uzatma mekanizmaysa: sure dolmadan en az 20 saniye once bir uyari gorunduguncu dogrulayin.'),
-        numbered('Uzatma eyleminin basit (herhangi bir tusa basma, dugmeye tiklama) ve en az 10 kez gerceklestirilelebilecegini dogrulayin.'),
-        numbered('Oturum zaman asimi davranisini test edin: uygulama sona ermeden once uyari veriyor mu? Kullanicilar oturumlarini uzatabilir mi?'),
-        bullet('Otomatik ilerleyen icerigin (slaytlar, slayt gosterileri) duraklatilabilecegini veya ayarlanabilir zamanlamaya sahip olup olmadigini kontrol edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, tüm zaman sınırlı islevselliklerin belirlenmesini ve kullanıcıların zamanlamayi kontrol edebildiginin dogrulanmasini gerektirir.'),
+        numbered('Uygulamadaki tüm zaman sinirlarini belirleyin: oturum zaman asimlari, form gönderme son tarihleri, otomatik ilerleyen slaytlar, geçiçi bildirimler.'),
+        numbered('Her zaman sınırı için kullanıcının kapatabilecegini, ayarlayabilecegini veya uzatabilecegini doğrulayın.'),
+        numbered('Uzatma mekanizmaysa: süre dolmadan en az 20 saniye önce bir uyarı gorunduguncu doğrulayın.'),
+        numbered('Uzatma eyleminin basit (herhangi bir tusa basma, düğmeye tıklama) ve en az 10 kez gerçekleştirilebileceğini doğrulayın.'),
+        numbered('Oturum zaman asimi davranisini test edin: uygulama sona ermeden önce uyarı veriyor mu? Kullanıcılar oturumlarini uzatabilir mi?'),
+        bullet('Otomatik ilerleyen içeriğin (slaytlar, slayt gösterileri) duraklatilabilecegini veya ayarlanabilir zamanlamaya sahip olup olmadığını kontrol edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Kullanicilarin oturumlarini sona ermeden once uzatmelerine olanak taniyan bir zaman asimi uyari diyalogu uygulayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Kullanıcıların oturumlarini sona ermeden önce uzatmelerine olanak tanıyan bir zaman asimi uyarı diyaloğu uygulayın.'),
 
         heading('Oturum zaman asimi uyarisi', 'h3'),
         code(
-          'const OTURUM_ZAMANI = 15 * 60 * 1000; // 15 dakika\nconst UYARI_SURESI = 60 * 1000; // 60 saniye once uyar\nlet zamanAsimiId, uyariId;\n\nfunction oturumZamanlayicisiniBaslat() {\n  clearTimeout(zamanAsimiId);\n  clearTimeout(uyariId);\n\n  uyariId = setTimeout(() => {\n    zamanAsimiUyarisiGoster();\n  }, OTURUM_ZAMANI - UYARI_SURESI);\n\n  zamanAsimiId = setTimeout(() => {\n    oturumuSonlandir();\n  }, OTURUM_ZAMANI);\n}\n\nfunction zamanAsimiUyarisiGoster() {\n  const diyalog = document.getElementById(\'zaman-asimi-diyalogu\');\n  diyalog.showModal();\n  diyalog.focus();\n  geriSayimiBaslat(60);\n}\n\nfunction oturumuUzat() {\n  oturumZamanlayicisiniBaslat();\n  document.getElementById(\'zaman-asimi-diyalogu\').close();\n  fetch(\'/api/oturumu-uzat\', { method: \'POST\' });\n}',
+          'const OTURUM_ZAMANI = 15 * 60 * 1000; // 15 dakika\nconst UYARI_SURESI = 60 * 1000; // 60 saniye önce uyar\nlet zamanAsimiId, uyariId;\n\nfunction oturumZamanlayicisiniBaslat() {\n  clearTimeout(zamanAsimiId);\n  clearTimeout(uyariId);\n\n  uyariId = setTimeout(() => {\n    zamanAsimiUyarisiGoster();\n  }, OTURUM_ZAMANI - UYARI_SURESI);\n\n  zamanAsimiId = setTimeout(() => {\n    oturumuSonlandir();\n  }, OTURUM_ZAMANI);\n}\n\nfunction zamanAsimiUyarisiGoster() {\n  const diyalog = document.getElementById(\'zaman-asimi-diyaloğu\');\n  diyalog.showModal();\n  diyalog.focus();\n  geriSayimiBaslat(60);\n}\n\nfunction oturumuUzat() {\n  oturumZamanlayicisiniBaslat();\n  document.getElementById(\'zaman-asimi-diyaloğu\').close();\n  fetch(\'/api/oturumu-uzat\', { method: \'POST\' });\n}',
           'javascript'
         ),
 
-        heading('Zaman asimi uyari diyalogu HTML', 'h3'),
+        heading('Zaman asimi uyarı diyaloğu HTML', 'h3'),
         code(
-          '<dialog id="zaman-asimi-diyalogu" role="alertdialog"\n  aria-labelledby="za-baslik"\n  aria-describedby="za-aciklama">\n  <h2 id="za-baslik">Oturum Sona Eriyor</h2>\n  <p id="za-aciklama">\n    Oturumunuz <span id="geri-sayim">60</span> saniye\n    icinde sona erecek. Kaydedilmemis degisiklikler\n    kaybolacaktir.\n  </p>\n  <button onclick="oturumuUzat()" autofocus>\n    Oturuma Devam Et\n  </button>\n  <button onclick="cikisYap()">\n    Cikis Yap\n  </button>\n</dialog>',
+          '<dialog id="zaman-asimi-diyaloğu" role="alertdialog"\n  aria-labelledby="za-başlık"\n  aria-describedby="za-açıklama">\n  <h2 id="za-başlık">Oturum Sona Eriyor</h2>\n  <p id="za-açıklama">\n    Oturumunuz <span id="geri-sayim">60</span> saniye\n    içinde sona erecek. Kaydedilmemis değişiklikler\n    kaybolacaktir.\n  </p>\n  <button onclick="oturumuUzat()" autofocus>\n    Oturuma Devam Et\n  </button>\n  <button onclick="cikisYap()">\n    Çıkış Yap\n  </button>\n</dialog>',
           'html'
         ),
 
         heading('Ayarlanabilir otomatik ilerleme zamanlmamasi', 'h3'),
         code(
-          '<!-- Zamanlama kontrolleri ile slayt gosterisi -->\n<div role="region" aria-label="One cikan icerik">\n  <div class="slaytlar"><!-- slaytlar --></div>\n  <div class="slayt-kontrolleri">\n    <button onclick="oncekiSlayt()"\n      aria-label="Onceki slayt">&#8592;</button>\n    <button onclick="otomatikIlerlemeAcKapa()"\n      aria-label="Otomatik ilerlemeyi duraklat"\n      id="duraklat-btn">&#10074;&#10074;</button>\n    <button onclick="sonrakiSlayt()"\n      aria-label="Sonraki slayt">&#8594;</button>\n  </div>\n  <label>\n    Otomatik ilerleme hizi:\n    <select onchange="hiziAyarla(this.value)">\n      <option value="0">Kapali</option>\n      <option value="10000">Yavas (10sn)</option>\n      <option value="5000" selected>Normal (5sn)</option>\n      <option value="3000">Hizli (3sn)</option>\n    </select>\n  </label>\n</div>',
+          '<!-- Zamanlama kontrolleri ile slayt gösterisi -->\n<div role="region" aria-label="Öne çıkan içerik">\n  <div class="slaytlar"><!-- slaytlar --></div>\n  <div class="slayt-kontrolleri">\n    <button onclick="oncekiSlayt()"\n      aria-label="Önceki slayt">&#8592;</button>\n    <button onclick="otomatikIlerlemeAcKapa()"\n      aria-label="Otomatik ilerlemeyi duraklat"\n      id="duraklat-btn">&#10074;&#10074;</button>\n    <button onclick="sonrakiSlayt()"\n      aria-label="Sonraki slayt">&#8594;</button>\n  </div>\n  <label>\n    Otomatik ilerleme hızı:\n    <select onchange="hiziAyarla(this.value)">\n      <option value="0">Kapalı</option>\n      <option value="10000">Yavaş (10sn)</option>\n      <option value="5000" selected>Normal (5sn)</option>\n      <option value="3000">Hizli (3sn)</option>\n    </select>\n  </label>\n</div>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Uyari vermeden sessizce sona eren oturum zaman asimlari, kullanicilarin kaydedilmemis calismasini kaybetmelerine neden olur.'),
-        bullet('Yalnizca birkac saniye gorunen ve uzatilamayan zaman asimi uyarilari.'),
-        bullet('Daha fazla zaman isteme secenegi olmayan form gonderme son tarihleri.'),
-        bullet('Duraklat dugmesi veya zamanlama kontrolleri olmayan otomatik ilerleyen slaytlar veya slayt gosterileri.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Uyari vermeden sessizce sona eren oturum zaman asimlari, kullanıcıların kaydedilmemis çalışmasını kaybetmelerine neden olur.'),
+        bullet('Yalnızca birkaç saniye görünen ve uzatilamayan zaman asimi uyarıları.'),
+        bullet('Daha fazla zaman isteme seçeneği olmayan form gönderme son tarihleri.'),
+        bullet('Duraklat düğmesi veya zamanlama kontrolleri olmayan otomatik ilerleyen slaytlar veya slayt gösterileri.'),
         bullet('Uzatma secenekleri olmayan sinav veya anket sayfalarindaki geri sayim zamanlayicilari.'),
-        bullet('Iptal etme yolu olmayan ara sayfalardaki yonlendirme zamanlayicilari (ornegin "5 saniye icinde yonlendirileceksiniz").'),
+        bullet('Iptal etme yolu olmayan ara sayfalardaki yönlendirme zamanlayicilari (örneğin "5 saniye içinde yonlendirileceksiniz").'),
       ],
     },
 
@@ -998,7 +998,7 @@ const rules = [
       tr: {
         metaTitle: 'WCAG 2.2.1 Zamanlama Ayarlanabilir — Oturum Zaman Asimi Rehberi',
         metaDescription:
-          'WCAG 2.2.1 Zamanlama Ayarlanabilir kriterini nasil karsilayacaginizi ogrenin. Kullanicilara web icerigindeki zaman sinirlarini kapatma, ayarlama veya uzatma olanagi saglayin.',
+          'WCAG 2.2.1 Zamanlama Ayarlanabilir kriterini nasıl karşılayacağınızı öğrenin. Kullanıcılara web icerigindeki zaman sinirlarini kapatma, ayarlama veya uzatma olanagi sağlayın.',
       },
     },
   },
@@ -1021,7 +1021,7 @@ const rules = [
 
     description: {
       en: 'For moving, blinking, scrolling, or auto-updating information, the user can pause, stop, or hide it.',
-      tr: 'Hareket eden, yanip sonen, kayan veya otomatik guncellenen bilgiler icin kullanici bunlari duraklatabilmeli, durdurabilmeli veya gizleyebilmelidir.',
+      tr: 'Hareket eden, yanıp sönen, kayan veya otomatik güncellenen bilgiler için kullanıcı bunları duraklatabilmeli, durdurabilmeli veya gizleyebilmelidir.',
     },
 
     content: {
@@ -1092,45 +1092,45 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.2.2, kullanicilarin hareket eden, yanip sonen, kayan ve otomatik guncellenen icerik uzerinde kontrol sahibi olmasini gerektirir. Kuralun iki kismi vardir: (1) otomatik olarak baslayan, bes saniyeden fazla suren ve diger icerikle birlikte sunulan hareket eden, yanip sonen veya kayan icerik icin kullanicilar duraklatabilmeli, durdurabilmeli veya gizleyebilmelidir; (2) otomatik olarak baslayan ve diger icerikle birlikte sunulan otomatik guncellenen icerik icin kullanicilar duraklatabilmeli, durdurabilmeli, gizleyebilmeli veya guncelleme sikligini kontrol edebilmelidir.'
+          'WCAG 2.2.2, kullanıcıların hareket eden, yanıp sönen, kayan ve otomatik güncellenen içerik üzerinde kontrol sahibi olmasını gerektirir. Kuralun iki kısmı vardır: (1) otomatik olarak başlayan, beş saniyeden fazla süren ve diğer içerikle birlikte sunulan hareket eden, yanıp sönen veya kayan içerik için kullanıcılar duraklatabilmeli, durdurabilmeli veya gizleyebilmelidir; (2) otomatik olarak başlayan ve diğer içerikle birlikte sunulan otomatik güncellenen içerik için kullanıcılar duraklatabilmeli, durdurabilmeli, gizleyebilmeli veya güncelleme sikligini kontrol edebilmelidir.'
         ),
         p(
-          'Bu kriter animasyonlari, otomatik oynayan videolari, kayan haber seritlerini, canli borsa kotasyonlarini, otomatik yenilenen icerik alanlarini, yanip sonen ogeleri ve benzer dinamik icerikleri kapsar. Istisna, hareket veya otomatik guncellemenin temel oldugu durumlarda gecerlidir — ornegin bir dosya yukleme sirasindaki ilerleme gostergesi.'
+          'Bu kriter animasyonlari, otomatik oynayan videoları, kayan haber seritlerini, canlı borsa kotasyonlarini, otomatik yenilenen içerik alanlarını, yanıp sönen öğeleri ve benzer dinamik içerikleri kapsar. İstisna, hareket veya otomatik guncellemenin temel olduğu durumlarda geçerlidir — örneğin bir dosya yükleme sırasındaki ilerleme göstergesi.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Hareket eden veya yanip sonen icerik, dikkat eksikligi bozuklugu veya bilissel engelli kullanicilar icin ciddi derecede dikkat dagitici olabilir. Bu kullanicilar, animasyonlar veya otomatik guncellenen ogeler dikkatleri icin rekabet ettiginde ana iceriklere odaklanamazlar. Bazi kullanicilar icin dikkat dagitma o kadar siddetlidir ki sayfayi hic kullanamazlar.'
+          'Hareket eden veya yanıp sönen içerik, dikkat eksikliği bozukluğu veya bilişsel engelli kullanıcılar için ciddi derecede dikkat dagitici olabilir. Bu kullanıcılar, animasyonlar veya otomatik güncellenen öğeler dikkatleri için rekabet ettiğinde ana içeriklere odaklanamazlar. Bazi kullanıcılar için dikkat dagitma o kadar siddetlidir ki sayfayı hiç kullanamazlar.'
         ),
         p(
-          'Ekran okuyucu kullanicilari farkli bir zorlukla karsi karsiyar: otomatik guncellenen icerik okuma akislarini kesintiye ugratabilir. Ekran okuyucu yakin icerikleri okurken bir haber seridi guncellenirse, okuma konumu bozulabilir veya ekran okuyucu guncellemeyi duyurarak konsantrasyonu bozabilir. Vestibular bozuklugu olan kullanicilar surekli hareketten bas donmesi veya mide bulantisi yasayabilir.'
+          'Ekran okuyucu kullanıcıları farklı bir zorlukla karşı karsiyar: otomatik güncellenen içerik okuma akışlarını kesintiye ugratabilir. Ekran okuyucu yakın içerikleri okurken bir haber seridi guncellenirse, okuma konumu bozulabilir veya ekran okuyucu guncellemeyi duyurarak konsantrasyonu bozabilir. Vestibular bozukluğu olan kullanıcılar sürekli hareketten bas donmesi veya mide bulantisi yasayabilir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
-        bullet('blink — <blink> ogelerinin kullanilmamasini saglar. <blink> ogesi, dikkat dagitici olan ve kullanicilar tarafindan duraklatilmayan yanip sonen icerik olusturur.'),
-        bullet('marquee — <marquee> ogelerinin kullanilmamasini saglar. <marquee> ogesi, kullanici tarafindan duraklatilmayan, durdurulamayan veya gizlenemeyen kayan metin olusturur.'),
+        heading('İlgili axe-core kuralları', 'h2'),
+        bullet('blink — <blink> öğelerinin kullanilmamasini sağlar. <blink> öğesi, dikkat dagitici olan ve kullanıcılar tarafından duraklatilmayan yanıp sönen içerik oluşturur.'),
+        bullet('marquee — <marquee> öğelerinin kullanilmamasini sağlar. <marquee> öğesi, kullanıcı tarafından duraklatilmayan, durdurulamayan veya gizlenemeyen kayan metin oluşturur.'),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Tum hareket eden, yanip sonen, kayan veya otomatik guncellenen icerikleri belirleyin ve kullanici kontrollerinin var oldugunu dogrulayin.'),
-        numbered('Sayfayi yukleyin ve hareket eden, yanip sonen, kayan veya otomatik guncellenen tum icerikleri belirleyin.'),
-        numbered('5 saniyeden fazla suren her hareket eden/yanip sonen/kayan oge icin duraklatma, durdurma veya gizleme mekanizmasinin var oldugunu dogrulayin.'),
-        numbered('Otomatik guncellenen icerik icin duraklatma, durdurma, gizleme veya guncelleme sikligini ayarlama kontrollerini dogrulayin.'),
-        numbered('Kullanimdan kalkmis <blink> ve <marquee> ogelerinin kullanimini tespit etmek icin axe-core calistirin.'),
-        numbered('Animasyonlari duraklatmanin bilgi kaybina neden olmadigini dogrulayin — kullanici devam edebilmeli veya icerige yetisebilmelidir.'),
-        bullet('Otomatik oynayan videolarin gorunur duraklatma kontrollerine sahip olup olmadigini ve duraklattiktan sonra otomatik olarak yeniden baslamalarini kontrol edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Tüm hareket eden, yanıp sönen, kayan veya otomatik güncellenen içerikleri belirleyin ve kullanıcı kontrollerinin var olduğunu doğrulayın.'),
+        numbered('Sayfayı yükleyin ve hareket eden, yanıp sönen, kayan veya otomatik güncellenen tüm içerikleri belirleyin.'),
+        numbered('5 saniyeden fazla süren her hareket eden/yanıp sönen/kayan öğe için duraklatma, durdurma veya gizleme mekanizmasının var olduğunu doğrulayın.'),
+        numbered('Otomatik güncellenen içerik için duraklatma, durdurma, gizleme veya güncelleme sikligini ayarlama kontrollerini doğrulayın.'),
+        numbered('Kullanimdan kalkmis <blink> ve <marquee> öğelerinin kullanımını tespit etmek için axe-core çalıştırın.'),
+        numbered('Animasyonlari duraklatmanin bilgi kaybina neden olmadığını doğrulayın — kullanıcı devam edebilmeli veya içeriğe yetisebilmelidir.'),
+        bullet('Otomatik oynayan videoların görünür duraklatma kontrollerine sahip olup olmadığını ve duraklattiktan sonra otomatik olarak yeniden baslamalarini kontrol edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Kontrol edilemeyen animasyonlu ogeleri, kullanici kontrolleri saglayan erisilebilir alternatiflerle degistirin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Kontrol edilemeyen animasyonlu öğeleri, kullanıcı kontrolleri sağlayan erişilebilir alternatiflerle değiştirin.'),
 
         heading('Marquee yerine kontrol edilebilir haber seridi', 'h3'),
         code(
-          '<!-- Yanlis: erisilemez marquee -->\n<marquee>Son dakika: Onemli guncelleme...</marquee>\n\n<!-- Dogru: duraklatma kontrollu CSS animasyonu -->\n<div class="haber-seridi" role="region"\n  aria-label="Haber seridi" aria-live="off">\n  <button onclick="seridiAcKapa()"\n    aria-label="Haber seridini duraklat"\n    id="serit-duraklat">Duraklat</button>\n  <div class="serit-icerik" id="serit">\n    <span>Son dakika: Onemli guncelleme...</span>\n  </div>\n</div>',
+          '<!-- Yanlış: erişilemez marquee -->\n<marquee>Son dakika: Önemli güncelleme...</marquee>\n\n<!-- Doğru: duraklatma kontrollü CSS animasyonu -->\n<div class="haber-seridi" role="region"\n  aria-label="Haber seridi" aria-live="off">\n  <button onclick="seridiAcKapa()"\n    aria-label="Haber seridini duraklat"\n    id="serit-duraklat">Duraklat</button>\n  <div class="serit-içerik" id="serit">\n    <span>Son dakika: Önemli güncelleme...</span>\n  </div>\n</div>',
           'html'
         ),
 
         heading('Haber seridi CSS ve JavaScript', 'h3'),
         code(
-          '.serit-icerik {\n  overflow: hidden;\n  white-space: nowrap;\n}\n\n.serit-icerik span {\n  display: inline-block;\n  animation: sola-kaydir 15s linear infinite;\n}\n\n.serit-icerik.duraklatildi span {\n  animation-play-state: paused;\n}\n\n@keyframes sola-kaydir {\n  0% { transform: translateX(100%); }\n  100% { transform: translateX(-100%); }\n}',
+          '.serit-içerik {\n  overflow: hidden;\n  white-space: nowrap;\n}\n\n.serit-içerik span {\n  display: inline-block;\n  animation: sola-kaydır 15s linear infinite;\n}\n\n.serit-içerik.duraklatildi span {\n  animation-play-state: paused;\n}\n\n@keyframes sola-kaydır {\n  0% { transform: translateX(100%); }\n  100% { transform: translateX(-100%); }\n}',
           'css'
         ),
         code(
@@ -1138,19 +1138,19 @@ const rules = [
           'javascript'
         ),
 
-        heading('Kontrolleri olan otomatik guncellenen icerik', 'h3'),
+        heading('Kontrolleri olan otomatik güncellenen içerik', 'h3'),
         code(
-          '<div role="region" aria-label="Canli akis"\n  aria-live="polite" id="canli-akis">\n  <div class="akis-kontrolleri">\n    <button onclick="guncellemeleriAcKapa()"\n      id="guncelleme-dugmesi">Guncellemeleri Duraklat</button>\n    <label>\n      Guncelleme sikligi:\n      <select onchange="sikligiAyarla(this.value)">\n        <option value="5000">Her 5 saniye</option>\n        <option value="15000">Her 15 saniye</option>\n        <option value="30000" selected>Her 30 saniye</option>\n        <option value="60000">Her dakika</option>\n        <option value="0">Yalnizca manuel</option>\n      </select>\n    </label>\n    <button onclick="simdiYenile()">Simdi Yenile</button>\n  </div>\n  <div id="akis-icerigi"><!-- Dinamik icerik --></div>\n</div>',
+          '<div role="region" aria-label="Canlı akış"\n  aria-live="polite" id="canlı-akış">\n  <div class="akış-kontrolleri">\n    <button onclick="guncellemeleriAcKapa()"\n      id="güncelleme-düğmesi">Guncellemeleri Duraklat</button>\n    <label>\n      Guncelleme sikligi:\n      <select onchange="sikligiAyarla(this.value)">\n        <option value="5000">Her 5 saniye</option>\n        <option value="15000">Her 15 saniye</option>\n        <option value="30000" selected>Her 30 saniye</option>\n        <option value="60000">Her dakika</option>\n        <option value="0">Yalnızca manuel</option>\n      </select>\n    </label>\n    <button onclick="simdiYenile()">Simdi Yenile</button>\n  </div>\n  <div id="akış-içeriği"><!-- Dinamik içerik --></div>\n</div>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('<blink> veya <marquee> ogeleri kullanmak, animasyon uzerinde kullanici kontrolu saglamaz.'),
-        bullet('Gorunur duraklatma kontrolu olmayan otomatik oynayan arka plan videolari.'),
-        bullet('Duraklatma mekanizmasi olmadan surekli donguye giren animasyonlu kahraman bannerlari veya slaytlar.'),
-        bullet('Duraklatma veya yenileme araligini ayarlama kontrolleri olmadan otomatik yenilenen veri tablolari veya panolar.'),
-        bullet('Duraklatmak icin JavaScript degistirici olmadan sonsuz donguye giren CSS animasyonlari.'),
-        bullet('Uzerine gelince duraklayan ancak klavye erisimli duraklatma mekanizmasi saglamayan hareketli icerik.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('<blink> veya <marquee> öğeleri kullanmak, animasyon üzerinde kullanıcı kontrolü sağlamaz.'),
+        bullet('Görünür duraklatma kontrolü olmayan otomatik oynayan arka plan videoları.'),
+        bullet('Duraklatma mekanizması olmadan sürekli donguye giren animasyonlu kahraman bannerlari veya slaytlar.'),
+        bullet('Duraklatma veya yenileme aralığını ayarlama kontrolleri olmadan otomatik yenilenen veri tabloları veya panolar.'),
+        bullet('Duraklatmak için JavaScript değiştirici olmadan sonsuz donguye giren CSS animasyonlari.'),
+        bullet('Üzerine gelince duraklayan ancak klavye erisimli duraklatma mekanizması sağlamayan hareketli içerik.'),
       ],
     },
 
@@ -1208,7 +1208,7 @@ const rules = [
       tr: {
         metaTitle: 'WCAG 2.2.2 Duraklat, Durdur, Gizle — Animasyon Kontrolleri Rehberi',
         metaDescription:
-          'WCAG 2.2.2 Duraklat, Durdur, Gizle kriterini nasil karsilayacaginizi ogrenin. Hareket eden, yanip sonen, kayan veya otomatik guncellenen icerikleri kontrol etme mekanizmalari saglayin.',
+          'WCAG 2.2.2 Duraklat, Durdur, Gizle kriterini nasıl karşılayacağınızı öğrenin. Hareket eden, yanıp sönen, kayan veya otomatik güncellenen içerikleri kontrol etme mekanizmaları sağlayın.',
       },
     },
   },
@@ -1231,7 +1231,7 @@ const rules = [
 
     description: {
       en: 'Timing is not an essential part of the event or activity presented by the content, except for non-interactive synchronized media and real-time events.',
-      tr: 'Etkilecimsiz senkronize medya ve gercek zamanli olaylar haric olmak uzere, zamanlama icerigin sundugu olay veya faaliyetin temel bir parcasi degildir.',
+      tr: 'Etkileşimsiz senkronize medya ve gerçek zamanlı olaylar hariç olmak üzere, zamanlama içeriğin sunduğu olay veya faaliyetin temel bir parçası değildir.',
     },
 
     content: {
@@ -1291,54 +1291,54 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.2.3, 2.2.1\'in (Zamanlama Ayarlanabilir) AAA seviyesindeki uzantisidir. 2.2.1 zaman sinirlarini kapatma, ayarlama veya uzatma mekanizmalari gerektirirken, 2.2.3 zamanlamanin icerik etkilesimlerinden tamamen kaldirilmasini gerektirerek daha da ileri gider. Kullanicilar herhangi bir gorevi hicbir zaman baskisi olmadan kendi hizlarinda tamamlayabilmelidir.'
+          'WCAG 2.2.3, 2.2.1\'in (Zamanlama Ayarlanabilir) AAA seviyesindeki uzantisidir. 2.2.1 zaman sinirlarini kapatma, ayarlama veya uzatma mekanizmaları gerektirirken, 2.2.3 zamanlamanin içerik etkilesimlerinden tamamen kaldirilmasini gerektirerek daha da ileri gider. Kullanıcılar herhangi bir görevi hiçbir zaman baskisi olmadan kendi hızlarında tamamlayabilmelidir.'
         ),
         p(
-          'Yalnizca iki istisna mevcuttur: etkilecimsiz senkronize medya (zamanlamanin icerigin dogasinda oldugu onceden kaydedilmis video/ses) ve gercek zamanli olaylar (canli yayinlar, muzayedeler). Diger her tur zaman siniri — oturum zaman asimlari, form son tarihleri, sinav zamanlayicilari, otomatik ilerleyen icerik — yalnizca ayarlanabilir hale getirilmemeli, tamamen kaldirilmalidir.'
+          'Yalnızca iki istisna mevcuttur: etkilecimsiz senkronize medya (zamanlamanin içeriğin dogasinda olduğu önceden kaydedilmiş video/ses) ve gerçek zamanlı olaylar (canlı yayınlar, muzayedeler). Diger her tür zaman sınırı — oturum zaman asimlari, form son tarihleri, sinav zamanlayicilari, otomatik ilerleyen içerik — yalnızca ayarlanabilir hale getirilmemeli, tamamen kaldirilmalidir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Ayarlanabilir zamanlamayla (2.2.1) bile, bazi kullanicilar bir zamanlayiciyi uzatmak icin yeterince hizli yanit veremeyebilir, bir zaman asimi uyarisini fark etmeyebilir veya uzatma surecinin kendisini rahatsiz edici bulabilir. Ciddi bilissel engelli kullanicilar zaman asimi kavramini hic anlamayabilir. Zamanlamayi tamamen ortadan kaldirmak bu engelleri ortadan kaldirir.'
+          'Ayarlanabilir zamanlamayla (2.2.1) bile, bazı kullanıcılar bir zamanlayiciyi uzatmak için yeterince hızlı yanıt veremeyebilir, bir zaman asimi uyarisini fark etmeyebilir veya uzatma sürecinin kendisini rahatsız edici bulabilir. Ciddi bilişsel engelli kullanıcılar zaman asimi kavramını hiç anlamayabilir. Zamanlamayi tamamen ortadan kaldırmak bu engelleri ortadan kaldırır.'
         ),
         p(
-          'AAA uyumlulugunu hedefleyen uygulamalar icin zaman sinirlarini kaldirmak, evrensel erisime baglilik gosterir. En ciddi engelleri olan kullanicilarin — onemli bilissel bozukluklari olanlar dahil — ilerlemeyi kaybetme veya dislanma kaygiici olmadan ihtiyac duyduklan hizda icerikle etkilesim kurmalarini saglar.'
+          'AAA uyumluluğunu hedefleyen uygulamalar için zaman sinirlarini kaldırmak, evrensel erişime baglilik gösterir. En ciddi engelleri olan kullanıcıların — önemli bilişsel bozukluklari olanlar dahil — ilerlemeyi kaybetme veya dislanma kaygiici olmadan ihtiyaç duyduklan hizda içerikle etkileşim kurmalarini sağlar.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Zaman sinirlarinin yoklugunu tespit etmek, uygulama mantigi, sunucu tarafi oturum yonetimi ve istemci tarafi zamanlayicilarin kapsamli manuel incelemesini gerektirir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Zaman sinirlarinin yokluğunu tespit etmek, uygulama mantigi, sunucu tarafı oturum yönetimi ve istemci tarafı zamanlayicilarin kapsamlı manuel incelemesini gerektirir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, tum zamanli islevselliklerin kapsamli bir envanterini ve zamanlamanin kaldirildiginin dogrulanmasini gerektirir.'),
-        numbered('Tum uygulamayi herhangi bir zaman siniri formu icin denetleyin: oturum zaman asimlari, form gonderme son tarihleri, otomatik ilerleyen icerik, geri sayim zamanlayicilari veya zamanli degerlendirmeler.'),
-        numbered('Bulunan her zaman siniri icin gercek zamanli olay veya senkronize medya istisnasi olarak nitelenip nitelenmedigini belirleyin.'),
-        numbered('Istisna olmayan zaman sinirlarinin yalnizca ayarlanabilir hale getirilmemis, tamamen kaldirildigini dogrulayin.'),
-        numbered('Sayfalari uzun sureler boyunca (saatlerce) acik birakin ve icerik etkilesimi icin oturum suresi dolmasi olmadigini dogrulayin.'),
-        numbered('Tum icerigin zaman baskisi olmadan kullanicinin kendi hizinda tuketilebilecegini onaylayin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, tüm zamanlı islevselliklerin kapsamlı bir envanterini ve zamanlamanin kaldirildiginin dogrulanmasini gerektirir.'),
+        numbered('Tüm uygulamayi herhangi bir zaman sınırı formu için denetleyin: oturum zaman asimlari, form gönderme son tarihleri, otomatik ilerleyen içerik, geri sayim zamanlayicilari veya zamanlı degerlendirmeler.'),
+        numbered('Bulunan her zaman sınırı için gerçek zamanlı olay veya senkronize medya istisnası olarak nitelenip nitelenmedigini belirleyin.'),
+        numbered('İstisna olmayan zaman sinirlarinin yalnızca ayarlanabilir hale getirilmemis, tamamen kaldirildigini doğrulayın.'),
+        numbered('Sayfalari uzun sureler boyunca (saatlerce) açık bırakın ve içerik etkileşimi için oturum süresi dolmasi olmadığını doğrulayın.'),
+        numbered('Tüm içeriğin zaman baskisi olmadan kullanıcının kendi hizinda tuketilebilecegini onaylayın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Zaman sinirlarini tamamen kaldirin veya guvenligin izin verdigi yerlerde suresiz oturumlar kullanin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Zaman sinirlarini tamamen kaldırın veya guvenligin izin verdigi yerlerde süresiz oturumlar kullanın.'),
 
         heading('Suresiz form oturumu', 'h3'),
         code(
-          '// Oturum zaman asimi yerine ilerlemeyi otomatik kaydedin\nlet otomatikKayitAraligi = setInterval(() => {\n  const formVerisi = formVerisiniTopla();\n  localStorage.setItem(\'form-taslak\', JSON.stringify(formVerisi));\n  // Ayrica sunucuya periyodik olarak kaydet\n  fetch(\'/api/taslak-kaydet\', {\n    method: \'POST\',\n    body: JSON.stringify(formVerisi),\n    headers: { \'Content-Type\': \'application/json\' }\n  }).catch(() => {\n    // Sessiz bsarisizlik — yerel depolama yedek olarak hizmet eder\n  });\n}, 30000); // Her 30 saniyede otomatik kaydet\n\n// Sayfa yuklemesinde taslagi geri yukle\nwindow.addEventListener(\'load\', () => {\n  const taslak = localStorage.getItem(\'form-taslak\');\n  if (taslak) {\n    formVerisiniGeriYukle(JSON.parse(taslak));\n  }\n});',
+          '// Oturum zaman asimi yerine ilerlemeyi otomatik kaydedin\nlet otomatikKayitAraligi = setInterval(() => {\n  const formVerisi = formVerisiniTopla();\n  localStorage.setItem(\'form-taslak\', JSON.stringify(formVerisi));\n  // Ayrıca sunucuya periyodik olarak kaydet\n  fetch(\'/api/taslak-kaydet\', {\n    method: \'POST\',\n    body: JSON.stringify(formVerisi),\n    headers: { \'Content-Type\': \'application/json\' }\n  }).catch(() => {\n    // Sessiz bsarisizlik — yerel depolama yedek olarak hizmet eder\n  });\n}, 30000); // Her 30 saniyede otomatik kaydet\n\n// Sayfa yüklemesinde taslağı geri yükle\nwindow.addEventListener(\'load\', () => {\n  const taslak = localStorage.getItem(\'form-taslak\');\n  if (taslak) {\n    formVerisiniGeriYukle(JSON.parse(taslak));\n  }\n});',
           'javascript'
         ),
 
         heading('Zamansiz degerlendirme', 'h3'),
         code(
-          '<!-- Yanlis: zamanli sinav -->\n<div class="sinav">\n  <p>Kalan sure: <span id="zamanlayici">05:00</span></p>\n  <!-- sinav sorulari -->\n</div>\n\n<!-- Dogru: ilerleme gostergeli zamansiz sinav -->\n<div class="sinav">\n  <p>Soru 3/10 — Ihtiyaciniz kadar zaman ayin</p>\n  <progress value="3" max="10"\n    aria-label="Sinav ilerlemesi: 10 sorunun 3. sorusu"></progress>\n  <!-- sinav sorulari -->\n</div>',
+          '<!-- Yanlış: zamanlı sinav -->\n<div class="sinav">\n  <p>Kalan süre: <span id="zamanlayici">05:00</span></p>\n  <!-- sinav soruları -->\n</div>\n\n<!-- Doğru: ilerleme göstergeli zamansiz sinav -->\n<div class="sinav">\n  <p>Soru 3/10 — Ihtiyaciniz kadar zaman ayin</p>\n  <progress value="3" max="10"\n    aria-label="Sinav ilerlemesi: 10 sorunun 3. sorusu"></progress>\n  <!-- sinav soruları -->\n</div>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Zaman sinirlarini tamamen ortadan kaldirmak yerine ayarlanabilir hale getirmek (yalnizca 2.2.1\'i karsilar, 2.2.3\'u degil).'),
-        bullet('Alternatif oturum yonetimi arastirmadan guvenlik politikalari nedeniyle kaldirilmayan oturum zaman asimlari.'),
-        bullet('Zamanlamanin test edilen beceriyi olcmek icin gercekten temel olmadigi zamanli degerlendirmeler veya sinavlar.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Zaman sinirlarini tamamen ortadan kaldırmak yerine ayarlanabilir hale getirmek (yalnızca 2.2.1\'i karşılar, 2.2.3\'u değil).'),
+        bullet('Alternatif oturum yönetimi arastirmadan güvenlik politikalari nedeniyle kaldirilmayan oturum zaman asimlari.'),
+        bullet('Zamanlamanin test edilen beceriyi ölçmek için gerçekten temel olmadığı zamanlı degerlendirmeler veya sinavlar.'),
         bullet('Kendi hizinda bir mod sunmayan otomatik ilerleyen sunumlar.'),
-        bullet('Sepet kaliciligi yerine kullanilan islem son tarihleri (ornegin "15 dakika icinde odemeyi tamamlayin").'),
+        bullet('Sepet kaliciligi yerine kullanılan işlem son tarihleri (örneğin "15 dakika içinde odemeyi tamamlayın").'),
       ],
     },
 
@@ -1389,7 +1389,7 @@ const rules = [
       tr: {
         metaTitle: 'WCAG 2.2.3 Zamanlama Yok — Zaman Sinirlarini Kaldirma Rehberi',
         metaDescription:
-          'WCAG 2.2.3 Zamanlama Yok hakkinda bilgi edinin. Bu AAA kriteri, kullanicilarin faaliyetleri kendi hizlarinda tamamlayabilmeleri icin zaman sinirlarinin tamamen kaldirilmasini gerektirir.',
+          'WCAG 2.2.3 Zamanlama Yok hakkında bilgi edinin. Bu AAA kriteri, kullanıcıların faaliyetleri kendi hızlarında tamamlayabilmeleri için zaman sinirlarinin tamamen kaldirilmasini gerektirir.',
       },
     },
   },
@@ -1412,7 +1412,7 @@ const rules = [
 
     description: {
       en: 'Interruptions can be postponed or suppressed by the user, except interruptions involving an emergency.',
-      tr: 'Acil durumlar haric, kesintiler kullanici tarafindan ertelenebilmeli veya bastirilabilmelidir.',
+      tr: 'Acil durumlar hariç, kesintiler kullanıcı tarafından ertelenebilmeli veya bastırılabilmelidir.',
     },
 
     content: {
@@ -1473,55 +1473,55 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.2.4, kullanicilarin uyarilar, bildirimler, canli guncellemeler ve dikkat gerektiren diger icerik degisiklikleri gibi kesintileri erteleyebilmesini veya bastirabilmesini gerektirir. Tek istisna gercek acil durumlar icindir — saglik, guvenlik veya veri butunlugu hakkinda aninda kullanici farkindaligu gerektiren uyarilar.'
+          'WCAG 2.2.4, kullanıcıların uyarilar, bildirimler, canlı guncellemeler ve dikkat gerektiren diğer içerik değişiklikleri gibi kesintileri erteleyebilmesini veya bastirabilmesini gerektirir. Tek istisna gerçek acil durumlar içindir — saglik, güvenlik veya veri butunlugu hakkında aninda kullanıcı farkindaligu gerektiren uyarilar.'
         ),
         p(
-          'Bu, push bildirimleri, toast mesajlari, sohbet acilik pencereleri, tanitim katmanlari, sistem uyarilari, canli icerik guncellemeleri ve kullanicinin dikkatini mevcut gorevinden saptiran herhangi bir mekanizma icin gecerlidir. Kullanicilar bu kesintileri kapatma, daha sonraya zamanlama veya guncellemeleri kontrol etmeyi secene kadar gorumemelerini saglamak icin bir yola sahip olmalidir.'
+          'Bu, push bildirimleri, toast mesajları, sohbet acilik pencereleri, tanıtım katmanları, sistem uyarıları, canlı içerik güncellemeleri ve kullanıcının dikkatini mevcut gorevinden saptiran herhangi bir mekanizma için geçerlidir. Kullanıcılar bu kesintileri kapatma, daha sonraya zamanlama veya güncellemeleri kontrol etmeyi secene kadar gorumemelerini sağlamak için bir yola sahip olmalıdır.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Kesintiler ozellikle bilissel engelli ve dikkat eksikligi bozuklugu olan kullanicilar icin rahatsiz edicidir. Her bildirim veya uyari, toparlanmak icin onemli zihinsel caba gerektirebilecek bir baglam degisikligi zorlar. Bellek bozuklugu olan kullanicilar, kesintiye ugradiktan sonra ne yaptiklarin tamamen unutabilir ve gorevlerine bastan baslamak zorunda kalabilir.'
+          'Kesintiler özellikle bilişsel engelli ve dikkat eksikliği bozukluğu olan kullanıcılar için rahatsız edicidir. Her bildirim veya uyarı, toparlanmak için önemli zihinsel caba gerektirebilecek bir bağlam değişikliği zorlar. Bellek bozukluğu olan kullanıcılar, kesintiye ugradiktan sonra ne yaptiklarin tamamen unutabilir ve gorevlerine bastan başlamak zorunda kalabilir.'
         ),
         p(
-          'Ekran okuyucu kullanicilari ozellikle etkilenir cunku ARIA canli alanlarini tetikleyen bildirimler, ekran okuyucunun o anda okudugunu keser. Engeli olmayan kullanicilar bile surekli kesintilere maruz kaldiginda azalan uretkenlik ve artan stres yasarlar. Arastirmalar, bir kesintiden sonra odagi tamamen yeniden kazanmanin ortalama 23 dakika aldidini gostermektedir.'
+          'Ekran okuyucu kullanıcıları özellikle etkilenir çünkü ARIA canlı alanlarını tetikleyen bildirimler, ekran okuyucunun o anda okudugunu keser. Engeli olmayan kullanıcılar bile sürekli kesintilere maruz kaldiginda azalan uretkenlik ve artan stres yasarlar. Araştırmalar, bir kesintiden sonra odağı tamamen yeniden kazanmanin ortalama 23 dakika aldidini göstermektedir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Kesinti davranisi, calisma zamani JavaScript mantigi, push bildirim API\'leri ve statik DOM analizi ile tespit edilemeyen sunucu tarafi olay sistemlerine baglidir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Kesinti davranisi, çalışma zamani JavaScript mantigi, push bildirim API\'leri ve statik DOM analizi ile tespit edilemeyen sunucu tarafı olay sistemlerine bağlıdır.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, tum kesinti kaynaklarini belirlemek icin sayfa uzerinde zaman icerisinde izleme gerektirir.'),
-        numbered('Uygulamayi uzun bir sure kullanin ve her bildirim, uyari, acilir pencere veya istenmeyen icerik degisikligini not edin.'),
-        numbered('Her kesinti icin bunu kapatmak veya ertelemek icin bir ayar olup olmadigini kontrol edin.'),
-        numbered('Bildirim tercihlerinin mevcut ve islevsel oldugunu dogrulayin (ornegin "Rahatsiz etmeyin" modu).'),
-        numbered('ARIA canli alanlarinin uygun sekilde kullanildigini ve kullanici tercihi ile bastirilabilecegini kontrol edin.'),
-        numbered('Kesintilerin kontrol edilebilecegini ve okuma akisini kontrolsuz sekilde bozmadidini dogrulamak icin bir ekran okuyucu ile test edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, tüm kesinti kaynaklarini belirlemek için sayfa üzerinde zaman icerisinde izleme gerektirir.'),
+        numbered('Uygulamayı uzun bir süre kullanın ve her bildirim, uyarı, açılır pencere veya istenmeyen içerik değişikliğini not edin.'),
+        numbered('Her kesinti için bunu kapatmak veya ertelemek için bir ayar olup olmadığını kontrol edin.'),
+        numbered('Bildirim tercihlerinin mevcut ve işlevsel olduğunu doğrulayın (örneğin "Rahatsiz etmeyin" modu).'),
+        numbered('ARIA canlı alanlarının uygun şekilde kullanıldığını ve kullanıcı tercihi ile bastirilabilecegini kontrol edin.'),
+        numbered('Kesintilerin kontrol edilebilecegini ve okuma akışını kontrolsuz şekilde bozmadidini doğrulamak için bir ekran okuyucu ile test edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Kullanicilarin kesintileri ne zaman ve nasil alacaklarini kontrol etmelerine olanak taniyan kapsamli bildirim tercihleri saglayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Kullanıcıların kesintileri ne zaman ve nasıl alacaklarini kontrol etmelerine olanak tanıyan kapsamlı bildirim tercihleri sağlayın.'),
 
         heading('Bildirim tercihleri', 'h3'),
         code(
-          '<fieldset>\n  <legend>Bildirim Tercihleri</legend>\n\n  <label>\n    <input type="checkbox" id="bildirim-etkin" checked\n      onchange="bildirimleriAcKapa(this.checked)">\n    Bildirimleri etkinlestir\n  </label>\n\n  <fieldset id="bildirim-secenekleri">\n    <legend>Etkinlestirildiginde bildirimleri goster:</legend>\n    <label>\n      <input type="checkbox" name="bildirim-turu"\n        value="mesajlar" checked> Yeni mesajlar\n    </label>\n    <label>\n      <input type="checkbox" name="bildirim-turu"\n        value="guncellemeler"> Icerik guncellemeleri\n    </label>\n    <label>\n      <input type="checkbox" name="bildirim-turu"\n        value="tanitimlar"> Tanitimlar\n    </label>\n  </fieldset>\n\n  <label>\n    <input type="checkbox" id="re-modu"\n      onchange="rahatsizEtmeyinModuAcKapa(this.checked)">\n    Rahatsiz etmeyin modu\n  </label>\n</fieldset>',
+          '<fieldset>\n  <legend>Bildirim Tercihleri</legend>\n\n  <label>\n    <input type="checkbox" id="bildirim-etkin" checked\n      onchange="bildirimleriAcKapa(this.checked)">\n    Bildirimleri etkinleştir\n  </label>\n\n  <fieldset id="bildirim-secenekleri">\n    <legend>Etkinlestirildiginde bildirimleri göster:</legend>\n    <label>\n      <input type="checkbox" name="bildirim-türü"\n        value="mesajlar" checked> Yeni mesajlar\n    </label>\n    <label>\n      <input type="checkbox" name="bildirim-türü"\n        value="guncellemeler"> İçerik güncellemeleri\n    </label>\n    <label>\n      <input type="checkbox" name="bildirim-türü"\n        value="tanitimlar"> Tanitimlar\n    </label>\n  </fieldset>\n\n  <label>\n    <input type="checkbox" id="re-modu"\n      onchange="rahatsizEtmeyinModuAcKapa(this.checked)">\n    Rahatsiz etmeyin modu\n  </label>\n</fieldset>',
           'html'
         ),
 
         heading('Kontrol edilebilir bildirim sistemi', 'h3'),
         code(
-          'class BildirimYoneticisi {\n  constructor() {\n    this.etkin = true;\n    this.rahatsizEtmeyin = false;\n    this.kuyruk = [];\n    this.izinVerilenTurler = new Set([\'mesajlar\', \'guncellemeler\']);\n  }\n\n  bildir(mesaj, tur = \'bilgi\', acilDurum = false) {\n    // Acil durumlar her zaman gosterilir\n    if (acilDurum) {\n      this.bildirimiGoster(mesaj, \'acil\');\n      return;\n    }\n\n    // Kullanici tercihlerine say\n    if (!this.etkin || !this.izinVerilenTurler.has(tur)) return;\n\n    if (this.rahatsizEtmeyin) {\n      this.kuyruk.push({ mesaj, tur });\n      return;\n    }\n\n    this.bildirimiGoster(mesaj, tur);\n  }\n\n  kuyruklanmislariGoster() {\n    this.kuyruk.forEach(oge =>\n      this.bildirimiGoster(oge.mesaj, oge.tur)\n    );\n    this.kuyruk = [];\n  }\n}',
+          'class BildirimYoneticisi {\n  constructor() {\n    this.etkin = true;\n    this.rahatsizEtmeyin = false;\n    this.kuyruk = [];\n    this.izinVerilenTurler = new Set([\'mesajlar\', \'guncellemeler\']);\n  }\n\n  bildir(mesaj, tür = \'bilgi\', acilDurum = false) {\n    // Acil durumlar her zaman gösterilir\n    if (acilDurum) {\n      this.bildirimiGoster(mesaj, \'acil\');\n      return;\n    }\n\n    // Kullanıcı tercihlerine say\n    if (!this.etkin || !this.izinVerilenTurler.has(tür)) return;\n\n    if (this.rahatsizEtmeyin) {\n      this.kuyruk.push({ mesaj, tür });\n      return;\n    }\n\n    this.bildirimiGoster(mesaj, tür);\n  }\n\n  kuyruklanmislariGoster() {\n    this.kuyruk.forEach(öğe =>\n      this.bildirimiGoster(öğe.mesaj, öğe.tür)\n    );\n    this.kuyruk = [];\n  }\n}',
           'javascript'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Ayarlarda devre disi birakma yolu olmadan otomatik olarak gorunen toast bildirimleri.'),
-        bullet('Bastirma tercihi olmadan istenmeyen sekilde acilan sohbet bilesenelri.'),
-        bullet('Davranis uzerinde kullanici kontrolu olmadan surekli guncelemeleri duyuran ARIA canli alanlari.'),
-        bullet('Zamanli araliklarla gorunen ve vazgecme mekanizmasi olmayan tanitim katmanlari veya bannerler.'),
-        bullet('Duraklatma veya gruplama yolu olmadan guncellemeleri iten gercek zamanli icerik akislari.'),
-        bullet('Baglam olmadan sayfa yuklemesinde hemen istenen tarayici push bildirimleri.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Ayarlarda devre dışı bırakma yolu olmadan otomatik olarak görünen toast bildirimleri.'),
+        bullet('Bastirma tercihi olmadan istenmeyen şekilde açılan sohbet bilesenelri.'),
+        bullet('Davranis üzerinde kullanıcı kontrolü olmadan sürekli guncelemeleri duyuran ARIA canlı alanları.'),
+        bullet('Zamanlı araliklarla görünen ve vazgecme mekanizması olmayan tanıtım katmanları veya bannerler.'),
+        bullet('Duraklatma veya gruplama yolu olmadan güncellemeleri iten gerçek zamanlı içerik akışları.'),
+        bullet('Bağlam olmadan sayfa yüklemesinde hemen istenen tarayıcı push bildirimleri.'),
       ],
     },
 
@@ -1570,9 +1570,9 @@ const rules = [
           'Learn about WCAG 2.2.4 Interruptions. This AAA criterion requires that users can postpone or suppress all non-emergency interruptions.',
       },
       tr: {
-        metaTitle: 'WCAG 2.2.4 Kesintiler — Bildirim Kontrolu Rehberi',
+        metaTitle: 'WCAG 2.2.4 Kesintiler — Bildirim Kontrolü Rehberi',
         metaDescription:
-          'WCAG 2.2.4 Kesintiler hakkinda bilgi edinin. Bu AAA kriteri, kullanicilarin acil olmayan tum kesintileri erteleyebilmesini veya bastirabilmesini gerektirir.',
+          'WCAG 2.2.4 Kesintiler hakkında bilgi edinin. Bu AAA kriteri, kullanıcıların acil olmayan tüm kesintileri erteleyebilmesini veya bastirabilmesini gerektirir.',
       },
     },
   },
@@ -1590,12 +1590,12 @@ const rules = [
 
     title: {
       en: 'Re-authenticating',
-      tr: 'Yeniden Kimlik Dogrulama',
+      tr: 'Yeniden Kimlik Doğrulama',
     },
 
     description: {
       en: 'When an authenticated session expires, the user can continue the activity without loss of data after re-authenticating.',
-      tr: 'Kimlik dogrulanmis bir oturum sona erdiginde, kullanici yeniden kimlik dogrulamasi yaptiktan sonra veri kaybi olmadan faaliyete devam edebilmelidir.',
+      tr: 'Kimlik doğrulanmış bir oturum sona erdiğinde, kullanıcı yeniden kimlik doğrulaması yaptıktan sonra veri kaybı olmadan faaliyete devam edebilmelidir.',
     },
 
     content: {
@@ -1657,56 +1657,56 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.2.5, kimlik dogrulanmis bir oturum sona erdiginde ve kullanici yeniden kimlik dogrulamasi yapmasi gerektiginde (tekrar giris yapmak), uygulamanin oturum sona ermeden onceki tum verileri ve durumu korumasini gerektirir. Tekrar giris yaptiktan sonra kullanici, tum form verileri, secimler ve ilerlemesi bozulmadan tam olarak kaldigi yere dondurilmelidir.'
+          'WCAG 2.2.5, kimlik doğrulanmış bir oturum sona erdiğinde ve kullanıcı yeniden kimlik doğrulaması yapması gerektiğinde (tekrar giriş yapmak), uygulamanin oturum sona ermeden önceki tüm verileri ve durumu korumasını gerektirir. Tekrar giriş yaptıktan sonra kullanıcı, tüm form verileri, secimler ve ilerlemesi bozulmadan tam olarak kaldigi yere dondurilmelidir.'
         ),
         p(
-          'Bu, oturumlarin sona ermesini engellemez — guvenlik gereksinimleri zaman asimlarini zorunlu kilabilir. Ancak oturum suresinin dolmasinin kullanicilari calismasini yok ederek cezalandirmamasini saglar. Uygulama, oturum sona ermeden once kullanicinin durumunu sunucu veya istemci tarafinda kaydetmeli ve yeniden kimlik dogrulamasindan sonra geri yuklemelidir.'
+          'Bu, oturumlarin sona ermesini engellemez — güvenlik gereksinimleri zaman asimlarini zorunlu kilabilir. Ancak oturum suresinin dolmasinin kullanıcıları çalışmasını yok ederek cezalandirmamasini sağlar. Uygulama, oturum sona ermeden önce kullanıcının durumunu sunucu veya istemci tarafında kaydetmeli ve yeniden kimlik dogrulamasindan sonra geri yuklemelidir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Engelli kullanicilar genellikle gorevleri tamamlamak icin onemli olcude daha uzun sure harcarlar. Karmasik bir formu ekran okuyucu ile dolduran gorme engelli bir kullanici 30-60 dakika surebilir. Oturum 45. dakikada sona erer ve tum form verileri kaybolursa, kullanici bastan baslamak zorundadir — potansiyel olarak bir saatlik dikkatli calismayi kaybeder. Bu, daha fazla zamana ihtiyac duyan engelli kullanicilari orantisiz olarak etkiler.'
+          'Engelli kullanıcılar genellikle gorevleri tamamlamak için önemli ölçüde daha uzun süre harcarlar. Karmaşık bir formu ekran okuyucu ile dolduran görme engelli bir kullanıcı 30-60 dakika surebilir. Oturum 45. dakikada sona erer ve tüm form verileri kaybolursa, kullanıcı bastan başlamak zorundadır — potansiyel olarak bir saatlik dikkatli calismayi kaybeder. Bu, daha fazla zamana ihtiyaç duyan engelli kullanıcıları orantisiz olarak etkiler.'
         ),
         p(
-          'Engeli olmayan kullanicilar icin bile, oturum zaman acimindan sonra veri kaybetmek sinir bozucu ve guveni zedeler. Bilissel engelli kullanicilar icin bir kesintiden sonra bilgileri hatirlamak ve yeniden girmek son derece zor olabilir. Yeniden kimlik dogrulama boyunca durumu korumak, surekliligi saglar ve kullanicinin zaman ve caba yatirimina saygi gosterir.'
+          'Engeli olmayan kullanıcılar için bile, oturum zaman acimindan sonra veri kaybetmek sınır bozucu ve guveni zedeler. Bilişsel engelli kullanıcılar için bir kesintiden sonra bilgileri hatirlamak ve yeniden girmek son derece zor olabilir. Yeniden kimlik doğrulama boyunca durumu korumak, surekliligi sağlar ve kullanıcının zaman ve caba yatirimina saygı gösterir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Oturum yonetimi ve veri koruma, istemci tarafi DOM analizi ile tespit edilemeyen sunucu tarafi konularidir. Oturum suresi dolma sinirlari boyunca manuel test gereklidir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Oturum yönetimi ve veri koruma, istemci tarafı DOM analizi ile tespit edilemeyen sunucu tarafı konularidir. Oturum süresi dolma sınırları boyunca manuel test gereklidir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, cesitli gorevler sirasinda oturum suresinin dolmasini tetiklemeyi ve veri korumanin dogrulanmasini gerektirir.'),
-        numbered('Kimlik dogrulanmisken bir formu doldurmaya veya cok adimli bir gorev gerceklestirmeye baslayin.'),
-        numbered('Oturumun sona ermesini bekleyin (veya gelistirici araclari ya da sunucu yapilandirmasi araciligiyla manuel olarak sonlandirin).'),
-        numbered('Yeniden kimlik dogrulamasi yapin (tekrar giris yapin).'),
-        numbered('Onceden girilen tum form verilerinin, secimlerin, kayma konumunun ve gorev ilerlemesinin geri yuklendigini dogrulayin.'),
-        numbered('Farkli etkinlik turleri boyunca test edin: formlar, dosya yuklemeleri, cok adimli sihirbazlar, icerik duzenleme.'),
-        bullet('Kullanicinin oturum sona ermeden once oldugu sayfa ve baglama yonlendirildigini dogrulayin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, çeşitli gorevler sırasında oturum suresinin dolmasini tetiklemeyi ve veri korumanin dogrulanmasini gerektirir.'),
+        numbered('Kimlik dogrulanmisken bir formu doldurmaya veya çok adımlı bir görev gerçekleştirmeye başlayın.'),
+        numbered('Oturumun sona ermesini bekleyin (veya geliştirici araçları ya da sunucu yapılandırması aracılığıyla manuel olarak sonlandirin).'),
+        numbered('Yeniden kimlik doğrulaması yapın (tekrar giriş yapın).'),
+        numbered('Önceden girilen tüm form verilerinin, secimlerin, kayma konumunun ve görev ilerlemesinin geri yuklendigini doğrulayın.'),
+        numbered('Farklı etkinlik türleri boyunca test edin: formlar, dosya yuklemeleri, çok adımlı sihirbazlar, içerik düzenleme.'),
+        bullet('Kullanıcının oturum sona ermeden önce olduğu sayfa ve bağlama yonlendirildigini doğrulayın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Oturum suresi dolmadan once veya sirasinda kullanici ilerlemesini kaydeden durum koruma uygulayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Oturum süresi dolmadan önce veya sırasında kullanıcı ilerlemesini kaydeden durum koruma uygulayın.'),
 
         heading('Oturum geri yuklemeli otomatik kaydetme', 'h3'),
         code(
-          '// Form durumunu periyodik olarak ve oturum sona ermeden once kaydedin\nfunction formDurumunuOtomatikKaydet(formId) {\n  const form = document.getElementById(formId);\n  const formVerisi = new FormData(form);\n  const durum = Object.fromEntries(formVerisi.entries());\n\n  // Sunucuya kaydet (kullanici hesabiyla iliskili)\n  fetch(\'/api/taslak-kaydet\', {\n    method: \'POST\',\n    headers: { \'Content-Type\': \'application/json\' },\n    body: JSON.stringify({\n      formId,\n      durum,\n      url: window.location.href,\n      kaydirmaKonumu: window.scrollY\n    })\n  });\n}\n\n// Her 30 saniyede otomatik kaydet\nsetInterval(() => formDurumunuOtomatikKaydet(\'ana-form\'), 30000);\n\n// Gorunurluk degisikliginde kaydet\ndocument.addEventListener(\'visibilitychange\', () => {\n  if (document.hidden) formDurumunuOtomatikKaydet(\'ana-form\');\n});',
+          '// Form durumunu periyodik olarak ve oturum sona ermeden önce kaydedin\nfunction formDurumunuOtomatikKaydet(formId) {\n  const form = document.getElementById(formId);\n  const formVerisi = new FormData(form);\n  const durum = Object.fromEntries(formVerisi.entries());\n\n  // Sunucuya kaydet (kullanıcı hesabiyla ilişkili)\n  fetch(\'/api/taslak-kaydet\', {\n    method: \'POST\',\n    headers: { \'Content-Type\': \'application/json\' },\n    body: JSON.stringify({\n      formId,\n      durum,\n      url: window.location.href,\n      kaydirmaKonumu: window.scrollY\n    })\n  });\n}\n\n// Her 30 saniyede otomatik kaydet\nsetInterval(() => formDurumunuOtomatikKaydet(\'ana-form\'), 30000);\n\n// Gorunurluk değişikliğinde kaydet\ndocument.addEventListener(\'visibilitychange\', () => {\n  if (document.hidden) formDurumunuOtomatikKaydet(\'ana-form\');\n});',
           'javascript'
         ),
 
-        heading('Yeniden kimlik dogrulamasindan sonra durumu geri yukleme', 'h3'),
+        heading('Yeniden kimlik dogrulamasindan sonra durumu geri yükleme', 'h3'),
         code(
-          '// Basarili giristen sonra kaydedilmis durumu kontrol edin\nasync function girisBasariliysa(kullaniciId) {\n  const yanit = await fetch(\n    `/api/taslak-geri-yukle?kullaniciId=${kullaniciId}`\n  );\n  const taslak = await yanit.json();\n\n  if (taslak && taslak.url) {\n    sessionStorage.setItem(\'geri-yukle-taslak\', JSON.stringify(taslak));\n    window.location.href = taslak.url;\n  }\n}\n\n// Sayfa yuklemesinde taslagi geri yukle\nwindow.addEventListener(\'load\', () => {\n  const taslak = sessionStorage.getItem(\'geri-yukle-taslak\');\n  if (taslak) {\n    const { durum, kaydirmaKonumu } = JSON.parse(taslak);\n    formVerisiniGeriYukle(durum);\n    window.scrollTo(0, kaydirmaKonumu);\n    sessionStorage.removeItem(\'geri-yukle-taslak\');\n    bildirimiGoster(\'Onceki ilerlemeniz geri yuklendi.\');\n  }\n});',
+          '// Başarılı giristen sonra kaydedilmiş durumu kontrol edin\nasync function girisBasariliysa(kullaniciId) {\n  const yanıt = await fetch(\n    `/api/taslak-geri-yükle?kullaniciId=${kullaniciId}`\n  );\n  const taslak = await yanıt.json();\n\n  if (taslak && taslak.url) {\n    sessionStorage.setItem(\'geri-yükle-taslak\', JSON.stringify(taslak));\n    window.location.href = taslak.url;\n  }\n}\n\n// Sayfa yüklemesinde taslağı geri yükle\nwindow.addEventListener(\'load\', () => {\n  const taslak = sessionStorage.getItem(\'geri-yükle-taslak\');\n  if (taslak) {\n    const { durum, kaydirmaKonumu } = JSON.parse(taslak);\n    formVerisiniGeriYukle(durum);\n    window.scrollTo(0, kaydirmaKonumu);\n    sessionStorage.removeItem(\'geri-yükle-taslak\');\n    bildirimiGoster(\'Önceki ilerlemeniz geri yuklendi.\');\n  }\n});',
           'javascript'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Oturum suresinin dolmasi, giris sayfasina ve ardindan orijinal sayfa yerine ana sayfaya yonlendirmek.'),
-        bullet('Form durumunu yalnizca sessionStorage\'da kaydetmek — bu, tarayici sekmesi kapatildiginda temizlenir.'),
-        bullet('Cok adimli sihirbazlar icin durumu kaydetmemek, kullanicinin is akisindaki konumunu kaybetmek.'),
-        bullet('Form girislerini geri yuklemek ancak yeniden yukleme gerektiren dosya yukleme secimlerini geri yuklememek.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Oturum suresinin dolmasi, giriş sayfasina ve ardından orijinal sayfa yerine ana sayfaya yönlendirmek.'),
+        bullet('Form durumunu yalnızca sessionStorage\'da kaydetmek — bu, tarayıcı sekmesi kapatıldığında temizlenir.'),
+        bullet('Çok adımlı sihirbazlar için durumu kaydetmemek, kullanıcının iş akisindaki konumunu kaybetmek.'),
+        bullet('Form girislerini geri yüklemek ancak yeniden yükleme gerektiren dosya yükleme secimlerini geri yuklememek.'),
         bullet('Kullaniciyi ilerlemesinin kaydedildigini ve yeniden kimlik dogrulamasindan sonra geri yuklenecegini bildirmemek.'),
-        bullet('Yalnizca en son sayfa icin durumu korumak, karmasik cok sekmeli is akislari icin degil.'),
+        bullet('Yalnızca en son sayfa için durumu korumak, karmaşık çok sekmeli iş akışları için değil.'),
       ],
     },
 
@@ -1755,9 +1755,9 @@ const rules = [
           'Learn about WCAG 2.2.5 Re-authenticating. Ensure users can continue activities without data loss after an authenticated session expires and they log back in.',
       },
       tr: {
-        metaTitle: 'WCAG 2.2.5 Yeniden Kimlik Dogrulama — Oturum Verisi Koruma Rehberi',
+        metaTitle: 'WCAG 2.2.5 Yeniden Kimlik Doğrulama — Oturum Verisi Koruma Rehberi',
         metaDescription:
-          'WCAG 2.2.5 Yeniden Kimlik Dogrulama hakkinda bilgi edinin. Kimlik dogrulanmis oturum sona erdikten ve yeniden giris yaptiktan sonra kullanicilarin veri kaybi olmadan faaliyete devam edebilmesini saglayin.',
+          'WCAG 2.2.5 Yeniden Kimlik Doğrulama hakkında bilgi edinin. Kimlik doğrulanmış oturum sona erdikten ve yeniden giriş yaptıktan sonra kullanıcıların veri kaybı olmadan faaliyete devam edebilmesini sağlayın.',
       },
     },
   },
@@ -1775,12 +1775,12 @@ const rules = [
 
     title: {
       en: 'Timeouts',
-      tr: 'Zaman Asimlari',
+      tr: 'Zaman Aşımları',
     },
 
     description: {
       en: 'Users are warned of the duration of any user inactivity that could cause data loss, unless the data is preserved for more than 20 hours of inactivity.',
-      tr: 'Veri kaybi yaratabilecek kullanici etkinsizligi suresi hakkinda kullanicilar uyarilmalidir, veriler 20 saatten fazla etkinsizlik boyunca korunmadigi surece.',
+      tr: 'Veri kaybı yaratabilecek kullanıcı etkinsizliği süresi hakkında kullanıcılar uyarılmalıdır, veriler 20 saatten fazla etkinsizlik boyunca korunmadığı sürece.',
     },
 
     content: {
@@ -1847,61 +1847,61 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.2.6, veri kaybina neden olabilecek herhangi bir etkinsizlik zaman asimi hakkinda kullanicilarin bilgilendirilmesini gerektirir. Uygulama bir etkinsizlik doneminden sonra kullanici verilerini kaybedecekse (oturum zaman asimi, alisveris sepeti suresi dolmasi, form verisi kaybi), kullanici surecrn basinda sure hakkinda uyarilmalidir. Istisna, verilerin 20 saatten fazla etkinsizlik boyunca korunmasid.'
+          'WCAG 2.2.6, veri kaybina neden olabilecek herhangi bir etkinsizlik zaman asimi hakkında kullanıcıların bilgilendirilmesini gerektirir. Uygulama bir etkinsizlik doneminden sonra kullanıcı verilerini kaybedecekse (oturum zaman asimi, alisveris sepeti süresi dolmasi, form verisi kaybı), kullanıcı surecrn başında süre hakkında uyarılmalıdır. İstisna, verilerin 20 saatten fazla etkinsizlik boyunca korunmasid.'
         ),
         p(
-          'Bu, 2.2.1\'den (ayarlanabilir zamanlama gerektiren) ve 2.2.5\'ten (yeniden kimlik dogrulamasindan sonra veri koruma gerektiren) farklidir. Bu kriter ozellikle seffaflik hakkindadir: kullanicilara bir zaman asiminin var oldugunu ve ne kadar sureleri oldugunu onceden soylemek, boylece buna gore plan yapabilirler. Kullanicilar bir goreve baslamadan once tamamlamak icin sinirli bir pencereleri oldugunu bilmelidir.'
+          'Bu, 2.2.1\'den (ayarlanabilir zamanlama gerektiren) ve 2.2.5\'ten (yeniden kimlik dogrulamasindan sonra veri koruma gerektiren) farklidir. Bu kriter özellikle seffaflik hakkindadir: kullanıcılara bir zaman asiminin var olduğunu ve ne kadar sureleri olduğunu önceden soylemek, böylece buna göre plan yapabilirler. Kullanıcılar bir göreve baslamadan önce tamamlamak için sınırlı bir pencereleri olduğunu bilmelidir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Bircok kullanici oturumlarin sona erebileceginin veya etkinsizligin veri kaybina neden olabileceginin farkinda degildir. Gorevleri tamamlamak icin ekstra zamana ihtiyac duyan engelli kullanicilar dinlenmek icin bilgisayardan uzaklasabilir, farkli bir yardimci teknolojiye gecebilir veya zaman asiminin ongordugundan daha yavas calisabilir. Zaman asimi suresi hakkinda acik bir uyari olmadan bu kullanicilar bilmeden calismalarini kaybedebilir.'
+          'Birçok kullanıcı oturumlarin sona erebileceginin veya etkinsizligin veri kaybina neden olabileceginin farkinda değildir. Gorevleri tamamlamak için ekstra zamana ihtiyaç duyan engelli kullanıcılar dinlenmek için bilgisayardan uzaklasabilir, farklı bir yardımcı teknolojiye gecebilir veya zaman asiminin ongordugundan daha yavaş çalışabilir. Zaman asimi süresi hakkında açık bir uyarı olmadan bu kullanıcılar bilmeden calismalarini kaybedebilir.'
         ),
         p(
-          'Zaman asimlari hakkinda seffaflik, kullanicilarin yaklasimlarini planlamalarini saglar. 15 dakika icinde bir formu tamamlamasi gerektigini bilen bir kullanici once tum bilgileri toplayip toplamayacagina karar verebilir. Alisveris sepetinin 30 dakika sonra sona erecegini bilen bir kullanici satin almayi tamamlamayi oncelik haline getirebilir. Bu bilgi ozellikle dinlenme molalari planlamasi gereken veya daha yavas tempoda calisan kullanicilar icin kritiktir.'
+          'Zaman asimlari hakkında seffaflik, kullanıcıların yaklasimlarini planlamalarini sağlar. 15 dakika içinde bir formu tamamlamasi gerektiğini bilen bir kullanıcı önce tüm bilgileri toplayip toplamayacagina karar verebilir. Alisveris sepetinin 30 dakika sonra sona erecegini bilen bir kullanıcı satın almayi tamamlamayi öncelik haline getirebilir. Bu bilgi özellikle dinlenme molalari planlamasi gereken veya daha yavaş tempoda çalışan kullanıcılar için kritiktir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Zaman asimi uyarilari, kullanici arayuzu ve belgelerin manuel incelemesi ile dogrulanmasi gereken bir tasarim ve icerik gereksinimidir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Zaman asimi uyarıları, kullanıcı arayüzü ve belgelerin manuel incelemesi ile doğrulanması gereken bir tasarım ve içerik gereksinimidir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, tum etkinsizlik zaman asimlarinin belirlenmesini ve kullanicilarin bunlar hakkinda uyarildiginin dogrulanmasini gerektirir.'),
-        numbered('Etkinsizlik nedeniyle kullanici verilerinin kaybolabilecegi tum yerleri belirleyin: oturum zaman asimlari, form verisi suresi dolmasi, alisveris sepeti zaman asimlari.'),
-        numbered('Kullanicilarin etkilenen faaliyete baslamadan once zaman asimi suresi hakkinda uyarildigini dogrulayin.'),
-        numbered('Uyarinin acik, belirgin ve anlasilir oldugundan (kullanim kosullarina gomulmemis) emin olun.'),
-        numbered('Belirtilen zaman asimi suresinin dogru oldugunu dogrulayin.'),
-        numbered('Veriler 20 saatten fazla korunuyorsa, bu iddianin uzun sureli etkinsizlik testi ile dogru oldugunu dogrulayin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, tüm etkinsizlik zaman asimlarinin belirlenmesini ve kullanıcıların bunlar hakkında uyarildiginin dogrulanmasini gerektirir.'),
+        numbered('Etkinsizlik nedeniyle kullanıcı verilerinin kaybolabilecegi tüm yerleri belirleyin: oturum zaman asimlari, form verisi süresi dolmasi, alisveris sepeti zaman asimlari.'),
+        numbered('Kullanıcıların etkilenen faaliyete baslamadan önce zaman asimi süresi hakkında uyarildigini doğrulayın.'),
+        numbered('Uyarinin açık, belirgin ve anlaşılır olduğundan (kullanım koşullarına gomulmemis) emin olun.'),
+        numbered('Belirtilen zaman asimi suresinin doğru olduğunu doğrulayın.'),
+        numbered('Veriler 20 saatten fazla korunuyorsa, bu iddianin uzun süreli etkinsizlik testi ile doğru olduğunu doğrulayın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Etkinsizligin veri kaybina neden olabilecegi herhangi bir surecin basinda acik zaman asimi uyarilari saglayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Etkinsizligin veri kaybina neden olabilecegi herhangi bir sürecin başında açık zaman asimi uyarıları sağlayın.'),
 
         heading('Formlarda zaman asimi uyarisi', 'h3'),
         code(
-          '<form id="basvuru-formu">\n  <div role="alert" class="zaman-asimi-bildirimi">\n    <p>\n      <strong>Onemli:</strong> Bu form ilerlemenizi otomatik\n      olarak kaydeder. Ancak oturumunuz 30 dakika\n      etkinsizlikten sonra sona erecektir. Lutfen formu bu\n      sure icinde tamamlayin ve gonderin, aksi takdirde\n      kaydedilmemis degisiklikleriniz kaybolabilir.\n    </p>\n  </div>\n\n  <!-- Form alanlari -->\n  <label for="isim">Tam isim</label>\n  <input type="text" id="isim" name="isim">\n  <!-- ... diger alanlar ... -->\n</form>',
+          '<form id="basvuru-formu">\n  <div role="alert" class="zaman-asimi-bildirimi">\n    <p>\n      <strong>Önemli:</strong> Bu form ilerlemenizi otomatik\n      olarak kaydeder. Ancak oturumunuz 30 dakika\n      etkinsizlikten sonra sona erecektir. Lütfen formu bu\n      süre içinde tamamlayın ve gönderin, aksi takdirde\n      kaydedilmemis değişiklikleriniz kaybolabilir.\n    </p>\n  </div>\n\n  <!-- Form alanları -->\n  <label for="isim">Tam isim</label>\n  <input type="text" id="isim" name="isim">\n  <!-- ... diğer alanlar ... -->\n</form>',
           'html'
         ),
 
         heading('Alisveris sepeti zaman asimi bildirimi', 'h3'),
         code(
-          '<div class="sepet-baslik">\n  <h1>Alisveris Sepetiniz</h1>\n  <p class="zaman-asimi-bilgisi" role="status">\n    Sepetinizdeki urunler <strong>60 dakika</strong>\n    boyunca ayrilmistir. Bu sureden sonra, stok sinirli\n    ise kullanilamaz hale gelebilir.\n  </p>\n</div>',
+          '<div class="sepet-başlık">\n  <h1>Alisveris Sepetiniz</h1>\n  <p class="zaman-asimi-bilgisi" role="status">\n    Sepetinizdeki ürünler <strong>60 dakika</strong>\n    boyunca ayrilmistir. Bu sureden sonra, stok sınırlı\n    ise kullanılamaz hale gelebilir.\n  </p>\n</div>',
           'html'
         ),
 
-        heading('Giris sayfasi zaman asimi aciklamasi', 'h3'),
+        heading('Giriş sayfası zaman asimi açıklaması', 'h3'),
         code(
-          '<div class="oturum-bilgisi">\n  <h2>Oturum Bilgisi</h2>\n  <p>\n    Guvenlik icin oturumunuz <strong>15 dakika</strong>\n    etkinsizlikten sonra sona erecektir. Oturumunuz\n    sona ermeden once uzatmaniz istenecektir.\n  </p>\n</div>',
+          '<div class="oturum-bilgisi">\n  <h2>Oturum Bilgisi</h2>\n  <p>\n    Güvenlik için oturumunuz <strong>15 dakika</strong>\n    etkinsizlikten sonra sona erecektir. Oturumunuz\n    sona ermeden önce uzatmaniz istenecektir.\n  </p>\n</div>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Yalnizca kullanim kosullarinda veya yardim sayfalarinda belgelenen, etkilesim noktasinda gosterilmeyen oturum zaman asimlari.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Yalnızca kullanım kosullarinda veya yardım sayfalarında belgelenen, etkileşim noktasında gösterilmeyen oturum zaman asimlari.'),
         bullet('Sureyi belirtmeden "Oturumunuz sona erebilir" gibi belirsiz uyarilar.'),
-        bullet('Gorsel olarak mevcut ancak ekran okuyuculari tarafindan erisilebilir olmayan zaman asimi bilgisi.'),
-        bullet('Uygulamanin farkli bolumleri icin bireysel uyarilar olmadan farkli zaman asimi sureleri.'),
-        bullet('Onceden zaman asimi aciklamasi olmadan sessizce sona eren alisveris sepetleri.'),
-        bullet('Etkinsizlige ozgu zaman asimlari hakkinda (mutlak oturum suresinin aksine) uyari vermemek.'),
+        bullet('Görsel olarak mevcut ancak ekran okuyuculari tarafından erişilebilir olmayan zaman asimi bilgisi.'),
+        bullet('Uygulamanin farklı bölümleri için bireysel uyarilar olmadan farklı zaman asimi sureleri.'),
+        bullet('Önceden zaman asimi açıklaması olmadan sessizce sona eren alisveris sepetleri.'),
+        bullet('Etkinsizlige özgü zaman asimlari hakkında (mutlak oturum suresinin aksine) uyarı vermemek.'),
       ],
     },
 
@@ -1950,9 +1950,9 @@ const rules = [
           'Learn about WCAG 2.2.6 Timeouts. This AAA criterion requires warning users about inactivity timeouts that could cause data loss.',
       },
       tr: {
-        metaTitle: 'WCAG 2.2.6 Zaman Asimlari — Etkinsizlik Uyarisi Rehberi',
+        metaTitle: 'WCAG 2.2.6 Zaman Aşımları — Etkinsizlik Uyarisi Rehberi',
         metaDescription:
-          'WCAG 2.2.6 Zaman Asimlari hakkinda bilgi edinin. Bu AAA kriteri, veri kaybina neden olabilecek etkinsizlik zaman asimlari hakkinda kullanicilarin uyarilmasini gerektirir.',
+          'WCAG 2.2.6 Zaman Aşımları hakkında bilgi edinin. Bu AAA kriteri, veri kaybina neden olabilecek etkinsizlik zaman asimlari hakkında kullanıcıların uyarilmasini gerektirir.',
       },
     },
   },
@@ -1970,12 +1970,12 @@ const rules = [
 
     title: {
       en: 'Three Flashes or Below Threshold',
-      tr: 'Uc Yanip Sonme veya Esik Altinda',
+      tr: 'Üç Yanıp Sönme veya Eşik Altında',
     },
 
     description: {
       en: 'Web pages do not contain anything that flashes more than three times in any one-second period, or the flash is below the general flash and red flash thresholds.',
-      tr: 'Web sayfalari herhangi bir bir saniyelik donemde ucten fazla kez yanip sonen hicbir sey icermez veya yanip sonme genel yanip sonme ve kirmizi yanip sonme esiklerinin altindadir.',
+      tr: 'Web sayfaları herhangi bir bir saniyelik dönemde üçten fazla kez yanıp sönen hiçbir şey içermez veya yanıp sönme genel yanıp sönme ve kırmızı yanıp sönme eşiklerinin altındadır.',
     },
 
     content: {
@@ -2043,62 +2043,62 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.3.1, kullanicilari nobetleri tetikleyebilecek icerikten korur. Web sayfalari, yanip sonen icerik genel yanip sonme esiginin ve kirmizi yanip sonme esiginin altina dusecek kadar kucuk ve soluk olmadikca, saniyede ucten fazla kez yanip sonen hicbir sey icermemelidir. Bu kritik bir guvenlik kriteridir — ihlaller fiziksel zarara neden olabilir.'
+          'WCAG 2.3.1, kullanıcıları nobetleri tetikleyebilecek içerikten korur. Web sayfaları, yanıp sönen içerik genel yanıp sönme esiginin ve kırmızı yanıp sönme esiginin altına dusecek kadar küçük ve soluk olmadıkça, saniyede üçten fazla kez yanıp sönen hiçbir şey içermemelidir. Bu kritik bir güvenlik kriteridir — ihlaller fiziksel zarara neden olabilir.'
         ),
         p(
-          'Genel yanip sonme esigi, bir saniyelik donemde uc veya daha fazla yanip sonme oldugunda ve yanip sonen icerigin toplam alani yeterince buyuk oldugunda (tipik izleme mesafesinde yaklasik 341 x 256 piksel alan) asisilir. Kirmizi yanip sonme esigi ozellikle doymus kirmizi iceren gecisler icin gecerlidir. Icerik yalnizca her iki esik de asisilmazsa saniyede ucten fazla kez yanip sonebilir.'
+          'Genel yanıp sönme eşiği, bir saniyelik dönemde üç veya daha fazla yanıp sönme olduğunda ve yanıp sönen içeriğin toplam alanı yeterince büyük olduğunda (tipik izleme mesafesinde yaklaşık 341 x 256 piksel alan) asisilir. Kırmızı yanıp sönme eşiği özellikle doymus kırmızı içeren geçişler için geçerlidir. İçerik yalnızca her iki eşik de asisilmazsa saniyede üçten fazla kez yanıp sonebilir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Yaklasik 4.000 kisiden 1\'inde fotosensitif epilepsi vardir; bu, yanip sonen isiklar veya hizla degisen gorsel kaliplarin nobetleri tetikleyebildigi bir durumdur. Nobetler kisa sureli farkindalik kaybindan tam konvulziyonlara kadar degisir ve tibbi olarak tehlikeli olabilir. En bilinen olay, hizla yanip sonen kirmizi ve mavi animasyonlar nedeniyle yaklasik 700 Japon cocugunda nobetlere neden olan 1997 Pokemon bolumudur.'
+          'Yaklasik 4.000 kisiden 1\'inde fotosensitif epilepsi vardır; bu, yanıp sönen isiklar veya hızla değişen görsel kaliplarin nobetleri tetikleyebildigi bir durumdur. Nobetler kısa süreli farkindalik kaybindan tam konvulziyonlara kadar değişir ve tıbbi olarak tehlikeli olabilir. En bilinen olay, hızla yanıp sönen kırmızı ve mavi animasyonlar nedeniyle yaklaşık 700 Japon cocugunda nobetlere neden olan 1997 Pokemon bolumudur.'
         ),
         p(
-          'Epilepsinin otesinde, yanip sonen icerik fotosensitivite veya vestibular bozuklugu olan kisilerde migren, bas donmesi, mide bulantisi ve yonelim bozukluguna neden olabilir. Sonucun rahatsizlik veya bir ozelligni kullanamamak oldugu cogu erisilebilirlik sorunundan farkli olarak, bu kriterin ihlalleri aninda fiziksel zarara neden olabilir. Bu, onu en kritik WCAG gereksinimlerinden biri yapar.'
+          'Epilepsinin ötesinde, yanıp sönen içerik fotosensitivite veya vestibular bozukluğu olan kisilerde migren, bas donmesi, mide bulantisi ve yönelim bozukluğuna neden olabilir. Sonucun rahatsızlık veya bir ozelligni kullanamamak olduğu çoğu erişilebilirlik sorunundan farklı olarak, bu kriterin ihlalleri aninda fiziksel zarara neden olabilir. Bu, onu en kritik WCAG gereksinimlerinden biri yapar.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Yanip sonme sikligi ve esik ihlallerini tespit etmek, Fotosensitif Epilepsi Analiz Araci (PEAT) veya Harding testi gibi ozel araclarla kare kare video analizi gerektirir. Otomatik DOM analizi yanip sonen icerigi guvenilir sekilde tespit edemez.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Yanıp sönme sikligi ve eşik ihlallerini tespit etmek, Fotosensitif Epilepsi Analiz Araçı (PEAT) veya Harding testi gibi özel araclarla kare kare video analizi gerektirir. Otomatik DOM analizi yanıp sönen içeriği güvenilir şekilde tespit edemez.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, gorsel icerigin yanip sonme sikligi ve boyutu icin analiz edilmesini gerektirir.'),
-        numbered('Sayfadaki tum video iceriklerini, animasyonlari, GIF\'leri ve dinamik gorsel efektleri inceleyin.'),
-        numbered('Yanip sonuyor gibi gorunen herhangi bir icerik icin saniyede yanip sonme sayisini sayin. Saniyede ucten fazla potansiyel bir ihlaldir.'),
-        numbered('Video icerigini esik ihlalleri icin analiz etmek uzere Fotosensitif Epilepsi Analiz Araci\'ni (PEAT) kullanin.'),
-        numbered('Hizli renk veya parlaklak gecisleri icin CSS animasyonlarini ve JavaScript odakli gorsel degisiklikleri kontrol edin.'),
-        numbered('Kirmizi iceren gecislere ozellikle dikkat edin — bunlar nobetleri tetiklemek icin daha dusuk bir esige sahiptir.'),
-        bullet('Yanip sonen alanin boyut esigini asip asmadigini degerlendirmek icin tam ekran ve tipik gorunluleme boyutlarinda test edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, görsel içeriğin yanıp sönme sikligi ve boyutu için analiz edilmesini gerektirir.'),
+        numbered('Sayfadaki tüm video içeriklerini, animasyonlari, GIF\'leri ve dinamik görsel efektleri inceleyin.'),
+        numbered('Yanıp sonuyor gibi görünen herhangi bir içerik için saniyede yanıp sönme sayısını sayın. Saniyede üçten fazla potansiyel bir ihlaldir.'),
+        numbered('Video içeriğini eşik ihlalleri için analiz etmek üzere Fotosensitif Epilepsi Analiz Araçı\'ni (PEAT) kullanın.'),
+        numbered('Hizli renk veya parlaklak gecisleri için CSS animasyonlarini ve JavaScript odaklı görsel değişiklikleri kontrol edin.'),
+        numbered('Kırmızı içeren gecislere özellikle dikkat edin — bunlar nobetleri tetiklemek için daha düşük bir esige sahiptir.'),
+        bullet('Yanıp sönen alanın boyut eşiğini asip asmadigini değerlendirmek için tam ekran ve tipik gorunluleme boyutlarında test edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Guvenli esikler icinde kalmak icin yanip sonen icerigi ortadan kaldirin veya azaltin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Güvenli esikler içinde kalmak için yanıp sönen içeriği ortadan kaldırın veya azaltin.'),
 
-        heading('Hizli gorsel gecislerden kacinin', 'h3'),
+        heading('Hizli görsel gecislerden kaçının', 'h3'),
         code(
-          '/* Yanlis: hizli yanip sonen animasyon */\n@keyframes tehlikeli-yanip-sonme {\n  0%, 100% { background: #ff0000; }\n  50% { background: #000000; }\n}\n.uyari {\n  animation: tehlikeli-yanip-sonme 0.2s infinite; /* 5 yanip sonme/sn! */\n}\n\n/* Dogru: nazik titresme animasyonu */\n@keyframes nazik-titresme {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.7; }\n}\n.uyari {\n  animation: nazik-titresme 2s ease-in-out infinite;\n}',
+          '/* Yanlış: hızlı yanıp sönen animasyon */\n@keyframes tehlikeli-yanıp-sönme {\n  0%, 100% { background: #ff0000; }\n  50% { background: #000000; }\n}\n.uyarı {\n  animation: tehlikeli-yanıp-sönme 0.2s infinite; /* 5 yanıp sönme/sn! */\n}\n\n/* Doğru: nazik titresme animasyonu */\n@keyframes nazik-titresme {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.7; }\n}\n.uyarı {\n  animation: nazik-titresme 2s ease-in-out infinite;\n}',
           'css'
         ),
 
-        heading('Animasyonlari devre disi birakma yolu saglayin', 'h3'),
+        heading('Animasyonlari devre dışı bırakma yolu sağlayın', 'h3'),
         code(
-          '/* prefers-reduced-motion tercihine saygi gosterin */\n@media (prefers-reduced-motion: reduce) {\n  *,\n  *::before,\n  *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n    scroll-behavior: auto !important;\n  }\n}',
+          '/* prefers-reduced-motion tercihine saygı gösterin */\n@media (prefers-reduced-motion: reduce) {\n  *,\n  *::before,\n  *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n    scroll-behavior: auto !important;\n  }\n}',
           'css'
         ),
 
-        heading('Guvenli video gomme', 'h3'),
+        heading('Güvenli video gomme', 'h3'),
         code(
-          '<!-- Potansiyel olarak sorunlu icerik hakkinda kullanicilari uyarin -->\n<div class="video-kapsayici">\n  <div class="yanip-sonme-uyarisi" role="alert">\n    <p>\n      <strong>Uyari:</strong> Bu video, fotosensitif\n      epilepsi olan kisiler icin uygun olmayabilecek\n      yanip sonen isiklar icerir.\n    </p>\n    <button onclick="videoyuOynat()">Anliyorum, videoyu oynat</button>\n  </div>\n  <video id="video" controls preload="metadata"\n    poster="afis.jpg">\n    <source src="video.mp4" type="video/mp4">\n  </video>\n</div>\n\n<script>\nfunction videoyuOynat() {\n  document.querySelector(\'.yanip-sonme-uyarisi\').hidden = true;\n  document.getElementById(\'video\').play();\n}\n</script>',
+          '<!-- Potansiyel olarak sorunlu içerik hakkında kullanıcıları uyarin -->\n<div class="video-kapsayıcı">\n  <div class="yanıp-sönme-uyarisi" role="alert">\n    <p>\n      <strong>Uyari:</strong> Bu video, fotosensitif\n      epilepsi olan kişiler için uygun olmayabilecek\n      yanıp sönen isiklar içerir.\n    </p>\n    <button onclick="videoyuOynat()">Anliyorum, videoyu oynat</button>\n  </div>\n  <video id="video" controls preload="metadata"\n    poster="afiş.jpg">\n    <source src="video.mp4" type="video/mp4">\n  </video>\n</div>\n\n<script>\nfunction videoyuOynat() {\n  document.querySelector(\'.yanıp-sönme-uyarisi\').hidden = true;\n  document.getElementById(\'video\').play();\n}\n</script>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Saniyede ucten fazla yanip sonmeyi asan hizli kare degisiklikleri olan animasyonlu GIF\'ler.'),
-        bullet('Yuksek kontrastli renkler arasinda (ozellikle kirmizi iceren) hizla gecis yapan CSS animasyonlari.'),
-        bullet('PEAT ile analiz edilmemis stroboskop efektleri, yildirim veya hizli sahne degisiklikleri olan video icerigi.'),
-        bullet('Patlama efektleri, vurusda ekran yanip sonmeleri veya hizli gorsel geri bildirim iceren oyun benzeri arayuzler.'),
-        bullet('Yanip sonme hakkinda uyari olmadan ve oynatilmadan once durdurma yolu olmadan otomatik oynayan video icerigi.'),
-        bullet('Kullanicinin hareket ve yanip sonmeye duyarliligi sinyalleyen prefers-reduced-motion medya sorgusunu gormezden gelmek.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Saniyede üçten fazla yanıp sonmeyi aşan hızlı kare değişiklikleri olan animasyonlu GIF\'ler.'),
+        bullet('Yüksek kontrastlı renkler arasında (özellikle kırmızı içeren) hızla geçiş yapan CSS animasyonlari.'),
+        bullet('PEAT ile analiz edilmemis stroboskop efektleri, yildirim veya hızlı sahne değişiklikleri olan video içeriği.'),
+        bullet('Patlama efektleri, vurusda ekran yanıp sonmeleri veya hızlı görsel geri bildirim içeren oyun benzeri arayüzler.'),
+        bullet('Yanıp sönme hakkında uyarı olmadan ve oynatilmadan önce durdurma yolu olmadan otomatik oynayan video içeriği.'),
+        bullet('Kullanıcının hareket ve yanıp sonmeye duyarliligi sinyalleyen prefers-reduced-motion medya sorgusunu görmezden gelmek.'),
       ],
     },
 
@@ -2154,9 +2154,9 @@ const rules = [
           'Learn how to meet WCAG 2.3.1 Three Flashes or Below Threshold. Ensure web content does not contain flashing that could trigger seizures in photosensitive users.',
       },
       tr: {
-        metaTitle: 'WCAG 2.3.1 Uc Yanip Sonme veya Esik Altinda — Nobet Guvenligi Rehberi',
+        metaTitle: 'WCAG 2.3.1 Üç Yanıp Sönme veya Eşik Altında — Nobet Guvenligi Rehberi',
         metaDescription:
-          'WCAG 2.3.1 Uc Yanip Sonme veya Esik Altinda kriterini nasil karsilayacaginizi ogrenin. Web iceriginin fotosensitif kullanicilarda nobetleri tetikleyebilecek yanip sonme icermediginden emin olun.',
+          'WCAG 2.3.1 Üç Yanıp Sönme veya Eşik Altında kriterini nasıl karşılayacağınızı öğrenin. Web içeriğinin fotosensitif kullanicilarda nobetleri tetikleyebilecek yanıp sönme icermediginden emin olun.',
       },
     },
   },
@@ -2174,12 +2174,12 @@ const rules = [
 
     title: {
       en: 'Three Flashes',
-      tr: 'Uc Yanip Sonme',
+      tr: 'Üç Yanıp Sönme',
     },
 
     description: {
       en: 'Web pages do not contain anything that flashes more than three times in any one-second period.',
-      tr: 'Web sayfalari herhangi bir bir saniyelik donemde ucten fazla kez yanip sonen hicbir sey icermez.',
+      tr: 'Web sayfaları herhangi bir bir saniyelik dönemde üçten fazla kez yanıp sönen hiçbir şey içermez.',
     },
 
     content: {
@@ -2240,55 +2240,55 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.3.2, 2.3.1\'in AAA seviyesindeki versiyonudur. 2.3.1, genel yanip sonme ve kirmizi yanip sonme esiklerinin altinda kalan yanip sonmeye izin verirken (alan boyutu ve parlaklak degisikligine dayanarak), 2.3.2 esik istisnasini tamamen kaldirir. Bu kriter kapsaminda, boyut, renk veya parlaklktan bagimsiz olarak kesinlikle hicbir icerik saniyede ucten fazla kez yanip sonemez.'
+          'WCAG 2.3.2, 2.3.1\'in AAA seviyesindeki versiyonudur. 2.3.1, genel yanıp sönme ve kırmızı yanıp sönme eşiklerinin altında kalan yanıp sonmeye izin verirken (alan boyutu ve parlaklak değişikliğine dayanarak), 2.3.2 eşik istisnasini tamamen kaldırır. Bu kriter kapsamında, boyut, renk veya parlaklktan bağımsız olarak kesinlikle hiçbir içerik saniyede üçten fazla kez yanıp sonemez.'
         ),
         p(
-          'Bu daha siki ve daha basit bir kuraldir: saniyede ucten fazla yanip sonuyorsa basarisiz olur — nokta. Piksel alani hesaplamalari, izleme mesafesi degerlendirmesi ve kirmizi icin ozel muamele yoktur. Bu, hem anlasilmasini kolaylastirir hem de karsilanmasini zorlastirir, cunku kucuk veya ince yanip sonen ogeler bile uyum saglamalidir.'
+          'Bu daha sıkı ve daha basit bir kuraldir: saniyede üçten fazla yanıp sonuyorsa başarısız olur — nokta. Piksel alanı hesaplamalari, izleme mesafesi değerlendirmesi ve kırmızı için özel muamele yoktur. Bu, hem anlasilmasini kolaylastirir hem de karsilanmasini zorlaştırır, çünkü küçük veya ince yanıp sönen öğeler bile uyum sağlamalıdır.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          '2.3.1\'deki esik istisnalari nobet tetikleyicilerinin istatistiksel modellerine dayanir, ancak bireysel duyarlilik degisir. Fotosensitif epilepsisi olan bazi kisiler, 2.3.1 tarafindan tanimlanan "guvenli" esikler icinde kalan uyaranlar tarafindan tetiklenen nobetler yasayabilir. Saniyede ucun uzerindeki tum yanip sonmeleri ortadan kaldirarak 2.3.2 maksimum koruma saglar.'
+          '2.3.1\'deki eşik istisnalari nobet tetikleyicilerinin istatistiksel modellerine dayanır, ancak bireysel duyarlilik değişir. Fotosensitif epilepsisi olan bazı kişiler, 2.3.1 tarafından tanımlanan "güvenli" esikler içinde kalan uyaranlar tarafından tetiklenen nobetler yasayabilir. Saniyede ucun üzerindeki tüm yanıp sonmeleri ortadan kaldirarak 2.3.2 maksimum koruma sağlar.'
         ),
         p(
-          'Bu AAA kriteri ozellikle kitlenin yuksek fotosensitiviteye sahip bireyleri icerdigi bilinen ortamlar icin onemlidir — tibbi tesisler, okullar, devlet hizmetleri. Ayrica buyuk ekranlarda veya karanlik ortamlarda goruntulenme icerigi icin de onemlidir, burada yanip sonen icerigin goreli boyutu ve etkisi guclenir.'
+          'Bu AAA kriteri özellikle kitlenin yüksek fotosensitiviteye sahip bireyleri icerdigi bilinen ortamlar için önemlidir — tıbbi tesisler, okullar, devlet hizmetleri. Ayrıca büyük ekranlarda veya karanlık ortamlarda goruntulenme içeriği için de önemlidir, burada yanıp sönen içeriğin göreli boyutu ve etkisi guclenir.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. 2.3.1 gibi, yanip sonme sikligini tespit etmek ozel analiz araclari gerektirir. Fark, esik hesaplamalarinin gerekli olmamasidir — saniyede ucten fazla yanip sonen herhangi bir icerik basarisiz olur.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. 2.3.1 gibi, yanıp sönme sikligini tespit etmek özel analiz araçları gerektirir. Fark, eşik hesaplamalarinin gerekli olmamasıdır — saniyede üçten fazla yanıp sönen herhangi bir içerik başarısız olur.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, 2.3.1 ile ayni yakasimi izler ancak daha siki bir standartla.'),
-        numbered('Sayfada gorsel degisiklikler iceren tum icerikleri belirleyin: videolar, animasyonlar, GIF\'ler, CSS animasyonlari, JavaScript odakli efektler.'),
-        numbered('Her gorsel oge icin yanip sonme sikligini belirleyin. Saniyede parlaklak degisikliklerini (karanlktan aydinliga veya aydinliktan karanlkga gecisler) sayin.'),
-        numbered('Saniyede ucten fazla yanip sonen herhangi bir oge — boyut veya renkten bagimsiz olarak — bu kriteri basarisiz kilar.'),
-        numbered('Video icerigini kare kare analiz etmek icin PEAT veya benzer araclar kullanin.'),
-        numbered('prefers-reduced-motion etkinlestirilmis sekilde test edin ve tum animasyonlarin azaltildigini veya ortadan kaldirildigini dogrulayin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, 2.3.1 ile aynı yakasimi izler ancak daha sıkı bir standartla.'),
+        numbered('Sayfada görsel değişiklikler içeren tüm içerikleri belirleyin: videolar, animasyonlar, GIF\'ler, CSS animasyonlari, JavaScript odaklı efektler.'),
+        numbered('Her görsel öğe için yanıp sönme sikligini belirleyin. Saniyede parlaklak değişikliklerini (karanlktan aydinliga veya aydinliktan karanlkga geçişler) sayın.'),
+        numbered('Saniyede üçten fazla yanıp sönen herhangi bir öğe — boyut veya renkten bağımsız olarak — bu kriteri başarısız kılar.'),
+        numbered('Video içeriğini kare kare analiz etmek için PEAT veya benzer araçlar kullanın.'),
+        numbered('prefers-reduced-motion etkinleştirilmiş şekilde test edin ve tüm animasyonlarin azaltildigini veya ortadan kaldirildigini doğrulayın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Tum gorsel gecisleri saniyede uc veya daha azina sinirlayin. Bu en guvenli ve en basit yaklasimdir.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Tüm görsel gecisleri saniyede üç veya daha azina sınırlayın. Bu en güvenli ve en basit yaklasimdir.'),
 
-        heading('Animasyonlari hiz sinirlamasi', 'h3'),
+        heading('Animasyonlari hız sinirlamasi', 'h3'),
         code(
-          '/* Animasyon dongusunun en az 333ms olmasini saglayin (maksimum 3/saniye) */\n@keyframes guvenli-yanip-sonme {\n  0%, 49% { opacity: 1; }\n  50%, 100% { opacity: 0; }\n}\n.bildirim-noktasi {\n  /* 1 saniye dongu = 1 yanip sonme/sn — guvenli aralikta */\n  animation: guvenli-yanip-sonme 1s step-end infinite;\n}\n\n/* Daha da guvenli: yanip sonmeden kacinin, solma kullanin */\n@keyframes guvenli-solma {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.5; }\n}\n.bildirim-noktasi-guvenli {\n  animation: guvenli-solma 2s ease-in-out infinite;\n}',
+          '/* Animasyon dongusunun en az 333ms olmasını sağlayın (maksimum 3/saniye) */\n@keyframes güvenli-yanıp-sönme {\n  0%, 49% { opacity: 1; }\n  50%, 100% { opacity: 0; }\n}\n.bildirim-noktası {\n  /* 1 saniye döngü = 1 yanıp sönme/sn — güvenli aralikta */\n  animation: güvenli-yanıp-sönme 1s step-end infinite;\n}\n\n/* Daha da güvenli: yanıp sonmeden kaçının, solma kullanın */\n@keyframes güvenli-solma {\n  0%, 100% { opacity: 1; }\n  50% { opacity: 0.5; }\n}\n.bildirim-noktası-güvenli {\n  animation: güvenli-solma 2s ease-in-out infinite;\n}',
           'css'
         ),
 
-        heading('JavaScript yanip sonme hiz sinirlaycisi', 'h3'),
+        heading('JavaScript yanıp sönme hız sinirlaycisi', 'h3'),
         code(
-          '// Gorsel durum degisikliklerinin saniyede 3 defadan\n// fazla olmamasini saglayin\nclass YanipSonmeKorumasi {\n  constructor(sanivedeMaksYanipSonme = 3) {\n    this.minimumAralik = 1000 / sanivedeMaksYanipSonme;\n    this.sonYanipSonme = 0;\n  }\n\n  yanipSonebilirMi() {\n    const simdi = Date.now();\n    if (simdi - this.sonYanipSonme >= this.minimumAralik) {\n      this.sonYanipSonme = simdi;\n      return true;\n    }\n    return false;\n  }\n}\n\nconst koruma = new YanipSonmeKorumasi(3);\n\nfunction guvenliGorselGeriBildirim(oge) {\n  if (koruma.yanipSonebilirMi()) {\n    oge.classList.add(\'vurgula\');\n    setTimeout(() => oge.classList.remove(\'vurgula\'),\n      200);\n  }\n}',
+          '// Görsel durum değisikliklerinin saniyede 3 defadan\n// fazla olmamasını sağlayın\nclass YanipSonmeKorumasi {\n  constructor(sanivedeMaksYanipSonme = 3) {\n    this.minimumAralik = 1000 / sanivedeMaksYanipSonme;\n    this.sonYanipSonme = 0;\n  }\n\n  yanipSonebilirMi() {\n    const simdi = Date.now();\n    if (simdi - this.sonYanipSonme >= this.minimumAralik) {\n      this.sonYanipSonme = simdi;\n      return true;\n    }\n    return false;\n  }\n}\n\nconst koruma = new YanipSonmeKorumasi(3);\n\nfunction guvenliGorselGeriBildirim(öğe) {\n  if (koruma.yanipSonebilirMi()) {\n    öğe.classList.add(\'vurgula\');\n    setTimeout(() => öğe.classList.remove(\'vurgula\'),\n      200);\n  }\n}',
           'javascript'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('2.3.1 esik hesaplamarina guvenip kucuk yanip sonen ogelerin otomatik olarak guvenli oldugunu varsaymak.'),
-        bullet('Yanip sonme efektleri olusturan hizli kare guncellemelerine sahip animasyonlu SVG\'ler veya Canvas ogeleri.'),
-        bullet('Kisa sureli tam ekran yanip sonmeleri iceren sayfalar veya bolumler arasindaki gecis efektleri.'),
-        bullet('Kontrolsuz yanip sonme hizlarina sahip banner reklamlar veya gomulu ucuncu parti icerik.'),
-        bullet('Hizla yanip sonen yukleme donduruculer veya ilerleme gostergeleri.'),
-        bullet('Metin editorlerinde veya giris alanlarinda saniyede ucu asan imlec yanip sonme hizlari.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('2.3.1 eşik hesaplamarina guvenip küçük yanıp sönen öğelerin otomatik olarak güvenli olduğunu varsaymak.'),
+        bullet('Yanıp sönme efektleri oluşturan hızlı kare guncellemelerine sahip animasyonlu SVG\'ler veya Canvas öğeleri.'),
+        bullet('Kısa süreli tam ekran yanıp sonmeleri içeren sayfalar veya bölümler arasındaki geçiş efektleri.'),
+        bullet('Kontrolsuz yanıp sönme hizlarina sahip banner reklamlar veya gömülü üçüncü parti içerik.'),
+        bullet('Hizla yanıp sönen yükleme donduruculer veya ilerleme göstergeleri.'),
+        bullet('Metin editorlerinde veya giriş alanlarında saniyede ucu aşan imlec yanıp sönme hizlari.'),
       ],
     },
 
@@ -2337,9 +2337,9 @@ const rules = [
           'Learn about WCAG 2.3.2 Three Flashes. This AAA criterion prohibits all content from flashing more than three times per second with no threshold exceptions.',
       },
       tr: {
-        metaTitle: 'WCAG 2.3.2 Uc Yanip Sonme — AAA Nobet Onleme Rehberi',
+        metaTitle: 'WCAG 2.3.2 Üç Yanıp Sönme — AAA Nobet Önleme Rehberi',
         metaDescription:
-          'WCAG 2.3.2 Uc Yanip Sonme hakkinda bilgi edinin. Bu AAA kriteri, esik istisnalari olmaksizin tum icerigin saniyede ucten fazla yanip sonmesini yasaklar.',
+          'WCAG 2.3.2 Üç Yanıp Sönme hakkında bilgi edinin. Bu AAA kriteri, eşik istisnalari olmaksızın tüm içeriğin saniyede üçten fazla yanıp sonmesini yasaklar.',
       },
     },
   },
@@ -2357,12 +2357,12 @@ const rules = [
 
     title: {
       en: 'Animation from Interactions',
-      tr: 'Etkilesimlerden Animasyon',
+      tr: 'Etkileşimlerden Animasyon',
     },
 
     description: {
       en: 'Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed.',
-      tr: 'Etkilesim tarafindan tetiklenen hareket animasyonu, animasyon islevsellik veya iletilen bilgi icin temel olmadigi surece devre disi birakitabilmelidir.',
+      tr: 'Etkileşim tarafından tetiklenen hareket animasyonu, animasyon işlevsellik veya iletilen bilgi için temel olmadığı sürece devre dışı bırakılabilmelidir.',
     },
 
     content: {
@@ -2431,63 +2431,63 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.3.3, kullanici etkilesimi tarafindan tetiklenen hareket animasyonlarinin devre disi birakitabilmesini gerektirir. Bu, kullanici kayirdiginda, tikladiginda, yazdiginda, uzerine geldiginde veya sayfayla baska sekilde etkilesimde bulundugunda meydana gelen animasyonlar icin gecerlidir — paralaks kayma efektleri, yakinlastirma animasyonlari, sayfa gecis animasyonlari, kaydirmayla tetiklenen ortaya cikma efektleri ve hareket iceren fareyle uzerine gelme durum animasyonlari gibi.'
+          'WCAG 2.3.3, kullanıcı etkileşimi tarafından tetiklenen hareket animasyonlarinin devre dışı birakitabilmesini gerektirir. Bu, kullanıcı kayirdiginda, tikladiginda, yazdiginda, üzerine geldiğinde veya sayfayla başka şekilde etkilesimde bulunduğunda meydana gelen animasyonlar için geçerlidir — paralaks kayma efektleri, yakınlaştırma animasyonlari, sayfa geçiş animasyonlari, kaydırmayla tetiklenen ortaya cikma efektleri ve hareket içeren fareyle üzerine gelme durum animasyonlari gibi.'
         ),
         p(
-          'Kriter ozellikle hareket animasyonuna odaklanir — bir konumdan digerine hareket veya boyut degisiklikleri iceren gorsel degisiklikler. Basit renk degisiklikleri, opaklad gecisleri veya vurgulama bu gereksinimi tetiklemez. Animasyonun bilgi iletmek veya islevselligin kendisi icin temel oldugu durumlarda istisna vardir (tamamlanmayi gostermek icin hareket eden bir ilerleme cubugu gibi).'
+          'Kriter özellikle hareket animasyonuna odaklanır — bir konumdan diğerine hareket veya boyut değişiklikleri içeren görsel değişiklikler. Basit renk değişiklikleri, opaklad gecisleri veya vurgulama bu gereksinimi tetiklemez. Animasyonun bilgi iletmek veya işlevselliğin kendisi için temel olduğu durumlarda istisna vardır (tamamlanmayi göstermek için hareket eden bir ilerleme çubuğu gibi).'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Vestibular bozuklugu olan kullanicilar (iyi huylu paroksismal pozisyonel vertigo, labirentit ve Meniere hastaligi dahil) hareket animasyonlarindan ciddi fiziksel belirtiler yasayabilir — bas donmesi, mide bulantisi, bas agrisi ve yonelim bozuklugu. Bu belirtiler animasyon bittikten cok sonra devam edebilir ve kullanicinin cihazini saatlerce kullanmasini engelleyebilir.'
+          'Vestibular bozukluğu olan kullanıcılar (iyi huylu paroksismal pozisyonel vertigo, labirentit ve Meniere hastaligi dahil) hareket animasyonlarindan ciddi fiziksel belirtiler yasayabilir — bas donmesi, mide bulantisi, bas agrisi ve yönelim bozukluğu. Bu belirtiler animasyon bittikten çok sonra devam edebilir ve kullanıcının cihazıni saatlerce kullanmasını engelleyebilir.'
         ),
         p(
-          'Ic kulaktaki vestibular sistem, beynin hareketi ve mekansal yonelimi anlamasina yardimci olur. Ekrandaki gorsel hareket vucdun gercek konumuyla celisdiginde (paralaks kaydirma veya dalan sayfa gecislerinde oldugu gibi), bu belirtileri tetikleyen bir duyusal catisma yaratir. Hareket animasyonlarini devre disi birakma yolu saglamak, bu kullanicilarin guvenli bir sekilde web\'de gezmesi icin zorunludur.'
+          'Ic kulaktaki vestibular sistem, beynin hareketi ve mekansal yönelimi anlamasına yardımcı olur. Ekrandaki görsel hareket vucdun gerçek konumuyla celisdiginde (paralaks kaydırma veya dalan sayfa gecislerinde olduğu gibi), bu belirtileri tetikleyen bir duyusal catisma yaratır. Hareket animasyonlarini devre dışı bırakma yolu sağlamak, bu kullanıcıların güvenli bir şekilde web\'de gezmesi için zorunludur.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Hareket animasyonlari uygulamada son derece cesitlidir (CSS animasyonlari, JavaScript odakli donusumler, kaydirmaya bagli efektler, Web Animations API) ve kullanici etkilesimiyle iliskileri statik analiz ile belirlenemez.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Hareket animasyonlari uygulamada son derece cesitlidir (CSS animasyonlari, JavaScript odaklı donusumler, kaydırmaya bağlı efektler, Web Animations API) ve kullanıcı etkilesimiyle iliskileri statik analiz ile belirlenemez.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        p('Test, sayfa ile etkilesim kurmak ve farkli ayarlar altinda animasyon davranisini gozlemlemeyi gerektirir.'),
-        numbered('Sayfadaki tum ogelerle etkilesim kurun: kayirin, dugmelere tiklayin, ogelerin uzerine gelin, sayfalar arasinda gezinin.'),
-        numbered('Etkilesime yanit olarak meydana gelen tum hareket animasyonlarini not edin: kayma, yakinlastirma, paralaks, sayfa gecisleri, kaydirmayla tetiklenen hareketler.'),
-        numbered('Isletim sistemi ayarlarinda prefers-reduced-motion\'i etkinlestirin ve tum etkilesimleri tekrarlayin.'),
-        numbered('prefers-reduced-motion etkinlestirildiginde hareket animasyonlarinin ortadan kaldirildigini veya onemli olcude azaltildigini dogrulayin.'),
-        numbered('Uygulamanin isletim sistemi ayarindan bagimsiz kendi animasyon degistirici saglaypip saglamadigini kontrol edin.'),
-        bullet('iOS erisilebilirlik ayarlarinda "Hareketi Azalt" veya Android gelistirici seceneklerinde "Animasyonlari kaldir" etkinlestirerek mobil cihazlarda test edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        p('Test, sayfa ile etkileşim kurmak ve farklı ayarlar altında animasyon davranisini gozlemlemeyi gerektirir.'),
+        numbered('Sayfadaki tüm ogelerle etkileşim kurun: kayirin, dugmelere tıklayın, öğelerin üzerine gelin, sayfalar arasında gezinin.'),
+        numbered('Etkilesime yanıt olarak meydana gelen tüm hareket animasyonlarini not edin: kayma, yakınlaştırma, paralaks, sayfa gecisleri, kaydırmayla tetiklenen hareketler.'),
+        numbered('Isletim sistemi ayarlarinda prefers-reduced-motion\'i etkinleştirin ve tüm etkileşimleri tekrarlayin.'),
+        numbered('prefers-reduced-motion etkinleştirildiğinde hareket animasyonlarinin ortadan kaldirildigini veya önemli ölçüde azaltildigini doğrulayın.'),
+        numbered('Uygulamanin isletim sistemi ayarindan bağımsız kendi animasyon değiştirici saglaypip sağlamadığını kontrol edin.'),
+        bullet('iOS erişilebilirlik ayarlarinda "Hareketi Azalt" veya Android geliştirici seceneklerinde "Animasyonlari kaldir" etkinlestirerek mobil cihazlarda test edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('prefers-reduced-motion medya sorgusuna saygi gosterin ve hareket animasyonlari icin uygulama duzeyinde bir degistirici saglayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('prefers-reduced-motion medya sorgusuna saygı gösterin ve hareket animasyonlari için uygulama düzeyinde bir değiştirici sağlayın.'),
 
-        heading('prefers-reduced-motion tercihine saygi gosterin', 'h3'),
+        heading('prefers-reduced-motion tercihine saygı gösterin', 'h3'),
         code(
-          '/* Varsayilan: purezsiz animasyonlar */\n.kart {\n  transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n.kart:hover {\n  transform: translateY(-4px) scale(1.02);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n}\n\n.sayfa-giris {\n  animation: kaydir-iceri 0.5s ease-out;\n}\n\n@keyframes kaydir-iceri {\n  from { transform: translateX(100%); opacity: 0; }\n  to { transform: translateX(0); opacity: 1; }\n}\n\n/* Azaltilmis hareket: hareketi kaldir, geri bildirimi koru */\n@media (prefers-reduced-motion: reduce) {\n  .kart {\n    transition: box-shadow 0.15s ease;\n  }\n  .kart:hover {\n    transform: none;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);\n  }\n\n  .sayfa-giris {\n    animation: solarak-gorun 0.15s ease-out;\n  }\n\n  @keyframes solarak-gorun {\n    from { opacity: 0; }\n    to { opacity: 1; }\n  }\n}',
+          '/* Varsayılan: purezsiz animasyonlar */\n.kart {\n  transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n.kart:hover {\n  transform: translateY(-4px) scale(1.02);\n  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);\n}\n\n.sayfa-giriş {\n  animation: kaydır-iceri 0.5s ease-out;\n}\n\n@keyframes kaydır-iceri {\n  from { transform: translateX(100%); opacity: 0; }\n  to { transform: translateX(0); opacity: 1; }\n}\n\n/* Azaltilmis hareket: hareketi kaldir, geri bildirimi koru */\n@media (prefers-reduced-motion: reduce) {\n  .kart {\n    transition: box-shadow 0.15s ease;\n  }\n  .kart:hover {\n    transform: none;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);\n  }\n\n  .sayfa-giriş {\n    animation: solarak-gorun 0.15s ease-out;\n  }\n\n  @keyframes solarak-gorun {\n    from { opacity: 0; }\n    to { opacity: 1; }\n  }\n}',
           'css'
         ),
 
-        heading('Uygulama duzeyinde animasyon degistirici', 'h3'),
+        heading('Uygulama düzeyinde animasyon değistirici', 'h3'),
         code(
-          '<div class="ayarlar-paneli">\n  <label class="degistirici">\n    <input type="checkbox" id="hareketi-azalt"\n      onchange="hareketTercihiniAyarla(this.checked)">\n    <span>Hareket animasyonlarini azalt</span>\n  </label>\n</div>\n\n<script>\nfunction hareketTercihiniAyarla(azalt) {\n  document.documentElement.classList.toggle(\n    \'hareketi-azalt\', azalt\n  );\n  localStorage.setItem(\'hareketi-azalt\',\n    azalt ? \'true\' : \'false\');\n}\n\n// Yuklemede tercihi geri yukle\nwindow.addEventListener(\'DOMContentLoaded\', () => {\n  const tercih = localStorage.getItem(\'hareketi-azalt\');\n  const isTercihEder = window.matchMedia(\n    \'(prefers-reduced-motion: reduce)\'\n  ).matches;\n\n  if (tercih === \'true\' || (tercih === null && isTercihEder)) {\n    document.documentElement.classList.add(\'hareketi-azalt\');\n    document.getElementById(\'hareketi-azalt\').checked = true;\n  }\n});\n</script>',
+          '<div class="ayarlar-paneli">\n  <label class="değistirici">\n    <input type="checkbox" id="hareketi-azalt"\n      onchange="hareketTercihiniAyarla(this.checked)">\n    <span>Hareket animasyonlarini azalt</span>\n  </label>\n</div>\n\n<script>\nfunction hareketTercihiniAyarla(azalt) {\n  document.documentElement.classList.toggle(\n    \'hareketi-azalt\', azalt\n  );\n  localStorage.setItem(\'hareketi-azalt\',\n    azalt ? \'true\' : \'false\');\n}\n\n// Yuklemede tercihi geri yükle\nwindow.addEventListener(\'DOMContentLoaded\', () => {\n  const tercih = localStorage.getItem(\'hareketi-azalt\');\n  const isTercihEder = window.matchMedia(\n    \'(prefers-reduced-motion: reduce)\'\n  ).matches;\n\n  if (tercih === \'true\' || (tercih === null && isTercihEder)) {\n    document.documentElement.classList.add(\'hareketi-azalt\');\n    document.getElementById(\'hareketi-azalt\').checked = true;\n  }\n});\n</script>',
           'html'
         ),
 
-        heading('Paralaks kaydirmayi devre disi birakma', 'h3'),
+        heading('Paralaks kaydırmayı devre dışı bırakma', 'h3'),
         code(
-          '/* Paralaks efekti */\n.paralaks-arkplan {\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  transform: translateZ(-1px) scale(2);\n}\n\n/* Azaltilmis hareket icin paralaksi kaldir */\n@media (prefers-reduced-motion: reduce) {\n  .paralaks-arkplan {\n    background-attachment: scroll;\n    transform: none;\n  }\n}\n\n/* Uygulama duzeyinde degistirici icin de kaldir */\n.hareketi-azalt .paralaks-arkplan {\n  background-attachment: scroll;\n  transform: none;\n}',
+          '/* Paralaks efekti */\n.paralaks-arkplan {\n  background-attachment: fixed;\n  background-position: center;\n  background-size: cover;\n  transform: translateZ(-1px) scale(2);\n}\n\n/* Azaltilmis hareket için paralaksi kaldir */\n@media (prefers-reduced-motion: reduce) {\n  .paralaks-arkplan {\n    background-attachment: scroll;\n    transform: none;\n  }\n}\n\n/* Uygulama düzeyinde değiştirici için de kaldir */\n.hareketi-azalt .paralaks-arkplan {\n  background-attachment: scroll;\n  transform: none;\n}',
           'css'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('prefers-reduced-motion medya sorgusunu tamamen gormezden gelmek — bu, harekete duyarli kullanicilar icin birincil mekanizmadir.'),
-        bullet('Hareketi kaldirmak yerine yalnizca animasyon suresini azaltmak (hizli bir kayyis yine de bir kayyistir).'),
-        bullet('Devre disi birakma yolu olmayan paralaks kaydirma efektleri.'),
-        bullet('Kapatilamayan kaydirmayla tetiklenen animasyonlar (yandan ucarak gelen ogeler).'),
-        bullet('Animasyonsuz bir yedek saglamadan kayma, yakinlastirma veya dondurme iceren sayfa gecis animasyonlari.'),
-        bullet('Hareketizsiz bir alternatif saglamadan ogeleri hareket ettiren (translateY, scale) fareyle uzerine gelme animasyonlari.'),
-        bullet('Gelistirme ve kalite guvencesi sirasinda prefers-reduced-motion etkinlestirilmis sekilde test etmemek.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('prefers-reduced-motion medya sorgusunu tamamen görmezden gelmek — bu, harekete duyarlı kullanıcılar için birincil mekanizmadir.'),
+        bullet('Hareketi kaldırmak yerine yalnızca animasyon süresini azaltmak (hızlı bir kayyis yine de bir kayyistir).'),
+        bullet('Devre dışı bırakma yolu olmayan paralaks kaydırma efektleri.'),
+        bullet('Kapatilamayan kaydırmayla tetiklenen animasyonlar (yandan ucarak gelen öğeler).'),
+        bullet('Animasyonsuz bir yedek sağlamadan kayma, yakınlaştırma veya döndürme içeren sayfa geçiş animasyonlari.'),
+        bullet('Hareketizsiz bir alternatif sağlamadan öğeleri hareket ettiren (translateY, scale) fareyle üzerine gelme animasyonlari.'),
+        bullet('Geliştirme ve kalite guvencesi sırasında prefers-reduced-motion etkinleştirilmiş şekilde test etmemek.'),
       ],
     },
 
@@ -2543,9 +2543,9 @@ const rules = [
           'Learn about WCAG 2.3.3 Animation from Interactions. Ensure users can disable motion animations triggered by interaction to protect vestibular disorder users.',
       },
       tr: {
-        metaTitle: 'WCAG 2.3.3 Etkilesimlerden Animasyon — Harekete Duyarlilik Rehberi',
+        metaTitle: 'WCAG 2.3.3 Etkileşimlerden Animasyon — Harekete Duyarlilik Rehberi',
         metaDescription:
-          'WCAG 2.3.3 Etkilesimlerden Animasyon hakkinda bilgi edinin. Vestibular bozuklugu olan kullanicilari korumak icin etkilesim tarafindan tetiklenen hareket animasyonlarini devre disi birakabilmeyi saglayin.',
+          'WCAG 2.3.3 Etkileşimlerden Animasyon hakkında bilgi edinin. Vestibular bozukluğu olan kullanıcıları korumak için etkileşim tarafından tetiklenen hareket animasyonlarini devre dışı birakabilmeyi sağlayın.',
       },
     },
   },

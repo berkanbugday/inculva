@@ -17,7 +17,7 @@ const rules = [
     },
     description: {
       en: 'The default human language of each web page can be programmatically determined.',
-      tr: 'Her web sayfasinin varsayilan insan dili programatik olarak belirlenebilir olmalidir.',
+      tr: 'Her web sayfasının varsayılan insan dili programatik olarak belirlenebilir olmalıdır.',
     },
     content: {
       en: [
@@ -60,40 +60,40 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.1.1, her web sayfasinin birincil dilini <html> ogesindeki lang niteligi ile tanimlamasini gerektirir. Bu, yardimci teknolojilerin, tarayicilarin ve arama motorlarinin icerigi dogru islemesini saglar — ekran okuyucularin dogru telaffuz kurallarini secmesi ve oluslurma icin dogru yazitipleri ve metin yonunun kullanilmasi dahil.'),
-        p('lang niteligi gecerli bir BCP 47 dil etiketi kullanmalidir (ornegin "en", "fr", "tr", "zh-Hans"). Gecersiz veya eksik bir dil bildirimi, yardimci teknolojinin tahmin yapmasi gerektigini ve bu durumun ekran okuyucu kullanicilari icin bozuk telaffuzla sonuclandigini gosterir.'),
+        p('WCAG 3.1.1, her web sayfasının birincil dilini <html> öğesindeki lang niteliği ile tanımlamasını gerektirir. Bu, yardımcı teknolojilerin, tarayıcıların ve arama motorlarının içeriği doğru işlemesini sağlar — ekran okuyucuların doğru telaffuz kurallarını seçmesi ve oluşturma için doğru yazıtipleri ve metin yönünün kullanılması dahil.'),
+        p('lang niteliği geçerli bir BCP 47 dil etiketi kullanmalıdır (örneğin "en", "fr", "tr", "zh-Hans"). Geçersiz veya eksik bir dil bildirimi, yardımcı teknolojinin tahmin yapması gerektiğini ve bu durumun ekran okuyucu kullanıcıları için bozuk telaffuzla sonuçlandığını gösterir.'),
 
-        heading('Neden onemlidir'),
-        p('Ekran okuyucular, dogru telaffuz motorunu yuklemek icin sayfa dilini kullanir. Turkce bir sayfada lang="tr" olmadigi zaman, ekran okuyucu Turkce kelimeleri Ingilizce telaffuz kurallariyla okumaya calisabilir ve icerik anlasIlmaz hale gelir. Bu durum dunya genelinde milyonlarca ekran okuyucu kullanicisini etkiler.'),
-        p('Erisilebilirligin otesinde, lang niteligi tarayicilarin ceviri sunmasina yardimci olur, arama motorlarinin dogru dil surumunu sunmasini destekler ve :lang() secicileri ile dile ozgu tireleme gibi CSS ozelliklerini etkinlestirir. Ayarlayabileceginiz en basit ve en etkili HTML niteliklerinden biridir.'),
+        heading('Neden önemlidir'),
+        p('Ekran okuyucular, doğru telaffuz motorunu yüklemek için sayfa dilini kullanır. Türkçe bir sayfada lang="tr" olmadığı zaman, ekran okuyucu Türkçe kelimeleri İngilizce telaffuz kurallarıyla okumaya çalışabilir ve içerik anlaşılmaz hale gelir. Bu durum dünya genelinde milyonlarca ekran okuyucu kullanıcısını etkiler.'),
+        p('Erişilebilirliğin ötesinde, lang niteliği tarayıcıların çeviri sunmasına yardımcı olur, arama motorlarının doğru dil sürümünü sunmasını destekler ve :lang() seçicileri ile dile özgü tireleme gibi CSS özelliklerini etkinleştirir. Ayarlayabileceğiniz en basit ve en etkili HTML niteliklerinden biridir.'),
 
-        heading('Ilgili axe-core kurallari'),
-        bullet('html-has-lang — <html> ogesinin lang niteligi tasIdigini dogrular.'),
-        bullet('html-lang-valid — lang niteligi degerinin gecerli bir BCP 47 dil etiketi oldugunu dogrular.'),
-        bullet('html-xml-lang-mismatch — <html> ogesindeki xml:lang ve lang niteliklerinin eslesmesini dogrular.'),
+        heading('İlgili axe-core kuralları'),
+        bullet('html-has-lang — <html> öğesinin lang niteliği taşıdığını doğrular.'),
+        bullet('html-lang-valid — lang niteliği değerinin geçerli bir BCP 47 dil etiketi olduğunu doğrular.'),
+        bullet('html-xml-lang-mismatch — <html> öğesindeki xml:lang ve lang niteliklerinin eşleşmesini doğrular.'),
 
-        heading('Nasil test edilir'),
-        p('Otomatik araclar eksik veya gecersiz lang niteliklerini guvenilir bicimde yakalar. Dil etiketinin gercek sayfa icerigiyle eslesmesini dogrulamak icin manuel kontrol gerekir.'),
-        bullet('axe DevTools veya Lighthouse calistirin — html-has-lang ve html-lang-valid ihlallerini kontrol edin.'),
-        bullet('DevTools ile <html> ogesini inceleyin ve lang nitelginin mevcut ve dogru oldugunu dogrulayin.'),
-        bullet('XHTML sayfalari icin xml:lang ile lang niteliklerinin eslestigini kontrol edin.'),
-        bullet('Dil etiketinin yalnizca arayuzle degil, sayfa iceriginin birincil diliyle eslesmesini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        p('Otomatik araçlar eksik veya geçersiz lang niteliklerini güvenilir biçimde yakalar. Dil etiketinin gerçek sayfa içeriğiyle eşleşmesini doğrulamak için manuel kontrol gerekir.'),
+        bullet('axe DevTools veya Lighthouse çalıştırın — html-has-lang ve html-lang-valid ihlallerini kontrol edin.'),
+        bullet('DevTools ile <html> öğesini inceleyin ve lang niteliğinin mevcut ve doğru olduğunu doğrulayın.'),
+        bullet('XHTML sayfaları için xml:lang ile lang niteliklerinin eşleştiğini kontrol edin.'),
+        bullet('Dil etiketinin yalnızca arayüzle değil, sayfa içeriğinin birincil diliyle eşleşmesini doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        p('<html> ogesine gecerli bir lang niteligi ekleyin:'),
+        heading('Nasıl düzeltilir'),
+        p('<html> öğesine geçerli bir lang niteliği ekleyin:'),
 
-        heading('Yanlis uygulama', 'h3'),
-        code('<!-- lang niteligi eksik -->\n<html>\n  <head><title>Sayfam</title></head>\n  <body>...</body>\n</html>\n\n<!-- Gecersiz lang degeri -->\n<html lang="turkce">\n  <head><title>Sayfam</title></head>\n  <body>...</body>\n</html>', 'html'),
+        heading('Yanlış uygulama', 'h3'),
+        code('<!-- lang niteliği eksik -->\n<html>\n  <head><title>Sayfam</title></head>\n  <body>...</body>\n</html>\n\n<!-- Geçersiz lang değeri -->\n<html lang="türkçe">\n  <head><title>Sayfam</title></head>\n  <body>...</body>\n</html>', 'html'),
 
-        heading('Dogru uygulama', 'h3'),
-        code('<!-- Turkce sayfa -->\n<html lang="tr">\n  <head><title>Sayfam</title></head>\n  <body>...</body>\n</html>\n\n<!-- Ingilizce sayfa -->\n<html lang="en">\n  <head><title>My Page</title></head>\n  <body>...</body>\n</html>', 'html'),
+        heading('Doğru uygulama', 'h3'),
+        code('<!-- Türkçe sayfa -->\n<html lang="tr">\n  <head><title>Sayfam</title></head>\n  <body>...</body>\n</html>\n\n<!-- İngilizce sayfa -->\n<html lang="en">\n  <head><title>My Page</title></head>\n  <body>...</body>\n</html>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('lang nitelgini tamamen atlama — ozellikle sablonlarda en yaygin sorun.'),
-        bullet('"en" veya "tr" yerine "english" veya "turkce" gibi gecersiz dil alt etiketi kullanma.'),
-        bullet('Yanlis dil ayarlama — ornegin icerigi Turkce olan bir sayfada lang="en" kullanma.'),
-        bullet('XHTML belgelerinde lang ile xml:lang arasinda uyumsuzluk.'),
-        bullet('Temel dil olmadan bolge alt etiketi kullanma (ornegin lang="en-US" yerine lang="US").'),
+        heading('Sık yapılan hatalar'),
+        bullet('lang nitelgini tamamen atlama — özellikle sablonlarda en yaygın sorun.'),
+        bullet('"en" veya "tr" yerine "english" veya "türkçe" gibi geçersiz dil alt etiketi kullanma.'),
+        bullet('Yanlış dil ayarlama — örneğin içeriği Türkçe olan bir sayfada lang="en" kullanma.'),
+        bullet('XHTML belgelerinde lang ile xml:lang arasında uyumsuzluk.'),
+        bullet('Temel dil olmadan bölge alt etiketi kullanma (örneğin lang="en-US" yerine lang="US").'),
       ],
     },
 
@@ -112,8 +112,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.1.1 Language of Page. Set the correct lang attribute on the HTML element so screen readers pronounce content correctly.',
       },
       tr: {
-        metaTitle: 'WCAG 3.1.1 Sayfa Dili — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.1.1 Sayfa Dili kriterini nasil karsilayacaginizi ogrenin. Ekran okuyucularin icerigi dogru telaffuz etmesi icin HTML ogesine dogru lang niteligi ayarlayin.',
+        metaTitle: 'WCAG 3.1.1 Sayfa Dili — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.1.1 Sayfa Dili kriterini nasıl karşılayacağınızı öğrenin. Ekran okuyucuların içeriği doğru telaffuz etmesi için HTML öğesine doğru lang niteliği ayarlayın.',
       },
     },
   },
@@ -130,11 +130,11 @@ const rules = [
     tags: ['language', 'internationalization', 'html'],
     title: {
       en: 'Language of Parts',
-      tr: 'Bolum Dili',
+      tr: 'Bölüm Dili',
     },
     description: {
       en: 'The human language of each passage or phrase in the content can be programmatically determined, except for proper names, technical terms, and words of indeterminate language.',
-      tr: 'Ozel adlar, teknik terimler ve belirsiz dildeki kelimeler haric, icerikteki her pasaj veya ifadenin insan dili programatik olarak belirlenebilir olmalidir.',
+      tr: 'Özel adlar, teknik terimler ve belirsiz dildeki kelimeler hariç, içerikteki her pasaj veya ifadenin insan dili programatik olarak belirlenebilir olmalıdır.',
     },
     content: {
       en: [
@@ -159,10 +159,10 @@ const rules = [
         p('Add a lang attribute to any element that contains text in a different language from the page default:'),
 
         heading('Bad practice', 'h3'),
-        code('<!-- French text on an English page with no lang marker -->\n<p>The motto of the Olympics is <em>Citius, Altius, Fortius</em>.</p>\n\n<!-- Turkish paragraph on an English page without lang -->\n<blockquote>\n  Erisilebilirlik bir hak, luks degil.\n</blockquote>', 'html'),
+        code('<!-- French text on an English page with no lang marker -->\n<p>The motto of the Olympics iş <em>Citius, Altius, Fortius</em>.</p>\n\n<!-- Turkish paragraph on an English page without lang -->\n<blockquote>\n  Erişilebilirlik bir hak, luks değil.\n</blockquote>', 'html'),
 
         heading('Good practice', 'h3'),
-        code('<!-- French text properly marked -->\n<p>The motto of the Olympics is <em lang="la">Citius, Altius, Fortius</em>.</p>\n\n<!-- Turkish paragraph properly marked -->\n<blockquote lang="tr">\n  Erisilebilirlik bir hak, luks degil.\n</blockquote>\n\n<!-- Multiple languages in a single section -->\n<p>In German, accessibility is called <span lang="de">Barrierefreiheit</span>,\n   which literally means "freedom from barriers".</p>', 'html'),
+        code('<!-- French text properly marked -->\n<p>The motto of the Olympics iş <em lang="la">Citius, Altius, Fortius</em>.</p>\n\n<!-- Turkish paragraph properly marked -->\n<blockquote lang="tr">\n  Erişilebilirlik bir hak, luks değil.\n</blockquote>\n\n<!-- Multiple languages in a single section -->\n<p>In German, accessibility iş called <span lang="de">Barrierefreiheit</span>,\n   which literally means "freedom from barriers".</p>', 'html'),
 
         heading('Common mistakes'),
         bullet('Forgetting to mark quoted text in a foreign language.'),
@@ -174,35 +174,35 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.1.2, sayfa icindeki dil degisikliklerinin de isaretlenmesini gerektirerek 3.1.1 kriterini genisletir. Temelde Turkce olan bir sayfa Ingilizce bir alinti veya Fransizca bir paragraf icerdiginde, bu bolumlerin kapsayici oge uzerinde lang niteligi tasimasi gerekir.'),
-        p('Ozel adlar (ornegin "François"), temel dilin parcasi haline gelmis teknik terimler ve dili belirlenemeyen kelimeler icin istisnalar mevcuttur.'),
+        p('WCAG 3.1.2, sayfa içindeki dil değişikliklerinin de isaretlenmesini gerektirerek 3.1.1 kriterini genişletir. Temelde Türkçe olan bir sayfa İngilizce bir alıntı veya Fransizca bir paragraf içerdiğinde, bu bolumlerin kapsayıcı öğe üzerinde lang niteliği tasimasi gerekir.'),
+        p('Özel adlar (örneğin "François"), temel dilin parçası haline gelmis teknik terimler ve dili belirlenemeyen kelimeler için istisnalar mevcuttur.'),
 
-        heading('Neden onemlidir'),
-        p('Bir ekran okuyucu lang niteligi olmadan farkli dildeki metinle karsilastiginda, sayfa dilinin telaffuz kurallarini uygular. Ingilizce telaffuzla okunan Fransizca bir ifade anlasilmasi zor veya imkansiz olur. Dil degisikliklerini isaretlemek, ekran okuyucunun ses veya telaffuz motorlarini sorunsuzca degistirmesini saglar.'),
-        p('Bu ozellikle cok dilli icerik, baska dillerde alintilar iceren akademik yazilar ve cesitli dil topluluklarina hizmet veren siteler icin onemlidir.'),
+        heading('Neden önemlidir'),
+        p('Bir ekran okuyucu lang niteliği olmadan farklı dildeki metinle karşılaştığında, sayfa dilinin telaffuz kurallarını uygular. İngilizce telaffuzla okunan Fransizca bir ifade anlasilmasi zor veya imkansız olur. Dil değişikliklerini işaretlemek, ekran okuyucunun ses veya telaffuz motorlarini sorunsuzca değiştirmesini sağlar.'),
+        p('Bu özellikle çok dilli içerik, başka dillerde alıntılar içeren akademik yazilar ve çeşitli dil topluluklarina hizmet veren siteler için önemlidir.'),
 
-        heading('Ilgili axe-core kurallari'),
-        bullet('valid-lang — Ogelerdeki lang niteligi degerinin gecerli bir BCP 47 dil etiketi oldugunu dogrular.'),
+        heading('İlgili axe-core kuralları'),
+        bullet('valid-lang — Ogelerdeki lang niteliği değerinin geçerli bir BCP 47 dil etiketi olduğunu doğrular.'),
 
-        heading('Nasil test edilir'),
-        bullet('Sayfa icerigini sayfa varsayilanindan farkli dildeki ifade, paragraf veya bolumler icin tarayin.'),
-        bullet('Bu ogelerin dogru dil etiketiyle lang niteligi tasiyip tasimadigini kontrol edin.'),
-        bullet('Cok dilli bolumler arasinda gezinirken ekran okuyucu ile telaffuz degisikliklerinin dogru yapildigini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Sayfa içeriğini sayfa varsayilanindan farklı dildeki ifade, paragraf veya bölümler için tarayın.'),
+        bullet('Bu öğelerin doğru dil etiketiyle lang niteliği tasiyip tasimadigini kontrol edin.'),
+        bullet('Çok dilli bölümler arasında gezinirken ekran okuyucu ile telaffuz değişikliklerinin doğru yapıldığını doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        p('Sayfa varsayilanindan farkli dildeki metin iceren her ogeye lang niteligi ekleyin:'),
+        heading('Nasıl düzeltilir'),
+        p('Sayfa varsayilanindan farklı dildeki metin içeren her öğeye lang niteliği ekleyin:'),
 
-        heading('Yanlis uygulama', 'h3'),
-        code('<!-- Turkce sayfada lang isaretlemesi olmayan Ingilizce metin -->\n<p>Bu kavrama Ingilizce <em>accessibility</em> denir.</p>', 'html'),
+        heading('Yanlış uygulama', 'h3'),
+        code('<!-- Türkçe sayfada lang işaretlemesi olmayan İngilizce metin -->\n<p>Bu kavrama İngilizce <em>accessibility</em> denir.</p>', 'html'),
 
-        heading('Dogru uygulama', 'h3'),
-        code('<!-- Ingilizce metin dogru isaretlenmis -->\n<p>Bu kavrama Ingilizce <em lang="en">accessibility</em> denir.</p>\n\n<!-- Farkli dilde paragraf -->\n<blockquote lang="en">\n  Accessibility is a right, not a luxury.\n</blockquote>', 'html'),
+        heading('Doğru uygulama', 'h3'),
+        code('<!-- İngilizce metin doğru işaretlenmiş -->\n<p>Bu kavrama İngilizce <em lang="en">accessibility</em> denir.</p>\n\n<!-- Farklı dilde paragraf -->\n<blockquote lang="en">\n  Accessibility iş a right, not a luxury.\n</blockquote>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Yabanci dildeki alintilar icin isaretleme yapmayi unutma.'),
-        bullet('Gunluk kullanima girmis yabanci sozcukleri gereksiz yere isaretleme.'),
-        bullet('Yanlis dil etiketi kullanma — Latince ifadeler lang="la" gerektirir, lang="it" veya lang="fr" degil.'),
-        bullet('Yalnizca blok duzeyindeki dil degisikliklerini isaretleyip satir ici ifadeleri kacirma.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Yabanci dildeki alıntılar için işaretleme yapmayi unutma.'),
+        bullet('Gunluk kullanima girmis yabanci sözcükleri gereksiz yere işaretleme.'),
+        bullet('Yanlış dil etiketi kullanma — Latince ifadeler lang="la" gerektirir, lang="it" veya lang="fr" değil.'),
+        bullet('Yalnızca blok düzeyindeki dil değişikliklerini isaretleyip satır içi ifadeleri kacirma.'),
       ],
     },
 
@@ -220,8 +220,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.1.2 Language of Parts. Mark language changes within a page so screen readers switch pronunciation correctly.',
       },
       tr: {
-        metaTitle: 'WCAG 3.1.2 Bolum Dili — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.1.2 Bolum Dili kriterini nasil karsilayacaginizi ogrenin. Sayfa icindeki dil degisikliklerini isaretleyerek ekran okuyucularin dogru telaffuz yapmasini saglayin.',
+        metaTitle: 'WCAG 3.1.2 Bölüm Dili — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.1.2 Bölüm Dili kriterini nasıl karşılayacağınızı öğrenin. Sayfa içindeki dil değişikliklerini isaretleyerek ekran okuyucuların doğru telaffuz yapmasını sağlayın.',
       },
     },
   },
@@ -238,11 +238,11 @@ const rules = [
     tags: ['language', 'readability', 'glossary'],
     title: {
       en: 'Unusual Words',
-      tr: 'Olagan Disi Kelimeler',
+      tr: 'Olagan Dışı Kelimeler',
     },
     description: {
       en: 'A mechanism is available for identifying specific definitions of words or phrases used in an unusual or restricted way, including idioms and jargon.',
-      tr: 'Deyimler ve jargon dahil olmak uzere, olagan disi veya kisitli bicimde kullanilan kelimelerin veya ifadelerin belirli tanimlarini belirleme mekanizmasi mevcuttur.',
+      tr: 'Deyimler ve jargon dahil olmak üzere, olagan dışı veya kısıtlı biçimde kullanılan kelimelerin veya ifadelerin belirli tanimlarini belirleme mekanizması mevcuttur.',
     },
     content: {
       en: [
@@ -281,29 +281,29 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.1.3, icerigin olagan disi, teknik veya deyimsel sekilde kullanilan kelimelerin veya ifadelerin tanimlarini arama yolu saglamasini gerektirir. Bu, jargon, argo, deyimler ve gunluk kullanimdan farkli ozel anlamlara sahip kelimeleri icerir.'),
-        p('Mekanizma bir sozluk, satir ici tanim, baglantili tanim listesi veya araç ipucu olabilir. Amac, alana ozgu terminolojiye asina olmayan okurlarin icerigi anlamasini saglamaktir.'),
+        p('WCAG 3.1.3, içeriğin olagan dışı, teknik veya deyimsel şekilde kullanılan kelimelerin veya ifadelerin tanimlarini arama yolu sağlamasını gerektirir. Bu, jargon, argo, deyimler ve gunluk kullanimdan farklı özel anlamlara sahip kelimeleri içerir.'),
+        p('Mekanizma bir sözlük, satır içi tanım, bağlantılı tanım listesi veya araç ipucu olabilir. Amaç, alana özgü terminolojiye asina olmayan okurlarin içeriği anlamasını sağlamaktır.'),
 
-        heading('Neden onemlidir'),
-        p('Bilissel engelli kullanicilar, ana dili farkli konusanlar ve alana asina olmayan kisiler jargon ve deyimlerle zorluk yasayabilir. "Nallarini dikmek" gibi bir deyim kelimesi kelimesine alindiginda anlasIlmaz olur.'),
-        p('Tanim saglamak herkes icin anlama duzeyini arttirir ve icerigi daha kapsayici kilar.'),
+        heading('Neden önemlidir'),
+        p('Bilişsel engelli kullanıcılar, ana dili farklı konusanlar ve alana asina olmayan kişiler jargon ve deyimlerle zorluk yasayabilir. "Nallarini dikmek" gibi bir deyim kelimesi kelimesine alindiginda anlaşılmaz olur.'),
+        p('Tanım sağlamak herkes için anlama duzeyini arttırır ve içeriği daha kapsayıcı kılar.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Olagan disi kelimeleri belirlemek ve tanimlarin saglandigini dogrulamak icin manuel inceleme gerekir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Olagan dışı kelimeleri belirlemek ve tanimlarin sağlandığını doğrulamak için manuel inceleme gerekir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Sayfa icerigini jargon, deyim ve teknik terimler icin okuyun.'),
-        bullet('Her olagan disi terimin bir tanim mekanizmasina sahip oldugunu dogrulayin.'),
-        bullet('Tanim mekanizmasinin kolay kesfedilebilir ve kullanilabiir oldugunu kontrol edin.'),
+        heading('Nasıl test edilir'),
+        bullet('Sayfa içeriğini jargon, deyim ve teknik terimler için okuyun.'),
+        bullet('Her olagan dışı terimin bir tanım mekanizmasina sahip olduğunu doğrulayın.'),
+        bullet('Tanım mekanizmasının kolay kesfedilebilir ve kullanilabiir olduğunu kontrol edin.'),
 
-        heading('Nasil duzeltilir'),
-        p('Su tekniklerden birini veya birden fazlasini kullanarak tanimlar saglayin:'),
-        code('<!-- dfn ogesi ile -->\n<p><dfn>WCAG</dfn> (Web Icerik Erisilebilirlik Yonergeleri)\n   erisilebilir web icerigi icin standartlar butunudur.</p>\n\n<!-- Sozluk baglantisi -->\n<p>Tum gorsellerin yeterli\n   <a href="/sozluk#alt-metin">alt metin</a>e sahip oldugunu dogrulayin.</p>', 'html'),
+        heading('Nasıl düzeltilir'),
+        p('Su tekniklerden birini veya birden fazlasini kullanarak tanımlar sağlayın:'),
+        code('<!-- dfn öğesi ile -->\n<p><dfn>WCAG</dfn> (Web İçerik Erişilebilirlik Yönergeleri)\n   erişilebilir web içeriği için standartlar butunudur.</p>\n\n<!-- Sozluk bağlantısı -->\n<p>Tüm gorsellerin yeterli\n   <a href="/sözlük#alt-metin">alt metin</a>e sahip olduğunu doğrulayın.</p>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Jargonu aciklama yapmadan kullanmak ve tum okuyucularin ayni bilgi birikimine sahip oldugunu varsaymak.'),
-        bullet('Tanimlari yalnizca ilk kullanimda saglamak — kullanicilar arama yoluyla herhangi bir sayfaya ulasabilir.'),
-        bullet('Sozlugu bulunmasi zor bir konuma yerlestirmek.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Jargonu açıklama yapmadan kullanmak ve tüm okuyucuların aynı bilgi birikimine sahip olduğunu varsaymak.'),
+        bullet('Tanimlari yalnızca ilk kullanımda sağlamak — kullanıcılar arama yoluyla herhangi bir sayfaya ulaşabilir.'),
+        bullet('Sozlugu bulunması zor bir konuma yerleştirmek.'),
       ],
     },
 
@@ -320,8 +320,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.1.3 Unusual Words. Provide definitions for jargon, idioms, and technical terms to improve content comprehension.',
       },
       tr: {
-        metaTitle: 'WCAG 3.1.3 Olagan Disi Kelimeler — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.1.3 Olagan Disi Kelimeler kriterini nasil karsilayacaginizi ogrenin. Jargon, deyim ve teknik terimler icin tanimlar saglayarak icerik anlasIlirligini artirin.',
+        metaTitle: 'WCAG 3.1.3 Olagan Dışı Kelimeler — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.1.3 Olagan Dışı Kelimeler kriterini nasıl karşılayacağınızı öğrenin. Jargon, deyim ve teknik terimler için tanımlar sağlayarak içerik anlasIlirligini artırın.',
       },
     },
   },
@@ -338,11 +338,11 @@ const rules = [
     tags: ['language', 'readability', 'abbreviations'],
     title: {
       en: 'Abbreviations',
-      tr: 'Kisaltmalar',
+      tr: 'Kısaltmalar',
     },
     description: {
       en: 'A mechanism for identifying the expanded form or meaning of abbreviations is available.',
-      tr: 'Kisaltmalarin acilmis bicimine veya anlamina ulasma mekanizmasi mevcuttur.',
+      tr: 'Kısaltmaların açılmış biçimine veya anlamına ulaşma mekanizması mevcuttur.',
     },
     content: {
       en: [
@@ -375,29 +375,29 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.1.4, icerikte kullanilan kisaltma ve akronimlerin tam acilmis bicimlerine ulasma mekanizmasina sahip olmasini gerektirir. Bu, bas harf kisaltmalarini (HTML, CSS), akronimleri (NASA, WCAG) ve kisaltilmis bicimleri (Dr., vb.) icerir.'),
-        p('Acilmis bicim ilk kullanimda, bir sozluk araciligiyla veya title niteligi olan <abbr> ogesi ile saglanabilir.'),
+        p('WCAG 3.1.4, içerikte kullanılan kısaltma ve akronimlerin tam açılmış biçimlerine ulaşma mekanizmasina sahip olmasını gerektirir. Bu, bas harf kisaltmalarini (HTML, CSS), akronimleri (NASA, WCAG) ve kisaltilmis biçimleri (Dr., vb.) içerir.'),
+        p('Acilmis biçim ilk kullanımda, bir sözlük aracılığıyla veya title niteliği olan <abbr> öğesi ile sağlanabilir.'),
 
-        heading('Neden onemlidir'),
-        p('Kisaltmalar ekran okuyucu kullanicilari, bilissel engelli kisiler, ana dili farkli konusanlar ve alana ozgu akronimlere asina olmayan herkes icin kafa karistirici olabilir. Ayni kisaltma farkli baglamlarda farkli anlamlara gelebilir.'),
-        p('Acilmis bicimlerin saglanmasi belirsizligi ortadan kaldirir ve tum kullanicilar icin anlama duzeyini arttirir.'),
+        heading('Neden önemlidir'),
+        p('Kısaltmalar ekran okuyucu kullanıcıları, bilişsel engelli kişiler, ana dili farklı konusanlar ve alana özgü akronimlere asina olmayan herkes için kafa karıştırıcı olabilir. Aynı kısaltma farklı baglamlarda farklı anlamlara gelebilir.'),
+        p('Acilmis bicimlerin sağlanması belirsizligi ortadan kaldırır ve tüm kullanıcılar için anlama duzeyini arttırır.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur. Kisaltmalari belirlemek ve acilmis bicimlerin saglandigini dogrulamak icin manuel inceleme gerekir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur. Kisaltmalari belirlemek ve açılmış bicimlerin sağlandığını doğrulamak için manuel inceleme gerekir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Icerigi kisaltma ve akronimler icin tarayin.'),
-        bullet('Her kisaltmanin ilk kullanimda acildigini veya title nitelikli <abbr> ogesine sahip oldugunu kontrol edin.'),
-        bullet('Sik kullanilan kisaltmalar icin bir sozlugun mevcut oldugunu dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('İçeriği kısaltma ve akronimler için tarayın.'),
+        bullet('Her kisaltmanin ilk kullanımda acildigini veya title nitelikli <abbr> öğesine sahip olduğunu kontrol edin.'),
+        bullet('Sık kullanılan kısaltmalar için bir sozlugun mevcut olduğunu doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- abbr ogesi ile -->\n<p><abbr title="Web Icerik Erisilebilirlik Yonergeleri">WCAG</abbr>\n   erisilebilir icerik icin standartlari tanimlar.</p>\n\n<!-- Ilk kullanimda acma -->\n<p>Web Icerik Erisilebilirlik Yonergeleri (WCAG) erisilebilir\n   icerik icin standartlari tanimlar.</p>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- abbr öğesi ile -->\n<p><abbr title="Web İçerik Erişilebilirlik Yönergeleri">WCAG</abbr>\n   erişilebilir içerik için standartları tanımlar.</p>\n\n<!-- İlk kullanımda açma -->\n<p>Web İçerik Erişilebilirlik Yönergeleri (WCAG) erişilebilir\n   içerik için standartları tanımlar.</p>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Kisaltmalari hic acmadan kullanma.'),
-        bullet('Kisaltmalari yalnizca bulunmasi zor bir sozlukte acma.'),
-        bullet('Tutarsiz acma — bazi sayfalarda acip digerlerinde acmama.'),
-        bullet('<abbr> ogesini title niteligi olmadan kullanma.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Kisaltmalari hiç acmadan kullanma.'),
+        bullet('Kisaltmalari yalnızca bulunması zor bir sozlukte açma.'),
+        bullet('Tutarsiz açma — bazı sayfalarda acip digerlerinde acmama.'),
+        bullet('<abbr> öğesini title niteliği olmadan kullanma.'),
       ],
     },
 
@@ -414,8 +414,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.1.4 Abbreviations. Provide expanded forms for abbreviations and acronyms to improve content accessibility.',
       },
       tr: {
-        metaTitle: 'WCAG 3.1.4 Kisaltmalar — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.1.4 Kisaltmalar kriterini nasil karsilayacaginizi ogrenin. Kisaltma ve akronimler icin acilmis bicimleri saglayarak icerik erisilebilirligini artirin.',
+        metaTitle: 'WCAG 3.1.4 Kısaltmalar — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.1.4 Kısaltmalar kriterini nasıl karşılayacağınızı öğrenin. Kisaltma ve akronimler için açılmış biçimleri sağlayarak içerik erişilebilirliğini artırın.',
       },
     },
   },
@@ -432,11 +432,11 @@ const rules = [
     tags: ['language', 'readability', 'cognitive'],
     title: {
       en: 'Reading Level',
-      tr: 'Okuma Duzeyi',
+      tr: 'Okuma Düzeyi',
     },
     description: {
       en: 'When text requires more than a lower secondary education reading level, supplemental content or an alternative version is available.',
-      tr: 'Metin, ortaokul okuma duzeyinin ustunde bir okuma seviyesi gerektirdiginde, tamamlayici icerik veya alternatif bir surum sunulmalidir.',
+      tr: 'Metin, ortaokul okuma düzeyinin üstünde bir okuma seviyesi gerektirdiğinde, tamamlayıcı içerik veya alternatif bir sürüm sunulmalıdır.',
     },
     content: {
       en: [
@@ -474,31 +474,31 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.1.5, metin icerigi ortaokul okuma seviyesinden daha karmasik oldugunda tamamlayici bir surum saglanmasini gerektirir. Bu, basitlestirilmis bir ozet, gorseller veya sade dilde bir surum olabilir.'),
-        p('Bu kriter ozel adlar ve basliklar cikarildiktan sonra uygulanir. Amac, okuma guclukleri, bilissel engeller veya sinirli egitim duzeyi olan kisilerin icerigi anlamasini saglamaktir.'),
+        p('WCAG 3.1.5, metin içeriği ortaokul okuma seviyesinden daha karmaşık olduğunda tamamlayıcı bir sürüm sağlanmasını gerektirir. Bu, basitlestirilmis bir özet, görseller veya sade dilde bir sürüm olabilir.'),
+        p('Bu kriter özel adlar ve başlıklar cikarildiktan sonra uygulanır. Amaç, okuma guclukleri, bilişsel engeller veya sınırlı eğitim düzeyi olan kişilerin içeriği anlamasını sağlamaktır.'),
 
-        heading('Neden onemlidir'),
-        p('Karmasik dil, disleksili kisileri, bilissel engelli kisileri, dusuk okuryazarlik duzeyindeki kisileri ve ana dili farkli konusanlari dislar. Ozellikle kamu ve saglik icerikleri mumkun olan en genis kitleye anlasilabilir olmalidir.'),
-        p('Basitlestirilmis alternatifler herkese fayda saglar — son derece okuryazar okuyucular bile acik ve oz icerigi tercih eder.'),
+        heading('Neden önemlidir'),
+        p('Karmaşık dil, disleksili kişileri, bilişsel engelli kişileri, düşük okuryazarlik düzeyindeki kişileri ve ana dili farklı konusanlari dışlar. Özellikle kamu ve saglik içerikleri mümkün olan en geniş kitleye anlaşılabilir olmalıdır.'),
+        p('Basitlestirilmis alternatifler herkese fayda sağlar — son derece okuryazar okuyucular bile açık ve oz içeriği tercih eder.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Okuma duzeyi degerlendirmesi ozel araclar veya manuel degerlendirme gerektirir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Okuma düzeyi değerlendirmesi özel araçlar veya manuel degerlendirme gerektirir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Icerik karmasikligini degerlendirmek icin okunabilirlik puanlama araclarini kullanin.'),
-        bullet('Hedef okuma seviyesinin ustunde puan alan icerikleri belirleyin.'),
-        bullet('Karmasik bolumler icin tamamlayici icerik saglandigini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('İçerik karmasikligini değerlendirmek için okunabilirlik puanlama araçlarını kullanın.'),
+        bullet('Hedef okuma seviyesinin üstünde puan alan içerikleri belirleyin.'),
+        bullet('Karmaşık bölümler için tamamlayıcı içerik sağlandığını doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        bullet('Karmasik belgelerin basinda sade dilde bir ozet yazin.'),
-        bullet('Metni desteklemek icin gorseller, diyagramlar ve infografikler kullanin.'),
-        bullet('Uzun cumleleri kisa cumlelere bolun (cumle basina 15-20 kelime hedefleyin).'),
-        bullet('Mumkun oldugunda jargonu gunluk kelimelerle degistirin.'),
+        heading('Nasıl düzeltilir'),
+        bullet('Karmaşık belgelerin başında sade dilde bir özet yazın.'),
+        bullet('Metni desteklemek için görseller, diyagramlar ve infografikler kullanın.'),
+        bullet('Uzun cumleleri kısa cumlelere bolun (cumle başına 15-20 kelime hedefleyin).'),
+        bullet('Mümkün olduğunda jargonu gunluk kelimelerle değiştirin.'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Tum ziyaretcilerin ayni okuma yetenegine sahip oldugunu varsaymak.'),
-        bullet('Daha basit alternatifler varken gereksiz yere karmasik kelime dagarcigi kullanmak.'),
-        bullet('Edilgen yapi ile yazmak, bu okuma zorlugunu arttirir.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Tüm ziyaretcilerin aynı okuma yetenegine sahip olduğunu varsaymak.'),
+        bullet('Daha basit alternatifler varken gereksiz yere karmaşık kelime dağarcığı kullanmak.'),
+        bullet('Edilgen yapı ile yazmak, bu okuma zorlugunu arttırır.'),
       ],
     },
 
@@ -515,8 +515,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.1.5 Reading Level. Provide simplified alternatives for complex content to ensure comprehension for all readers.',
       },
       tr: {
-        metaTitle: 'WCAG 3.1.5 Okuma Duzeyi — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.1.5 Okuma Duzeyi kriterini nasil karsilayacaginizi ogrenin. Karmasik icerik icin basitlestirilmis alternatifler saglayarak tum okuyucularin anlamasini saglayin.',
+        metaTitle: 'WCAG 3.1.5 Okuma Düzeyi — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.1.5 Okuma Düzeyi kriterini nasıl karşılayacağınızı öğrenin. Karmaşık içerik için basitlestirilmis alternatifler sağlayarak tüm okuyucuların anlamasını sağlayın.',
       },
     },
   },
@@ -537,7 +537,7 @@ const rules = [
     },
     description: {
       en: 'A mechanism is available for identifying specific pronunciation of words where meaning is ambiguous without knowing the pronunciation.',
-      tr: 'Telaffuz bilinmeden anlaminin belirsiz oldugu kelimelerin belirli telaffuzunu tanimlama mekanizmasi mevcuttur.',
+      tr: 'Telaffuz bilinmeden anlamının belirsiz olduğu kelimelerin belirli telaffuzunu tanımlama mekanizması mevcuttur.',
     },
     content: {
       en: [
@@ -568,27 +568,27 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.1.6, bir kelimenin anlami telaffuzuna baglikken (ses es yazimlilar), bunu netlelstirmek icin bir mekanizma saglanmasini gerektirir. Ornegin Ingilizce "lead" kelimesi bir metal (led) veya yonlendirmek (leed) anlamina gelebilir.'),
-        p('Bu, yazili bicimin telaffuzu tam olarak belirlemedigi diller icin gecerlidir. Turkce gibi fonetik yazim sistemlerine sahip dillerde bu daha az sorun olusturur.'),
+        p('WCAG 3.1.6, bir kelimenin anlamı telaffuzuna baglikken (ses es yazimlilar), bunu netlelstirmek için bir mekanizma sağlanmasını gerektirir. Örneğin İngilizce "lead" kelimesi bir metal (led) veya yönlendirmek (leed) anlamına gelebilir.'),
+        p('Bu, yazılı bicimin telaffuzu tam olarak belirlemedigi diller için geçerlidir. Türkçe gibi fonetik yazım sistemlerine sahip dillerde bu daha az sorun oluşturur.'),
 
-        heading('Neden onemlidir'),
-        p('Ekran okuyucular ses es yazimlilarini yanlis telaffuz ederek anlami tamamen degistirebilir. Okuma guclukleri olan kullanicilar da yalnizca baglamdan dogru telaffuzu belirleme konusunda zorluk yasayabilir.'),
+        heading('Neden önemlidir'),
+        p('Ekran okuyucular ses es yazimlilarini yanlış telaffuz ederek anlamı tamamen değiştirebilir. Okuma guclukleri olan kullanıcılar da yalnızca bağlamdan doğru telaffuzu belirleme konusunda zorluk yasayabilir.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur. Belirsiz telaffuz icin icerigin manuel incelenmesini gerektirir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur. Belirsiz telaffuz için içeriğin manuel incelenmesini gerektirir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Anlami degistiren birden fazla telaffuza sahip kelimeleri belirleyin.'),
-        bullet('Baglaimin tek basina belirsizligi giderip gidermedigini kontrol edin.'),
-        bullet('Baglaimin yetersiz oldugu yerlerde telaffuz rehberliginin saglandigini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Anlami değiştiren birden fazla telaffuza sahip kelimeleri belirleyin.'),
+        bullet('Baglaimin tek başına belirsizligi giderip gidermedigini kontrol edin.'),
+        bullet('Baglaimin yetersiz olduğu yerlerde telaffuz rehberliginin sağlandığını doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- Ruby anotasyonu ile telaffuz -->\n<p>The <ruby>lead<rp>(</rp><rt>led</rt><rp>)</rp></ruby>\n   pipes were replaced last year.</p>\n\n<!-- Parantez ici telaffuz -->\n<p>The lead ("bed" ile kafiyeli) icerik eski boyada\n   saglik tehlikesidir.</p>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- Ruby anotasyonu ile telaffuz -->\n<p>The <ruby>lead<rp>(</rp><rt>led</rt><rp>)</rp></ruby>\n   pipes were replaced last year.</p>\n\n<!-- Parantez içi telaffuz -->\n<p>The lead ("bed" ile kafiyeli) içerik eski boyada\n   saglik tehlikesidir.</p>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Ses es yazimlilarini tamamen goz ardi etmek ve belirsiz olabilecek baglama guvenme.'),
-        bullet('Telaffuz rehberligini icerik boyunca tutarsiz saglamak.'),
-        bullet('Telaffuzu yalnizca sesli bicimde saglayarak isitme engelli kullanicilari dislamak.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Ses es yazimlilarini tamamen göz ardi etmek ve belirsiz olabilecek bağlama guvenme.'),
+        bullet('Telaffuz rehberligini içerik boyunca tutarsız sağlamak.'),
+        bullet('Telaffuzu yalnızca sesli biçimde sağlayarak işitme engelli kullanıcıları dislamak.'),
       ],
     },
 
@@ -604,8 +604,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.1.6 Pronunciation. Provide pronunciation guides for ambiguous words to ensure correct comprehension.',
       },
       tr: {
-        metaTitle: 'WCAG 3.1.6 Telaffuz — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.1.6 Telaffuz kriterini nasil karsilayacaginizi ogrenin. Belirsiz kelimelerin dogru anlasilmasini saglamak icin telaffuz rehberleri sunun.',
+        metaTitle: 'WCAG 3.1.6 Telaffuz — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.1.6 Telaffuz kriterini nasıl karşılayacağınızı öğrenin. Belirsiz kelimelerin doğru anlasilmasini sağlamak için telaffuz rehberleri sunun.',
       },
     },
   },
@@ -622,11 +622,11 @@ const rules = [
     tags: ['forms', 'focus', 'predictability'],
     title: {
       en: 'On Focus',
-      tr: 'Odaklanma Uzerine',
+      tr: 'Odaklanma Üzerine',
     },
     description: {
       en: 'When any user interface component receives focus, it does not initiate a change of context.',
-      tr: 'Herhangi bir kullanici arayuzu bileseni odak aldiginda, baglam degisikligi baslatmamalidir.',
+      tr: 'Herhangi bir kullanıcı arayüzü bileşeni odak aldığında, bağlam değişikliği başlatmamalıdır.',
     },
     content: {
       en: [
@@ -663,31 +663,31 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.2.1, bir bilesene odaklanmanin baglam degisikligi tetiklememesini gerektirir. "Baglam degisikligi" yeni bir sayfaya gitmeyi, yeni bir pencere acmayi, odagi baska bir ogeye tasImayi veya sayfa icerigini onemli olcude degistirmeyi icerir.'),
-        p('Kullanicilar beklenmedik seyler olmadan etkilesimli ogeler arasinda Tab tusuyla gezinebilmelidir. Odaklanma pasif bir eylem olmalidir — arayuzu kesfetme — secim onaylayan aktif bir eylem degil.'),
+        p('WCAG 3.2.1, bir bileşene odaklanmanin bağlam değişikliği tetiklememesini gerektirir. "Bağlam değişikliği" yeni bir sayfaya gitmeyi, yeni bir pencere acmayi, odağı başka bir öğeye tasImayi veya sayfa içeriğini önemli ölçüde değiştirmeyi içerir.'),
+        p('Kullanıcılar beklenmedik seyler olmadan etkileşimli öğeler arasında Tab tuşuyla gezinebilmelidir. Odaklanma pasif bir eylem olmalıdır — arayüzü kesfetme — seçim onaylayan aktif bir eylem değil.'),
 
-        heading('Neden onemlidir'),
-        p('Klavye ve ekran okuyucu kullanicilari ogeler arasinda Tab tusuyla gezinir. Bir baglantiya odaklanmak navigasyona neden olursa veya secim kutusuna odaklanmak sayfayi degistirirse, kullanici kontrolu kaybeder. Bu yon bozucu olabilir ve veri kaybina neden olabilir.'),
+        heading('Neden önemlidir'),
+        p('Klavye ve ekran okuyucu kullanıcıları öğeler arasında Tab tuşuyla gezinir. Bir bağlantıya odaklanmak navigasyona neden olursa veya seçim kutusuna odaklanmak sayfayı degistirirse, kullanıcı kontrolü kaybeder. Bu yön bozucu olabilir ve veri kaybina neden olabilir.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur. Odaklanmanin baglam degisikligi tetiklemedigini dogrulamak icin etkilesimli ogelerin manuel test edilmesi gerekir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur. Odaklanmanin bağlam değişikliği tetiklemedigini doğrulamak için etkileşimli öğelerin manuel test edilmesi gerekir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Sayfadaki her etkilesimli oge arasinda Tab ile gezinin.'),
-        bullet('Yalnizca odaklanma ile navigasyon, acilir pencere veya onemli icerik degisikligi olmadigini dogrulayin.'),
-        bullet('Secim ogeleri, baglantilari ve ozel bilesenleri test edin.'),
+        heading('Nasıl test edilir'),
+        bullet('Sayfadaki her etkileşimli öğe arasında Tab ile gezinin.'),
+        bullet('Yalnızca odaklanma ile navigasyon, açılır pencere veya önemli içerik değişikliği olmadığını doğrulayın.'),
+        bullet('Secim öğeleri, bağlantıları ve özel bileşenleri test edin.'),
 
-        heading('Nasil duzeltilir'),
-        heading('Yanlis uygulama', 'h3'),
+        heading('Nasıl düzeltilir'),
+        heading('Yanlış uygulama', 'h3'),
         code('<!-- Odaklanma ile gezinen select -->\n<select onfocus="window.location = this.value">\n  <option value="/sayfa1">Sayfa 1</option>\n  <option value="/sayfa2">Sayfa 2</option>\n</select>', 'html'),
 
-        heading('Dogru uygulama', 'h3'),
-        code('<!-- Git dugmesi ile select -->\n<select id="sayfa-sec">\n  <option value="/sayfa1">Sayfa 1</option>\n  <option value="/sayfa2">Sayfa 2</option>\n</select>\n<button onclick="window.location = document.getElementById(\'sayfa-sec\').value">\n  Git\n</button>', 'html'),
+        heading('Doğru uygulama', 'h3'),
+        code('<!-- Git düğmesi ile select -->\n<select id="sayfa-sec">\n  <option value="/sayfa1">Sayfa 1</option>\n  <option value="/sayfa2">Sayfa 2</option>\n</select>\n<button onclick="window.location = document.getElementById(\'sayfa-sec\').value">\n  Git\n</button>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Odaklanma ile baglantilari izleyen gezinme menuleri.'),
-        bullet('Degisiklikte navigasyon tetikleyen secim kutulari.'),
-        bullet('Bir oge odak aldiginda yeni pencere veya iletisim kutusu acma.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Odaklanma ile bağlantıları izleyen gezinme menüleri.'),
+        bullet('Degisiklikte navigasyon tetikleyen seçim kutuları.'),
+        bullet('Bir öğe odak aldığında yeni pencere veya iletişim kutusu açma.'),
       ],
     },
 
@@ -704,8 +704,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.2.1 On Focus. Ensure that receiving focus does not trigger unexpected context changes for keyboard and screen reader users.',
       },
       tr: {
-        metaTitle: 'WCAG 3.2.1 Odaklanma Uzerine — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.2.1 Odaklanma Uzerine kriterini nasil karsilayacaginizi ogrenin. Odak almanin klavye ve ekran okuyucu kullanicilari icin beklenmedik baglam degisiklikleri tetiklememesini saglayin.',
+        metaTitle: 'WCAG 3.2.1 Odaklanma Üzerine — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.2.1 Odaklanma Üzerine kriterini nasıl karşılayacağınızı öğrenin. Odak almanin klavye ve ekran okuyucu kullanıcıları için beklenmedik bağlam değişiklikleri tetiklememesini sağlayın.',
       },
     },
   },
@@ -722,11 +722,11 @@ const rules = [
     tags: ['forms', 'input', 'predictability'],
     title: {
       en: 'On Input',
-      tr: 'Giris Uzerine',
+      tr: 'Giriş Üzerine',
     },
     description: {
       en: 'Changing the setting of any user interface component does not automatically cause a change of context unless the user has been advised of the behavior before using the component.',
-      tr: 'Herhangi bir kullanici arayuzu bileseninin ayarini degistirmek, kullanici bileseni kullanmadan once bu davranIs hakkinda bilgilendirilmedikce, otomatik olarak baglam degisikligine neden olmamalidir.',
+      tr: 'Herhangi bir kullanıcı arayüzü bileşeninin ayarini değiştirmek, kullanıcı bileşeni kullanmadan önce bu davranIs hakkında bilgilendirilmedikce, otomatik olarak bağlam değişikliğine neden olmamalıdır.',
     },
     content: {
       en: [
@@ -762,31 +762,31 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.2.2, bir form kontrolunun degerini degistirmenin — onay kutusu isaretleme, radyo dugmesi secme, metin girme veya acilir menu secenegi secme — kullanici onceden uyarilmadikca otomatik olarak baglam degisikligi tetiklememesini gerektirir.'),
-        p('Giris uzerine baglam degisikligi gerekiyorsa, kullanici kontrolle etkilesime gecmeden once bilgilendirilmelidir.'),
+        p('WCAG 3.2.2, bir form kontrolünün değerini degistirmenin — onay kutusu işaretleme, radyo düğmesi seçme, metin girme veya açılır menü seçeneği seçme — kullanıcı önceden uyarilmadikca otomatik olarak bağlam değişikliği tetiklememesini gerektirir.'),
+        p('Giriş üzerine bağlam değişikliği gerekiyorsa, kullanıcı kontrolle etkilesime geçmeden önce bilgilendirilmelidir.'),
 
-        heading('Neden onemlidir'),
-        p('Ekran okuyucu ve klavye kullanicilari genellikle bir secim yapmadan once form kontrollerini kesfeder. Acilir menu secenegi secmek hemen sayfa degistirirse, kullanici yerini, kaydedilmemis verileri veya diger secenekleri inceleme imkanini kaybedebilir.'),
+        heading('Neden önemlidir'),
+        p('Ekran okuyucu ve klavye kullanıcıları genellikle bir seçim yapmadan önce form kontrollerini kesfeder. Açılır menü seçeneği seçmek hemen sayfa degistirirse, kullanıcı yerini, kaydedilmemis verileri veya diğer secenekleri inceleme imkanini kaybedebilir.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur. Giris degisikliklerinin beklenmedik baglam degisikliklerine neden olmadigini dogrulamak icin manuel test gerekir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur. Giriş değişikliklerinin beklenmedik bağlam degisikliklerine neden olmadığını doğrulamak için manuel test gerekir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Sayfadaki her form kontroluyle etkilesime gecin — secim degerlerini degistirin, kutulari isaretleyin, metin girin.'),
-        bullet('Otomatik olarak navigasyon, form gonderimi veya onemli sayfa degisikligi olmadigini dogrulayin.'),
-        bullet('Otomatik degisiklikler olursa, kontrolden once acik talimatlarin saglandigini kontrol edin.'),
+        heading('Nasıl test edilir'),
+        bullet('Sayfadaki her form kontroluyle etkilesime geçin — seçim değerlerini değiştirin, kutuları işaretleyin, metin girin.'),
+        bullet('Otomatik olarak navigasyon, form gonderimi veya önemli sayfa değişikliği olmadığını doğrulayın.'),
+        bullet('Otomatik değişiklikler olursa, kontrolden önce açık talimatların sağlandığını kontrol edin.'),
 
-        heading('Nasil duzeltilir'),
-        heading('Yanlis uygulama', 'h3'),
-        code('<!-- Degisiklikte sayfa degistiren select -->\n<select onchange="window.location = this.value">\n  <option value="/tr">Turkce</option>\n  <option value="/en">English</option>\n</select>', 'html'),
+        heading('Nasıl düzeltilir'),
+        heading('Yanlış uygulama', 'h3'),
+        code('<!-- Degisiklikte sayfa değiştiren select -->\n<select onchange="window.location = this.value">\n  <option value="/tr">Türkçe</option>\n  <option value="/en">English</option>\n</select>', 'html'),
 
-        heading('Dogru uygulama', 'h3'),
-        code('<!-- Acik gonder dugmesi ile select -->\n<select id="dil">\n  <option value="/tr">Turkce</option>\n  <option value="/en">English</option>\n</select>\n<button type="submit">Dili Degistir</button>', 'html'),
+        heading('Doğru uygulama', 'h3'),
+        code('<!-- Açık gönder düğmesi ile select -->\n<select id="dil">\n  <option value="/tr">Türkçe</option>\n  <option value="/en">English</option>\n</select>\n<button type="submit">Dili Degistir</button>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Gonder dugmesi olmadan degisiklikte hemen sayfa degistiren dil veya bolge seciciler.'),
-        bullet('Son alan tamamlandiginda otomatik form gonderimi.'),
-        bullet('Onay kutusu degistirildiginde uyari olmadan sayfayi yeniden yukleyen filtre kontrolleri.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Gönder düğmesi olmadan degisiklikte hemen sayfa değiştiren dil veya bölge seçiciler.'),
+        bullet('Son alan tamamlandığında otomatik form gonderimi.'),
+        bullet('Onay kutusu degistirildiginde uyarı olmadan sayfayı yeniden yukleyen filtre kontrolleri.'),
       ],
     },
 
@@ -803,8 +803,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.2.2 On Input. Prevent form controls from causing unexpected context changes when their values are modified.',
       },
       tr: {
-        metaTitle: 'WCAG 3.2.2 Giris Uzerine — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.2.2 Giris Uzerine kriterini nasil karsilayacaginizi ogrenin. Form kontrollerinin degerleri degistirildiginde beklenmedik baglam degisikliklerini onleyin.',
+        metaTitle: 'WCAG 3.2.2 Giriş Üzerine — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.2.2 Giriş Üzerine kriterini nasıl karşılayacağınızı öğrenin. Form kontrollerinin değerleri degistirildiginde beklenmedik bağlam değişikliklerini önleyin.',
       },
     },
   },
@@ -821,11 +821,11 @@ const rules = [
     tags: ['navigation', 'consistency', 'layout'],
     title: {
       en: 'Consistent Navigation',
-      tr: 'Tutarli Gezinme',
+      tr: 'Tutarlı Gezinme',
     },
     description: {
       en: 'Navigational mechanisms that are repeated on multiple web pages within a set occur in the same relative order each time they are repeated.',
-      tr: 'Bir kumedeki birden fazla web sayfasinda tekrarlanan gezinme mekanizmalari, her tekrarlandiklarinda ayni goreli sirada yer almalidir.',
+      tr: 'Bir kümedeki birden fazla web sayfasında tekrarlanan gezinme mekanizmaları, her tekrarlandıklarında aynı göreli sırada yer almalıdır.',
     },
     content: {
       en: [
@@ -860,29 +860,29 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.2.3, gezinme menuleri, arama cubukları ve diger tekrarlanan gezinme ogelerinin sitenin tum sayfalarinda ayni goreli sirada gorunmesini gerektirir. Tam ogeler degisebilir ancak paylasilan ogelerin sirasi tutarli kalmalidir.'),
-        p('Bu gezinme cubukları, yan menuleri, ekmek kirIntilari, alt bilgi baglantilarI ve diger gezinme mekanizmalari icin gecerlidir.'),
+        p('WCAG 3.2.3, gezinme menüleri, arama çubukları ve diğer tekrarlanan gezinme öğelerinin sitenin tüm sayfalarında aynı göreli sırada görünmesini gerektirir. Tam öğeler değişebilir ancak paylaşılan öğelerin sırası tutarlı kalmalıdır.'),
+        p('Bu gezinme çubukları, yan menüleri, ekmek kirIntilari, alt bilgi baglantilarI ve diğer gezinme mekanizmaları için geçerlidir.'),
 
-        heading('Neden onemlidir'),
-        p('Bilissel engelli kullanicilar ve ekran okuyucu kullanicilari gezinme ogelerini bulmak icin tutarli yerlesime guvenirler. Ana menu farkli sayfalarda farkli sirada gorunurse, kullanicilar her sayfada arayuzu yeniden ogrenmek zorunda kalir.'),
+        heading('Neden önemlidir'),
+        p('Bilişsel engelli kullanıcılar ve ekran okuyucu kullanıcıları gezinme öğelerini bulmak için tutarlı yerlesime guvenirler. Ana menü farklı sayfalarda farklı sırada gorunurse, kullanıcılar her sayfada arayüzü yeniden ogrenmek zorunda kalır.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur. Sayfalar arasi tutarliligin manuel karsilastirma ile dogrulanmasi gerekir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur. Sayfalar arasi tutarliligin manuel karşılaştırma ile doğrulanması gerekir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Site genelinde birden fazla sayfayi ziyaret edin ve gezinme ogelerinin sirasini karsilastirin.'),
-        bullet('Paylasilan gezinme ogelerinin ayni goreli sirayi korudugunuu dogrulayin.'),
-        bullet('Duyarli duzenlerin tum kesme noktalarında sirayi korumasini kontrol edin.'),
+        heading('Nasıl test edilir'),
+        bullet('Site genelinde birden fazla sayfayı ziyaret edin ve gezinme öğelerinin sırasını karşılaştırın.'),
+        bullet('Paylasilan gezinme öğelerinin aynı göreli sırayı korudugunuu doğrulayın.'),
+        bullet('Duyarlı duzenlerin tüm kesme noktalarında sırayı korumasını kontrol edin.'),
 
-        heading('Nasil duzeltilir'),
-        bullet('Tum sayfalarda gezinme icin paylasilan sablonlar veya bilesenler kullanin.'),
-        bullet('Gezinme ogelerinin goreli sirasini tutarli tutun.'),
-        bullet('Duyarli tasarimlarin duzen degisse bile ayni mantiksal sirayi korumasini saglayin.'),
+        heading('Nasıl düzeltilir'),
+        bullet('Tüm sayfalarda gezinme için paylaşılan sablonlar veya bileşenler kullanın.'),
+        bullet('Gezinme öğelerinin göreli sırasını tutarlı tutun.'),
+        bullet('Duyarlı tasarimlarin düzen degisse bile aynı mantıksal sırayı korumasını sağlayın.'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Farkli sayfa sablonlarinda gezinme ogelerini yeniden siralama.'),
-        bullet('Mobil hamburger menusunde masaustu gezinmesinden farkli sira kullanma.'),
-        bullet('Bazi sayfalarda gezinmenin ortasina oge ekleyerek mevcut ogeleri farkli konumlara itme.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Farklı sayfa sablonlarinda gezinme öğelerini yeniden sıralama.'),
+        bullet('Mobil hamburger menüsünde masaüstü gezinmesinden farklı sıra kullanma.'),
+        bullet('Bazi sayfalarda gezinmenin ortasina öğe ekleyerek mevcut öğeleri farklı konumlara itme.'),
       ],
     },
 
@@ -898,8 +898,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.2.3 Consistent Navigation. Keep navigation elements in the same relative order across all pages.',
       },
       tr: {
-        metaTitle: 'WCAG 3.2.3 Tutarli Gezinme — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.2.3 Tutarli Gezinme kriterini nasil karsilayacaginizi ogrenin. Tum sayfalarda gezinme ogelerini ayni goreli sirada tutun.',
+        metaTitle: 'WCAG 3.2.3 Tutarlı Gezinme — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.2.3 Tutarlı Gezinme kriterini nasıl karşılayacağınızı öğrenin. Tüm sayfalarda gezinme öğelerini aynı göreli sırada tutun.',
       },
     },
   },
@@ -916,11 +916,11 @@ const rules = [
     tags: ['consistency', 'labels', 'identification'],
     title: {
       en: 'Consistent Identification',
-      tr: 'Tutarli Tanimlama',
+      tr: 'Tutarlı Tanımlama',
     },
     description: {
       en: 'Components that have the same functionality within a set of web pages are identified consistently.',
-      tr: 'Bir web sayfasi kumesinde ayni islevsellige sahip bilesenler tutarli sekilde tanimlanir.',
+      tr: 'Bir web sayfası kumesinde aynı işlevselliğe sahip bileşenler tutarlı şekilde tanimlanir.',
     },
     content: {
       en: [
@@ -956,27 +956,27 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.2.4, ayni isleve sahip bilesenlerin web sitesi genelinde ayni etiketler, simgeler ve metin kullanmasini gerektirir. Arama islevi her zaman "Ara" olarak etiketlenmeli — bir sayfada "Ara" digirinde "Bul" olmamalidir.'),
-        p('Bu simgeler, dugme etiketleri, baglanti metni ve diger tanimlama mekanizmalarini kapsar.'),
+        p('WCAG 3.2.4, aynı isleve sahip bileşenlerin web sitesi genelinde aynı etiketler, simgeler ve metin kullanmasını gerektirir. Arama işlevi her zaman "Ara" olarak etiketlenmeli — bir sayfada "Ara" digirinde "Bul" olmamalıdır.'),
+        p('Bu simgeler, düğme etiketleri, bağlantı metni ve diğer tanımlama mekanizmalarini kapsar.'),
 
-        heading('Neden onemlidir'),
-        p('Bilissel engelli kullanicilar islevselligi anlamak icin tutarli etiketlemeye guvenirler. Bir yazici simgesi bir sayfada "Yazdir" digirinde "PDF Indir" anlamina gelirse kafa karisikligi olusturur.'),
+        heading('Neden önemlidir'),
+        p('Bilişsel engelli kullanıcılar işlevselliği anlamak için tutarlı etiketlemeye guvenirler. Bir yazici simgesi bir sayfada "Yazdir" digirinde "PDF İndir" anlamına gelirse kafa karışıklığı oluşturur.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur. Sayfalar arasi etiket tutarliligi manuel inceleme gerektirir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur. Sayfalar arasi etiket tutarliligi manuel inceleme gerektirir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Birden fazla sayfada gorunen bilesenleri belirleyin.'),
-        bullet('Her bilesenin tum sayfalarda ayni etiket ve erisilebilir adi kullandigini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Birden fazla sayfada görünen bileşenleri belirleyin.'),
+        bullet('Her bileşenin tüm sayfalarda aynı etiket ve erişilebilir adı kullandığını doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        bullet('Tutarli adlandirma uygulayan bir tasarim sistemi veya bilesen kitapligi olusturun.'),
-        bullet('Yaygin eylemler icin standart etiketleri stil kilavuzunuzda belgeleyin.'),
+        heading('Nasıl düzeltilir'),
+        bullet('Tutarlı adlandirma uygulayan bir tasarım sistemi veya bileşen kitapligi oluşturun.'),
+        bullet('Yaygın eylemler için standart etiketleri stil kilavuzunuzda belgeleyin.'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Ayni islev icin bazi sayfalarda "Giris Yap" digerlerinde "Oturum Ac" kullanma.'),
-        bullet('Sayfalar arasinda dugme etiketlerini degistirme.'),
-        bullet('Ayni eylem icin farkli simgeler kullanma.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Aynı işlev için bazı sayfalarda "Giriş Yap" digerlerinde "Oturum Ac" kullanma.'),
+        bullet('Sayfalar arasında düğme etiketlerini degistirme.'),
+        bullet('Aynı eylem için farklı simgeler kullanma.'),
       ],
     },
 
@@ -992,8 +992,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.2.4 Consistent Identification. Use the same labels and icons for components with the same function across all pages.',
       },
       tr: {
-        metaTitle: 'WCAG 3.2.4 Tutarli Tanimlama — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.2.4 Tutarli Tanimlama kriterini nasil karsilayacaginizi ogrenin. Tum sayfalarda ayni isleve sahip bilesenler icin ayni etiket ve simgeleri kullanin.',
+        metaTitle: 'WCAG 3.2.4 Tutarlı Tanımlama — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.2.4 Tutarlı Tanımlama kriterini nasıl karşılayacağınızı öğrenin. Tüm sayfalarda aynı isleve sahip bileşenler için aynı etiket ve simgeleri kullanın.',
       },
     },
   },
@@ -1010,11 +1010,11 @@ const rules = [
     tags: ['predictability', 'user-control', 'navigation'],
     title: {
       en: 'Change on Request',
-      tr: 'Istek Uzerine Degisiklik',
+      tr: 'İstek Üzerine Degisiklik',
     },
     description: {
       en: 'Changes of context are initiated only by user request, or a mechanism is available to turn off such changes.',
-      tr: 'Baglam degisiklikleri yalnizca kullanici istegi ile baslatilir veya bu degisiklikleri kapatma mekanizmasi mevcuttur.',
+      tr: 'Bağlam değişiklikleri yalnızca kullanıcı isteği ile başlatılır veya bu değişiklikleri kapatma mekanizması mevcuttur.',
     },
     content: {
       en: [
@@ -1046,27 +1046,27 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.2.5, 3.2.1 ve 3.2.2 kriterlerinin AAA surumudur. TUM baglam degisikliklerinin yalnizca kullanici acikca istek yaptiginda gerceklesmesini veya kullanicilarin otomatik baglam degisikliklerini devre disi birakabilmesini gerektirir.'),
-        p('Bu otomatik yonlendirmeleri, otomatik yenilenen sayfalari, otomatik acilan pencereleri ve diger otomatik baglam degisikliklerini icerir.'),
+        p('WCAG 3.2.5, 3.2.1 ve 3.2.2 kriterlerinin AAA surumudur. TUM bağlam değişikliklerinin yalnızca kullanıcı açıkça istek yaptığında gerçekleşmesini veya kullanıcıların otomatik bağlam değişikliklerini devre dışı birakabilmesini gerektirir.'),
+        p('Bu otomatik yonlendirmeleri, otomatik yenilenen sayfaları, otomatik açılan pencereleri ve diğer otomatik bağlam değişikliklerini içerir.'),
 
-        heading('Neden onemlidir'),
-        p('Otomatik baglam degisiklikleri ekran okuyucu kullanicilari icin yon bozucudur. Bilissel engelli kullanicilar gorevlerinin izini kaybedebilir. Kullanicilara baglam degisiklikleri uzerinde tam kontrol vermek ongorilebilir bir deneyim saglar.'),
+        heading('Neden önemlidir'),
+        p('Otomatik bağlam değişiklikleri ekran okuyucu kullanıcıları için yön bozucudur. Bilişsel engelli kullanıcılar gorevlerinin izini kaybedebilir. Kullanıcılara bağlam değişiklikleri üzerinde tam kontrol vermek ongorilebilir bir deneyim sağlar.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Sayfayi otomatik degisiklikler icin izleyin: yonlendirmeler, yenilemeler, acilir pencereler.'),
-        bullet('Tum baglam degisikliklerinin acik kullanici eylemi gerektirdigini dogrulayin.'),
-        bullet('Otomatik degisiklikler varsa, bunlari devre disi birakma mekanizmasini kontrol edin.'),
+        heading('Nasıl test edilir'),
+        bullet('Sayfayı otomatik değişiklikler için izleyin: yonlendirmeler, yenilemeler, açılır pencereler.'),
+        bullet('Tüm bağlam değişikliklerinin açık kullanıcı eylemi gerektirdigini doğrulayın.'),
+        bullet('Otomatik değişiklikler varsa, bunları devre dışı bırakma mekanizmasini kontrol edin.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- Yanlis: Otomatik yonlendirme -->\n<meta http-equiv="refresh" content="5;url=/yeni-sayfa" />\n\n<!-- Dogru: Baglanti saglayin -->\n<p>Bu sayfa tasindi. <a href="/yeni-sayfa">Yeni sayfaya gidin</a>.</p>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- Yanlış: Otomatik yönlendirme -->\n<meta http-equiv="refresh" content="5;url=/yeni-sayfa" />\n\n<!-- Doğru: Bağlantı sağlayın -->\n<p>Bu sayfa tasindi. <a href="/yeni-sayfa">Yeni sayfaya gidin</a>.</p>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Baglanti alternatifi saglamadan meta refresh ile yonlendirme.'),
-        bullet('Kullanici eylemi olmadan otomatik yeni pencere veya acilir pencere acma.'),
-        bullet('Odagi veya baglami degistiren otomatik oynatilan medya.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Bağlantı alternatifi sağlamadan meta refresh ile yönlendirme.'),
+        bullet('Kullanıcı eylemi olmadan otomatik yeni pencere veya açılır pencere açma.'),
+        bullet('Odagi veya bağlamı değiştiren otomatik oynatılan medya.'),
       ],
     },
 
@@ -1082,8 +1082,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.2.5 Change on Request. Ensure all context changes happen only when explicitly requested by the user.',
       },
       tr: {
-        metaTitle: 'WCAG 3.2.5 Istek Uzerine Degisiklik — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.2.5 Istek Uzerine Degisiklik kriterini nasil karsilayacaginizi ogrenin. Tum baglam degisikliklerinin yalnizca kullanici istegi ile gerceklesmesini saglayin.',
+        metaTitle: 'WCAG 3.2.5 İstek Üzerine Degisiklik — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.2.5 İstek Üzerine Degisiklik kriterini nasıl karşılayacağınızı öğrenin. Tüm bağlam değişikliklerinin yalnızca kullanıcı isteği ile gerçekleşmesini sağlayın.',
       },
     },
   },
@@ -1100,11 +1100,11 @@ const rules = [
     tags: ['help', 'consistency', 'navigation', 'wcag22'],
     title: {
       en: 'Consistent Help',
-      tr: 'Tutarli Yardim',
+      tr: 'Tutarlı Yardım',
     },
     description: {
       en: 'If a web page contains help mechanisms, they occur in the same relative order on each page.',
-      tr: 'Bir web sayfasi yardim mekanizmalari iceriyorsa, bunlar her sayfada ayni goreli sirada bulunmalidir.',
+      tr: 'Bir web sayfası yardım mekanizmaları içeriyorsa, bunlar her sayfada aynı göreli sırada bulunmalıdır.',
     },
     content: {
       en: [
@@ -1135,26 +1135,26 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.2.6 (WCAG 2.2 ile yeni), siteniz yardim mekanizmalari sagliyorsa — iletisim bilgileri, sohbet bilesenleri, SSS baglantilari, kendi kendine yardim secenekleri — bunlarin her sayfada ayni goreli konumda ve sirada gorunmesini gerektirir.'),
-        p('Kapsanan yardim mekanizmalari sunlardir: insan iletisim bilgileri (telefon, e-posta), insan iletisim mekanizmalari (sohbet, mesajlasma), kendi kendine yardim secenekleri (SSS, bilgi bankasi baglantilari) ve tam otomatik iletisim mekanizmalari (sohbet robotlari).'),
+        p('WCAG 3.2.6 (WCAG 2.2 ile yeni), siteniz yardım mekanizmaları sagliyorsa — iletişim bilgileri, sohbet bileşenleri, SSS bağlantıları, kendi kendine yardım secenekleri — bunların her sayfada aynı göreli konumda ve sırada görünmesini gerektirir.'),
+        p('Kapsanan yardım mekanizmaları şunlardır: insan iletişim bilgileri (telefon, e-posta), insan iletişim mekanizmaları (sohbet, mesajlasma), kendi kendine yardım secenekleri (SSS, bilgi bankasi bağlantıları) ve tam otomatik iletişim mekanizmaları (sohbet robotlari).'),
 
-        heading('Neden onemlidir'),
-        p('Bilissel engelli kullanicilar, yardim sayfalar arasinda yer degistirirse bulmakta zorlanabilir. Tutarli yerlestirme, desteğe erismek icin gereken bilissel cabayI azaltir.'),
+        heading('Neden önemlidir'),
+        p('Bilişsel engelli kullanıcılar, yardım sayfalar arasında yer degistirirse bulmakta zorlanabilir. Tutarlı yerleştirme, desteğe erismek için gereken bilişsel cabayI azaltır.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Birden fazla sayfada tum yardim mekanizmalarini belirleyin.'),
-        bullet('Her sayfada ayni goreli sirada gorunduklarini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Birden fazla sayfada tüm yardım mekanizmalarini belirleyin.'),
+        bullet('Her sayfada aynı göreli sırada gorunduklarini doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- Tum sayfalarda tutarli alt bilgi yardim bolumu -->\n<footer>\n  <div class="yardim-bolumu">\n    <h2>Yardim mi Lazim?</h2>\n    <ul>\n      <li><a href="/sss">SSS</a></li>\n      <li><a href="/iletisim">Bize Ulasin</a></li>\n      <li>Telefon: +90 (212) 123-4567</li>\n    </ul>\n  </div>\n</footer>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- Tüm sayfalarda tutarlı alt bilgi yardım bölümü -->\n<footer>\n  <div class="yardım-bölümü">\n    <h2>Yardım mi Lazim?</h2>\n    <ul>\n      <li><a href="/sss">SSS</a></li>\n      <li><a href="/iletişim">Bize Ulaşın</a></li>\n      <li>Telefon: +90 (212) 123-4567</li>\n    </ul>\n  </div>\n</footer>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Sohbet bilesenini urun sayfalarinda gosterip odeme sayfalarinda gostermeme.'),
-        bullet('Sayfa sablonlari arasinda yardim seceneklerini yeniden siralama.'),
-        bullet('Belirli sayfalarda yardim mekanizmalarini gizleme.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Sohbet bilesenini ürün sayfalarında gösterip ödeme sayfalarında göstermeme.'),
+        bullet('Sayfa sablonlari arasında yardım seceneklerini yeniden sıralama.'),
+        bullet('Belirli sayfalarda yardım mekanizmalarini gizleme.'),
       ],
     },
 
@@ -1169,8 +1169,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.2.6 Consistent Help (new in WCAG 2.2). Keep help mechanisms in the same relative order across all pages.',
       },
       tr: {
-        metaTitle: 'WCAG 3.2.6 Tutarli Yardim — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.2.6 Tutarli Yardim kriterini nasil karsilayacaginizi ogrenin. Yardim mekanizmalarini tum sayfalarda ayni goreli sirada tutun.',
+        metaTitle: 'WCAG 3.2.6 Tutarlı Yardım — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.2.6 Tutarlı Yardım kriterini nasıl karşılayacağınızı öğrenin. Yardım mekanizmalarini tüm sayfalarda aynı göreli sırada tutun.',
       },
     },
   },
@@ -1187,11 +1187,11 @@ const rules = [
     tags: ['forms', 'errors', 'validation'],
     title: {
       en: 'Error Identification',
-      tr: 'Hata Tanimlama',
+      tr: 'Hata Tanımlama',
     },
     description: {
       en: 'If an input error is automatically detected, the item that is in error is identified and the error is described to the user in text.',
-      tr: 'Bir giris hatasi otomatik olarak tespit edildiginde, hatali oge tanimlanir ve hata kullaniciya metin olarak aciklanir.',
+      tr: 'Bir giriş hatası otomatik olarak tespit edildiğinde, hatalı öğe tanimlanir ve hata kullanıcıya metin olarak aciklanir.',
     },
     content: {
       en: [
@@ -1230,33 +1230,33 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.1, bir form dogrulama hatasi olustigunda, sistemin hangi alanda hata oldugunu tanimlamasini ve hatayi metin olarak aciklamasini gerektirir. Yalnizca renk yeterli degildir — neyin yanlis gittigini aciklayan bir metin mesaji olmalidir.'),
-        p('Hata mesaji, ekran okuyucularin duyurabilmesi icin ilgili alanla programatik olarak iliskilendirilmelidir (aria-describedby, aria-errormessage veya yakinlik yoluyla).'),
+        p('WCAG 3.3.1, bir form doğrulama hatası oluştuğunda, sistemin hangi alanda hata olduğunu tanımlamasını ve hatayı metin olarak açıklamasını gerektirir. Yalnızca renk yeterli değildir — neyin yanlış gittiğini açıklayan bir metin mesajı olmalıdır.'),
+        p('Hata mesajı, ekran okuyucuların duyurabilmesi için ilgili alanla programatik olarak ilişkilendirilmelidir (aria-describedby, aria-errormessage veya yakınlık yoluyla).'),
 
-        heading('Neden onemlidir'),
-        p('Gorme engelli kullanicilar kirmizi kenarliklari veya hata simgelerini goremez. Renk korlugu olan kullanicilar kirmizi hata stilini normal stilden ayirt edemeyebilir. Acik hata metin aciklamalari tum kullanicilarin hatalari belirleyip duzeltmesini saglar.'),
+        heading('Neden önemlidir'),
+        p('Görme engelli kullanıcılar kırmızı kenarlıkları veya hata simgelerini göremez. Renk körlüğü olan kullanıcılar kırmızı hata stilini normal stilden ayırt edemeyebilir. Açık hata metin açıklamaları tüm kullanıcıların hataları belirleyip düzeltmesini sağlar.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Hata tanimlama icin ozel otomatik axe-core kurali yoktur. Ancak label, select-name gibi kurallar form kontrollerinin hata iliskilendirmesi icin dogru etiketlendigini dogrulamaya yardimci olur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Hata tanımlama için özel otomatik axe-core kuralı yoktur. Ancak label, select-name gibi kurallar form kontrollerinin hata ilişkilendirmesi için doğru etiketlendigini doğrulamaya yardımcı olur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Gecersiz veya eksik verilerle form gonderin ve hata mesajlarinin gorunduguny dogrulayin.'),
-        bullet('Hata mesajlarinin metin olarak oldugunun kontrol edin (yalnizca renk veya simge degil).'),
-        bullet('Hatalarin alanlariyla iliskilendirildigini dogrulayin.'),
-        bullet('Ekran okuyucu ile alan odak aldiginda hatalarin duyuruldugunuun dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Geçersiz veya eksik verilerle form gönderin ve hata mesajlarının gorunduguny doğrulayın.'),
+        bullet('Hata mesajlarının metin olarak oldugunun kontrol edin (yalnızca renk veya simge değil).'),
+        bullet('Hatalarin alanlariyla iliskilendirildigini doğrulayın.'),
+        bullet('Ekran okuyucu ile alan odak aldığında hatalarin duyurulduğunuun doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        heading('Yanlis uygulama', 'h3'),
-        code('<!-- Yalnizca renkle belirtilen hata -->\n<label for="eposta">E-posta</label>\n<input type="email" id="eposta" style="border-color: red" />', 'html'),
+        heading('Nasıl düzeltilir'),
+        heading('Yanlış uygulama', 'h3'),
+        code('<!-- Yalnızca renkle belirtilen hata -->\n<label for="eposta">E-posta</label>\n<input type="email" id="eposta" style="border-color: red" />', 'html'),
 
-        heading('Dogru uygulama', 'h3'),
-        code('<!-- Acik, iliskilendirilmis hata mesaji -->\n<label for="eposta">E-posta</label>\n<input type="email" id="eposta"\n       aria-invalid="true"\n       aria-describedby="eposta-hata" />\n<p id="eposta-hata" class="error" role="alert">\n  Lutfen gecerli bir e-posta adresi girin (ornegin ad@ornek.com).\n</p>', 'html'),
+        heading('Doğru uygulama', 'h3'),
+        code('<!-- Açık, ilişkilendirilmiş hata mesajı -->\n<label for="eposta">E-posta</label>\n<input type="email" id="eposta"\n       aria-invalid="true"\n       aria-describedby="eposta-hata" />\n<p id="eposta-hata" class="error" role="alert">\n  Lütfen geçerli bir e-posta adresi girin (örneğin ad@ornek.com).\n</p>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Hatalari belirtmek icin yalnizca renge (kirmizi kenarliklar) guvenme.'),
-        bullet('Belirli alanlari tanimlamadan ustte tek bir genel hata mesaji gosterme.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Hataları belirtmek için yalnızca renge (kırmızı kenarliklar) guvenme.'),
+        bullet('Belirli alanları tanımlamadan ustte tek bir genel hata mesajı gösterme.'),
         bullet('Hata mesajlarini alanlariyla programatik olarak iliskilendirmeme.'),
-        bullet('Neyin yanlis gittigini veya nasil duzeltilecegini aciklamayan hata mesajlari kullanma.'),
+        bullet('Neyin yanlış gittiğini veya nasıl duzeltilecegini açıklamayan hata mesajları kullanma.'),
       ],
     },
 
@@ -1274,8 +1274,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.1 Error Identification. Identify form errors in text and associate them with the relevant fields for screen readers.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.1 Hata Tanimlama — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.1 Hata Tanimlama kriterini nasil karsilayacaginizi ogrenin. Form hatalarini metin olarak tanimlyin ve ekran okuyucular icin ilgili alanlarla iliskilendirin.',
+        metaTitle: 'WCAG 3.3.1 Hata Tanımlama — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.1 Hata Tanımlama kriterini nasıl karşılayacağınızı öğrenin. Form hatalarını metin olarak tanımlayın ve ekran okuyucular için ilgili alanlarla ilişkilendirin.',
       },
     },
   },
@@ -1296,7 +1296,7 @@ const rules = [
     },
     description: {
       en: 'Labels or instructions are provided when content requires user input.',
-      tr: 'Icerik kullanici girisi gerektirdiginde etiketler veya talimatlar saglanir.',
+      tr: 'İçerik kullanıcı girişi gerektirdiğinde etiketler veya talimatlar sağlanır.',
     },
     content: {
       en: [
@@ -1335,32 +1335,32 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.2, form alanlari ve etkilesimli kontrollerin kullanicilarin hangi girisin bekledigini anlamasina yardimci olan etiketler veya talimatlara sahip olmasini gerektirir.'),
-        p('Etiketler neyin beklendigini acikca belirtmelidir. Belirli birim gereksinimlerine sahip alanlar icin beklenen biçim hakkinda talimatlar saglanmalidir.'),
+        p('WCAG 3.3.2, form alanları ve etkileşimli kontrollerin kullanıcıların hangi girisin bekledigini anlamasına yardımcı olan etiketler veya talimatlara sahip olmasını gerektirir.'),
+        p('Etiketler neyin beklendigini açıkça belirtmelidir. Belirli birim gereksinimlerine sahip alanlar için beklenen biçim hakkında talimatlar sağlanmalıdır.'),
 
-        heading('Neden onemlidir'),
-        p('Acik etiketler olmadan kullanicilar bir alana ne gireceklerini bilemeyebilir. Bu, form alanlarini anlamak icin etiketlere dayanan ekran okuyucu kullanicilarini ve net rehberlige ihtiyac duyan bilissel engelli kullanicilari etkiler.'),
+        heading('Neden önemlidir'),
+        p('Açık etiketler olmadan kullanıcılar bir alana ne gireceklerini bilemeyebilir. Bu, form alanlarını anlamak için etiketlere dayanan ekran okuyucu kullanıcılarını ve net rehberlige ihtiyaç duyan bilişsel engelli kullanıcıları etkiler.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('label ve select-name kurallari programatik iliskilendirmeyi dogrulasa da, bu kriter etiket iceriginin kalitesi ve yardimciligia odaklanir.'),
+        heading('İlgili axe-core kuralları'),
+        p('label ve select-name kuralları programatik ilişkilendirmeyi dogrulasa da, bu kriter etiket içeriğinin kalitesi ve yardimciligia odaklanır.'),
 
-        heading('Nasil test edilir'),
-        bullet('Her form alaninin gorunen bir etiketi oldugunu dogrulayin.'),
-        bullet('Etiketlerin beklenen girisi acikca tanimladigini kontrol edin.'),
-        bullet('Biciim gereksinimlerinin belirtildigini dogrulayin.'),
-        bullet('Zorunlu alanlarin formdan once tanimlandigini kontrol edin.'),
+        heading('Nasıl test edilir'),
+        bullet('Her form alanının görünen bir etiketi olduğunu doğrulayın.'),
+        bullet('Etiketlerin beklenen girişi açıkça tanımladığını kontrol edin.'),
+        bullet('Biciim gereksinimlerinin belirtildiğini doğrulayın.'),
+        bullet('Zorunlu alanların formdan önce tanımlandığını kontrol edin.'),
 
-        heading('Nasil duzeltilir'),
-        heading('Yanlis uygulama', 'h3'),
+        heading('Nasıl düzeltilir'),
+        heading('Yanlış uygulama', 'h3'),
         code('<!-- Etiket yok -->\n<input type="text" name="isim" />\n\n<!-- Yer tutucu etiket olarak (odaklaninca kayboluyor) -->\n<input type="email" placeholder="E-posta" />', 'html'),
 
-        heading('Dogru uygulama', 'h3'),
-        code('<!-- Acik etiket -->\n<label for="isim">Ad Soyad</label>\n<input type="text" id="isim" autocomplete="name" />\n\n<!-- Bicim talimati ile etiket -->\n<label for="dogum">Dogum tarihi (GG/AA/YYYY)</label>\n<input type="text" id="dogum" autocomplete="bday" />', 'html'),
+        heading('Doğru uygulama', 'h3'),
+        code('<!-- Açık etiket -->\n<label for="isim">Ad Soyad</label>\n<input type="text" id="isim" autocomplete="name" />\n\n<!-- Bicim talimati ile etiket -->\n<label for="doğum">Dogum tarihi (GG/AA/YYYY)</label>\n<input type="text" id="doğum" autocomplete="bday" />', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Yer tutucu metni tek etiket olarak kullanma — kullanici yazmaya basladiginda kaybolur.'),
-        bullet('Beklenen girisi tanimlamayan etiketler.'),
-        bullet('Kullanici gonderip hata alana kadar zorunlu alanlarin belirtilmemesi.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Yer tutucu metni tek etiket olarak kullanma — kullanıcı yazmaya başladığında kaybolur.'),
+        bullet('Beklenen girişi tanimlamayan etiketler.'),
+        bullet('Kullanıcı gonderip hata alana kadar zorunlu alanların belirtilmemesi.'),
         bullet('Bicim gereksinimlerinin hata olusana kadar belirtilmemesi.'),
       ],
     },
@@ -1378,8 +1378,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.2 Labels or Instructions. Provide clear labels and format instructions for all form fields and interactive controls.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.2 Etiketler veya Talimatlar — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.2 Etiketler veya Talimatlar kriterini nasil karsilayacaginizi ogrenin. Tum form alanlari icin acik etiketler ve bicim talimatlari saglayin.',
+        metaTitle: 'WCAG 3.3.2 Etiketler veya Talimatlar — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.2 Etiketler veya Talimatlar kriterini nasıl karşılayacağınızı öğrenin. Tüm form alanları için açık etiketler ve biçim talimatları sağlayın.',
       },
     },
   },
@@ -1396,11 +1396,11 @@ const rules = [
     tags: ['forms', 'errors', 'validation', 'suggestions'],
     title: {
       en: 'Error Suggestion',
-      tr: 'Hata Onerisi',
+      tr: 'Hata Önerisi',
     },
     description: {
       en: 'If an input error is automatically detected and suggestions for correction are known, the suggestions are provided to the user, unless it would jeopardize the security or purpose of the content.',
-      tr: 'Bir giris hatasi otomatik olarak tespit edildiginde ve duzeltme onerileri bilindiginde, iceriginin guvenligini veya amacini tehlikeye atmadikca oneriler kullaniciya sunulur.',
+      tr: 'Bir giriş hatası otomatik olarak tespit edildiğinde ve düzeltme onerileri bilindiginde, içeriğinin guvenligini veya amacını tehlikeye atmadikca oneriler kullanıcıya sunulur.',
     },
     content: {
       en: [
@@ -1437,31 +1437,31 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.3, yalnizca hata tanimlamasinin otesinde, sistem bir duzeltme belirleyebildiginde hatayi nasil duzeltecegine dair oneriler de saglnmasini gerektirir.'),
-        p('Guvenlige duyarli baglamlar icin istisnalar mevcuttur — gecerli sifreleri veya CAPTCHA yanitlarini onermemelisiniz.'),
+        p('WCAG 3.3.3, yalnızca hata tanımlamasının ötesinde, sistem bir düzeltme belirleyebildiginde hatayı nasıl duzeltecegine dair oneriler de saglnmasini gerektirir.'),
+        p('Guvenlige duyarlı baglamlar için istisnalar mevcuttur — geçerli sifreleri veya CAPTCHA yanıtlarını onermemelisiniz.'),
 
-        heading('Neden onemlidir'),
-        p('Bilissel engelli veya sinirli teknik bilgiye sahip kullanicilar, yalnizca aciklamadan bir hatayi nasil duzelteceklerini bilemeyebilir. Eyleme donusturulebilir oneriler saglamak form tamamlama oranlarini onemli olcude arttirir.'),
+        heading('Neden önemlidir'),
+        p('Bilişsel engelli veya sınırlı teknik bilgiye sahip kullanıcılar, yalnızca aciklamadan bir hatayı nasıl duzelteceklerini bilemeyebilir. Eyleme donusturulebilir oneriler sağlamak form tamamlama oranlarini önemli ölçüde arttırır.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Hata onerisi kalitesi icin otomatik axe-core kurali yoktur. Manuel test gerekir.'),
+        heading('İlgili axe-core kuralları'),
+        p('Hata önerisi kalitesi için otomatik axe-core kuralı yoktur. Manuel test gerekir.'),
 
-        heading('Nasil test edilir'),
-        bullet('Cesitli gecersiz girislerle dogrulama hatalarini tetikleyin.'),
-        bullet('Hata mesajlarinin duzeltme icin belirli oneriler icerdigini kontrol edin.'),
-        bullet('Onerilerin dogru ve eyleme donusturulebilir oldugunu dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Cesitli geçersiz girislerle doğrulama hatalarını tetikleyin.'),
+        bullet('Hata mesajlarının düzeltme için belirli oneriler içerdiğini kontrol edin.'),
+        bullet('Onerilerin doğru ve eyleme donusturulebilir olduğunu doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        heading('Yanlis uygulama', 'h3'),
-        code('<!-- Oneri olmayan belirsiz hata -->\n<p class="error">Gecersiz tarih.</p>', 'html'),
+        heading('Nasıl düzeltilir'),
+        heading('Yanlış uygulama', 'h3'),
+        code('<!-- Oneri olmayan belirsiz hata -->\n<p class="error">Geçersiz tarih.</p>', 'html'),
 
-        heading('Dogru uygulama', 'h3'),
-        code('<!-- Oneri ile belirli hata -->\n<p class="error">\n  Tarih GG/AA/YYYY biciminde olmalidir. Ornek: 15/03/2024\n</p>\n\n<!-- E-posta onerisi -->\n<p class="error">\n  Lutfen gecerli bir e-posta adresi girin.\n  Ornek: ad@ornek.com\n</p>', 'html'),
+        heading('Doğru uygulama', 'h3'),
+        code('<!-- Oneri ile belirli hata -->\n<p class="error">\n  Tarih GG/AA/YYYY biçiminde olmalıdır. Örnek: 15/03/2024\n</p>\n\n<!-- E-posta önerisi -->\n<p class="error">\n  Lütfen geçerli bir e-posta adresi girin.\n  Örnek: ad@ornek.com\n</p>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Neyin beklendigini aciklamadan yalnizca "Gecersiz giris" diyen hata mesajlari.'),
-        bullet('Son kullanicilara gosterilen teknik hata kodlari.'),
-        bullet('Tarihler, telefon numaralari icin dogru bicimi onermeme.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Neyin beklendigini aciklamadan yalnızca "Geçersiz giriş" diyen hata mesajları.'),
+        bullet('Son kullanıcılara gösterilen teknik hata kodlari.'),
+        bullet('Tarihler, telefon numaralari için doğru biçimi onermeme.'),
       ],
     },
 
@@ -1477,8 +1477,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.3 Error Suggestion. Provide actionable correction suggestions when form validation errors are detected.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.3 Hata Onerisi — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.3 Hata Onerisi kriterini nasil karsilayacaginizi ogrenin. Form dogrulama hatalari tespit edildiginde eyleme donusturulebilir duzeltme onerileri saglayin.',
+        metaTitle: 'WCAG 3.3.3 Hata Önerisi — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.3 Hata Önerisi kriterini nasıl karşılayacağınızı öğrenin. Form doğrulama hataları tespit edildiğinde eyleme donusturulebilir düzeltme onerileri sağlayın.',
       },
     },
   },
@@ -1495,11 +1495,11 @@ const rules = [
     tags: ['forms', 'errors', 'legal', 'financial', 'data'],
     title: {
       en: 'Error Prevention (Legal, Financial, Data)',
-      tr: 'Hata Onleme (Yasal, Finansal, Veri)',
+      tr: 'Hata Önleme (Yasal, Finansal, Veri)',
     },
     description: {
       en: 'For web pages that cause legal commitments or financial transactions, submissions are reversible, checked, or confirmed.',
-      tr: 'Yasal yukumlulukler veya finansal islemler iceren web sayfalari icin gonderimler geri alinabilir, kontrol edilebilir veya onaylanabilir olmalidir.',
+      tr: 'Yasal yukumlulukler veya finansal islemler içeren web sayfaları için gonderimler geri alinabilir, kontrol edilebilir veya onaylanabilir olmalıdır.',
     },
     content: {
       en: [
@@ -1516,7 +1516,7 @@ const rules = [
 
         heading('How to test'),
         bullet('Identify all forms that involve legal, financial, or data-deletion actions.'),
-        bullet('Verify at least one safeguard: reversibility, error checking, or confirmation step.'),
+        bullet('Verify at least öne safeguard: reversibility, error checking, or confirmation step.'),
         bullet('Test the confirmation step with a screen reader to ensure all details are accessible.'),
         bullet('Verify that the undo/cancel mechanism actually works.'),
 
@@ -1532,26 +1532,26 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.4, yasal yukumlulukler, finansal islemler veya kullanici kontrollundeki veri iceren formlar icin en az bir guvenlik onlemi bulunmasini gerektirir: gonderimler geri alinabilir, veriler gonderimden once hatalara karsi kontrol edilir veya kullanici gonderimden once inceleyip onaylayabilir.'),
+        p('WCAG 3.3.4, yasal yukumlulukler, finansal islemler veya kullanıcı kontrollundeki veri içeren formlar için en az bir güvenlik onlemi bulunmasini gerektirir: gonderimler geri alinabilir, veriler gonderimden önce hatalara karşı kontrol edilir veya kullanıcı gonderimden önce inceleyip onaylayabilir.'),
 
-        heading('Neden onemlidir'),
-        p('Motor engellli kullanicilar yanlislikla gonder dugmesine basabilir. Bilissel engelli kullanicilar bir satin alma islemine taahhut ettiklerini fark etmeyebilir. Hata onleme guvenlik onlemleri tum kullanicilari geri alinamaz hatalardan korur.'),
+        heading('Neden önemlidir'),
+        p('Motor engellli kullanıcılar yanlislikla gönder düğmesine basabilir. Bilişsel engelli kullanıcılar bir satın alma islemine taahhut ettiklerini fark etmeyebilir. Hata onleme güvenlik onlemleri tüm kullanıcıları geri alınamaz hatalardan korur.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Yasal, finansal veya veri silme eylemleri iceren tum formlari belirleyin.'),
-        bullet('En az bir guvenlik onlemi bulundugun dogrulayin: geri alinabilirlik, hata kontrolu veya onay adimi.'),
-        bullet('Geri alma/iptal mekanizmasinin gercekten calistigini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Yasal, finansal veya veri silme eylemleri içeren tüm formları belirleyin.'),
+        bullet('En az bir güvenlik onlemi bulundugun doğrulayın: geri alinabilirlik, hata kontrolü veya onay adımı.'),
+        bullet('Geri alma/iptal mekanizmasının gerçekten çalıştığını doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- Son gonderim oncesi onay sayfasi -->\n<h2>Siparisiniizi Inceleyin</h2>\n<table>\n  <tr><td>Urun</td><td>Widget Pro</td></tr>\n  <tr><td>Fiyat</td><td>49,99 $</td></tr>\n</table>\n<form action="/siparis-gonder" method="post">\n  <a href="/sepet">Geri don ve duzenle</a>\n  <button type="submit">Onayla ve Ode</button>\n</form>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- Son gönderim öncesi onay sayfası -->\n<h2>Siparisiniizi Inceleyin</h2>\n<table>\n  <tr><td>Ürün</td><td>Widget Pro</td></tr>\n  <tr><td>Fiyat</td><td>49,99 $</td></tr>\n</table>\n<form action="/siparis-gönder" method="post">\n  <a href="/sepet">Geri don ve düzenle</a>\n  <button type="submit">Onayla ve Ode</button>\n</form>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Onay olmadan tek tikla satin alma.'),
-        bullet('Geri alma secenegi veya onay olmadan kalici veri silme.'),
-        bullet('Inceleme icin tum ilgili ayrintilari icermeyen onay iletisim kutulari.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Onay olmadan tek tıkla satın alma.'),
+        bullet('Geri alma seçeneği veya onay olmadan kalıcı veri silme.'),
+        bullet('İnceleme için tüm ilgili ayrıntıları içermeyen onay iletişim kutuları.'),
       ],
     },
 
@@ -1567,8 +1567,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.4 Error Prevention. Provide reversibility, error checking, or confirmation for legal, financial, and data-sensitive forms.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.4 Hata Onleme — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.4 Hata Onleme kriterini nasil karsilayacaginizi ogrenin. Yasal, finansal ve veriye duyarli formlar icin geri alinabilirlik, hata kontrolu veya onay saglayin.',
+        metaTitle: 'WCAG 3.3.4 Hata Önleme — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.4 Hata Önleme kriterini nasıl karşılayacağınızı öğrenin. Yasal, finansal ve veriye duyarlı formlar için geri alinabilirlik, hata kontrolü veya onay sağlayın.',
       },
     },
   },
@@ -1583,10 +1583,10 @@ const rules = [
     impact: 'minor',
     axeRuleIds: [],
     tags: ['forms', 'help', 'instructions'],
-    title: { en: 'Help', tr: 'Yardim' },
+    title: { en: 'Help', tr: 'Yardım' },
     description: {
       en: 'Context-sensitive help is available.',
-      tr: 'Baglama duyarli yardim mevcuttur.',
+      tr: 'Baglama duyarlı yardım mevcuttur.',
     },
     content: {
       en: [
@@ -1617,24 +1617,24 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.5, form alanlari ve etkilesimli bilesenler icin baglama duyarli yardimin mevcut olmasini gerektirir. Kullanicilar genel bir yardim sayfasi yerine gerceklestirdikleri goreve ozgu yardim alabilmelidir.'),
+        p('WCAG 3.3.5, form alanları ve etkileşimli bileşenler için bağlama duyarlı yardimin mevcut olmasını gerektirir. Kullanıcılar genel bir yardım sayfası yerine gerçekleştirdikleri göreve özgü yardım alabilmelidir.'),
 
-        heading('Neden onemlidir'),
-        p('Bilissel engelli kullanicilar formlari dogru tamamlamak icin ek rehberlige ihtiyac duyabilir. Baglama duyarli yardim hatalari azaltir ve gorev tamamlamayi destekler.'),
+        heading('Neden önemlidir'),
+        p('Bilişsel engelli kullanıcılar formları doğru tamamlamak için ek rehberlige ihtiyaç duyabilir. Baglama duyarlı yardım hataları azaltır ve görev tamamlamayi destekler.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Ek rehberlik gerektirebilecek karmasik form alanlarini belirleyin.'),
-        bullet('Bu alanlar icin baglama duyarli yardim mevcut oldugunu dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Ek rehberlik gerektirebilecek karmaşık form alanlarını belirleyin.'),
+        bullet('Bu alanlar için bağlama duyarlı yardım mevcut olduğunu doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- Satir ici yardim metni -->\n<label for="cvv">CVV</label>\n<input type="text" id="cvv" aria-describedby="cvv-yardim" />\n<p id="cvv-yardim" class="help-text">\n  Kartinizin arkasindaki 3 haneli numara.\n</p>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- Satır içi yardım metni -->\n<label for="cvv">CVV</label>\n<input type="text" id="cvv" aria-describedby="cvv-yardım" />\n<p id="cvv-yardım" class="help-text">\n  Kartinizin arkasındaki 3 haneli numara.\n</p>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Baglama duyarli yardim olmadan yalnizca genel SSS sayfasi saglama.'),
-        bullet('Klavye ile erisilebilir olmayan yardim araç ipuclari.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Baglama duyarlı yardım olmadan yalnızca genel SSS sayfası sağlama.'),
+        bullet('Klavye ile erişilebilir olmayan yardım araç ipuçları.'),
       ],
     },
 
@@ -1649,8 +1649,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.5 Help. Provide context-sensitive help for form fields and interactive components.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.5 Yardim — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.5 Yardim kriterini nasil karsilayacaginizi ogrenin. Form alanlari ve etkilesimli bilesenler icin baglama duyarli yardim saglayin.',
+        metaTitle: 'WCAG 3.3.5 Yardım — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.5 Yardım kriterini nasıl karşılayacağınızı öğrenin. Form alanları ve etkileşimli bileşenler için bağlama duyarlı yardım sağlayın.',
       },
     },
   },
@@ -1667,11 +1667,11 @@ const rules = [
     tags: ['forms', 'errors', 'prevention'],
     title: {
       en: 'Error Prevention (All)',
-      tr: 'Hata Onleme (Tumu)',
+      tr: 'Hata Önleme (Tumu)',
     },
     description: {
       en: 'For web pages that require the user to submit information, submissions are reversible, checked, or confirmed.',
-      tr: 'Kullanicinin bilgi gondermesini gerektiren web sayfalari icin gonderimler geri alinabilir, kontrol edilebilir veya onaylanabilir.',
+      tr: 'Kullanıcının bilgi gondermesini gerektiren web sayfaları için gonderimler geri alinabilir, kontrol edilebilir veya onaylanabilir.',
     },
     content: {
       en: [
@@ -1699,24 +1699,24 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.6, 3.3.4 kriterini yalnizca yasal/finansal/veri formlarindan TUM formlara genisletir. Her form gonderimi geri alinabilir, hata icin kontrol edilmis veya onay adimi icermis olmalidir.'),
+        p('WCAG 3.3.6, 3.3.4 kriterini yalnızca yasal/finansal/veri formlarindan TUM formlara genişletir. Her form gonderimi geri alinabilir, hata için kontrol edilmiş veya onay adımı icermis olmalıdır.'),
 
-        heading('Neden onemlidir'),
-        p('Herhangi bir form gonderimi engelli kullanicilar icin sorunlara neden olabilir. Bu kriter kullanici hatalarina karsi en yuksek duzey koruma saglar.'),
+        heading('Neden önemlidir'),
+        p('Herhangi bir form gonderimi engelli kullanıcılar için sorunlara neden olabilir. Bu kriter kullanıcı hatalarına karşı en yüksek düzey koruma sağlar.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Kullanici verisi gonderen tum formlari belirleyin.'),
-        bullet('Her biri icin en az bir guvenlik onlemi bulundugun dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Kullanıcı verisi gonderen tüm formları belirleyin.'),
+        bullet('Her biri için en az bir güvenlik onlemi bulundugun doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        p('3.3.4 ile ayni teknikleri tum formlara uygulayin: onay sayfalari, geri alma mekanizmalari, istemci tarafi dogrulama ve inceleme adimlari.'),
+        heading('Nasıl düzeltilir'),
+        p('3.3.4 ile aynı teknikleri tüm formlara uygulayın: onay sayfaları, geri alma mekanizmaları, istemci tarafı doğrulama ve inceleme adımları.'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Onay olmadan gonderim yapan basit formlar (iletisim, geri bildirim).'),
-        bullet('Iyilestirme veya geri donme imkani olmadan sayfa degistiren arama formlari.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Onay olmadan gönderim yapan basit formlar (iletişim, geri bildirim).'),
+        bullet('Iyilestirme veya geri donme imkani olmadan sayfa değiştiren arama formları.'),
       ],
     },
 
@@ -1730,8 +1730,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.6 Error Prevention (All). Apply reversibility, error checking, or confirmation to all form submissions.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.6 Hata Onleme (Tumu) — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.6 Hata Onleme (Tumu) kriterini nasil karsilayacaginizi ogrenin. Tum form gonderimlerine geri alinabilirlik, hata kontrolu veya onay uygulayin.',
+        metaTitle: 'WCAG 3.3.6 Hata Önleme (Tumu) — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.6 Hata Önleme (Tumu) kriterini nasıl karşılayacağınızı öğrenin. Tüm form gonderimlerine geri alinabilirlik, hata kontrolü veya onay uygulayın.',
       },
     },
   },
@@ -1752,7 +1752,7 @@ const rules = [
     },
     description: {
       en: 'Information previously entered by or provided to the user that is required to be entered again in the same process is either auto-populated or available for the user to select.',
-      tr: 'Kullanici tarafindan daha once girilen veya saglan bilginin ayni surec icinde tekrar girilmesi gerektiginde, bilgi otomatik olarak doldurulur veya kullanicinin secebilmesi icin sunulur.',
+      tr: 'Kullanıcı tarafından daha önce girilen veya saglan bilginin aynı süreç içinde tekrar girilmesi gerektiğinde, bilgi otomatik olarak doldurulur veya kullanıcının secebilmesi için sunulur.',
     },
     content: {
       en: [
@@ -1783,26 +1783,26 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.7 (WCAG 2.2 ile yeni), kullanicilarin ayni surec sirasinda daha once sagladiklari bilgileri tekrar girmeleri gerektiginde, sistemin bunu otomatik doldurmasini veya secim icin sunmasini gerektirir.'),
-        p('Guvenlik amaclari (sifreyi onaylamak icin tekrar girme) ve daha once girilen bilgilerin artik gecerli olmadigi durumlar icin istisnalar mevcuttur.'),
+        p('WCAG 3.3.7 (WCAG 2.2 ile yeni), kullanıcıların aynı süreç sırasında daha önce sağladıkları bilgileri tekrar girmeleri gerektiğinde, sistemin bunu otomatik doldurmasini veya seçim için sunmasını gerektirir.'),
+        p('Güvenlik amaclari (sifreyi onaylamak için tekrar girme) ve daha önce girilen bilgilerin artık geçerli olmadığı durumlar için istisnalar mevcuttur.'),
 
-        heading('Neden onemlidir'),
-        p('Bilgiyi tekrar girme, bilissel engelli kullanicilar, motor engelli kullanicilar ve yardimci teknoloji kullanan herkes icin onemli bir engeldir. Her ek giris hata sansini ve kullanici uzerindeki bilissel yuku arttirir.'),
+        heading('Neden önemlidir'),
+        p('Bilgiyi tekrar girme, bilişsel engelli kullanıcılar, motor engelli kullanıcılar ve yardımcı teknoloji kullanan herkes için önemli bir engeldir. Her ek giriş hata sansini ve kullanıcı üzerindeki bilişsel yükü arttırır.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Cok adimli formlari tamamlayin ve bilginin tekrar girilmesi gereken yerleri belirleyin.'),
-        bullet('Daha once girilen verilerin otomatik dolduruldugunu veya secilebilir oldugunu dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Çok adımlı formları tamamlayın ve bilginin tekrar girilmesi gereken yerleri belirleyin.'),
+        bullet('Daha önce girilen verilerin otomatik dolduruldugunu veya secilebilir olduğunu doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- Veriyi yeniden kullanmak icin onay kutusu -->\n<fieldset>\n  <legend>Fatura Adresi</legend>\n  <label>\n    <input type="checkbox" id="ayni-adres" />\n    Kargo adresiyle ayni\n  </label>\n</fieldset>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- Veriyi yeniden kullanmak için onay kutusu -->\n<fieldset>\n  <legend>Fatura Adresi</legend>\n  <label>\n    <input type="checkbox" id="aynı-adres" />\n    Kargo adresiyle aynı\n  </label>\n</fieldset>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Odeme akisinin birden fazla adiminda ayni e-posta adresini sorma.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Ödeme akisinin birden fazla adiminda aynı e-posta adresini sorma.'),
         bullet('Fatura ve kargo adresi eslestiginde adresin tekrar girilmesini isteme.'),
-        bullet('Cok adimli formda ileri geri gezinirken girilen verileri korumama.'),
+        bullet('Çok adımlı formda ileri geri gezinirken girilen verileri korumama.'),
       ],
     },
 
@@ -1817,8 +1817,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.7 Redundant Entry (new in WCAG 2.2). Auto-populate or offer previously entered information to avoid redundant data entry.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.7 Gereksiz Tekrar Girisi — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.7 Gereksiz Tekrar Girisi kriterini nasil karsilayacaginizi ogrenin. Gereksiz veri girisini onlemek icin daha once girilen bilgileri otomatik doldurun veya sunun.',
+        metaTitle: 'WCAG 3.3.7 Gereksiz Tekrar Girisi — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.7 Gereksiz Tekrar Girisi kriterini nasıl karşılayacağınızı öğrenin. Gereksiz veri girisini önlemek için daha önce girilen bilgileri otomatik doldurun veya sunun.',
       },
     },
   },
@@ -1835,11 +1835,11 @@ const rules = [
     tags: ['authentication', 'cognitive', 'forms', 'wcag22'],
     title: {
       en: 'Accessible Authentication (Minimum)',
-      tr: 'Erisilebilir Kimlik Dogrulama (Minimum)',
+      tr: 'Erişilebilir Kimlik Doğrulama (Minimum)',
     },
     description: {
       en: 'A cognitive function test is not required for any step in an authentication process unless an alternative or assistance mechanism is provided.',
-      tr: 'Bir alternatif veya yardim mekanizmasi saglanmadikca, kimlik dogrulama surecinin hicbir adiminda bilissel islev testi gerekli degildir.',
+      tr: 'Bir alternatif veya yardım mekanizması saglanmadikca, kimlik doğrulama sürecinin hiçbir adiminda bilişsel işlev testi gerekli değildir.',
     },
     content: {
       en: [
@@ -1873,28 +1873,28 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.8 (WCAG 2.2 ile yeni), bir alternatif saglanmadikca kimlik dogrulama sureclerinin bilissel islev testlerine — sifre ezberleme, bulmaca cozme, kod kopyalama — dayaanmamasini gerektirir.'),
-        p('Kabul edilebilir alternatifler sunlardir: sifre yoneticileri (kopyala/yapistir calismalidir), gecis anahtarlari/WebAuthn, e-posta/SMS sihirli baglantilar, OAuth/SSO ve biyometrik kimlik dogrulama.'),
+        p('WCAG 3.3.8 (WCAG 2.2 ile yeni), bir alternatif saglanmadikca kimlik doğrulama sureclerinin bilişsel işlev testlerine — sifre ezberleme, bulmaca çözme, kod kopyalama — dayaanmamasini gerektirir.'),
+        p('Kabul edilebilir alternatifler şunlardır: sifre yoneticileri (kopyala/yapıştır çalışmalıdır), geçiş anahtarlari/WebAuthn, e-posta/SMS sihirli bağlantılar, OAuth/SSO ve biyometrik kimlik doğrulama.'),
 
-        heading('Neden onemlidir'),
-        p('Bilissel engelli, hafiza bozuklugu ve ogrenme guclugu olan kullanicilar sifreleri hatirlayamayabilir veya CAPTCHA zorluklarini tamamlayamayabilir. Kimlik dogrulama engelleri bu kullanicilari hizmetlerden tamamen kilitler.'),
+        heading('Neden önemlidir'),
+        p('Bilişsel engelli, hafıza bozukluğu ve ogrenme güçlüğü olan kullanıcılar sifreleri hatirlayamayabilir veya CAPTCHA zorluklarını tamamlayamayabilir. Kimlik doğrulama engelleri bu kullanıcıları hizmetlerden tamamen kilitler.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Tum kimlik dogrulama adimlarini belirleyin (giris, 2FA, CAPTCHA).'),
-        bullet('Her adim icin bilissel islev testi gerekip gerekmedini belirleyin.'),
-        bullet('Hafiza veya kopyalama gerektirmeyen en az bir kimlik dogrulama yolu bulundugunuu dogrulayin.'),
-        bullet('Sifre alanlarinin yapistirmaya izin verdigini kontrol edin.'),
+        heading('Nasıl test edilir'),
+        bullet('Tüm kimlik doğrulama adımlarını belirleyin (giriş, 2FA, CAPTCHA).'),
+        bullet('Her adım için bilişsel işlev testi gerekip gerekmedini belirleyin.'),
+        bullet('Hafiza veya kopyalama gerektirmeyen en az bir kimlik doğrulama yolu bulundugunuu doğrulayın.'),
+        bullet('Sifre alanlarının yapistirmaya izin verdigini kontrol edin.'),
 
-        heading('Nasil duzeltilir'),
-        code('<!-- Sifre yoneticileri icin yapistirmaya izin verin -->\n<label for="sifre">Sifre</label>\n<input type="password" id="sifre"\n       autocomplete="current-password" />\n\n<!-- Sihirli baglanti alternatifi -->\n<form action="/giris" method="post">\n  <label for="eposta">E-posta</label>\n  <input type="email" id="eposta" autocomplete="email" />\n  <button type="submit">Giris baglantisi gonder</button>\n</form>', 'html'),
+        heading('Nasıl düzeltilir'),
+        code('<!-- Sifre yoneticileri için yapistirmaya izin verin -->\n<label for="sifre">Sifre</label>\n<input type="password" id="sifre"\n       autocomplete="current-password" />\n\n<!-- Sihirli bağlantı alternatifi -->\n<form action="/giriş" method="post">\n  <label for="eposta">E-posta</label>\n  <input type="email" id="eposta" autocomplete="email" />\n  <button type="submit">Giriş bağlantısı gönder</button>\n</form>', 'html'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('Sifre alanlarinda yapistirmayi devre disi birakma.'),
-        bullet('Erisilebilir alternatif olmadan CAPTCHA isteme.'),
-        bullet('Kopyala/yapistir olmadan bir cihazdan digerine kod kopyalama isteme.'),
+        heading('Sık yapılan hatalar'),
+        bullet('Sifre alanlarında yapistirmayi devre dışı bırakma.'),
+        bullet('Erişilebilir alternatif olmadan CAPTCHA isteme.'),
+        bullet('Kopyala/yapıştır olmadan bir cihazdan diğerine kod kopyalama isteme.'),
       ],
     },
 
@@ -1910,8 +1910,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.8 Accessible Authentication (new in WCAG 2.2). Ensure authentication does not rely on cognitive function tests.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.8 Erisilebilir Kimlik Dogrulama — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.8 Erisilebilir Kimlik Dogrulama kriterini nasil karsilayacaginizi ogrenin. Kimlik dogrulamanin bilissel islev testlerine dayanmamasini saglayin.',
+        metaTitle: 'WCAG 3.3.8 Erişilebilir Kimlik Doğrulama — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.8 Erişilebilir Kimlik Doğrulama kriterini nasıl karşılayacağınızı öğrenin. Kimlik dogrulamanin bilişsel işlev testlerine dayanmamasini sağlayın.',
       },
     },
   },
@@ -1928,11 +1928,11 @@ const rules = [
     tags: ['authentication', 'cognitive', 'forms', 'wcag22'],
     title: {
       en: 'Accessible Authentication (Enhanced)',
-      tr: 'Erisilebilir Kimlik Dogrulama (Gelistirilmis)',
+      tr: 'Erişilebilir Kimlik Doğrulama (Geliştirilmiş)',
     },
     description: {
       en: 'A cognitive function test is not required for any step in an authentication process.',
-      tr: 'Kimlik dogrulama surecinin hicbir adiminda bilissel islev testi gerekli degildir.',
+      tr: 'Kimlik doğrulama sürecinin hiçbir adiminda bilişsel işlev testi gerekli değildir.',
     },
     content: {
       en: [
@@ -1967,29 +1967,29 @@ const rules = [
 
       tr: [
         heading('Bu kural ne anlama geliyor'),
-        p('WCAG 3.3.9 (WCAG 2.2 ile yeni), 3.3.8 kriterinin AAA gelistirmesidir. 3.3.8 alternatif saglanirsa bilissel testlere izin verirken, 3.3.9 kimlik dogrulamada bilissel islev testlerini tamamen yasaklar.'),
-        p('Bu, hicbir CAPTCHA (gorsel secim dahil), guvenlik sorusu ve sifre yoneticisi destegi olmadan sifre hatirlama olmamasi anlamina gelir.'),
+        p('WCAG 3.3.9 (WCAG 2.2 ile yeni), 3.3.8 kriterinin AAA gelistirmesidir. 3.3.8 alternatif saglanirsa bilişsel testlere izin verirken, 3.3.9 kimlik dogrulamada bilişsel işlev testlerini tamamen yasaklar.'),
+        p('Bu, hiçbir CAPTCHA (görsel seçim dahil), güvenlik sorusu ve sifre yoneticisi desteği olmadan sifre hatırlama olmaması anlamına gelir.'),
 
-        heading('Neden onemlidir'),
-        p('Bu, en yuksek duzey kimlik dogrulama erisilebilirligini saglar. Ciddi bilissel engelli kullanicilarin hicbir bilissel engel olmadan kimlik dogrulama yapabilmesini garanti eder.'),
+        heading('Neden önemlidir'),
+        p('Bu, en yüksek düzey kimlik doğrulama erişilebilirliğini sağlar. Ciddi bilişsel engelli kullanıcıların hiçbir bilişsel engel olmadan kimlik doğrulama yapabilmesini garanti eder.'),
 
-        heading('Ilgili axe-core kurallari'),
-        p('Bu kriter icin otomatik axe-core kurali yoktur.'),
+        heading('İlgili axe-core kuralları'),
+        p('Bu kriter için otomatik axe-core kuralı yoktur.'),
 
-        heading('Nasil test edilir'),
-        bullet('Her kimlik dogrulama adimini bilissel gereksinim icin inceleyin.'),
-        bullet('Hicbir adimin hafiza, kopyalama, oruntu tanima veya bulmaca cozme gerektirmedigini dogrulayin.'),
+        heading('Nasıl test edilir'),
+        bullet('Her kimlik doğrulama adimini bilişsel gereksinim için inceleyin.'),
+        bullet('Hiçbir adımın hafıza, kopyalama, oruntu tanıma veya bulmaca çözme gerektirmedigini doğrulayın.'),
 
-        heading('Nasil duzeltilir'),
-        bullet('Birincil kimlik dogrulama yontemi olarak WebAuthn/gecis anahtarlarini kullanin.'),
-        bullet('Biyometrik kimlik dogrulama sunun.'),
-        bullet('Sihirli baglanti (e-posta tabanli) kimlik dogrulama saglayin.'),
-        bullet('Tum CAPTCHA, guvenlik soruları ve gorsel tabanli dogrulamayi kaldirin.'),
+        heading('Nasıl düzeltilir'),
+        bullet('Birincil kimlik doğrulama yöntemi olarak WebAuthn/geçiş anahtarlarini kullanın.'),
+        bullet('Biyometrik kimlik doğrulama sunun.'),
+        bullet('Sihirli bağlantı (e-posta tabanlı) kimlik doğrulama sağlayın.'),
+        bullet('Tüm CAPTCHA, güvenlik soruları ve görsel tabanlı dogrulamayi kaldırın.'),
 
-        heading('Sik yapilan hatalar'),
-        bullet('"Erisilebilir" sesli alternatifi olsa bile CAPTCHA ya guvenme.'),
-        bullet('Hafiza hatirlama gerektiren guvenlik sorulari.'),
-        bullet('Gorsel tabanli dogrulama (tum trafik isIklarini secin).'),
+        heading('Sık yapılan hatalar'),
+        bullet('"Erişilebilir" sesli alternatifi olsa bile CAPTCHA ya guvenme.'),
+        bullet('Hafiza hatırlama gerektiren güvenlik soruları.'),
+        bullet('Görsel tabanlı doğrulama (tüm trafik isIklarini seçin).'),
       ],
     },
 
@@ -2004,8 +2004,8 @@ const rules = [
         metaDescription: 'Learn how to meet WCAG 3.3.9 Accessible Authentication Enhanced (new in WCAG 2.2). Eliminate all cognitive function tests from authentication.',
       },
       tr: {
-        metaTitle: 'WCAG 3.3.9 Erisilebilir Kimlik Dogrulama (Gelistirilmis) — Erisilebilirlik Rehberi',
-        metaDescription: 'WCAG 3.3.9 Erisilebilir Kimlik Dogrulama (Gelistirilmis) kriterini nasil karsilayacaginizi ogrenin. Kimlik dogrulamadan tum bilissel islev testlerini kaldirin.',
+        metaTitle: 'WCAG 3.3.9 Erişilebilir Kimlik Doğrulama (Geliştirilmiş) — Erişilebilirlik Rehberi',
+        metaDescription: 'WCAG 3.3.9 Erişilebilir Kimlik Doğrulama (Geliştirilmiş) kriterini nasıl karşılayacağınızı öğrenin. Kimlik dogrulamadan tüm bilişsel işlev testlerini kaldırın.',
       },
     },
   },

@@ -14,12 +14,12 @@ const rules = [
 
     title: {
       en: 'Pointer Gestures',
-      tr: 'Isaretci Hareketleri',
+      tr: 'İşaretçi Hareketleri',
     },
 
     description: {
       en: 'All functionality that uses multipoint or path-based gestures for operation can be operated with a single pointer without a path-based gesture, unless a multipoint or path-based gesture is essential.',
-      tr: 'Coklu nokta veya yol tabanli hareketler kullanan tum islevler, bu hareketler temel olmadigi surece, yol tabanli hareket gerektirmeyen tek bir isaretci ile calistirilamalidir.',
+      tr: 'Çoklu nokta veya yol tabanlı hareketler kullanan tüm işlevler, bu hareketler temel olmadığı sürece, yol tabanlı hareket gerektirmeyen tek bir işaretçi ile çalıştırılmalıdır.',
     },
 
     content: {
@@ -84,59 +84,59 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.1, coklu nokta hareketlerine (iki parmakla sikistirarak yakinlastirma gibi) veya yol tabanli hareketlere (kayma veya sekil cizme gibi) dayanan her islevin, belirli bir yol gerektirmeyen tek isaretci eylemiyle de calistirilamasini gerektirir. Basit bir tiklama, dokunma veya uzun basma alternatif olarak sunulmalidir.'
+          'WCAG 2.5.1, çoklu nokta hareketlerine (iki parmakla sıkıştırarak yakınlaştırma gibi) veya yol tabanlı hareketlere (kayma veya şekil çizme gibi) dayanan her işlevin, belirli bir yol gerektirmeyen tek işaretçi eylemiyle de çalıştırılmasını gerektirir. Basit bir tıklama, dokunma veya uzun basma alternatif olarak sunulmalıdır.'
         ),
         p(
-          'Bu kriter karmasik hareketlerin kullanimini yasaklamaz. Yalnizca tek isaretci alternatifinin var olmasini zorunlu kilar. Ornegin, sikistirarak yakinlastirmayi destekleyen bir harita, ekran uzerinde yakinlastirma dugmeleri de sunmalidir. Kayma hareketine yanit veren bir slayt gosterisi, onceki/sonraki ok dugmeleri icermelidir.'
+          'Bu kriter karmaşık hareketlerin kullanımını yasaklamaz. Yalnızca tek işaretçi alternatifinin var olmasını zorunlu kılar. Örneğin, sıkıştırarak yakınlaştırmayı destekleyen bir harita, ekran üzerinde yakınlaştırma düğmeleri de sunmalıdır. Kayma hareketine yanıt veren bir slayt gösterisi, önceki/sonraki ok düğmeleri içermelidir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Motor engelli kullanicilar, isaretciyi bas takip cihazi, goz takip sistemi veya tek anahtarli tarama cihazi araciligiyla kullanabilir — bunlarin hicbiri coklu nokta veya yol tabanli hareketleri gerceklestiremez. Uzuv farkliligi, titreme veya sinirli el becerisi olan kullanicilar yalnizca basit bir dokunma veya tiklama yapabilir.'
+          'Motor engelli kullanıcılar, işaretçiyi bas takip cihazı, göz takip sistemi veya tek anahtarlı tarama cihazı aracılığıyla kullanabilir — bunların hiçbiri çoklu nokta veya yol tabanlı hareketleri gerçekleştiremez. Uzuv farklılığı, titreme veya sınırlı el becerisi olan kullanıcılar yalnızca basit bir dokunma veya tıklama yapabilir.'
         ),
         p(
-          'Engeli olmayan kullanicilar da tek isaretci alternatiflerinden yararlanir. Toplu tasimada telefonu tek eliyle tutan bir kullanici iki parmak hareketini kolayca gerceklestiremez. Alternatifler sunmak, giris yeteneklerinden bagimsiz olarak islevselligin kullanilabilir olmasini saglar.'
+          'Engeli olmayan kullanıcılar da tek işaretçi alternatiflerinden yararlanır. Toplu taşımada telefonu tek eliyle tutan bir kullanıcı iki parmak hareketini kolayca gerçekleştiremez. Alternatifler sunmak, giriş yeteneklerinden bağımsız olarak işlevselliğin kullanılabilir olmasını sağlar.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Isaretci hareketi alternatiflerinin dogrulanmasi, tek isaretci eylemlerinin coklu nokta veya yol tabanli hareketlerle ayni sonuclari elde edip edemedigini onaylamak icin manuel test gerektirir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. İşaretçi hareketi alternatiflerinin doğrulanması, tek işaretçi eylemlerinin çoklu nokta veya yol tabanlı hareketlerle aynı sonuçları elde edip edemediğini onaylamak için manuel test gerektirir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('Kayma, sikistirma, dondurme veya cok parmakli hareketlere yanit veren tum etkilesimli ozellikleri belirleyin.'),
-        numbered('Her hareket odakli ozellik icin yalnizca tek dokunma veya tiklamayla calistirmayi deneyin.'),
-        numbered('Alternatif olarak ekran uzerinde kontrollerin (dugmeler, kaydiricilar, +/- kontrolleri) mevcut oldugundan emin olun.'),
-        numbered('Yalnizca tek nokta eylemleri uretebilen yardimci teknoloji isaretci emulatdrleriyle test edin.'),
-        numbered('Dokunmatik cihazlarda, tek bir parmagin belirli bir hareket yolu gerektirmeden tum sonuclara ulasabildigini dogrulayin.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('Kayma, sıkıştırma, döndürme veya çok parmaklı hareketlere yanıt veren tüm etkileşimli özellikleri belirleyin.'),
+        numbered('Her hareket odaklı özellik için yalnızca tek dokunma veya tıklamayla çalıştırmayı deneyin.'),
+        numbered('Alternatif olarak ekran üzerinde kontrollerin (düğmeler, kaydırıcılar, +/- kontrolleri) mevcut olduğundan emin olun.'),
+        numbered('Yalnızca tek nokta eylemleri üretebilen yardımcı teknoloji işaretçi emülatörleriyle test edin.'),
+        numbered('Dokunmatik cihazlarda, tek bir parmağın belirli bir hareket yolu gerektirmeden tüm sonuçlara ulaşabildiğini doğrulayın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Her coklu nokta veya yol tabanli hareket icin ekran uzerinde kontrol alternatifleri saglayin. Asagida yaygin kaliplar yer almaktadir.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Her çoklu nokta veya yol tabanlı hareket için ekran üzerinde kontrol alternatifleri sağlayın. Aşağıda yaygın kalıplar yer almaktadır.'),
 
-        heading('Harita yakinlastirma — yanlis uygulama', 'h3'),
+        heading('Harita yakınlaştırma — yanlış uygulama', 'h3'),
         code(
-          '<!-- Yalnizca sikistirarak yakinlastirma, tek isaretci alternatifi yok -->\n<div id="harita"\n  ontouchstart="sikistirmaBaslat(event)"\n  ontouchmove="sikistirmaIzle(event)">\n</div>',
+          '<!-- Yalnızca sıkıştırarak yakınlaştırma, tek işaretçi alternatifi yok -->\n<div id="harita"\n  ontouchstart="sikistirmaBaslat(event)"\n  ontouchmove="sikistirmaIzle(event)">\n</div>',
           'html'
         ),
 
-        heading('Harita yakinlastirma — dogru uygulama', 'h3'),
+        heading('Harita yakınlaştırma — doğru uygulama', 'h3'),
         code(
-          '<div id="harita">\n  <!-- Sikistirarak yakinlastirma kullananlar icin hala calisir -->\n</div>\n<div class="harita-kontrolleri">\n  <button onclick="yakinlastir()" aria-label="Yakinlastir">+</button>\n  <button onclick="uzaklastir()" aria-label="Uzaklastir">−</button>\n</div>',
+          '<div id="harita">\n  <!-- Sıkıştırarak yakınlaştırma kullananlar için hala çalışır -->\n</div>\n<div class="harita-kontrolleri">\n  <button onclick="yakınlaştır()" aria-label="Yakınlaştır">+</button>\n  <button onclick="uzaklaştır()" aria-label="Uzaklaştır">−</button>\n</div>',
           'html'
         ),
 
-        heading('Slayt gosterisi kaymasi — dugme alternatifleri', 'h3'),
+        heading('Slayt gösterisi kayması — düğme alternatifleri', 'h3'),
         code(
-          '// Dokunma kayma isleyicisi hala mevcut\nkarusel.addEventListener(\'pointerdown\', kaymaBaslat);\nkarusel.addEventListener(\'pointermove\', kaymaIzle);\nkarusel.addEventListener(\'pointerup\', kaymaBitir);\n\n// Dugmeler ile tek isaretci alternatifleri\noncekiBtn.addEventListener(\'click\', () => karusel.oncekineGit());\nsonrakiBtn.addEventListener(\'click\', () => karusel.sonrakineGit());',
+          '// Dokunma kayma işleyicisi hala mevcut\nkarusel.addEventListener(\'pointerdown\', kaymaBaslat);\nkarusel.addEventListener(\'pointermove\', kaymaIzle);\nkarusel.addEventListener(\'pointerup\', kaymaBitir);\n\n// Düğmeler ile tek işaretçi alternatifleri\noncekiBtn.addEventListener(\'click\', () => karusel.öncekineGit());\nsonrakiBtn.addEventListener(\'click\', () => karusel.sonrakineGit());',
           'javascript'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Slayt gosterisi veya kaydirici gezintisi icin ok dugmeleri saglamadan yalnizca kayma hareketlerine dayanmak.'),
-        bullet('Ozel harita veya gorsel bilesenlerinde yakinlastirma/uzaklastirma dugmeleri olmadan sikistirarak yakinlastirma uygulamak.'),
-        bullet('Cok parmakli hareketleri (uc parmak dokunma, iki parmak dondurme) bir eylemi tetiklemenin tek yolu olarak kullanmak.'),
-        bullet('Yol tabanli hareket kisayollari (geri gitmek icin L sekli cizme) sunup daha basit bir geri dugmesi alternatifi saglamamak.'),
-        bullet('Tum kullanicilarin liste ogelerinde alternatif menu olmadan kaydir-sil veya kaydir-goster eylemlerini yapabilecegini varsaymak.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Slayt gösterisi veya kaydırıcı gezintisi için ok düğmeleri sağlamadan yalnızca kayma hareketlerine dayanmak.'),
+        bullet('Özel harita veya görsel bileşenlerinde yakınlaştırma/uzaklaştırma düğmeleri olmadan sıkıştırarak yakınlaştırma uygulamak.'),
+        bullet('Çok parmaklı hareketleri (üç parmak dokunma, iki parmak döndürme) bir eylemi tetiklemenin tek yolu olarak kullanmak.'),
+        bullet('Yol tabanlı hareket kısayolları (geri gitmek için L şekli çizme) sunup daha basit bir geri düğmesi alternatifi sağlamamak.'),
+        bullet('Tüm kullanıcıların liste öğelerinde alternatif menü olmadan kaydır-sil veya kaydır-göster eylemlerini yapabileceğini varsaymak.'),
       ],
     },
 
@@ -178,9 +178,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.1 Pointer Gestures. Ensure all multipoint and path-based gesture functionality has single-pointer alternatives with practical code examples.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.1 Isaretci Hareketleri — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.1 İşaretçi Hareketleri — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.1 Isaretci Hareketleri kriterini nasil karsilayacaginizi ogrenin. Coklu nokta ve yol tabanli hareketler icin tek isaretci alternatifleri saglama rehberi.',
+          'WCAG 2.5.1 İşaretçi Hareketleri kriterini nasıl karşılayacağınızı öğrenin. Çoklu nokta ve yol tabanlı hareketler için tek işaretçi alternatifleri sağlama rehberi.',
       },
     },
   },
@@ -198,12 +198,12 @@ const rules = [
 
     title: {
       en: 'Pointer Cancellation',
-      tr: 'Isaretci Iptali',
+      tr: 'İşaretçi İptali',
     },
 
     description: {
       en: 'For functionality that can be operated using a single pointer, at least one of the following is true: the down-event is not used, the action is completed on the up-event with an ability to abort or undo, or the up-event reverses any outcome of the down-event.',
-      tr: 'Tek bir isaretci ile calistirilailen islevler icin su kosullardan en az biri saglanmalidir: asagi olay kullanilmamali, eylem yukari olayda tamamlanmali ve iptal veya geri alma mumkun olmali, ya da yukari olay asagi olayin sonucunu geri almalidir.',
+      tr: 'Tek bir işaretçi ile çalıştırılabilen işlevler için şu koşullardan en az biri sağlanmalıdır: aşağı olay kullanılmamalı, eylem yukarı olayda tamamlanmalı ve iptal veya geri alma mümkün olmalı, ya da yukarı olay aşağı olayin sonucunu geri almalıdır.',
     },
 
     content: {
@@ -268,59 +268,59 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.2, kontrollerin yanlislikla etkinlestirilmesini ele alir. Kullanicilar bir isaretci (fare, dokunmatik, kalem) ile etkilesime girdiginde, eylem yalnizca asagi olayda (mousedown, touchstart, pointerdown) tetiklenmemelidir. Bunun yerine eylem yukari olayda (mouseup, touchend, pointerup) tamamlanmali veya iptal ya da geri alma yolu saglanmalidir.'
+          'WCAG 2.5.2, kontrollerin yanlislikla etkinlestirilmesini ele alır. Kullanıcılar bir işaretçi (fare, dokunmatik, kalem) ile etkilesime girdiginde, eylem yalnızca aşağı olayda (mousedown, touchstart, pointerdown) tetiklenmemelidir. Bunun yerine eylem yukarı olayda (mouseup, touchend, pointerup) tamamlanmalı veya iptal ya da geri alma yolu sağlanmalıdır.'
         ),
         p(
-          'Kriter dort kabul edilebilir yaklasim belirtir: eylemi yurutmek icin asagi olayi kullanmamak; eylemi yukari olayda tamamlamak; kullanicilarin birakmadan once isaretciyi hedeften uzaklastirabilecegi bir iptal mekanizmasi saglamak; veya eylem tamamlandiktan sonra bir geri alma mekanizmasi sunmak.'
+          'Kriter dört kabul edilebilir yaklaşım belirtir: eylemi yurutmek için aşağı olayi kullanmamak; eylemi yukarı olayda tamamlamak; kullanıcıların birakmadan önce işaretçiyi hedeften uzaklastirabilecegi bir iptal mekanizması sağlamak; veya eylem tamamlandiktan sonra bir geri alma mekanizması sunmak.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Motor engelli kullanicilar siklikla yanlis hedefe yanlislikla dokunur veya tiklar. Eylemler isaretci-asagi aninda tetiklenirse, hatayi duzeltme firsati olmaz. Eylemi isaretci-yukari anina erteleyerek kullanicilar parmak veya imleclerini hedeften cekerek eylemi iptal edebilir.'
+          'Motor engelli kullanıcılar sıklıkla yanlış hedefe yanlislikla dokunur veya tıklar. Eylemler işaretçi-aşağı aninda tetiklenirse, hatayı düzeltme firsati olmaz. Eylemi işaretçi-yukarı anina erteleyerek kullanıcılar parmak veya imleclerini hedeften cekerek eylemi iptal edebilir.'
         ),
         p(
-          'Bu kalip, cogu isletim sistemi ve tarayicinin yerel davranisini yansitir. Standart HTML dugmeleri ve baglantilar zaten tiklamada (asagi-sonra-yukari dizisi) etkinlesir, bu nedenle bu kriter esas olarak mousedown veya touchstart olaylarina baglanan ozel JavaScript etkilesimlerini etkiler.'
+          'Bu kalıp, çoğu isletim sistemi ve tarayicinin yerel davranisini yansıtır. Standart HTML düğmeleri ve bağlantılar zaten tiklamada (aşağı-sonra-yukarı dizisi) etkinlesir, bu nedenle bu kriter esas olarak mousedown veya touchstart olaylarina bağlanan özel JavaScript etkilesimlerini etkiler.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Isaretci iptali icin otomatik axe-core kurali bulunmamaktadir. Test, eylemlerin yalnizca isaretci-asagi ile tetiklenmedigini ve kullanicilarin birakmadan once isaretciyi hedeften uzaklastirarak iptal edebildigini dogrulamak icin manuel etkilesim gerektirir.'
+          'İşaretçi iptali için otomatik axe-core kuralı bulunmamaktadır. Test, eylemlerin yalnızca işaretçi-aşağı ile tetiklenmedigini ve kullanıcıların birakmadan önce işaretçiyi hedeften uzaklastirarak iptal edebildigini doğrulamak için manuel etkileşim gerektirir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('Etkilesimli ogelerde birakmadan basin ve tutun (mousedown/touchstart).'),
-        numbered('Tutarken isaretciyi ogeden uzaklastirin, sonra birakin. Hicbir eylemin tetiklenmedigini dogrulayin.'),
-        numbered('Ogeye normal sekilde basin ve birakin, eylemin yukari olayda hala calistigini onaylayin.'),
-        numbered('Kod tabaninda dogrudan eylem tetikleyen mousedown, touchstart ve pointerdown olay dinleyicilerini arayin.'),
-        numbered('Asagi olaylarda tetiklenen eylemlerin bir geri alma mekanizmasi veya iptal yolu oldugunu dogrulayin.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('Etkileşimli ogelerde birakmadan basın ve tutun (mousedown/touchstart).'),
+        numbered('Tutarken işaretçiyi öğeden uzaklastirin, sonra bırakın. Hiçbir eylemin tetiklenmedigini doğrulayın.'),
+        numbered('Ogeye normal şekilde basın ve bırakın, eylemin yukarı olayda hala çalıştığını onaylayın.'),
+        numbered('Kod tabanında doğrudan eylem tetikleyen mousedown, touchstart ve pointerdown olay dinleyicilerini arayın.'),
+        numbered('Asagi olaylarda tetiklenen eylemlerin bir geri alma mekanizması veya iptal yolu olduğunu doğrulayın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Eylemleri tetiklemek icin asagi olaylar yerine yukari olaylar kullanin. Yaygin kaliplar asagidadir.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Eylemleri tetiklemek için aşağı olaylar yerine yukarı olaylar kullanın. Yaygın kalıplar asagidadir.'),
 
-        heading('Tiklama isleyicisi — yanlis uygulama', 'h3'),
+        heading('Tiklama işleyicisi — yanlış uygulama', 'h3'),
         code(
-          '// Iptal yolu olmadan isaretci-asagi ile eylemi tetikler\nbutton.addEventListener(\'pointerdown\', (e) => {\n  ogeySil(e.target.dataset.id);\n});',
+          '// Iptal yolu olmadan işaretçi-aşağı ile eylemi tetikler\nbutton.addEventListener(\'pointerdown\', (e) => {\n  ogeySil(e.target.dataset.id);\n});',
           'javascript'
         ),
 
-        heading('Tiklama isleyicisi — dogru uygulama', 'h3'),
+        heading('Tiklama işleyicisi — doğru uygulama', 'h3'),
         code(
-          '// Click olayi (yukari-olay) kullanir — birakmadan once\n// isaretciyi hedeften uzaklastirarak iptal etmeye izin verir\nbutton.addEventListener(\'click\', (e) => {\n  ogeySil(e.target.dataset.id);\n});\n\n// Veya isabet testi dogrulamasiyla pointerup kullanma\nbutton.addEventListener(\'pointerup\', (e) => {\n  const hedef = document.elementFromPoint(e.clientX, e.clientY);\n  if (hedef === button || button.contains(hedef)) {\n    ogeySil(button.dataset.id);\n  }\n});',
+          '// Click olayi (yukarı-olay) kullanır — birakmadan önce\n// işaretçiyi hedeften uzaklastirarak iptal etmeye izin verir\nbutton.addEventListener(\'click\', (e) => {\n  ogeySil(e.target.dataset.id);\n});\n\n// Veya isabet testi dogrulamasiyla pointerup kullanma\nbutton.addEventListener(\'pointerup\', (e) => {\n  const hedef = document.elementFromPoint(e.clientX, e.clientY);\n  if (hedef === button || button.contains(hedef)) {\n    ogeySil(button.dataset.id);\n  }\n});',
           'javascript'
         ),
 
-        heading('Iptal mekanizmasi ile dokunma olaylari', 'h3'),
+        heading('Iptal mekanizması ile dokunma olayları', 'h3'),
         code(
-          'let aktifHedef = null;\n\nelement.addEventListener(\'pointerdown\', (e) => {\n  aktifHedef = e.target;\n  e.target.classList.add(\'basilmis\'); // Yalnizca gorsel geri bildirim\n});\n\nelement.addEventListener(\'pointerup\', (e) => {\n  const birakilan = document.elementFromPoint(e.clientX, e.clientY);\n  if (birakilan === aktifHedef) {\n    eylemiGerceklestir(aktifHedef); // Yukari olayda eylem\n  }\n  aktifHedef?.classList.remove(\'basilmis\');\n  aktifHedef = null;\n});',
+          'let aktifHedef = null;\n\nelement.addEventListener(\'pointerdown\', (e) => {\n  aktifHedef = e.target;\n  e.target.classList.add(\'basilmis\'); // Yalnızca görsel geri bildirim\n});\n\nelement.addEventListener(\'pointerup\', (e) => {\n  const birakilan = document.elementFromPoint(e.clientX, e.clientY);\n  if (birakilan === aktifHedef) {\n    eylemiGerceklestir(aktifHedef); // Yukari olayda eylem\n  }\n  aktifHedef?.classList.remove(\'basilmis\');\n  aktifHedef = null;\n});',
           'javascript'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Yikici eylemleri (silme, gonderme) mousedown veya touchstart olaylarina baglamak.'),
-        bullet('Kullanicinin iptal etmesine izin vermeden pointerdown ile hemen yeni bir sayfaya yonlendirmek.'),
-        bullet('Ozel surukle-birak uygulamalarinda birakma eylemini pointerup yerine pointerdown ile gerceklestirmek.'),
-        bullet('touchstart ile form gondermesini tetikleyerek kullanicilarin iptal etmek icin parmaginiptal dugmesinden kaydirmasini engellemek.'),
-        bullet('Satin alma veya silme gibi kritik eylemler icin HTML niteliklerinde onmousedown kullanmak.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Yikici eylemleri (silme, gönderme) mousedown veya touchstart olaylarina baglamak.'),
+        bullet('Kullanıcının iptal etmesine izin vermeden pointerdown ile hemen yeni bir sayfaya yönlendirmek.'),
+        bullet('Özel sürükle-birak uygulamalarında bırakma eylemini pointerup yerine pointerdown ile gerçekleştirmek.'),
+        bullet('touchstart ile form gondermesini tetikleyerek kullanıcıların iptal etmek için parmaginiptal dugmesinden kaydirmasini engellemek.'),
+        bullet('Satin alma veya silme gibi kritik eylemler için HTML niteliklerinde onmousedown kullanmak.'),
       ],
     },
 
@@ -362,9 +362,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.2 Pointer Cancellation. Ensure actions fire on up-events and users can abort accidental activations with practical code examples.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.2 Isaretci Iptali — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.2 İşaretçi İptali — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.2 Isaretci Iptali kriterini nasil karsilayacaginizi ogrenin. Eylemlerin yukari olaylarda tetiklenmesi ve kazara etkinlestirmelerin iptal edilmesi rehberi.',
+          'WCAG 2.5.2 İşaretçi İptali kriterini nasıl karşılayacağınızı öğrenin. Eylemlerin yukarı olaylarda tetiklenmesi ve kazara etkinlestirmelerin iptal edilmesi rehberi.',
       },
     },
   },
@@ -382,12 +382,12 @@ const rules = [
 
     title: {
       en: 'Label in Name',
-      tr: 'Isimdeki Etiket',
+      tr: 'İsimdeki Etiket',
     },
 
     description: {
       en: 'For user interface components with labels that include text or images of text, the accessible name contains the text that is presented visually.',
-      tr: 'Metin veya metin gorselleri iceren etiketlere sahip kullanici arayuzu bilesenleri icin, erisilebilir ad gorsel olarak sunulan metni icermelidir.',
+      tr: 'Metin veya metin görselleri içeren etiketlere sahip kullanıcı arayüzü bileşenleri için, erişilebilir ad görsel olarak sunulan metni içermelidir.',
     },
 
     content: {
@@ -452,59 +452,59 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.3, bir kullanici arayuzu bileseninin erisilebilir adinin (yardimci teknolojiye sunulan ad) gorsel metin etiketini bir alt dize olarak icermesini gerektirir. Bir dugme gorsel olarak "Ara" gosteriyorsa, erisilebilir adi "Ara" kelimesini icermelidir. Erisilebilir ad daha uzun olabilir, ancak gorsel metin icinde yer almalidir.'
+          'WCAG 2.5.3, bir kullanıcı arayüzü bileşeninin erişilebilir adinin (yardımcı teknolojiye sunulan ad) görsel metin etiketini bir alt dize olarak içermesini gerektirir. Bir düğme görsel olarak "Ara" gösteriyorsa, erişilebilir adı "Ara" kelimesini içermelidir. Erişilebilir ad daha uzun olabilir, ancak görsel metin içinde yer almalıdır.'
         ),
         p(
-          'Bu kriter, sesli kontrol kullanicilarinin gorsel etiketi soyleyerek kontrolleri etkinlestirmesini saglar. Gorsel etiket "Gonder" diyorsa ancak erisilebilir ad "Form verilerini ilet" ise, "Gonder tikla" diyen bir kullanici eslestirme bulamaz.'
+          'Bu kriter, sesli kontrol kullanıcılarının görsel etiketi söyleyerek kontrolleri etkinleştirmesini sağlar. Görsel etiket "Gönder" diyorsa ancak erişilebilir ad "Form verilerini ilet" ise, "Gönder tıkla" diyen bir kullanıcı eşleştirme bulamaz.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Konusma tanima kullanicilari, gorsel kontrollerin adlarini soyleyerek web sayfalariyla etkilesir. Erisilebilir ad gorsel etiketle eslesmediginde, bu kullanicilar kontrolleri guvenilir sekilde etkinlestiremez. "Ara" etiketli bir dugme gorur ve "Ara tikla" derler, ancak erisilebilir ad farkli oldugu icin komut basarisiz olur.'
+          'Konuşma tanıma kullanıcıları, görsel kontrollerin adlarını söyleyerek web sayfalarıyla etkilesir. Erişilebilir ad görsel etiketle eslesmediginde, bu kullanıcılar kontrolleri güvenilir şekilde etkinlestiremez. "Ara" etiketli bir düğme görür ve "Ara tıkla" derler, ancak erişilebilir ad farklı olduğu için komut başarısız olur.'
         ),
         p(
-          'Bu kriter ayni zamanda ekrani gorebilen ekran okuyucu kullanicilar icin de yardimci olur. Gorsel etiket "Devam" diyorsa ancak ekran okuyucu "Sonraki adima gec" diye duyurursa, goren ekran okuyucu kullanicilari duydukari ile gordukleri arasindaki uyumsuzluk nedeniyle karisiklik yasarlar.'
+          'Bu kriter aynı zamanda ekranı gorebilen ekran okuyucu kullanıcılar için de yardımcı olur. Görsel etiket "Devam" diyorsa ancak ekran okuyucu "Sonraki adima geç" diye duyurursa, gören ekran okuyucu kullanıcıları duydukari ile gordukleri arasındaki uyumsuzluk nedeniyle karışıklık yasarlar.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'axe-core, 2.5.3 icin belirli bir eslestirmis kurala sahip olmasa da bazi uygulamalarda label-content-name-mismatch kurali, gorsel metne sahip ogelerin erisilebilir adinin bu metni icerdigini kontrol eder. Manuel dogrulama yine de onerilir.'
+          'axe-core, 2.5.3 için belirli bir eslestirmis kurala sahip olmasa da bazı uygulamalarda label-content-name-mismatch kuralı, görsel metne sahip öğelerin erişilebilir adinin bu metni içerdiğini kontrol eder. Manuel doğrulama yine de onerilir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('Gorsel metin etiketlerine sahip tum etkilesimli kontrolleri (dugmeler, baglantilar, etiketli form girisleri) belirleyin.'),
-        numbered('Hesaplanan erisilebilir adi okumak icin bir tarayici erisilebilirlik denetcisi (Chrome DevTools Erisilebilirlik paneli) kullanin.'),
-        numbered('Gorsel metnin erisilebilir ad dizesi icinde gorundugunu dogrulayin.'),
-        numbered('Gorsel etiketi soyleyerek bir konusma tanima araciyla (Dragon, macOS/iOS Sesli Kontrol) test edin.'),
-        numbered('aria-label veya aria-labelledby degerlerinin gorsel metni tamamen degistirmek yerine icerdigini kontrol edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('Görsel metin etiketlerine sahip tüm etkileşimli kontrolleri (düğmeler, bağlantılar, etiketli form girişleri) belirleyin.'),
+        numbered('Hesaplanan erişilebilir adı okumak için bir tarayıcı erişilebilirlik denetcisi (Chrome DevTools Erişilebilirlik paneli) kullanın.'),
+        numbered('Görsel metnin erişilebilir ad dizesi içinde göründüğünü doğrulayın.'),
+        numbered('Görsel etiketi söyleyerek bir konuşma tanıma araciyla (Dragon, macOS/iOS Sesli Kontrol) test edin.'),
+        numbered('aria-label veya aria-labelledby değerlerinin görsel metni tamamen değiştirmek yerine içerdiğini kontrol edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Erisilebilir adin gorsel metni icerdiginden emin olun. Yaygin kaliplar asagidadir.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Erişilebilir adin görsel metni içerdiğinden emin olun. Yaygın kalıplar asagidadir.'),
 
-        heading('Dugme etiketleri — yanlis uygulama', 'h3'),
+        heading('Dugme etiketleri — yanlış uygulama', 'h3'),
         code(
-          '<!-- Gorsel metin "Ara" ama erisilebilir ad "Ogeleri bul" -->\n<button aria-label="Ogeleri bul">Ara</button>\n\n<!-- Gorsel metin "Kapat" ama erisilebilir ad "Diyalogu kapat" -->\n<button aria-label="Diyalogu reddet">\n  <span>Kapat</span>\n</button>',
+          '<!-- Görsel metin "Ara" ama erişilebilir ad "Öğeleri bul" -->\n<button aria-label="Öğeleri bul">Ara</button>\n\n<!-- Görsel metin "Kapat" ama erişilebilir ad "Diyalogu kapat" -->\n<button aria-label="Diyalogu reddet">\n  <span>Kapat</span>\n</button>',
           'html'
         ),
 
-        heading('Dugme etiketleri — dogru uygulama', 'h3'),
+        heading('Dugme etiketleri — doğru uygulama', 'h3'),
         code(
-          '<!-- Erisilebilir ad gorsel metinle eslesiyor -->\n<button>Ara</button>\n\n<!-- Erisilebilir ad gorsel metni iceriyor -->\n<button aria-label="Urunleri ara">Ara</button>\n\n<!-- Kapat dugmesi eslesen erisilebilir adla -->\n<button aria-label="Diyalogu kapat">\n  <span>Kapat</span>\n</button>',
+          '<!-- Erişilebilir ad görsel metinle eşleşiyor -->\n<button>Ara</button>\n\n<!-- Erişilebilir ad görsel metni iceriyor -->\n<button aria-label="Ürünleri ara">Ara</button>\n\n<!-- Kapat düğmesi eşleşen erişilebilir adla -->\n<button aria-label="Diyalogu kapat">\n  <span>Kapat</span>\n</button>',
           'html'
         ),
 
-        heading('Form girisi etiketleri', 'h3'),
+        heading('Form girişi etiketleri', 'h3'),
         code(
-          '<!-- Yanlis: aria-label gorsel etiket metnini icermiyor -->\n<label for="eposta">E-posta adresi</label>\n<input id="eposta" aria-label="Elektronik posta girin">\n\n<!-- Dogru: celiskili aria-label yok, yerel etiket kullaniliyor -->\n<label for="eposta">E-posta adresi</label>\n<input id="eposta">\n\n<!-- Dogru: aria-label gorsel etiket metnini iceriyor -->\n<label for="eposta">E-posta adresi</label>\n<input id="eposta" aria-label="E-posta adresi (zorunlu)">',
+          '<!-- Yanlış: aria-label görsel etiket metnini icermiyor -->\n<label for="eposta">E-posta adresi</label>\n<input id="eposta" aria-label="Elektronik posta girin">\n\n<!-- Doğru: celiskili aria-label yok, yerel etiket kullanılıyor -->\n<label for="eposta">E-posta adresi</label>\n<input id="eposta">\n\n<!-- Doğru: aria-label görsel etiket metnini iceriyor -->\n<label for="eposta">E-posta adresi</label>\n<input id="eposta" aria-label="E-posta adresi (zorunlu)">',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Gorsel metni tamamen farkli ifadelerle degistiren aria-label kullanmak.'),
-        bullet('Gorsel etiket yerine gizli metne isaret eden aria-labelledby saglamak.'),
-        bullet('Gorsel etiketten farkli metin iceren ve bazi tarayicilarda erisilebilir adi gecersiz kilan bir title niteligi eklemek.'),
-        bullet('DOM metin iceriginden farkli metni gorsel olarak gosteren CSS kullanmak (ornegin, algilanan etiketi degistiren text-transform veya ::before sahte ogeleri).'),
-        bullet('aria-label in bitisik gorsel ipucu veya metinden farkli terminoloji kullandigi simge dugmeleri.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Görsel metni tamamen farklı ifadelerle değiştiren aria-label kullanmak.'),
+        bullet('Görsel etiket yerine gizli metne işaret eden aria-labelledby sağlamak.'),
+        bullet('Görsel etiketten farklı metin içeren ve bazı tarayıcılarda erişilebilir adı geçersiz kilan bir title niteliği eklemek.'),
+        bullet('DOM metin içeriğinden farklı metni görsel olarak gösteren CSS kullanmak (örneğin, algilanan etiketi değiştiren text-transform veya ::before sahte öğeleri).'),
+        bullet('aria-label in bitişik görsel ipucu veya metinden farklı terminoloji kullandığı simge düğmeleri.'),
       ],
     },
 
@@ -546,9 +546,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.3 Label in Name. Ensure accessible names contain visible text labels so speech recognition and screen reader users can operate controls.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.3 Isimdeki Etiket — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.3 İsimdeki Etiket — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.3 Isimdeki Etiket kriterini nasil karsilayacaginizi ogrenin. Erisilebilir adlarin gorsel metin etiketlerini icermesi icin rehber.',
+          'WCAG 2.5.3 İsimdeki Etiket kriterini nasıl karşılayacağınızı öğrenin. Erişilebilir adlarin görsel metin etiketlerini icermesi için rehber.',
       },
     },
   },
@@ -566,12 +566,12 @@ const rules = [
 
     title: {
       en: 'Motion Actuation',
-      tr: 'Hareket Etkinlestirme',
+      tr: 'Hareket Etkinleştirme',
     },
 
     description: {
       en: 'Functionality that can be operated by device motion or user motion can also be operated by user interface components, and responding to the motion can be disabled to prevent accidental actuation.',
-      tr: 'Cihaz hareketi veya kullanici hareketi ile calistirilailen islevler, kullanici arayuzu bilesenleri ile de calistirilabilmeli ve kazara etkinlestirmeyi onlemek icin harekete yanit verme devre disi birakilabilmelidir.',
+      tr: 'Cihaz hareketi veya kullanıcı hareketi ile çalıştırılabilen işlevler, kullanıcı arayüzü bileşenleri ile de çalıştırılabilmeli ve kazara etkinlestirmeyi önlemek için harekete yanıt verme devre dışı bırakılabilmelidir.',
     },
 
     content: {
@@ -636,59 +636,59 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.4, cihaz hareketi (egme, sallama veya cihazi hareket ettirme) veya kullanici hareketi (kamera tarafindan algilanan hareketler) tarafindan tetiklenen her islevin, dugmeler, baglantilar veya form kontrolleri gibi standart kullanici arayuzu bilesenleri araciligiyla da kullanilabilir olmasini gerektirir. Kullanicilar ayrica kazara etkinlestirmeyi onlemek icin hareket tabanli yaniti devre disi birakabilmelidir.'
+          'WCAG 2.5.4, cihaz hareketi (egme, sallama veya cihazı hareket ettirme) veya kullanıcı hareketi (kamera tarafından algilanan hareketler) tarafından tetiklenen her işlevin, düğmeler, bağlantılar veya form kontrolleri gibi standart kullanıcı arayüzü bileşenleri aracılığıyla da kullanılabilir olmasını gerektirir. Kullanıcılar ayrıca kazara etkinlestirmeyi önlemek için hareket tabanlı yanıtı devre dışı birakabilmelidir.'
         ),
         p(
-          'Ornegin, telefonu sallamak "geri al" eylemini tetikliyorsa, ekranda bir geri al dugmesi de olmalidir. Cihazi egmek icerigi kaydiriyorsa, standart kaydirma kontrolleri de mevcut olmalidir. Tek istisna, hareketin islev icin zorunlu olmasi durumudur (ornegin, adim sayan bir pedometre).'
+          'Örneğin, telefonu sallamak "geri al" eylemini tetikliyorsa, ekranda bir geri al düğmesi de olmalıdır. Cihazi egmek içeriği kaydiriyorsa, standart kaydırma kontrolleri de mevcut olmalıdır. Tek istisna, hareketin işlev için zorunlu olması durumudur (örneğin, adım sayan bir pedometre).'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Cihazlarini tekerlekli sandalyelere monte eden kullanicilar bunlari egip sallayamaz. Titreme veya istemsiz hareketleri olan kullanicilar hareket tabanli eylemleri yanlislikla tetikleyebilir. Sinirli hareketliligi olan kullanicilar gerekli fiziksel hareketi hic gerceklestiremeyebilir.'
+          'Cihazlarını tekerlekli sandalyelere monte eden kullanıcılar bunları egip sallayamaz. Titreme veya istemsiz hareketleri olan kullanıcılar hareket tabanlı eylemleri yanlislikla tetikleyebilir. Sınırlı hareketliligi olan kullanıcılar gerekli fiziksel hareketi hiç gerçekleştiremeyebilir.'
         ),
         p(
-          'Ayrica bazi kullanicilar cihazlari sabit konumlarda kullanir — masa standinda, arabada monte edilmis veya yardimci cihaz tutucusuna sabitlenmis. Hareket tabanli islevsellik, arayuz tabanli bir alternatif olmadan bu kullanicilar icin tamamen erisilemez olurdu.'
+          'Ayrıca bazı kullanıcılar cihazları sabit konumlarda kullanır — masa standinda, arabada monte edilmiş veya yardımcı cihaz tutucusuna sabitlenmiş. Hareket tabanlı işlevsellik, arayüz tabanlı bir alternatif olmadan bu kullanıcılar için tamamen erişilemez olurdu.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Hareket tabanli etkilesimlerin tespiti, DeviceMotion, DeviceOrientation veya kamera tabanli hareket algilama API lerinin kullanimlarini belirlemek icin manuel kod incelemesi ve test gerektirir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Hareket tabanlı etkilesimlerin tespiti, DeviceMotion, DeviceOrientation veya kamera tabanlı hareket algilama API lerinin kullanimlarini belirlemek için manuel kod incelemesi ve test gerektirir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('Uygulamayi cihaz hareketine (sallama, egme, dondurme) veya kullanici hareketine (kamera hareketleri) yanit veren ozellikler icin inceleyin.'),
-        numbered('Her hareket tetikli ozellik icin esdeger bir ekran uzerinde kontrolun var oldugundan emin olun.'),
-        numbered('Hareket tabanli yanitlari devre disi birakmak icin bir ayar veya tercihin mevcut oldugundan emin olun.'),
-        numbered('Kod tabaninda DeviceMotionEvent, DeviceOrientationEvent ve kamera/hareket API lerini arayin.'),
-        numbered('Cihazi sabit tutarak test edin ve tum islevselligin UI kontrolleri araciligiyla hala erisilebilir oldugundan emin olun.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('Uygulamayı cihaz hareketine (sallama, egme, döndürme) veya kullanıcı hareketine (kamera hareketleri) yanıt veren özellikler için inceleyin.'),
+        numbered('Her hareket tetikli özellik için eşdeğer bir ekran üzerinde kontrolün var olduğundan emin olun.'),
+        numbered('Hareket tabanlı yanıtları devre dışı bırakmak için bir ayar veya tercihin mevcut olduğundan emin olun.'),
+        numbered('Kod tabanında DeviceMotionEvent, DeviceOrientationEvent ve kamera/hareket API lerini arayın.'),
+        numbered('Cihazi sabit tutarak test edin ve tüm işlevselliğin UI kontrolleri aracılığıyla hala erişilebilir olduğundan emin olun.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Hareket tabanli ozellikler icin UI kontrol alternatifleri ve hareket algilamayi devre disi birakmanin bir yolunu saglayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Hareket tabanlı özellikler için UI kontrol alternatifleri ve hareket algilamayi devre dışı birakmanin bir yolunu sağlayın.'),
 
-        heading('Sallayarak geri alma — yanlis uygulama', 'h3'),
+        heading('Sallayarak geri alma — yanlış uygulama', 'h3'),
         code(
-          '// Yalnizca sallama hareketi geri almayi tetikler, UI alternatifi yok\nwindow.addEventListener(\'devicemotion\', (e) => {\n  const ivme = e.accelerationIncludingGravity;\n  if (Math.abs(ivme.x) > 15 || Math.abs(ivme.y) > 15) {\n    sonEylemiGeriAl();\n  }\n});',
+          '// Yalnızca sallama hareketi geri almayi tetikler, UI alternatifi yok\nwindow.addEventListener(\'devicemotion\', (e) => {\n  const ivme = e.accelerationIncludingGravity;\n  if (Math.abs(ivme.x) > 15 || Math.abs(ivme.y) > 15) {\n    sonEylemiGeriAl();\n  }\n});',
           'javascript'
         ),
 
-        heading('Sallayarak geri alma — dogru uygulama', 'h3'),
+        heading('Sallayarak geri alma — doğru uygulama', 'h3'),
         code(
-          '// Tercih kontrolu ile hareket algilama\nlet hareketEtkin = kullaniciTercihiniAl(\'hareketEtkin\', true);\n\nif (hareketEtkin) {\n  window.addEventListener(\'devicemotion\', (e) => {\n    const ivme = e.accelerationIncludingGravity;\n    if (Math.abs(ivme.x) > 15 || Math.abs(ivme.y) > 15) {\n      sonEylemiGeriAl();\n    }\n  });\n}\n\n// UI alternatifi her zaman mevcut\ngeriAlBtn.addEventListener(\'click\', () => {\n  sonEylemiGeriAl();\n});',
+          '// Tercih kontrolü ile hareket algilama\nlet hareketEtkin = kullaniciTercihiniAl(\'hareketEtkin\', true);\n\nif (hareketEtkin) {\n  window.addEventListener(\'devicemotion\', (e) => {\n    const ivme = e.accelerationIncludingGravity;\n    if (Math.abs(ivme.x) > 15 || Math.abs(ivme.y) > 15) {\n      sonEylemiGeriAl();\n    }\n  });\n}\n\n// UI alternatifi her zaman mevcut\ngeriAlBtn.addEventListener(\'click\', () => {\n  sonEylemiGeriAl();\n});',
           'javascript'
         ),
 
-        heading('Hareket ozellikleri icin ayar gecisi', 'h3'),
+        heading('Hareket özellikleri için ayar geçişi', 'h3'),
         code(
-          '<fieldset>\n  <legend>Hareket tercihleri</legend>\n  <label>\n    <input type="checkbox" id="hareket-gecisi" checked>\n    Sallayarak geri al ve egerek kaydir ozelliklerini etkinlestir\n  </label>\n</fieldset>\n\n<script>\n  document.getElementById(\'hareket-gecisi\')\n    .addEventListener(\'change\', (e) => {\n      kullaniciTercibiniAyarla(\'hareketEtkin\', e.target.checked);\n      if (!e.target.checked) {\n        hareketDinleyicileriniDevreDisiiBirak();\n      } else {\n        hareketDinleyicileriniEtkinlestir();\n      }\n    });\n</script>',
+          '<fieldset>\n  <legend>Hareket tercihleri</legend>\n  <label>\n    <input type="checkbox" id="hareket-geçişi" checked>\n    Sallayarak geri al ve egerek kaydır özelliklerini etkinleştir\n  </label>\n</fieldset>\n\n<script>\n  document.getElementById(\'hareket-geçişi\')\n    .addEventListener(\'change\', (e) => {\n      kullaniciTercibiniAyarla(\'hareketEtkin\', e.target.checked);\n      if (!e.target.checked) {\n        hareketDinleyicileriniDevreDisiiBirak();\n      } else {\n        hareketDinleyicileriniEtkinlestir();\n      }\n    });\n</script>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Ekran uzerinde dugme olmadan sallayarak geri almayi tek geri alma mekanizmasi olarak uygulamak.'),
-        bullet('Standart kaydirma cubuklari veya sayfalama olmadan icerik gezintisi icin egerek kaydirmayi kullanmak.'),
-        bullet('Kamera tabanli hareket kontrollerini (el sallayarak kapatma, bas sallayarak onaylama) dugme alternatifleri olmadan sunmak.'),
-        bullet('Hareket algilamayi devre disi birakmanin yolunu saglamamak, titremeli kullanicilarin eylemleri yanlislikla tetiklemesine neden olmak.'),
-        bullet('Hareket tabanli ozelliklerin sabit konumlara monte edilmis cihazlar icin tamamen kullanilamaz oldugunu unutmak.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Ekran üzerinde düğme olmadan sallayarak geri almayi tek geri alma mekanizması olarak uygulamak.'),
+        bullet('Standart kaydırma çubukları veya sayfalama olmadan içerik gezintisi için egerek kaydırmayı kullanmak.'),
+        bullet('Kamera tabanlı hareket kontrollerini (el sallayarak kapatma, bas sallayarak onaylama) düğme alternatifleri olmadan sunmak.'),
+        bullet('Hareket algilamayi devre dışı birakmanin yolunu sağlamamak, titremeli kullanıcıların eylemleri yanlislikla tetiklemesine neden olmak.'),
+        bullet('Hareket tabanlı ozelliklerin sabit konumlara monte edilmiş cihazlar için tamamen kullanılamaz olduğunu unutmak.'),
       ],
     },
 
@@ -730,9 +730,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.4 Motion Actuation. Provide UI alternatives for motion-triggered features and allow users to disable motion detection.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.4 Hareket Etkinlestirme — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.4 Hareket Etkinleştirme — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.4 Hareket Etkinlestirme kriterini nasil karsilayacaginizi ogrenin. Hareket tetikli ozellikler icin UI alternatifleri saglama rehberi.',
+          'WCAG 2.5.4 Hareket Etkinleştirme kriterini nasıl karşılayacağınızı öğrenin. Hareket tetikli özellikler için UI alternatifleri sağlama rehberi.',
       },
     },
   },
@@ -750,12 +750,12 @@ const rules = [
 
     title: {
       en: 'Target Size (Enhanced)',
-      tr: 'Hedef Boyutu (Gelismis)',
+      tr: 'Hedef Boyutu (Gelişmiş)',
     },
 
     description: {
       en: 'The size of the target for pointer inputs is at least 44 by 44 CSS pixels, except when an equivalent alternative target is available, the target is inline in text, the size is user-agent controlled, or the presentation is essential.',
-      tr: 'Isaretci girisleri icin hedefin boyutu en az 44x44 CSS piksel olmalidir; esdeger bir alternatif hedef mevcut oldugunda, hedef metin icinde satirici oldugunda, boyut kullanici ajani tarafindan kontrol edildiginde veya sunum zorunlu oldugunda istisna uygulanir.',
+      tr: 'İşaretçi girişleri için hedefin boyutu en az 44x44 CSS piksel olmalıdır; eşdeğer bir alternatif hedef mevcut olduğunda, hedef metin içinde satır içi olduğunda, boyut kullanıcı ajanı tarafından kontrol edildiğinde veya sunum zorunlu olduğunda istisna uygulanır.',
     },
 
     content: {
@@ -820,59 +820,59 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.5, tum etkilesimli hedeflerin (dugmeler, baglantilar, form kontrolleri, ozel etkilesimli ogeler) en az 44x44 CSS piksel boyutunda olmasini gerektirir. Bu, gelismis (AAA) gerekliliktir — WCAG 2.2 de AA Duzeyinde tanimlanan minimum hedef boyutu gereksiniminin (2.5.8) daha siki bir versiyonudur.'
+          'WCAG 2.5.5, tüm etkileşimli hedeflerin (düğmeler, bağlantılar, form kontrolleri, özel etkileşimli öğeler) en az 44x44 CSS piksel boyutunda olmasını gerektirir. Bu, gelişmiş (AAA) gerekliliktir — WCAG 2.2 de AA Duzeyinde tanımlanan minimum hedef boyutu gereksiniminin (2.5.8) daha sıkı bir versiyonudur.'
         ),
         p(
-          'Esdeger kontroller (daha buyuk bir alternatif saglandiginda), metin icindeki satirici baglantilar, boyutu kullanici ajani tarafindan belirlenen hedefler (yerel onay kutulari gibi) ve belirli boyutun iletilen bilgi icin zorunlu oldugu hedefler icin istisnalar mevcuttur.'
+          'Esdeger kontroller (daha büyük bir alternatif saglandiginda), metin içindeki satır içi bağlantılar, boyutu kullanıcı ajanı tarafından belirlenen hedefler (yerel onay kutuları gibi) ve belirli boyutun iletilen bilgi için zorunlu olduğu hedefler için istisnalar mevcuttur.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Kucuk dokunma hedefleri, mobil cihazlarda en yaygin kullanilabilirlik engellerinden biridir. Motor engelli, titremeli veya sinirli ince motor kontrolune sahip kullanicilar kucuk hedeflere dogru dokunmakta zorlanir. Yasli yetiskinler yaslanmanin dogal bir parcasi olarak azalmis hassasiyet yasarlar. Engeli olmayan kullanicilar bile telefonu tek eliyle veya hareket halindeyken kucuk hedeflere siklikla yanlis dokunurlar.'
+          'Küçük dokunma hedefleri, mobil cihazlarda en yaygın kullanılabilirlik engellerinden biridir. Motor engelli, titremeli veya sınırlı ince motor kontrolüne sahip kullanıcılar küçük hedeflere doğru dokunmakta zorlanır. Yasli yetiskinler yaslanmanin doğal bir parçası olarak azalmis hassasiyet yasarlar. Engeli olmayan kullanıcılar bile telefonu tek eliyle veya hareket halindeyken küçük hedeflere sıklıkla yanlış dokunurlar.'
         ),
         p(
-          'MIT Dokunma Laboratuvari nin arastirmalari, yetiskin parmak ucu genisliginin yaklasik 10mm oldugunu ve bunun standart yogunlukta kabaca 44 CSS piksele karsilik geldigini gostermistir. Bu esigin altindaki hedefler, tum kullanicilar icin hata oranlarini onemli olcude arttirir.'
+          'MIT Dokunma Laboratuvari nın arastirmalari, yetiskin parmak ucu genisliginin yaklaşık 10mm olduğunu ve bunun standart yogunlukta kabaca 44 CSS piksele karşılık geldiğini göstermiştir. Bu eşiğin altındaki hedefler, tüm kullanıcılar için hata oranlarini önemli ölçüde arttırır.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          '44px gelismis hedef boyutu icin ozel otomatik axe-core kurali bulunmamaktadir. axe-core deki target-size kurali WCAG 2.5.8 (AA Duzeyi) den gelen 24px minimumunu kontrol eder. 44px esigi icin manuel olcum veya ozel arac gerektir.'
+          '44px gelişmiş hedef boyutu için özel otomatik axe-core kuralı bulunmamaktadır. axe-core deki target-size kuralı WCAG 2.5.8 (AA Düzeyi) den gelen 24px minimumunu kontrol eder. 44px eşiği için manuel ölçüm veya özel araç gerektir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('Etkilesimli ogelerin hesaplanan boyutunu incelemek icin tarayici DevTools kullanin.'),
-        numbered('Hem genislik hem de yukseklik olcun — her ikisi de en az 44 CSS piksel olmalidir.'),
-        numbered('Yalnizca gorunen icerik boyutunu degil, padding ve tiklanabilir alaninida kontrol edin.'),
-        numbered('Yalnizca dokunma emulasyonuyla masaustu tarayicilarda degil, gercek dokunmatik cihazlarda test edin.'),
-        numbered('Simge dugmeleri, kapatma dugmeleri, sayfalama baglantilari ve yogun duzenlerdeki form kontrollerine ozellikle dikkat edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('Etkileşimli öğelerin hesaplanan boyutunu incelemek için tarayıcı DevTools kullanın.'),
+        numbered('Hem genişlik hem de yükseklik ölçün — her ikisi de en az 44 CSS piksel olmalıdır.'),
+        numbered('Yalnızca görünen içerik boyutunu değil, padding ve tıklanabilir alaninida kontrol edin.'),
+        numbered('Yalnızca dokunma emulasyonuyla masaüstü tarayıcılarda değil, gerçek dokunmatik cihazlarda test edin.'),
+        numbered('Simge düğmeleri, kapatma düğmeleri, sayfalama bağlantıları ve yoğun duzenlerdeki form kontrollerine özellikle dikkat edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Etkilesimli hedeflerin 44px minimumunu karsilamasini saglamak icin CSS min-width ve min-height kullanin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Etkileşimli hedeflerin 44px minimumunu karşılamasını sağlamak için CSS min-width ve min-height kullanın.'),
 
-        heading('Dugme boyutlandirma — CSS yaklasimi', 'h3'),
+        heading('Dugme boyutlandırma — CSS yaklaşımı', 'h3'),
         code(
-          '/* Tum dugmelerin 44px minimumunu karsiladigini saglayin */\nbutton,\n[role="button"],\na.btn {\n  min-width: 44px;\n  min-height: 44px;\n  padding: 10px 16px;\n}\n\n/* Simge dugmeleri acik boyutlandirma gerektirir */\n.simge-dugme {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 44px;\n  min-height: 44px;\n  padding: 10px;\n}',
+          '/* Tüm düğmelerin 44px minimumunu karşıladığını sağlayın */\nbutton,\n[role="button"],\na.btn {\n  min-width: 44px;\n  min-height: 44px;\n  padding: 10px 16px;\n}\n\n/* Simge düğmeleri açık boyutlandırma gerektirir */\n.simge-düğme {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 44px;\n  min-height: 44px;\n  padding: 10px;\n}',
           'css'
         ),
 
-        heading('Padding ile tiklanabilir alani genisletme', 'h3'),
+        heading('Padding ile tıklanabilir alanı genişletme', 'h3'),
         code(
-          '/* Genisletilmis dokunma alanina sahip kucuk gorsel hedef */\n.kapat-dugmesi {\n  /* Gorsel boyut: 16x16 simge */\n  width: 16px;\n  height: 16px;\n  /* Padding ile genisletilmis dokunma alani */\n  padding: 14px;\n  /* Toplam tiklanabilir alan: 44x44 */\n  box-sizing: content-box;\n  cursor: pointer;\n}\n\n/* Veya duzeni korumak icin negatif margin kullanin */\n.kompakt-kapat {\n  min-width: 44px;\n  min-height: 44px;\n  margin: -14px;\n  padding: 14px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}',
+          '/* Genişletilmiş dokunma alanına sahip küçük görsel hedef */\n.kapat-düğmesi {\n  /* Görsel boyut: 16x16 simge */\n  width: 16px;\n  height: 16px;\n  /* Padding ile genişletilmiş dokunma alanı */\n  padding: 14px;\n  /* Toplam tıklanabilir alan: 44x44 */\n  box-sizing: content-box;\n  cursor: pointer;\n}\n\n/* Veya düzeni korumak için negatif margin kullanın */\n.kompakt-kapat {\n  min-width: 44px;\n  min-height: 44px;\n  margin: -14px;\n  padding: 14px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}',
           'css'
         ),
 
-        heading('Gezinme baglanti araliklari', 'h3'),
+        heading('Gezinme bağlantı araliklari', 'h3'),
         code(
-          '<nav aria-label="Sayfalama">\n  <ul class="sayfalama">\n    <li><a href="/sayfa/1" class="sayfa-baglantisi">1</a></li>\n    <li><a href="/sayfa/2" class="sayfa-baglantisi">2</a></li>\n    <li><a href="/sayfa/3" class="sayfa-baglantisi">3</a></li>\n  </ul>\n</nav>\n\n<style>\n.sayfa-baglantisi {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 44px;\n  min-height: 44px;\n  text-decoration: none;\n}\n</style>',
+          '<nav aria-label="Sayfalama">\n  <ul class="sayfalama">\n    <li><a href="/sayfa/1" class="sayfa-bağlantısı">1</a></li>\n    <li><a href="/sayfa/2" class="sayfa-bağlantısı">2</a></li>\n    <li><a href="/sayfa/3" class="sayfa-bağlantısı">3</a></li>\n  </ul>\n</nav>\n\n<style>\n.sayfa-bağlantısı {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 44px;\n  min-height: 44px;\n  text-decoration: none;\n}\n</style>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Genisletilmis dokunma alani olmadan yalnizca 24px veya 32px boyutundaki simge dugmeleri (kapat, menu, ayarlar).'),
-        bullet('Cok kucuk ve birbirine cok yakin olan, yanlis dokunmalara neden olan sayfalama baglantilari.'),
-        bullet('Tiklanabilir alani genisletmeden tarayici varsayilan boyutuna dayanan form onay kutulari ve radyo dugmeleri.'),
-        bullet('Dokunma hedefini genisletmek icin padding eklemek yerine tiklanabilir alan icin yalnizca simge boyutunu kullanmak.'),
-        bullet('Dogruca hedeflenmesi zor olan kucuk ve birbirine yakin dugmelere sahip yogun arac cubuklari.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Genişletilmiş dokunma alanı olmadan yalnızca 24px veya 32px boyutundaki simge düğmeleri (kapat, menü, ayarlar).'),
+        bullet('Çok küçük ve birbirine çok yakın olan, yanlış dokunmalara neden olan sayfalama bağlantıları.'),
+        bullet('Tiklanabilir alanı genisletmeden tarayıcı varsayılan boyutuna dayanan form onay kutuları ve radyo düğmeleri.'),
+        bullet('Dokunma hedefini genisletmek için padding eklemek yerine tıklanabilir alan için yalnızca simge boyutunu kullanmak.'),
+        bullet('Dogruca hedeflenmesi zor olan küçük ve birbirine yakın dugmelere sahip yoğun araç çubukları.'),
       ],
     },
 
@@ -914,9 +914,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.5 Target Size (Enhanced). Ensure interactive targets are at least 44x44 CSS pixels with practical CSS examples and testing techniques.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.5 Hedef Boyutu (Gelismis) — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.5 Hedef Boyutu (Gelişmiş) — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.5 Hedef Boyutu (Gelismis) kriterini nasil karsilayacaginizi ogrenin. Etkilesimli hedeflerin en az 44x44 CSS piksel olmasini saglama rehberi.',
+          'WCAG 2.5.5 Hedef Boyutu (Gelişmiş) kriterini nasıl karşılayacağınızı öğrenin. Etkileşimli hedeflerin en az 44x44 CSS piksel olmasını sağlama rehberi.',
       },
     },
   },
@@ -934,12 +934,12 @@ const rules = [
 
     title: {
       en: 'Concurrent Input Mechanisms',
-      tr: 'Eszamani Giris Mekanizmalari',
+      tr: 'Eszamani Giriş Mekanizmalari',
     },
 
     description: {
       en: 'Web content does not restrict use of input modalities available on a platform except where the restriction is essential, required to ensure security, or required to respect user settings.',
-      tr: 'Web icerigi, kisitlama zorunlu olmadikca, guvenlik icin gerekli olmadikca veya kullanici ayarlarina uyum icin gerekli olmadikca, platformda mevcut giris yontemlerinin kullanimini kisitlamamalidir.',
+      tr: 'Web içeriği, kısıtlama zorunlu olmadıkça, güvenlik için gerekli olmadıkça veya kullanıcı ayarlarina uyum için gerekli olmadıkça, platformda mevcut giriş yontemlerinin kullanımını kisitlamamalidir.',
     },
 
     content: {
@@ -1004,59 +1004,59 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.6, platform birden fazla modaliteyi desteklediginde web iceriginin kullanicilari tek bir giris modalitesiyle sinirlandirmamasini gerektirir. Bir kullanici dokunmatik, fare, klavye, kalem veya sesle etkilesim kurabiliyorsa, web icerigi hangi giris yontemlerinin kullanilabilir oldugunu yapay olarak sinirlandirmamalidir.'
+          'WCAG 2.5.6, platform birden fazla modaliteyi desteklediginde web içeriğinin kullanıcıları tek bir giriş modalitesiyle sinirlandirmamasini gerektirir. Bir kullanıcı dokunmatik, fare, klavye, kalem veya sesle etkileşim kurabiliyorsa, web içeriği hangi giriş yontemlerinin kullanılabilir olduğunu yapay olarak sinirlandirmamalidir.'
         ),
         p(
-          'Kullanicilar tek bir oturum sirasinda siklikla giris yontemleri arasinda gecis yapar. Bir kisi kaydirmak icin dokunmatik ekrani kullanabilir, yazmak icin Bluetooth klavyeye gecebilir ve hassas secimler icin fareyi kullanabilir. Icerik tek bir giris yontemini varsaymamali veya zorundaa birakmamalidir.'
+          'Kullanıcılar tek bir oturum sırasında sıklıkla giriş yontemleri arasında geçiş yapar. Bir kişi kaydırmak için dokunmatik ekranı kullanabilir, yazmak için Bluetooth klavyeye gecebilir ve hassas secimler için fareyi kullanabilir. İçerik tek bir giriş yontemini varsaymamali veya zorundaa birakmamalidir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Bircok yardimci teknoloji kullanicisi birden fazla giris mekanizmasina bagimlidir. Sinirli el hareketliligi olan bir kullanici bazi eylemler icin agizla calistirilan bir kalem ve digerleri icin sesli kontrol kullanabilir. Girisi yalnizca dokunmatikla sinirlandirmak, klavye veya anahtar erisimi kullanicilarinin icerikle etkilesimini engellerdi.'
+          'Birçok yardımcı teknoloji kullanıcısı birden fazla giriş mekanizmasina bağımlıdır. Sınırlı el hareketliligi olan bir kullanıcı bazı eylemler için agizla calistirilan bir kalem ve digerleri için sesli kontrol kullanabilir. Girisi yalnızca dokunmatikla sinirlandirmak, klavye veya anahtar erişimi kullanıcılarının içerikle etkilesimini engellerdi.'
         ),
         p(
-          'Engeli olmayan kullanicilar da duzenli olarak giris mekanizmalari arasinda gecis yapar. Dizustu bilgisayar kullanicilari dokunmatik yuzey ile klavye arasinda gecis yapar. Tablet kullanicilari dokunmatik ile bagli klavye arasinda gecis yapar. Giris modalitelerini kisitlamak herkes icin gereksiz engeller olusturur.'
+          'Engeli olmayan kullanıcılar da düzenli olarak giriş mekanizmaları arasında geçiş yapar. Dizustu bilgisayar kullanıcıları dokunmatik yuzey ile klavye arasında geçiş yapar. Tablet kullanıcıları dokunmatik ile bağlı klavye arasında geçiş yapar. Giriş modalitelerini kısıtlamak herkes için gereksiz engeller oluşturur.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Giris modalitesi kisitlamalarini tespit etmek, birden fazla giris cihazi ile manuel test ve belirli giris turlerini devre disi birakan veya engelleyen JavaScript kodunu belirlemek icin kod incelemesi gerektirir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Giriş modalitesi kisitlamalarini tespit etmek, birden fazla giriş cihazı ile manuel test ve belirli giriş türlerini devre dışı bırakan veya engelleyen JavaScript kodunu belirlemek için kod incelemesi gerektirir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('Ayni sisteme birden fazla giris cihazi (klavye, fare, dokunmatik ekran) baglayin.'),
-        numbered('Tum etkilesimli gorevleri tamamlamak icin her giris yontemini bagimsiz olarak kullanmayi deneyin.'),
-        numbered('Gorev sirasinda giris yontemleri arasinda gecis yapin ve islevselligin korundugundan emin olun.'),
-        numbered('Kod tabaninda giris turunu tespit eden ve alternatif giris yontemlerini devre disi birakan kodu arayin.'),
-        numbered('Klavye odakli UI ogelerini tamamen gizleyen (pointer: coarse) gibi medya sorgularini kontrol edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('Aynı sisteme birden fazla giriş cihazı (klavye, fare, dokunmatik ekran) baglayin.'),
+        numbered('Tüm etkileşimli gorevleri tamamlamak için her giriş yontemini bağımsız olarak kullanmayi deneyin.'),
+        numbered('Gorev sırasında giriş yontemleri arasında geçiş yapın ve işlevselliğin korunduğundan emin olun.'),
+        numbered('Kod tabanında giriş türünü tespit eden ve alternatif giriş yöntemlerini devre dışı bırakan kodu arayın.'),
+        numbered('Klavye odaklı UI öğelerini tamamen gizleyen (pointer: coarse) gibi medya sorgularını kontrol edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Giris modalitelerini kisitlamaktan kacinin. Tum mevcut giris mekanizmalari arasinda calisan etkilesimler tasarlayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Giriş modalitelerini kısıtlamaktan kaçının. Tüm mevcut giriş mekanizmaları arasında çalışan etkilesimler tasarlayın.'),
 
-        heading('Giris algilama — yanlis uygulama', 'h3'),
+        heading('Giriş algilama — yanlış uygulama', 'h3'),
         code(
-          '// Yanlis: Dokunmatik algilandiginda fare olaylarini devre disi birakir\nif (\'ontouchstart\' in window) {\n  document.body.classList.add(\'dokunmatik-cihaz\');\n  // Tum fareyle gezinme ve fare etkilesimleri CSS ile devre disi birakildi\n}\n\n// Yanlis: Dokunmatik cihazlarda klavye destegini kaldirir\nif (navigator.maxTouchPoints > 0) {\n  document.removeEventListener(\'keydown\', klavyeIsle);\n}',
+          '// Yanlış: Dokunmatik algilandiginda fare olaylarını devre dışı birakir\nif (\'ontouchstart\' in window) {\n  document.body.classList.add(\'dokunmatik-cihaz\');\n  // Tüm fareyle gezinme ve fare etkileşimleri CSS ile devre dışı birakildi\n}\n\n// Yanlış: Dokunmatik cihazlarda klavye destegini kaldırır\nif (navigator.maxTouchPoints > 0) {\n  document.removeEventListener(\'keydown\', klavyeIsle);\n}',
           'javascript'
         ),
 
-        heading('Giris algilama — dogru uygulama', 'h3'),
+        heading('Giriş algilama — doğru uygulama', 'h3'),
         code(
-          '// Dogru: Tum giris turleri arasinda calisan pointer olaylari kullanin\nelement.addEventListener(\'pointerdown\', etkilesimiIsle);\nelement.addEventListener(\'pointerup\', etkilesimiIsle);\n\n// Dogru: Dokunmatik yeteneginden bagimsiz olarak klavye destegini koruyun\ndocument.addEventListener(\'keydown\', klavyeIsle);\n\n// Dogru: Islevsellik kaldirmadan UI yi uyarlayin\nif (matchMedia(\'(pointer: coarse)\').matches) {\n  dokunmaHedefleriniBuyut();\n  // Klavye gezintisi hala calisiyor\n}',
+          '// Doğru: Tüm giriş türleri arasında çalışan pointer olayları kullanın\nelement.addEventListener(\'pointerdown\', etkilesimiIsle);\nelement.addEventListener(\'pointerup\', etkilesimiIsle);\n\n// Doğru: Dokunmatik yeteneginden bağımsız olarak klavye destegini koruyun\ndocument.addEventListener(\'keydown\', klavyeIsle);\n\n// Doğru: İşlevsellik kaldirmadan UI yi uyarlayin\nif (matchMedia(\'(pointer: coarse)\').matches) {\n  dokunmaHedefleriniBuyut();\n  // Klavye gezintisi hala çalışıyor\n}',
           'javascript'
         ),
 
-        heading('Tum giris yontemlerini koruyan CSS', 'h3'),
+        heading('Tüm giriş yöntemlerini koruyan CSS', 'h3'),
         code(
-          '/* Dogru: Fareyle gezinmeyi gereklilik degil iyilestirme olarak kullanin */\n.acilir-tetikleyici:hover + .acilir-menu,\n.acilir-tetikleyici:focus + .acilir-menu,\n.acilir-menu:hover,\n.acilir-menu:focus-within {\n  display: block;\n}\n\n/* Dogru: Fare ile de calisan dokunmatik dostu boyutlar */\n@media (pointer: coarse) {\n  .etkilesimli-oge {\n    min-height: 44px;\n    min-width: 44px;\n  }\n}\n\n/* Giris yonteminden bagimsiz olarak etkilesimli ogeleri erisilebilir tutun */\n.etkilesimli-oge {\n  min-height: 32px;\n  min-width: 32px;\n}',
+          '/* Doğru: Fareyle gezinmeyi gereklilik değil iyilestirme olarak kullanın */\n.açılır-tetikleyici:hover + .açılır-menü,\n.açılır-tetikleyici:focus + .açılır-menü,\n.açılır-menü:hover,\n.açılır-menü:focus-within {\n  display: block;\n}\n\n/* Doğru: Fare ile de çalışan dokunmatik dostu boyutlar */\n@media (pointer: coarse) {\n  .etkileşimli-öğe {\n    min-height: 44px;\n    min-width: 44px;\n  }\n}\n\n/* Giriş yonteminden bağımsız olarak etkileşimli öğeleri erişilebilir tutun */\n.etkileşimli-öğe {\n  min-height: 32px;\n  min-width: 32px;\n}',
           'css'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Dokunmatik destegi tespit edip fare veya klavye olay isleyicilerini devre disi birakmak.'),
-        bullet('Alternatif saglamadan fareyle gezinme tetikli islevseligi tamamen kaldirmak icin (hover: none) gibi CSS medya sorgulari kullanmak.'),
-        bullet('Tabletlerde arayuzu yalnizca dokunmatik moduna kilitleyerek bagli klavye veya farelerin kullanimini engellemek.'),
-        bullet('Fiziksel klavye bagli olsa bile mobil gorunumlerde klavye gezintisini devre disi birakmak.'),
-        bullet('Sag tiklama, klavye kisayollari veya diger ikincil giris mekanizmalarini engellemek icin JavaScript kullanmak.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Dokunmatik desteği tespit edip fare veya klavye olay isleyicilerini devre dışı bırakmak.'),
+        bullet('Alternatif sağlamadan fareyle gezinme tetikli islevseligi tamamen kaldırmak için (hover: none) gibi CSS medya sorguları kullanmak.'),
+        bullet('Tabletlerde arayüzü yalnızca dokunmatik moduna kilitleyerek bağlı klavye veya farelerin kullanımını engellemek.'),
+        bullet('Fiziksel klavye bağlı olsa bile mobil gorunumlerde klavye gezintisini devre dışı bırakmak.'),
+        bullet('Sag tıklama, klavye kısayolları veya diğer ikincil giriş mekanizmalarini engellemek için JavaScript kullanmak.'),
       ],
     },
 
@@ -1098,9 +1098,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.6 Concurrent Input Mechanisms. Ensure web content supports multiple input methods without restricting users to a single modality.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.6 Eszamani Giris Mekanizmalari — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.6 Eszamani Giriş Mekanizmalari — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.6 Eszamani Giris Mekanizmalari kriterini nasil karsilayacaginizi ogrenin. Web iceriginin birden fazla giris yontemini desteklemesi rehberi.',
+          'WCAG 2.5.6 Eszamani Giriş Mekanizmalari kriterini nasıl karşılayacağınızı öğrenin. Web içeriğinin birden fazla giriş yontemini desteklemesi rehberi.',
       },
     },
   },
@@ -1118,12 +1118,12 @@ const rules = [
 
     title: {
       en: 'Dragging Movements',
-      tr: 'Surukleme Hareketleri',
+      tr: 'Sürükleme Hareketleri',
     },
 
     description: {
       en: 'All functionality that uses a dragging movement for operation can be achieved by a single pointer without dragging, unless dragging is essential or the functionality is determined by the user agent.',
-      tr: 'Surukleme hareketi kullanan tum islevler, surukleme zorunlu olmadikca veya islevsellik kullanici ajani tarafindan belirlenmedikce, suruklemesiz tek bir isaretci ile gerceklestirilebilmelidir.',
+      tr: 'Sürükleme hareketi kullanan tüm işlevler, sürükleme zorunlu olmadıkça veya işlevsellik kullanıcı ajanı tarafından belirlenmediçe, sürüklemesiz tek bir işaretçi ile gerçekleştirilebilmelidir.',
     },
 
     content: {
@@ -1194,65 +1194,65 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.7, surukleme hareketi gerektiren (basma, tutma ve isaretciyi hareket ettirme) her islevin, surukleme gerektirmeyen tek isaretci mekanizmasiyla da calistirilamasini gerektirir. Bu, surukle-birak, kaydirici ayarlamalari, siralanabilir listeler ve diger suruklemne bagli etkilesimler icin tiklama/dokunma alternatifleri saglamayi ifade eder.'
+          'WCAG 2.5.7, sürükleme hareketi gerektiren (basma, tutma ve işaretçiyi hareket ettirme) her işlevin, sürükleme gerektirmeyen tek işaretçi mekanizmasiyla da çalıştırılmasını gerektirir. Bu, sürükle-birak, kaydırıcı ayarlamalari, sıralanabilir listeler ve diğer suruklemne bağlı etkilesimler için tıklama/dokunma alternatifleri sağlamayı ifade eder.'
         ),
         p(
-          'Surukleme hareketi, bir isaretci dugmesine basma (veya dokunma), asagi tutma ve yeni bir konuma hareket ettirmeyi icerir. Alternatif, ayni sonucu ayrik isaretci eylemleri araciligiyla saglamalidir — ornegin bir baslangic noktasina tiklama, sonra bir bitis noktasina tiklama veya artirma/azaltma dugmeleri kullanma.'
+          'Sürükleme hareketi, bir işaretçi düğmesine basma (veya dokunma), aşağı tutma ve yeni bir konuma hareket ettirmeyi içerir. Alternatif, aynı sonucu ayrik işaretçi eylemleri aracılığıyla sağlamalıdır — örneğin bir başlangıç noktasina tıklama, sonra bir bitiş noktasina tıklama veya artirma/azaltma düğmeleri kullanma.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          'Surukleme, hassas bir yol boyunca surdurulen isaretci temasi gerektirir ve bircok kullanici bunu gerceklestiremez. Titreme, sinirli kavrama gucu veya motor bozukluklari olan kullanicilar hareket ederken isaretci-asagi basincini surduroemyebilir. Goz takibi, bas takibi veya agiz cubuklari ile calisan kullanicilar genellikle surukleme islemlerini hic gerceklestiremez.'
+          'Sürükleme, hassas bir yol boyunca surdurulen işaretçi temasi gerektirir ve birçok kullanıcı bunu gerçekleştiremez. Titreme, sınırlı kavrama gucu veya motor bozukluklari olan kullanıcılar hareket ederken işaretçi-aşağı basincini surduroemyebilir. Goz takibi, bas takibi veya agiz çubukları ile çalışan kullanıcılar genellikle sürükleme islemlerini hiç gerçekleştiremez.'
         ),
         p(
-          'Konusma tanima kullanicilari da surukleme etkilesimleriyle zorlanir cunku ses komutlari genellikle surekli surukleme hareketleri yerine ayrik tiklama/dokunma eylemlerini etkinlestirir. Suruklemesiz alternatifler saglamak, tum kullanicilarin motor yeteneklerinden bagimsiz olarak gorevleri tamamlayabilmesini saglar.'
+          'Konuşma tanıma kullanıcıları da sürükleme etkilesimleriyle zorlanır çünkü ses komutlari genellikle sürekli sürükleme hareketleri yerine ayrik tıklama/dokunma eylemlerini etkinleştirir. Sürüklemesiz alternatifler sağlamak, tüm kullanıcıların motor yeteneklerinden bağımsız olarak gorevleri tamamlayabilmesini sağlar.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
+        heading('İlgili axe-core kuralları', 'h2'),
         p(
-          'Bu kriter icin otomatik axe-core kurali bulunmamaktadir. Surukle bagli islevselligin tespiti, surukleme ile ilgili olaylari (dragstart, dragover, drop) veya isaretci hareket takibini kullanan ogeleri belirlemek icin manuel test ve kod incelemesi gerektirir.'
+          'Bu kriter için otomatik axe-core kuralı bulunmamaktadır. Sürükle bağlı işlevselliğin tespiti, sürükleme ile ilgili olayları (dragstart, dragover, drop) veya işaretçi hareket takibini kullanan öğeleri belirlemek için manuel test ve kod incelemesi gerektirir.'
         ),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('Tum surukle-birak etkilesimlerini (siralanabilir listeler, dosya yukleme alanlari, kaydiricilar, kanban panolari, cizim tuvalileri) belirleyin.'),
-        numbered('Her suruklenebilir ozellik icin ayni gorevi surukleme hareketi yapmadan tamamlamayi deneyin.'),
-        numbered('Tiklama/dokunma tabanli alternatiflerin (dugmeler, menuler, giris alanlari) mevcut oldugundan emin olun.'),
-        numbered('Surukleme islemlerinin klavye esdegerlerine sahip oldugunu dogrulamak icin yalnizca klavye gezintisiyle test edin.'),
-        numbered('Surukleme islemleri gerceklestiremeyen yardimci teknoloji isaretci emulatorleri kullanin.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('Tüm sürükle-birak etkilesimlerini (sıralanabilir listeler, dosya yükleme alanları, kaydırıcılar, kanban panolari, çizim tuvalileri) belirleyin.'),
+        numbered('Her suruklenebilir özellik için aynı görevi sürükleme hareketi yapmadan tamamlamayi deneyin.'),
+        numbered('Tiklama/dokunma tabanlı alternatiflerin (düğmeler, menüler, giriş alanları) mevcut olduğundan emin olun.'),
+        numbered('Sürükleme islemlerinin klavye esdegerlerine sahip olduğunu doğrulamak için yalnızca klavye gezintisiyle test edin.'),
+        numbered('Sürükleme islemleri gerçekleştiremeyen yardımcı teknoloji işaretçi emulatorleri kullanın.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Tum surukleme tabanli etkilesimler icin tek isaretci alternatifleri saglayin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Tüm sürükleme tabanlı etkilesimler için tek işaretçi alternatifleri sağlayın.'),
 
-        heading('Siralanabilir liste — yalnizca surukleme (yanlis)', 'h3'),
+        heading('Siralanabilir liste — yalnızca sürükleme (yanlış)', 'h3'),
         code(
-          '<!-- Yeniden siralamak icin yalnizca surukle-birak, alternatif yok -->\n<ul id="siralanabilir">\n  <li draggable="true" ondragstart="surukle(event)">Oge 1</li>\n  <li draggable="true" ondragstart="surukle(event)">Oge 2</li>\n  <li draggable="true" ondragstart="surukle(event)">Oge 3</li>\n</ul>',
+          '<!-- Yeniden sıralamak için yalnızca sürükle-birak, alternatif yok -->\n<ul id="sıralanabilir">\n  <li draggable="true" ondragstart="sürükle(event)">Öğe 1</li>\n  <li draggable="true" ondragstart="sürükle(event)">Öğe 2</li>\n  <li draggable="true" ondragstart="sürükle(event)">Öğe 3</li>\n</ul>',
           'html'
         ),
 
-        heading('Siralanabilir liste — dugme alternatifleriyle (dogru)', 'h3'),
+        heading('Siralanabilir liste — düğme alternatifleriyle (doğru)', 'h3'),
         code(
-          '<ul id="siralanabilir" role="list">\n  <li draggable="true">\n    <span>Oge 1</span>\n    <div class="siralama-kontrolleri">\n      <button aria-label="Oge 1 yukari tasi" onclick="yukariTasi(this)">\n        &#x25B2;\n      </button>\n      <button aria-label="Oge 1 asagi tasi" onclick="asagiTasi(this)">\n        &#x25BC;\n      </button>\n    </div>\n  </li>\n  <li draggable="true">\n    <span>Oge 2</span>\n    <div class="siralama-kontrolleri">\n      <button aria-label="Oge 2 yukari tasi" onclick="yukariTasi(this)">\n        &#x25B2;\n      </button>\n      <button aria-label="Oge 2 asagi tasi" onclick="asagiTasi(this)">\n        &#x25BC;\n      </button>\n    </div>\n  </li>\n</ul>',
+          '<ul id="sıralanabilir" role="list">\n  <li draggable="true">\n    <span>Öğe 1</span>\n    <div class="sıralama-kontrolleri">\n      <button aria-label="Öğe 1 yukarı tasi" onclick="yukariTasi(this)">\n        &#x25B2;\n      </button>\n      <button aria-label="Öğe 1 aşağı tasi" onclick="asagiTasi(this)">\n        &#x25BC;\n      </button>\n    </div>\n  </li>\n  <li draggable="true">\n    <span>Öğe 2</span>\n    <div class="sıralama-kontrolleri">\n      <button aria-label="Öğe 2 yukarı tasi" onclick="yukariTasi(this)">\n        &#x25B2;\n      </button>\n      <button aria-label="Öğe 2 aşağı tasi" onclick="asagiTasi(this)">\n        &#x25BC;\n      </button>\n    </div>\n  </li>\n</ul>',
           'html'
         ),
 
-        heading('Giris alternatifi ile kaydirici', 'h3'),
+        heading('Giriş alternatifi ile kaydırıcı', 'h3'),
         code(
-          '<!-- Sayi girisi alternatifi ile suruklenebilir kaydirici -->\n<div class="kaydirici-kapsayici">\n  <label for="fiyat-kaydirici">Maksimum fiyat</label>\n  <input type="range" id="fiyat-kaydirici" min="0" max="500"\n    value="250" step="10">\n  <input type="number" id="fiyat-girisi" min="0" max="500"\n    value="250" step="10" aria-label="Maksimum fiyat degeri">\n</div>\n\n<script>\n  const kaydirici = document.getElementById(\'fiyat-kaydirici\');\n  const giris = document.getElementById(\'fiyat-girisi\');\n  kaydirici.addEventListener(\'input\', () => giris.value = kaydirici.value);\n  giris.addEventListener(\'input\', () => kaydirici.value = giris.value);\n</script>',
+          '<!-- Sayi girişi alternatifi ile suruklenebilir kaydırıcı -->\n<div class="kaydırıcı-kapsayıcı">\n  <label for="fiyat-kaydırıcı">Maksimum fiyat</label>\n  <input type="range" id="fiyat-kaydırıcı" min="0" max="500"\n    value="250" step="10">\n  <input type="number" id="fiyat-girişi" min="0" max="500"\n    value="250" step="10" aria-label="Maksimum fiyat değeri">\n</div>\n\n<script>\n  const kaydırıcı = document.getElementById(\'fiyat-kaydırıcı\');\n  const giriş = document.getElementById(\'fiyat-girişi\');\n  kaydırıcı.addEventListener(\'input\', () => giriş.value = kaydırıcı.value);\n  giriş.addEventListener(\'input\', () => kaydırıcı.value = giriş.value);\n</script>',
           'html'
         ),
 
-        heading('Dosya yukleme — dugme alternatifi ile birakma alani', 'h3'),
+        heading('Dosya yükleme — düğme alternatifi ile bırakma alanı', 'h3'),
         code(
-          '<div class="birakma-alani"\n  ondragover="event.preventDefault()"\n  ondrop="birakmaIsle(event)">\n  <p>Yuklemek icin dosyalari buraya surukleyin</p>\n  <!-- Suruklemesiz alternatif -->\n  <label for="dosya-yukleme" class="yukleme-dugmesi">\n    Veya dosya secmek icin tiklayin\n  </label>\n  <input type="file" id="dosya-yukleme" multiple\n    onchange="dosyalariIsle(this.files)" class="gorsel-gizli">\n</div>',
+          '<div class="bırakma-alanı"\n  ondragover="event.preventDefault()"\n  ondrop="birakmaIsle(event)">\n  <p>Yüklemek için dosyaları buraya sürükleyin</p>\n  <!-- Sürüklemesiz alternatif -->\n  <label for="dosya-yükleme" class="yükleme-düğmesi">\n    Veya dosya seçmek için tıklayın\n  </label>\n  <input type="file" id="dosya-yükleme" multiple\n    onchange="dosyalariIsle(this.files)" class="görsel-gizli">\n</div>',
           'html'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Yalnizca surukle-birak yeniden siralamayi destekleyen, dugme veya menu alternatifi olmayan siralanabilir listeler veya kanban panolari.'),
-        bullet('Yalnizca tutamaci surukleyerek yanit veren, klavye ok tusu destegi veya sayisal giris olmayan ozel kaydiricilar.'),
-        bullet('Dosya secici dugmesi olmadan yalnizca surukle-birak kabul eden dosya yukleme alanlari.'),
-        bullet('Koordinat giris alanlari olmadan surukleme gerektiren gorsel kirpma veya konumlandirma arayuzleri.'),
-        bullet('Surukleyemeyen kullanicilar icin yapilandirilmis giris alternatifi olmayan cizim veya aciklama araclari.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Yalnızca sürükle-birak yeniden sıralamayı destekleyen, düğme veya menü alternatifi olmayan sıralanabilir listeler veya kanban panolari.'),
+        bullet('Yalnızca tutamaci surukleyerek yanıt veren, klavye ok tuşu desteği veya sayisal giriş olmayan özel kaydırıcılar.'),
+        bullet('Dosya seçiçi düğmesi olmadan yalnızca sürükle-birak kabul eden dosya yükleme alanları.'),
+        bullet('Koordinat giriş alanları olmadan sürükleme gerektiren görsel kirpma veya konumlandırma arayüzleri.'),
+        bullet('Surukleyemeyen kullanıcılar için yapılandırılmış giriş alternatifi olmayan çizim veya açıklama araçları.'),
       ],
     },
 
@@ -1294,9 +1294,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.7 Dragging Movements. Provide single-pointer alternatives for drag-and-drop interactions with practical code examples.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.7 Surukleme Hareketleri — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.7 Sürükleme Hareketleri — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.7 Surukleme Hareketleri kriterini nasil karsilayacaginizi ogrenin. Surukle-birak etkilesimleri icin tek isaretci alternatifleri saglama rehberi.',
+          'WCAG 2.5.7 Sürükleme Hareketleri kriterini nasıl karşılayacağınızı öğrenin. Sürükle-birak etkileşimleri için tek işaretçi alternatifleri sağlama rehberi.',
       },
     },
   },
@@ -1319,7 +1319,7 @@ const rules = [
 
     description: {
       en: 'The size of the target for pointer inputs is at least 24 by 24 CSS pixels, except where an equivalent control exists, the target is inline, the size is user-agent determined, or the presentation is essential.',
-      tr: 'Isaretci girisleri icin hedefin boyutu en az 24x24 CSS piksel olmalidir; esdeger bir kontrol mevcut oldugunda, hedef satirici oldugunda, boyut kullanici ajani tarafindan belirlendiginde veya sunum zorunlu oldugunda istisna uygulanir.',
+      tr: 'İşaretçi girişleri için hedefin boyutu en az 24x24 CSS piksel olmalıdır; eşdeğer bir kontrol mevcut olduğunda, hedef satır içi olduğunda, boyut kullanıcı ajanı tarafından belirlendiğinde veya sunum zorunlu olduğunda istisna uygulanır.',
     },
 
     content: {
@@ -1389,64 +1389,64 @@ const rules = [
       tr: [
         heading('Bu kural ne anlama geliyor', 'h2'),
         p(
-          'WCAG 2.5.8, tum etkilesimli ogeler icin 24x24 CSS piksel minimum hedef boyutu belirler. Bu, WCAG 2.2 de tanimlanan AA Duzeyi gereksinimidir ve kullanilabilirlik ile tasarim esnekligi arasinda denge saglayan pratik bir minimum sunar. Kriter 2.5.5 teki gelismis 44px hedef, AAA onerisi olarak kalir.'
+          'WCAG 2.5.8, tüm etkileşimli öğeler için 24x24 CSS piksel minimum hedef boyutu belirler. Bu, WCAG 2.2 de tanımlanan AA Düzeyi gereksinimidir ve kullanılabilirlik ile tasarım esnekliği arasında denge sağlayan pratik bir minimum sunar. Kriter 2.5.5 teki gelişmiş 44px hedef, AAA önerisi olarak kalır.'
         ),
         p(
-          '24px minimum, isabet bolgesini genisleten herhangi bir padding dahil olmak uzere tum tiklanabilir/dokunulabilir alana uygulanir. Bir hedef 24px den kucukse, hedefin merkezindeki 24px cemberin baska herhangi bir hedefle cakismamasi icin bitisik hedeflerden yeterli araliga sahip olmalidir. Bu, "dengelemeli kucuk hedef" istisnasi olarak bilinir.'
+          '24px minimum, isabet bolgesini genişleten herhangi bir padding dahil olmak üzere tüm tıklanabilir/dokunulabilir alana uygulanır. Bir hedef 24px den kucukse, hedefin merkezindeki 24px cemberin başka herhangi bir hedefle cakismamasi için bitişik hedeflerden yeterli araliga sahip olmalıdır. Bu, "dengelemeli küçük hedef" istisnası olarak bilinir.'
         ),
 
-        heading('Neden onemlidir', 'h2'),
+        heading('Neden önemlidir', 'h2'),
         p(
-          '24px minimum hedef boyutu, motor engelli kullanicilarin guvenilir sekilde etkinlestirebilecegi en kucuk makul hedef oldugunu gosteren arastirmalara dayanilarak secilmistir. 44px optimum olmakla birlikte, 24px minimum bazi arayuz kaliplarinin kompakt duzenler gerektirdigini kabul eder. Aralik gereksinimi, kucuk hedeflerin bile yanlislikla komsularini vurmadan etkinlestirilebilmesini saglar.'
+          '24px minimum hedef boyutu, motor engelli kullanıcıların güvenilir şekilde etkinlestirebilecegi en küçük makul hedef olduğunu gösteren araştırmalara dayanilarak secilmistir. 44px optimum olmakla birlikte, 24px minimum bazı arayüz kaliplarinin kompakt düzenler gerektirdigini kabul eder. Aralık gereksinimi, küçük hedeflerin bile yanlislikla komsularini vurmadan etkinlestirilebilmesini sağlar.'
         ),
         p(
-          'Bu kriter, sayfadaki her etkilesimli oge icin gecerli oldugu icin WCAG 2.2 eklemelerinin en genis etkiye sahip olanidir. Gezinme baglantilari, arac cubugu dugmeleri, form kontrolleri, sayfalama, etiket listeleri ve satirici eylemler 24px esigini karsilamali veya yeterli aralik kullanmalidir.'
+          'Bu kriter, sayfadaki her etkileşimli öğe için geçerli olduğu için WCAG 2.2 eklemelerinin en geniş etkiye sahip olanıdır. Gezinme bağlantıları, araç çubuğu düğmeleri, form kontrolleri, sayfalama, etiket listeleri ve satır içi eylemler 24px eşiğini karşılamalı veya yeterli aralık kullanmalıdır.'
         ),
 
-        heading('Ilgili axe-core kurallari', 'h2'),
-        bullet('target-size — Etkilesimli ogelerin minimum 24x24 CSS piksel hedef boyutunu karsilamasini veya bitisik hedeflerden yeterli araliga sahip olmasini saglar. Bu kural tiklanabilir ogelerin sinir kutusunu kontrol eder ve komsulariyla cakisan kucuk hedefleri isaretler.'),
+        heading('İlgili axe-core kuralları', 'h2'),
+        bullet('target-size — Etkileşimli öğelerin minimum 24x24 CSS piksel hedef boyutunu karşılamasını veya bitişik hedeflerden yeterli araliga sahip olmasını sağlar. Bu kural tıklanabilir öğelerin sınır kutusunu kontrol eder ve komsulariyla çakışan küçük hedefleri işaretler.'),
 
-        heading('Nasil test edilir', 'h2'),
-        numbered('axe-core veya axe DevTools calistirin — target-size kurali yeterli araligi olmayan 24x24 pikselden kucuk ogeleri isaretleyecektir.'),
-        numbered('Etkilesimli ogelerin hesaplanan boyutunu (padding dahil) incelemek icin tarayici DevTools kullanin.'),
-        numbered('24px den kucuk hedefler icin, bitisik hedeflerden araliklamanin en az 24px cakismayan bir bolge sagladigini dogrulayin.'),
-        numbered('Kompakt UI kaliplarini kontrol edin: arac cubuklari, etiket listeleri, icerik haritasi baglantilari, sayfalama ve satirici eylemler.'),
-        numbered('Kucuk hedeflerin yanlis etkinlestirme olmadan guvenilir sekilde dokunulabildgini dogrulamak icin dokunmatik cihazlarda test edin.'),
+        heading('Nasıl test edilir', 'h2'),
+        numbered('axe-core veya axe DevTools çalıştırın — target-size kuralı yeterli aralığı olmayan 24x24 pikselden küçük öğeleri isaretleyecektir.'),
+        numbered('Etkileşimli öğelerin hesaplanan boyutunu (padding dahil) incelemek için tarayıcı DevTools kullanın.'),
+        numbered('24px den küçük hedefler için, bitişik hedeflerden araliklamanin en az 24px cakismayan bir bölge sağladığını doğrulayın.'),
+        numbered('Kompakt UI kalıplarını kontrol edin: araç çubukları, etiket listeleri, içerik haritası bağlantıları, sayfalama ve satır içi eylemler.'),
+        numbered('Küçük hedeflerin yanlış etkinlestirme olmadan güvenilir şekilde dokunulabildgini doğrulamak için dokunmatik cihazlarda test edin.'),
 
-        heading('Nasil duzeltilir', 'h2'),
-        p('Etkilesimli ogelerin 24px minimumu karsilamasini veya yeterli aralik saglamasini saglamak icin CSS kullanin.'),
+        heading('Nasıl düzeltilir', 'h2'),
+        p('Etkileşimli öğelerin 24px minimumu karşılamasını veya yeterli aralık sağlamasını sağlamak için CSS kullanın.'),
 
         heading('CSS ile minimum hedef boyutu', 'h3'),
         code(
-          '/* Temel etkilesimli oge boyutlandirma */\nbutton,\na,\ninput,\nselect,\ntextarea,\n[role="button"],\n[role="link"],\n[role="tab"],\n[role="checkbox"],\n[role="radio"] {\n  min-width: 24px;\n  min-height: 24px;\n}',
+          '/* Temel etkileşimli öğe boyutlandırma */\nbutton,\na,\ninput,\nselect,\ntextarea,\n[role="button"],\n[role="link"],\n[role="tab"],\n[role="checkbox"],\n[role="radio"] {\n  min-width: 24px;\n  min-height: 24px;\n}',
           'css'
         ),
 
-        heading('Minimum boyutu karsilayan simge dugmesi', 'h3'),
+        heading('Minimum boyutu karşılayan simge düğmesi', 'h3'),
         code(
-          '<!-- Yanlis: Genisletilmis hedef olmadan 16px simge -->\n<button class="simge-btn-kucuk">\n  <svg width="16" height="16" aria-hidden="true">...</svg>\n  <span class="gorsel-gizli">Kapat</span>\n</button>\n\n<style>\n/* Yanlis: hedef yalnizca 16x16 */\n.simge-btn-kucuk {\n  padding: 0;\n  border: none;\n  background: none;\n}\n</style>\n\n<!-- Dogru: Genisletilmis tiklanabilir alana sahip 16px simge -->\n<button class="simge-btn">\n  <svg width="16" height="16" aria-hidden="true">...</svg>\n  <span class="gorsel-gizli">Kapat</span>\n</button>\n\n<style>\n/* Dogru: padding hedefi en az 24x24 e genisletir */\n.simge-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 24px;\n  min-height: 24px;\n  padding: 4px;\n  border: none;\n  background: none;\n}\n</style>',
+          '<!-- Yanlış: Genişletilmiş hedef olmadan 16px simge -->\n<button class="simge-btn-küçük">\n  <svg width="16" height="16" aria-hidden="true">...</svg>\n  <span class="görsel-gizli">Kapat</span>\n</button>\n\n<style>\n/* Yanlış: hedef yalnızca 16x16 */\n.simge-btn-küçük {\n  padding: 0;\n  border: none;\n  background: none;\n}\n</style>\n\n<!-- Doğru: Genişletilmiş tıklanabilir alana sahip 16px simge -->\n<button class="simge-btn">\n  <svg width="16" height="16" aria-hidden="true">...</svg>\n  <span class="görsel-gizli">Kapat</span>\n</button>\n\n<style>\n/* Doğru: padding hedefi en az 24x24 e genişletir */\n.simge-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  min-width: 24px;\n  min-height: 24px;\n  padding: 4px;\n  border: none;\n  background: none;\n}\n</style>',
           'html'
         ),
 
-        heading('Kompakt duzenler icin aralik yaklasimi', 'h3'),
+        heading('Kompakt düzenler için aralık yaklaşımı', 'h3'),
         code(
-          '/* Hedefler 24px den kucuk olmak zorundaysa,\n   aralarinda yeterli aralik saglayin */\n.etiket-listesi {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 8px; /* Kucuk etiketler arasi aralik */\n}\n\n.etiket {\n  display: inline-flex;\n  align-items: center;\n  min-height: 24px;\n  padding: 2px 8px;\n  font-size: 12px;\n}\n\n/* Satirici baglanti araligi */\n.satirici-eylemler a {\n  padding: 4px;\n  margin: 0 4px;\n  /* 16px metin uzerinde 4px padding ile 24px hedef saglar */\n}',
+          '/* Hedefler 24px den küçük olmak zorundaysa,\n   aralarında yeterli aralık sağlayın */\n.etiket-listesi {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 8px; /* Küçük etiketler arasi aralık */\n}\n\n.etiket {\n  display: inline-flex;\n  align-items: center;\n  min-height: 24px;\n  padding: 2px 8px;\n  font-size: 12px;\n}\n\n/* Satirici bağlantı aralığı */\n.satır içi-eylemler a {\n  padding: 4px;\n  margin: 0 4px;\n  /* 16px metin üzerinde 4px padding ile 24px hedef sağlar */\n}',
           'css'
         ),
 
-        heading('Duyarli hedef boyutlandirma', 'h3'),
+        heading('Duyarlı hedef boyutlandırma', 'h3'),
         code(
-          '/* Hedef boyutu icin asamali iyilestirme */\n.eylem-dugmesi {\n  min-width: 24px;\n  min-height: 24px;\n  padding: 4px 8px;\n}\n\n/* Dokunmatik cihazlarda daha buyuk hedefler */\n@media (pointer: coarse) {\n  .eylem-dugmesi {\n    min-width: 44px;\n    min-height: 44px;\n    padding: 10px 16px;\n  }\n}',
+          '/* Hedef boyutu için asamali iyilestirme */\n.eylem-düğmesi {\n  min-width: 24px;\n  min-height: 24px;\n  padding: 4px 8px;\n}\n\n/* Dokunmatik cihazlarda daha büyük hedefler */\n@media (pointer: coarse) {\n  .eylem-düğmesi {\n    min-width: 44px;\n    min-height: 44px;\n    padding: 10px 16px;\n  }\n}',
           'css'
         ),
 
-        heading('Sik yapilan hatalar', 'h2'),
-        bullet('Tiklanabilir alani genisletmek icin padding olmadan kucuk simge dugmeleri (16px veya 20px).'),
-        bullet('24px den kucuk baglantilara ve aralik telafisi olmayan yogun gezinme menuleri.'),
-        bullet('Hedeflenmesi zor olan kucuk kapat/kaldir dugmelerine sahip etiket veya cip bilesenleri.'),
-        bullet('Ozellikle mobil gorunum alanlarinda yetersiz yukseklikteki icerik haritasi baglantilari.'),
-        bullet('Tiklanabilir etiket alanini genisletmeden 24px den kucuk stile sahip ozel onay kutulari veya radyo dugmeleri.'),
-        bullet('Tiklanabilir alana katkida bulunan paddingi hesaba katmadan gorsel oge boyutuna dayanmak.'),
+        heading('Sık yapılan hatalar', 'h2'),
+        bullet('Tiklanabilir alanı genisletmek için padding olmadan küçük simge düğmeleri (16px veya 20px).'),
+        bullet('24px den küçük baglantilara ve aralık telafisi olmayan yoğun gezinme menüleri.'),
+        bullet('Hedeflenmesi zor olan küçük kapat/kaldir dugmelerine sahip etiket veya çip bileşenleri.'),
+        bullet('Özellikle mobil görünüm alanlarında yetersiz yukseklikteki içerik haritası bağlantıları.'),
+        bullet('Tiklanabilir etiket alanını genisletmeden 24px den küçük stile sahip özel onay kutuları veya radyo düğmeleri.'),
+        bullet('Tiklanabilir alana katkıda bulunan paddingi hesaba katmadan görsel öğe boyutuna dayanmak.'),
       ],
     },
 
@@ -1495,9 +1495,9 @@ const rules = [
           'Learn how to meet WCAG 2.5.8 Target Size (Minimum). Ensure interactive targets are at least 24x24 CSS pixels with CSS examples and axe-core testing guidance.',
       },
       tr: {
-        metaTitle: 'WCAG 2.5.8 Hedef Boyutu (Minimum) — Erisilebilirlik Rehberi',
+        metaTitle: 'WCAG 2.5.8 Hedef Boyutu (Minimum) — Erişilebilirlik Rehberi',
         metaDescription:
-          'WCAG 2.5.8 Hedef Boyutu (Minimum) kriterini nasil karsilayacaginizi ogrenin. Etkilesimli hedeflerin en az 24x24 CSS piksel olmasini saglama rehberi.',
+          'WCAG 2.5.8 Hedef Boyutu (Minimum) kriterini nasıl karşılayacağınızı öğrenin. Etkileşimli hedeflerin en az 24x24 CSS piksel olmasını sağlama rehberi.',
       },
     },
   },
