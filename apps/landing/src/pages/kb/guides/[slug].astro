@@ -1,0 +1,80 @@
+---
+import KBLayout from '../../../components/kb/KBLayout.astro'
+import ResourceList from '../../../components/kb/ResourceList.astro'
+import RelatedRules from '../../../components/kb/RelatedRules.astro'
+import { getAllGuides, getGuideBySlug } from '../../../lib/sanity'
+import { portableTextToHtml } from '../../../lib/portable-text'
+
+export async function getStaticPaths() {
+  const guides = await getAllGuides()
+  return guides.map((guide) => ({
+    params: { slug: guide.slug.current },
+  }))
+}
+
+const { slug } = Astro.params
+const guide = await getGuideBySlug(slug!)
+
+if (!guide) {
+  return Astro.redirect('/kb/guides/')
+}
+
+const contentHtml = guide.content?.en ? portableTextToHtml(guide.content.en) : ''
+
+const categoryNames: Record<string, string> = {
+  seo: 'SEO',
+  geo: 'GEO',
+  aeo: 'AEO',
+  technique: 'Technique',
+  'best-practice': 'Best Practice',
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: guide.title.en,
+  description: guide.description?.en || '',
+  url: `https://inculva.com/kb/guides/${guide.slug.current}/`,
+  datePublished: guide.publishedAt,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Inculva',
+    url: 'https://inculva.com',
+  },
+  inLanguage: 'en',
+}
+---
+
+<KBLayout
+  title={guide.seo?.en?.metaTitle || `${guide.title.en} | Inculva`}
+  description={guide.seo?.en?.metaDescription || guide.description?.en || ''}
+  lang="en"
+  breadcrumbs={[
+    { label: 'Knowledge Base', href: '/kb/' },
+    { label: 'Guides', href: '/kb/guides/' },
+    { label: guide.title.en, href: `/kb/guides/${guide.slug.current}/` },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-12">
+    <article class="max-w-4xl">
+      <header class="mb-8">
+        <span class="text-sm font-medium text-primary-600 uppercase tracking-wide">
+          {categoryNames[guide.category] || guide.category}
+        </span>
+        <h1 class="text-4xl font-bold text-gray-900 mt-2 mb-4">{guide.title.en}</h1>
+        {guide.description?.en && (
+          <p class="text-xl text-gray-600">{guide.description.en}</p>
+        )}
+      </header>
+
+      <div class="prose prose-lg prose-gray max-w-none" set:html={contentHtml} />
+
+      <ResourceList resources={guide.resources || []} lang="en" />
+    </article>
+
+    <aside class="hidden lg:block">
+      <RelatedRules rules={guide.relatedWcagRules || []} lang="en" />
+    </aside>
+  </div>
+</KBLayout>

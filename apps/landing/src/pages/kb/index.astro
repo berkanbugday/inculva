@@ -1,0 +1,76 @@
+---
+import KBLayout from '../../components/kb/KBLayout.astro'
+import KBCard from '../../components/kb/KBCard.astro'
+import { getAllWcagRules, getAllGuides } from '../../lib/sanity'
+
+const rules = await getAllWcagRules()
+const guides = await getAllGuides()
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Inculva Accessibility Knowledge Base',
+  description: 'Comprehensive accessibility knowledge base covering all WCAG 2.0, 2.1, and 2.2 success criteria with practical testing and remediation guidance.',
+  url: 'https://inculva.com/kb/',
+}
+---
+
+<KBLayout
+  title="Accessibility Knowledge Base | Inculva"
+  description="Comprehensive accessibility knowledge base covering all WCAG 2.0, 2.1, and 2.2 success criteria with practical testing and remediation guidance."
+  lang="en"
+  breadcrumbs={[{ label: 'Knowledge Base', href: '/kb/' }]}
+  jsonLd={jsonLd}
+>
+  <div class="mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Accessibility Knowledge Base</h1>
+    <p class="text-xl text-gray-600 max-w-3xl">
+      Comprehensive guides and references for WCAG 2.0, 2.1, and 2.2 success criteria.
+      Each article covers what the rule means, why it matters, how to test, and how to fix violations.
+    </p>
+  </div>
+
+  <section aria-labelledby="wcag-heading" class="mb-16">
+    <div class="flex items-center justify-between mb-6">
+      <h2 id="wcag-heading" class="text-2xl font-bold text-gray-900">WCAG Rules</h2>
+      <a href="/kb/wcag/" class="text-primary-600 hover:text-primary-800 font-medium text-sm">
+        View all {rules.length} rules →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {rules.slice(0, 6).map((rule) => (
+        <KBCard
+          href={`/kb/wcag/${rule.slug.current}/`}
+          criterionNumber={rule.criterionNumber}
+          title={rule.title.en}
+          description={rule.description?.en || ''}
+          level={rule.level}
+          wcagVersions={rule.wcagVersions}
+          impact={rule.impact}
+          introducedIn={rule.introducedIn}
+        />
+      ))}
+    </div>
+  </section>
+
+  {guides.length > 0 && (
+    <section aria-labelledby="guides-heading">
+      <div class="flex items-center justify-between mb-6">
+        <h2 id="guides-heading" class="text-2xl font-bold text-gray-900">Guides</h2>
+        <a href="/kb/guides/" class="text-primary-600 hover:text-primary-800 font-medium text-sm">
+          View all guides →
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {guides.slice(0, 6).map((guide) => (
+          <KBCard
+            href={`/kb/guides/${guide.slug.current}/`}
+            title={guide.title.en}
+            description={guide.description?.en || ''}
+            category={guide.category}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</KBLayout>

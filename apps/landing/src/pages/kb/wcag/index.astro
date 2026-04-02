@@ -1,0 +1,72 @@
+---
+import KBLayout from '../../../components/kb/KBLayout.astro'
+import KBCard from '../../../components/kb/KBCard.astro'
+import { getAllWcagRules } from '../../../lib/sanity'
+
+const rules = await getAllWcagRules()
+
+const principleNames: Record<string, string> = {
+  perceivable: 'Perceivable',
+  operable: 'Operable',
+  understandable: 'Understandable',
+  robust: 'Robust',
+}
+
+const grouped = rules.reduce((acc, rule) => {
+  const p = rule.principle
+  if (!acc[p]) acc[p] = []
+  acc[p].push(rule)
+  return acc
+}, {} as Record<string, typeof rules>)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'WCAG Success Criteria Reference',
+  description: 'Complete reference for all WCAG 2.0, 2.1, and 2.2 success criteria with testing and remediation guidance.',
+  url: 'https://inculva.com/kb/wcag/',
+}
+---
+
+<KBLayout
+  title="WCAG Success Criteria Reference | Inculva"
+  description="Complete reference for all WCAG 2.0, 2.1, and 2.2 success criteria with testing and remediation guidance."
+  lang="en"
+  breadcrumbs={[
+    { label: 'Knowledge Base', href: '/kb/' },
+    { label: 'WCAG Rules', href: '/kb/wcag/' },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">WCAG Success Criteria</h1>
+    <p class="text-xl text-gray-600 max-w-3xl">
+      All {rules.length} WCAG success criteria across versions 2.0, 2.1, and 2.2.
+      Organized by the four principles of accessibility.
+    </p>
+  </div>
+
+  {(['perceivable', 'operable', 'understandable', 'robust'] as const).map((principle) => (
+    grouped[principle] && grouped[principle].length > 0 && (
+      <section aria-labelledby={`${principle}-heading`} class="mb-16">
+        <h2 id={`${principle}-heading`} class="text-2xl font-bold text-gray-900 mb-6">
+          {principleNames[principle]}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {grouped[principle].map((rule) => (
+            <KBCard
+              href={`/kb/wcag/${rule.slug.current}/`}
+              criterionNumber={rule.criterionNumber}
+              title={rule.title.en}
+              description={rule.description?.en || ''}
+              level={rule.level}
+              wcagVersions={rule.wcagVersions}
+              impact={rule.impact}
+              introducedIn={rule.introducedIn}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  ))}
+</KBLayout>

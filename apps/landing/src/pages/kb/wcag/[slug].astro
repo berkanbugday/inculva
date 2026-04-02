@@ -1,0 +1,97 @@
+---
+import KBLayout from '../../../components/kb/KBLayout.astro'
+import RuleBadges from '../../../components/kb/RuleBadges.astro'
+import ResourceList from '../../../components/kb/ResourceList.astro'
+import { getAllWcagRules, getWcagRuleBySlug } from '../../../lib/sanity'
+import { portableTextToHtml } from '../../../lib/portable-text'
+
+export async function getStaticPaths() {
+  const rules = await getAllWcagRules()
+  return rules.map((rule) => ({
+    params: { slug: rule.slug.current },
+  }))
+}
+
+const { slug } = Astro.params
+const rule = await getWcagRuleBySlug(slug!)
+
+if (!rule) {
+  return Astro.redirect('/kb/wcag/')
+}
+
+const contentHtml = rule.content?.en ? portableTextToHtml(rule.content.en) : ''
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: `WCAG ${rule.criterionNumber}: ${rule.title.en}`,
+  description: rule.description?.en || '',
+  url: `https://inculva.com/kb/wcag/${rule.slug.current}/`,
+  datePublished: rule.publishedAt,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Inculva',
+    url: 'https://inculva.com',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Web Content Accessibility Guidelines (WCAG)',
+  },
+  proficiencyLevel: 'Beginner',
+  inLanguage: 'en',
+}
+
+const principleNames: Record<string, string> = {
+  perceivable: 'Perceivable',
+  operable: 'Operable',
+  understandable: 'Understandable',
+  robust: 'Robust',
+}
+---
+
+<KBLayout
+  title={rule.seo?.en?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.en} | Inculva`}
+  description={rule.seo?.en?.metaDescription || rule.description?.en || ''}
+  lang="en"
+  breadcrumbs={[
+    { label: 'Knowledge Base', href: '/kb/' },
+    { label: 'WCAG Rules', href: '/kb/wcag/' },
+    { label: `${rule.criterionNumber} ${rule.title.en}`, href: `/kb/wcag/${rule.slug.current}/` },
+  ]}
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl">
+    <header class="mb-8">
+      <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+        <span>{principleNames[rule.principle]}</span>
+        <span aria-hidden="true">•</span>
+        <span>WCAG {rule.criterionNumber}</span>
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        {rule.criterionNumber} {rule.title.en}
+      </h1>
+      {rule.description?.en && (
+        <p class="text-xl text-gray-600 mb-6">{rule.description.en}</p>
+      )}
+      <RuleBadges
+        level={rule.level}
+        wcagVersions={rule.wcagVersions}
+        impact={rule.impact}
+        introducedIn={rule.introducedIn}
+      />
+      {rule.axeRuleIds && rule.axeRuleIds.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-2">
+          {rule.axeRuleIds.map((id) => (
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-gray-100 text-gray-700">
+              {id}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="prose prose-lg prose-gray max-w-none" set:html={contentHtml} />
+
+    <ResourceList resources={rule.resources || []} lang="en" />
+  </article>
+</KBLayout>

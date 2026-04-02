@@ -1,0 +1,66 @@
+---
+import KBLayout from '../../../components/kb/KBLayout.astro'
+import KBCard from '../../../components/kb/KBCard.astro'
+import { getAllGuides } from '../../../lib/sanity'
+
+const guides = await getAllGuides()
+
+const categoryNames: Record<string, string> = {
+  seo: 'SEO',
+  geo: 'GEO',
+  aeo: 'AEO',
+  technique: 'Techniques',
+  'best-practice': 'Best Practices',
+}
+
+const grouped = guides.reduce((acc, guide) => {
+  const c = guide.category
+  if (!acc[c]) acc[c] = []
+  acc[c].push(guide)
+  return acc
+}, {} as Record<string, typeof guides>)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Accessibility Guides',
+  description: 'Expert guides on SEO, GEO, AEO, and accessibility best practices.',
+  url: 'https://inculva.com/kb/guides/',
+}
+---
+
+<KBLayout
+  title="Accessibility Guides | Inculva"
+  description="Expert guides on SEO, GEO, AEO, and accessibility best practices."
+  lang="en"
+  breadcrumbs={[
+    { label: 'Knowledge Base', href: '/kb/' },
+    { label: 'Guides', href: '/kb/guides/' },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Guides</h1>
+    <p class="text-xl text-gray-600 max-w-3xl">
+      Expert guides on accessibility, SEO, and optimization best practices.
+    </p>
+  </div>
+
+  {Object.entries(grouped).map(([category, categoryGuides]) => (
+    <section aria-labelledby={`${category}-heading`} class="mb-16">
+      <h2 id={`${category}-heading`} class="text-2xl font-bold text-gray-900 mb-6">
+        {categoryNames[category] || category}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {categoryGuides.map((guide) => (
+          <KBCard
+            href={`/kb/guides/${guide.slug.current}/`}
+            title={guide.title.en}
+            description={guide.description?.en || ''}
+            category={guide.category}
+          />
+        ))}
+      </div>
+    </section>
+  ))}
+</KBLayout>

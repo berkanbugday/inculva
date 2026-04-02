@@ -1,0 +1,58 @@
+---
+import RuleBadges from './RuleBadges.astro'
+
+interface Props {
+  href: string
+  criterionNumber?: string
+  title: string
+  description: string
+  level?: string
+  wcagVersions?: string[]
+  impact?: string
+  introducedIn?: string
+  category?: string
+  lang?: 'en' | 'tr'
+}
+
+const { href, criterionNumber, title, description, level, wcagVersions, impact, introducedIn, category, lang = 'en' } = Astro.props
+
+const categoryLabels: Record<string, Record<string, string>> = {
+  en: {
+    seo: 'SEO',
+    geo: 'GEO',
+    aeo: 'AEO',
+    technique: 'Technique',
+    'best-practice': 'Best Practice',
+  },
+  tr: {
+    seo: 'SEO',
+    geo: 'GEO',
+    aeo: 'AEO',
+    technique: 'Teknik',
+    'best-practice': 'En İyi Uygulama',
+  },
+}
+---
+
+<a href={href} class="block group rounded-xl border border-gray-200 p-6 hover:border-primary-300 hover:shadow-lg transition-all duration-200">
+  <div class="flex items-start justify-between mb-3">
+    <div>
+      {criterionNumber && (
+        <span class="text-sm font-mono text-primary-600 font-semibold">{criterionNumber}</span>
+      )}
+      {category && (
+        <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">{categoryLabels[lang]?.[category] || category}</span>
+      )}
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-2 line-clamp-2">
+    {title}
+  </h3>
+
+  <p class="text-sm text-gray-600 line-clamp-3 mb-4">{description}</p>
+
+  {(level || wcagVersions || impact) && (
+    <RuleBadges level={level} wcagVersions={wcagVersions} impact={impact} introducedIn={introducedIn} />
+  )}
+</a>

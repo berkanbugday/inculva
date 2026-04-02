@@ -5,8 +5,8 @@ export const tr: Translations = {
   nav: {
     home: "Ana Sayfa",
     features: "Özellikler",
+    kb: "Bilgi Bankası",
     pricing: "Fiyatlandırma",
-    blog: "Blog",
     about: "Hakkımızda",
     contact: "İletişim",
     getStarted: "Görüşme Planla",
@@ -284,26 +284,6 @@ export const tr: Translations = {
     customPlanTitle: "Özel bir plana mı ihtiyacınız var?",
     customPlanDesc:
       "Kuruluşunuzun ihtiyaçlarına göre özelleştirilmiş kurumsal fiyatlandırma için bizimle iletişime geçin.",
-  },
-
-  // Blog page
-  blog: {
-    title: "Blog",
-    description:
-      "inculva ekibinden web erişilebilirliği, WCAG uyumluluğu, ADA gereksinimleri ve erişilebilir tasarım en iyi uygulamaları hakkında uzman kılavuzları.",
-    heroTitle1: "Erişilebilirlik ",
-    heroTitleHighlight: "içgörüleri",
-    heroDescription:
-      "WCAG uyumluluğu, erişilebilir tasarım ve kapsayıcı web geliştirme hakkında uzman kılavuzları.",
-    noPostsYet: "Henüz yazı yok",
-    noPostsSoon:
-      "Erişilebilirlik kılavuzları ve öğreticiler için yakında tekrar kontrol edin.",
-    readMore: "Devamını oku",
-    backToBlog: "Bloga Dön",
-    backToAllPosts: "Tüm yazılara dön",
-    sanityContent: "İçerik Sanity CMS'den yüklendi.",
-    placeholderContent:
-      "Bu bir yer tutucu yazıdır. Tam içeriği görüntülemek için Sanity CMS'i bağlayın.",
   },
 
   // About page

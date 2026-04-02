@@ -3,8 +3,8 @@ export const en = {
   nav: {
     home: "Home",
     features: "Features",
+    kb: "Knowledge Base",
     pricing: "Pricing",
-    blog: "Blog",
     about: "About",
     contact: "Contact",
     getStarted: "Book a Call",
@@ -281,25 +281,6 @@ export const en = {
     customPlanTitle: "Need a custom plan?",
     customPlanDesc:
       "Contact us for enterprise pricing tailored to your organization's needs.",
-  },
-
-  // Blog page
-  blog: {
-    title: "Blog",
-    description:
-      "Expert guides on web accessibility, WCAG compliance, ADA requirements, and accessible design best practices from the inculva team.",
-    heroTitle1: "Accessibility ",
-    heroTitleHighlight: "insights",
-    heroDescription:
-      "Expert guides on WCAG compliance, accessible design, and inclusive web development.",
-    noPostsYet: "No posts yet",
-    noPostsSoon: "Check back soon for accessibility guides and tutorials.",
-    readMore: "Read more",
-    backToBlog: "Back to Blog",
-    backToAllPosts: "Back to all posts",
-    sanityContent: "Content loaded from Sanity CMS.",
-    placeholderContent:
-      "This is a placeholder post. Connect Sanity CMS to display full content.",
   },
 
   // About page

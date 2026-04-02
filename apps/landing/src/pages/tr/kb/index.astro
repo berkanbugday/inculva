@@ -1,0 +1,79 @@
+---
+import KBLayout from '../../../components/kb/KBLayout.astro'
+import KBCard from '../../../components/kb/KBCard.astro'
+import { getAllWcagRules, getAllGuides } from '../../../lib/sanity'
+
+const rules = await getAllWcagRules()
+const guides = await getAllGuides()
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Inculva Erişilebilirlik Bilgi Bankası',
+  description: 'WCAG 2.0, 2.1 ve 2.2 başarı kriterlerini kapsayan kapsamlı erişilebilirlik bilgi bankası.',
+  url: 'https://inculva.com/tr/kb/',
+  inLanguage: 'tr',
+}
+---
+
+<KBLayout
+  title="Erişilebilirlik Bilgi Bankası | Inculva"
+  description="WCAG 2.0, 2.1 ve 2.2 başarı kriterlerini kapsayan kapsamlı erişilebilirlik bilgi bankası."
+  lang="tr"
+  breadcrumbs={[{ label: 'Bilgi Bankası', href: '/tr/kb/' }]}
+  jsonLd={jsonLd}
+>
+  <div class="mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Erişilebilirlik Bilgi Bankası</h1>
+    <p class="text-xl text-gray-600 max-w-3xl">
+      WCAG 2.0, 2.1 ve 2.2 başarı kriterleri için kapsamlı kılavuzlar ve referanslar.
+      Her makale kuralın ne anlama geldiğini, neden önemli olduğunu, nasıl test edileceğini ve ihlallerin nasıl düzeltileceğini kapsar.
+    </p>
+  </div>
+
+  <section aria-labelledby="wcag-heading" class="mb-16">
+    <div class="flex items-center justify-between mb-6">
+      <h2 id="wcag-heading" class="text-2xl font-bold text-gray-900">WCAG Kuralları</h2>
+      <a href="/tr/kb/wcag/" class="text-primary-600 hover:text-primary-800 font-medium text-sm">
+        Tüm {rules.length} kuralı gör →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {rules.slice(0, 6).map((rule) => (
+        <KBCard
+          href={`/tr/kb/wcag/${rule.slug.current}/`}
+          criterionNumber={rule.criterionNumber}
+          title={rule.title.tr || rule.title.en}
+          description={rule.description?.tr || rule.description?.en || ''}
+          level={rule.level}
+          wcagVersions={rule.wcagVersions}
+          impact={rule.impact}
+          introducedIn={rule.introducedIn}
+          lang="tr"
+        />
+      ))}
+    </div>
+  </section>
+
+  {guides.length > 0 && (
+    <section aria-labelledby="guides-heading">
+      <div class="flex items-center justify-between mb-6">
+        <h2 id="guides-heading" class="text-2xl font-bold text-gray-900">Kılavuzlar</h2>
+        <a href="/tr/kb/guides/" class="text-primary-600 hover:text-primary-800 font-medium text-sm">
+          Tüm kılavuzları gör →
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {guides.slice(0, 6).map((guide) => (
+          <KBCard
+            href={`/tr/kb/guides/${guide.slug.current}/`}
+            title={guide.title.tr || guide.title.en}
+            description={guide.description?.tr || guide.description?.en || ''}
+            category={guide.category}
+            lang="tr"
+          />
+        ))}
+      </div>
+    </section>
+  )}
+</KBLayout>

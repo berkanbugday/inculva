@@ -1,0 +1,92 @@
+---
+import KBLayout from '../../../../components/kb/KBLayout.astro'
+import RuleBadges from '../../../../components/kb/RuleBadges.astro'
+import ResourceList from '../../../../components/kb/ResourceList.astro'
+import { getAllWcagRules, getWcagRuleBySlug } from '../../../../lib/sanity'
+import { portableTextToHtml } from '../../../../lib/portable-text'
+
+export async function getStaticPaths() {
+  const rules = await getAllWcagRules()
+  return rules.map((rule) => ({
+    params: { slug: rule.slug.current },
+  }))
+}
+
+const { slug } = Astro.params
+const rule = await getWcagRuleBySlug(slug!)
+
+if (!rule) {
+  return Astro.redirect('/tr/kb/wcag/')
+}
+
+const contentHtml = rule.content?.tr ? portableTextToHtml(rule.content.tr) : (rule.content?.en ? portableTextToHtml(rule.content.en) : '')
+
+const principleNames: Record<string, string> = {
+  perceivable: 'Algılanabilir',
+  operable: 'Çalıştırılabilir',
+  understandable: 'Anlaşılabilir',
+  robust: 'Sağlam',
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: `WCAG ${rule.criterionNumber}: ${rule.title.tr || rule.title.en}`,
+  description: rule.description?.tr || rule.description?.en || '',
+  url: `https://inculva.com/tr/kb/wcag/${rule.slug.current}/`,
+  datePublished: rule.publishedAt,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Inculva',
+    url: 'https://inculva.com',
+  },
+  inLanguage: 'tr',
+}
+---
+
+<KBLayout
+  title={rule.seo?.tr?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.tr || rule.title.en} | Inculva`}
+  description={rule.seo?.tr?.metaDescription || rule.description?.tr || rule.description?.en || ''}
+  lang="tr"
+  breadcrumbs={[
+    { label: 'Bilgi Bankası', href: '/tr/kb/' },
+    { label: 'WCAG Kuralları', href: '/tr/kb/wcag/' },
+    { label: `${rule.criterionNumber} ${rule.title.tr || rule.title.en}`, href: `/tr/kb/wcag/${rule.slug.current}/` },
+  ]}
+  jsonLd={jsonLd}
+>
+  <article class="max-w-4xl">
+    <header class="mb-8">
+      <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+        <span>{principleNames[rule.principle]}</span>
+        <span aria-hidden="true">•</span>
+        <span>WCAG {rule.criterionNumber}</span>
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        {rule.criterionNumber} {rule.title.tr || rule.title.en}
+      </h1>
+      {(rule.description?.tr || rule.description?.en) && (
+        <p class="text-xl text-gray-600 mb-6">{rule.description.tr || rule.description.en}</p>
+      )}
+      <RuleBadges
+        level={rule.level}
+        wcagVersions={rule.wcagVersions}
+        impact={rule.impact}
+        introducedIn={rule.introducedIn}
+      />
+      {rule.axeRuleIds && rule.axeRuleIds.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-2">
+          {rule.axeRuleIds.map((id) => (
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-gray-100 text-gray-700">
+              {id}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="prose prose-lg prose-gray max-w-none" set:html={contentHtml} />
+
+    <ResourceList resources={rule.resources || []} lang="tr" />
+  </article>
+</KBLayout>

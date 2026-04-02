@@ -1,0 +1,68 @@
+---
+import KBLayout from '../../../../components/kb/KBLayout.astro'
+import KBCard from '../../../../components/kb/KBCard.astro'
+import { getAllGuides } from '../../../../lib/sanity'
+
+const guides = await getAllGuides()
+
+const categoryNames: Record<string, string> = {
+  seo: 'SEO',
+  geo: 'GEO',
+  aeo: 'AEO',
+  technique: 'Teknikler',
+  'best-practice': 'En İyi Uygulamalar',
+}
+
+const grouped = guides.reduce((acc, guide) => {
+  const c = guide.category
+  if (!acc[c]) acc[c] = []
+  acc[c].push(guide)
+  return acc
+}, {} as Record<string, typeof guides>)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Erişilebilirlik Kılavuzları',
+  description: 'SEO, GEO, AEO ve erişilebilirlik en iyi uygulamaları hakkında uzman kılavuzları.',
+  url: 'https://inculva.com/tr/kb/guides/',
+  inLanguage: 'tr',
+}
+---
+
+<KBLayout
+  title="Erişilebilirlik Kılavuzları | Inculva"
+  description="SEO, GEO, AEO ve erişilebilirlik en iyi uygulamaları hakkında uzman kılavuzları."
+  lang="tr"
+  breadcrumbs={[
+    { label: 'Bilgi Bankası', href: '/tr/kb/' },
+    { label: 'Kılavuzlar', href: '/tr/kb/guides/' },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Kılavuzlar</h1>
+    <p class="text-xl text-gray-600 max-w-3xl">
+      Erişilebilirlik, SEO ve optimizasyon en iyi uygulamaları hakkında uzman kılavuzları.
+    </p>
+  </div>
+
+  {Object.entries(grouped).map(([category, categoryGuides]) => (
+    <section aria-labelledby={`${category}-heading`} class="mb-16">
+      <h2 id={`${category}-heading`} class="text-2xl font-bold text-gray-900 mb-6">
+        {categoryNames[category] || category}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {categoryGuides.map((guide) => (
+          <KBCard
+            href={`/tr/kb/guides/${guide.slug.current}/`}
+            title={guide.title.tr || guide.title.en}
+            description={guide.description?.tr || guide.description?.en || ''}
+            category={guide.category}
+            lang="tr"
+          />
+        ))}
+      </div>
+    </section>
+  ))}
+</KBLayout>

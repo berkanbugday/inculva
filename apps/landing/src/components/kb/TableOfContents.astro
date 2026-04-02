@@ -1,0 +1,30 @@
+---
+interface TocItem {
+  id: string
+  text: string
+  level: number
+}
+
+interface Props {
+  items: TocItem[]
+  lang: 'en' | 'tr'
+}
+
+const { items, lang } = Astro.props
+const heading = lang === 'tr' ? 'İçindekiler' : 'Table of Contents'
+---
+
+{items && items.length > 0 && (
+  <nav aria-labelledby="toc-heading" class="bg-gray-50 rounded-xl p-6 sticky top-24">
+    <h3 id="toc-heading" class="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">{heading}</h3>
+    <ul class="space-y-2">
+      {items.map((item) => (
+        <li style={`padding-left: ${(item.level - 2) * 0.75}rem`}>
+          <a href={`#${item.id}`} class="text-sm text-gray-600 hover:text-primary-600 transition-colors line-clamp-2">
+            {item.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}

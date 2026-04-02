@@ -1,58 +1,256 @@
-import { createClient } from '@sanity/client';
+import { createClient } from "@sanity/client";
 
 const client = createClient({
-  projectId: import.meta.env.SANITY_PROJECT_ID || 'your-project-id',
-  dataset: import.meta.env.SANITY_DATASET || 'production',
-  apiVersion: '2024-01-01',
-  useCdn: true,
+  projectId: import.meta.env.SANITY_PROJECT_ID || "0w6yrm5e",
+  dataset: import.meta.env.SANITY_DATASET || "production",
+  apiVersion: "2024-01-01",
+  token: import.meta.env.SANITY_TOKEN,
+  useCdn: false,
 });
 
-export interface Post {
-  _id: string;
-  title: string;
-  slug: { current: string };
-  description: string;
-  mainImage?: {
-    asset: { url: string };
-    alt?: string;
-  };
-  publishedAt: string;
-  content: any[];
+// --- Types ---
+
+export interface PortableTextBlock {
+  _type: string;
+  _key?: string;
+  style?: string;
+  children?: { _type: string; text: string; marks?: string[] }[];
+  listItem?: string;
+  level?: number;
+  markDefs?: { _key: string; _type: string; href?: string }[];
+  asset?: { url: string };
+  alt?: string;
+  code?: string;
+  language?: string;
 }
 
-export async function getAllPosts(): Promise<Post[]> {
+export interface Resource {
+  title: string;
+  url: string;
+  source: string;
+  language: string;
+}
+
+export interface WcagRule {
+  _id: string;
+  criterionNumber: string;
+  level: "A" | "AA" | "AAA";
+  principle: "perceivable" | "operable" | "understandable" | "robust";
+  introducedIn: string;
+  wcagVersions: string[];
+  impact: "critical" | "serious" | "moderate" | "minor";
+  axeRuleIds: string[];
+  tags: string[];
+  title: { en: string; tr: string };
+  slug: { current: string };
+  description: { en: string; tr: string };
+  content: { en: PortableTextBlock[]; tr: PortableTextBlock[] };
+  resources: Resource[];
+  seo: {
+    en: { metaTitle: string; metaDescription: string };
+    tr: { metaTitle: string; metaDescription: string };
+  };
+  publishedAt: string;
+}
+
+export interface Guide {
+  _id: string;
+  category: "seo" | "geo" | "aeo" | "technique" | "best-practice";
+  relatedWcagRules: Pick<
+    WcagRule,
+    "_id" | "criterionNumber" | "level" | "title" | "slug"
+  >[];
+  title: { en: string; tr: string };
+  slug: { current: string };
+  description: { en: string; tr: string };
+  content: { en: PortableTextBlock[]; tr: PortableTextBlock[] };
+  resources: Resource[];
+  seo: {
+    en: { metaTitle: string; metaDescription: string };
+    tr: { metaTitle: string; metaDescription: string };
+  };
+  publishedAt: string;
+}
+
+export type WcagRuleSummary = Omit<WcagRule, "content" | "resources" | "seo">;
+
+export type GuideSummary = Omit<
+  Guide,
+  "content" | "resources" | "seo" | "relatedWcagRules"
+>;
+
+// --- Queries ---
+
+const ALL_WCAG_RULES_QUERY = `
+  *[_type == "wcagRule"] | order(criterionNumber asc) {
+    _id,
+    criterionNumber,
+    level,
+    principle,
+    introducedIn,
+    wcagVersions,
+    impact,
+    axeRuleIds,
+    tags,
+    title,
+    slug,
+    description,
+    publishedAt
+  }
+`;
+
+const WCAG_RULE_BY_SLUG_QUERY = `
+  *[_type == "wcagRule" && slug.current == $slug][0] {
+    _id,
+    criterionNumber,
+    level,
+    principle,
+    introducedIn,
+    wcagVersions,
+    impact,
+    axeRuleIds,
+    tags,
+    title,
+    slug,
+    description,
+    content {
+      en[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      },
+      tr[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      }
+    },
+    resources,
+    seo,
+    publishedAt
+  }
+`;
+
+const ALL_GUIDES_QUERY = `
+  *[_type == "guide"] | order(publishedAt desc) {
+    _id,
+    category,
+    title,
+    slug,
+    description,
+    publishedAt
+  }
+`;
+
+const GUIDE_BY_SLUG_QUERY = `
+  *[_type == "guide" && slug.current == $slug][0] {
+    _id,
+    category,
+    relatedWcagRules[]-> {
+      _id,
+      criterionNumber,
+      level,
+      title,
+      slug
+    },
+    title,
+    slug,
+    description,
+    content {
+      en[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      },
+      tr[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      }
+    },
+    resources,
+    seo,
+    publishedAt
+  }
+`;
+
+const AXE_RULE_MAPPING_QUERY = `
+  *[_type == "wcagRule" && defined(axeRuleIds)] | order(criterionNumber asc) {
+    axeRuleIds,
+    "slug": slug.current
+  }
+`;
+
+// --- WCAG Rule Queries ---
+
+export async function getAllWcagRules(): Promise<WcagRuleSummary[]> {
   try {
-    return await client.fetch(
-      `*[_type == "post"] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        description,
-        mainImage { asset->{ url }, alt },
-        publishedAt
-      }`
-    );
-  } catch {
+    return await client.fetch(ALL_WCAG_RULES_QUERY);
+  } catch (error) {
+    console.error("[sanity] Failed to fetch WCAG rules:", error);
     return [];
   }
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
+export async function getWcagRuleBySlug(
+  slug: string,
+): Promise<WcagRule | null> {
   try {
-    return await client.fetch(
-      `*[_type == "post" && slug.current == $slug][0] {
-        _id,
-        title,
-        slug,
-        description,
-        mainImage { asset->{ url }, alt },
-        publishedAt,
-        content
-      }`,
-      { slug }
+    return await client.fetch(WCAG_RULE_BY_SLUG_QUERY, { slug });
+  } catch (error) {
+    console.error(
+      `[sanity] Failed to fetch WCAG rule by slug "${slug}":`,
+      error,
     );
-  } catch {
     return null;
+  }
+}
+
+// --- Guide Queries ---
+
+export async function getAllGuides(): Promise<GuideSummary[]> {
+  try {
+    return await client.fetch(ALL_GUIDES_QUERY);
+  } catch (error) {
+    console.error("[sanity] Failed to fetch guides:", error);
+    return [];
+  }
+}
+
+export async function getGuideBySlug(slug: string): Promise<Guide | null> {
+  try {
+    return await client.fetch(GUIDE_BY_SLUG_QUERY, { slug });
+  } catch (error) {
+    console.error(`[sanity] Failed to fetch guide by slug "${slug}":`, error);
+    return null;
+  }
+}
+
+// --- Axe Rule Mapping ---
+
+export async function getAxeRuleMapping(): Promise<Record<string, string>> {
+  try {
+    const rules: { axeRuleIds: string[]; slug: string }[] = await client.fetch(
+      AXE_RULE_MAPPING_QUERY,
+    );
+    const mapping: Record<string, string> = {};
+    for (const rule of rules) {
+      for (const axeId of rule.axeRuleIds || []) {
+        mapping[axeId] = rule.slug;
+      }
+    }
+    return mapping;
+  } catch (error) {
+    console.error("[sanity] Failed to fetch axe rule mapping:", error);
+    return {};
   }
 }
 

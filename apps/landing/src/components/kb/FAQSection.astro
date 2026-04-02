@@ -1,0 +1,33 @@
+---
+interface FAQ {
+  question: string
+  answer: string
+}
+
+interface Props {
+  faqs: FAQ[]
+  lang: 'en' | 'tr'
+}
+
+const { faqs, lang } = Astro.props
+const heading = lang === 'tr' ? 'Sık Sorulan Sorular' : 'Frequently Asked Questions'
+---
+
+{faqs && faqs.length > 0 && (
+  <section aria-labelledby="faq-heading" class="mt-12 pt-8 border-t border-gray-200">
+    <h2 id="faq-heading" class="text-2xl font-bold text-gray-900 mb-6">{heading}</h2>
+    <div class="space-y-4">
+      {faqs.map((faq) => (
+        <details class="group border border-gray-200 rounded-lg">
+          <summary class="flex items-center justify-between p-4 cursor-pointer font-medium text-gray-900 hover:text-primary-600">
+            {faq.question}
+            <span class="ml-2 text-gray-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+          </summary>
+          <div class="px-4 pb-4 text-gray-600">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+)}

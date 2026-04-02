@@ -1,0 +1,51 @@
+---
+interface Resource {
+  title: string
+  url: string
+  source: string
+  language: string
+}
+
+interface Props {
+  resources: Resource[]
+  lang: 'en' | 'tr'
+}
+
+const { resources, lang } = Astro.props
+const heading = lang === 'tr' ? 'Kaynaklar' : 'Resources'
+
+const sourceLabels: Record<string, string> = {
+  'w3c-spec': 'W3C',
+  'w3c-understanding': 'W3C',
+  'w3c-techniques': 'W3C',
+  'w3c-wai': 'W3C WAI',
+  deque: 'Deque University',
+  webaim: 'WebAIM',
+  mdn: 'MDN',
+  'a11y-project': 'A11Y Project',
+  'act-rules': 'ACT Rules',
+  'axe-core': 'Axe-core',
+  other: '',
+}
+---
+
+{resources && resources.length > 0 && (
+  <section aria-labelledby="resources-heading" class="mt-12 pt-8 border-t border-gray-200">
+    <h2 id="resources-heading" class="text-2xl font-bold text-gray-900 mb-6">{heading}</h2>
+    <ul class="space-y-3">
+      {resources.map((r) => (
+        <li class="flex items-start gap-2">
+          <span class="text-primary-500 mt-1" aria-hidden="true">→</span>
+          <div>
+            <a href={r.url} target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-800 font-medium hover:underline">
+              {r.title}
+            </a>
+            {sourceLabels[r.source] && (
+              <span class="text-sm text-gray-500 ml-2">— {sourceLabels[r.source]}</span>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
