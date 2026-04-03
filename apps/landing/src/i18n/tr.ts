@@ -26,6 +26,7 @@ export const tr: Translations = {
     about: "Hakkımızda",
     contact: "İletişim",
     privacyPolicy: "Gizlilik Politikası",
+    termsOfUse: "Kullanım Koşulları",
     copyright: "inculva. Tüm hakları saklıdır.",
   },
 
@@ -406,6 +407,88 @@ export const tr: Translations = {
     section10Title: "10. Bize Ulaşın",
     section10P1:
       "Bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin:",
+    contactEmail: "hi@inculva.com",
+  },
+
+  // Terms of Use page
+  termsOfUse: {
+    title: "Kullanım Koşulları",
+    description:
+      "inculva'nın web erişilebilirlik hizmetleri ve platformunun kullanımını düzenleyen şartları ve koşulları okuyun.",
+    heroTitle1: "Kullanım ",
+    heroTitleHighlight: "Koşulları",
+    lastUpdated: "Son güncelleme: Nisan 2026",
+    intro:
+      "Bu Kullanım Koşulları, inculva platformuna, web sitesine ve hizmetlerine erişiminizi ve kullanımınızı düzenler. Hizmetlerimizi kullanarak bu koşullara bağlı olmayı kabul edersiniz.",
+
+    section1Title: "1. Koşulların Kabulü",
+    section1P1:
+      "inculva hizmetlerine erişerek veya kullanarak, bu Kullanım Koşullarını ve Gizlilik Politikamızı okuduğunuzu, anladığınızı ve bunlara bağlı olmayı kabul ettiğinizi onaylarsınız. Kabul etmiyorsanız, hizmetlerimizi kullanamazsınız.",
+
+    section2Title: "2. Hizmetlerin Tanımı",
+    section2P1:
+      "inculva, aşağıdakilerle sınırlı olmamak üzere web erişilebilirlik araçları ve hizmetleri sunar:",
+    section2Items: [
+      "Web siteleri için erişilebilirlik widget'ı",
+      "WCAG uyumluluk taraması ve raporlama",
+      "Erişilebilirlik beyanı oluşturma",
+      "Bilgi bankası ve eğitim kaynakları",
+      "Erişilebilirlik ayarlarını yönetmek için kontrol paneli",
+    ],
+
+    section3Title: "3. Hesap Kaydı",
+    section3P1:
+      "Belirli özellikleri kullanmak için bir hesap oluşturmanız gerekmektedir. Kayıt sırasında doğru, güncel ve eksiksiz bilgi sağlamayı ve hesap bilgilerinizi güncel tutmayı kabul edersiniz.",
+    section3P2:
+      "Hesap kimlik bilgilerinizin gizliliğini korumaktan ve hesabınız altında gerçekleşen tüm faaliyetlerden siz sorumlusunuz.",
+
+    section4Title: "4. Kabul Edilebilir Kullanım",
+    section4P1:
+      "Hizmetlerimizi aşağıdaki amaçlarla kullanmamayı kabul edersiniz:",
+    section4Items: [
+      "Geçerli yasa veya düzenlemeleri ihlal etmek",
+      "Başkalarının haklarını ihlal etmek",
+      "Zararlı, saldırgan veya kötü amaçlı içerik iletmek",
+      "Sistemlerimize yetkisiz erişim sağlamaya çalışmak",
+      "Hizmetlerimizin bütünlüğünü bozmak veya engellemek",
+      "İzinsiz otomatik yollarla hizmetlerimize erişmek",
+    ],
+
+    section5Title: "5. Fikri Mülkiyet",
+    section5P1:
+      "Hizmetlerimizin tüm içeriği, özellikleri ve işlevleri; metin, grafikler, logolar ve yazılım dahil ancak bunlarla sınırlı olmamak üzere inculva'nın münhasır mülkiyetindedir ve fikri mülkiyet yasalarıyla korunmaktadır.",
+    section5P2:
+      "Önceden yazılı onay almadan içeriğimizi çoğaltamaz, dağıtamaz, değiştiremez veya türev eserler oluşturamazsınız.",
+
+    section6Title: "6. Abonelik ve Faturalandırma",
+    section6P1:
+      "Hizmetlerimizin belirli özellikleri ücretli abonelik gerektirir. Abone olarak, fiyatlandırma sayfamızda belirtilen geçerli ücretleri ödemeyi kabul edersiniz.",
+    section6P2:
+      "Abonelikler, yenileme tarihinden önce iptal edilmedikçe otomatik olarak yenilenir. İadeler, iade politikamıza uygun olarak işlenir.",
+
+    section7Title: "7. Sorumluluk Sınırlaması",
+    section7P1:
+      "Yasaların izin verdiği azami ölçüde, inculva hizmetlerimizin kullanımından kaynaklanan dolaylı, arızi, özel, sonuç olarak ortaya çıkan veya cezai zararlardan sorumlu olmayacaktır.",
+    section7P2:
+      "Hizmetlerimiz, açık veya zımni herhangi bir garanti olmaksızın \"olduğu gibi\" ve \"mevcut olduğu şekliyle\" sağlanmaktadır.",
+
+    section8Title: "8. Fesih",
+    section8P1:
+      "Bu koşulları ihlal etmeniz veya hizmetlerimize ya da diğer kullanıcılara zararlı olduğuna karar verdiğimiz bir davranışta bulunmanız durumunda hesabınızı askıya alma veya sonlandırma hakkını saklı tutarız.",
+    section8P2:
+      "Hesabınızı istediğiniz zaman bizimle iletişime geçerek sonlandırabilirsiniz. Sonlandırma üzerine, hizmetleri kullanma hakkınız derhal sona erecektir.",
+
+    section9Title: "9. Koşullardaki Değişiklikler",
+    section9P1:
+      "Bu Kullanım Koşullarını zaman zaman güncelleyebiliriz. Güncellenmiş koşulları bu sayfada yayınlayarak ve 'Son güncelleme' tarihini güncelleyerek sizi önemli değişikliklerden haberdar edeceğiz. Değişikliklerden sonra hizmetlerimizi kullanmaya devam etmeniz, yeni koşulların kabul edildiği anlamına gelir.",
+
+    section10Title: "10. Geçerli Hukuk",
+    section10P1:
+      "Bu koşullar, geçerli yasalara göre yönetilecek ve yorumlanacaktır. Bu koşullardan kaynaklanan herhangi bir anlaşmazlık, uygun yasal kanallar aracılığıyla çözümlenecektir.",
+
+    section11Title: "11. Bize Ulaşın",
+    section11P1:
+      "Bu Kullanım Koşulları hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin:",
     contactEmail: "hi@inculva.com",
   },
 

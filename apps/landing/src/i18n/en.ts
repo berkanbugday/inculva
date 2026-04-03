@@ -24,6 +24,7 @@ export const en = {
     about: "About",
     contact: "Contact",
     privacyPolicy: "Privacy Policy",
+    termsOfUse: "Terms of Use",
     copyright: "inculva. All rights reserved.",
   },
 
@@ -403,6 +404,88 @@ export const en = {
     section10Title: "10. Contact Us",
     section10P1:
       "If you have any questions about this Privacy Policy, please contact us at:",
+    contactEmail: "hi@inculva.com",
+  },
+
+  // Terms of Use page
+  termsOfUse: {
+    title: "Terms of Use",
+    description:
+      "Read the terms and conditions governing your use of inculva's web accessibility services and platform.",
+    heroTitle1: "Terms of ",
+    heroTitleHighlight: "Use",
+    lastUpdated: "Last updated: April 2026",
+    intro:
+      "These Terms of Use govern your access to and use of the inculva platform, website, and services. By using our services, you agree to be bound by these terms.",
+
+    section1Title: "1. Acceptance of Terms",
+    section1P1:
+      "By accessing or using inculva's services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree, you may not use our services.",
+
+    section2Title: "2. Description of Services",
+    section2P1:
+      "inculva provides web accessibility tools and services, including but not limited to:",
+    section2Items: [
+      "Accessibility widget for websites",
+      "WCAG compliance scanning and reporting",
+      "Accessibility statement generation",
+      "Knowledge base and educational resources",
+      "Dashboard for managing accessibility settings",
+    ],
+
+    section3Title: "3. Account Registration",
+    section3P1:
+      "To use certain features, you must create an account. You agree to provide accurate, current, and complete information during registration and to keep your account information updated.",
+    section3P2:
+      "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.",
+
+    section4Title: "4. Acceptable Use",
+    section4P1:
+      "You agree not to use our services to:",
+    section4Items: [
+      "Violate any applicable laws or regulations",
+      "Infringe upon the rights of others",
+      "Transmit harmful, offensive, or malicious content",
+      "Attempt to gain unauthorized access to our systems",
+      "Interfere with or disrupt the integrity of our services",
+      "Use automated means to access our services without permission",
+    ],
+
+    section5Title: "5. Intellectual Property",
+    section5P1:
+      "All content, features, and functionality of our services, including but not limited to text, graphics, logos, and software, are the exclusive property of inculva and are protected by intellectual property laws.",
+    section5P2:
+      "You may not reproduce, distribute, modify, or create derivative works from our content without prior written consent.",
+
+    section6Title: "6. Subscription and Billing",
+    section6P1:
+      "Certain features of our services require a paid subscription. By subscribing, you agree to pay the applicable fees as described in our pricing page.",
+    section6P2:
+      "Subscriptions automatically renew unless cancelled before the renewal date. Refunds are handled in accordance with our refund policy.",
+
+    section7Title: "7. Limitation of Liability",
+    section7P1:
+      "To the maximum extent permitted by law, inculva shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our services.",
+    section7P2:
+      "Our services are provided on an \"as is\" and \"as available\" basis without warranties of any kind, either express or implied.",
+
+    section8Title: "8. Termination",
+    section8P1:
+      "We reserve the right to suspend or terminate your account at any time if you violate these terms or engage in conduct that we determine to be harmful to our services or other users.",
+    section8P2:
+      "You may terminate your account at any time by contacting us. Upon termination, your right to use the services will immediately cease.",
+
+    section9Title: "9. Changes to Terms",
+    section9P1:
+      "We may update these Terms of Use from time to time. We will notify you of any material changes by posting the updated terms on this page and updating the 'Last updated' date. Continued use of our services after changes constitutes acceptance of the new terms.",
+
+    section10Title: "10. Governing Law",
+    section10P1:
+      "These terms shall be governed by and construed in accordance with applicable laws. Any disputes arising from these terms will be resolved through appropriate legal channels.",
+
+    section11Title: "11. Contact Us",
+    section11P1:
+      "If you have any questions about these Terms of Use, please contact us at:",
     contactEmail: "hi@inculva.com",
   },
 

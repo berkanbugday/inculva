@@ -269,6 +269,49 @@ export interface DashboardMessages {
     privacyPolicy: string;
     accept: string;
   };
+  legal: {
+    termsTitle: string;
+    termsLastUpdated: string;
+    termsIntro: string;
+    termsAcceptanceTitle: string;
+    termsAcceptanceP1: string;
+    termsServicesTitle: string;
+    termsServicesP1: string;
+    termsAccountTitle: string;
+    termsAccountP1: string;
+    termsUseTitle: string;
+    termsUseP1: string;
+    termsIpTitle: string;
+    termsIpP1: string;
+    termsLiabilityTitle: string;
+    termsLiabilityP1: string;
+    termsTerminationTitle: string;
+    termsTerminationP1: string;
+    termsChangesTitle: string;
+    termsChangesP1: string;
+    termsContactTitle: string;
+    termsContactP1: string;
+    privacyTitle: string;
+    privacyLastUpdated: string;
+    privacyIntro: string;
+    privacyCollectTitle: string;
+    privacyCollectP1: string;
+    privacyUseTitle: string;
+    privacyUseP1: string;
+    privacySharingTitle: string;
+    privacySharingP1: string;
+    privacySecurityTitle: string;
+    privacySecurityP1: string;
+    privacyCookiesTitle: string;
+    privacyCookiesP1: string;
+    privacyRightsTitle: string;
+    privacyRightsP1: string;
+    privacyChangesTitle: string;
+    privacyChangesP1: string;
+    privacyContactTitle: string;
+    privacyContactP1: string;
+    contactEmail: string;
+  };
   config: {
     embedCode: string;
     copy: string;
@@ -981,6 +1024,68 @@ const en: DashboardMessages = {
     privacyPolicy: "Privacy Policy",
     accept: "Got it",
   },
+  legal: {
+    termsTitle: "Terms of Use",
+    termsLastUpdated: "Last updated: April 2026",
+    termsIntro:
+      "These Terms of Use govern your access to and use of the inculva platform, website, and services. By using our services, you agree to be bound by these terms.",
+    termsAcceptanceTitle: "1. Acceptance of Terms",
+    termsAcceptanceP1:
+      "By accessing or using inculva\u2019s services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree, you may not use our services.",
+    termsServicesTitle: "2. Description of Services",
+    termsServicesP1:
+      "inculva provides web accessibility tools and services, including an accessibility widget, WCAG compliance scanning, accessibility statement generation, a knowledge base, and a management dashboard.",
+    termsAccountTitle: "3. Account Registration",
+    termsAccountP1:
+      "To use certain features, you must create an account with accurate, current, and complete information. You are responsible for maintaining the confidentiality of your credentials and for all activities under your account.",
+    termsUseTitle: "4. Acceptable Use",
+    termsUseP1:
+      "You agree not to use our services to violate any laws, infringe upon the rights of others, transmit harmful content, attempt unauthorized access to our systems, or interfere with the integrity of our services.",
+    termsIpTitle: "5. Intellectual Property",
+    termsIpP1:
+      "All content, features, and functionality of our services are the exclusive property of inculva and are protected by intellectual property laws. You may not reproduce, distribute, or create derivative works without prior written consent.",
+    termsLiabilityTitle: "6. Limitation of Liability",
+    termsLiabilityP1:
+      "To the maximum extent permitted by law, inculva shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our services. Our services are provided on an \u201Cas is\u201D basis without warranties of any kind.",
+    termsTerminationTitle: "7. Termination",
+    termsTerminationP1:
+      "We may suspend or terminate your account if you violate these terms. You may terminate your account at any time by contacting us. Upon termination, your right to use the services will immediately cease.",
+    termsChangesTitle: "8. Changes to Terms",
+    termsChangesP1:
+      "We may update these Terms of Use from time to time. Continued use of our services after changes constitutes acceptance of the new terms.",
+    termsContactTitle: "9. Contact Us",
+    termsContactP1:
+      "If you have any questions about these Terms of Use, please contact us at",
+    privacyTitle: "Privacy Policy",
+    privacyLastUpdated: "Last updated: March 2026",
+    privacyIntro:
+      "At inculva, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services.",
+    privacyCollectTitle: "1. Information We Collect",
+    privacyCollectP1:
+      "We collect personal information you voluntarily provide (name, email, company, website URL, billing information) and automatically collected data (IP address, browser type, operating system, usage patterns).",
+    privacyUseTitle: "2. How We Use Your Information",
+    privacyUseP1:
+      "We use the information we collect to provide, operate, and improve our services, communicate with you, process transactions, and prevent fraud.",
+    privacySharingTitle: "3. Data Sharing and Disclosure",
+    privacySharingP1:
+      "We do not sell, trade, or rent your personal information to third parties. We may share your information with service providers who assist us, to comply with legal obligations, or to protect our rights.",
+    privacySecurityTitle: "4. Data Security",
+    privacySecurityP1:
+      "We implement appropriate technical and organizational security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.",
+    privacyCookiesTitle: "5. Cookies",
+    privacyCookiesP1:
+      "We use cookies for authentication purposes only \u2014 no tracking, no advertising, no third-party analytics. You can instruct your browser to refuse all cookies.",
+    privacyRightsTitle: "6. Your Rights",
+    privacyRightsP1:
+      "Depending on your location, you may have the right to access, correct, delete, restrict processing, or port your personal data. Contact us to exercise these rights.",
+    privacyChangesTitle: "7. Changes to This Policy",
+    privacyChangesP1:
+      "We may update this Privacy Policy from time to time. We will notify you of changes by posting the updated policy on this page.",
+    privacyContactTitle: "8. Contact Us",
+    privacyContactP1:
+      "If you have any questions about this Privacy Policy, please contact us at",
+    contactEmail: "hi@inculva.com",
+  },
   config: {
     embedCode: "Embed Code",
     copy: "Copy",
@@ -1507,7 +1612,8 @@ const tr: DashboardMessages = {
     passwordResetSuccess:
       "\u015Eifre ba\u015Far\u0131yla g\u00FCncellendi. Yeni \u015Fifrenizle giri\u015F yap\u0131n.",
     createYourAccount: "Hesab\u0131n\u0131z\u0131 olu\u015Fturun",
-    createAccountDesc: "7 g\u00FCnl\u00FCk \u00FCcretsiz deneme. Kredi kart\u0131 gerekmez.",
+    createAccountDesc:
+      "7 g\u00FCnl\u00FCk \u00FCcretsiz deneme. Kredi kart\u0131 gerekmez.",
     forgotPasswordTitle: "\u015Eifrenizi mi unuttunuz?",
     forgotPasswordDesc:
       "E-postan\u0131z\u0131 girin, size bir s\u0131f\u0131rlama ba\u011Flant\u0131s\u0131 g\u00F6nderelim.",
@@ -1750,6 +1856,69 @@ const tr: DashboardMessages = {
       "\u00C7erezleri yaln\u0131zca kimlik do\u011Frulama i\u00E7in kullan\u0131yoruz \u2014 izleme, reklam veya \u00FC\u00E7\u00FCnc\u00FC taraf analiti\u011Fi yok.",
     privacyPolicy: "Gizlilik Politikas\u0131",
     accept: "Anla\u015F\u0131ld\u0131",
+  },
+  legal: {
+    termsTitle: "Kullan\u0131m Ko\u015Fullar\u0131",
+    termsLastUpdated: "Son g\u00FCncelleme: Nisan 2026",
+    termsIntro:
+      "Bu Kullan\u0131m Ko\u015Fullar\u0131, inculva platformuna, web sitesine ve hizmetlerine eri\u015Fiminizi ve kullan\u0131m\u0131n\u0131z\u0131 d\u00FCzenler. Hizmetlerimizi kullanarak bu ko\u015Fullara ba\u011Fl\u0131 olmay\u0131 kabul edersiniz.",
+    termsAcceptanceTitle: "1. Ko\u015Fullar\u0131n Kabul\u00FC",
+    termsAcceptanceP1:
+      "inculva hizmetlerine eri\u015Ferek veya kullanarak, bu Kullan\u0131m Ko\u015Fullar\u0131n\u0131 ve Gizlilik Politikam\u0131z\u0131 okudunuzu, anlad\u0131\u011F\u0131n\u0131z\u0131 ve bunlara ba\u011Fl\u0131 olmay\u0131 kabul etti\u011Finizi onaylars\u0131n\u0131z.",
+    termsServicesTitle: "2. Hizmetlerin Tan\u0131m\u0131",
+    termsServicesP1:
+      "inculva; eri\u015Filebilirlik widget\u2019\u0131, WCAG uyumluluk taramas\u0131, eri\u015Filebilirlik beyan\u0131 olu\u015Fturma, bilgi bankas\u0131 ve y\u00F6netim paneli dahil web eri\u015Filebilirlik ara\u00E7lar\u0131 ve hizmetleri sunar.",
+    termsAccountTitle: "3. Hesap Kayd\u0131",
+    termsAccountP1:
+      "Belirli \u00F6zellikleri kullanmak i\u00E7in do\u011Fru ve g\u00FCncel bilgilerle bir hesap olu\u015Fturman\u0131z gerekmektedir. Hesap kimlik bilgilerinizin gizlili\u011Finden ve hesab\u0131n\u0131z alt\u0131ndaki t\u00FCm faaliyetlerden siz sorumlusunuz.",
+    termsUseTitle: "4. Kabul Edilebilir Kullan\u0131m",
+    termsUseP1:
+      "Hizmetlerimizi yasalar\u0131 ihlal etmek, ba\u015Fkalar\u0131n\u0131n haklar\u0131n\u0131 ihlal etmek, zararl\u0131 i\u00E7erik iletmek, sistemlerimize yetkisiz eri\u015Fim sa\u011Flamaya \u00E7al\u0131\u015Fmak veya hizmetlerimizin b\u00FCt\u00FCnl\u00FC\u011F\u00FCn\u00FC bozmak amac\u0131yla kullanmamay\u0131 kabul edersiniz.",
+    termsIpTitle: "5. Fikri M\u00FClkiyet",
+    termsIpP1:
+      "Hizmetlerimizin t\u00FCm i\u00E7eri\u011Fi, \u00F6zellikleri ve i\u015Flevleri inculva\u2019n\u0131n m\u00FCnhas\u0131r m\u00FClkiyetindedir ve fikri m\u00FClkiyet yasalar\u0131yla korunmaktad\u0131r. \u00D6nceden yaz\u0131l\u0131 onay almadan i\u00E7eri\u011Fimizi \u00E7o\u011Faltamaz veya t\u00FCrev eserler olu\u015Fturamazs\u0131n\u0131z.",
+    termsLiabilityTitle: "6. Sorumluluk S\u0131n\u0131rlamas\u0131",
+    termsLiabilityP1:
+      "Yasalar\u0131n izin verdi\u011Fi azami \u00F6l\u00E7\u00FCde, inculva hizmetlerimizin kullan\u0131m\u0131ndan kaynaklanan dolayl\u0131, ar\u0131zi, \u00F6zel veya sonu\u00E7 olarak ortaya \u00E7\u0131kan zararlardan sorumlu olmayacakt\u0131r. Hizmetlerimiz herhangi bir garanti olmaks\u0131z\u0131n \u201Coldu\u011Fu gibi\u201D sa\u011Flanmaktad\u0131r.",
+    termsTerminationTitle: "7. Fesih",
+    termsTerminationP1:
+      "Bu ko\u015Fullar\u0131 ihlal etmeniz durumunda hesab\u0131n\u0131z\u0131 ask\u0131ya alabilir veya sonland\u0131rabiliriz. Hesab\u0131n\u0131z\u0131 istedi\u011Finiz zaman bizimle ileti\u015Fime ge\u00E7erek sonland\u0131rabilirsiniz.",
+    termsChangesTitle: "8. Ko\u015Fullardaki De\u011Fi\u015Fiklikler",
+    termsChangesP1:
+      "Bu Kullan\u0131m Ko\u015Fullar\u0131n\u0131 zaman zaman g\u00FCncelleyebiliriz. De\u011Fi\u015Fikliklerden sonra hizmetlerimizi kullanmaya devam etmeniz, yeni ko\u015Fullar\u0131n kabul edildi\u011Fi anlam\u0131na gelir.",
+    termsContactTitle: "9. Bize Ula\u015F\u0131n",
+    termsContactP1:
+      "Bu Kullan\u0131m Ko\u015Fullar\u0131 hakk\u0131nda herhangi bir sorunuz varsa, l\u00FCtfen bizimle ileti\u015Fime ge\u00E7in:",
+    privacyTitle: "Gizlilik Politikas\u0131",
+    privacyLastUpdated: "Son g\u00FCncelleme: Mart 2026",
+    privacyIntro:
+      "inculva olarak gizlili\u011Finizi korumaya kar\u0131rl\u0131y\u0131z. Bu Gizlilik Politikas\u0131, web sitemizi ziyaret etti\u011Finizde ve hizmetlerimizi kulland\u0131\u011F\u0131n\u0131zda bilgilerinizi nas\u0131l toplad\u0131\u011F\u0131m\u0131z\u0131, kulland\u0131\u011F\u0131m\u0131z\u0131 ve korudu\u011Fumuzu a\u00E7\u0131klar.",
+    privacyCollectTitle: "1. Toplad\u0131\u011F\u0131m\u0131z Bilgiler",
+    privacyCollectP1:
+      "G\u00F6n\u00FCll\u00FC olarak sa\u011Flad\u0131\u011F\u0131n\u0131z ki\u015Fisel bilgileri (ad, e-posta, \u015Firket, web sitesi URL\u2019si, fatura bilgileri) ve otomatik olarak toplanan verileri (IP adresi, taray\u0131c\u0131 t\u00FCr\u00FC, i\u015Fletim sistemi, kullan\u0131m kal\u0131plar\u0131) toplar\u0131z.",
+    privacyUseTitle: "2. Bilgilerinizi Nas\u0131l Kullan\u0131yoruz",
+    privacyUseP1:
+      "Toplad\u0131\u011F\u0131m\u0131z bilgileri hizmetlerimizi sa\u011Flamak, i\u015Fletmek ve iyile\u015Ftirmek, sizinle ileti\u015Fim kurmak, i\u015Flemleri ger\u00E7ekle\u015Ftirmek ve doland\u0131r\u0131c\u0131l\u0131\u011F\u0131 \u00F6nlemek i\u00E7in kullan\u0131r\u0131z.",
+    privacySharingTitle:
+      "3. Veri Payla\u015F\u0131m\u0131 ve A\u00E7\u0131klama",
+    privacySharingP1:
+      "Ki\u015Fisel bilgilerinizi \u00FC\u00E7\u00FCnc\u00FC taraflara satm\u0131yor, takas etmiyor veya kirlam\u0131yoruz. Bilgilerinizi yaln\u0131zca bize yard\u0131mc\u0131 olan hizmet sa\u011Flay\u0131c\u0131larla, yasal y\u00FCk\u00FCml\u00FCl\u00FCklere uymak veya haklar\u0131m\u0131z\u0131 korumak i\u00E7in payla\u015Fabiliriz.",
+    privacySecurityTitle: "4. Veri G\u00FCvenli\u011Fi",
+    privacySecurityP1:
+      "Ki\u015Fisel bilgilerinizi korumak i\u00E7in uygun teknik ve organizasyonel g\u00FCvenlik \u00F6nlemleri uyguluyor\u0131z. Ancak internet \u00FCzerinden hi\u00E7bir iletim y\u00F6ntemi %100 g\u00FCvenli de\u011Fildir.",
+    privacyCookiesTitle: "5. \u00C7erezler",
+    privacyCookiesP1:
+      "\u00C7erezleri yaln\u0131zca kimlik do\u011Frulama ama\u00E7l\u0131 kullan\u0131yoruz \u2014 izleme, reklam veya \u00FC\u00E7\u00FCnc\u00FC taraf analiti\u011Fi yok. Taray\u0131c\u0131n\u0131za t\u00FCm \u00E7erezleri reddetmesi talimat\u0131 verebilirsiniz.",
+    privacyRightsTitle: "6. Haklar\u0131n\u0131z",
+    privacyRightsP1:
+      "Bulundu\u011Funuz konuma ba\u011Fl\u0131 olarak, ki\u015Fisel verilerinize eri\u015Fme, d\u00FCzeltme, silme, i\u015Flemeyi k\u0131s\u0131tlama veya ta\u015F\u0131ma hakk\u0131na sahip olabilirsiniz. Bu haklar\u0131n\u0131z\u0131 kullanmak i\u00E7in bizimle ileti\u015Fime ge\u00E7in.",
+    privacyChangesTitle: "7. Bu Politikadaki De\u011Fi\u015Fiklikler",
+    privacyChangesP1:
+      "Bu Gizlilik Politikas\u0131n\u0131 zaman zaman g\u00FCncelleyebiliriz. G\u00FCncellenmi\u015F politikay\u0131 bu sayfada yay\u0131nlayarak sizi de\u011Fi\u015Fikliklerden haberdar edece\u011Fiz.",
+    privacyContactTitle: "8. Bize Ula\u015F\u0131n",
+    privacyContactP1:
+      "Bu Gizlilik Politikas\u0131 hakk\u0131nda herhangi bir sorunuz varsa, l\u00FCtfen bizimle ileti\u015Fime ge\u00E7in:",
+    contactEmail: "hi@inculva.com",
   },
   config: {
     embedCode: "G\u00F6mme Kodu",

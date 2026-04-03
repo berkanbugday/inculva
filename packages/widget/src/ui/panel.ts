@@ -810,9 +810,18 @@ function _buildFooter(
     footer.appendChild(a11yBtn);
   }
 
-  const brand = document.createElement("span");
+  const brand = document.createElement("a");
   brand.className = "inculva-footer-logo";
-  brand.innerHTML = logoImg(120);
+  brand.href = "https://inculva.com";
+  brand.target = "_blank";
+  brand.rel = "noopener noreferrer";
+  const logoEl = document.createElement("img");
+  logoEl.src = LOGO_PNG;
+  logoEl.width = 120;
+  logoEl.alt = "inculva";
+  logoEl.style.display = "block";
+  logoEl.style.borderRadius = "4px";
+  brand.appendChild(logoEl);
   footer.appendChild(brand);
 
   return footer;
