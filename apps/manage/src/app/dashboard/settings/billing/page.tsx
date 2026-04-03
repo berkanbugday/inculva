@@ -216,7 +216,7 @@ export default async function BillingPage({
 
           <div className="flex items-center gap-2 flex-wrap">
             {user?.polarCustomerId && (
-              <Link
+              <a
                 href="/api/billing/customer-portal"
                 className="cursor-pointer inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors"
               >
@@ -236,7 +236,7 @@ export default async function BillingPage({
                     strokeLinejoin="round"
                   />
                 </svg>
-              </Link>
+              </a>
             )}
             {sub?.status === "active" && !sub.canceledAt && (
               <CancelSubscriptionButton renewalDate={renewalDateLocalized} />

@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const apiUrl = process.env["NEXT_PUBLIC_API_URL"]!;
 const cdnOrigin = process.env["NEXT_PUBLIC_CDN_URL"]!;
+const polarUrl = process.env["POLAR_URL"] ?? "https://sandbox.polar.sh";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
@@ -21,7 +22,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       `img-src 'self' data: https://www.gravatar.com ${apiUrl} ${cdnOrigin}`,
       `font-src 'self' ${cdnOrigin} data:`,
-      `connect-src 'self' ${apiUrl} ${cdnOrigin}`,
+      `connect-src 'self' ${apiUrl} ${cdnOrigin} ${polarUrl}`,
       "frame-src 'self'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
