@@ -43,13 +43,6 @@ FROM node:20-bookworm-slim AS runner
 
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
-# Install Playwright Chromium dependencies (system libraries only)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libnss3 libatk-bridge2.0-0 libdrm2 libxcomposite1 libxdamage1 \
-    libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 \
-    libcairo2 libcups2 libxkbcommon0 libgtk-3-0 \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
 # Copy workspace manifests (needed for pnpm to resolve workspace links)
@@ -64,8 +57,8 @@ COPY apps/api/package.json apps/api/
 # Production deps only
 RUN pnpm install --frozen-lockfile --prod
 
-# Install Playwright browsers (Chromium only)
-RUN npx playwright install chromium
+# Chromium + OS deps (matches @inculva/scanner’s playwright version; --with-deps = apt on Debian)
+RUN pnpm --filter @inculva/scanner exec playwright install chromium --with-deps
 
 # Copy build output + generated Prisma client + compiled packages
 COPY --from=builder /app/apps/api/dist apps/api/dist

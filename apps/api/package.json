@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node --env-file=.env dist/server.js",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "install-browsers": "pnpm --filter @inculva/scanner run install-browsers"
   },
   "dependencies": {
     "@fastify/cors": "10.0.2",
