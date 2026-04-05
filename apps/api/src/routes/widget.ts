@@ -291,7 +291,23 @@ export async function widgetRoutes(app: FastifyInstance): Promise<void> {
             profileMotorImpaired: config.profileMotorImpaired,
           } satisfies WidgetProfiles,
           ...(config.accessibilityStatementUrl
-            ? { accessibilityStatementUrl: config.accessibilityStatementUrl }
+            ? {
+                accessibilityStatementUrl: (() => {
+                  try {
+                    const url = new URL(config.accessibilityStatementUrl);
+                    if (!url.searchParams.has("lang")) {
+                      url.searchParams.set("lang", config.language);
+                    }
+                    return url.toString();
+                  } catch {
+                    // If URL parsing fails, append manually
+                    const sep = config.accessibilityStatementUrl.includes("?")
+                      ? "&"
+                      : "?";
+                    return `${config.accessibilityStatementUrl}${sep}lang=${config.language}`;
+                  }
+                })(),
+              }
             : {}),
           // Trigger button: available to all plans
           buttonSize: config.buttonSize,

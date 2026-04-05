@@ -11,10 +11,12 @@ export const revalidate = 3600; // ISR: refresh every hour
 
 interface Props {
   params: Promise<{ siteId: string }>;
+  searchParams: Promise<{ lang?: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { siteId } = await params;
+  const { lang } = await searchParams;
   const site = await db.site.findUnique({
     where: { id: siteId },
     select: { name: true },
@@ -22,7 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!site) return { title: "Not Found" };
   const cookieLocale = (await cookies()).get("locale")?.value;
   const locale = (
-    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+    lang && SUPPORTED_LOCALES.includes(lang as Locale)
+      ? lang
+      : cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
       ? cookieLocale
       : "en"
   ) as Locale;
@@ -35,11 +39,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function PublicStatementPage({ params }: Props) {
+export default async function PublicStatementPage({ params, searchParams }: Props) {
   const { siteId } = await params;
+  const { lang } = await searchParams;
   const cookieLocale = (await cookies()).get("locale")?.value;
   const locale = (
-    cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
+    lang && SUPPORTED_LOCALES.includes(lang as Locale)
+      ? lang
+      : cookieLocale && SUPPORTED_LOCALES.includes(cookieLocale as Locale)
       ? cookieLocale
       : "en"
   ) as Locale;
@@ -94,6 +101,7 @@ export default async function PublicStatementPage({ params }: Props) {
         }
       `}</style>
       <div
+        lang={locale}
         className="min-h-screen bg-white text-gray-900"
         style={{
           fontFamily:

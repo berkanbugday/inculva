@@ -734,6 +734,8 @@ class InculvaWidget {
     this._closeLangDropdown();
     // Pre-load translations for this language if not already cached
     await this._preloadTranslation(lang);
+    // Update the accessibility statement URL's lang parameter
+    this._updateStatementUrlLang(lang);
     // Re-render all translatable text via updatePanel
     updatePanel(
       this.panel,
@@ -811,6 +813,29 @@ class InculvaWidget {
       ".inculva-lang-trigger",
     );
     if (trigger) trigger.setAttribute("aria-expanded", "false");
+  }
+
+  /** Update the ?lang= parameter in the accessibility statement URL. */
+  private _updateStatementUrlLang(lang: string): void {
+    if (!this.config.accessibilityStatementUrl) return;
+    try {
+      const url = new URL(this.config.accessibilityStatementUrl);
+      url.searchParams.set("lang", lang);
+      this.config.accessibilityStatementUrl = url.toString();
+    } catch {
+      // Non-standard URL — do a simple string replace
+      const current = this.config.accessibilityStatementUrl;
+      const langParam = /[?&]lang=[^&]*/;
+      if (langParam.test(current)) {
+        this.config.accessibilityStatementUrl = current.replace(
+          langParam,
+          (match) => `${match[0]}lang=${lang}`,
+        );
+      } else {
+        const sep = current.includes("?") ? "&" : "?";
+        this.config.accessibilityStatementUrl = `${current}${sep}lang=${lang}`;
+      }
+    }
   }
 
   /** Toggle the widget between left-side and right-side of the viewport. */
