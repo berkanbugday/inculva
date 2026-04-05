@@ -1757,7 +1757,7 @@ const tr: DashboardMessages = {
     newSite: "Yeni site",
     noSites: "Hen\u00FCz site yok",
     noSitesDesc:
-      "Alan ad\u0131n\u0131z\u0131 kay\u0131t edin ve bir g\u00F6mme kodu al\u0131n. Eri\u015Filebilirlik widget\u0027\u0131n\u0131z 5 dakikadan k\u0131sa s\u00FCrede yay\u0131na girer.",
+      "Alan ad\u0131n\u0131z\u0131 kay\u0131t edin ve bir g\u00F6m\u00FCl\u00FC kodu al\u0131n. Eri\u015Filebilirlik widget\u0027\u0131n\u0131z 5 dakikadan k\u0131sa s\u00FCrede yay\u0131na girer.",
     noSitesAction: "\u0130lk sitenizi ekleyin",
     noSitesHint: "Ba\u015Flamak i\u00E7in ilk sitenizi ekleyin.",
     siteConnected: "site ba\u011Fl\u0131",
@@ -1919,7 +1919,7 @@ const tr: DashboardMessages = {
     contactEmail: "hi@inculva.com",
   },
   config: {
-    embedCode: "G\u00F6mme Kodu",
+    embedCode: "G\u00F6m\u00FCl\u00FC Kod",
     copy: "Kopyala",
     copied: "Kopyaland\u0131!",
     siteConfiguration: "Site Yap\u0131land\u0131rmas\u0131",
