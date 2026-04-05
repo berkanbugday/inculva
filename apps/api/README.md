@@ -10,7 +10,6 @@ This API is the **only service with open CORS** — it must be accessible from a
 - `GET /health` — health check
 - `GET /widget/config/:siteId` — serves widget config to embedded scripts (public)
 - `POST /widget/events` — receives visitor interaction events (public, quota-enforced)
-- `GET /widget/events/:siteId` — analytics data (requires `x-api-key` header)
 
 ## Tech Stack
 
@@ -23,7 +22,7 @@ This API is the **only service with open CORS** — it must be accessible from a
 | CORS | `@fastify/cors` (all origins) |
 | Security headers | `@fastify/helmet` |
 | Rate limiting | `@fastify/rate-limit` (100 req/min) |
-| Auth | API key via `x-api-key` header (SHA-256 hashed) |
+| Auth | Internal routes: `internal-auth` plugin; scans use queues |
 | Deployment | Railway.app (Docker, multi-stage) |
 
 ## Development
@@ -73,24 +72,15 @@ The `Dockerfile` uses a multi-stage build:
 1. **builder** — installs all deps, generates Prisma client, compiles TypeScript
 2. **runner** — copies `dist/` and production `node_modules` only
 
-## API Key Authentication
-
-The `GET /widget/events/:siteId` route requires an API key:
-
-```bash
-curl -H "x-api-key: ink_your_key_here" \
-  http://localhost:3001/widget/events/SITE_ID
-```
-
-API keys are managed in the dashboard at `/dashboard/settings`.
-
 ## Source Structure
 
 ```
 src/
 ├── server.ts           ← Fastify app bootstrap + plugin registration
 ├── plugins/
-│   └── api-key.ts      ← Fastify plugin: app.verifyApiKey decorator
+│   ├── redis.ts        ← Redis connection
+│   ├── bull.ts         ← BullMQ queues
+│   └── internal-auth.ts
 ├── routes/
 │   ├── health.ts       ← GET /health
 │   └── widget.ts       ← All /widget/* routes

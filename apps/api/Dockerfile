@@ -12,6 +12,7 @@ COPY packages/db/package.json packages/db/
 COPY packages/types/package.json packages/types/
 COPY packages/email/package.json packages/email/
 COPY packages/ui/package.json packages/ui/
+COPY packages/wcag-kb/package.json packages/wcag-kb/
 COPY packages/scanner/package.json packages/scanner/
 COPY apps/api/package.json apps/api/
 
@@ -32,6 +33,12 @@ RUN pnpm --filter @inculva/db build
 # Build email package (produces dist/index.js consumed by api)
 RUN pnpm --filter @inculva/email build
 
+# Build types package (runtime values e.g. PLAN_LIMITS; dist required at runtime)
+RUN pnpm --filter @inculva/types build
+
+# Build wcag-kb (scanner dependency; must be linked + dist in runtime image)
+RUN pnpm --filter @inculva/wcag-kb build
+
 # Build scanner package
 RUN pnpm --filter @inculva/scanner build
 
@@ -51,6 +58,7 @@ COPY packages/db/package.json packages/db/
 COPY packages/types/package.json packages/types/
 COPY packages/email/package.json packages/email/
 COPY packages/ui/package.json packages/ui/
+COPY packages/wcag-kb/package.json packages/wcag-kb/
 COPY packages/scanner/package.json packages/scanner/
 COPY apps/api/package.json apps/api/
 
@@ -65,6 +73,8 @@ COPY --from=builder /app/apps/api/dist apps/api/dist
 COPY --from=builder /app/packages/db/dist packages/db/dist
 COPY --from=builder /app/packages/db/prisma packages/db/prisma
 COPY --from=builder /app/packages/email/dist packages/email/dist
+COPY --from=builder /app/packages/types/dist packages/types/dist
+COPY --from=builder /app/packages/wcag-kb/dist packages/wcag-kb/dist
 COPY --from=builder /app/packages/scanner/dist packages/scanner/dist
 COPY --from=builder /app/node_modules/.pnpm node_modules/.pnpm
 COPY --from=builder /app/packages/db/node_modules packages/db/node_modules

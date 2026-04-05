@@ -2,7 +2,6 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
-import apiKeyPlugin from "./plugins/api-key.js";
 import redisPlugin from "./plugins/redis.js";
 import bullPlugin from "./plugins/bull.js";
 import internalAuthPlugin from "./plugins/internal-auth.js";
@@ -44,9 +43,8 @@ async function bootstrap(): Promise<void> {
   });
 
   // Widget routes must be accessible from any origin (embedded on external sites).
-  // Other routes are gated by API keys or session cookies.
   await app.register(cors, {
-    origin: true, // reflect request origin (equivalent to *) — safe since auth uses keys
+    origin: true, // reflect request origin (equivalent to *) for embed + public widget endpoints
     credentials: false,
     methods: ["GET", "POST", "OPTIONS"],
   });
@@ -74,7 +72,6 @@ async function bootstrap(): Promise<void> {
     return reply.status(404).send({ success: false, error: "Not found" });
   });
 
-  await app.register(apiKeyPlugin);
   await app.register(redisPlugin);
   await app.register(bullPlugin);
   await app.register(internalAuthPlugin);

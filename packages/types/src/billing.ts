@@ -15,8 +15,8 @@ export interface PlanLimits {
 }
 
 export const PLAN_LIMITS: Record<Plan, PlanLimits> = {
-  free: { pageviewsPerMonth: 0, maxSites: 1, maxPagesPerScan: 5, scanFrequency: "monthly", maxScansPerDay: 3, scanHistoryDays: 30, pdfReports: false, aiFixSuggestions: false },
-  small: { pageviewsPerMonth: 100_000, maxSites: 5, maxPagesPerScan: 25, scanFrequency: "weekly", maxScansPerDay: 50, scanHistoryDays: 90, pdfReports: true, aiFixSuggestions: false },
+  free: { pageviewsPerMonth: 10_000, maxSites: 1, maxPagesPerScan: 5, scanFrequency: "monthly", maxScansPerDay: 1, scanHistoryDays: 30, pdfReports: false, aiFixSuggestions: false },
+  small: { pageviewsPerMonth: 100_000, maxSites: 5, maxPagesPerScan: 25, scanFrequency: "weekly", maxScansPerDay: 10, scanHistoryDays: 90, pdfReports: true, aiFixSuggestions: false },
   medium: { pageviewsPerMonth: 300_000, maxSites: 10, maxPagesPerScan: 100, scanFrequency: "weekly", maxScansPerDay: 20, scanHistoryDays: 180, pdfReports: true, aiFixSuggestions: true },
   large: { pageviewsPerMonth: 1_000_000, maxSites: 25, maxPagesPerScan: 500, scanFrequency: "daily", maxScansPerDay: 50, scanHistoryDays: 365, pdfReports: true, aiFixSuggestions: true },
 };

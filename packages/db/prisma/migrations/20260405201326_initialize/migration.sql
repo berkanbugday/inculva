@@ -9,7 +9,7 @@ CREATE TABLE "User" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'user',
     "plan" TEXT NOT NULL DEFAULT 'free',
-    "lsCustomerId" TEXT,
+    "polarCustomerId" TEXT,
     "usageAlertSent80" TIMESTAMP(3),
     "usageAlertSent100" TIMESTAMP(3),
     "dripDay3Sent" BOOLEAN NOT NULL DEFAULT false,
@@ -69,14 +69,14 @@ CREATE TABLE "Verification" (
 CREATE TABLE "Subscription" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "lsSubscriptionId" TEXT NOT NULL,
-    "lsVariantId" TEXT NOT NULL,
+    "polarSubscriptionId" TEXT NOT NULL,
+    "polarProductId" TEXT NOT NULL,
     "plan" TEXT NOT NULL,
+    "interval" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "currentPeriodStart" TIMESTAMP(3) NOT NULL,
     "currentPeriodEnd" TIMESTAMP(3) NOT NULL,
     "canceledAt" TIMESTAMP(3),
-    "lsCustomerPortalUrl" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -145,12 +145,11 @@ CREATE TABLE "WidgetConfig" (
     "profileParkinson" BOOLEAN NOT NULL DEFAULT true,
     "accessibilityStatementUrl" TEXT,
     "whiteLabelText" TEXT,
-    "borderRadius" INTEGER NOT NULL DEFAULT 8,
     "buttonSize" TEXT NOT NULL DEFAULT 'medium',
-    "fontFamily" TEXT NOT NULL DEFAULT 'system',
-    "allowedDomains" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "buttonIcon" TEXT NOT NULL DEFAULT 'universal-access',
     "lastScanViolations" INTEGER,
     "lastScanAt" TIMESTAMP(3),
+    "lastComplianceScore" DOUBLE PRECISION,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -181,21 +180,6 @@ CREATE TABLE "WidgetLoad" (
 );
 
 -- CreateTable
-CREATE TABLE "ApiKey" (
-    "id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "keyHash" TEXT NOT NULL,
-    "keyPrefix" TEXT NOT NULL,
-    "lastUsedAt" TIMESTAMP(3),
-    "expiresAt" TIMESTAMP(3),
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "revokedAt" TIMESTAMP(3),
-
-    CONSTRAINT "ApiKey_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Notification" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -210,38 +194,139 @@ CREATE TABLE "Notification" (
 );
 
 -- CreateTable
-CREATE TABLE "Webhook" (
+CREATE TABLE "Scan" (
     "id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "url" TEXT NOT NULL,
-    "secret" TEXT NOT NULL,
-    "events" TEXT[],
-    "enabled" BOOLEAN NOT NULL DEFAULT true,
+    "siteId" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'pending',
+    "trigger" TEXT NOT NULL DEFAULT 'manual',
+    "maxPages" INTEGER NOT NULL DEFAULT 1,
+    "wcagLevel" TEXT NOT NULL DEFAULT 'AA',
+    "totalPages" INTEGER,
+    "totalViolations" INTEGER,
+    "totalPasses" INTEGER,
+    "totalIncomplete" INTEGER,
+    "complianceScore" DOUBLE PRECISION,
+    "startedAt" TIMESTAMP(3),
+    "completedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "errorMessage" TEXT,
 
-    CONSTRAINT "Webhook_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Scan_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "AuditLog" (
+CREATE TABLE "ScanPage" (
     "id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "action" TEXT NOT NULL,
-    "resource" TEXT NOT NULL,
-    "resourceId" TEXT,
-    "meta" JSONB,
-    "ip" TEXT,
+    "scanId" TEXT NOT NULL,
+    "url" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'pending',
+    "violations" INTEGER,
+    "passes" INTEGER,
+    "incomplete" INTEGER,
+    "score" DOUBLE PRECISION,
+    "errorMessage" TEXT,
+    "startedAt" TIMESTAMP(3),
+    "completedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "AuditLog_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "ScanPage_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ScanIssue" (
+    "id" TEXT NOT NULL,
+    "scanId" TEXT NOT NULL,
+    "pageId" TEXT NOT NULL,
+    "siteId" TEXT NOT NULL,
+    "ruleId" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "impact" TEXT NOT NULL,
+    "wcag" TEXT NOT NULL,
+    "wcagLevel" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "selector" TEXT,
+    "html" TEXT,
+    "helpUrl" TEXT,
+    "status" TEXT NOT NULL DEFAULT 'open',
+    "firstSeenAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "fixedAt" TIMESTAMP(3),
+    "fixSuggestion" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "ScanIssue_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ScanPassedRule" (
+    "id" TEXT NOT NULL,
+    "scanId" TEXT NOT NULL,
+    "pageId" TEXT NOT NULL,
+    "ruleId" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "helpText" TEXT,
+    "wcag" TEXT NOT NULL,
+    "wcagLevel" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "helpUrl" TEXT,
+    "nodeCount" INTEGER NOT NULL DEFAULT 1,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "ScanPassedRule_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ScanIncomplete" (
+    "id" TEXT NOT NULL,
+    "scanId" TEXT NOT NULL,
+    "pageId" TEXT NOT NULL,
+    "ruleId" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "impact" TEXT NOT NULL,
+    "wcag" TEXT NOT NULL,
+    "wcagLevel" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
+    "selector" TEXT,
+    "html" TEXT,
+    "helpUrl" TEXT,
+    "message" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "ScanIncomplete_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ComplianceSnapshot" (
+    "id" TEXT NOT NULL,
+    "siteId" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
+    "score" DOUBLE PRECISION NOT NULL,
+    "violations" INTEGER NOT NULL,
+    "passes" INTEGER NOT NULL,
+    "scanId" TEXT,
+
+    CONSTRAINT "ComplianceSnapshot_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ScanSchedule" (
+    "id" TEXT NOT NULL,
+    "siteId" TEXT NOT NULL,
+    "frequency" TEXT NOT NULL DEFAULT 'weekly',
+    "enabled" BOOLEAN NOT NULL DEFAULT true,
+    "lastRunAt" TIMESTAMP(3),
+    "nextRunAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "ScanSchedule_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_lsCustomerId_key" ON "User"("lsCustomerId");
+CREATE UNIQUE INDEX "User_polarCustomerId_key" ON "User"("polarCustomerId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Session_token_key" ON "Session"("token");
@@ -256,7 +341,7 @@ CREATE UNIQUE INDEX "Verification_identifier_value_key" ON "Verification"("ident
 CREATE UNIQUE INDEX "Subscription_userId_key" ON "Subscription"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Subscription_lsSubscriptionId_key" ON "Subscription"("lsSubscriptionId");
+CREATE UNIQUE INDEX "Subscription_polarSubscriptionId_key" ON "Subscription"("polarSubscriptionId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Site_domain_key" ON "Site"("domain");
@@ -277,22 +362,61 @@ CREATE INDEX "WidgetLoad_siteId_date_idx" ON "WidgetLoad"("siteId", "date");
 CREATE UNIQUE INDEX "WidgetLoad_siteId_domain_date_key" ON "WidgetLoad"("siteId", "domain", "date");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "ApiKey_keyHash_key" ON "ApiKey"("keyHash");
-
--- CreateIndex
-CREATE INDEX "ApiKey_userId_idx" ON "ApiKey"("userId");
-
--- CreateIndex
 CREATE INDEX "Notification_userId_createdAt_idx" ON "Notification"("userId", "createdAt");
 
 -- CreateIndex
 CREATE INDEX "Notification_userId_readAt_idx" ON "Notification"("userId", "readAt");
 
 -- CreateIndex
-CREATE INDEX "Webhook_userId_idx" ON "Webhook"("userId");
+CREATE INDEX "Scan_siteId_createdAt_idx" ON "Scan"("siteId", "createdAt");
 
 -- CreateIndex
-CREATE INDEX "AuditLog_userId_createdAt_idx" ON "AuditLog"("userId", "createdAt");
+CREATE INDEX "Scan_siteId_status_idx" ON "Scan"("siteId", "status");
+
+-- CreateIndex
+CREATE INDEX "ScanPage_scanId_idx" ON "ScanPage"("scanId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ScanPage_scanId_url_key" ON "ScanPage"("scanId", "url");
+
+-- CreateIndex
+CREATE INDEX "ScanIssue_siteId_ruleId_selector_idx" ON "ScanIssue"("siteId", "ruleId", "selector");
+
+-- CreateIndex
+CREATE INDEX "ScanIssue_scanId_idx" ON "ScanIssue"("scanId");
+
+-- CreateIndex
+CREATE INDEX "ScanIssue_pageId_idx" ON "ScanIssue"("pageId");
+
+-- CreateIndex
+CREATE INDEX "ScanIssue_siteId_status_idx" ON "ScanIssue"("siteId", "status");
+
+-- CreateIndex
+CREATE INDEX "ScanPassedRule_scanId_idx" ON "ScanPassedRule"("scanId");
+
+-- CreateIndex
+CREATE INDEX "ScanPassedRule_pageId_idx" ON "ScanPassedRule"("pageId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ScanPassedRule_scanId_pageId_ruleId_key" ON "ScanPassedRule"("scanId", "pageId", "ruleId");
+
+-- CreateIndex
+CREATE INDEX "ScanIncomplete_scanId_idx" ON "ScanIncomplete"("scanId");
+
+-- CreateIndex
+CREATE INDEX "ScanIncomplete_pageId_idx" ON "ScanIncomplete"("pageId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ScanIncomplete_scanId_pageId_ruleId_selector_key" ON "ScanIncomplete"("scanId", "pageId", "ruleId", "selector");
+
+-- CreateIndex
+CREATE INDEX "ComplianceSnapshot_siteId_date_idx" ON "ComplianceSnapshot"("siteId", "date");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ComplianceSnapshot_siteId_date_key" ON "ComplianceSnapshot"("siteId", "date");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ScanSchedule_siteId_key" ON "ScanSchedule"("siteId");
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -316,14 +440,37 @@ ALTER TABLE "WidgetEvent" ADD CONSTRAINT "WidgetEvent_siteId_fkey" FOREIGN KEY (
 ALTER TABLE "WidgetLoad" ADD CONSTRAINT "WidgetLoad_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ApiKey" ADD CONSTRAINT "ApiKey_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Notification" ADD CONSTRAINT "Notification_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Webhook" ADD CONSTRAINT "Webhook_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Scan" ADD CONSTRAINT "Scan_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AuditLog" ADD CONSTRAINT "AuditLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "ScanPage" ADD CONSTRAINT "ScanPage_scanId_fkey" FOREIGN KEY ("scanId") REFERENCES "Scan"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
+-- AddForeignKey
+ALTER TABLE "ScanIssue" ADD CONSTRAINT "ScanIssue_scanId_fkey" FOREIGN KEY ("scanId") REFERENCES "Scan"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ScanIssue" ADD CONSTRAINT "ScanIssue_pageId_fkey" FOREIGN KEY ("pageId") REFERENCES "ScanPage"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ScanIssue" ADD CONSTRAINT "ScanIssue_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ScanPassedRule" ADD CONSTRAINT "ScanPassedRule_scanId_fkey" FOREIGN KEY ("scanId") REFERENCES "Scan"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ScanPassedRule" ADD CONSTRAINT "ScanPassedRule_pageId_fkey" FOREIGN KEY ("pageId") REFERENCES "ScanPage"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ScanIncomplete" ADD CONSTRAINT "ScanIncomplete_scanId_fkey" FOREIGN KEY ("scanId") REFERENCES "Scan"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ScanIncomplete" ADD CONSTRAINT "ScanIncomplete_pageId_fkey" FOREIGN KEY ("pageId") REFERENCES "ScanPage"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ComplianceSnapshot" ADD CONSTRAINT "ComplianceSnapshot_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ScanSchedule" ADD CONSTRAINT "ScanSchedule_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;

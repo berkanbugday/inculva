@@ -1,7 +1,7 @@
 import type { Page } from "playwright";
 import type { AxeResults } from "axe-core";
 import axeCore from "axe-core";
-import axeTrPartial from "./locales/axe-tr-partial.json";
+import axeTrPartial from "./locales/axe-tr-partial.json" with { type: "json" };
 
 export type ScanContentLocale = "en" | "tr";
 
