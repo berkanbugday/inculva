@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "3.9.0",
+    "@inculva/wcag-kb": "workspace:*",
     "@inculva/db": "workspace:*",
     "@inculva/email": "workspace:*",
     "@inculva/scanner": "workspace:*",

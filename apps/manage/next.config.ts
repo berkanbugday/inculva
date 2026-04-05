@@ -34,7 +34,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@inculva/ui", "@inculva/types", "@inculva/db", "@inculva/email"],
+  transpilePackages: [
+    "@inculva/ui",
+    "@inculva/types",
+    "@inculva/db",
+    "@inculva/email",
+    "@inculva/wcag-kb",
+  ],
   async headers() {
     return [
       {

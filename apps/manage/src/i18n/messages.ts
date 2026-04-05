@@ -414,7 +414,6 @@ export interface DashboardMessages {
     statusPaymentOverdue: string;
     statusCanceled: string;
     statusCanceling: string;
-    intervalAnnual: string;
     intervalMonthly: string;
     intervalYearly: string;
     freeTrialEnded: string;
@@ -450,7 +449,7 @@ export interface DashboardMessages {
     cancellationFailed: string;
     upgradeTo: string;
     monthly: string;
-    annual: string;
+    yearly: string;
     save17: string;
     checkoutFailed: string;
   };
@@ -1195,7 +1194,6 @@ const en: DashboardMessages = {
     statusPaymentOverdue: "Payment overdue",
     statusCanceled: "Canceled",
     statusCanceling: "Canceling",
-    intervalAnnual: "Annual",
     intervalMonthly: "Monthly",
     intervalYearly: "Yearly",
     freeTrialEnded: "Your free trial has ended",
@@ -1232,7 +1230,7 @@ const en: DashboardMessages = {
     cancellationFailed: "Cancellation failed",
     upgradeTo: "Upgrade to {plan} \u2192",
     monthly: "Monthly",
-    annual: "Annual",
+    yearly: "Yearly",
     save17: "SAVE 17%",
     checkoutFailed: "Failed to start checkout",
   },
@@ -2034,7 +2032,6 @@ const tr: DashboardMessages = {
     statusPaymentOverdue: "\u00D6deme gecikmi\u015F",
     statusCanceled: "\u0130ptal edildi",
     statusCanceling: "\u0130ptal ediliyor",
-    intervalAnnual: "Y\u0131ll\u0131k",
     intervalMonthly: "Ayl\u0131k",
     intervalYearly: "Y\u0131ll\u0131k",
     freeTrialEnded: "\u00DCcretsiz denemeniz sona erdi",
@@ -2072,7 +2069,7 @@ const tr: DashboardMessages = {
     cancellationFailed: "\u0130ptal ba\u015far\u0131s\u0131z",
     upgradeTo: "{plan} plan\u0131na y\u00fckselt \u2192",
     monthly: "Ayl\u0131k",
-    annual: "Y\u0131ll\u0131k",
+    yearly: "Y\u0131ll\u0131k",
     save17: "%17 TASARRUF",
     checkoutFailed: "\u00d6deme ba\u015flat\u0131lamad\u0131",
   },

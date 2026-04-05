@@ -330,7 +330,7 @@ const rules = [
           'This criterion is rated critical impact because failures directly prevent task completion. A button without a name cannot be identified. A custom checkbox without aria-checked cannot convey its state. A tab interface without role="tablist" and role="tab" cannot be navigated. These are not cosmetic issues — they represent complete barriers for assistive technology users.',
         ),
         p(
-          "The proliferation of JavaScript frameworks and component libraries has made 4.1.2 failures one of the most common accessibility issues on the web. The WebAIM Million annual study consistently finds missing button names, missing form labels, and ARIA misuse among the top five most common errors.",
+          "The proliferation of JavaScript frameworks and component libraries has made 4.1.2 failures one of the most common accessibility issues on the web. The WebAIM Million yearly study consistently finds missing button names, missing form labels, and ARIA misuse among the top five most common errors.",
         ),
 
         heading("Related axe-core rules", "h2"),

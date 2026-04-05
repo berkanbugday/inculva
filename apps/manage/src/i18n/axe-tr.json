@@ -1,0 +1,437 @@
+{
+  "rules": {
+    "accesskeys": {
+      "description": "Her accesskey öznitelik değerinin benzersiz olduğundan emin olun",
+      "help": "accesskey değeri benzersiz olmalıdır"
+    },
+    "area-alt": {
+      "description": "Görüntü haritalarındaki <area> öğelerinin alternatif metne sahip olduğundan emin olun",
+      "help": "Etkin <area> öğelerinin alternatif metni olmalıdır"
+    },
+    "aria-allowed-attr": {
+      "description": "Öğenin rolünün ARIA özniteliklerini desteklediğinden emin olun",
+      "help": "Öğeler yalnızca desteklenen ARIA özniteliklerini kullanmalıdır"
+    },
+    "aria-allowed-role": {
+      "description": "role özniteliğinin öğe için uygun bir değere sahip olduğundan emin olun",
+      "help": "ARIA rolü öğe için uygun olmalıdır"
+    },
+    "aria-braille-equivalent": {
+      "description": "aria-braillelabel ve aria-brailleroledescription için braille dışı bir eşdeğer olduğundan emin olun",
+      "help": "aria-braille özniteliklerinin braille dışı bir eşdeğeri olmalıdır"
+    },
+    "aria-command-name": {
+      "description": "Her ARIA düğmesi, bağlantısı ve menuitem öğesinin erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA komut öğelerinin erişilebilir bir adı olmalıdır"
+    },
+    "aria-conditional-attr": {
+      "description": "ARIA özniteliklerinin öğenin rolüne göre belirtimde tanımlandığı gibi kullanıldığından emin olun",
+      "help": "ARIA öznitelikleri rol için belirtildiği şekilde kullanılmalıdır"
+    },
+    "aria-deprecated-role": {
+      "description": "Öğelerin kullanımdan kaldırılmış roller kullanmadığından emin olun",
+      "help": "Kullanımdan kaldırılmış ARIA rolleri kullanılmamalıdır"
+    },
+    "aria-dialog-name": {
+      "description": "Her ARIA dialog ve alertdialog düğümünün erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA dialog ve alertdialog düğümlerinin erişilebilir bir adı olmalıdır"
+    },
+    "aria-hidden-body": {
+      "description": "Belge gövdesinde aria-hidden=\"true\" bulunmadığından emin olun",
+      "help": "Belge gövdesinde aria-hidden=\"true\" olmamalıdır"
+    },
+    "aria-hidden-focus": {
+      "description": "aria-hidden öğelerinin odaklanabilir olmadığından ve odaklanabilir alt öğe içermediğinden emin olun",
+      "help": "ARIA gizli öğe odaklanabilir veya odaklanabilir alt öğe içeremez"
+    },
+    "aria-input-field-name": {
+      "description": "Her ARIA giriş alanının erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA giriş alanlarının erişilebilir bir adı olmalıdır"
+    },
+    "aria-meter-name": {
+      "description": "Her ARIA meter düğümünün erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA meter düğümlerinin erişilebilir bir adı olmalıdır"
+    },
+    "aria-progressbar-name": {
+      "description": "Her ARIA progressbar düğümünün erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA progressbar düğümlerinin erişilebilir bir adı olmalıdır"
+    },
+    "aria-prohibited-attr": {
+      "description": "ARIA özniteliklerinin öğenin rolü için yasak olmadığından emin olun",
+      "help": "Öğeler yalnızca izin verilen ARIA özniteliklerini kullanmalıdır"
+    },
+    "aria-required-attr": {
+      "description": "ARIA rollerine sahip öğelerin gerekli tüm ARIA özniteliklerine sahip olduğundan emin olun",
+      "help": "Gerekli ARIA öznitelikleri sağlanmalıdır"
+    },
+    "aria-required-children": {
+      "description": "Alt roller gerektiren ARIA rollerine sahip öğelerin bu alt rolleri içerdiğinden emin olun",
+      "help": "Belirli ARIA rolleri belirli alt rolleri içermelidir"
+    },
+    "aria-required-parent": {
+      "description": "Üst roller gerektiren ARIA rollerine sahip öğelerin bu üst roller içinde olduğundan emin olun",
+      "help": "Belirli ARIA rolleri belirli üst roller içinde olmalıdır"
+    },
+    "aria-roledescription": {
+      "description": "aria-roledescription yalnızca örtük veya açık role sahip öğelerde kullanıldığından emin olun",
+      "help": "aria-roledescription anlamsal role sahip öğelerde kullanılmalıdır"
+    },
+    "aria-roles": {
+      "description": "role özniteliği olan tüm öğelerin geçerli bir değer kullandığından emin olun",
+      "help": "Kullanılan ARIA rolleri geçerli değerlere uymalıdır"
+    },
+    "aria-text": {
+      "description": "role=\"text\" öğelerinin odaklanabilir alt öğe içermediğinden emin olun",
+      "help": "\"role=text\" odaklanabilir alt öğe içermemelidir"
+    },
+    "aria-toggle-field-name": {
+      "description": "Her ARIA aç/kapa alanının erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA aç/kapa alanlarının erişilebilir bir adı olmalıdır"
+    },
+    "aria-tooltip-name": {
+      "description": "Her ARIA tooltip düğümünün erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA tooltip düğümlerinin erişilebilir bir adı olmalıdır"
+    },
+    "aria-treeitem-name": {
+      "description": "Her ARIA treeitem düğümünün erişilebilir bir adı olduğundan emin olun",
+      "help": "ARIA treeitem düğümlerinin erişilebilir bir adı olmalıdır"
+    },
+    "aria-valid-attr-value": {
+      "description": "Tüm ARIA özniteliklerinin geçerli değerlere sahip olduğundan emin olun",
+      "help": "ARIA öznitelikleri geçerli değerlere uymalıdır"
+    },
+    "aria-valid-attr": {
+      "description": "aria- ile başlayan özniteliklerin geçerli ARIA öznitelikleri olduğundan emin olun",
+      "help": "ARIA öznitelikleri geçerli adlara uymalıdır"
+    },
+    "audio-caption": {
+      "description": "<audio> öğelerinin altyazı içerdiğinden emin olun",
+      "help": "<audio> öğelerinin altyazı parçası olmalıdır"
+    },
+    "autocomplete-valid": {
+      "description": "autocomplete özniteliğinin form alanı için doğru ve uygun olduğundan emin olun",
+      "help": "autocomplete özniteliği doğru kullanılmalıdır"
+    },
+    "avoid-inline-spacing": {
+      "description": "Satır içi stillerle ayarlanan metin aralığının özel stillerle ayarlanabildiğinden emin olun",
+      "help": "Satır içi metin aralığı özel stillerle değiştirilebilir olmalıdır"
+    },
+    "blink": {
+      "description": "<blink> öğelerinin kullanılmadığından emin olun",
+      "help": "<blink> öğeleri kullanımdan kaldırılmıştır ve kullanılmamalıdır"
+    },
+    "button-name": {
+      "description": "Düğmelerin ayırt edilebilir metne sahip olduğundan emin olun",
+      "help": "Düğmelerin ayırt edilebilir metni olmalıdır"
+    },
+    "bypass": {
+      "description": "Her sayfada kullanıcının gezinmeyi atlayıp doğrudan içeriğe geçebileceği en az bir yöntem olduğundan emin olun",
+      "help": "Sayfa yinelenen blokları atlamanın bir yolunu sunmalıdır"
+    },
+    "color-contrast-enhanced": {
+      "description": "Ön plan ve arka plan renkleri arasındaki kontrastın WCAG 2 AAA geliştirilmiş eşiklerini karşıladığından emin olun",
+      "help": "Öğeler geliştirilmiş renk kontrastı eşiklerini karşılamalıdır"
+    },
+    "color-contrast": {
+      "description": "Ön plan ve arka plan renkleri arasındaki kontrastın WCAG 2 AA minimum eşiklerini karşıladığından emin olun",
+      "help": "Öğeler minimum renk kontrastı eşiklerini karşılamalıdır"
+    },
+    "css-orientation-lock": {
+      "description": "İçeriğin belirli bir ekran yönüne kilitlenmediğinden ve tüm yönlerde kullanılabildiğinden emin olun",
+      "help": "CSS medya sorguları ekran yönünü kilitlememelidir"
+    },
+    "definition-list": {
+      "description": "<dl> öğelerinin doğru yapılandırıldığından emin olun",
+      "help": "<dl> doğrudan yalnızca doğru sıralı <dt>/<dd> grupları, <script>, <template> veya <div> içermelidir"
+    },
+    "dlitem": {
+      "description": "<dt> ve <dd> öğelerinin bir <dl> içinde olduğundan emin olun",
+      "help": "<dt> ve <dd> bir <dl> içinde olmalıdır"
+    },
+    "document-title": {
+      "description": "Her HTML belgesinin boş olmayan bir <title> öğesi içerdiğinden emin olun",
+      "help": "Belgeler gezinmeye yardımcı olmak için <title> içermelidir"
+    },
+    "duplicate-id-active": {
+      "description": "Etkin öğelerdeki her id değerinin benzersiz olduğundan emin olun",
+      "help": "Etkin öğelerin kimlikleri benzersiz olmalıdır"
+    },
+    "duplicate-id-aria": {
+      "description": "ARIA ve etiketlerde kullanılan her id değerinin benzersiz olduğundan emin olun",
+      "help": "ARIA ve etiketlerde kullanılan kimlikler benzersiz olmalıdır"
+    },
+    "duplicate-id": {
+      "description": "Her id öznitelik değerinin benzersiz olduğundan emin olun",
+      "help": "id öznitelik değeri benzersiz olmalıdır"
+    },
+    "empty-heading": {
+      "description": "Başlıkların ayırt edilebilir metin içerdiğinden emin olun",
+      "help": "Başlıklar boş olmamalıdır"
+    },
+    "empty-table-header": {
+      "description": "Tablo başlıklarının ayırt edilebilir metin içerdiğinden emin olun",
+      "help": "Tablo başlığı metni boş olmamalıdır"
+    },
+    "focus-order-semantics": {
+      "description": "Odak sırasındaki öğelerin etkileşimli içerik için uygun bir role sahip olduğundan emin olun",
+      "help": "Odak sırasındaki öğelerin uygun bir rolü olmalıdır"
+    },
+    "form-field-multiple-labels": {
+      "description": "Form alanının birden fazla <label> öğesine sahip olmadığından emin olun",
+      "help": "Form alanı birden fazla etiket öğesine sahip olmamalıdır"
+    },
+    "frame-focusable-content": {
+      "description": "Odaklanabilir içerik içeren <frame> ve <iframe> öğelerinin tabindex=-1 olmadığından emin olun",
+      "help": "Odaklanabilir içerik içeren çerçevelerde tabindex=-1 olmamalıdır"
+    },
+    "frame-tested": {
+      "description": "<iframe> ve <frame> öğelerinin axe-core betiğini içerdiğinden emin olun",
+      "help": "Çerçeveler axe-core ile test edilmelidir"
+    },
+    "frame-title-unique": {
+      "description": "<iframe> ve <frame> öğelerinin benzersiz bir title özniteliği içerdiğinden emin olun",
+      "help": "Çerçevelerin benzersiz bir title özniteliği olmalıdır"
+    },
+    "frame-title": {
+      "description": "<iframe> ve <frame> öğelerinin erişilebilir bir ada sahip olduğundan emin olun",
+      "help": "Çerçevelerin erişilebilir bir adı olmalıdır"
+    },
+    "heading-order": {
+      "description": "Başlık sırasının anlamsal olarak doğru olduğundan emin olun",
+      "help": "Başlık düzeyleri yalnızca birer artmalıdır"
+    },
+    "hidden-content": {
+      "description": "Gizli içerik hakkında kullanıcıları bilgilendirir.",
+      "help": "Sayfadaki gizli içerik analiz edilmelidir"
+    },
+    "html-has-lang": {
+      "description": "Her HTML belgesinin lang özniteliğine sahip olduğundan emin olun",
+      "help": "<html> öğesinin lang özniteliği olmalıdır"
+    },
+    "html-lang-valid": {
+      "description": "<html> öğesinin lang özniteliğinin geçerli bir değere sahip olduğundan emin olun",
+      "help": "<html> için lang özniteliği geçerli bir değere sahip olmalıdır"
+    },
+    "html-xml-lang-mismatch": {
+      "description": "Geçerli lang ve xml:lang özniteliklerine sahip HTML öğelerinin sayfanın temel dilinde uyumlu olduğundan emin olun",
+      "help": "lang ve xml:lang aynı temel dili belirtmelidir"
+    },
+    "identical-links-same-purpose": {
+      "description": "Aynı erişilebilir ada sahip bağlantıların benzer bir amaca hizmet ettiğinden emin olun",
+      "help": "Aynı ada sahip bağlantılar benzer amaca sahip olmalıdır"
+    },
+    "image-alt": {
+      "description": "<img> öğelerinin alternatif metne veya none/presentation rolüne sahip olduğundan emin olun",
+      "help": "Görsellerin alternatif metni olmalıdır"
+    },
+    "image-redundant-alt": {
+      "description": "Görsel alternatifinin metin olarak tekrarlanmadığından emin olun",
+      "help": "Görsel alternatif metni yakındaki metinle tekrarlanmamalıdır"
+    },
+    "input-button-name": {
+      "description": "Giriş düğmelerinin ayırt edilebilir metne sahip olduğundan emin olun",
+      "help": "Giriş düğmelerinin ayırt edilebilir metni olmalıdır"
+    },
+    "input-image-alt": {
+      "description": "<input type=\"image\"> öğelerinin alternatif metne sahip olduğundan emin olun",
+      "help": "Görsel düğmelerin alternatif metni olmalıdır"
+    },
+    "label-content-name-mismatch": {
+      "description": "İçerik üzerinden etiketlenen öğelerin görünür metninin erişilebilir adın parçası olduğundan emin olun",
+      "help": "Öğelerin görünür metni erişilebilir adın parçası olmalıdır"
+    },
+    "label-title-only": {
+      "description": "Her form öğesinin görünür bir etikete sahip olduğundan ve yalnızca gizli etiket, title veya aria-describedby ile etiketlenmediğinden emin olun",
+      "help": "Form öğelerinin görünür bir etiketi olmalıdır"
+    },
+    "label": {
+      "description": "Her form öğesinin bir etikete sahip olduğundan emin olun",
+      "help": "Form öğelerinin etiketi olmalıdır"
+    },
+    "landmark-banner-is-top-level": {
+      "description": "banner işaretçisinin üst düzeyde olduğundan emin olun",
+      "help": "Banner işaretçisi başka bir işaretçi içinde olmamalıdır"
+    },
+    "landmark-complementary-is-top-level": {
+      "description": "complementary işaretçisinin veya aside öğesinin üst düzeyde olduğundan emin olun",
+      "help": "Aside başka bir işaretçi içinde olmamalıdır"
+    },
+    "landmark-contentinfo-is-top-level": {
+      "description": "contentinfo işaretçisinin üst düzeyde olduğundan emin olun",
+      "help": "Contentinfo işaretçisi başka bir işaretçi içinde olmamalıdır"
+    },
+    "landmark-main-is-top-level": {
+      "description": "main işaretçisinin üst düzeyde olduğundan emin olun",
+      "help": "Main işaretçisi başka bir işaretçi içinde olmamalıdır"
+    },
+    "landmark-no-duplicate-banner": {
+      "description": "Belgede en fazla bir banner işaretçisi olduğundan emin olun",
+      "help": "Birden fazla banner işaretçisi olmamalıdır"
+    },
+    "landmark-no-duplicate-contentinfo": {
+      "description": "Belgede en fazla bir contentinfo işaretçisi olduğundan emin olun",
+      "help": "Birden fazla contentinfo işaretçisi olmamalıdır"
+    },
+    "landmark-no-duplicate-main": {
+      "description": "Belgede en fazla bir main işaretçisi olduğundan emin olun",
+      "help": "Birden fazla main işaretçisi olmamalıdır"
+    },
+    "landmark-one-main": {
+      "description": "Belgenin bir main işaretçisi içerdiğinden emin olun",
+      "help": "Belgede bir main işaretçisi olmalıdır"
+    },
+    "landmark-unique": {
+      "description": "İşaretçilerin benzersiz olduğundan emin olun",
+      "help": "İşaretçiler benzersiz rol veya rol/etiket/başlık (erişilebilir ad) kombinasyonuna sahip olmalıdır"
+    },
+    "link-in-text-block": {
+      "description": "Bağlantıların çevreleyen metinden yalnızca renge dayanarak ayrılabildiğinden emin olun",
+      "help": "Bağlantılar renge dayanmadan ayırt edilebilir olmalıdır"
+    },
+    "link-name": {
+      "description": "Bağlantıların ayırt edilebilir metne sahip olduğundan emin olun",
+      "help": "Bağlantıların ayırt edilebilir metni olmalıdır"
+    },
+    "list": {
+      "description": "Listelerin doğru yapılandırıldığından emin olun",
+      "help": "<ul> ve <ol> doğrudan yalnızca <li>, <script> veya <template> içermelidir"
+    },
+    "listitem": {
+      "description": "<li> öğelerinin anlamsal olarak doğru kullanıldığından emin olun",
+      "help": "<li> öğeleri <ul> veya <ol> içinde olmalıdır"
+    },
+    "marquee": {
+      "description": "<marquee> öğelerinin kullanılmadığından emin olun",
+      "help": "<marquee> kullanımdan kaldırılmıştır ve kullanılmamalıdır"
+    },
+    "meta-refresh-no-exceptions": {
+      "description": "Gecikmeli yenileme için <meta http-equiv=\"refresh\"> kullanılmadığından emin olun",
+      "help": "Gecikmeli yenileme kullanılmamalıdır"
+    },
+    "meta-refresh": {
+      "description": "20 saatten kısa gecikmeli yenileme için <meta http-equiv=\"refresh\"> kullanılmadığından emin olun",
+      "help": "20 saatten kısa gecikmeli yenileme kullanılmamalıdır"
+    },
+    "meta-viewport-large": {
+      "description": "<meta name=\"viewport\"> öğesinin önemli ölçüde ölçeklemeye izin verdiğinden emin olun",
+      "help": "Kullanıcılar metni %500’e kadar yakınlaştırabilmelidir"
+    },
+    "meta-viewport": {
+      "description": "<meta name=\"viewport\"> metin ölçeklemeyi ve yakınlaştırmayı devre dışı bırakmadığından emin olun",
+      "help": "Yakınlaştırma ve ölçekleme devre dışı bırakılmamalıdır"
+    },
+    "nested-interactive": {
+      "description": "Etkileşimli denetimlerin iç içe olmadığından emin olun; ekran okuyucular her zaman duyurmaz veya odak sorunlarına yol açabilir",
+      "help": "Etkileşimli denetimler iç içe olmamalıdır"
+    },
+    "no-autoplay-audio": {
+      "description": "<video> veya <audio> öğelerinin sesi 3 saniyeden uzun otomatik çalmadığından veya durdurma/sessize alma denetimi olduğundan emin olun",
+      "help": "<video> veya <audio> otomatik çalmamalıdır"
+    },
+    "object-alt": {
+      "description": "<object> öğelerinin alternatif metne sahip olduğundan emin olun",
+      "help": "<object> öğelerinin alternatif metni olmalıdır"
+    },
+    "p-as-heading": {
+      "description": "Kalın, italik veya yazı boyutunun <p> öğelerini başlık gibi stillendirmek için kullanılmadığından emin olun",
+      "help": "Stillendirilmiş <p> öğeleri başlık olarak kullanılmamalıdır"
+    },
+    "page-has-heading-one": {
+      "description": "Sayfanın veya en az bir çerçevesinin bir düzey bir başlık içerdiğinden emin olun",
+      "help": "Sayfa bir düzey bir başlık içermelidir"
+    },
+    "presentation-role-conflict": {
+      "description": "Sunumsal olarak işaretlenmiş öğelerin genel ARIA veya tabindex içermediğinden emin olun",
+      "help": "Sunumsal öğeler tutarlı şekilde yok sayılmalıdır"
+    },
+    "region": {
+      "description": "Tüm sayfa içeriğinin işaretçiler içinde olduğundan emin olun",
+      "help": "Tüm içerik işaretçiler içinde olmalıdır"
+    },
+    "role-img-alt": {
+      "description": "[role=\"img\"] öğelerinin alternatif metne sahip olduğundan emin olun",
+      "help": "[role=\"img\"] öğelerinin alternatif metni olmalıdır"
+    },
+    "scope-attr-valid": {
+      "description": "scope özniteliğinin tablolarda doğru kullanıldığından emin olun",
+      "help": "scope özniteliği doğru kullanılmalıdır"
+    },
+    "scrollable-region-focusable": {
+      "description": "Kaydırılabilir içeriği olan öğelerin klavye ile erişilebilir olduğundan emin olun",
+      "help": "Kaydırılabilir bölgenin klavye erişimi olmalıdır"
+    },
+    "select-name": {
+      "description": "select öğesinin erişilebilir bir ada sahip olduğundan emin olun",
+      "help": "select öğesinin erişilebilir bir adı olmalıdır"
+    },
+    "server-side-image-map": {
+      "description": "Sunucu tarafı görüntü haritalarının kullanılmadığından emin olun",
+      "help": "Sunucu tarafı görüntü haritaları kullanılmamalıdır"
+    },
+    "skip-link": {
+      "description": "Tüm atlama bağlantılarının odaklanabilir bir hedefe sahip olduğundan emin olun",
+      "help": "Atlama bağlantısı hedefi var olmalı ve odaklanılabilir olmalıdır"
+    },
+    "summary-name": {
+      "description": "summary öğelerinin ayırt edilebilir metne sahip olduğundan emin olun",
+      "help": "summary öğelerinin ayırt edilebilir metni olmalıdır"
+    },
+    "svg-img-alt": {
+      "description": "img, graphics-document veya graphics-symbol rolündeki <svg> öğelerinin erişilebilir metne sahip olduğundan emin olun",
+      "help": "img rolündeki <svg> öğelerinin alternatif metni olmalıdır"
+    },
+    "tabindex": {
+      "description": "tabindex değerlerinin 0’dan büyük olmadığından emin olun",
+      "help": "Öğelerde sıfırdan büyük tabindex olmamalıdır"
+    },
+    "table-duplicate-name": {
+      "description": "<caption> öğesinin summary özniteliğiyle aynı metni içermediğinden emin olun",
+      "help": "Tablolarda özet ve başlık aynı metin olmamalıdır"
+    },
+    "table-fake-caption": {
+      "description": "Başlığı olan tabloların <caption> öğesi kullandığından emin olun",
+      "help": "Veri veya başlık hücreleri veri tablosuna başlık vermek için kullanılmamalıdır"
+    },
+    "target-size": {
+      "description": "Dokunma hedeflerinin yeterli boyut ve boşluğa sahip olduğundan emin olun",
+      "help": "Tüm dokunma hedefleri en az 24px olmalı veya yeterli boşluk bırakılmalıdır"
+    },
+    "td-has-header": {
+      "description": "3x3’ten büyük tablolardaki her boş olmayan veri hücresinin en az bir tablo başlığına sahip olduğundan emin olun",
+      "help": "Büyük tablolardaki boş olmayan <td> öğelerinin ilişkili başlığı olmalıdır"
+    },
+    "td-headers-attr": {
+      "description": "headers özniteliği kullanan hücrelerin yalnızca aynı tablodaki diğer hücrelere başvurduğundan emin olun",
+      "help": "headers özniteliği yalnızca aynı tablodaki hücrelere işaret etmelidir"
+    },
+    "th-has-data-cells": {
+      "description": "<th> ve role=columnheader/rowheader öğelerinin tanımladığı veri hücrelerinin bulunduğundan emin olun",
+      "help": "Veri tablosu başlıkları veri hücrelerine başvurmalıdır"
+    },
+    "valid-lang": {
+      "description": "lang özniteliklerinin geçerli değerlere sahip olduğundan emin olun",
+      "help": "lang özniteliği geçerli bir değere sahip olmalıdır"
+    },
+    "video-caption": {
+      "description": "<video> öğelerinin altyazı içerdiğinden emin olun",
+      "help": "<video> öğelerinin altyazısı olmalıdır"
+    }
+  },
+  "incompleteEnToTr": {
+    "Unable to determine contrast ratio": "Kontrast oranı belirlenemedi",
+    "Element's background color could not be determined due to a background image": "Arka plan görüntüsü nedeniyle arka plan rengi belirlenemedi",
+    "Element's background color could not be determined due to a background gradient": "Arka plan gradyanı nedeniyle arka plan rengi belirlenemedi",
+    "Element's background color could not be determined because element contains an image node": "Öğe bir görüntü düğümü içerdiği için arka plan rengi belirlenemedi",
+    "Element's background color could not be determined because it is overlapped by another element": "Başka bir öğeyle üst üste bindiği için arka plan rengi belirlenemedi",
+    "Element's foreground color could not be determined because of alpha transparency": "Alfa şeffaflığı nedeniyle ön plan rengi belirlenemedi",
+    "Element's background color could not be determined because it's partially obscured by another element": "Kısmen başka bir öğe tarafından kapatıldığı için arka plan rengi belirlenemedi",
+    "Element's background color could not be determined because it partially overlaps other elements": "Diğer öğelerle kısmen çakıştığı için arka plan rengi belirlenemedi",
+    "Element's background color could not be determined because it's outside the viewport": "Görünüm alanı dışında olduğu için arka plan rengi belirlenemedi",
+    "Element has a 1:1 contrast ratio with the background": "Öğe arka planla 1:1 kontrast oranına sahip",
+    "Element content is too short to determine if it is actual text content": "İçerik gerçek metin olup olmadığını anlamak için çok kısa",
+    "Element content contains only non-text characters": "İçerik yalnızca metin olmayan karakterler içeriyor",
+    "Element's background color could not be determined due to a pseudo element": "Sahte (pseudo) öğe nedeniyle arka plan rengi belirlenemedi",
+    "Element's contrast could not be determined because it uses complex text shadows": "Karmaşık metin gölgeleri nedeniyle kontrast belirlenemedi",
+    "axe couldn't tell the reason. Time to break out the element inspector!": "axe nedeni açıklayamadı. Öğeyi geliştirici araçlarıyla inceleyin."
+  }
+}

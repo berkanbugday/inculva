@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import type { DashboardMessages } from "@/i18n/messages";
+import { useLocale } from "@/i18n/useMessages";
+import {
+  scanKbDocLinkLabel,
+  scanRuleKnowledgeBaseUrl,
+} from "@/lib/wcag-kb-link";
+import { localizedAxeRuleDescription } from "@/lib/axe-scan-i18n";
 import type { ScanIssueData } from "./scan-results";
 
 type ImpactLevel = "critical" | "serious" | "moderate" | "minor";
@@ -43,7 +49,6 @@ interface GroupedRule {
   impact: string;
   wcag: string;
   wcagLevel: string;
-  helpUrl?: string | null | undefined;
   issues: ScanIssueData[];
 }
 
@@ -60,7 +65,6 @@ function groupByRule(issues: ScanIssueData[]): GroupedRule[] {
         impact: issue.impact,
         wcag: issue.wcag,
         wcagLevel: issue.wcagLevel,
-        helpUrl: issue.helpUrl,
         issues: [issue],
       });
     }
@@ -114,6 +118,8 @@ function RuleGroupCard({
   t: DashboardMessages;
 }) {
   const [open, setOpen] = useState(false);
+  const locale = useLocale();
+  const kbUrl = scanRuleKnowledgeBaseUrl(group.ruleId, locale);
   const style = getImpactStyle(group.impact, t);
 
   return (
@@ -147,7 +153,11 @@ function RuleGroupCard({
             </span>
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5 line-clamp-2">
-            {group.description}
+            {localizedAxeRuleDescription(
+              group.ruleId,
+              group.description,
+              locale,
+            )}
           </p>
         </div>
         <svg
@@ -168,16 +178,14 @@ function RuleGroupCard({
       </button>
       {open && (
         <div className="border-t border-[#e8eaf0] dark:border-[#2a2a3e] px-4 pb-4 pt-3 space-y-3">
-          {group.helpUrl && group.wcag !== "unknown" && (
+          {kbUrl && (
             <a
-              href={group.helpUrl}
+              href={kbUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:underline"
             >
-              {group.wcag === "best-practice"
-                ? t.scanner.learnMore
-                : t.scanner.wcagDocument.replace("{wcag}", group.wcag)}
+              {scanKbDocLinkLabel(group.wcag, t.scanner)}
               <svg
                 className="w-3 h-3"
                 fill="none"

@@ -15,10 +15,15 @@ const FREQUENCY_INTERVALS_MS: Record<string, number> = {
 
 export async function GET(req: Request) {
   const secret = process.env["CRON_SECRET"];
-  if (!secret) return NextResponse.json({ error: "CRON_SECRET not configured" }, { status: 503 });
+  if (!secret)
+    return NextResponse.json(
+      { error: "CRON_SECRET not configured" },
+      { status: 503 },
+    );
 
   const auth = req.headers.get("authorization");
-  if (auth !== `Bearer ${secret}`) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (auth !== `Bearer ${secret}`)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   // Find all due schedules
   const dueSchedules = await db.scanSchedule.findMany({
@@ -72,7 +77,9 @@ export async function GET(req: Request) {
       }
 
       // Update schedule timing
-      const intervalMs = FREQUENCY_INTERVALS_MS[schedule.frequency] ?? FREQUENCY_INTERVALS_MS["monthly"]!;
+      const intervalMs =
+        FREQUENCY_INTERVALS_MS[schedule.frequency] ??
+        FREQUENCY_INTERVALS_MS["monthly"]!;
       await db.scanSchedule.update({
         where: { id: schedule.id },
         data: {

@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import type { DashboardMessages } from "@/i18n/messages";
+import { useLocale } from "@/i18n/useMessages";
+import { scanRuleKnowledgeBaseUrl } from "@/lib/wcag-kb-link";
+import { localizedAxeRuleDescription } from "@/lib/axe-scan-i18n";
 import type { PassedRuleData } from "./scan-results";
 
 interface Props {
@@ -26,6 +29,7 @@ function getCategoryLabel(cat: string, t: DashboardMessages): string {
 
 export function ReportPassedRules({ passedRules, t }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const locale = useLocale();
 
   // Deduplicate by ruleId (across pages), summing nodeCount
   const ruleMap = new Map<string, PassedRuleData & { totalNodes: number }>();
@@ -102,7 +106,9 @@ export function ReportPassedRules({ passedRules, t }: Props) {
                 {getCategoryLabel(cat, t)}
               </h4>
               <div className="space-y-1">
-                {rules.map((rule) => (
+                {rules.map((rule) => {
+                  const kbUrl = scanRuleKnowledgeBaseUrl(rule.ruleId, locale);
+                  return (
                   <div
                     key={rule.ruleId}
                     className="flex items-start gap-2 py-1.5 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
@@ -137,12 +143,16 @@ export function ReportPassedRules({ passedRules, t }: Props) {
                         </span>
                       </div>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {rule.description}
+                        {localizedAxeRuleDescription(
+                          rule.ruleId,
+                          rule.description,
+                          locale,
+                        )}
                       </p>
                     </div>
-                    {rule.helpUrl && (
+                    {kbUrl && (
                       <a
-                        href={rule.helpUrl}
+                        href={kbUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="shrink-0 text-blue-500 hover:text-blue-600 dark:text-blue-400"
@@ -164,7 +174,8 @@ export function ReportPassedRules({ passedRules, t }: Props) {
                       </a>
                     )}
                   </div>
-                ))}
+                );
+                })}
               </div>
             </div>
           ))}

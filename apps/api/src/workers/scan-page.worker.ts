@@ -10,10 +10,11 @@ export interface ScanPageJobData {
   siteId: string;
   url: string;
   wcagLevel: "A" | "AA" | "AAA";
+  contentLocale?: "en" | "tr";
 }
 
 async function processScanPage(data: ScanPageJobData): Promise<void> {
-  const { scanId, pageId, siteId, url, wcagLevel } = data;
+  const { scanId, pageId, siteId, url, wcagLevel, contentLocale } = data;
 
   // Mark page as scanning
   await db.scanPage.update({
@@ -24,7 +25,11 @@ async function processScanPage(data: ScanPageJobData): Promise<void> {
   let result: PageScanResult;
 
   try {
-    result = await scanPage({ url, wcagLevel });
+    result = await scanPage({
+      url,
+      wcagLevel,
+      contentLocale: contentLocale === "tr" ? "tr" : "en",
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown scan error";
     await db.scanPage.update({

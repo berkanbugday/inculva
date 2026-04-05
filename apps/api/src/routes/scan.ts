@@ -8,6 +8,7 @@ interface CreateScanBody {
   wcagLevel?: "A" | "AA" | "AAA";
   maxPages?: number;
   type?: "page" | "site";
+  contentLocale?: "en" | "tr";
 }
 
 interface ScanParams {
@@ -28,11 +29,24 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
   app.post<{ Body: CreateScanBody }>(
     "/scans",
     { preHandler: [app.verifyInternalAuth] },
-    async (request: FastifyRequest<{ Body: CreateScanBody }>, reply: FastifyReply) => {
-      const { siteId, url, wcagLevel = "AA", maxPages = 1, type = "page" } = request.body;
+    async (
+      request: FastifyRequest<{ Body: CreateScanBody }>,
+      reply: FastifyReply,
+    ) => {
+      const {
+        siteId,
+        url,
+        wcagLevel = "AA",
+        maxPages = 1,
+        type = "page",
+        contentLocale = "en",
+      } = request.body;
+      const scanLocale = contentLocale === "tr" ? "tr" : "en";
 
       if (!siteId || !url) {
-        return reply.status(400).send({ success: false, error: "siteId and url are required" });
+        return reply
+          .status(400)
+          .send({ success: false, error: "siteId and url are required" });
       }
 
       // Validate URL safety
@@ -46,7 +60,9 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
       // Verify site exists
       const site = await db.site.findUnique({ where: { id: siteId } });
       if (!site) {
-        return reply.status(404).send({ success: false, error: "Site not found" });
+        return reply
+          .status(404)
+          .send({ success: false, error: "Site not found" });
       }
 
       if (type === "site") {
@@ -68,6 +84,7 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
           startUrl: url,
           wcagLevel,
           maxPages,
+          contentLocale: scanLocale,
         });
 
         return reply.status(201).send({
@@ -104,6 +121,7 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
         siteId,
         url,
         wcagLevel,
+        contentLocale: scanLocale,
       });
 
       return reply.status(201).send({
@@ -121,7 +139,10 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
   app.get<{ Params: ScanParams }>(
     "/scans/:scanId",
     { preHandler: [app.verifyInternalAuth] },
-    async (request: FastifyRequest<{ Params: ScanParams }>, reply: FastifyReply) => {
+    async (
+      request: FastifyRequest<{ Params: ScanParams }>,
+      reply: FastifyReply,
+    ) => {
       const { scanId } = request.params;
 
       const scan = await db.scan.findUnique({
@@ -143,10 +164,14 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
       });
 
       if (!scan) {
-        return reply.status(404).send({ success: false, error: "Scan not found" });
+        return reply
+          .status(404)
+          .send({ success: false, error: "Scan not found" });
       }
 
-      const pagesScanned = scan.pages.filter((p) => p.status === "completed" || p.status === "failed").length;
+      const pagesScanned = scan.pages.filter(
+        (p) => p.status === "completed" || p.status === "failed",
+      ).length;
       const pagesTotal = scan.pages.length;
 
       return reply.send({
@@ -167,7 +192,10 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
     "/sites/:siteId/scans",
     { preHandler: [app.verifyInternalAuth] },
     async (
-      request: FastifyRequest<{ Params: SiteParams; Querystring: ListScansQuery }>,
+      request: FastifyRequest<{
+        Params: SiteParams;
+        Querystring: ListScansQuery;
+      }>,
       reply: FastifyReply,
     ) => {
       const { siteId } = request.params;
@@ -187,7 +215,10 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
         db.scan.count({ where: { siteId } }),
       ]);
 
-      return reply.send({ success: true, data: { scans, total, limit, offset } });
+      return reply.send({
+        success: true,
+        data: { scans, total, limit, offset },
+      });
     },
   );
 
@@ -195,7 +226,10 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
   app.get<{ Params: SiteParams }>(
     "/sites/:siteId/scans/latest",
     { preHandler: [app.verifyInternalAuth] },
-    async (request: FastifyRequest<{ Params: SiteParams }>, reply: FastifyReply) => {
+    async (
+      request: FastifyRequest<{ Params: SiteParams }>,
+      reply: FastifyReply,
+    ) => {
       const { siteId } = request.params;
 
       const scan = await db.scan.findFirst({
@@ -210,7 +244,9 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
       });
 
       if (!scan) {
-        return reply.status(404).send({ success: false, error: "No completed scans found" });
+        return reply
+          .status(404)
+          .send({ success: false, error: "No completed scans found" });
       }
 
       return reply.send({ success: true, data: scan });
@@ -221,7 +257,10 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
   app.get<{ Params: SiteParams }>(
     "/sites/:siteId/compliance",
     { preHandler: [app.verifyInternalAuth] },
-    async (request: FastifyRequest<{ Params: SiteParams }>, reply: FastifyReply) => {
+    async (
+      request: FastifyRequest<{ Params: SiteParams }>,
+      reply: FastifyReply,
+    ) => {
       const { siteId } = request.params;
 
       // Latest scan
@@ -293,7 +332,10 @@ export async function scanRoutes(app: FastifyInstance): Promise<void> {
     "/sites/:siteId/compliance/history",
     { preHandler: [app.verifyInternalAuth] },
     async (
-      request: FastifyRequest<{ Params: SiteParams; Querystring: { days?: number } }>,
+      request: FastifyRequest<{
+        Params: SiteParams;
+        Querystring: { days?: number };
+      }>,
       reply: FastifyReply,
     ) => {
       const { siteId } = request.params;

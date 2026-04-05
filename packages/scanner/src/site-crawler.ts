@@ -3,7 +3,7 @@ import {
   type PlaywrightCrawlingContext,
   Configuration,
 } from "crawlee";
-import AxeBuilder from "@axe-core/playwright";
+import { runAxeInPage, type ScanContentLocale } from "./axe-run.js";
 import { assertSafeResolvedUrl, assertSafeHostname } from "./ssrf.js";
 import {
   mapAxeViolations,
@@ -66,6 +66,7 @@ export interface CrawlSiteOptions {
   maxPages: number;
   scanId: string;
   siteId: string;
+  contentLocale?: ScanContentLocale;
   onPageScanned: (result: CrawlPageResult) => Promise<void>;
   onProgress?: (scanned: number, queued: number) => void;
 }
@@ -141,7 +142,14 @@ async function trySitemapUrls(startUrl: string): Promise<string[]> {
 }
 
 export async function crawlSite(options: CrawlSiteOptions): Promise<void> {
-  const { startUrl, wcagLevel, maxPages, onPageScanned, onProgress } = options;
+  const {
+    startUrl,
+    wcagLevel,
+    maxPages,
+    contentLocale,
+    onPageScanned,
+    onProgress,
+  } = options;
 
   let pagesScanned = 0;
 
@@ -207,7 +215,10 @@ export async function crawlSite(options: CrawlSiteOptions): Promise<void> {
 
         await page.waitForTimeout(POST_LOAD_WAIT_MS);
 
-        const results = await new AxeBuilder({ page }).analyze();
+        const results = await runAxeInPage(
+          page,
+          contentLocale !== undefined ? { contentLocale } : {},
+        );
 
         const violations = mapAxeViolations(results.violations);
         const passedRules = mapAxePasses(results.passes);

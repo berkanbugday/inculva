@@ -71,7 +71,7 @@ export const POLAR_PRODUCTS: PolarProduct[] = [
     features: smallFeatures,
   },
   {
-    productId: process.env["POLAR_SMALL_ANNUAL_PRODUCT_ID"] ?? "",
+    productId: process.env["POLAR_SMALL_YEARLY_PRODUCT_ID"] ?? "",
     plan: "small",
     name: "Small",
     price: { usd: 375 },
@@ -87,7 +87,7 @@ export const POLAR_PRODUCTS: PolarProduct[] = [
     features: mediumFeatures,
   },
   {
-    productId: process.env["POLAR_MEDIUM_ANNUAL_PRODUCT_ID"] ?? "",
+    productId: process.env["POLAR_MEDIUM_YEARLY_PRODUCT_ID"] ?? "",
     plan: "medium",
     name: "Medium",
     price: { usd: 566 },
@@ -103,7 +103,7 @@ export const POLAR_PRODUCTS: PolarProduct[] = [
     features: largeFeatures,
   },
   {
-    productId: process.env["POLAR_LARGE_ANNUAL_PRODUCT_ID"] ?? "",
+    productId: process.env["POLAR_LARGE_YEARLY_PRODUCT_ID"] ?? "",
     plan: "large",
     name: "Large",
     price: { usd: 1133 },

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useMessages } from "@/i18n/useMessages";
+import { useMessages, getLocale } from "@/i18n/useMessages";
 import { ScanResults, type ScanData } from "./scan-results";
 import { ScanHistory, type ScanHistoryItem } from "./scan-history";
 
@@ -105,7 +105,11 @@ export function ScannerClient({ siteId, domain }: Props) {
       const res = await fetch(`/api/sites/${siteId}/scan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url, type: scanType }),
+        body: JSON.stringify({
+          url,
+          type: scanType,
+          contentLocale: getLocale() === "tr" ? "tr" : "en",
+        }),
       });
       const json = await res.json();
       if (!res.ok || !json.success) {

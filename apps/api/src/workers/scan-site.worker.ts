@@ -16,10 +16,12 @@ export interface ScanSiteJobData {
   startUrl: string;
   wcagLevel: WcagLevel;
   maxPages: number;
+  contentLocale?: "en" | "tr";
 }
 
 async function processScanSite(job: Job<ScanSiteJobData>): Promise<void> {
-  const { scanId, siteId, startUrl, wcagLevel, maxPages } = job.data;
+  const { scanId, siteId, startUrl, wcagLevel, maxPages, contentLocale } =
+    job.data;
 
   await db.scan.update({
     where: { id: scanId },
@@ -35,6 +37,7 @@ async function processScanSite(job: Job<ScanSiteJobData>): Promise<void> {
       maxPages,
       scanId,
       siteId,
+      contentLocale: contentLocale === "tr" ? "tr" : "en",
 
       async onPageScanned(result: CrawlPageResult) {
         // Create ScanPage record

@@ -14,7 +14,7 @@ const SCAN_MAX_PER_WINDOW = 5;
 function checkScanRateLimit(userId: string): boolean {
   const now = Date.now();
   const timestamps = (scanRateMap.get(userId) ?? []).filter(
-    (t) => now - t < SCAN_WINDOW_MS
+    (t) => now - t < SCAN_WINDOW_MS,
   );
   if (timestamps.length === 0) {
     scanRateMap.delete(userId);
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest, { params }: Params) {
   if (!checkScanRateLimit(session.user.id)) {
     return NextResponse.json(
       { error: "Too many scans — try again in a few minutes" },
-      { status: 429 }
+      { status: 429 },
     );
   }
 
@@ -54,7 +54,12 @@ export async function POST(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const body = (await request.json()) as { url?: string; wcagLevel?: string; type?: "page" | "site" };
+  const body = (await request.json()) as {
+    url?: string;
+    wcagLevel?: string;
+    type?: "page" | "site";
+    contentLocale?: string;
+  };
   const scanType = body.type ?? "page";
 
   if (!body.url) {
@@ -72,20 +77,28 @@ export async function POST(request: NextRequest, { params }: Params) {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }
 
-  const normalize = (h: string) => h.toLowerCase().replace(/^www\./, "").replace(/:\d+$/, "");
+  const normalize = (h: string) =>
+    h
+      .toLowerCase()
+      .replace(/^www\./, "")
+      .replace(/:\d+$/, "");
   const requestedHost = normalize(parsedUrl.hostname);
-  const siteHost = normalize(site.domain.replace(/^https?:\/\//, "").split("/")[0]!);
+  const siteHost = normalize(
+    site.domain.replace(/^https?:\/\//, "").split("/")[0]!,
+  );
 
   if (requestedHost !== siteHost) {
     return NextResponse.json(
       { error: "URL must match this site's domain" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   const plan = (site.owner?.plan ?? "free") as Plan;
   const limits = PLAN_LIMITS[plan];
-  const wcagLevel = body.wcagLevel === "A" || body.wcagLevel === "AAA" ? body.wcagLevel : "AA";
+  const wcagLevel =
+    body.wcagLevel === "A" || body.wcagLevel === "AAA" ? body.wcagLevel : "AA";
+  const contentLocale = body.contentLocale === "tr" ? "tr" : "en";
 
   // Enforce daily scan limit per plan
   const startOfDay = new Date();
@@ -96,7 +109,7 @@ export async function POST(request: NextRequest, { params }: Params) {
   if (todayScans >= limits.maxScansPerDay) {
     return NextResponse.json(
       { error: "Daily scan limit reached" },
-      { status: 429 }
+      { status: 429 },
     );
   }
 
@@ -114,6 +127,7 @@ export async function POST(request: NextRequest, { params }: Params) {
         wcagLevel,
         maxPages: limits.maxPagesPerScan,
         type: scanType,
+        contentLocale,
       }),
       signal: AbortSignal.timeout(10_000),
     });
@@ -123,7 +137,7 @@ export async function POST(request: NextRequest, { params }: Params) {
     if (!res.ok) {
       return NextResponse.json(
         { error: result.error ?? "Scan failed" },
-        { status: res.status }
+        { status: res.status },
       );
     }
 
@@ -147,7 +161,8 @@ export async function POST(request: NextRequest, { params }: Params) {
         data: { scanId: scan.id, status: "pending" },
       });
     } catch (dbErr) {
-      const message = dbErr instanceof Error ? dbErr.message : "Scan service unavailable";
+      const message =
+        dbErr instanceof Error ? dbErr.message : "Scan service unavailable";
       return NextResponse.json({ error: message }, { status: 503 });
     }
   }
@@ -187,7 +202,9 @@ export async function GET(request: NextRequest, { params }: Params) {
       return NextResponse.json({ error: "Scan not found" }, { status: 404 });
     }
 
-    const pagesScanned = scan.pages.filter((p) => p.status === "completed" || p.status === "failed").length;
+    const pagesScanned = scan.pages.filter(
+      (p) => p.status === "completed" || p.status === "failed",
+    ).length;
 
     return NextResponse.json({
       success: true,
@@ -199,8 +216,14 @@ export async function GET(request: NextRequest, { params }: Params) {
   }
 
   // List scans for site
-  const limit = Math.min(Math.max(1, Number(request.nextUrl.searchParams.get("limit") ?? "20")), 100);
-  const offset = Math.max(0, Number(request.nextUrl.searchParams.get("offset") ?? "0"));
+  const limit = Math.min(
+    Math.max(1, Number(request.nextUrl.searchParams.get("limit") ?? "20")),
+    100,
+  );
+  const offset = Math.max(
+    0,
+    Number(request.nextUrl.searchParams.get("offset") ?? "0"),
+  );
 
   const [scans, total] = await Promise.all([
     db.scan.findMany({

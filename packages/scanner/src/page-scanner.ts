@@ -1,6 +1,6 @@
 import { chromium, type Browser, type Page, type Route } from "playwright";
-import AxeBuilder from "@axe-core/playwright";
 import type { AxeResults } from "axe-core";
+import { runAxeInPage, type ScanContentLocale } from "./axe-run.js";
 import { assertSafeResolvedUrl, assertSafeHostname } from "./ssrf.js";
 import {
   type PageScanResult,
@@ -187,12 +187,14 @@ export function mapAxeIncomplete(
 export interface ScanPageOptions {
   url: string;
   wcagLevel?: WcagLevel;
+  /** UI / storage language for axe messages (in-repo Turkish locale when tr). */
+  contentLocale?: ScanContentLocale;
 }
 
 export async function scanPage(
   options: ScanPageOptions,
 ): Promise<PageScanResult> {
-  const { url, wcagLevel = "AA" } = options;
+  const { url, wcagLevel = "AA", contentLocale } = options;
   const startedAt = new Date().toISOString();
 
   // SSRF check: validate hostname AND resolved IP (prevents DNS rebinding)
@@ -221,7 +223,10 @@ export async function scanPage(
 
     // Run ALL axe-core rules (default excludes experimental).
     // We categorize results by their tags on output rather than limiting input.
-    const results = await new AxeBuilder({ page }).analyze();
+    const results = await runAxeInPage(
+      page,
+      contentLocale !== undefined ? { contentLocale } : {},
+    );
 
     const violations = mapAxeViolations(results.violations);
     const passedRules = mapAxePasses(results.passes);

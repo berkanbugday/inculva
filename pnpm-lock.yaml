@@ -139,6 +139,9 @@ importers:
       '@inculva/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@inculva/wcag-kb':
+        specifier: workspace:*
+        version: link:../../packages/wcag-kb
       '@polar-sh/nextjs':
         specifier: 0.9.5
         version: 0.9.5(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
@@ -285,12 +288,12 @@ importers:
 
   packages/scanner:
     dependencies:
-      '@axe-core/playwright':
-        specifier: 4.10.1
-        version: 4.10.1(playwright-core@1.58.2)
       '@crawlee/playwright':
         specifier: 3.12.0
         version: 3.12.0(playwright@1.49.0)
+      '@inculva/wcag-kb':
+        specifier: workspace:*
+        version: link:../wcag-kb
       axe-core:
         specifier: 4.10.2
         version: 4.10.2
@@ -341,6 +344,12 @@ importers:
       tailwindcss:
         specifier: 4.2.1
         version: 4.2.1
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+
+  packages/wcag-kb:
+    devDependencies:
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -451,11 +460,6 @@ packages:
 
   '@astrojs/yaml2ts@0.2.3':
     resolution: {integrity: sha512-PJzRmgQzUxI2uwpdX2lXSHtP4G8ocp24/t+bZyf5Fy0SZLSF9f9KXZoMlFM/XCGue+B0nH/2IZ7FpBYQATBsCg==}
-
-  '@axe-core/playwright@4.10.1':
-    resolution: {integrity: sha512-EV5t39VV68kuAfMKqb/RL+YjYKhfuGim9rgIaQ6Vntb2HgaCaau0h98Y3WEUqW1+PbdzxDtDNjFAipbtZuBmEA==}
-    peerDependencies:
-      playwright-core: '>= 1.0.0'
 
   '@babel/code-frame@7.29.0':
     resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
@@ -7029,11 +7033,6 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright-core@1.58.2:
-    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright@1.49.0:
     resolution: {integrity: sha512-eKpmys0UFDnfNb3vfsf8Vx2LEOtflgRebl0Im2eQQnYMA4Aqd+Zw8bEOB+7ZKvN76901mRnqdsiOGKxzVTbi7A==}
     engines: {node: '>=18'}
@@ -9287,11 +9286,6 @@ snapshots:
   '@astrojs/yaml2ts@0.2.3':
     dependencies:
       yaml: 2.8.2
-
-  '@axe-core/playwright@4.10.1(playwright-core@1.58.2)':
-    dependencies:
-      axe-core: 4.10.2
-      playwright-core: 1.58.2
 
   '@babel/code-frame@7.29.0':
     dependencies:
@@ -16960,8 +16954,6 @@ snapshots:
       find-up: 5.0.0
 
   playwright-core@1.49.0: {}
-
-  playwright-core@1.58.2: {}
 
   playwright@1.49.0:
     dependencies:

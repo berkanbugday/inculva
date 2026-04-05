@@ -1,0 +1,64 @@
+{
+  "lang": "tr",
+  "failureSummaries": {
+    "none": {
+      "failureMessage": "Şunların tümünü giderin:{{~it:value}}\n  {{=value.split('\\n').join('\\n  ')}}{{~}}"
+    },
+    "any": {
+      "failureMessage": "Şu çözümlerden birini uygulayın:{{~it:value}}\n  {{=value.split('\\n').join('\\n  ')}}{{~}}"
+    }
+  },
+  "incompleteFallbackMessage": "axe nedeni açıklayamadı. Öğeyi geliştirici araçlarıyla inceleyin.",
+  "checks": {
+    "color-contrast-enhanced": {
+      "pass": "Öğenin yeterli renk kontrastı var: ${data.contrastRatio}",
+      "fail": {
+        "default": "Öğenin renk kontrastı yetersiz: ${data.contrastRatio} (ön plan: ${data.fgColor}, arka plan: ${data.bgColor}, yazı boyutu: ${data.fontSize}, yazı kalınlığı: ${data.fontWeight}). Beklenen kontrast oranı: ${data.expectedContrastRatio}",
+        "fgOnShadowColor": "Öğenin ön plan ile gölge rengi arasında yetersiz kontrast: ${data.contrastRatio} (ön plan: ${data.fgColor}, metin gölgesi: ${data.shadowColor}, yazı boyutu: ${data.fontSize}, yazı kalınlığı: ${data.fontWeight}). Beklenen kontrast oranı: ${data.expectedContrastRatio}",
+        "shadowOnBgColor": "Öğenin gölge rengi ile arka plan arasında yetersiz kontrast: ${data.contrastRatio} (metin gölgesi: ${data.shadowColor}, arka plan: ${data.bgColor}, yazı boyutu: ${data.fontSize}, yazı kalınlığı: ${data.fontWeight}). Beklenen kontrast oranı: ${data.expectedContrastRatio}"
+      },
+      "incomplete": {
+        "default": "Kontrast oranı belirlenemedi",
+        "bgImage": "Arka plan görüntüsü nedeniyle arka plan rengi belirlenemedi",
+        "bgGradient": "Arka plan gradyanı nedeniyle arka plan rengi belirlenemedi",
+        "imgNode": "Öğe bir görüntü düğümü içerdiği için arka plan rengi belirlenemedi",
+        "bgOverlap": "Başka bir öğeyle üst üste bindiği için arka plan rengi belirlenemedi",
+        "fgAlpha": "Alfa şeffaflığı nedeniyle ön plan rengi belirlenemedi",
+        "elmPartiallyObscured": "Kısmen başka bir öğe tarafından kapatıldığı için arka plan rengi belirlenemedi",
+        "elmPartiallyObscuring": "Diğer öğelerle kısmen çakıştığı için arka plan rengi belirlenemedi",
+        "outsideViewport": "Görünüm alanı dışında olduğu için arka plan rengi belirlenemedi",
+        "equalRatio": "Öğe arka planla 1:1 kontrast oranına sahip",
+        "shortTextContent": "İçerik gerçek metin olup olmadığını anlamak için çok kısa",
+        "nonBmp": "İçerik yalnızca metin olmayan karakterler içeriyor",
+        "pseudoContent": "Sahte (pseudo) öğe nedeniyle arka plan rengi belirlenemedi"
+      }
+    },
+    "color-contrast": {
+      "pass": {
+        "default": "Öğenin yeterli renk kontrastı var: ${data.contrastRatio}",
+        "hidden": "Öğe gizli"
+      },
+      "fail": {
+        "default": "Öğenin renk kontrastı yetersiz: ${data.contrastRatio} (ön plan: ${data.fgColor}, arka plan: ${data.bgColor}, yazı boyutu: ${data.fontSize}, yazı kalınlığı: ${data.fontWeight}). Beklenen kontrast oranı: ${data.expectedContrastRatio}",
+        "fgOnShadowColor": "Öğenin ön plan ile gölge rengi arasında yetersiz kontrast: ${data.contrastRatio} (ön plan: ${data.fgColor}, metin gölgesi: ${data.shadowColor}, yazı boyutu: ${data.fontSize}, yazı kalınlığı: ${data.fontWeight}). Beklenen kontrast oranı: ${data.expectedContrastRatio}",
+        "shadowOnBgColor": "Öğenin gölge rengi ile arka plan arasında yetersiz kontrast: ${data.contrastRatio} (metin gölgesi: ${data.shadowColor}, arka plan: ${data.bgColor}, yazı boyutu: ${data.fontSize}, yazı kalınlığı: ${data.fontWeight}). Beklenen kontrast oranı: ${data.expectedContrastRatio}"
+      },
+      "incomplete": {
+        "default": "Kontrast oranı belirlenemedi",
+        "bgImage": "Arka plan görüntüsü nedeniyle arka plan rengi belirlenemedi",
+        "bgGradient": "Arka plan gradyanı nedeniyle arka plan rengi belirlenemedi",
+        "imgNode": "Öğe bir görüntü düğümü içerdiği için arka plan rengi belirlenemedi",
+        "bgOverlap": "Başka bir öğeyle üst üste bindiği için arka plan rengi belirlenemedi",
+        "complexTextShadows": "Karmaşık metin gölgeleri nedeniyle kontrast belirlenemedi",
+        "fgAlpha": "Alfa şeffaflığı nedeniyle ön plan rengi belirlenemedi",
+        "elmPartiallyObscured": "Kısmen başka bir öğe tarafından kapatıldığı için arka plan rengi belirlenemedi",
+        "elmPartiallyObscuring": "Diğer öğelerle kısmen çakıştığı için arka plan rengi belirlenemedi",
+        "outsideViewport": "Görünüm alanı dışında olduğu için arka plan rengi belirlenemedi",
+        "equalRatio": "Öğe arka planla 1:1 kontrast oranına sahip",
+        "shortTextContent": "İçerik gerçek metin olup olmadığını anlamak için çok kısa",
+        "nonBmp": "İçerik yalnızca metin olmayan karakterler içeriyor",
+        "pseudoContent": "Sahte (pseudo) öğe nedeniyle arka plan rengi belirlenemedi"
+      }
+    }
+  }
+}

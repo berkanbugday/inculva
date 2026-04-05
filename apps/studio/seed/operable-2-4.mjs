@@ -835,7 +835,7 @@ const rules = [
 
         heading("Descriptive link text", "h3"),
         code(
-          '<!-- Bad: Generic link text -->\n<p>We published our annual report. <a href="/report">Click here</a>.</p>\n<p>Read our accessibility guide. <a href="/guide">Read more</a></p>\n\n<!-- Good: Self-descriptive link text -->\n<p><a href="/report">Download the 2025 annual report</a></p>\n<p><a href="/guide">Read our complete accessibility guide</a></p>\n\n<!-- Good: Context from enclosing element -->\n<li>\n  <h3>Accessibility Audit Service</h3>\n  <p>We test your site against WCAG 2.2 criteria.\n    <a href="/services/audit">Learn more about our audit service</a>\n  </p>\n</li>',
+          '<!-- Bad: Generic link text -->\n<p>We published our yearly report. <a href="/report">Click here</a>.</p>\n<p>Read our accessibility guide. <a href="/guide">Read more</a></p>\n\n<!-- Good: Self-descriptive link text -->\n<p><a href="/report">Download the 2025 yearly report</a></p>\n<p><a href="/guide">Read our complete accessibility guide</a></p>\n\n<!-- Good: Context from enclosing element -->\n<li>\n  <h3>Accessibility Audit Service</h3>\n  <p>We test your site against WCAG 2.2 criteria.\n    <a href="/services/audit">Learn more about our audit service</a>\n  </p>\n</li>',
           "html",
         ),
 
@@ -2006,7 +2006,7 @@ const rules = [
 
         heading("Cards with self-descriptive links", "h3"),
         code(
-          '<!-- Fails: Multiple "View details" links on the same page -->\n<div class="card">\n  <h3>Monthly Report</h3>\n  <a href="/reports/monthly">View details</a>\n</div>\n<div class="card">\n  <h3>Annual Summary</h3>\n  <a href="/reports/annual">View details</a>\n</div>\n\n<!-- Passes: Each link is uniquely descriptive -->\n<div class="card">\n  <h3>Monthly Report</h3>\n  <a href="/reports/monthly">View monthly report details</a>\n</div>\n<div class="card">\n  <h3>Annual Summary</h3>\n  <a href="/reports/annual">View annual summary details</a>\n</div>',
+          '<!-- Fails: Multiple "View details" links on the same page -->\n<div class="card">\n  <h3>Monthly Report</h3>\n  <a href="/reports/monthly">View details</a>\n</div>\n<div class="card">\n  <h3>Yearly Summary</h3>\n  <a href="/reports/yearly">View details</a>\n</div>\n\n<!-- Passes: Each link is uniquely descriptive -->\n<div class="card">\n  <h3>Monthly Report</h3>\n  <a href="/reports/monthly">View monthly report details</a>\n</div>\n<div class="card">\n  <h3>Yearly Summary</h3>\n  <a href="/reports/yearly">View yearly summary details</a>\n</div>',
           "html",
         ),
 

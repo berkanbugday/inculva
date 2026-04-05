@@ -2177,7 +2177,7 @@ const guides = [
         bullet('Automated testing in every deployment pipeline.'),
         bullet('Monthly manual spot-checks on high-traffic pages.'),
         bullet('A user feedback channel specifically for accessibility reports.'),
-        bullet('Annual comprehensive audits against the latest WCAG version.'),
+        bullet('Yearly comprehensive audits against the latest WCAG version.'),
         bullet('Tracked metrics: axe-core violation count trend, user-reported accessibility issues per month, conformance score per audit.'),
       ],
       tr: [

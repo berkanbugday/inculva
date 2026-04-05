@@ -16,7 +16,7 @@
     "install-browsers": "playwright install chromium --with-deps"
   },
   "dependencies": {
-    "@axe-core/playwright": "4.10.1",
+    "@inculva/wcag-kb": "workspace:*",
     "axe-core": "4.10.2",
     "crawlee": "3.12.0",
     "@crawlee/playwright": "3.12.0",
