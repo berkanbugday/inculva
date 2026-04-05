@@ -1,4 +1,4 @@
-.PHONY: setup dev db-up db-down db-reset db-studio migrate seed push-api push-landing push
+.PHONY: setup dev db-up db-down db-reset db-studio migrate seed push-api push-manage push-landing push
 
 REPO  ?= inculva/inculva
 TAG   ?= latest
@@ -43,6 +43,9 @@ seed:
 ## Docker
 push-api:
 	docker buildx build --platform linux/amd64 -f apps/api/Dockerfile -t $(REPO):api-$(TAG) --push .
+
+push-manage:
+	docker buildx build --platform linux/amd64 -f apps/manage/Dockerfile -t $(REPO):manage-$(TAG) --push .
 
 push-landing:
 	docker buildx build --platform linux/amd64 -f apps/landing/Dockerfile -t $(REPO):landing-$(TAG) --push .

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { db } from "@inculva/db";
-import { headers, cookies } from "next/headers";
+import { headers } from "next/headers";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { AdminNav } from "./admin-nav";
 
@@ -20,11 +20,9 @@ export default async function AdminLayout({
 
   if (user?.role !== "admin") redirect("/dashboard");
 
-  const locale = (await cookies()).get("locale")?.value ?? "en";
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <DashboardHeader locale={locale} canAddSite={false} />
+      <DashboardHeader canAddSite={false} />
       <AdminNav />
       {children}
     </div>

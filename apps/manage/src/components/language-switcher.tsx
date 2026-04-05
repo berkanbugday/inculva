@@ -1,5 +1,6 @@
 "use client";
 
+import { startTransition } from "react";
 import { SUPPORTED_LOCALES } from "@/i18n/messages";
 import { setLocale, useLocale, useMessages } from "@/i18n/useMessages";
 import type { Locale } from "@/i18n/messages";
@@ -19,7 +20,10 @@ export function LanguageSwitcher() {
     if (next === locale) return;
     setLocale(next);
     document.documentElement.lang = next;
-    router.refresh();
+    // Let locale subscriptions (header, sidebar, etc.) flush before RSC refresh.
+    startTransition(() => {
+      router.refresh();
+    });
   }
 
   return (

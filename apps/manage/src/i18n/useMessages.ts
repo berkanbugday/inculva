@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { getMessages, SUPPORTED_LOCALES } from "./messages";
 import type { DashboardMessages, Locale } from "./messages";
 
@@ -46,16 +46,13 @@ function subscribe(cb: () => void): () => void {
   };
 }
 
-function getSnapshot(): DashboardMessages {
-  return getMessages(getLocale());
-}
-
-function getServerSnapshot(): DashboardMessages {
-  return getMessages("en");
-}
-
 export function useMessages(): DashboardMessages {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const locale = useSyncExternalStore(
+    subscribe,
+    getLocale,
+    () => "en" as Locale,
+  );
+  return useMemo(() => getMessages(locale), [locale]);
 }
 
 export function useLocale(): Locale {

@@ -5,25 +5,25 @@ import { useMessages } from "@/i18n/useMessages";
 
 interface Props {
   monthlyVariantId: string;
-  annualVariantId: string;
+  yearlyVariantId: string;
   planName: string;
   monthlyUsd: number;
-  annualUsd: number;
+  yearlyUsd: number;
 }
 
 export function UpgradeButton({
   monthlyVariantId,
-  annualVariantId,
+  yearlyVariantId,
   planName,
   monthlyUsd,
-  annualUsd,
+  yearlyUsd,
 }: Props) {
   const t = useMessages();
   const [interval, setInterval] = useState<"month" | "year">("month");
   const [loading, setLoading] = useState(false);
 
-  const variantId = interval === "month" ? monthlyVariantId : annualVariantId;
-  const monthlyEquiv = Math.round(annualUsd / 12);
+  const variantId = interval === "month" ? monthlyVariantId : yearlyVariantId;
+  const monthlyEquiv = Math.round(yearlyUsd / 12);
 
   async function handleCheckout() {
     setLoading(true);
@@ -64,7 +64,7 @@ export function UpgradeButton({
               : "text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
           }`}
         >
-          {t.billing.annual} — ${monthlyEquiv}
+          {t.billing.yearly} — ${monthlyEquiv}
           {t.billing.perMonth}
           <span className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
             {t.billing.save17}

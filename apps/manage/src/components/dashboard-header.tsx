@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "./theme-toggle";
@@ -17,7 +18,10 @@ interface Props {
 export function DashboardHeader({ canAddSite, onMenuClick }: Props) {
   const pathname = usePathname();
   const t = useMessages();
-  const label = getPageLabel(pathname, t);
+  const label = useMemo(
+    () => getPageLabel(pathname, t),
+    [pathname, t],
+  );
 
   return (
     <header className="h-14 bg-white dark:bg-[#1a1a2e] border-b border-[#e8eaf0] dark:border-[#2a2a3e] px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shrink-0">

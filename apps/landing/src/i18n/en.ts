@@ -275,9 +275,9 @@ export const en = {
     faq3Q: "What happens if I exceed my page limit?",
     faq3A:
       "If you exceed your monthly pageview limit, we will notify you. Your widget will continue to work, but we may ask you to upgrade to the next tier if the high traffic persists across billing cycles.",
-    faq4Q: "Do you offer annual billing?",
+    faq4Q: "Do you offer yearly billing?",
     faq4A:
-      "Yes, annual billing is available with a 20% discount. Contact sales for enterprise annual agreements.",
+      "Yes, yearly billing is available with a 20% discount. Contact sales for enterprise yearly agreements.",
 
     customPlanTitle: "Need a custom plan?",
     customPlanDesc:
@@ -440,8 +440,7 @@ export const en = {
       "You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.",
 
     section4Title: "4. Acceptable Use",
-    section4P1:
-      "You agree not to use our services to:",
+    section4P1: "You agree not to use our services to:",
     section4Items: [
       "Violate any applicable laws or regulations",
       "Infringe upon the rights of others",
@@ -467,7 +466,7 @@ export const en = {
     section7P1:
       "To the maximum extent permitted by law, inculva shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our services.",
     section7P2:
-      "Our services are provided on an \"as is\" and \"as available\" basis without warranties of any kind, either express or implied.",
+      'Our services are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied.',
 
     section8Title: "8. Termination",
     section8P1:

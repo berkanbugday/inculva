@@ -1,4 +1,8 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
+
+const monorepoRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
 const apiUrl = process.env["NEXT_PUBLIC_API_URL"]!;
 const cdnOrigin = process.env["NEXT_PUBLIC_CDN_URL"]!;
@@ -34,6 +38,17 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  output: "standalone",
+  outputFileTracingRoot: monorepoRoot,
+  // Prisma query-engine binaries live under the workspace root pnpm store; Next
+  // traces includes from the app directory (apps/manage), so paths are relative
+  // to that folder. See https://pris.ly/d/engine-not-found-nextjs
+  outputFileTracingIncludes: {
+    "/**": [
+      "../../node_modules/.pnpm/@prisma+client@*/node_modules/.prisma/client/**/*",
+    ],
+  },
+  serverExternalPackages: ["@prisma/client"],
   transpilePackages: [
     "@inculva/ui",
     "@inculva/types",

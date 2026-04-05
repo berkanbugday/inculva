@@ -543,6 +543,7 @@ export interface DashboardMessages {
     showAllPages: string;
     showFewerPages: string;
     learnMore: string;
+    wcagKbArticleGeneric: string;
     bestPractice: string;
     cssSelector: string;
     passed: string;
@@ -1336,6 +1337,7 @@ const en: DashboardMessages = {
     showAllPages: "Show all {count} pages",
     showFewerPages: "Show fewer",
     learnMore: "Learn more",
+    wcagKbArticleGeneric: "WCAG knowledge article",
     bestPractice: "Best Practice",
     cssSelector: "CSS Selector",
     passed: "passed",
@@ -2180,6 +2182,7 @@ const tr: DashboardMessages = {
     showAllPages: "T\u00FCm {count} sayfay\u0131 g\u00F6ster",
     showFewerPages: "Daha az g\u00F6ster",
     learnMore: "Daha fazla bilgi",
+    wcagKbArticleGeneric: "WCAG bilgi makalesi",
     bestPractice: "En \u0130yi Uygulama",
     cssSelector: "CSS Se\u00E7ici",
     passed: "ge\u00E7ti",

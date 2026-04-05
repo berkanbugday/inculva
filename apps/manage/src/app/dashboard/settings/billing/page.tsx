@@ -256,7 +256,7 @@ export default async function BillingPage({
               [
                 t.billing.billingLabel,
                 sub.interval === "year"
-                  ? t.billing.intervalAnnual
+                  ? t.billing.intervalYearly
                   : t.billing.intervalMonthly,
               ],
               [

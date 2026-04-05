@@ -106,9 +106,9 @@ export function BillingPlanCards({
           const popular = product.plan === "medium";
           const current = product.plan === currentPlan;
           const monthly = monthlyPrice[product.plan] ?? 0;
-          const annualTotal = Math.round(monthly * 12 * 0.8);
+          const yearlyTotal = Math.round(monthly * 12 * 0.8);
           const savings =
-            interval === "year" && monthly ? monthly * 12 - annualTotal : 0;
+            interval === "year" && monthly ? monthly * 12 - yearlyTotal : 0;
 
           return (
             <div
@@ -147,7 +147,7 @@ export function BillingPlanCards({
                 {interval === "year" ? (
                   <>
                     <p className="text-4xl font-bold text-gray-900 dark:text-white">
-                      ${annualTotal}
+                      ${yearlyTotal}
                       <span className="text-sm font-normal text-gray-500 dark:text-gray-400 ml-1">
                         {t.billing.perYear}
                       </span>
