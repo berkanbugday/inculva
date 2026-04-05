@@ -9,14 +9,18 @@ RUN corepack enable && corepack prepare pnpm@9 --activate
 
 WORKDIR /app
 
-# Embedded in the client bundle and CSP (see next.config.ts)
-ARG NEXT_PUBLIC_API_URL=http://localhost:3001
+# Baked into the client bundle and CSP (next.config.ts). Defaults match docs/DEPLOYMENT.md
+# (production). Override any with: docker build --build-arg NEXT_PUBLIC_API_URL=https://staging/...
+ARG NEXT_PUBLIC_API_URL=https://inculva-production.up.railway.app
+ARG NEXT_PUBLIC_APP_URL=https://app.inculva.com
 ARG NEXT_PUBLIC_CDN_URL=https://cdn.inculva.com
-# Optional: public manage app origin. If omitted, auth client uses the browser origin.
-ARG NEXT_PUBLIC_APP_URL=http://localhost:3000
+ARG NEXT_PUBLIC_LANDING_URL=https://inculva.com
+ARG NEXT_PUBLIC_WIDGET_URL=https://cdn.inculva.com/widget.js
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-ENV NEXT_PUBLIC_CDN_URL=${NEXT_PUBLIC_CDN_URL}
 ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+ENV NEXT_PUBLIC_CDN_URL=${NEXT_PUBLIC_CDN_URL}
+ENV NEXT_PUBLIC_LANDING_URL=${NEXT_PUBLIC_LANDING_URL}
+ENV NEXT_PUBLIC_WIDGET_URL=${NEXT_PUBLIC_WIDGET_URL}
 
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY packages/db/package.json packages/db/

@@ -74,6 +74,16 @@ export interface DashboardMessages {
     privacyPolicy: string;
     and: string;
     loginFailed: string;
+    /** Better Auth INVALID_EMAIL_OR_PASSWORD */
+    invalidEmailOrPassword: string;
+    /** Better Auth INVALID_EMAIL (API / credential flow) */
+    invalidEmailApi: string;
+    /** Shown when Better Auth returns EMAIL_NOT_VERIFIED (sign-in blocked until verified). */
+    emailNotVerified: string;
+    /** Better Auth FAILED_TO_CREATE_SESSION */
+    authSessionFailed: string;
+    /** Better Auth USER_ALREADY_EXISTS */
+    userAlreadyExists: string;
     registrationFailed: string;
     resetFailed: string;
     invalidToken: string;
@@ -90,6 +100,8 @@ export interface DashboardMessages {
     passwordsDoNotMatch: string;
     minCharsPlaceholder: string;
     repeatPasswordPlaceholder: string;
+    showPassword: string;
+    hidePassword: string;
   };
   authFeatures: {
     oneScriptTag: string;
@@ -818,6 +830,12 @@ const en: DashboardMessages = {
     privacyPolicy: "Privacy Policy",
     and: "and",
     loginFailed: "Login failed",
+    invalidEmailOrPassword: "Invalid email or password",
+    invalidEmailApi: "Invalid email address",
+    emailNotVerified:
+      "Email not verified. Open the link we sent you to verify your account, then try again.",
+    authSessionFailed: "Could not start your session. Please try again.",
+    userAlreadyExists: "An account with this email already exists",
     registrationFailed: "Registration failed",
     resetFailed: "Reset failed. The link may have expired.",
     invalidToken:
@@ -835,6 +853,8 @@ const en: DashboardMessages = {
     passwordsDoNotMatch: "Passwords do not match",
     minCharsPlaceholder: "Min. 8 characters",
     repeatPasswordPlaceholder: "Repeat new password",
+    showPassword: "Show password",
+    hidePassword: "Hide password",
   },
   authFeatures: {
     oneScriptTag: "One script tag \u2014 live in minutes",
@@ -1636,6 +1656,13 @@ const tr: DashboardMessages = {
     privacyPolicy: "Gizlilik Politikas\u0131",
     and: "ve",
     loginFailed: "Giri\u015F ba\u015Far\u0131s\u0131z",
+    invalidEmailOrPassword: "E-posta veya \u015Fifre hatal\u0131",
+    invalidEmailApi: "Ge\u00E7ersiz e-posta adresi",
+    emailNotVerified:
+      "E-posta do\u011Frulanmad\u0131. Hesab\u0131n\u0131z\u0131 do\u011Frulamak i\u00E7in g\u00F6nderdi\u011Fimiz ba\u011Flant\u0131y\u0131 a\u00E7\u0131n, ard\u0131ndan tekrar deneyin.",
+    authSessionFailed:
+      "Oturum ba\u015Flat\u0131lamad\u0131. L\u00FCtfen tekrar deneyin.",
+    userAlreadyExists: "Bu e-posta ile zaten bir hesap var",
     registrationFailed: "Kay\u0131t ba\u015Far\u0131s\u0131z",
     resetFailed:
       "S\u0131f\u0131rlama ba\u015Far\u0131s\u0131z. Ba\u011Flant\u0131n\u0131n s\u00FCresi dolmu\u015F olabilir.",
@@ -1654,6 +1681,8 @@ const tr: DashboardMessages = {
     passwordsDoNotMatch: "\u015eifreler e\u015fle\u015fmiyor",
     minCharsPlaceholder: "En az 8 karakter",
     repeatPasswordPlaceholder: "Yeni \u015fifreyi tekrarla",
+    showPassword: "\u015Eifreyi g\u00F6ster",
+    hidePassword: "\u015Eifreyi gizle",
   },
   authFeatures: {
     oneScriptTag: "Tek script etiketi \u2014 dakikalar i\u00E7inde haz\u0131r",
@@ -1759,7 +1788,7 @@ const tr: DashboardMessages = {
     newSite: "Yeni site",
     noSites: "Hen\u00FCz site yok",
     noSitesDesc:
-      "Alan ad\u0131n\u0131z\u0131 kay\u0131t edin ve bir g\u00F6m\u00FCl\u00FC kodu al\u0131n. Eri\u015Filebilirlik widget\u0027\u0131n\u0131z 5 dakikadan k\u0131sa s\u00FCrede yay\u0131na girer.",
+      "Alan ad\u0131n\u0131z\u0131 kay\u0131t edin ve bir g\u00F6m\u00FCl\u00FC kod al\u0131n. Eri\u015Filebilirlik widget\u0027\u0131n\u0131z 5 dakikadan k\u0131sa s\u00FCrede yay\u0131na girer.",
     noSitesAction: "\u0130lk sitenizi ekleyin",
     noSitesHint: "Ba\u015Flamak i\u00E7in ilk sitenizi ekleyin.",
     siteConnected: "site ba\u011Fl\u0131",

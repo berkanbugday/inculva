@@ -9,7 +9,11 @@ import { useRouter } from "next/navigation";
 import { cn } from "@inculva/ui";
 import { OAuthButtons, OAuthDivider } from "@/components/oauth-buttons";
 import { AuthBrandPanel } from "@/components/auth-brand-panel";
-import { useMessages } from "@/i18n/useMessages";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useMessages, useLocale } from "@/i18n/useMessages";
+import { landingAbsoluteUrl } from "@/lib/landing-urls";
+import { translateBetterAuthError } from "@/lib/auth-error-i18n";
+import { AuthPasswordField } from "@/components/auth-password-field";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
@@ -25,6 +29,9 @@ const btnPrimary =
 function RegisterForm() {
   const router = useRouter();
   const t = useMessages();
+  const locale = useLocale();
+  const termsUrl = landingAbsoluteUrl("/terms-of-use", locale);
+  const privacyUrl = landingAbsoluteUrl("/privacy-policy", locale);
   const schema = z.object({
     name: z.string().min(2, t.auth.nameMinChars),
     email: z.string().email(t.auth.validEmail),
@@ -45,20 +52,22 @@ function RegisterForm() {
     });
     if (result.error) {
       setError("root", {
-        message: result.error.message ?? t.auth.registrationFailed,
+        message: translateBetterAuthError(
+          result.error.message,
+          t.auth,
+          t.auth.registrationFailed,
+        ),
       });
       return;
     }
-    void fetch("/api/auth/welcome", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: data.name, email: data.email }),
-    });
     router.push("/dashboard");
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex relative">
+      <div className="absolute top-5 right-5 sm:top-6 sm:right-6 z-20">
+        <LanguageSwitcher />
+      </div>
       <AuthBrandPanel>
         <div>
           <h2 className="text-3xl font-black text-white leading-tight mb-4">
@@ -204,9 +213,8 @@ function RegisterForm() {
               <label htmlFor="password" className={labelCls}>
                 {t.auth.password}
               </label>
-              <input
+              <AuthPasswordField
                 id="password"
-                type="password"
                 autoComplete="new-password"
                 aria-describedby={[
                   "pw-hint",
@@ -216,7 +224,9 @@ function RegisterForm() {
                   .join(" ")}
                 aria-invalid={!!errors.password}
                 aria-required="true"
-                className={inputCls}
+                inputClassName={inputCls}
+                showPasswordLabel={t.auth.showPassword}
+                hidePasswordLabel={t.auth.hidePassword}
                 {...register("password")}
               />
               <p
@@ -304,14 +314,18 @@ function RegisterForm() {
             <p className="text-center text-xs text-gray-400 dark:text-gray-600 leading-relaxed">
               {t.auth.agreeTerms}{" "}
               <a
-                href="/terms"
+                href={termsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="underline hover:text-gray-700 dark:hover:text-gray-400"
               >
                 {t.auth.terms}
               </a>{" "}
               {t.auth.and}{" "}
               <a
-                href="/privacy"
+                href={privacyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="underline hover:text-gray-700 dark:hover:text-gray-400"
               >
                 {t.auth.privacyPolicy}

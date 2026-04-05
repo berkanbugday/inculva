@@ -9,7 +9,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@inculva/ui";
 import { OAuthButtons, OAuthDivider } from "@/components/oauth-buttons";
 import { AuthBrandPanel } from "@/components/auth-brand-panel";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { useMessages } from "@/i18n/useMessages";
+import { translateBetterAuthError } from "@/lib/auth-error-i18n";
+import { AuthPasswordField } from "@/components/auth-password-field";
 
 const CDN_URL = process.env["NEXT_PUBLIC_CDN_URL"]!;
 
@@ -50,7 +53,13 @@ function LoginForm() {
       password: data.password,
     });
     if (result.error) {
-      setError("root", { message: result.error.message ?? t.auth.loginFailed });
+      setError("root", {
+        message: translateBetterAuthError(
+          result.error.message,
+          t.auth,
+          t.auth.loginFailed,
+        ),
+      });
       return;
     }
     router.push(callbackUrl);
@@ -63,7 +72,10 @@ function LoginForm() {
   ];
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex relative">
+      <div className="absolute top-5 right-5 sm:top-6 sm:right-6 z-20">
+        <LanguageSwitcher />
+      </div>
       <AuthBrandPanel>
         <div>
           <h2 className="text-3xl font-black text-white leading-tight mb-3">
@@ -202,16 +214,17 @@ function LoginForm() {
                   {t.auth.forgotPassword}
                 </a>
               </div>
-              <input
+              <AuthPasswordField
                 id="password"
-                type="password"
                 autoComplete="current-password"
                 aria-describedby={
                   errors.password ? "password-error" : undefined
                 }
                 aria-invalid={!!errors.password}
                 aria-required="true"
-                className={inputCls}
+                inputClassName={inputCls}
+                showPasswordLabel={t.auth.showPassword}
+                hidePasswordLabel={t.auth.hidePassword}
                 {...register("password")}
               />
               {errors.password && (

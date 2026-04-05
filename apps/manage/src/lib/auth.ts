@@ -5,6 +5,7 @@ import {
   sendEmail,
   verifyEmailTemplate,
   resetPasswordTemplate,
+  welcomeTemplate,
   detectLocale,
 } from "@inculva/email";
 
@@ -12,6 +13,24 @@ export const auth = betterAuth({
   database: prismaAdapter(db, {
     provider: "postgresql",
   }),
+
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user, ctx) => {
+          const request =
+            ctx && "request" in ctx && ctx.request instanceof Request
+              ? ctx.request
+              : undefined;
+          const locale = request ? detectLocale(request) : "en";
+          const { html, subject } = welcomeTemplate(user.name ?? "", locale);
+          void sendEmail({ to: user.email, subject, html }).catch((err) =>
+            console.error("[email] Welcome failed:", err),
+          );
+        },
+      },
+    },
+  },
 
   emailAndPassword: {
     enabled: true,
