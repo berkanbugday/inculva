@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 
 const PUBLIC_PATHS = ["/login", "/register", "/forgot-password", "/reset-password", "/api/auth", "/banned", "/s/"];
+const AUTH_PAGES = ["/login", "/register", "/forgot-password", "/reset-password"];
 
 // Per-IP rate limiter for auth endpoints: 20 attempts per 15 minutes
 // Protects against brute-force on sign-in and password reset
@@ -46,10 +47,16 @@ export function middleware(request: NextRequest): NextResponse {
     }
   }
 
+  const session = getSessionCookie(request);
+
+  // If already authenticated, prevent access to auth pages.
+  // This avoids confusing UX where a logged-in user can navigate back to /login.
+  if (session && AUTH_PAGES.some((p) => pathname.startsWith(p))) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
   const isPublic = PUBLIC_PATHS.some((p) => pathname.startsWith(p));
   if (isPublic) return NextResponse.next();
-
-  const session = getSessionCookie(request);
 
   if (!session) {
     const loginUrl = new URL("/login", request.url);

@@ -60,8 +60,10 @@ export const auth = betterAuth({
   },
 
   session: {
-    expiresIn: 60 * 60 * 24 * 7, // 7 days
-    updateAge: 60 * 60 * 24,
+    // Session timeout (seconds). Keep short for security; override per env if needed.
+    // `updateAge` controls how often the session is refreshed during active use.
+    expiresIn: Number(process.env["BETTER_AUTH_SESSION_EXPIRES_IN_SECONDS"] ?? "") || 60 * 60, // default: 1 hour
+    updateAge: Number(process.env["BETTER_AUTH_SESSION_UPDATE_AGE_SECONDS"] ?? "") || 15 * 60, // default: 15 min
   },
 
   trustedOrigins: [process.env["BETTER_AUTH_URL"] ?? "http://localhost:3000"],
