@@ -13,6 +13,7 @@ export interface DashboardMessages {
     notifications: string;
     deleteSite: string;
     newSite: string;
+    support: string;
   };
   header: {
     signOut: string;
@@ -757,6 +758,38 @@ export interface DashboardMessages {
     networkError: string;
     clickToRename: string;
   };
+  support: {
+    title: string;
+    titleDesc: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    subjectLabel: string;
+    subjectPlaceholder: string;
+    categoryLabel: string;
+    categoryGeneral: string;
+    categoryBug: string;
+    categoryFeature: string;
+    categoryBilling: string;
+    categoryAccessibility: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submit: string;
+    submitting: string;
+    successTitle: string;
+    successDesc: string;
+    sendAnother: string;
+    errorTitle: string;
+    errorDesc: string;
+    nameRequired: string;
+    emailRequired: string;
+    emailInvalid: string;
+    subjectRequired: string;
+    categoryRequired: string;
+    messageRequired: string;
+    messageMinLength: string;
+  };
   breadcrumb: {
     dashboard: string;
   };
@@ -774,6 +807,7 @@ const en: DashboardMessages = {
     notifications: "Notifications",
     deleteSite: "Delete Site",
     newSite: "New Site",
+    support: "Support",
   },
   header: {
     signOut: "Sign out",
@@ -1587,6 +1621,41 @@ const en: DashboardMessages = {
     networkError: "Network error.",
     clickToRename: "Click to rename",
   },
+  support: {
+    title: "Support",
+    titleDesc:
+      "Have a question or issue? Send us a message and we'll get back to you as soon as possible.",
+    nameLabel: "Full name",
+    namePlaceholder: "Jane Smith",
+    emailLabel: "Email address",
+    emailPlaceholder: "jane@example.com",
+    subjectLabel: "Subject",
+    subjectPlaceholder: "Brief description of your issue",
+    categoryLabel: "Category",
+    categoryGeneral: "General inquiry",
+    categoryBug: "Bug report",
+    categoryFeature: "Feature request",
+    categoryBilling: "Billing",
+    categoryAccessibility: "Accessibility",
+    messageLabel: "Message",
+    messagePlaceholder: "Describe your issue or question in detail\u2026",
+    submit: "Send message",
+    submitting: "Sending\u2026",
+    successTitle: "Message sent!",
+    successDesc:
+      "Thank you for reaching out. We\u2019ll get back to you within 1\u20132 business days.",
+    sendAnother: "Send another message",
+    errorTitle: "Something went wrong",
+    errorDesc:
+      "Your message could not be sent. Please try again or email us directly at hi@inculva.com.",
+    nameRequired: "Name is required.",
+    emailRequired: "Email is required.",
+    emailInvalid: "Please enter a valid email address.",
+    subjectRequired: "Subject is required.",
+    categoryRequired: "Please select a category.",
+    messageRequired: "Message is required.",
+    messageMinLength: "Message must be at least 10 characters.",
+  },
   breadcrumb: {
     dashboard: "Dashboard",
   },
@@ -1604,6 +1673,7 @@ const tr: DashboardMessages = {
     notifications: "Bildirimler",
     deleteSite: "Siteyi Sil",
     newSite: "Yeni Site",
+    support: "Destek",
   },
   header: {
     signOut: "\u00C7\u0131k\u0131\u015F yap",
@@ -2251,11 +2321,13 @@ const tr: DashboardMessages = {
       "G\u00FCnl\u00FCk tarama limitine ula\u015F\u0131ld\u0131. Plan\u0131n\u0131z\u0131 y\u00FCkseltin veya yar\u0131n tekrar deneyin.",
     apiErrorRateLimitReached:
       "\u00C7ok fazla tarama iste\u011Fi \u2014 birka\u00E7 dakika sonra tekrar deneyin.",
-    apiErrorUnauthorized: "Tarama ba\u015Flatmak i\u00E7in giri\u015F yap\u0131n.",
+    apiErrorUnauthorized:
+      "Tarama ba\u015Flatmak i\u00E7in giri\u015F yap\u0131n.",
     apiErrorSiteNotFound: "Site bulunamad\u0131.",
     apiErrorUrlRequired: "L\u00FCtfen bir URL girin.",
     apiErrorInvalidUrl: "Ge\u00E7ersiz URL.",
-    apiErrorDomainMismatch: "URL bu sitenin alan ad\u0131yla e\u015Fle\u015Fmelidir.",
+    apiErrorDomainMismatch:
+      "URL bu sitenin alan ad\u0131yla e\u015Fle\u015Fmelidir.",
     wcagDocs: "WCAG belgeleri",
     pageOf: "Sayfa {current} / {total}",
     prev: "\u00D6nceki",
@@ -2458,6 +2530,42 @@ const tr: DashboardMessages = {
     nameLengthError: "Ad 1\u2013100 karakter olmal\u0131d\u0131r.",
     networkError: "A\u011F hatas\u0131.",
     clickToRename: "Yeniden adland\u0131rmak i\u00E7in t\u0131klay\u0131n",
+  },
+  support: {
+    title: "Destek",
+    titleDesc:
+      "Bir sorunuz veya sorununuz mu var? Bize mesaj g\u00F6nderin, en k\u0131sa s\u00FCrede size d\u00F6nece\u011Fiz.",
+    nameLabel: "Ad soyad",
+    namePlaceholder: "Ay\u015Fe Y\u0131lmaz",
+    emailLabel: "E-posta adresi",
+    emailPlaceholder: "ayse@ornek.com",
+    subjectLabel: "Konu",
+    subjectPlaceholder: "Sorununuzun k\u0131sa a\u00E7\u0131klamas\u0131",
+    categoryLabel: "Kategori",
+    categoryGeneral: "Genel soru",
+    categoryBug: "Hata bildirimi",
+    categoryFeature: "\u00D6zellik iste\u011Fi",
+    categoryBilling: "Faturaland\u0131rma",
+    categoryAccessibility: "Eri\u015Filebilirlik",
+    messageLabel: "Mesaj",
+    messagePlaceholder:
+      "Sorununuzu veya sorunuzu ayr\u0131nt\u0131l\u0131 olarak a\u00E7\u0131klay\u0131n\u2026",
+    submit: "Mesaj g\u00F6nder",
+    submitting: "G\u00F6nderiliyor\u2026",
+    successTitle: "Mesaj g\u00F6nderildi!",
+    successDesc:
+      "Bize ula\u015Ft\u0131\u011F\u0131n\u0131z i\u00E7in te\u015Fekk\u00FCrler. 1\u20132 i\u015F g\u00FCn\u00FC i\u00E7inde size d\u00F6nece\u011Fiz.",
+    sendAnother: "Ba\u015Fka bir mesaj g\u00F6nder",
+    errorTitle: "Bir \u015Feyler ters gitti",
+    errorDesc:
+      "Mesaj\u0131n\u0131z g\u00F6nderilemedi. L\u00FCtfen tekrar deneyin veya do\u011Frudan hi@inculva.com adresine e-posta g\u00F6nderin.",
+    nameRequired: "Ad gereklidir.",
+    emailRequired: "E-posta gereklidir.",
+    emailInvalid: "L\u00FCtfen ge\u00E7erli bir e-posta adresi girin.",
+    subjectRequired: "Konu gereklidir.",
+    categoryRequired: "L\u00FCtfen bir kategori se\u00E7in.",
+    messageRequired: "Mesaj gereklidir.",
+    messageMinLength: "Mesaj en az 10 karakter olmal\u0131d\u0131r.",
   },
   breadcrumb: {
     dashboard: "Panel",

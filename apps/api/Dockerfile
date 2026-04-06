@@ -48,6 +48,8 @@ RUN pnpm --filter @inculva/api build
 # ── Runtime ───────────────────────────────────────────────────────────────────
 FROM node:20-bookworm-slim AS runner
 
+RUN apt-get update && apt-get install -y --no-install-recommends procps && rm -rf /var/lib/apt/lists/*
+
 RUN corepack enable && corepack prepare pnpm@9 --activate
 
 WORKDIR /app
@@ -61,6 +63,8 @@ COPY packages/ui/package.json packages/ui/
 COPY packages/wcag-kb/package.json packages/wcag-kb/
 COPY packages/scanner/package.json packages/scanner/
 COPY apps/api/package.json apps/api/
+
+ENV HOME=/tmp
 
 # Production deps only
 RUN pnpm install --frozen-lockfile --prod

@@ -57,7 +57,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       `img-src 'self' data: https://www.gravatar.com ${apiUrl} ${cdnOrigin}`,
       `font-src 'self' ${cdnOrigin} data:`,
-      `connect-src 'self' ${apiUrl} ${cdnOrigin} ${polarUrl} ${cloudflareInsightsConnect}`,
+      `connect-src 'self' ${apiUrl} ${cdnOrigin} ${polarUrl} ${cloudflareInsightsConnect} https://formspree.io`,
       `frame-src 'self' ${landingOrigin}`,
       "frame-ancestors 'none'",
       "base-uri 'self'",

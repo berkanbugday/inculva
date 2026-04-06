@@ -126,7 +126,10 @@ export async function POST(request: NextRequest, { params }: Params) {
   });
   if (todayScans >= limits.maxScansPerDay) {
     return NextResponse.json(
-      { errorCode: "SCAN_DAILY_LIMIT_REACHED", error: "Daily scan limit reached" },
+      {
+        errorCode: "SCAN_DAILY_LIMIT_REACHED",
+        error: "Daily scan limit reached",
+      },
       { status: 429 },
     );
   }
@@ -171,7 +174,9 @@ export async function POST(request: NextRequest, { params }: Params) {
           trigger: "manual",
           maxPages: limits.maxPagesPerScan,
           wcagLevel,
-          pages: { create: { url: parsedUrl.href } },
+          ...(scanType === "site"
+            ? {}
+            : { pages: { create: { url: parsedUrl.href } } }),
         },
       });
       return NextResponse.json({

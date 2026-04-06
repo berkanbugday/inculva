@@ -157,7 +157,12 @@ export async function crawlSite(options: CrawlSiteOptions): Promise<void> {
   const seedUrls = [startUrl, ...sitemapUrls.map(normalizeUrl)];
   const uniqueSeeds = [...new Set(seedUrls)].slice(0, maxPages);
 
-  const config = new Configuration({ persistStorage: false });
+  const config = new Configuration({
+    persistStorage: false,
+    storageClientOptions: {
+      localDataDirectory: `/tmp/crawlee-${options.scanId}`,
+    },
+  });
 
   const crawler = new PlaywrightCrawler(
     {
@@ -167,6 +172,7 @@ export async function crawlSite(options: CrawlSiteOptions): Promise<void> {
       maxRequestRetries: 2,
       launchContext: {
         launchOptions: {
+          headless: true,
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",

@@ -6,6 +6,7 @@ import {
   GlobeIcon,
   UserIcon,
   CreditCardIcon,
+  SupportIcon,
 } from "./sidebar-icons";
 import { useDashboard } from "./dashboard-layout-content";
 
@@ -74,7 +75,9 @@ export function SiteGroup({
           height="12"
           viewBox="0 0 12 12"
           fill="none"
-          className={`shrink-0 transition-transform ${expanded ? "rotate-90" : ""}`}
+          className={`shrink-0 transition-transform ${
+            expanded ? "rotate-90" : ""
+          }`}
           aria-hidden="true"
         >
           <path
@@ -123,11 +126,20 @@ export function SettingsGroup({
   const { messages: t } = useDashboard();
 
   const settingsLinks = [
-    { href: "/dashboard/settings", label: t.settings.account, icon: <UserIcon /> },
+    {
+      href: "/dashboard/settings",
+      label: t.settings.account,
+      icon: <UserIcon />,
+    },
     {
       href: "/dashboard/settings/billing",
       label: t.settings.billing,
       icon: <CreditCardIcon />,
+    },
+    {
+      href: "/dashboard/support",
+      label: t.nav.support,
+      icon: <SupportIcon />,
     },
   ];
 

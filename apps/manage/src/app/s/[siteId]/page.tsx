@@ -14,7 +14,10 @@ interface Props {
   searchParams: Promise<{ lang?: string }>;
 }
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
   const { siteId } = await params;
   const { lang } = await searchParams;
   const site = await db.site.findUnique({
@@ -39,7 +42,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   };
 }
 
-export default async function PublicStatementPage({ params, searchParams }: Props) {
+export default async function PublicStatementPage({
+  params,
+  searchParams,
+}: Props) {
   const { siteId } = await params;
   const { lang } = await searchParams;
   const cookieLocale = (await cookies()).get("locale")?.value;
@@ -57,6 +63,9 @@ export default async function PublicStatementPage({ params, searchParams }: Prop
     include: {
       widgetConfig: {
         select: { lastScanViolations: true, lastScanAt: true },
+      },
+      owner: {
+        select: { name: true, email: true },
       },
     },
   });
@@ -159,11 +168,30 @@ export default async function PublicStatementPage({ params, searchParams }: Prop
           <p>{t.statement.widgetNote}</p>
 
           <SectionHeading>{t.statement.feedbackAndContactTitle}</SectionHeading>
-          <p>
-            {t.statement.feedbackAndContactBody
-              .replace("{siteName}", siteName)
-              .replace("{email}", siteDomain)}
-          </p>
+          <p>{t.statement.feedbackIntro.replace("{siteName}", siteName)}</p>
+          <ul style={{ paddingLeft: "1.5rem", marginBottom: "1rem" }}>
+            {site.owner?.name && (
+              <li>
+                <strong>{t.statement.contactNameLabel}</strong>{" "}
+                {site.owner.name}
+              </li>
+            )}
+            <li>
+              <strong>{t.statement.contactEmailLabel}</strong>{" "}
+              <a
+                href={`mailto:${site.owner?.email ?? siteDomain}`}
+                style={{ color: "#0066cc" }}
+              >
+                {site.owner?.email ?? siteDomain}
+              </a>
+            </li>
+            <li>
+              <strong>{t.statement.contactWebsiteLabel}</strong>{" "}
+              <a href={`https://${siteDomain}`} style={{ color: "#0066cc" }}>
+                {siteDomain}
+              </a>
+            </li>
+          </ul>
           <p>{t.statement.responseTime}</p>
 
           <SectionHeading>{t.statement.enforcementTitle}</SectionHeading>
