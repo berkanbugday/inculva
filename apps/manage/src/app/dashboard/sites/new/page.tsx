@@ -72,7 +72,11 @@ async function createSite(formData: FormData): Promise<void> {
 
   const { allowed, reason } = await canCreateSite(session.user.id);
   if (!allowed) {
-    redirect(`/dashboard/sites/new?error=${encodeURIComponent(reason ?? "Site limit reached")}`);
+    redirect(
+      `/dashboard/sites/new?error=${encodeURIComponent(
+        reason ?? "Site limit reached",
+      )}`,
+    );
   }
 
   const primaryColor =
@@ -113,8 +117,13 @@ async function createSite(formData: FormData): Promise<void> {
       });
     });
     siteId = site.id;
-  } catch (err) {
-    errorMsg = err instanceof Error ? err.message : "Plan limit reached";
+  } catch (err: any) {
+    if (err?.code === "P2002" && err?.meta?.target?.includes("domain")) {
+      errorMsg =
+        "A site with this domain already exists. Please use a different domain.";
+    } else {
+      errorMsg = "Something went wrong. Please try again.";
+    }
   }
 
   if (errorMsg) {
