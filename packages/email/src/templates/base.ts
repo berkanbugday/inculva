@@ -1,4 +1,5 @@
 import { CDN_URL } from "../client.js";
+import { t } from "../i18n/messages.js";
 
 export function escapeHtml(str: string): string {
   return str
@@ -60,8 +61,8 @@ export function baseTemplate(
       </div>
     </div>
     <div class="footer">
-      <p>© ${year} inculva. All rights reserved.</p>
-      <p>You're receiving this because you signed up for inculva.</p>
+      <p>© ${year} inculva. ${t(locale, "footerRights")}</p>
+      <p>${t(locale, "footerReason")}</p>
     </div>
   </div>
 </body>

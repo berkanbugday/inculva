@@ -31,5 +31,7 @@ export async function DELETE(_req: NextRequest): Promise<NextResponse> {
   // Sign out — invalidate cookies
   await auth.api.signOut({ headers: await headers() });
 
-  return NextResponse.json({ ok: true });
+  const res = NextResponse.json({ ok: true });
+  res.cookies.delete("better-auth.session_token");
+  return res;
 }

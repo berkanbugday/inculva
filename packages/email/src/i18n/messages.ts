@@ -18,6 +18,9 @@ export const messages = {
     billingSettings: "Billing Settings",
     helpCenter: "Help Center",
 
+    footerRights: "All rights reserved.",
+    footerReason: "You're receiving this because you signed up for inculva.",
+
     welcomeTitle: "Welcome to inculva!",
     welcomeSubject: "Welcome to inculva",
     welcomeHi: "Welcome to inculva,",
@@ -26,7 +29,7 @@ export const messages = {
     welcomeHowTo: "To get started, please follow these steps:",
     welcomeStep1: "Add your first website",
     welcomeStep2: "Copy the embed code",
-    welcomeStep3: "Paste it before &lt;/body&gt; on your website",
+    welcomeStep3: "Paste it before the closing <code>body</code> tag",
     welcomeCta: "Go to Dashboard",
     welcomePlan: "Your plan:",
     freePlan: "Free",
@@ -199,6 +202,9 @@ export const messages = {
     billingSettings: "Faturalama Ayarları",
     helpCenter: "Yardım Merkezi",
 
+    footerRights: "Tüm hakları saklıdır.",
+    footerReason: "Bu e-postayı inculva'ya kayıt olduğunuz için alıyorsunuz.",
+
     welcomeTitle: "inculva'ya hoş geldiniz!",
     welcomeSubject: "inculva'ya hoş geldiniz",
     welcomeHi: "inculva'ya hoş geldiniz,",
@@ -207,7 +213,7 @@ export const messages = {
     welcomeHowTo: "Başlamak için takip etmeniz gereken adımlar:",
     welcomeStep1: "İlk web sitenizi ekleyin",
     welcomeStep2: "Embed kodunu kopyalayın",
-    welcomeStep3: " sitenizin &lt;/body&gt; etiketinden önce yapıştırın",
+    welcomeStep3: "Kapanış <code>body</code> etiketinden önce yapıştırın",
     welcomeCta: "Kontrol Paneline Git",
     welcomePlan: "Planınız:",
     freePlan: "Ücretsiz",
