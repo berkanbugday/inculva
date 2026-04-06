@@ -10,6 +10,7 @@ const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
 const i = t(lang);
 
 const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
+const APP_URL = import.meta.env.PUBLIC_APP_URL || 'http://localhost:3000';
 
 const footerLinks = {
   [i.footer.product]: [
@@ -17,12 +18,14 @@ const footerLinks = {
     { label: i.footer.features, href: getLocalizedPath('/features', lang) },
     { label: i.footer.pricing, href: getLocalizedPath('/pricing', lang) },
     { label: i.footer.integrations, href: getLocalizedPath('/features', lang) + '#integrations' },
+    { label: i.footer.knowledgeBase, href: getLocalizedPath('/kb', lang) },
   ],
   [i.footer.company]: [
     { label: i.footer.about, href: getLocalizedPath('/about', lang) },
     { label: i.footer.contact, href: getLocalizedPath('/contact', lang) },
     { label: i.footer.privacyPolicy, href: getLocalizedPath('/privacy-policy', lang) },
     { label: i.footer.termsOfUse, href: getLocalizedPath('/terms-of-use', lang) },
+    { label: i.footer.signIn, href: `${APP_URL}/login` },
   ],
 };
 
@@ -33,7 +36,7 @@ const currentYear = new Date().getFullYear();
   <Container>
     <div class="py-16 lg:py-20">
       <!-- Top -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-8 lg:gap-12">
         <!-- Brand -->
         <div class="col-span-2 md:col-span-1">
           <a href={getLocalizedPath('/', lang)} class="inline-flex items-center gap-2 mb-4" aria-label="inculva home">

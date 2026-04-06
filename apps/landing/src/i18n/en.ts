@@ -8,6 +8,7 @@ export const en = {
     about: "About",
     contact: "Contact",
     getStarted: "Book a Call",
+    signIn: "Sign In",
     skipToContent: "Skip to main content",
   },
 
@@ -25,6 +26,9 @@ export const en = {
     contact: "Contact",
     privacyPolicy: "Privacy Policy",
     termsOfUse: "Terms of Use",
+    resources: "Resources",
+    knowledgeBase: "Knowledge Base",
+    signIn: "Sign In",
     copyright: "inculva. All rights reserved.",
   },
 

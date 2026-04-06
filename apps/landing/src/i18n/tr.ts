@@ -10,6 +10,7 @@ export const tr: Translations = {
     about: "Hakkımızda",
     contact: "İletişim",
     getStarted: "Görüşme Planla",
+    signIn: "Giriş Yap",
     skipToContent: "Ana içeriğe geç",
   },
 
@@ -27,6 +28,9 @@ export const tr: Translations = {
     contact: "İletişim",
     privacyPolicy: "Gizlilik Politikası",
     termsOfUse: "Kullanım Koşulları",
+    resources: "Kaynaklar",
+    knowledgeBase: "Bilgi Bankası",
+    signIn: "Giriş Yap",
     copyright: "inculva. Tüm hakları saklıdır.",
   },
 
@@ -470,7 +474,7 @@ export const tr: Translations = {
     section7P1:
       "Yasaların izin verdiği azami ölçüde, inculva hizmetlerimizin kullanımından kaynaklanan dolaylı, arızi, özel, sonuç olarak ortaya çıkan veya cezai zararlardan sorumlu olmayacaktır.",
     section7P2:
-      "Hizmetlerimiz, açık veya zımni herhangi bir garanti olmaksızın \"olduğu gibi\" ve \"mevcut olduğu şekliyle\" sağlanmaktadır.",
+      'Hizmetlerimiz, açık veya zımni herhangi bir garanti olmaksızın "olduğu gibi" ve "mevcut olduğu şekliyle" sağlanmaktadır.',
 
     section8Title: "8. Fesih",
     section8P1:

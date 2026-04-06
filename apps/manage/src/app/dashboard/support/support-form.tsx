@@ -62,7 +62,12 @@ export function SupportForm({ userName, userEmail }: Props) {
   async function onSubmit(data: FormData) {
     setFormState("idle");
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_FORMSPREE_URL!, {
+      const formspreeUrl = process.env.NEXT_PUBLIC_FORMSPREE_URL;
+      if (!formspreeUrl) {
+        setFormState("error");
+        return;
+      }
+      const res = await fetch(formspreeUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
