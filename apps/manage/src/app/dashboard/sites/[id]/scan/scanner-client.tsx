@@ -95,6 +95,27 @@ export function ScannerClient({ siteId, domain }: Props) {
     [siteId, loadHistory],
   );
 
+  function localizeScanApiError(errorCode: unknown): string | null {
+    switch (errorCode) {
+      case "SCAN_DAILY_LIMIT_REACHED":
+        return t.scanner.apiErrorDailyLimitReached;
+      case "SCAN_RATE_LIMIT_REACHED":
+        return t.scanner.apiErrorRateLimitReached;
+      case "AUTH_UNAUTHORIZED":
+        return t.scanner.apiErrorUnauthorized;
+      case "SITE_NOT_FOUND":
+        return t.scanner.apiErrorSiteNotFound;
+      case "SCAN_URL_REQUIRED":
+        return t.scanner.apiErrorUrlRequired;
+      case "SCAN_INVALID_URL":
+        return t.scanner.apiErrorInvalidUrl;
+      case "SCAN_DOMAIN_MISMATCH":
+        return t.scanner.apiErrorDomainMismatch;
+      default:
+        return null;
+    }
+  }
+
   async function runScan(e: React.FormEvent) {
     e.preventDefault();
     setScanning(true);
@@ -113,7 +134,11 @@ export function ScannerClient({ siteId, domain }: Props) {
       });
       const json = await res.json();
       if (!res.ok || !json.success) {
-        setError(json.error ?? t.scanner.scanFailed);
+        setError(
+          localizeScanApiError(json.errorCode) ??
+            json.error ??
+            t.scanner.scanFailed,
+        );
         setScanning(false);
         return;
       }

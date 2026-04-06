@@ -576,6 +576,13 @@ export interface DashboardMessages {
     pagesAbbrev: string;
     scanFailed: string;
     fetchStatusFailed: string;
+    apiErrorDailyLimitReached: string;
+    apiErrorRateLimitReached: string;
+    apiErrorUnauthorized: string;
+    apiErrorSiteNotFound: string;
+    apiErrorUrlRequired: string;
+    apiErrorInvalidUrl: string;
+    apiErrorDomainMismatch: string;
     wcagDocs: string;
     pageOf: string;
     prev: string;
@@ -1378,6 +1385,14 @@ const en: DashboardMessages = {
     pagesAbbrev: "pg",
     scanFailed: "Scan failed",
     fetchStatusFailed: "Failed to fetch scan status",
+    apiErrorDailyLimitReached:
+      "Daily scan limit reached. Upgrade your plan or try again tomorrow.",
+    apiErrorRateLimitReached: "Too many scans — try again in a few minutes.",
+    apiErrorUnauthorized: "Please sign in to run a scan.",
+    apiErrorSiteNotFound: "Site not found.",
+    apiErrorUrlRequired: "Please enter a URL.",
+    apiErrorInvalidUrl: "Invalid URL.",
+    apiErrorDomainMismatch: "URL must match this site's domain.",
     wcagDocs: "WCAG docs",
     pageOf: "Page {current} of {total}",
     prev: "Previous",
@@ -2232,6 +2247,15 @@ const tr: DashboardMessages = {
     pagesAbbrev: "sf",
     scanFailed: "Tarama ba\u015Far\u0131s\u0131z",
     fetchStatusFailed: "Tarama durumu al\u0131namad\u0131",
+    apiErrorDailyLimitReached:
+      "G\u00FCnl\u00FCk tarama limitine ula\u015F\u0131ld\u0131. Plan\u0131n\u0131z\u0131 y\u00FCkseltin veya yar\u0131n tekrar deneyin.",
+    apiErrorRateLimitReached:
+      "\u00C7ok fazla tarama iste\u011Fi \u2014 birka\u00E7 dakika sonra tekrar deneyin.",
+    apiErrorUnauthorized: "Tarama ba\u015Flatmak i\u00E7in giri\u015F yap\u0131n.",
+    apiErrorSiteNotFound: "Site bulunamad\u0131.",
+    apiErrorUrlRequired: "L\u00FCtfen bir URL girin.",
+    apiErrorInvalidUrl: "Ge\u00E7ersiz URL.",
+    apiErrorDomainMismatch: "URL bu sitenin alan ad\u0131yla e\u015Fle\u015Fmelidir.",
     wcagDocs: "WCAG belgeleri",
     pageOf: "Sayfa {current} / {total}",
     prev: "\u00D6nceki",

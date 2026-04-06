@@ -35,12 +35,18 @@ const INTERNAL_API_SECRET = process.env["INTERNAL_API_SECRET"] ?? "";
 export async function POST(request: NextRequest, { params }: Params) {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { errorCode: "AUTH_UNAUTHORIZED", error: "Unauthorized" },
+      { status: 401 },
+    );
   }
 
   if (!checkScanRateLimit(session.user.id)) {
     return NextResponse.json(
-      { error: "Too many scans — try again in a few minutes" },
+      {
+        errorCode: "SCAN_RATE_LIMIT_REACHED",
+        error: "Too many scans — try again in a few minutes",
+      },
       { status: 429 },
     );
   }
@@ -51,7 +57,10 @@ export async function POST(request: NextRequest, { params }: Params) {
     include: { owner: { select: { plan: true } } },
   });
   if (!site) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json(
+      { errorCode: "SITE_NOT_FOUND", error: "Not found" },
+      { status: 404 },
+    );
   }
 
   const body = (await request.json()) as {
@@ -63,7 +72,10 @@ export async function POST(request: NextRequest, { params }: Params) {
   const scanType = body.type ?? "page";
 
   if (!body.url) {
-    return NextResponse.json({ error: "url is required" }, { status: 400 });
+    return NextResponse.json(
+      { errorCode: "SCAN_URL_REQUIRED", error: "url is required" },
+      { status: 400 },
+    );
   }
 
   // Only allow http(s) URLs that match this site's domain
@@ -74,7 +86,10 @@ export async function POST(request: NextRequest, { params }: Params) {
       throw new Error("only http/https allowed");
     }
   } catch {
-    return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+    return NextResponse.json(
+      { errorCode: "SCAN_INVALID_URL", error: "Invalid URL" },
+      { status: 400 },
+    );
   }
 
   const normalize = (h: string) =>
@@ -89,7 +104,10 @@ export async function POST(request: NextRequest, { params }: Params) {
 
   if (requestedHost !== siteHost) {
     return NextResponse.json(
-      { error: "URL must match this site's domain" },
+      {
+        errorCode: "SCAN_DOMAIN_MISMATCH",
+        error: "URL must match this site's domain",
+      },
       { status: 400 },
     );
   }
@@ -108,7 +126,7 @@ export async function POST(request: NextRequest, { params }: Params) {
   });
   if (todayScans >= limits.maxScansPerDay) {
     return NextResponse.json(
-      { error: "Daily scan limit reached" },
+      { errorCode: "SCAN_DAILY_LIMIT_REACHED", error: "Daily scan limit reached" },
       { status: 429 },
     );
   }
