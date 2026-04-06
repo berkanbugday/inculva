@@ -6,9 +6,12 @@ export const messages = {
     hi: "Dear",
     there: "",
     orCopyLink: "Or copy this link",
-    ifYouDidntRequest: "If you did not request this, you may safely ignore this email.",
-    ifYouDidntCreate: "If you did not create an inculva account, you may safely ignore this email.",
-    questionsReply: "Need assistance? Reply to this email — we are happy to help.",
+    ifYouDidntRequest:
+      "If you did not request this, you may safely ignore this email.",
+    ifYouDidntCreate:
+      "If you did not create an inculva account, you may safely ignore this email.",
+    questionsReply:
+      "Need assistance? Reply to this email — we are happy to help.",
     managePreferences: "Manage email preferences",
     dashboard: "Dashboard",
     pricing: "Pricing",
@@ -18,26 +21,29 @@ export const messages = {
     welcomeTitle: "Welcome to inculva!",
     welcomeSubject: "Welcome to inculva",
     welcomeHi: "Welcome to inculva,",
-    welcomeDesc: "inculva helps you make your website accessible to everyone — in minutes.",
+    welcomeDesc:
+      "inculva helps you make your website accessible to everyone — in minutes.",
     welcomeHowTo: "To get started, please follow these steps:",
     welcomeStep1: "Add your first website",
     welcomeStep2: "Copy the embed code",
-    welcomeStep3: "Paste it before </body> on your website",
+    welcomeStep3: "Paste it before &lt;/body&gt; on your website",
     welcomeCta: "Go to Dashboard",
     welcomePlan: "Your plan:",
     freePlan: "Free",
-    freePlanDesc: "1 site, 10,000 events/month.",
-    readyToScale: "Ready to scale?",
-    upgradeAnytime: "Upgrade anytime",
+    freePlanDesc: "Includes a 7-day free trial with full access.",
+    readyToScale: "Want more?",
+    upgradeAnytime: "See plans",
 
     verifyTitle: "Verify your email address",
     verifySubject: "Verify your inculva email",
-    verifyDesc: "Click the button below to verify your email address. This link is valid for 24 hours.",
+    verifyDesc:
+      "Click the button below to verify your email address. This link is valid for 24 hours.",
     verifyCta: "Verify Email",
 
     resetTitle: "Reset your password",
     resetSubject: "Reset your inculva password",
-    resetDesc: "We received a request to reset the password for your inculva account. Click the button below to create a new password. This link is valid for 1 hour.",
+    resetDesc:
+      "We received a request to reset the password for your inculva account. Click the button below to create a new password. This link is valid for 1 hour.",
     resetCta: "Reset Password",
 
     digestTitle: "Your weekly accessibility digest",
@@ -45,29 +51,36 @@ export const messages = {
     digestHi: "Dear",
     digestDesc: "Here is a summary of your widget activity for",
     digestTotalEvents: "Total Events This Week",
-    digestNoActivity: "Your widget did not receive any events this week. Please ensure it is installed correctly on your site.",
+    digestNoActivity:
+      "Your widget did not receive any events this week. Please ensure it is installed correctly on your site.",
     digestCheckSites: "Check your sites",
     digestViewAnalytics: "View full analytics",
     digestSite: "Site",
     digestEvents: "Events",
     digestTopFeature: "Top Feature",
-    digestManage: "You are receiving this weekly digest because you have an active inculva account.",
+    digestManage:
+      "You are receiving this weekly digest because you have an active inculva account.",
 
     healthTitle: "Widget may be offline on",
     healthSubject: "Widget may be offline",
-    healthDesc: "Our health monitoring system could not detect the inculva widget on",
+    healthDesc:
+      "Our health monitoring system could not detect the inculva widget on",
     healthMightMean: "This may mean:",
     healthReason1: "The embed code was accidentally removed",
     healthReason2: "A deployment removed the widget script",
     healthReason3: "The site is temporarily unavailable",
-    healthImpact: "If accessibility tracking is interrupted, visitors will not be able to use the widget until it is restored.",
+    healthImpact:
+      "If accessibility tracking is interrupted, visitors will not be able to use the widget until it is restored.",
     healthCheckSettings: "Check site settings",
-    healthOneNotification: "You will only receive one notification per outage — we will not repeat this until the widget is healthy again.",
+    healthOneNotification:
+      "You will only receive one notification per outage — we will not repeat this until the widget is healthy again.",
 
     drip3Title: "Have you installed the widget yet?",
     drip3Subject: "Have you installed the inculva widget yet?",
-    drip3Desc: "You registered for inculva a few days ago. Question: Have you added the widget to your site?",
-    drip3Desc2: "Installation takes only 30 seconds — paste a single line of HTML before your closing",
+    drip3Desc:
+      "You registered for inculva a few days ago. Question: Have you added the widget to your site?",
+    drip3Desc2:
+      "Installation takes only 30 seconds — paste a single line of HTML before your closing",
     drip3Tag: "tag and your site is live.",
     drip3Cta: "Install the widget",
 
@@ -75,14 +88,19 @@ export const messages = {
     drip7Subject: "Run your free WCAG accessibility scan — inculva",
     drip7Desc: "Did you know that inculva includes a built-in",
     drip7Scanner: "WCAG 2.1 AA scanner",
-    drip7Desc2: "? It scans your site for the most common accessibility issues and shows you exactly what to fix.",
-    drip7Desc3: "It is free for all plans — please click below to scan your first site.",
+    drip7Desc2:
+      "? It scans your site for the most common accessibility issues and shows you exactly what to fix.",
+    drip7Desc3:
+      "It is free for all plans — please click below to scan your first site.",
     drip7Cta: "Run WCAG scan",
-    drip7Ea: "The European Accessibility Act requires digital products to be WCAG 2.1 AA compliant.",
+    drip7Ea:
+      "The European Accessibility Act requires digital products to be WCAG 2.1 AA compliant.",
 
     drip30Title: "Unlock unlimited accessibility",
-    drip30Subject: "You have been using inculva for a month — ready to upgrade?",
-    drip30Desc: "You have been using inculva for a month. Your widget has tracked",
+    drip30Subject:
+      "You have been using inculva for a month — ready to upgrade?",
+    drip30Desc:
+      "You have been using inculva for a month. Your widget has tracked",
     drip30Events: "events",
     drip30Desc2: "so far.",
     drip30FreeLimit: "On the Free plan, you are limited to",
@@ -103,7 +121,8 @@ export const messages = {
     upgradedTitle: "You are now on the",
     upgradedSubject: "You are now on the",
     upgradedPlan: "plan",
-    upgradedDesc: "Your upgrade was successful. Here is what you now have access to:",
+    upgradedDesc:
+      "Your upgrade was successful. Here is what you now have access to:",
     upgradedUpTo: "Up to",
     upgradedPageviews: "pageviews",
     upgradedPerMonth: "per month",
@@ -122,8 +141,10 @@ export const messages = {
     warningApproaching: "You are approaching your",
     warningPlan: "plan event limit for this month.",
     warningEventUsage: "Event Usage",
-    warningOnce100: "Once you reach 100%, new events from your sites will be dropped until the month resets.",
-    warningUpgrade: "Upgrade now to ensure that disabled users on your sites continue to receive uninterrupted accessibility support.",
+    warningOnce100:
+      "Once you reach 100%, new events from your sites will be dropped until the month resets.",
+    warningUpgrade:
+      "Upgrade now to ensure that disabled users on your sites continue to receive uninterrupted accessibility support.",
     warningCta: "Upgrade Plan",
     warningResets: "Your usage resets at the start of each calendar month.",
 
@@ -136,20 +157,26 @@ export const messages = {
     limitForMonth: "for this month.",
     limitStatus: "Status",
     limitDropped: "New events are being dropped until your limit resets",
-    limitWidgetStill: "This means the accessibility widget on your sites is still loading, but user interactions are no longer being recorded. More importantly,",
-    limitDisabledUsers: "disabled users relying on your widget are not affected",
+    limitWidgetStill:
+      "This means the accessibility widget on your sites is still loading, but user interactions are no longer being recorded. More importantly,",
+    limitDisabledUsers:
+      "disabled users relying on your widget are not affected",
     limitWidgetContinues: "— the widget continues to function.",
-    limitUpgrade: "Upgrade to restore event tracking and ensure complete analytics for the rest of the month.",
+    limitUpgrade:
+      "Upgrade to restore event tracking and ensure complete analytics for the rest of the month.",
     limitCta: "Upgrade Now",
-    limitResets: "Your usage resets automatically at the start of each calendar month.",
+    limitResets:
+      "Your usage resets automatically at the start of each calendar month.",
 
     paymentTitle: "Payment failed",
     paymentSubject: "Payment failed — action required",
     paymentHi: "Dear",
     paymentFailed: "We were unable to process your payment for the",
     paymentPlan: "plan.",
-    paymentRestricted: "Your account has been moved to a restricted state — your widget will continue to work, but you will not be able to create new sites or access premium features until your billing is resolved.",
-    paymentPleaseUpdate: "Please update your payment method to restore full access.",
+    paymentRestricted:
+      "Your account has been moved to a restricted state — your widget will continue to work, but you will not be able to create new sites or access premium features until your billing is resolved.",
+    paymentPleaseUpdate:
+      "Please update your payment method to restore full access.",
     paymentCta: "Update payment method",
     paymentErrorContact: "If you believe this is an error, contact us at",
     paymentSupportEmail: "hi@inculva.com",
@@ -160,9 +187,12 @@ export const messages = {
     hi: "Merhaba",
     there: "",
     orCopyLink: "Veya bu bağlantıyı kopyalayın",
-    ifYouDidntRequest: "Bunu talep etmediyseniz, bu e-postayı güvenle görmezden gelebilirsiniz.",
-    ifYouDidntCreate: "inculva hesabı oluşturmadıysanız, bu e-postayı güvenle görmezden gelebilirsiniz.",
-    questionsReply: "Yardıma ihtiyacınız var mı? Bu e-postaya yanıt verebilirsiniz — yardımcı olmaktan memnuniyet duyarız.",
+    ifYouDidntRequest:
+      "Bunu talep etmediyseniz, bu e-postayı güvenle görmezden gelebilirsiniz.",
+    ifYouDidntCreate:
+      "inculva hesabı oluşturmadıysanız, bu e-postayı güvenle görmezden gelebilirsiniz.",
+    questionsReply:
+      "Yardıma ihtiyacınız var mı? Bu e-postaya yanıt verebilirsiniz — yardımcı olmaktan memnuniyet duyarız.",
     managePreferences: "E-posta tercihlerini yönet",
     dashboard: "Kontrol Paneli",
     pricing: "Fiyatlandırma",
@@ -172,26 +202,29 @@ export const messages = {
     welcomeTitle: "inculva'ya hoş geldiniz!",
     welcomeSubject: "inculva'ya hoş geldiniz",
     welcomeHi: "inculva'ya hoş geldiniz,",
-    welcomeDesc: "inculva, web sitenizi dakikalar içinde herkes için erişilebilir hale getirmenize yardımcı olur.",
+    welcomeDesc:
+      "inculva, web sitenizi dakikalar içinde herkes için erişilebilir hale getirmenize yardımcı olur.",
     welcomeHowTo: "Başlamak için takip etmeniz gereken adımlar:",
     welcomeStep1: "İlk web sitenizi ekleyin",
     welcomeStep2: "Embed kodunu kopyalayın",
-    welcomeStep3: " sitenizin </body> etiketinden önce yapıştırın",
+    welcomeStep3: " sitenizin &lt;/body&gt; etiketinden önce yapıştırın",
     welcomeCta: "Kontrol Paneline Git",
     welcomePlan: "Planınız:",
     freePlan: "Ücretsiz",
-    freePlanDesc: "1 site, ayda 10.000 etkinlik.",
-    readyToScale: "Ölçeklendirmeye hazır mısınız?",
-    upgradeAnytime: "İstediğiniz zaman yükseltin",
+    freePlanDesc: "7 gün boyunca tüm özelliklere tam erişim.",
+    readyToScale: "Daha fazlasını mı istiyorsunuz?",
+    upgradeAnytime: "Planları görün",
 
     verifyTitle: "E-posta adresinizi doğrulayın",
     verifySubject: "E-posta adresinizi doğrulayın",
-    verifyDesc: "E-posta adresinizi doğrulamak için aşağıdaki düğmeye tıklayın. Bu bağlantı 24 saat geçerlidir.",
+    verifyDesc:
+      "E-posta adresinizi doğrulamak için aşağıdaki düğmeye tıklayın. Bu bağlantı 24 saat geçerlidir.",
     verifyCta: "E-postayı Doğrula",
 
     resetTitle: "Şifrenizi sıfırlayın",
     resetSubject: "Şifrenizi sıfırlayın",
-    resetDesc: "inculva hesabınız için şifre sıfırlama talebi aldık. Yeni bir şifre belirlemek için aşağıdaki düğmeye tıklayın. Bu bağlantı 1 saat geçerlidir.",
+    resetDesc:
+      "inculva hesabınız için şifre sıfırlama talebi aldık. Yeni bir şifre belirlemek için aşağıdaki düğmeye tıklayın. Bu bağlantı 1 saat geçerlidir.",
     resetCta: "Şifreyi Sıfırla",
 
     digestTitle: "Haftalık erişilebilirlik özeti",
@@ -199,13 +232,15 @@ export const messages = {
     digestHi: "Merhaba",
     digestDesc: "Widget etkinliğinizin özeti:",
     digestTotalEvents: "Bu Haftaki Toplam Etkinlikler",
-    digestNoActivity: "Widgetınız bu hafta herhangi bir etkinlik almadı. Kurulumun doğru yapıldığından emin olun.",
+    digestNoActivity:
+      "Widgetınız bu hafta herhangi bir etkinlik almadı. Kurulumun doğru yapıldığından emin olun.",
     digestCheckSites: "Sitelerinizi kontrol edin",
     digestViewAnalytics: "Tam analizi görüntüle",
     digestSite: "Site",
     digestEvents: "Etkinlikler",
     digestTopFeature: "En İyi Özellik",
-    digestManage: "Bu haftalık özet, aktif bir inculva hesabınız olduğu için gönderilmektedir.",
+    digestManage:
+      "Bu haftalık özet, aktif bir inculva hesabınız olduğu için gönderilmektedir.",
 
     healthTitle: "Widget şu adrende çevrimdışı olabilir:",
     healthSubject: "Widget çevrimdışı olabilir",
@@ -214,13 +249,16 @@ export const messages = {
     healthReason1: "Embed kodu yanlışlıkla kaldırılmış olabilir",
     healthReason2: "Bir dağıtım işlemi widget betiğini kaldırmış olabilir",
     healthReason3: "Site geçici olarak erişim dışı",
-    healthImpact: "Erişilebilirlik takibi kesintiye uğrarsa, ziyaretçiler widget yeniden çalışır olana kadar widgetı kullanamaz.",
+    healthImpact:
+      "Erişilebilirlik takibi kesintiye uğrarsa, ziyaretçiler widget yeniden çalışır olana kadar widgetı kullanamaz.",
     healthCheckSettings: "Site ayarlarını kontrol edin",
-    healthOneNotification: "Her kesinti için yalnızca bir bildirim alırsınız — widget yeniden çalışır olana kadar bildirim göndermeyiz.",
+    healthOneNotification:
+      "Her kesinti için yalnızca bir bildirim alırsınız — widget yeniden çalışır olana kadar bildirim göndermeyiz.",
 
     drip3Title: "Widgetı henüz kurdunuz mu?",
     drip3Subject: "Widgetı henüz kurdunuz mu?",
-    drip3Desc: "Birkaç gün önce inculva'ya kayıt oldunuz. Soru: Widgetı sitenize eklediniz mi?",
+    drip3Desc:
+      "Birkaç gün önce inculva'ya kayıt oldunuz. Soru: Widgetı sitenize eklediniz mi?",
     drip3Desc2: "Kurulum yalnızca 30 saniye sürer — kapanış",
     drip3Tag: " etiketinden önce tek bir HTML satırı yapıştırmanız yeterlidir.",
     drip3Cta: "Widgetı kur",
@@ -229,13 +267,17 @@ export const messages = {
     drip7Subject: "Ücretsiz WCAG taramasını çalıştırın — inculva",
     drip7Desc: "inculva'nın yerleşik bir",
     drip7Scanner: "WCAG 2.1 AA tarayıcısı",
-    drip7Desc2: "içerdiğini biliyor muydunuz? Sitelerinizdeki en yaygın erişilebilirlik sorunlarını tarar ve tam olarak neyin düzeltilmesi gerektiğini gösterir.",
-    drip7Desc3: "Tüm planlarda ücretsizdir — ilk sitenizi taramak için aşağıya tıklayın.",
+    drip7Desc2:
+      "içerdiğini biliyor muydunuz? Sitelerinizdeki en yaygın erişilebilirlik sorunlarını tarar ve tam olarak neyin düzeltilmesi gerektiğini gösterir.",
+    drip7Desc3:
+      "Tüm planlarda ücretsizdir — ilk sitenizi taramak için aşağıya tıklayın.",
     drip7Cta: "WCAG taramasını çalıştır",
-    drip7Ea: "Avrupa Erişilebilirlik Yasası, dijital ürünlerin WCAG 2.1 AA uyumlu olmasını gerektirmektedir.",
+    drip7Ea:
+      "Avrupa Erişilebilirlik Yasası, dijital ürünlerin WCAG 2.1 AA uyumlu olmasını gerektirmektedir.",
 
     drip30Title: "Sınırsız erişilebilirlik için yükseltin",
-    drip30Subject: "inculva'yı bir aydır kullanıyorsunuz — yükseltmeye hazır mısınız?",
+    drip30Subject:
+      "inculva'yı bir aydır kullanıyorsunuz — yükseltmeye hazır mısınız?",
     drip30Desc: "inculva'yı bir aydır kullanıyorsunuz. Widgetınız şu ana kadar",
     drip30Events: "etkinlik",
     drip30Desc2: "izledi.",
@@ -257,7 +299,8 @@ export const messages = {
     upgradedTitle: "Artık",
     upgradedSubject: "Artık şu plandasınız:",
     upgradedPlan: "planındasınız",
-    upgradedDesc: "Yükseltme işleminiz başarıyla tamamlandı. İşte şimdi erişebildikleriniz:",
+    upgradedDesc:
+      "Yükseltme işleminiz başarıyla tamamlandı. İşte şimdi erişebildikleriniz:",
     upgradedUpTo: "Aya kadar",
     upgradedPageviews: "sayfa görüntülemesi",
     upgradedPerMonth: "her ay",
@@ -276,8 +319,10 @@ export const messages = {
     warningApproaching: "Bu ay",
     warningPlan: "plan etkinlik sınırına yaklaşıyorsunuz.",
     warningEventUsage: "Etkinlik Kullanımı",
-    warningOnce100: "%100'e ulaştığınızda, sitelerinizden gelen yeni etkinlikler ay sıfırlanana kadar kaydedilmez.",
-    warningUpgrade: "Sitelerinizdeki engelli kullanıcıların kesintisiz erişilebilirlik desteği almaya devam ettiğinden emin olmak için şimdi yükseltin.",
+    warningOnce100:
+      "%100'e ulaştığınızda, sitelerinizden gelen yeni etkinlikler ay sıfırlanana kadar kaydedilmez.",
+    warningUpgrade:
+      "Sitelerinizdeki engelli kullanıcıların kesintisiz erişilebilirlik desteği almaya devam ettiğinden emin olmak için şimdi yükseltin.",
     warningCta: "Planı Yükselt",
     warningResets: "Kullanımınız her ay takvimin başında sıfırlanır.",
 
@@ -290,22 +335,28 @@ export const messages = {
     limitForMonth: "sınırına ulaştı.",
     limitStatus: "Durum",
     limitDropped: "Yeni etkinlikler, limit sıfırlanana kadar kaydedilmiyor",
-    limitWidgetStill: "Bu durum, sitelerinizdeki erişilebilirlik widgetının hala yüklendiği anlamına gelir; ancak kullanıcı etkileşimleri artık kaydedilmiyor. Daha da önemlisi,",
+    limitWidgetStill:
+      "Bu durum, sitelerinizdeki erişilebilirlik widgetının hala yüklendiği anlamına gelir; ancak kullanıcı etkileşimleri artık kaydedilmiyor. Daha da önemlisi,",
     limitDisabledUsers: "widgetınıza güvenen engelli kullanıcılar etkilenmez",
     limitWidgetContinues: "— widget çalışmaya devam eder.",
-    limitUpgrade: "Etkinlik takibini geri yüklemek ve ayın geri kalanı için eksiksiz analitik sağlamak için yükseltin.",
+    limitUpgrade:
+      "Etkinlik takibini geri yüklemek ve ayın geri kalanı için eksiksiz analitik sağlamak için yükseltin.",
     limitCta: "Şimdi Yükselt",
-    limitResets: "Kullanımınız her ay takvimin başında otomatik olarak sıfırlanır.",
+    limitResets:
+      "Kullanımınız her ay takvimin başında otomatik olarak sıfırlanır.",
 
     paymentTitle: "Ödeme başarısız oldu",
     paymentSubject: "Ödeme başarısız oldu — işlem gerekli",
     paymentHi: "Merhaba",
     paymentFailed: "",
     paymentPlan: "planı için ödemenizi işleyemedik.",
-    paymentRestricted: "Hesabınız kısıtlı duruma geçirildi — widgetınız çalışmaya devam edecek; ancak faturalandırma çözülene kadar yeni site oluşturamaz veya premium özelliklere erişemezsiniz.",
-    paymentPleaseUpdate: "Tam erişimi geri yüklemek için lütfen ödeme yönteminizi güncelleyin.",
+    paymentRestricted:
+      "Hesabınız kısıtlı duruma geçirildi — widgetınız çalışmaya devam edecek; ancak faturalandırma çözülene kadar yeni site oluşturamaz veya premium özelliklere erişemezsiniz.",
+    paymentPleaseUpdate:
+      "Tam erişimi geri yüklemek için lütfen ödeme yönteminizi güncelleyin.",
     paymentCta: "Ödeme yöntemini güncelle",
-    paymentErrorContact: "Bunun bir hata olduğunu düşünüyorsanız, şu adresten bizimle iletişime geçin:",
+    paymentErrorContact:
+      "Bunun bir hata olduğunu düşünüyorsanız, şu adresten bizimle iletişime geçin:",
     paymentSupportEmail: "hi@inculva.com",
   },
 } as const;
@@ -325,7 +376,7 @@ export function detectLocale(request: Request): Locale {
       cookieHeader.split(";").map((c) => {
         const [key, ...val] = c.trim().split("=");
         return [key, val.join("=")];
-      })
+      }),
     );
     if (cookies["locale"] && locales.includes(cookies["locale"] as Locale)) {
       return cookies["locale"] as Locale;
@@ -337,7 +388,9 @@ export function detectLocale(request: Request): Locale {
 
   const preferred = acceptLanguage
     .split(",")
-    .map((lang) => lang.split(";")[0]?.trim().substring(0, 2).toLowerCase() ?? "");
+    .map(
+      (lang) => lang.split(";")[0]?.trim().substring(0, 2).toLowerCase() ?? "",
+    );
 
   for (const pref of preferred) {
     if (locales.includes(pref as Locale)) return pref as Locale;

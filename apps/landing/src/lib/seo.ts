@@ -61,7 +61,7 @@ export function getOrganizationSchema() {
     "@type": "Organization",
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${CDN_URL}/logos/logo.png`,
+    logo: `${CDN_URL}/logos/logo-dark.png`,
     description:
       "Web accessibility platform that helps websites achieve WCAG compliance automatically.",
     sameAs: ["https://youtube.com/@inculva", "https://x.com/inculva"],
@@ -106,7 +106,7 @@ export function getBlogPostingSchema(post: {
       name: SITE_NAME,
       logo: {
         "@type": "ImageObject",
-        url: `${CDN_URL}/logos/logo.png`,
+        url: `${CDN_URL}/logos/logo-dark.png`,
       },
     },
   };

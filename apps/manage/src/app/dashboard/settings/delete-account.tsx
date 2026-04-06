@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useDashboard } from "@/components/dashboard-layout-content";
 
 export function DeleteAccount() {
   const { messages: t } = useDashboard();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,6 +16,12 @@ export function DeleteAccount() {
     setError(null);
 
     const res = await fetch("/api/account/delete", { method: "DELETE" });
+
+    if (res.status === 401) {
+      window.location.href = "/login";
+      return;
+    }
+
     const data = (await res.json()) as { ok: boolean; error?: string };
 
     if (!data.ok) {
@@ -26,7 +30,7 @@ export function DeleteAccount() {
       return;
     }
 
-    router.push("/");
+    window.location.href = "/login";
   }
 
   return (
@@ -47,19 +51,18 @@ export function DeleteAccount() {
         </button>
       ) : (
         <div className="space-y-4">
-          <p className="text-sm text-gray-700">
-            Type{" "}
-            <strong className="font-mono">
-              {t.settings.typeDeleteConfirm}
-            </strong>{" "}
-            to confirm:
-          </p>
+          <p
+            className="text-sm text-gray-700"
+            dangerouslySetInnerHTML={{
+              __html: t.settings.deleteAccountConfirm,
+            }}
+          />
           <input
             type="text"
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}
             className="w-full px-4 py-2.5 border border-[#e8eaf0] dark:border-[#2a2a3e] rounded-2xl text-sm bg-white dark:bg-[#0e0e10] text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-400"
-            placeholder={t.settings.typeDeleteConfirm}
+            placeholder={t.settings.deleteAccountPlaceholder}
             autoComplete="off"
           />
           {error && <p className="text-sm text-red-600">{error}</p>}

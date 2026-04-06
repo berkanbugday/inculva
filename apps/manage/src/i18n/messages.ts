@@ -186,6 +186,7 @@ export interface DashboardMessages {
     emailChangeHint: string;
     typeDeleteConfirm: string;
     typeToConfirm: string;
+    deleteAccountPlaceholder: string;
     failedToUpdateName: string;
     failedToChangePassword: string;
     failedToDeleteAccount: string;
@@ -984,6 +985,7 @@ const en: DashboardMessages = {
     emailChangeHint: "Contact support to change your email address.",
     typeDeleteConfirm: "delete",
     typeToConfirm: "Type",
+    deleteAccountPlaceholder: "Type delete to confirm",
     failedToUpdateName: "Failed to update name",
     failedToChangePassword: "Failed to change password",
     failedToDeleteAccount: "Failed to delete account",
@@ -1864,6 +1866,7 @@ const tr: DashboardMessages = {
       "E-posta adresinizi de\u011Fi\u015Ftirmek i\u00E7in destekle ileti\u015Fime ge\u00E7in.",
     typeDeleteConfirm: "delete",
     typeToConfirm: "Yaz\u0131n",
+    deleteAccountPlaceholder: "Onaylamak i\u00E7in delete yaz\u0131n",
     failedToUpdateName: "Ad g\u00fcncellenemedi",
     failedToChangePassword: "\u015eifre de\u011fi\u015ftirilemedi",
     failedToDeleteAccount: "Hesap silinemedi",

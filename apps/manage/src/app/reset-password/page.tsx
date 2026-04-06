@@ -115,7 +115,7 @@ function ResetPasswordForm() {
         <div className="bg-white dark:bg-[#1a1a2e] rounded-3xl shadow-sm p-10 w-full max-w-md">
           <div className="lg:hidden text-center mb-8">
             <img
-              src={`${CDN_URL}/logos/logo.png`}
+              src={`${CDN_URL}/logos/logo-dark.png`}
               alt="inculva"
               className="h-10 w-auto mx-auto"
             />
