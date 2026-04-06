@@ -28,10 +28,16 @@ export async function DELETE(_req: NextRequest): Promise<NextResponse> {
   // ApiKey, Subscription
   await db.user.delete({ where: { id: userId } });
 
-  // Sign out — invalidate cookies
-  await auth.api.signOut({ headers: await headers() });
+  // Sign out — invalidate cookies (use asResponse to get Set-Cookie headers
+  // without hardcoding the cookie name, which varies by environment)
+  const signOutRes = await auth.api.signOut({
+    headers: await headers(),
+    asResponse: true,
+  });
 
   const res = NextResponse.json({ ok: true });
-  res.cookies.delete("better-auth.session_token");
+  signOutRes.headers.getSetCookie().forEach((cookie) => {
+    res.headers.append("Set-Cookie", cookie);
+  });
   return res;
 }
