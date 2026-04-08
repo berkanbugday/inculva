@@ -1626,7 +1626,7 @@ const en: DashboardMessages = {
   support: {
     title: "Support",
     titleDesc:
-      "Have a question or issue? Send us a message and we'll get back to you as soon as possible.",
+      "Have a question or issue? Send us a message and we'll get back to you as soon as possible. You can also email us at support@inculva.com.",
     nameLabel: "Full name",
     namePlaceholder: "Jane Smith",
     emailLabel: "Email address",
@@ -1649,7 +1649,7 @@ const en: DashboardMessages = {
     sendAnother: "Send another message",
     errorTitle: "Something went wrong",
     errorDesc:
-      "Your message could not be sent. Please try again or email us directly at hi@inculva.com.",
+      "Your message could not be sent. Please try again or email us directly at support@inculva.com.",
     nameRequired: "Name is required.",
     emailRequired: "Email is required.",
     emailInvalid: "Please enter a valid email address.",
@@ -2537,7 +2537,7 @@ const tr: DashboardMessages = {
   support: {
     title: "Destek",
     titleDesc:
-      "Bir sorunuz veya sorununuz mu var? Bize mesaj g\u00F6nderin, en k\u0131sa s\u00FCrede size d\u00F6nece\u011Fiz.",
+      "Bir sorunuz veya sorununuz mu var? Bize mesaj g\u00F6nderin, en k\u0131sa s\u00FCrede size d\u00F6nece\u011Fiz. Ayr\u0131ca support@inculva.com adresine de e-posta g\u00F6nderebilirsiniz.",
     nameLabel: "Ad soyad",
     namePlaceholder: "Ay\u015Fe Y\u0131lmaz",
     emailLabel: "E-posta adresi",
@@ -2561,7 +2561,7 @@ const tr: DashboardMessages = {
     sendAnother: "Ba\u015Fka bir mesaj g\u00F6nder",
     errorTitle: "Bir \u015Feyler ters gitti",
     errorDesc:
-      "Mesaj\u0131n\u0131z g\u00F6nderilemedi. L\u00FCtfen tekrar deneyin veya do\u011Frudan hi@inculva.com adresine e-posta g\u00F6nderin.",
+      "Mesaj\u0131n\u0131z g\u00F6nderilemedi. L\u00FCtfen tekrar deneyin veya do\u011Frudan support@inculva.com adresine e-posta g\u00F6nderin.",
     nameRequired: "Ad gereklidir.",
     emailRequired: "E-posta gereklidir.",
     emailInvalid: "L\u00FCtfen ge\u00E7erli bir e-posta adresi girin.",

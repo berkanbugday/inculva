@@ -30,6 +30,7 @@ export const en = {
     knowledgeBase: "Knowledge Base",
     signIn: "Sign In",
     copyright: "inculva. All rights reserved.",
+    contactEmail: "info@inculva.com",
   },
 
   // Home page
@@ -519,7 +520,7 @@ export const en = {
     successTitle: "Message sent!",
     successDescription: "Thank you for reaching out.",
     errorTitle: "Something went wrong",
-    errorDescription: "Please try again later or email us directly.",
+    errorDescription: "Please try again later or email us directly at support@inculva.com.",
     validationFirstName: "First name is required",
     validationLastName: "Last name is required",
     validationEmail: "Please enter a valid email address",

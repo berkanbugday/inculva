@@ -32,6 +32,7 @@ export const tr: Translations = {
     knowledgeBase: "Bilgi Bankası",
     signIn: "Giriş Yap",
     copyright: "inculva. Tüm hakları saklıdır.",
+    contactEmail: "bilgi@inculva.com",
   },
 
   // Home page
@@ -525,7 +526,7 @@ export const tr: Translations = {
     successDescription: "Bize ulaştığınız için teşekkürler.",
     errorTitle: "Bir şeyler ters gitti",
     errorDescription:
-      "Lütfen daha sonra tekrar deneyin veya doğrudan e-posta gönderin.",
+      "Lütfen daha sonra tekrar deneyin veya doğrudan support@inculva.com adresine e-posta gönderin.",
     validationFirstName: "Ad gereklidir",
     validationLastName: "Soyad gereklidir",
     validationEmail: "Geçerli bir e-posta adresi girin",
