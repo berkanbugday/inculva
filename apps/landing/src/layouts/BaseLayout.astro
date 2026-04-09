@@ -3,7 +3,7 @@ import SEOHead from '@/components/SEOHead.astro';
 import Navbar from '@/components/Navbar.astro';
 import Footer from '@/components/Footer.astro';
 import CookieBanner from '@/components/CookieBanner.astro';
-import { getOrganizationSchema, getWebSiteSchema, getHreflangAlternates } from '@/lib/seo';
+import { getOrganizationSchema, getWebSiteSchema, getHreflangAlternates, getLocalizedCanonical, getLocalBusinessSchema } from '@/lib/seo';
 import { getLangFromUrl, getPathWithoutLang, type Lang } from '@/i18n';
 import '@/styles/global.css';
 
@@ -36,7 +36,13 @@ const rawPath = getPathWithoutLang(Astro.url.pathname);
 const pagePath = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
 const hreflangAlternates = getHreflangAlternates(pagePath);
 
-const globalSchemas = [getOrganizationSchema(), getWebSiteSchema()];
+const autoCanonical = canonical || getLocalizedCanonical(pagePath, lang);
+
+const globalSchemas = [
+  getOrganizationSchema(lang as "en" | "tr"),
+  getWebSiteSchema(lang as "en" | "tr"),
+  ...(lang === 'tr' ? [getLocalBusinessSchema()] : []),
+];
 const allSchemas = jsonLd
   ? [...globalSchemas, ...(Array.isArray(jsonLd) ? jsonLd : [jsonLd])]
   : globalSchemas;
@@ -48,6 +54,14 @@ const allSchemas = jsonLd
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <meta http-equiv="content-language" content={lang} />
+
+    {lang === 'tr' && (
+      <>
+        <meta name="geo.region" content="TR-18" />
+        <meta name="geo.placename" content="Çankırı, Türkiye" />
+      </>
+    )}
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHVDSSZ752" is:inline></script>
@@ -73,12 +87,13 @@ const allSchemas = jsonLd
     <SEOHead
       title={title}
       description={description}
-      canonical={canonical}
+      canonical={autoCanonical}
       ogImage={ogImage}
       ogType={ogType}
       noindex={noindex}
       publishedAt={publishedAt}
       jsonLd={allSchemas}
+      lang={lang as "en" | "tr"}
     />
   </head>
   <body class="min-h-screen flex flex-col">

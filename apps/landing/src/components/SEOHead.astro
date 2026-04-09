@@ -8,12 +8,13 @@ export interface Props {
   noindex?: boolean;
   publishedAt?: string;
   jsonLd?: Record<string, any> | Record<string, any>[];
+  lang?: 'en' | 'tr';
 }
 
 import { SEO } from 'astro-seo';
 import { getSEOProps } from '@/lib/seo';
 
-const { title, description, canonical, ogImage, ogType, noindex, publishedAt, jsonLd } = Astro.props;
+const { title, description, canonical, ogImage, ogType, noindex, publishedAt, jsonLd, lang } = Astro.props;
 
 const seoProps = getSEOProps({
   title,
@@ -23,6 +24,7 @@ const seoProps = getSEOProps({
   ogType,
   noindex,
   publishedAt,
+  lang,
 });
 
 const schemas = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];

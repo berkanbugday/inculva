@@ -230,8 +230,6 @@ export const tr: Translations = {
       "Gerçek zamanlı izleme",
       "7 gün ücretsiz deneme",
     ],
-    getStartedFree: "Görüşme Planla",
-
     medium: "Medium",
     mediumDesc: "Tam uyumluluk ihtiyacı olan büyüyen işletmeler için.",
     mediumFeatures: [
@@ -242,7 +240,7 @@ export const tr: Translations = {
       "Öncelikli e-posta desteği",
       "7 gün ücretsiz deneme",
     ],
-    startFreeTrial: "Görüşme Planla",
+    startFreeTrial: "Ücretsiz Başla",
 
     large: "Large",
     largeDesc: "Gelişmiş uyumluluk ihtiyaçları olan kurumlar için.",

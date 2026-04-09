@@ -30,9 +30,9 @@ const howToSteps = [
 ];
 
 const homeSchemas = [
-  getFAQSchema(homeFaqs),
-  getSoftwareApplicationSchema(),
-  getHowToSchema(howToSteps),
+  getFAQSchema(homeFaqs, lang),
+  getSoftwareApplicationSchema(lang),
+  getHowToSchema(howToSteps, lang),
   getBreadcrumbSchema([
     { name: i.nav.home, url: SITE_URL },
   ]),
@@ -40,7 +40,7 @@ const homeSchemas = [
     name: i.home.title,
     description: i.home.description,
     url: getLocalizedCanonical('/', lang),
-  }),
+  }, lang),
 ];
 ---
 

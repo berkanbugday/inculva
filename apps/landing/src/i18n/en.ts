@@ -227,7 +227,6 @@ export const en = {
       "Real-time monitoring",
       "7-day free trial",
     ],
-    getStartedFree: "Book a Call",
 
     medium: "Medium",
     mediumDesc: "For growing businesses that need full compliance.",
@@ -239,7 +238,7 @@ export const en = {
       "Priority email support",
       "7-day free trial",
     ],
-    startFreeTrial: "Book a Call",
+    startFreeTrial: "Start Free Trial",
 
     large: "Large",
     largeDesc: "For enterprises with advanced compliance needs.",
@@ -540,12 +539,12 @@ export const en = {
 
 type DeepStringRecord<T> = {
   [K in keyof T]: T[K] extends string
-    ? string
-    : T[K] extends readonly string[]
-    ? readonly string[] | string[]
-    : T[K] extends Record<string, any>
-    ? DeepStringRecord<T[K]>
-    : T[K];
+  ? string
+  : T[K] extends readonly string[]
+  ? readonly string[] | string[]
+  : T[K] extends Record<string, any>
+  ? DeepStringRecord<T[K]>
+  : T[K];
 };
 
 export type Translations = DeepStringRecord<typeof en>;

@@ -5,7 +5,19 @@ import react from "@astrojs/react";
 
 export default defineConfig({
   site: "https://inculva.com",
-  integrations: [tailwind(), sitemap(), react()],
+  integrations: [
+    tailwind(),
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en",
+          tr: "tr",
+        },
+      },
+    }),
+    react(),
+  ],
   i18n: {
     defaultLocale: "en",
     locales: ["en", "tr"],

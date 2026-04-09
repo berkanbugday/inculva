@@ -14,7 +14,7 @@ export interface Props {
   popular?: boolean;
   mostPopular?: string;
 }
-
+const APP_URL = import.meta.env.PUBLIC_APP_URL || 'http://localhost:3000';
 const { name, price, priceYearlyTotal, savings, saveLabel = 'Save', period = '/mo', periodYearly = '/yr', description, features, cta, ctaHref, popular = false, mostPopular = 'Most Popular' } = Astro.props;
 ---
 
@@ -71,8 +71,7 @@ const { name, price, priceYearlyTotal, savings, saveLabel = 'Save', period = '/m
   </ul>
 
   <a
-    href={ctaHref}
-    data-cal-link="berkan-bugday-rdudv5/30min"
+    href={`${APP_URL}/login`}
     class:list={[
       'block w-full text-center py-3 px-6 rounded-full font-semibold transition-all duration-200',
       popular

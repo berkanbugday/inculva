@@ -41,8 +41,8 @@ const productPlans = [
 ];
 
 const pricingSchemas = [
-  getFAQSchema(pricingFaqs),
-  ...getProductSchema(productPlans),
+  getFAQSchema(pricingFaqs, lang),
+  ...getProductSchema(productPlans, lang),
   getBreadcrumbSchema([
     { name: i.nav.home, url: SITE_URL },
     { name: i.nav.pricing, url: getLocalizedCanonical('/pricing', lang) },
@@ -51,7 +51,7 @@ const pricingSchemas = [
     name: i.pricing.title,
     description: i.pricing.description,
     url: getLocalizedCanonical('/pricing', lang),
-  }),
+  }, lang),
 ];
 
 const plans = [
@@ -65,7 +65,7 @@ const plans = [
     saveLabel: i.pricing.save,
     description: i.pricing.smallDesc,
     features: i.pricing.smallFeatures as string[],
-    cta: i.pricing.getStartedFree,
+    cta: i.pricing.startFreeTrial,
     ctaHref: '#',
     popular: false,
     mostPopular: i.pricing.mostPopular,
@@ -95,7 +95,7 @@ const plans = [
     saveLabel: i.pricing.save,
     description: i.pricing.largeDesc,
     features: i.pricing.largeFeatures as string[],
-    cta: i.pricing.contactSales,
+    cta: i.pricing.startFreeTrial,
     ctaHref: '#',
     popular: false,
     mostPopular: i.pricing.mostPopular,
