@@ -4,6 +4,7 @@ import { t, getLangFromUrl, getLocalizedPath, getAlternateLanguage, getPathWitho
 
 interface Props {
   lang?: Lang;
+  alternateHref?: string;
 }
 
 const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
@@ -14,7 +15,14 @@ const currentPathWithoutLang = getPathWithoutLang(Astro.url.pathname);
 const navLinks = [
   { label: i.nav.home, href: getLocalizedPath('/', lang) },
   { label: i.nav.features, href: getLocalizedPath('/features', lang) },
-  { label: i.nav.kb, href: getLocalizedPath('/kb', lang) },
+  {
+    label: i.nav.resources,
+    href: getLocalizedPath('/kb', lang),
+    children: [
+      { label: i.nav.kb, href: getLocalizedPath('/kb', lang) },
+      { label: i.nav.blog, href: getLocalizedPath('/blog', lang) },
+    ],
+  },
   { label: i.nav.pricing, href: getLocalizedPath('/pricing', lang) },
   { label: i.nav.about, href: getLocalizedPath('/about', lang) },
   { label: i.nav.contact, href: getLocalizedPath('/contact', lang) },
@@ -23,7 +31,7 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 const CDN_URL = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.inculva.com';
 const APP_URL = import.meta.env.PUBLIC_APP_URL || 'http://localhost:3000';
-const switchHref = getLocalizedPath(currentPathWithoutLang, altLang);
+const switchHref = Astro.props.alternateHref || getLocalizedPath(currentPathWithoutLang, altLang);
 ---
 
 <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100">
@@ -36,18 +44,54 @@ const switchHref = getLocalizedPath(currentPathWithoutLang, altLang);
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center gap-1">
-        {navLinks.map(({ label, href }) => (
-          <a
-            href={href}
-            class:list={[
-              'px-4 py-2 text-sm font-medium rounded-lg transition-colors',
-              currentPath === href || (href !== getLocalizedPath('/', lang) && currentPath.startsWith(href + '/'))
-                ? 'text-primary-600 bg-primary-50'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-            ]}
-          >
-            {label}
-          </a>
+        {navLinks.map((link) => (
+          link.children ? (
+            <div class="relative group">
+              <button
+                type="button"
+                class:list={[
+                  'px-4 py-2 text-sm font-medium rounded-lg transition-colors inline-flex items-center gap-1',
+                  link.children.some(c => currentPath === c.href || currentPath.startsWith(c.href + '/'))
+                    ? 'text-primary-600 bg-primary-50'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                ]}
+              >
+                {link.label}
+                <svg class="w-3.5 h-3.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="absolute top-full left-0 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+                <div class="bg-white rounded-lg shadow-lg border border-gray-100 py-1 min-w-[180px]">
+                  {link.children.map((child) => (
+                    <a
+                      href={child.href}
+                      class:list={[
+                        'block px-4 py-2.5 text-sm font-medium transition-colors',
+                        currentPath === child.href || currentPath.startsWith(child.href + '/')
+                          ? 'text-primary-600 bg-primary-50'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                      ]}
+                    >
+                      {child.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a
+              href={link.href}
+              class:list={[
+                'px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+                currentPath === link.href || (link.href !== getLocalizedPath('/', lang) && currentPath.startsWith(link.href + '/'))
+                  ? 'text-primary-600 bg-primary-50'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+              ]}
+            >
+              {link.label}
+            </a>
+          )
         ))}
       </div>
 
@@ -95,18 +139,37 @@ const switchHref = getLocalizedPath(currentPathWithoutLang, altLang);
   <div id="mobile-menu" class="md:hidden hidden border-t border-gray-100 bg-white">
     <Container>
       <div class="py-4 space-y-1">
-        {navLinks.map(({ label, href }) => (
-          <a
-            href={href}
-            class:list={[
-              'block px-4 py-3 text-base font-medium rounded-lg transition-colors',
-              currentPath === href
-                ? 'text-primary-600 bg-primary-50'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-            ]}
-          >
-            {label}
-          </a>
+        {navLinks.map((link) => (
+          link.children ? (
+            <>
+              <span class="block px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wide">{link.label}</span>
+              {link.children.map((child) => (
+                <a
+                  href={child.href}
+                  class:list={[
+                    'block px-6 py-3 text-base font-medium rounded-lg transition-colors',
+                    currentPath === child.href || currentPath.startsWith(child.href + '/')
+                      ? 'text-primary-600 bg-primary-50'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                  ]}
+                >
+                  {child.label}
+                </a>
+              ))}
+            </>
+          ) : (
+            <a
+              href={link.href}
+              class:list={[
+                'block px-4 py-3 text-base font-medium rounded-lg transition-colors',
+                currentPath === link.href
+                  ? 'text-primary-600 bg-primary-50'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+              ]}
+            >
+              {link.label}
+            </a>
+          )
         ))}
         <div class="pt-3 mt-3 border-t border-gray-100 space-y-3">
           <a

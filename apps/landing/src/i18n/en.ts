@@ -4,9 +4,11 @@ export const en = {
     home: "Home",
     features: "Features",
     kb: "Knowledge Base",
+    resources: "Resources",
     pricing: "Pricing",
     about: "About",
     contact: "Contact",
+    blog: "Blog",
     getStarted: "Book a Call",
     signIn: "Sign In",
     skipToContent: "Skip to main content",
@@ -28,6 +30,7 @@ export const en = {
     termsOfUse: "Terms of Use",
     resources: "Resources",
     knowledgeBase: "Knowledge Base",
+    blog: "Blog",
     signIn: "Sign In",
     copyright: "inculva. All rights reserved.",
     contactEmail: "info@inculva.com",
@@ -519,7 +522,8 @@ export const en = {
     successTitle: "Message sent!",
     successDescription: "Thank you for reaching out.",
     errorTitle: "Something went wrong",
-    errorDescription: "Please try again later or email us directly at support@inculva.com.",
+    errorDescription:
+      "Please try again later or email us directly at support@inculva.com.",
     validationFirstName: "First name is required",
     validationLastName: "Last name is required",
     validationEmail: "Please enter a valid email address",
@@ -535,16 +539,28 @@ export const en = {
     dismiss: "Got it",
     ariaLabel: "Cookie notice",
   },
+
+  // Blog
+  blog: {
+    title: "Blog",
+    description:
+      "Articles about web accessibility, WCAG compliance, and inclusive design.",
+    readMore: "Read more",
+    allPosts: "All Posts",
+    relatedPosts: "Related Posts",
+    relatedGuides: "Related Guides",
+    noPosts: "No blog posts yet. Check back soon!",
+  },
 } as const;
 
 type DeepStringRecord<T> = {
   [K in keyof T]: T[K] extends string
-  ? string
-  : T[K] extends readonly string[]
-  ? readonly string[] | string[]
-  : T[K] extends Record<string, any>
-  ? DeepStringRecord<T[K]>
-  : T[K];
+    ? string
+    : T[K] extends readonly string[]
+    ? readonly string[] | string[]
+    : T[K] extends Record<string, any>
+    ? DeepStringRecord<T[K]>
+    : T[K];
 };
 
 export type Translations = DeepStringRecord<typeof en>;

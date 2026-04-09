@@ -17,6 +17,8 @@ export interface Props {
   publishedAt?: string;
   jsonLd?: Record<string, any> | Record<string, any>[];
   lang?: Lang;
+  hreflangOverrides?: { lang: string; url: string }[];
+  alternateHref?: string;
 }
 
 const {
@@ -29,12 +31,14 @@ const {
   publishedAt,
   jsonLd,
   lang: langProp,
+  hreflangOverrides,
+  alternateHref,
 } = Astro.props;
 
 const lang = langProp ?? getLangFromUrl(Astro.url);
 const rawPath = getPathWithoutLang(Astro.url.pathname);
 const pagePath = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
-const hreflangAlternates = getHreflangAlternates(pagePath);
+const hreflangAlternates = hreflangOverrides || getHreflangAlternates(pagePath);
 
 const autoCanonical = canonical || getLocalizedCanonical(pagePath, lang);
 
@@ -102,7 +106,7 @@ const allSchemas = jsonLd
       Skip to main content
     </a>
 
-    <Navbar lang={lang} />
+    <Navbar lang={lang} alternateHref={alternateHref} />
 
     <main id="main-content" class="flex-1">
       <slot />

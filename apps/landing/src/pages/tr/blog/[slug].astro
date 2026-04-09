@@ -1,0 +1,113 @@
+---
+import KBLayout from '../../../components/kb/KBLayout.astro'
+import RelatedPosts from '../../../components/blog/RelatedPosts.astro'
+import RelatedRules from '../../../components/kb/RelatedRules.astro'
+import { getAllBlogPosts, getBlogPostBySlugTr, getBlogPostBySlug } from '../../../lib/sanity'
+import { portableTextToHtml } from '../../../lib/portable-text'
+import { SITE_URL } from '../../../lib/seo'
+
+export async function getStaticPaths() {
+  const posts = await getAllBlogPosts()
+  return posts.map((post) => ({
+    params: { slug: post.slugTr?.current || post.slug.current },
+  }))
+}
+
+const { slug } = Astro.params
+let post = await getBlogPostBySlugTr(slug!)
+if (!post) {
+  post = await getBlogPostBySlug(slug!)
+}
+
+if (!post) {
+  return Astro.redirect('/tr/blog/')
+}
+
+const contentHtml = post.content?.tr
+  ? portableTextToHtml(post.content.tr)
+  : (post.content?.en ? portableTextToHtml(post.content.en) : '')
+
+const trSlug = post.slugTr?.current || post.slug.current
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title.tr || post.title.en,
+  description: post.description?.tr || post.description?.en || '',
+  url: `${SITE_URL}/tr/blog/${trSlug}/`,
+  datePublished: post.publishedAt,
+  inLanguage: 'tr',
+  publisher: {
+    '@type': 'Organization',
+    name: 'inculva',
+    url: SITE_URL,
+  },
+}
+
+const categoryLabels: Record<string, string> = {
+  accessibility: 'Erişilebilirlik',
+  legal: 'Yasal',
+  wcag: 'WCAG',
+  tools: 'Araçlar',
+  news: 'Haberler',
+}
+
+const englishWordRegex = /\b(accessibility|accessible|testing|automated|compliance|standards|levels|tools|scanner|checklist|government|public|sector|design|impaired|contrast|vision|checkout|shopping|commerce|law|regulations|guide|keyboard|navigation|reader|screen|digital|online|color|users|audit|website|European)\b/i
+const turkishCharRegex = /[çğıöşüÇĞİÖŞÜ]/
+const filteredTags = post.tags?.filter((tag) => {
+  const hasTurkish = turkishCharRegex.test(tag)
+  const hasEnglish = englishWordRegex.test(tag)
+  return hasTurkish || (!hasTurkish && !hasEnglish)
+}) || []
+---
+
+<KBLayout
+  title={post.seo?.tr?.metaTitle || `${post.title.tr || post.title.en} | inculva`}
+  description={post.seo?.tr?.metaDescription || post.description?.tr || post.description?.en || ''}
+  lang="tr"
+  breadcrumbs={[
+    { label: 'Blog', href: '/tr/blog/' },
+    { label: post.title.tr || post.title.en, href: `/tr/blog/${trSlug}/` },
+  ]}
+  jsonLd={jsonLd}
+  hreflangOverrides={[
+    { lang: 'en', url: `${SITE_URL}/blog/${post.slug.current}/` },
+    { lang: 'tr', url: `${SITE_URL}/tr/blog/${trSlug}/` },
+    { lang: 'x-default', url: `${SITE_URL}/blog/${post.slug.current}/` },
+  ]}
+  alternateHref={`/blog/${post.slug.current}/`}
+>
+  <div class="lg:grid lg:grid-cols-[1fr_280px] lg:gap-12">
+    <article class="max-w-4xl">
+      <header class="mb-8">
+        <span class="text-sm font-medium text-primary-600 uppercase tracking-wide">
+          {categoryLabels[post.category] || post.category}
+        </span>
+        <h1 class="text-4xl font-bold text-gray-900 mt-2 mb-4">{post.title.tr || post.title.en}</h1>
+        {(post.description?.tr || post.description?.en) && (
+          <p class="text-xl text-gray-600">{post.description.tr || post.description.en}</p>
+        )}
+        {post.publishedAt && (
+          <time class="text-sm text-gray-400 mt-2 block">
+            {new Date(post.publishedAt).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+        )}
+      </header>
+
+      <div class="prose prose-lg prose-gray max-w-none" set:html={contentHtml} />
+
+      {filteredTags.length > 0 && (
+        <div class="mt-8 pt-6 border-t border-gray-200 flex flex-wrap gap-2">
+          {filteredTags.map((tag) => (
+            <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">{tag}</span>
+          ))}
+        </div>
+      )}
+    </article>
+
+    <aside class="hidden lg:block space-y-8">
+      <RelatedPosts posts={post.relatedPosts || []} lang="tr" />
+      <RelatedRules rules={post.relatedWcagRules || []} lang="tr" />
+    </aside>
+  </div>
+</KBLayout>

@@ -31,6 +31,14 @@ const GUIDE_CATEGORIES = [
   { id: 'best-practice', title: 'Best Practices' },
 ]
 
+const BLOG_CATEGORIES = [
+  { id: 'accessibility', title: 'Accessibility' },
+  { id: 'legal', title: 'Legal' },
+  { id: 'wcag', title: 'WCAG' },
+  { id: 'tools', title: 'Tools' },
+  { id: 'news', title: 'News' },
+]
+
 export const deskStructure = (S: StructureBuilder) =>
   S.list()
     .title('Knowledge Base')
@@ -89,6 +97,25 @@ export const deskStructure = (S: StructureBuilder) =>
         ),
       S.divider(),
       S.listItem()
+        .title('Blog')
+        .child(
+          S.list()
+            .title('Blog by Category')
+            .items(
+              BLOG_CATEGORIES.map((cat) =>
+                S.listItem()
+                  .title(cat.title)
+                  .child(
+                    S.documentList()
+                      .title(cat.title)
+                      .filter('_type == "blogPost" && category == $category')
+                      .params({ category: cat.id })
+                  )
+              )
+            )
+        ),
+      S.divider(),
+      S.listItem()
         .title('All WCAG Rules')
         .child(
           S.documentList()
@@ -102,5 +129,13 @@ export const deskStructure = (S: StructureBuilder) =>
           S.documentList()
             .title('All Guides')
             .filter('_type == "guide"')
+        ),
+      S.listItem()
+        .title('All Blog Posts')
+        .child(
+          S.documentList()
+            .title('All Blog Posts')
+            .filter('_type == "blogPost"')
+            .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
         ),
     ])

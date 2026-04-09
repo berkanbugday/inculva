@@ -1,0 +1,56 @@
+---
+import KBLayout from '../../components/kb/KBLayout.astro'
+import BlogCard from '../../components/blog/BlogCard.astro'
+import { getAllBlogPosts } from '../../lib/sanity'
+import { SITE_URL } from '../../lib/seo'
+
+const posts = await getAllBlogPosts()
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Web Accessibility Blog',
+  description: 'Articles about web accessibility, WCAG compliance, and inclusive design.',
+  url: `${SITE_URL}/blog/`,
+  inLanguage: 'en',
+  publisher: {
+    '@type': 'Organization',
+    name: 'inculva',
+  },
+}
+---
+
+<KBLayout
+  title="Blog | inculva"
+  description="Articles about web accessibility, WCAG compliance, and inclusive design. Learn how to make your website accessible to everyone."
+  lang="en"
+  breadcrumbs={[
+    { label: 'Blog', href: '/blog/' },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Blog</h1>
+    <p class="text-lg text-gray-600">Articles about web accessibility, WCAG compliance, and inclusive design.</p>
+  </div>
+
+  {posts.length > 0 ? (
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <BlogCard
+          href={`/blog/${post.slug.current}/`}
+          title={post.title.en || post.title.tr}
+          description={post.description?.en || post.description?.tr || ''}
+          date={post.publishedAt}
+          category={post.category}
+          tags={post.tags}
+          imageUrl={post.featuredImage?.asset?.url}
+          imageAlt={post.featuredImage?.alt || post.title.en || post.title.tr}
+          lang="en"
+        />
+      ))}
+    </div>
+  ) : (
+    <p class="text-gray-500">No blog posts yet. Check back soon!</p>
+  )}
+</KBLayout>

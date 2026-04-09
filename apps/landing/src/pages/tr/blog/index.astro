@@ -1,0 +1,59 @@
+---
+import KBLayout from '../../../components/kb/KBLayout.astro'
+import BlogCard from '../../../components/blog/BlogCard.astro'
+import { getAllBlogPosts } from '../../../lib/sanity'
+import { SITE_URL } from '../../../lib/seo'
+
+const posts = await getAllBlogPosts()
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Web Erişilebilirlik Blog',
+  description: 'Web erişilebilirlik, WCAG uyumluluk ve Türkiye\'deki yasal düzenlemeler hakkında güncel makaleler ve rehberler.',
+  url: `${SITE_URL}/tr/blog/`,
+  inLanguage: 'tr',
+  publisher: {
+    '@type': 'Organization',
+    name: 'inculva',
+  },
+}
+---
+
+<KBLayout
+  title="Web Erişilebilirlik Blog | inculva"
+  description="Web erişilebilirlik, WCAG uyumluluk ve Türkiye'deki yasal düzenlemeler hakkında güncel makaleler ve rehberler."
+  lang="tr"
+  breadcrumbs={[
+    { label: 'Blog', href: '/tr/blog/' },
+  ]}
+  jsonLd={jsonLd}
+>
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Blog</h1>
+    <p class="text-lg text-gray-600">Web erişilebilirlik, WCAG uyumluluk ve Türkiye'deki yasal düzenlemeler hakkında güncel makaleler ve rehberler.</p>
+  </div>
+
+  {posts.length > 0 ? (
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => {
+        const slug = post.slugTr?.current || post.slug.current
+        return (
+          <BlogCard
+            href={`/tr/blog/${slug}/`}
+            title={post.title.tr || post.title.en}
+            description={post.description?.tr || post.description?.en || ''}
+            date={post.publishedAt}
+            category={post.category}
+            tags={post.tags}
+            imageUrl={post.featuredImage?.asset?.url}
+            imageAlt={post.featuredImage?.alt || post.title.tr || post.title.en}
+            lang="tr"
+          />
+        )
+      })}
+    </div>
+  ) : (
+    <p class="text-gray-500">Henüz blog yazısı yok. Yakında tekrar kontrol edin!</p>
+  )}
+</KBLayout>

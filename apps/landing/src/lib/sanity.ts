@@ -254,4 +254,189 @@ export async function getAxeRuleMapping(): Promise<Record<string, string>> {
   }
 }
 
+// --- Blog Post Types ---
+
+export interface BlogPost {
+  _id: string;
+  title: { en: string; tr: string };
+  slug: { current: string };
+  slugTr: { current: string };
+  description: { en: string; tr: string };
+  content: { en: PortableTextBlock[]; tr: PortableTextBlock[] };
+  featuredImage: { asset: { url: string }; alt?: string };
+  category: "accessibility" | "legal" | "wcag" | "tools" | "news";
+  tags: string[];
+  relatedPosts: BlogPostSummary[];
+  relatedGuides: Pick<Guide, "_id" | "title" | "slug" | "category">[];
+  relatedWcagRules: Pick<WcagRule, "_id" | "criterionNumber" | "level" | "title" | "slug">[];
+  seo: {
+    en: { metaTitle: string; metaDescription: string };
+    tr: { metaTitle: string; metaDescription: string };
+  };
+  publishedAt: string;
+}
+
+export type BlogPostSummary = Omit<BlogPost, "content" | "seo" | "relatedPosts" | "relatedGuides" | "relatedWcagRules">;
+
+// --- Blog Post Queries ---
+
+const ALL_BLOG_POSTS_QUERY = `
+  *[_type == "blogPost"] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    slugTr,
+    description,
+    featuredImage {
+      asset->{ url },
+      alt
+    },
+    category,
+    tags,
+    publishedAt
+  }
+`;
+
+const BLOG_POST_BY_SLUG_QUERY = `
+  *[_type == "blogPost" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    slugTr,
+    description,
+    content {
+      en[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      },
+      tr[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      }
+    },
+    featuredImage {
+      asset->{ url },
+      alt
+    },
+    category,
+    tags,
+    relatedPosts[]-> {
+      _id,
+      title,
+      slug,
+      slugTr,
+      description,
+      category,
+      tags,
+      publishedAt
+    },
+    relatedGuides[]-> {
+      _id,
+      title,
+      slug,
+      category
+    },
+    relatedWcagRules[]-> {
+      _id,
+      criterionNumber,
+      level,
+      title,
+      slug
+    },
+    seo,
+    publishedAt
+  }
+`;
+
+const BLOG_POST_BY_SLUG_TR_QUERY = `
+  *[_type == "blogPost" && slugTr.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    slugTr,
+    description,
+    content {
+      en[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      },
+      tr[] {
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{ url }
+        }
+      }
+    },
+    featuredImage {
+      asset->{ url },
+      alt
+    },
+    category,
+    tags,
+    relatedPosts[]-> {
+      _id,
+      title,
+      slug,
+      slugTr,
+      description,
+      category,
+      tags,
+      publishedAt
+    },
+    relatedGuides[]-> {
+      _id,
+      title,
+      slug,
+      category
+    },
+    relatedWcagRules[]-> {
+      _id,
+      criterionNumber,
+      level,
+      title,
+      slug
+    },
+    seo,
+    publishedAt
+  }
+`;
+
+export async function getAllBlogPosts(): Promise<BlogPostSummary[]> {
+  try {
+    return await client.fetch(ALL_BLOG_POSTS_QUERY);
+  } catch (error) {
+    console.error("[sanity] Failed to fetch blog posts:", error);
+    return [];
+  }
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  try {
+    return await client.fetch(BLOG_POST_BY_SLUG_QUERY, { slug });
+  } catch (error) {
+    console.error(`[sanity] Failed to fetch blog post by slug "${slug}":`, error);
+    return null;
+  }
+}
+
+export async function getBlogPostBySlugTr(slug: string): Promise<BlogPost | null> {
+  try {
+    return await client.fetch(BLOG_POST_BY_SLUG_TR_QUERY, { slug });
+  } catch (error) {
+    console.error(`[sanity] Failed to fetch blog post by Turkish slug "${slug}":`, error);
+    return null;
+  }
+}
+
 export default client;
+

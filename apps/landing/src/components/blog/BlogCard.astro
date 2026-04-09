@@ -1,0 +1,83 @@
+---
+interface Props {
+  href: string
+  title: string
+  description: string
+  date?: string
+  category?: string
+  tags?: string[]
+  imageUrl?: string
+  imageAlt?: string
+  lang?: 'en' | 'tr'
+}
+
+const { href, title, description, date, category, tags, imageUrl, imageAlt, lang = 'en' } = Astro.props
+
+const categoryLabels: Record<string, Record<string, string>> = {
+  en: {
+    accessibility: 'Accessibility',
+    legal: 'Legal',
+    wcag: 'WCAG',
+    tools: 'Tools',
+    news: 'News',
+  },
+  tr: {
+    accessibility: 'Erişilebilirlik',
+    legal: 'Yasal',
+    wcag: 'WCAG',
+    tools: 'Araçlar',
+    news: 'Haberler',
+  },
+}
+
+const formattedDate = date ? new Date(date).toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}) : null
+
+const turkishCharRegex = /[çğıöşüÇĞİÖŞÜ]/
+const englishWordRegex = /\b(accessibility|accessible|testing|automated|compliance|standards|levels|tools|scanner|checklist|government|public|sector|design|impaired|contrast|vision|checkout|shopping|commerce|law|regulations|guide|keyboard|navigation|reader|screen|digital|online|color|users|audit|website|European)\b/i
+
+const filteredTags = tags?.filter((tag) => {
+  const hasTurkish = turkishCharRegex.test(tag)
+  const hasEnglish = englishWordRegex.test(tag)
+  if (lang === 'tr') return hasTurkish || (!hasTurkish && !hasEnglish)
+  return !hasTurkish
+}) || []
+---
+
+<a href={href} class="block group rounded-xl border border-gray-200 overflow-hidden hover:border-primary-300 hover:shadow-lg transition-all duration-200">
+  {imageUrl && (
+    <div class="aspect-video overflow-hidden bg-gray-100">
+      <img src={`${imageUrl}?w=600&h=340&fit=crop`} alt={imageAlt || title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+    </div>
+  )}
+
+  <div class="p-6">
+    <div class="flex items-center gap-3 mb-3">
+      {category && (
+        <span class="text-xs font-medium text-primary-600 uppercase tracking-wide">
+          {categoryLabels[lang]?.[category] || category}
+        </span>
+      )}
+      {formattedDate && (
+        <span class="text-xs text-gray-400">{formattedDate}</span>
+      )}
+    </div>
+
+    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-2 line-clamp-2">
+      {title}
+    </h3>
+
+    <p class="text-sm text-gray-600 line-clamp-3 mb-4">{description}</p>
+
+    {filteredTags.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {filteredTags.map((tag) => (
+          <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{tag}</span>
+        ))}
+      </div>
+    )}
+  </div>
+</a>

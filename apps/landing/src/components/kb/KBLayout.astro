@@ -8,12 +8,14 @@ interface Props {
   lang: 'en' | 'tr'
   breadcrumbs: { label: string; href: string }[]
   jsonLd?: Record<string, any>
+  hreflangOverrides?: { lang: string; url: string }[]
+  alternateHref?: string
 }
 
-const { title, description, lang, breadcrumbs, jsonLd } = Astro.props
+const { title, description, lang, breadcrumbs, jsonLd, hreflangOverrides, alternateHref } = Astro.props
 ---
 
-<BaseLayout title={title} description={description} lang={lang} jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} lang={lang} jsonLd={jsonLd} hreflangOverrides={hreflangOverrides} alternateHref={alternateHref}>
   <div class="min-h-screen bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Breadcrumbs items={breadcrumbs} lang={lang} />

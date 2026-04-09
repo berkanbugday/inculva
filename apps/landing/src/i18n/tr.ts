@@ -6,9 +6,11 @@ export const tr: Translations = {
     home: "Ana Sayfa",
     features: "Özellikler",
     kb: "Bilgi Bankası",
+    resources: "Kaynaklar",
     pricing: "Fiyatlandırma",
     about: "Hakkımızda",
     contact: "İletişim",
+    blog: "Blog",
     getStarted: "Görüşme Planla",
     signIn: "Giriş Yap",
     skipToContent: "Ana içeriğe geç",
@@ -30,6 +32,7 @@ export const tr: Translations = {
     termsOfUse: "Kullanım Koşulları",
     resources: "Kaynaklar",
     knowledgeBase: "Bilgi Bankası",
+    blog: "Blog",
     signIn: "Giriş Yap",
     copyright: "inculva. Tüm hakları saklıdır.",
     contactEmail: "bilgi@inculva.com",
@@ -539,5 +542,17 @@ export const tr: Translations = {
     privacyLink: "Gizlilik Politikası",
     dismiss: "Anladım",
     ariaLabel: "Çerez bildirimi",
+  },
+
+  // Blog
+  blog: {
+    title: "Blog",
+    description:
+      "Web erişilebilirlik, WCAG uyumluluk ve Türkiye'deki yasal düzenlemeler hakkında güncel makaleler ve rehberler.",
+    readMore: "Devamını oku",
+    allPosts: "Tüm Yazılar",
+    relatedPosts: "İlgili Yazılar",
+    relatedGuides: "İlgili Kılavuzlar",
+    noPosts: "Henüz blog yazısı yok. Yakında tekrar kontrol edin!",
   },
 } as const;

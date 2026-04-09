@@ -5,6 +5,7 @@ import { localizedSeo } from './objects/localizedSeo'
 import { resource } from './objects/resource'
 import { wcagRule } from './documents/wcagRule'
 import { guide } from './documents/guide'
+import { blogPost } from './documents/blogPost'
 
 export const schemaTypes = [
   // Objects
@@ -16,4 +17,5 @@ export const schemaTypes = [
   // Documents
   wcagRule,
   guide,
+  blogPost,
 ]
