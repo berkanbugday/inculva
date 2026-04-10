@@ -1,5 +1,5 @@
 /**
- * Maps axe-core rule IDs to Inculva knowledge base WCAG article slugs (Sanity wcagRule).
+ * Maps axe-core rule IDs to inculva knowledge base WCAG article slugs (Sanity wcagRule).
  * Built from apps/studio/seed/axe-rule-mapping.json + WCAG seed slug rules in helpers.mjs.
  * Only rules present here should surface a doc link in the dashboard — no Deque fallbacks.
  *
@@ -86,7 +86,7 @@ export const AXE_RULE_KB_SLUG: Record<string, string> = {
 export type KbLocale = "en" | "tr";
 
 /**
- * Absolute URL to the Inculva KB article for an axe rule, or null when we have no matching doc.
+ * Absolute URL to the inculva KB article for an axe rule, or null when we have no matching doc.
  */
 export function wcagKbArticleUrl(
   ruleId: string,

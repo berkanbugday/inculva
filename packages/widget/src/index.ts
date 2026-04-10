@@ -119,7 +119,7 @@ class InculvaWidget {
         ...partialConfig.features,
       },
       profiles: {
-        ...DEFAULT_CONFIG.profiles,
+        ...DEFAULT_CONFIG.profiles!,
         ...partialConfig.profiles,
       },
     };
@@ -161,7 +161,7 @@ class InculvaWidget {
     this.restorePrefs();
   }
 
-  /** Fetch and cache translations for a language from the Inculva CDN. */
+  /** Fetch and cache translations for a language from the inculva CDN. */
   private async _preloadTranslation(lang: string): Promise<void> {
     if (lang === "en" || this._loadedLangs.has(lang)) return;
     try {
@@ -1200,7 +1200,7 @@ class InculvaWidget {
 
       if (res.status === 404 || res.status === 403) {
         console.warn(
-          `[Inculva] Widget disabled — ${
+          `[inculva] Widget disabled — ${
             res.status === 404 ? "site not found" : "domain not authorized"
           }.`,
         );
@@ -1360,7 +1360,7 @@ function autoInit(): void {
       .__INCULVA_PREVIEW_CONFIG__?.siteId;
 
   if (!siteId) {
-    console.warn("[Inculva] Missing data-site-id attribute on script tag.");
+    console.warn("[inculva] Missing data-site-id attribute on script tag.");
     return;
   }
 

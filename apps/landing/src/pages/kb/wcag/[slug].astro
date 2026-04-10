@@ -30,7 +30,7 @@ const jsonLd = {
   datePublished: rule.publishedAt,
   publisher: {
     '@type': 'Organization',
-    name: 'Inculva',
+    name: 'inculva',
     url: 'https://inculva.com',
   },
   about: {
@@ -50,7 +50,7 @@ const principleNames: Record<string, string> = {
 ---
 
 <KBLayout
-  title={rule.seo?.en?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.en} | Inculva`}
+  title={rule.seo?.en?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.en} | inculva`}
   description={rule.seo?.en?.metaDescription || rule.description?.en || ''}
   lang="en"
   breadcrumbs={[

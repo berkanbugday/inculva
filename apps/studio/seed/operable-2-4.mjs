@@ -345,19 +345,19 @@ const rules = [
 
         heading("Basic page title", "h3"),
         code(
-          "<!-- Bad: Missing or generic title -->\n<head>\n  <title>Page</title>\n</head>\n\n<!-- Bad: Same title on every page -->\n<head>\n  <title>My Website</title>\n</head>\n\n<!-- Good: Descriptive, page-specific title -->\n<head>\n  <title>Accessibility Audit Report — Inculva Dashboard</title>\n</head>\n\n<!-- Good: Pattern — Page Name - Site Name -->\n<head>\n  <title>Contact Us - Inculva</title>\n</head>",
+          "<!-- Bad: Missing or generic title -->\n<head>\n  <title>Page</title>\n</head>\n\n<!-- Bad: Same title on every page -->\n<head>\n  <title>My Website</title>\n</head>\n\n<!-- Good: Descriptive, page-specific title -->\n<head>\n  <title>Accessibility Audit Report — inculva Dashboard</title>\n</head>\n\n<!-- Good: Pattern — Page Name - Site Name -->\n<head>\n  <title>Contact Us - inculva</title>\n</head>",
           "html",
         ),
 
         heading("Dynamic title updates in SPAs", "h3"),
         code(
-          "// React: Update document title on route change\nimport { useEffect } from 'react';\nimport { useLocation } from 'react-router-dom';\n\nfunction useDocumentTitle(title) {\n  useEffect(() => {\n    document.title = title ? `${title} — Inculva` : 'Inculva';\n  }, [title]);\n}\n\n// Usage in a page component\nfunction AuditPage() {\n  useDocumentTitle('Accessibility Audit Report');\n  return <main>...</main>;\n}",
+          "// React: Update document title on route change\nimport { useEffect } from 'react';\nimport { useLocation } from 'react-router-dom';\n\nfunction useDocumentTitle(title) {\n  useEffect(() => {\n    document.title = title ? `${title} — inculva` : 'inculva';\n  }, [title]);\n}\n\n// Usage in a page component\nfunction AuditPage() {\n  useDocumentTitle('Accessibility Audit Report');\n  return <main>...</main>;\n}",
           "javascript",
         ),
 
         heading("Server-side title generation", "h3"),
         code(
-          "<!-- Astro / Next.js pattern -->\n---\nconst pageTitle = `${article.title} — Inculva Knowledge Base`;\n---\n<html>\n  <head>\n    <title>{pageTitle}</title>\n  </head>\n  <!-- ... -->\n</html>",
+          "<!-- Astro / Next.js pattern -->\n---\nconst pageTitle = `${article.title} — inculva Knowledge Base`;\n---\n<html>\n  <head>\n    <title>{pageTitle}</title>\n  </head>\n  <!-- ... -->\n</html>",
           "html",
         ),
 
@@ -431,19 +431,19 @@ const rules = [
 
         heading("Temel sayfa başlığı", "h3"),
         code(
-          "<!-- Yanlış: Eksik veya genel başlık -->\n<head>\n  <title>Sayfa</title>\n</head>\n\n<!-- Yanlış: Her sayfada aynı başlık -->\n<head>\n  <title>Web Sitem</title>\n</head>\n\n<!-- Doğru: Açıklayıcı, sayfaya özel başlık -->\n<head>\n  <title>Erişilebilirlik Denetim Raporu — Inculva Panel</title>\n</head>\n\n<!-- Doğru: Kalip — Sayfa Adı - Site Adı -->\n<head>\n  <title>Bize Ulaşın - Inculva</title>\n</head>",
+          "<!-- Yanlış: Eksik veya genel başlık -->\n<head>\n  <title>Sayfa</title>\n</head>\n\n<!-- Yanlış: Her sayfada aynı başlık -->\n<head>\n  <title>Web Sitem</title>\n</head>\n\n<!-- Doğru: Açıklayıcı, sayfaya özel başlık -->\n<head>\n  <title>Erişilebilirlik Denetim Raporu — inculva Panel</title>\n</head>\n\n<!-- Doğru: Kalip — Sayfa Adı - Site Adı -->\n<head>\n  <title>Bize Ulaşın - inculva</title>\n</head>",
           "html",
         ),
 
         heading("SPA'larda dinamik başlık güncellemeleri", "h3"),
         code(
-          "// React: Rota değisikliğinde belge başlığını güncelleme\nimport { useEffect } from 'react';\nimport { useLocation } from 'react-router-dom';\n\nfunction useDocumentTitle(title) {\n  useEffect(() => {\n    document.title = title ? `${title} — Inculva` : 'Inculva';\n  }, [title]);\n}\n\n// Bir sayfa bileşeninde kullanım\nfunction DenetimSayfası() {\n  useDocumentTitle('Erişilebilirlik Denetim Raporu');\n  return <main>...</main>;\n}",
+          "// React: Rota değisikliğinde belge başlığını güncelleme\nimport { useEffect } from 'react';\nimport { useLocation } from 'react-router-dom';\n\nfunction useDocumentTitle(title) {\n  useEffect(() => {\n    document.title = title ? `${title} — inculva` : 'inculva';\n  }, [title]);\n}\n\n// Bir sayfa bileşeninde kullanım\nfunction DenetimSayfası() {\n  useDocumentTitle('Erişilebilirlik Denetim Raporu');\n  return <main>...</main>;\n}",
           "javascript",
         ),
 
         heading("Sunucu tarafında başlık oluşturma", "h3"),
         code(
-          "<!-- Astro / Next.js kalıbı -->\n---\nconst sayfaBasligi = `${makale.başlık} — Inculva Bilgi Bankası`;\n---\n<html>\n  <head>\n    <title>{sayfaBasligi}</title>\n  </head>\n  <!-- ... -->\n</html>",
+          "<!-- Astro / Next.js kalıbı -->\n---\nconst sayfaBasligi = `${makale.başlık} — inculva Bilgi Bankası`;\n---\n<html>\n  <head>\n    <title>{sayfaBasligi}</title>\n  </head>\n  <!-- ... -->\n</html>",
           "html",
         ),
 
@@ -841,7 +841,7 @@ const rules = [
 
         heading("Image links", "h3"),
         code(
-          '<!-- Bad: Image link with no alt text -->\n<a href="/home"><img src="logo.png"></a>\n\n<!-- Bad: Alt describes image, not link purpose -->\n<a href="/home"><img src="logo.png" alt="Company logo"></a>\n\n<!-- Good: Alt describes link destination -->\n<a href="/home"><img src="logo.png" alt="Inculva home page"></a>',
+          '<!-- Bad: Image link with no alt text -->\n<a href="/home"><img src="logo.png"></a>\n\n<!-- Bad: Alt describes image, not link purpose -->\n<a href="/home"><img src="logo.png" alt="Company logo"></a>\n\n<!-- Good: Alt describes link destination -->\n<a href="/home"><img src="logo.png" alt="inculva home page"></a>',
           "html",
         ),
 
@@ -924,7 +924,7 @@ const rules = [
 
         heading("Görsel bağlantılar", "h3"),
         code(
-          '<!-- Yanlış: Alt metni olmayan görsel bağlantı -->\n<a href="/anasayfa"><img src="logo.png"></a>\n\n<!-- Yanlış: Alt görseli tanımlıyor, bağlantı amacını değil -->\n<a href="/anasayfa"><img src="logo.png" alt="Şirket logosu"></a>\n\n<!-- Doğru: Alt bağlantı hedefini tanımlıyor -->\n<a href="/anasayfa"><img src="logo.png" alt="Inculva ana sayfa"></a>',
+          '<!-- Yanlış: Alt metni olmayan görsel bağlantı -->\n<a href="/anasayfa"><img src="logo.png"></a>\n\n<!-- Yanlış: Alt görseli tanımlıyor, bağlantı amacını değil -->\n<a href="/anasayfa"><img src="logo.png" alt="Şirket logosu"></a>\n\n<!-- Doğru: Alt bağlantı hedefini tanımlıyor -->\n<a href="/anasayfa"><img src="logo.png" alt="inculva ana sayfa"></a>',
           "html",
         ),
 

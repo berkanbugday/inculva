@@ -5,7 +5,7 @@ function landingBaseUrl(): string {
   return typeof u === "string" && u.length > 0 ? u : "https://inculva.com";
 }
 
-/** Absolute URL to the Inculva KB WCAG article for this axe rule, or null if we have no article. */
+/** Absolute URL to the inculva KB WCAG article for this axe rule, or null if we have no article. */
 export function scanRuleKnowledgeBaseUrl(
   ruleId: string,
   locale: KbLocale,
@@ -23,10 +23,7 @@ type KbLinkScannerCopy = {
 };
 
 /** Link text for a KB doc; `wcag` is the axe-derived tag (e.g. `1.4.3`, `best-practice`, `unknown`). */
-export function scanKbDocLinkLabel(
-  wcag: string,
-  t: KbLinkScannerCopy,
-): string {
+export function scanKbDocLinkLabel(wcag: string, t: KbLinkScannerCopy): string {
   if (wcag === "best-practice") return t.learnMore;
   if (wcag === "unknown") return t.wcagKbArticleGeneric;
   return t.wcagDocument.replace("{wcag}", wcag);

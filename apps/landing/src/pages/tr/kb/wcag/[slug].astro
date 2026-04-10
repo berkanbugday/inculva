@@ -37,7 +37,7 @@ const jsonLd = {
   datePublished: rule.publishedAt,
   publisher: {
     '@type': 'Organization',
-    name: 'Inculva',
+    name: 'inculva',
     url: 'https://inculva.com',
   },
   inLanguage: 'tr',
@@ -45,7 +45,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title={rule.seo?.tr?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.tr || rule.title.en} | Inculva`}
+  title={rule.seo?.tr?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.tr || rule.title.en} | inculva`}
   description={rule.seo?.tr?.metaDescription || rule.description?.tr || rule.description?.en || ''}
   lang="tr"
   breadcrumbs={[

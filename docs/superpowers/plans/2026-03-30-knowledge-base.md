@@ -14,66 +14,67 @@
 
 ### Sanity Studio (`apps/studio/`)
 
-| Action | Path | Responsibility |
-|--------|------|----------------|
-| Delete | `schemaTypes/post.ts` | Old blog post schema |
-| Delete | `seed-posts.mjs` | Old seed script |
-| Create | `schemaTypes/objects/localizedString.ts` | Localized string field type |
-| Create | `schemaTypes/objects/localizedText.ts` | Localized text field type |
-| Create | `schemaTypes/objects/localizedPortableText.ts` | Localized Portable Text field type |
-| Create | `schemaTypes/objects/localizedSeo.ts` | Localized SEO fields object |
-| Create | `schemaTypes/objects/resource.ts` | External resource link object |
-| Create | `schemaTypes/documents/wcagRule.ts` | WCAG rule document type |
-| Create | `schemaTypes/documents/guide.ts` | Guide document type |
-| Modify | `schemaTypes/index.ts` | Export new schema types |
-| Create | `deskStructure.ts` | Custom desk structure |
-| Modify | `sanity.config.ts` | Add desk structure, remove old config |
-| Modify | `package.json` | Add any needed dependencies |
+| Action | Path                                           | Responsibility                        |
+| ------ | ---------------------------------------------- | ------------------------------------- |
+| Delete | `schemaTypes/post.ts`                          | Old blog post schema                  |
+| Delete | `seed-posts.mjs`                               | Old seed script                       |
+| Create | `schemaTypes/objects/localizedString.ts`       | Localized string field type           |
+| Create | `schemaTypes/objects/localizedText.ts`         | Localized text field type             |
+| Create | `schemaTypes/objects/localizedPortableText.ts` | Localized Portable Text field type    |
+| Create | `schemaTypes/objects/localizedSeo.ts`          | Localized SEO fields object           |
+| Create | `schemaTypes/objects/resource.ts`              | External resource link object         |
+| Create | `schemaTypes/documents/wcagRule.ts`            | WCAG rule document type               |
+| Create | `schemaTypes/documents/guide.ts`               | Guide document type                   |
+| Modify | `schemaTypes/index.ts`                         | Export new schema types               |
+| Create | `deskStructure.ts`                             | Custom desk structure                 |
+| Modify | `sanity.config.ts`                             | Add desk structure, remove old config |
+| Modify | `package.json`                                 | Add any needed dependencies           |
 
 ### Astro Landing (`apps/landing/`)
 
-| Action | Path | Responsibility |
-|--------|------|----------------|
-| Delete | `src/pages/blog/index.astro` | Old blog listing |
-| Delete | `src/pages/blog/[slug].astro` | Old blog post page |
-| Delete | `src/pages/tr/blog/index.astro` | Old TR blog listing (if exists) |
-| Delete | `src/pages/tr/blog/[slug].astro` | Old TR blog post page (if exists) |
-| Delete | `src/components/BlogCard.astro` | Old blog card component |
-| Modify | `src/lib/sanity.ts` | New queries for wcagRule and guide |
-| Create | `src/lib/portable-text.ts` | Portable Text to HTML renderer |
-| Create | `src/pages/kb/index.astro` | KB landing page (EN) |
-| Create | `src/pages/kb/wcag/index.astro` | WCAG rules listing (EN) |
-| Create | `src/pages/kb/wcag/[slug].astro` | Individual WCAG rule page (EN) |
-| Create | `src/pages/kb/guides/index.astro` | Guides listing (EN) |
-| Create | `src/pages/kb/guides/[slug].astro` | Individual guide page (EN) |
-| Create | `src/pages/tr/kb/index.astro` | KB landing page (TR) |
-| Create | `src/pages/tr/kb/wcag/index.astro` | WCAG rules listing (TR) |
-| Create | `src/pages/tr/kb/wcag/[slug].astro` | Individual WCAG rule page (TR) |
-| Create | `src/pages/tr/kb/guides/index.astro` | Guides listing (TR) |
-| Create | `src/pages/tr/kb/guides/[slug].astro` | Individual guide page (TR) |
-| Create | `src/components/kb/KBCard.astro` | KB listing card component |
-| Create | `src/components/kb/RuleBadges.astro` | Level/version/impact badges |
-| Create | `src/components/kb/TableOfContents.astro` | Article sidebar TOC |
-| Create | `src/components/kb/ResourceList.astro` | External resources section |
-| Create | `src/components/kb/RelatedRules.astro` | Related WCAG rules sidebar |
-| Create | `src/components/kb/Breadcrumbs.astro` | Breadcrumb navigation |
-| Create | `src/components/kb/FAQSection.astro` | FAQ with schema markup |
-| Create | `src/components/kb/KBLayout.astro` | KB page layout wrapper |
-| Modify | `src/components/Navbar.astro` | Add KB link to navigation |
+| Action | Path                                      | Responsibility                     |
+| ------ | ----------------------------------------- | ---------------------------------- |
+| Delete | `src/pages/blog/index.astro`              | Old blog listing                   |
+| Delete | `src/pages/blog/[slug].astro`             | Old blog post page                 |
+| Delete | `src/pages/tr/blog/index.astro`           | Old TR blog listing (if exists)    |
+| Delete | `src/pages/tr/blog/[slug].astro`          | Old TR blog post page (if exists)  |
+| Delete | `src/components/BlogCard.astro`           | Old blog card component            |
+| Modify | `src/lib/sanity.ts`                       | New queries for wcagRule and guide |
+| Create | `src/lib/portable-text.ts`                | Portable Text to HTML renderer     |
+| Create | `src/pages/kb/index.astro`                | KB landing page (EN)               |
+| Create | `src/pages/kb/wcag/index.astro`           | WCAG rules listing (EN)            |
+| Create | `src/pages/kb/wcag/[slug].astro`          | Individual WCAG rule page (EN)     |
+| Create | `src/pages/kb/guides/index.astro`         | Guides listing (EN)                |
+| Create | `src/pages/kb/guides/[slug].astro`        | Individual guide page (EN)         |
+| Create | `src/pages/tr/kb/index.astro`             | KB landing page (TR)               |
+| Create | `src/pages/tr/kb/wcag/index.astro`        | WCAG rules listing (TR)            |
+| Create | `src/pages/tr/kb/wcag/[slug].astro`       | Individual WCAG rule page (TR)     |
+| Create | `src/pages/tr/kb/guides/index.astro`      | Guides listing (TR)                |
+| Create | `src/pages/tr/kb/guides/[slug].astro`     | Individual guide page (TR)         |
+| Create | `src/components/kb/KBCard.astro`          | KB listing card component          |
+| Create | `src/components/kb/RuleBadges.astro`      | Level/version/impact badges        |
+| Create | `src/components/kb/TableOfContents.astro` | Article sidebar TOC                |
+| Create | `src/components/kb/ResourceList.astro`    | External resources section         |
+| Create | `src/components/kb/RelatedRules.astro`    | Related WCAG rules sidebar         |
+| Create | `src/components/kb/Breadcrumbs.astro`     | Breadcrumb navigation              |
+| Create | `src/components/kb/FAQSection.astro`      | FAQ with schema markup             |
+| Create | `src/components/kb/KBLayout.astro`        | KB page layout wrapper             |
+| Modify | `src/components/Navbar.astro`             | Add KB link to navigation          |
 
 ### Content Seed Scripts (`apps/studio/`)
 
-| Action | Path | Responsibility |
-|--------|------|----------------|
-| Create | `seed/seed-wcag-rules.mjs` | Seed all 87 WCAG rules with EN+TR content |
-| Create | `seed/seed-guides.mjs` | Seed SEO/GEO/AEO guides with EN+TR content |
-| Create | `seed/axe-rule-mapping.json` | Axe rule ID → WCAG criterion mapping |
+| Action | Path                         | Responsibility                             |
+| ------ | ---------------------------- | ------------------------------------------ |
+| Create | `seed/seed-wcag-rules.mjs`   | Seed all 87 WCAG rules with EN+TR content  |
+| Create | `seed/seed-guides.mjs`       | Seed SEO/GEO/AEO guides with EN+TR content |
+| Create | `seed/axe-rule-mapping.json` | Axe rule ID → WCAG criterion mapping       |
 
 ---
 
 ## Task 1: Clean Slate — Remove Existing Blog
 
 **Files:**
+
 - Delete: `apps/studio/schemaTypes/post.ts`
 - Delete: `apps/studio/seed-posts.mjs`
 - Delete: `apps/landing/src/pages/blog/index.astro`
@@ -95,7 +96,7 @@ rm apps/studio/seed-posts.mjs
 Replace `apps/studio/schemaTypes/index.ts` with:
 
 ```typescript
-export const schemaTypes: any[] = []
+export const schemaTypes: any[] = [];
 ```
 
 - [ ] **Step 3: Delete old blog pages**
@@ -136,6 +137,7 @@ git commit -m "chore: remove existing blog schema, pages, and seed data for KB r
 ## Task 2: Sanity Localized Field Objects
 
 **Files:**
+
 - Create: `apps/studio/schemaTypes/objects/localizedString.ts`
 - Create: `apps/studio/schemaTypes/objects/localizedText.ts`
 - Create: `apps/studio/schemaTypes/objects/localizedPortableText.ts`
@@ -147,25 +149,25 @@ git commit -m "chore: remove existing blog schema, pages, and seed data for KB r
 Create `apps/studio/schemaTypes/objects/localizedString.ts`:
 
 ```typescript
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const localizedString = defineType({
-  name: 'localizedString',
-  title: 'Localized String',
-  type: 'object',
+  name: "localizedString",
+  title: "Localized String",
+  type: "object",
   fields: [
     defineField({
-      name: 'en',
-      title: 'English',
-      type: 'string',
+      name: "en",
+      title: "English",
+      type: "string",
     }),
     defineField({
-      name: 'tr',
-      title: 'Turkish',
-      type: 'string',
+      name: "tr",
+      title: "Turkish",
+      type: "string",
     }),
   ],
-})
+});
 ```
 
 - [ ] **Step 2: Create localizedText type**
@@ -173,27 +175,27 @@ export const localizedString = defineType({
 Create `apps/studio/schemaTypes/objects/localizedText.ts`:
 
 ```typescript
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const localizedText = defineType({
-  name: 'localizedText',
-  title: 'Localized Text',
-  type: 'object',
+  name: "localizedText",
+  title: "Localized Text",
+  type: "object",
   fields: [
     defineField({
-      name: 'en',
-      title: 'English',
-      type: 'text',
+      name: "en",
+      title: "English",
+      type: "text",
       rows: 3,
     }),
     defineField({
-      name: 'tr',
-      title: 'Turkish',
-      type: 'text',
+      name: "tr",
+      title: "Turkish",
+      type: "text",
       rows: 3,
     }),
   ],
-})
+});
 ```
 
 - [ ] **Step 3: Create localizedPortableText type**
@@ -201,77 +203,77 @@ export const localizedText = defineType({
 Create `apps/studio/schemaTypes/objects/localizedPortableText.ts`:
 
 ```typescript
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const localizedPortableText = defineType({
-  name: 'localizedPortableText',
-  title: 'Localized Portable Text',
-  type: 'object',
+  name: "localizedPortableText",
+  title: "Localized Portable Text",
+  type: "object",
   fields: [
     defineField({
-      name: 'en',
-      title: 'English',
-      type: 'array',
+      name: "en",
+      title: "English",
+      type: "array",
       of: [
-        { type: 'block' },
+        { type: "block" },
         {
-          type: 'image',
+          type: "image",
           options: { hotspot: true },
           fields: [
             {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative Text',
+              name: "alt",
+              type: "string",
+              title: "Alternative Text",
             },
           ],
         },
         {
-          type: 'code',
-          title: 'Code Block',
+          type: "code",
+          title: "Code Block",
           options: {
             languageAlternatives: [
-              { title: 'HTML', value: 'html' },
-              { title: 'CSS', value: 'css' },
-              { title: 'JavaScript', value: 'javascript' },
-              { title: 'TypeScript', value: 'typescript' },
+              { title: "HTML", value: "html" },
+              { title: "CSS", value: "css" },
+              { title: "JavaScript", value: "javascript" },
+              { title: "TypeScript", value: "typescript" },
             ],
           },
         },
       ],
     }),
     defineField({
-      name: 'tr',
-      title: 'Turkish',
-      type: 'array',
+      name: "tr",
+      title: "Turkish",
+      type: "array",
       of: [
-        { type: 'block' },
+        { type: "block" },
         {
-          type: 'image',
+          type: "image",
           options: { hotspot: true },
           fields: [
             {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative Text',
+              name: "alt",
+              type: "string",
+              title: "Alternative Text",
             },
           ],
         },
         {
-          type: 'code',
-          title: 'Code Block',
+          type: "code",
+          title: "Code Block",
           options: {
             languageAlternatives: [
-              { title: 'HTML', value: 'html' },
-              { title: 'CSS', value: 'css' },
-              { title: 'JavaScript', value: 'javascript' },
-              { title: 'TypeScript', value: 'typescript' },
+              { title: "HTML", value: "html" },
+              { title: "CSS", value: "css" },
+              { title: "JavaScript", value: "javascript" },
+              { title: "TypeScript", value: "typescript" },
             ],
           },
         },
       ],
     }),
   ],
-})
+});
 ```
 
 - [ ] **Step 4: Create localizedSeo type**
@@ -279,59 +281,59 @@ export const localizedPortableText = defineType({
 Create `apps/studio/schemaTypes/objects/localizedSeo.ts`:
 
 ```typescript
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const localizedSeo = defineType({
-  name: 'localizedSeo',
-  title: 'Localized SEO',
-  type: 'object',
+  name: "localizedSeo",
+  title: "Localized SEO",
+  type: "object",
   fields: [
     defineField({
-      name: 'en',
-      title: 'English SEO',
-      type: 'object',
+      name: "en",
+      title: "English SEO",
+      type: "object",
       fields: [
         defineField({
-          name: 'metaTitle',
-          title: 'Meta Title',
-          type: 'string',
-          description: 'Max 60 characters',
+          name: "metaTitle",
+          title: "Meta Title",
+          type: "string",
+          description: "Max 60 characters",
           validation: (Rule) => Rule.max(60),
         }),
         defineField({
-          name: 'metaDescription',
-          title: 'Meta Description',
-          type: 'text',
+          name: "metaDescription",
+          title: "Meta Description",
+          type: "text",
           rows: 2,
-          description: 'Max 160 characters',
+          description: "Max 160 characters",
           validation: (Rule) => Rule.max(160),
         }),
       ],
     }),
     defineField({
-      name: 'tr',
-      title: 'Turkish SEO',
-      type: 'object',
+      name: "tr",
+      title: "Turkish SEO",
+      type: "object",
       fields: [
         defineField({
-          name: 'metaTitle',
-          title: 'Meta Title',
-          type: 'string',
-          description: 'Max 60 characters',
+          name: "metaTitle",
+          title: "Meta Title",
+          type: "string",
+          description: "Max 60 characters",
           validation: (Rule) => Rule.max(60),
         }),
         defineField({
-          name: 'metaDescription',
-          title: 'Meta Description',
-          type: 'text',
+          name: "metaDescription",
+          title: "Meta Description",
+          type: "text",
           rows: 2,
-          description: 'Max 160 characters',
+          description: "Max 160 characters",
           validation: (Rule) => Rule.max(160),
         }),
       ],
     }),
   ],
-})
+});
 ```
 
 - [ ] **Step 5: Create resource type**
@@ -339,67 +341,67 @@ export const localizedSeo = defineType({
 Create `apps/studio/schemaTypes/objects/resource.ts`:
 
 ```typescript
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const resource = defineType({
-  name: 'resource',
-  title: 'External Resource',
-  type: 'object',
+  name: "resource",
+  title: "External Resource",
+  type: "object",
   fields: [
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
+      name: "title",
+      title: "Title",
+      type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'url',
-      title: 'URL',
-      type: 'url',
+      name: "url",
+      title: "URL",
+      type: "url",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'source',
-      title: 'Source',
-      type: 'string',
+      name: "source",
+      title: "Source",
+      type: "string",
       options: {
         list: [
-          { title: 'W3C WCAG Spec', value: 'w3c-spec' },
-          { title: 'W3C Understanding WCAG', value: 'w3c-understanding' },
-          { title: 'W3C Techniques', value: 'w3c-techniques' },
-          { title: 'W3C WAI Tutorials', value: 'w3c-wai' },
-          { title: 'Deque University', value: 'deque' },
-          { title: 'WebAIM', value: 'webaim' },
-          { title: 'MDN Web Docs', value: 'mdn' },
-          { title: 'A11Y Project', value: 'a11y-project' },
-          { title: 'ACT Rules', value: 'act-rules' },
-          { title: 'Axe-core', value: 'axe-core' },
-          { title: 'Other', value: 'other' },
+          { title: "W3C WCAG Spec", value: "w3c-spec" },
+          { title: "W3C Understanding WCAG", value: "w3c-understanding" },
+          { title: "W3C Techniques", value: "w3c-techniques" },
+          { title: "W3C WAI Tutorials", value: "w3c-wai" },
+          { title: "Deque University", value: "deque" },
+          { title: "WebAIM", value: "webaim" },
+          { title: "MDN Web Docs", value: "mdn" },
+          { title: "A11Y Project", value: "a11y-project" },
+          { title: "ACT Rules", value: "act-rules" },
+          { title: "Axe-core", value: "axe-core" },
+          { title: "Other", value: "other" },
         ],
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'language',
-      title: 'Language',
-      type: 'string',
+      name: "language",
+      title: "Language",
+      type: "string",
       options: {
         list: [
-          { title: 'English', value: 'en' },
-          { title: 'Turkish', value: 'tr' },
-          { title: 'Both', value: 'both' },
+          { title: "English", value: "en" },
+          { title: "Turkish", value: "tr" },
+          { title: "Both", value: "both" },
         ],
       },
-      initialValue: 'en',
+      initialValue: "en",
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'source',
+      title: "title",
+      subtitle: "source",
     },
   },
-})
+});
 ```
 
 - [ ] **Step 6: Install sanity code-input plugin**
@@ -420,6 +422,7 @@ git commit -m "feat: add localized field objects and resource schema for KB"
 ## Task 3: Sanity wcagRule Document Schema
 
 **Files:**
+
 - Create: `apps/studio/schemaTypes/documents/wcagRule.ts`
 
 - [ ] **Step 1: Create wcagRule schema**
@@ -427,192 +430,193 @@ git commit -m "feat: add localized field objects and resource schema for KB"
 Create `apps/studio/schemaTypes/documents/wcagRule.ts`:
 
 ```typescript
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const wcagRule = defineType({
-  name: 'wcagRule',
-  title: 'WCAG Rule',
-  type: 'document',
+  name: "wcagRule",
+  title: "WCAG Rule",
+  type: "document",
   fields: [
     defineField({
-      name: 'criterionNumber',
-      title: 'Criterion Number',
-      type: 'string',
-      description: 'e.g. 1.1.1, 2.4.7',
+      name: "criterionNumber",
+      title: "Criterion Number",
+      type: "string",
+      description: "e.g. 1.1.1, 2.4.7",
       validation: (Rule) => Rule.required().regex(/^\d+\.\d+\.\d+$/),
     }),
     defineField({
-      name: 'level',
-      title: 'Conformance Level',
-      type: 'string',
+      name: "level",
+      title: "Conformance Level",
+      type: "string",
       options: {
         list: [
-          { title: 'A', value: 'A' },
-          { title: 'AA', value: 'AA' },
-          { title: 'AAA', value: 'AAA' },
+          { title: "A", value: "A" },
+          { title: "AA", value: "AA" },
+          { title: "AAA", value: "AAA" },
         ],
-        layout: 'radio',
-        direction: 'horizontal',
+        layout: "radio",
+        direction: "horizontal",
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'principle',
-      title: 'Principle',
-      type: 'string',
+      name: "principle",
+      title: "Principle",
+      type: "string",
       options: {
         list: [
-          { title: 'Perceivable', value: 'perceivable' },
-          { title: 'Operable', value: 'operable' },
-          { title: 'Understandable', value: 'understandable' },
-          { title: 'Robust', value: 'robust' },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'introducedIn',
-      title: 'Introduced In',
-      type: 'string',
-      description: 'WCAG version that first added this criterion',
-      options: {
-        list: [
-          { title: 'WCAG 2.0', value: '2.0' },
-          { title: 'WCAG 2.1', value: '2.1' },
-          { title: 'WCAG 2.2', value: '2.2' },
+          { title: "Perceivable", value: "perceivable" },
+          { title: "Operable", value: "operable" },
+          { title: "Understandable", value: "understandable" },
+          { title: "Robust", value: "robust" },
         ],
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'wcagVersions',
-      title: 'Present In Versions',
-      type: 'array',
-      of: [{ type: 'string' }],
+      name: "introducedIn",
+      title: "Introduced In",
+      type: "string",
+      description: "WCAG version that first added this criterion",
       options: {
         list: [
-          { title: 'WCAG 2.0', value: '2.0' },
-          { title: 'WCAG 2.1', value: '2.1' },
-          { title: 'WCAG 2.2', value: '2.2' },
+          { title: "WCAG 2.0", value: "2.0" },
+          { title: "WCAG 2.1", value: "2.1" },
+          { title: "WCAG 2.2", value: "2.2" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "wcagVersions",
+      title: "Present In Versions",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: [
+          { title: "WCAG 2.0", value: "2.0" },
+          { title: "WCAG 2.1", value: "2.1" },
+          { title: "WCAG 2.2", value: "2.2" },
         ],
       },
       validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
-      name: 'impact',
-      title: 'Impact',
-      type: 'string',
+      name: "impact",
+      title: "Impact",
+      type: "string",
       options: {
         list: [
-          { title: 'Critical', value: 'critical' },
-          { title: 'Serious', value: 'serious' },
-          { title: 'Moderate', value: 'moderate' },
-          { title: 'Minor', value: 'minor' },
+          { title: "Critical", value: "critical" },
+          { title: "Serious", value: "serious" },
+          { title: "Moderate", value: "moderate" },
+          { title: "Minor", value: "minor" },
         ],
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'axeRuleIds',
-      title: 'Axe-core Rule IDs',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Related axe-core rule identifiers (e.g. image-alt, color-contrast)',
+      name: "axeRuleIds",
+      title: "Axe-core Rule IDs",
+      type: "array",
+      of: [{ type: "string" }],
+      description:
+        "Related axe-core rule identifiers (e.g. image-alt, color-contrast)",
     }),
     defineField({
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      of: [{ type: 'string' }],
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [{ type: "string" }],
       options: {
         list: [
-          { title: 'Images', value: 'images' },
-          { title: 'Forms', value: 'forms' },
-          { title: 'Color', value: 'color' },
-          { title: 'ARIA', value: 'aria' },
-          { title: 'Keyboard', value: 'keyboard' },
-          { title: 'Navigation', value: 'navigation' },
-          { title: 'Text', value: 'text' },
-          { title: 'Media', value: 'media' },
-          { title: 'Structure', value: 'structure' },
-          { title: 'Tables', value: 'tables' },
-          { title: 'Links', value: 'links' },
-          { title: 'Timing', value: 'timing' },
-          { title: 'Errors', value: 'errors' },
-          { title: 'Language', value: 'language' },
-          { title: 'Predictability', value: 'predictability' },
+          { title: "Images", value: "images" },
+          { title: "Forms", value: "forms" },
+          { title: "Color", value: "color" },
+          { title: "ARIA", value: "aria" },
+          { title: "Keyboard", value: "keyboard" },
+          { title: "Navigation", value: "navigation" },
+          { title: "Text", value: "text" },
+          { title: "Media", value: "media" },
+          { title: "Structure", value: "structure" },
+          { title: "Tables", value: "tables" },
+          { title: "Links", value: "links" },
+          { title: "Timing", value: "timing" },
+          { title: "Errors", value: "errors" },
+          { title: "Language", value: "language" },
+          { title: "Predictability", value: "predictability" },
         ],
       },
     }),
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'localizedString',
+      name: "title",
+      title: "Title",
+      type: "localizedString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
+      name: "slug",
+      title: "Slug",
+      type: "slug",
       options: {
         source: (doc: any) => {
-          const num = doc.criterionNumber || ''
-          const title = doc.title?.en || ''
-          return `${num.replace(/\./g, '-')}-${title}`
+          const num = doc.criterionNumber || "";
+          const title = doc.title?.en || "";
+          return `${num.replace(/\./g, "-")}-${title}`;
         },
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'localizedText',
+      name: "description",
+      title: "Description",
+      type: "localizedText",
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
-      type: 'localizedPortableText',
+      name: "content",
+      title: "Content",
+      type: "localizedPortableText",
     }),
     defineField({
-      name: 'resources',
-      title: 'Resources',
-      type: 'array',
-      of: [{ type: 'resource' }],
+      name: "resources",
+      title: "Resources",
+      type: "array",
+      of: [{ type: "resource" }],
     }),
     defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'localizedSeo',
+      name: "seo",
+      title: "SEO",
+      type: "localizedSeo",
     }),
     defineField({
-      name: 'publishedAt',
-      title: 'Published At',
-      type: 'datetime',
+      name: "publishedAt",
+      title: "Published At",
+      type: "datetime",
     }),
   ],
   orderings: [
     {
-      title: 'Criterion Number',
-      name: 'criterionAsc',
-      by: [{ field: 'criterionNumber', direction: 'asc' }],
+      title: "Criterion Number",
+      name: "criterionAsc",
+      by: [{ field: "criterionNumber", direction: "asc" }],
     },
   ],
   preview: {
     select: {
-      criterion: 'criterionNumber',
-      title: 'title.en',
-      level: 'level',
-      impact: 'impact',
+      criterion: "criterionNumber",
+      title: "title.en",
+      level: "level",
+      impact: "impact",
     },
     prepare({ criterion, title, level, impact }) {
       return {
-        title: `${criterion} — ${title || 'Untitled'}`,
+        title: `${criterion} — ${title || "Untitled"}`,
         subtitle: `Level ${level} | ${impact}`,
-      }
+      };
     },
   },
-})
+});
 ```
 
 - [ ] **Step 2: Commit**
@@ -627,6 +631,7 @@ git commit -m "feat: add wcagRule document schema"
 ## Task 4: Sanity guide Document Schema
 
 **Files:**
+
 - Create: `apps/studio/schemaTypes/documents/guide.ts`
 
 - [ ] **Step 1: Create guide schema**
@@ -634,95 +639,95 @@ git commit -m "feat: add wcagRule document schema"
 Create `apps/studio/schemaTypes/documents/guide.ts`:
 
 ```typescript
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const guide = defineType({
-  name: 'guide',
-  title: 'Guide',
-  type: 'document',
+  name: "guide",
+  title: "Guide",
+  type: "document",
   fields: [
     defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'string',
+      name: "category",
+      title: "Category",
+      type: "string",
       options: {
         list: [
-          { title: 'SEO', value: 'seo' },
-          { title: 'GEO', value: 'geo' },
-          { title: 'AEO', value: 'aeo' },
-          { title: 'Technique', value: 'technique' },
-          { title: 'Best Practice', value: 'best-practice' },
+          { title: "SEO", value: "seo" },
+          { title: "GEO", value: "geo" },
+          { title: "AEO", value: "aeo" },
+          { title: "Technique", value: "technique" },
+          { title: "Best Practice", value: "best-practice" },
         ],
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'relatedWcagRules',
-      title: 'Related WCAG Rules',
-      type: 'array',
+      name: "relatedWcagRules",
+      title: "Related WCAG Rules",
+      type: "array",
       of: [
         {
-          type: 'reference',
-          to: [{ type: 'wcagRule' }],
+          type: "reference",
+          to: [{ type: "wcagRule" }],
         },
       ],
     }),
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'localizedString',
+      name: "title",
+      title: "Title",
+      type: "localizedString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
+      name: "slug",
+      title: "Slug",
+      type: "slug",
       options: {
-        source: 'title.en',
+        source: "title.en",
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'localizedText',
+      name: "description",
+      title: "Description",
+      type: "localizedText",
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
-      type: 'localizedPortableText',
+      name: "content",
+      title: "Content",
+      type: "localizedPortableText",
     }),
     defineField({
-      name: 'resources',
-      title: 'Resources',
-      type: 'array',
-      of: [{ type: 'resource' }],
+      name: "resources",
+      title: "Resources",
+      type: "array",
+      of: [{ type: "resource" }],
     }),
     defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'localizedSeo',
+      name: "seo",
+      title: "SEO",
+      type: "localizedSeo",
     }),
     defineField({
-      name: 'publishedAt',
-      title: 'Published At',
-      type: 'datetime',
+      name: "publishedAt",
+      title: "Published At",
+      type: "datetime",
     }),
   ],
   preview: {
     select: {
-      title: 'title.en',
-      category: 'category',
+      title: "title.en",
+      category: "category",
     },
     prepare({ title, category }) {
       return {
-        title: title || 'Untitled',
+        title: title || "Untitled",
         subtitle: category?.toUpperCase(),
-      }
+      };
     },
   },
-})
+});
 ```
 
 - [ ] **Step 2: Commit**
@@ -737,6 +742,7 @@ git commit -m "feat: add guide document schema"
 ## Task 5: Sanity Schema Index & Desk Structure
 
 **Files:**
+
 - Modify: `apps/studio/schemaTypes/index.ts`
 - Create: `apps/studio/deskStructure.ts`
 - Modify: `apps/studio/sanity.config.ts`
@@ -746,13 +752,13 @@ git commit -m "feat: add guide document schema"
 Replace `apps/studio/schemaTypes/index.ts`:
 
 ```typescript
-import { localizedString } from './objects/localizedString'
-import { localizedText } from './objects/localizedText'
-import { localizedPortableText } from './objects/localizedPortableText'
-import { localizedSeo } from './objects/localizedSeo'
-import { resource } from './objects/resource'
-import { wcagRule } from './documents/wcagRule'
-import { guide } from './documents/guide'
+import { localizedString } from "./objects/localizedString";
+import { localizedText } from "./objects/localizedText";
+import { localizedPortableText } from "./objects/localizedPortableText";
+import { localizedSeo } from "./objects/localizedSeo";
+import { resource } from "./objects/resource";
+import { wcagRule } from "./documents/wcagRule";
+import { guide } from "./documents/guide";
 
 export const schemaTypes = [
   // Objects
@@ -764,7 +770,7 @@ export const schemaTypes = [
   // Documents
   wcagRule,
   guide,
-]
+];
 ```
 
 - [ ] **Step 2: Create desk structure**
@@ -772,48 +778,60 @@ export const schemaTypes = [
 Create `apps/studio/deskStructure.ts`:
 
 ```typescript
-import type { StructureBuilder } from 'sanity/desk'
+import type { StructureBuilder } from "sanity/desk";
 
 const PRINCIPLES = [
-  { id: 'perceivable', title: 'Perceivable', guidelines: ['1.1', '1.2', '1.3', '1.4'] },
-  { id: 'operable', title: 'Operable', guidelines: ['2.1', '2.2', '2.3', '2.4', '2.5'] },
-  { id: 'understandable', title: 'Understandable', guidelines: ['3.1', '3.2', '3.3'] },
-  { id: 'robust', title: 'Robust', guidelines: ['4.1'] },
-]
+  {
+    id: "perceivable",
+    title: "Perceivable",
+    guidelines: ["1.1", "1.2", "1.3", "1.4"],
+  },
+  {
+    id: "operable",
+    title: "Operable",
+    guidelines: ["2.1", "2.2", "2.3", "2.4", "2.5"],
+  },
+  {
+    id: "understandable",
+    title: "Understandable",
+    guidelines: ["3.1", "3.2", "3.3"],
+  },
+  { id: "robust", title: "Robust", guidelines: ["4.1"] },
+];
 
 const GUIDELINE_NAMES: Record<string, string> = {
-  '1.1': '1.1 Text Alternatives',
-  '1.2': '1.2 Time-based Media',
-  '1.3': '1.3 Adaptable',
-  '1.4': '1.4 Distinguishable',
-  '2.1': '2.1 Keyboard Accessible',
-  '2.2': '2.2 Enough Time',
-  '2.3': '2.3 Seizures and Physical Reactions',
-  '2.4': '2.4 Navigable',
-  '2.5': '2.5 Input Modalities',
-  '3.1': '3.1 Readable',
-  '3.2': '3.2 Predictable',
-  '3.3': '3.3 Input Assistance',
-  '4.1': '4.1 Compatible',
-}
+  "1.1": "1.1 Text Alternatives",
+  "1.2": "1.2 Time-based Media",
+  "1.3": "1.3 Adaptable",
+  "1.4": "1.4 Distinguishable",
+  "2.1": "2.1 Keyboard Accessible",
+  "2.2": "2.2 Enough Time",
+  "2.3": "2.3 Seizures and Physical Reactions",
+  "2.4": "2.4 Navigable",
+  "2.5": "2.5 Input Modalities",
+  "3.1": "3.1 Readable",
+  "3.2": "3.2 Predictable",
+  "3.3": "3.3 Input Assistance",
+  "4.1": "4.1 Compatible",
+};
 
 const GUIDE_CATEGORIES = [
-  { id: 'seo', title: 'SEO' },
-  { id: 'geo', title: 'GEO' },
-  { id: 'aeo', title: 'AEO' },
-  { id: 'technique', title: 'Techniques' },
-  { id: 'best-practice', title: 'Best Practices' },
-]
+  { id: "seo", title: "SEO" },
+  { id: "geo", title: "GEO" },
+  { id: "aeo", title: "AEO" },
+  { id: "technique", title: "Techniques" },
+  { id: "best-practice", title: "Best Practices" },
+];
 
 export const deskStructure = (S: StructureBuilder) =>
   S.list()
-    .title('Knowledge Base')
+    .title("Knowledge Base")
     .items([
       S.listItem()
-        .title('WCAG Rules')
+        .title("WCAG Rules")
         .child(
           S.list()
-            .title('WCAG Rules by Principle')
+            .title("WCAG Rules by Principle")
             .items(
               PRINCIPLES.map((principle) =>
                 S.listItem()
@@ -829,25 +847,28 @@ export const deskStructure = (S: StructureBuilder) =>
                               S.documentList()
                                 .title(GUIDELINE_NAMES[gl] || gl)
                                 .filter(
-                                  '_type == "wcagRule" && criterionNumber match $prefix'
+                                  '_type == "wcagRule" && criterionNumber match $prefix',
                                 )
                                 .params({ prefix: `${gl}.*` })
                                 .defaultOrdering([
-                                  { field: 'criterionNumber', direction: 'asc' },
-                                ])
-                            )
-                        )
-                      )
-                  )
-              )
-            )
+                                  {
+                                    field: "criterionNumber",
+                                    direction: "asc",
+                                  },
+                                ]),
+                            ),
+                        ),
+                      ),
+                  ),
+              ),
+            ),
         ),
       S.divider(),
       S.listItem()
-        .title('Guides')
+        .title("Guides")
         .child(
           S.list()
-            .title('Guides by Category')
+            .title("Guides by Category")
             .items(
               GUIDE_CATEGORIES.map((cat) =>
                 S.listItem()
@@ -856,28 +877,24 @@ export const deskStructure = (S: StructureBuilder) =>
                     S.documentList()
                       .title(cat.title)
                       .filter('_type == "guide" && category == $category')
-                      .params({ category: cat.id })
-                  )
-              )
-            )
+                      .params({ category: cat.id }),
+                  ),
+              ),
+            ),
         ),
       S.divider(),
       S.listItem()
-        .title('All WCAG Rules')
+        .title("All WCAG Rules")
         .child(
           S.documentList()
-            .title('All WCAG Rules')
+            .title("All WCAG Rules")
             .filter('_type == "wcagRule"')
-            .defaultOrdering([{ field: 'criterionNumber', direction: 'asc' }])
+            .defaultOrdering([{ field: "criterionNumber", direction: "asc" }]),
         ),
       S.listItem()
-        .title('All Guides')
-        .child(
-          S.documentList()
-            .title('All Guides')
-            .filter('_type == "guide"')
-        ),
-    ])
+        .title("All Guides")
+        .child(S.documentList().title("All Guides").filter('_type == "guide"')),
+    ]);
 ```
 
 - [ ] **Step 3: Update sanity.config.ts**
@@ -885,18 +902,18 @@ export const deskStructure = (S: StructureBuilder) =>
 Replace `apps/studio/sanity.config.ts`:
 
 ```typescript
-import { defineConfig } from 'sanity'
-import { deskTool as structureTool } from 'sanity/desk'
-import { visionTool } from '@sanity/vision'
-import { codeInput } from '@sanity/code-input'
-import { schemaTypes } from './schemaTypes'
-import { deskStructure } from './deskStructure'
+import { defineConfig } from "sanity";
+import { deskTool as structureTool } from "sanity/desk";
+import { visionTool } from "@sanity/vision";
+import { codeInput } from "@sanity/code-input";
+import { schemaTypes } from "./schemaTypes";
+import { deskStructure } from "./deskStructure";
 
 export default defineConfig({
-  name: 'default',
-  title: 'Inculva Knowledge Base',
-  projectId: '0w6yrm5e',
-  dataset: 'production',
+  name: "default",
+  title: "inculva Knowledge Base",
+  projectId: "0w6yrm5e",
+  dataset: "production",
   plugins: [
     structureTool({
       structure: deskStructure,
@@ -907,7 +924,7 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-})
+});
 ```
 
 - [ ] **Step 4: Verify Studio loads**
@@ -931,6 +948,7 @@ git commit -m "feat: wire up KB schemas with custom desk structure"
 ## Task 6: Sanity Client Queries for KB
 
 **Files:**
+
 - Modify: `apps/landing/src/lib/sanity.ts`
 
 - [ ] **Step 1: Rewrite sanity.ts with KB queries**
@@ -938,60 +956,60 @@ git commit -m "feat: wire up KB schemas with custom desk structure"
 Replace `apps/landing/src/lib/sanity.ts`:
 
 ```typescript
-import { createClient } from '@sanity/client'
+import { createClient } from "@sanity/client";
 
 const client = createClient({
-  projectId: import.meta.env.SANITY_PROJECT_ID || '0w6yrm5e',
-  dataset: import.meta.env.SANITY_DATASET || 'production',
-  apiVersion: '2024-01-01',
+  projectId: import.meta.env.SANITY_PROJECT_ID || "0w6yrm5e",
+  dataset: import.meta.env.SANITY_DATASET || "production",
+  apiVersion: "2024-01-01",
   useCdn: true,
-})
+});
 
 // --- Types ---
 
 export interface WcagRule {
-  _id: string
-  criterionNumber: string
-  level: 'A' | 'AA' | 'AAA'
-  principle: 'perceivable' | 'operable' | 'understandable' | 'robust'
-  introducedIn: string
-  wcagVersions: string[]
-  impact: 'critical' | 'serious' | 'moderate' | 'minor'
-  axeRuleIds: string[]
-  tags: string[]
-  title: { en: string; tr: string }
-  slug: { current: string }
-  description: { en: string; tr: string }
-  content: { en: any[]; tr: any[] }
-  resources: Resource[]
+  _id: string;
+  criterionNumber: string;
+  level: "A" | "AA" | "AAA";
+  principle: "perceivable" | "operable" | "understandable" | "robust";
+  introducedIn: string;
+  wcagVersions: string[];
+  impact: "critical" | "serious" | "moderate" | "minor";
+  axeRuleIds: string[];
+  tags: string[];
+  title: { en: string; tr: string };
+  slug: { current: string };
+  description: { en: string; tr: string };
+  content: { en: any[]; tr: any[] };
+  resources: Resource[];
   seo: {
-    en: { metaTitle: string; metaDescription: string }
-    tr: { metaTitle: string; metaDescription: string }
-  }
-  publishedAt: string
+    en: { metaTitle: string; metaDescription: string };
+    tr: { metaTitle: string; metaDescription: string };
+  };
+  publishedAt: string;
 }
 
 export interface Guide {
-  _id: string
-  category: 'seo' | 'geo' | 'aeo' | 'technique' | 'best-practice'
-  relatedWcagRules: WcagRule[]
-  title: { en: string; tr: string }
-  slug: { current: string }
-  description: { en: string; tr: string }
-  content: { en: any[]; tr: any[] }
-  resources: Resource[]
+  _id: string;
+  category: "seo" | "geo" | "aeo" | "technique" | "best-practice";
+  relatedWcagRules: WcagRule[];
+  title: { en: string; tr: string };
+  slug: { current: string };
+  description: { en: string; tr: string };
+  content: { en: any[]; tr: any[] };
+  resources: Resource[];
   seo: {
-    en: { metaTitle: string; metaDescription: string }
-    tr: { metaTitle: string; metaDescription: string }
-  }
-  publishedAt: string
+    en: { metaTitle: string; metaDescription: string };
+    tr: { metaTitle: string; metaDescription: string };
+  };
+  publishedAt: string;
 }
 
 export interface Resource {
-  title: string
-  url: string
-  source: string
-  language: string
+  title: string;
+  url: string;
+  source: string;
+  language: string;
 }
 
 // --- WCAG Rule Queries ---
@@ -1013,14 +1031,16 @@ export async function getAllWcagRules(): Promise<WcagRule[]> {
         slug,
         description,
         publishedAt
-      }`
-    )
+      }`,
+    );
   } catch {
-    return []
+    return [];
   }
 }
 
-export async function getWcagRuleBySlug(slug: string): Promise<WcagRule | null> {
+export async function getWcagRuleBySlug(
+  slug: string,
+): Promise<WcagRule | null> {
   try {
     return await client.fetch(
       `*[_type == "wcagRule" && slug.current == $slug][0] {
@@ -1041,10 +1061,10 @@ export async function getWcagRuleBySlug(slug: string): Promise<WcagRule | null> 
         seo,
         publishedAt
       }`,
-      { slug }
-    )
+      { slug },
+    );
   } catch {
-    return null
+    return null;
   }
 }
 
@@ -1060,10 +1080,10 @@ export async function getAllGuides(): Promise<Guide[]> {
         slug,
         description,
         publishedAt
-      }`
-    )
+      }`,
+    );
   } catch {
-    return []
+    return [];
   }
 }
 
@@ -1088,10 +1108,10 @@ export async function getGuideBySlug(slug: string): Promise<Guide | null> {
         seo,
         publishedAt
       }`,
-      { slug }
-    )
+      { slug },
+    );
   } catch {
-    return null
+    return null;
   }
 }
 
@@ -1103,21 +1123,21 @@ export async function getAxeRuleMapping(): Promise<Record<string, string>> {
       `*[_type == "wcagRule" && defined(axeRuleIds)] {
         axeRuleIds,
         "slug": slug.current
-      }`
-    )
-    const mapping: Record<string, string> = {}
+      }`,
+    );
+    const mapping: Record<string, string> = {};
     for (const rule of rules) {
       for (const axeId of rule.axeRuleIds || []) {
-        mapping[axeId] = rule.slug
+        mapping[axeId] = rule.slug;
       }
     }
-    return mapping
+    return mapping;
   } catch {
-    return {}
+    return {};
   }
 }
 
-export default client
+export default client;
 ```
 
 - [ ] **Step 2: Commit**
@@ -1132,6 +1152,7 @@ git commit -m "feat: rewrite sanity client with KB queries and types"
 ## Task 7: Portable Text Renderer
 
 **Files:**
+
 - Create: `apps/landing/src/lib/portable-text.ts`
 
 - [ ] **Step 1: Create Portable Text to HTML utility**
@@ -1140,131 +1161,135 @@ Create `apps/landing/src/lib/portable-text.ts`:
 
 ```typescript
 interface Block {
-  _type: string
-  _key?: string
-  style?: string
-  children?: Span[]
-  listItem?: string
-  level?: number
-  markDefs?: MarkDef[]
-  asset?: { url: string }
-  alt?: string
-  code?: string
-  language?: string
+  _type: string;
+  _key?: string;
+  style?: string;
+  children?: Span[];
+  listItem?: string;
+  level?: number;
+  markDefs?: MarkDef[];
+  asset?: { url: string };
+  alt?: string;
+  code?: string;
+  language?: string;
 }
 
 interface Span {
-  _type: string
-  text: string
-  marks?: string[]
+  _type: string;
+  text: string;
+  marks?: string[];
 }
 
 interface MarkDef {
-  _key: string
-  _type: string
-  href?: string
+  _key: string;
+  _type: string;
+  href?: string;
 }
 
 function escapeHtml(text: string): string {
   return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function renderSpan(span: Span, markDefs: MarkDef[] = []): string {
-  let html = escapeHtml(span.text)
+  let html = escapeHtml(span.text);
 
   for (const mark of span.marks || []) {
-    const def = markDefs.find((d) => d._key === mark)
-    if (def?._type === 'link' && def.href) {
-      html = `<a href="${escapeHtml(def.href)}" rel="noopener noreferrer">${html}</a>`
-    } else if (mark === 'strong') {
-      html = `<strong>${html}</strong>`
-    } else if (mark === 'em') {
-      html = `<em>${html}</em>`
-    } else if (mark === 'code') {
-      html = `<code>${html}</code>`
-    } else if (mark === 'underline') {
-      html = `<u>${html}</u>`
+    const def = markDefs.find((d) => d._key === mark);
+    if (def?._type === "link" && def.href) {
+      html = `<a href="${escapeHtml(
+        def.href,
+      )}" rel="noopener noreferrer">${html}</a>`;
+    } else if (mark === "strong") {
+      html = `<strong>${html}</strong>`;
+    } else if (mark === "em") {
+      html = `<em>${html}</em>`;
+    } else if (mark === "code") {
+      html = `<code>${html}</code>`;
+    } else if (mark === "underline") {
+      html = `<u>${html}</u>`;
     }
   }
 
-  return html
+  return html;
 }
 
 function renderBlock(block: Block): string {
-  if (block._type === 'image') {
-    const alt = block.alt ? escapeHtml(block.alt) : ''
-    const url = block.asset?.url || ''
-    return `<figure><img src="${url}" alt="${alt}" loading="lazy" />${alt ? `<figcaption>${alt}</figcaption>` : ''}</figure>`
+  if (block._type === "image") {
+    const alt = block.alt ? escapeHtml(block.alt) : "";
+    const url = block.asset?.url || "";
+    return `<figure><img src="${url}" alt="${alt}" loading="lazy" />${
+      alt ? `<figcaption>${alt}</figcaption>` : ""
+    }</figure>`;
   }
 
-  if (block._type === 'code') {
-    const lang = block.language || ''
-    const code = escapeHtml(block.code || '')
-    return `<pre><code class="language-${lang}">${code}</code></pre>`
+  if (block._type === "code") {
+    const lang = block.language || "";
+    const code = escapeHtml(block.code || "");
+    return `<pre><code class="language-${lang}">${code}</code></pre>`;
   }
 
-  if (block._type !== 'block') return ''
+  if (block._type !== "block") return "";
 
   const children = (block.children || [])
     .map((span) => renderSpan(span, block.markDefs))
-    .join('')
+    .join("");
 
   switch (block.style) {
-    case 'h2':
-      return `<h2>${children}</h2>`
-    case 'h3':
-      return `<h3>${children}</h3>`
-    case 'h4':
-      return `<h4>${children}</h4>`
-    case 'blockquote':
-      return `<blockquote>${children}</blockquote>`
+    case "h2":
+      return `<h2>${children}</h2>`;
+    case "h3":
+      return `<h3>${children}</h3>`;
+    case "h4":
+      return `<h4>${children}</h4>`;
+    case "blockquote":
+      return `<blockquote>${children}</blockquote>`;
     default:
-      return `<p>${children}</p>`
+      return `<p>${children}</p>`;
   }
 }
 
 export function portableTextToHtml(blocks: Block[]): string {
-  if (!blocks || blocks.length === 0) return ''
+  if (!blocks || blocks.length === 0) return "";
 
-  const result: string[] = []
-  let currentList: string | null = null
-  let listItems: string[] = []
+  const result: string[] = [];
+  let currentList: string | null = null;
+  let listItems: string[] = [];
 
   for (const block of blocks) {
     if (block.listItem) {
       if (currentList !== block.listItem) {
         if (currentList) {
-          const tag = currentList === 'number' ? 'ol' : 'ul'
-          result.push(`<${tag}>${listItems.join('')}</${tag}>`)
-          listItems = []
+          const tag = currentList === "number" ? "ol" : "ul";
+          result.push(`<${tag}>${listItems.join("")}</${tag}>`);
+          listItems = [];
         }
-        currentList = block.listItem
+        currentList = block.listItem;
       }
       const children = (block.children || [])
         .map((span) => renderSpan(span, block.markDefs))
-        .join('')
-      listItems.push(`<li>${children}</li>`)
+        .join("");
+      listItems.push(`<li>${children}</li>`);
     } else {
       if (currentList) {
-        const tag = currentList === 'number' ? 'ol' : 'ul'
-        result.push(`<${tag}>${listItems.join('')}</${tag}>`)
-        listItems = []
-        currentList = null
+        const tag = currentList === "number" ? "ol" : "ul";
+        result.push(`<${tag}>${listItems.join("")}</${tag}>`);
+        listItems = [];
+        currentList = null;
       }
-      result.push(renderBlock(block))
+      result.push(renderBlock(block));
     }
   }
 
   if (currentList) {
-    const tag = currentList === 'number' ? 'ol' : 'ul'
-    result.push(`<${tag}>${listItems.join('')}</${tag}>`)
+    const tag = currentList === "number" ? "ol" : "ul";
+    result.push(`<${tag}>${listItems.join("")}</${tag}>`);
   }
 
-  return result.join('\n')
+  return result.join("\n");
 }
 ```
 
@@ -1280,6 +1305,7 @@ git commit -m "feat: add Portable Text to HTML renderer"
 ## Task 8: KB Layout and Shared Components
 
 **Files:**
+
 - Create: `apps/landing/src/components/kb/KBLayout.astro`
 - Create: `apps/landing/src/components/kb/Breadcrumbs.astro`
 - Create: `apps/landing/src/components/kb/RuleBadges.astro`
@@ -1661,6 +1687,7 @@ git commit -m "feat: add KB layout and shared components"
 ## Task 9: KB Listing Pages (EN)
 
 **Files:**
+
 - Create: `apps/landing/src/pages/kb/index.astro`
 - Create: `apps/landing/src/pages/kb/wcag/index.astro`
 - Create: `apps/landing/src/pages/kb/guides/index.astro`
@@ -1681,14 +1708,14 @@ const guides = await getAllGuides()
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Inculva Accessibility Knowledge Base',
+  name: 'inculva Accessibility Knowledge Base',
   description: 'Comprehensive accessibility knowledge base covering all WCAG 2.0, 2.1, and 2.2 success criteria with practical testing and remediation guidance.',
   url: 'https://inculva.com/kb/',
 }
 ---
 
 <KBLayout
-  title="Accessibility Knowledge Base | Inculva"
+  title="Accessibility Knowledge Base | inculva"
   description="Comprehensive accessibility knowledge base covering all WCAG 2.0, 2.1, and 2.2 success criteria with practical testing and remediation guidance."
   lang="en"
   breadcrumbs={[{ label: 'Knowledge Base', href: '/kb/' }]}
@@ -1785,7 +1812,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title="WCAG Success Criteria Reference | Inculva"
+  title="WCAG Success Criteria Reference | inculva"
   description="Complete reference for all WCAG 2.0, 2.1, and 2.2 success criteria with testing and remediation guidance."
   lang="en"
   breadcrumbs={[
@@ -1866,7 +1893,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title="Accessibility Guides | Inculva"
+  title="Accessibility Guides | inculva"
   description="Expert guides on SEO, GEO, AEO, and accessibility best practices."
   lang="en"
   breadcrumbs={[
@@ -1915,6 +1942,7 @@ git commit -m "feat: add KB listing pages (EN)"
 ## Task 10: WCAG Rule Detail Page (EN)
 
 **Files:**
+
 - Create: `apps/landing/src/pages/kb/wcag/[slug].astro`
 
 - [ ] **Step 1: Create WCAG rule detail page**
@@ -1954,7 +1982,7 @@ const jsonLd = {
   datePublished: rule.publishedAt,
   publisher: {
     '@type': 'Organization',
-    name: 'Inculva',
+    name: 'inculva',
     url: 'https://inculva.com',
   },
   about: {
@@ -1974,7 +2002,7 @@ const principleNames: Record<string, string> = {
 ---
 
 <KBLayout
-  title={rule.seo?.en?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.en} | Inculva`}
+  title={rule.seo?.en?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.en} | inculva`}
   description={rule.seo?.en?.metaDescription || rule.description?.en || ''}
   lang="en"
   breadcrumbs={[
@@ -2037,6 +2065,7 @@ git commit -m "feat: add WCAG rule detail page (EN)"
 ## Task 11: Guide Detail Page (EN)
 
 **Files:**
+
 - Create: `apps/landing/src/pages/kb/guides/[slug].astro`
 
 - [ ] **Step 1: Create guide detail page**
@@ -2084,7 +2113,7 @@ const jsonLd = {
   datePublished: guide.publishedAt,
   publisher: {
     '@type': 'Organization',
-    name: 'Inculva',
+    name: 'inculva',
     url: 'https://inculva.com',
   },
   inLanguage: 'en',
@@ -2092,7 +2121,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title={guide.seo?.en?.metaTitle || `${guide.title.en} | Inculva`}
+  title={guide.seo?.en?.metaTitle || `${guide.title.en} | inculva`}
   description={guide.seo?.en?.metaDescription || guide.description?.en || ''}
   lang="en"
   breadcrumbs={[
@@ -2142,6 +2171,7 @@ git commit -m "feat: add guide detail page (EN)"
 ## Task 12: Turkish (TR) KB Pages
 
 **Files:**
+
 - Create: `apps/landing/src/pages/tr/kb/index.astro`
 - Create: `apps/landing/src/pages/tr/kb/wcag/index.astro`
 - Create: `apps/landing/src/pages/tr/kb/wcag/[slug].astro`
@@ -2164,7 +2194,7 @@ const guides = await getAllGuides()
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Inculva Erişilebilirlik Bilgi Bankası',
+  name: 'inculva Erişilebilirlik Bilgi Bankası',
   description: 'WCAG 2.0, 2.1 ve 2.2 başarı kriterlerini kapsayan kapsamlı erişilebilirlik bilgi bankası.',
   url: 'https://inculva.com/tr/kb/',
   inLanguage: 'tr',
@@ -2172,7 +2202,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title="Erişilebilirlik Bilgi Bankası | Inculva"
+  title="Erişilebilirlik Bilgi Bankası | inculva"
   description="WCAG 2.0, 2.1 ve 2.2 başarı kriterlerini kapsayan kapsamlı erişilebilirlik bilgi bankası."
   lang="tr"
   breadcrumbs={[{ label: 'Bilgi Bankası', href: '/tr/kb/' }]}
@@ -2270,7 +2300,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title="WCAG Başarı Kriterleri Referansı | Inculva"
+  title="WCAG Başarı Kriterleri Referansı | inculva"
   description="Tüm WCAG 2.0, 2.1 ve 2.2 başarı kriterleri için eksiksiz referans."
   lang="tr"
   breadcrumbs={[
@@ -2358,7 +2388,7 @@ const jsonLd = {
   datePublished: rule.publishedAt,
   publisher: {
     '@type': 'Organization',
-    name: 'Inculva',
+    name: 'inculva',
     url: 'https://inculva.com',
   },
   inLanguage: 'tr',
@@ -2366,7 +2396,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title={rule.seo?.tr?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.tr || rule.title.en} | Inculva`}
+  title={rule.seo?.tr?.metaTitle || `WCAG ${rule.criterionNumber}: ${rule.title.tr || rule.title.en} | inculva`}
   description={rule.seo?.tr?.metaDescription || rule.description?.tr || rule.description?.en || ''}
   lang="tr"
   breadcrumbs={[
@@ -2455,7 +2485,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title="Erişilebilirlik Kılavuzları | Inculva"
+  title="Erişilebilirlik Kılavuzları | inculva"
   description="SEO, GEO, AEO ve erişilebilirlik en iyi uygulamaları hakkında uzman kılavuzları."
   lang="tr"
   breadcrumbs={[
@@ -2537,7 +2567,7 @@ const jsonLd = {
   datePublished: guide.publishedAt,
   publisher: {
     '@type': 'Organization',
-    name: 'Inculva',
+    name: 'inculva',
     url: 'https://inculva.com',
   },
   inLanguage: 'tr',
@@ -2545,7 +2575,7 @@ const jsonLd = {
 ---
 
 <KBLayout
-  title={guide.seo?.tr?.metaTitle || `${guide.title.tr || guide.title.en} | Inculva`}
+  title={guide.seo?.tr?.metaTitle || `${guide.title.tr || guide.title.en} | inculva`}
   description={guide.seo?.tr?.metaDescription || guide.description?.tr || guide.description?.en || ''}
   lang="tr"
   breadcrumbs={[
@@ -2595,6 +2625,7 @@ git commit -m "feat: add Turkish KB pages (listing + detail for WCAG rules and g
 ## Task 13: Update Navbar with KB Link
 
 **Files:**
+
 - Modify: `apps/landing/src/components/Navbar.astro`
 
 - [ ] **Step 1: Add Knowledge Base link to Navbar**
@@ -2618,6 +2649,7 @@ git commit -m "feat: add Knowledge Base link to navbar"
 ## Task 14: Seed WCAG Rules Content — Perceivable (1.x)
 
 **Files:**
+
 - Create: `apps/studio/seed/axe-rule-mapping.json`
 - Create: `apps/studio/seed/seed-wcag-perceivable.mjs`
 
@@ -2722,6 +2754,7 @@ Create `apps/studio/seed/seed-wcag-perceivable.mjs`. This script must:
 4. Use `client.createOrReplace()` to upsert documents
 
 The content for each rule must follow this article structure:
+
 - What this rule means
 - Why it matters
 - Related axe-core rules
@@ -2800,11 +2833,13 @@ git commit -m "feat: seed Perceivable WCAG rules content (1.1.1 - 1.4.13)"
 ## Task 15: Seed WCAG Rules Content — Operable (2.x)
 
 **Files:**
+
 - Create: `apps/studio/seed/seed-wcag-operable.mjs`
 
 - [ ] **Step 1: Create seed script for Operable rules**
 
 Same approach as Task 14 but for all Operable criteria (2.1.1 through 2.5.8). Covers guidelines:
+
 - 2.1 Keyboard Accessible (2.1.1 - 2.1.4)
 - 2.2 Enough Time (2.2.1 - 2.2.6)
 - 2.3 Seizures and Physical Reactions (2.3.1 - 2.3.3)
@@ -2833,11 +2868,13 @@ git commit -m "feat: seed Operable WCAG rules content (2.1.1 - 2.5.8)"
 ## Task 16: Seed WCAG Rules Content — Understandable (3.x)
 
 **Files:**
+
 - Create: `apps/studio/seed/seed-wcag-understandable.mjs`
 
 - [ ] **Step 1: Create seed script for Understandable rules**
 
 Same approach for all Understandable criteria (3.1.1 through 3.3.9). Covers:
+
 - 3.1 Readable (3.1.1 - 3.1.6)
 - 3.2 Predictable (3.2.1 - 3.2.6)
 - 3.3 Input Assistance (3.3.1 - 3.3.9)
@@ -2862,11 +2899,13 @@ git commit -m "feat: seed Understandable WCAG rules content (3.1.1 - 3.3.9)"
 ## Task 17: Seed WCAG Rules Content — Robust (4.x)
 
 **Files:**
+
 - Create: `apps/studio/seed/seed-wcag-robust.mjs`
 
 - [ ] **Step 1: Create seed script for Robust rules**
 
 Same approach for Robust criteria (4.1.1 through 4.1.3). Covers:
+
 - 4.1 Compatible (4.1.1 - 4.1.3)
 
 Note: 4.1.1 Parsing was removed in WCAG 2.2 — include it for 2.0/2.1 but mark `wcagVersions: ['2.0', '2.1']` (not 2.2).
@@ -2891,6 +2930,7 @@ git commit -m "feat: seed Robust WCAG rules content (4.1.1 - 4.1.3)"
 ## Task 18: Seed Guide Content — SEO, GEO, AEO
 
 **Files:**
+
 - Create: `apps/studio/seed/seed-guides.mjs`
 
 - [ ] **Step 1: Create seed script for guides**
@@ -2898,6 +2938,7 @@ git commit -m "feat: seed Robust WCAG rules content (4.1.1 - 4.1.3)"
 Create `apps/studio/seed/seed-guides.mjs` with ~20-25 guides across categories:
 
 **SEO guides:**
+
 - Accessibility and SEO: The Complete Guide
 - Semantic HTML for SEO and Accessibility
 - Image Optimization for SEO and Accessibility
@@ -2905,18 +2946,21 @@ Create `apps/studio/seed/seed-guides.mjs` with ~20-25 guides across categories:
 - Mobile Accessibility and SEO
 
 **GEO guides:**
+
 - Generative Engine Optimization: What It Is and Why It Matters
 - Structured Data for AI Engines
 - Content Structure for AI Citability
 - EEAT and Accessibility Signals
 
 **AEO guides:**
+
 - Answer Engine Optimization Fundamentals
 - Featured Snippets and Accessibility
 - FAQ Schema Implementation Guide
 - Voice Search and Accessibility
 
 **Technique guides:**
+
 - Keyboard Navigation Testing Guide
 - Screen Reader Testing Guide
 - Color Contrast Testing Guide
@@ -2924,6 +2968,7 @@ Create `apps/studio/seed/seed-guides.mjs` with ~20-25 guides across categories:
 - Forms Accessibility Patterns
 
 **Best Practice guides:**
+
 - Accessibility Testing Workflow
 - WCAG Conformance Levels Explained
 - Accessibility Statement Template
@@ -2951,6 +2996,7 @@ git commit -m "feat: seed SEO/GEO/AEO and technique guides"
 ## Task 19: Final Integration — Sitemap & Verification
 
 **Files:**
+
 - Modify: `apps/landing/astro.config.mjs` (if sitemap needs custom config)
 
 - [ ] **Step 1: Verify Astro build succeeds**
@@ -3004,21 +3050,21 @@ git commit -m "chore: finalize KB build and verify sitemap/SEO"
 
 ## Summary
 
-| Task | Description | Est. Files |
-|------|-------------|-----------|
-| 1 | Clean slate | 7 deleted, 1 modified |
-| 2 | Localized field objects | 5 created |
-| 3 | wcagRule schema | 1 created |
-| 4 | guide schema | 1 created |
-| 5 | Schema index & desk structure | 3 modified/created |
-| 6 | Sanity client queries | 1 modified |
-| 7 | Portable Text renderer | 1 created |
-| 8 | KB layout & components | 8 created |
-| 9 | KB listing pages (EN) | 3 created |
-| 10 | WCAG rule detail page (EN) | 1 created |
-| 11 | Guide detail page (EN) | 1 created |
-| 12 | Turkish KB pages | 5 created |
-| 13 | Navbar update | 1 modified |
-| 14-17 | Seed WCAG rules (all 87) | 5 created |
-| 18 | Seed guides (~25) | 1 created |
-| 19 | Final verification | 0-1 modified |
+| Task  | Description                   | Est. Files            |
+| ----- | ----------------------------- | --------------------- |
+| 1     | Clean slate                   | 7 deleted, 1 modified |
+| 2     | Localized field objects       | 5 created             |
+| 3     | wcagRule schema               | 1 created             |
+| 4     | guide schema                  | 1 created             |
+| 5     | Schema index & desk structure | 3 modified/created    |
+| 6     | Sanity client queries         | 1 modified            |
+| 7     | Portable Text renderer        | 1 created             |
+| 8     | KB layout & components        | 8 created             |
+| 9     | KB listing pages (EN)         | 3 created             |
+| 10    | WCAG rule detail page (EN)    | 1 created             |
+| 11    | Guide detail page (EN)        | 1 created             |
+| 12    | Turkish KB pages              | 5 created             |
+| 13    | Navbar update                 | 1 modified            |
+| 14-17 | Seed WCAG rules (all 87)      | 5 created             |
+| 18    | Seed guides (~25)             | 1 created             |
+| 19    | Final verification            | 0-1 modified          |
