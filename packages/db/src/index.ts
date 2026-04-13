@@ -8,4 +8,5 @@ export type {
   Session,
   Account,
   Subscription,
+  IkasStore,
 } from "@prisma/client";

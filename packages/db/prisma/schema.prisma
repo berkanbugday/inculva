@@ -133,6 +133,9 @@ model Site {
   scanIssues          ScanIssue[]
   scanSchedule        ScanSchedule?
   complianceSnapshots ComplianceSnapshot[]
+
+  // Integrations
+  ikasStore       IkasStore?
 }
 
 model WidgetConfig {
@@ -434,4 +437,20 @@ model ScanSchedule {
   updatedAt DateTime  @updatedAt
 
   site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+}
+
+// ─── ikas Integration ────────────────────────────────────────────────────────
+
+model IkasStore {
+  id             String    @id @default(cuid())
+  siteId         String    @unique
+  site           Site      @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  ikasStoreId    String    @unique
+  ikasStoreName  String
+  accessToken    String
+  refreshToken   String?
+  storefrontId   String
+  scriptId       String?
+  installedAt    DateTime  @default(now())
+  uninstalledAt  DateTime?
 }
