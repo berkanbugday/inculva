@@ -111,6 +111,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "store_not_found" }, { status: 404 });
   }
 
+  // Script already installed — skip
   if (ikasStore.scriptId) {
     return NextResponse.json({ success: true, scriptId: ikasStore.scriptId });
   }

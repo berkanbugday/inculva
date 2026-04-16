@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db as prisma } from "@inculva/db";
-import { getValidToken, removeWidgetScript } from "@/lib/ikas-client";
+import { decrypt } from "@/lib/crypto";
+import { removeWidgetScript } from "@/lib/ikas-client";
 
 export async function POST(request: NextRequest) {
   let body: Record<string, unknown>;
@@ -14,7 +15,6 @@ export async function POST(request: NextRequest) {
 
   console.log("[uninstall] received body:", JSON.stringify(body));
 
-  // ikas may send store name under different field names
   const storeName =
     (body.store as string) ??
     (body.storeName as string) ??
@@ -39,19 +39,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  console.log("[uninstall] found store:", ikasStore.id, "siteId:", ikasStore.siteId);
+  console.log("[uninstall] found store:", ikasStore.id, "scriptId:", ikasStore.scriptId);
 
-  // Try to remove widget script
+  // Remove widget script (token may still be valid briefly after uninstall)
   if (ikasStore.scriptId) {
     try {
-      const token = await getValidToken(ikasStore);
-      await removeWidgetScript(token, ikasStore.scriptId);
-      console.log("[uninstall] widget script removed");
-    } catch {
-      console.log("[uninstall] script removal failed (token likely revoked)");
+      const token = decrypt(ikasStore.accessToken);
+      const removed = await removeWidgetScript(token, ikasStore.scriptId);
+      console.log("[uninstall] script removal:", removed ? "success" : "failed", ikasStore.scriptId);
+    } catch (err) {
+      console.log("[uninstall] script removal error:", err);
     }
   }
 
+  // Hard-delete all records
   const siteId = ikasStore.siteId;
   const ownerId = ikasStore.site.ownerId;
 
@@ -60,11 +61,11 @@ export async function POST(request: NextRequest) {
     await prisma.widgetConfig.deleteMany({ where: { siteId } });
     await prisma.site.delete({ where: { id: siteId } });
 
-    // Delete the system user if they have no other sites
     const remainingSites = await prisma.site.count({
       where: { ownerId },
     });
     if (remainingSites === 0) {
+      await prisma.account.deleteMany({ where: { userId: ownerId } });
       await prisma.user.delete({ where: { id: ownerId } });
     }
 

@@ -211,8 +211,16 @@ export async function registerWidgetScript(
   accessToken: string,
   storefrontId: string,
   siteId: string,
+  oldScriptId?: string | null,
 ): Promise<string | null> {
-  console.log("[ikas] registerWidgetScript siteId:", siteId, "storefrontId:", storefrontId);
+  console.log("[ikas] registerWidgetScript siteId:", siteId, "oldScriptId:", oldScriptId);
+
+  // Delete the known old script first
+  if (oldScriptId) {
+    await removeWidgetScript(accessToken, oldScriptId);
+  }
+
+  // Create fresh script with correct siteId
   const scriptContent = `<script src="${env.widgetUrl}" data-site-id="${siteId}" defer></script>`;
 
   const data = await ikasGraphQL<{
@@ -233,7 +241,54 @@ export async function registerWidgetScript(
     },
   );
 
-  return data.createStorefrontJSScript?.id ?? null;
+  const newScriptId = data.createStorefrontJSScript?.id ?? null;
+  console.log("[ikas] script created:", newScriptId, "siteId:", siteId);
+  return newScriptId;
+}
+
+// Cache the discovered delete mutation argument name
+let _deleteArgName: string | null = null;
+
+async function discoverDeleteArgName(accessToken: string): Promise<string | null> {
+  if (_deleteArgName) return _deleteArgName;
+
+  try {
+    const data = await ikasGraphQL<{
+      __type: {
+        fields: { name: string; args: { name: string; type: { name: string | null; kind: string } }[] }[];
+      } | null;
+    }>(
+      accessToken,
+      `{
+        __type(name: "Mutation") {
+          fields {
+            name
+            args { name type { name kind } }
+          }
+        }
+      }`,
+    );
+
+    const deleteField = data.__type?.fields?.find(
+      (f) => f.name === "deleteStorefrontJSScript",
+    );
+
+    if (deleteField && deleteField.args.length > 0) {
+      _deleteArgName = deleteField.args[0]!.name;
+      console.log("[ikas] discovered delete arg name:", _deleteArgName, "type:", JSON.stringify(deleteField.args[0]!.type));
+      return _deleteArgName;
+    }
+
+    // Log all storefront-related mutations for debugging
+    const sfFields = data.__type?.fields?.filter(
+      (f) => f.name.toLowerCase().includes("storefrontjsscript"),
+    );
+    console.log("[ikas] storefront script mutations:", JSON.stringify(sfFields));
+  } catch (err) {
+    console.error("[ikas] introspection failed:", err);
+  }
+
+  return null;
 }
 
 export async function removeWidgetScript(
@@ -241,15 +296,27 @@ export async function removeWidgetScript(
   scriptId: string,
 ): Promise<boolean> {
   try {
+    console.log("[ikas] deleting script:", scriptId);
+
+    // Discover the correct argument name via introspection
+    const argName = await discoverDeleteArgName(accessToken);
+
+    if (!argName) {
+      console.error("[ikas] could not discover delete mutation argument name");
+      return false;
+    }
+
     const data = await ikasGraphQL<{ deleteStorefrontJSScript: boolean }>(
       accessToken,
-      `mutation DeleteScript($id: String!) {
-        deleteStorefrontJSScript(id: $id)
+      `mutation DeleteScript($val: String!) {
+        deleteStorefrontJSScript(${argName}: $val)
       }`,
-      { id: scriptId },
+      { val: scriptId },
     );
+    console.log("[ikas] delete result:", data.deleteStorefrontJSScript);
     return data.deleteStorefrontJSScript;
-  } catch {
+  } catch (err) {
+    console.error("[ikas] delete script failed:", err);
     return false;
   }
 }

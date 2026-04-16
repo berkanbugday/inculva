@@ -41,6 +41,17 @@ function getLocale(): "tr" | "en" {
 
 type Locale = "tr" | "en";
 
+function clearAuthCookies() {
+  const cookieNames = [
+    "__Secure-better-auth.session_token",
+    "better-auth.session_token",
+  ];
+  for (const name of cookieNames) {
+    document.cookie = `${name}=; Max-Age=0; path=/; secure; samesite=none`;
+    document.cookie = `${name}=; Max-Age=0; path=/`;
+  }
+}
+
 export default function HomePage() {
   const router = useRouter();
   const [status, setStatus] = useState<"loading" | "error">("loading");
@@ -64,6 +75,10 @@ export default function HomePage() {
       }
 
       try {
+        // Always clear stale session on entry (fresh start on every iframe load)
+        sessionStorage.removeItem("ikas_token");
+        clearAuthCookies();
+
         // Check if running inside ikas iframe
         if (window.self !== window.top) {
           const { AppBridgeHelper } = await import("@ikas/app-helpers");

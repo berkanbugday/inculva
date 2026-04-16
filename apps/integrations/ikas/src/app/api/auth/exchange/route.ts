@@ -89,5 +89,14 @@ export async function POST(request: NextRequest) {
     siteId: ikasStore.siteId,
   });
 
-  return NextResponse.json({ token: jwt });
+  const res = NextResponse.json({ token: jwt });
+  res.headers.append(
+    "Set-Cookie",
+    "__Secure-better-auth.session_token=; Max-Age=0; Path=/; Secure; SameSite=None",
+  );
+  res.headers.append(
+    "Set-Cookie",
+    "better-auth.session_token=; Max-Age=0; Path=/",
+  );
+  return res;
 }

@@ -7,6 +7,17 @@ import { type WidgetConfig, labels } from "./config-form.types";
 
 type Locale = "tr" | "en";
 
+function clearAuthCookies() {
+  const cookieNames = [
+    "__Secure-better-auth.session_token",
+    "better-auth.session_token",
+  ];
+  for (const name of cookieNames) {
+    document.cookie = `${name}=; Max-Age=0; path=/; secure; samesite=none`;
+    document.cookie = `${name}=; Max-Age=0; path=/`;
+  }
+}
+
 function getLocale(): Locale {
   if (typeof navigator !== "undefined") {
     return navigator.language.toLowerCase().startsWith("tr") ? "tr" : "en";
@@ -37,6 +48,9 @@ export default function DashboardPage() {
     const urlToken = params.get("token");
 
     if (urlToken) {
+      // Fresh token from callback — clear old, store new
+      sessionStorage.removeItem("ikas_token");
+      clearAuthCookies();
       sessionStorage.setItem("ikas_token", urlToken);
       window.history.replaceState({}, "", window.location.pathname);
       setToken(urlToken);
@@ -58,18 +72,22 @@ export default function DashboardPage() {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
-        if (res.status === 401) {
+        if (!res.ok) {
           sessionStorage.removeItem("ikas_token");
+          clearAuthCookies();
           setError(true);
           return null;
         }
-        if (!res.ok) throw new Error();
         return res.json();
       })
       .then((data) => {
         if (data) setConfig(data as WidgetConfig);
       })
-      .catch(() => setError(true));
+      .catch(() => {
+        sessionStorage.removeItem("ikas_token");
+        clearAuthCookies();
+        setError(true);
+      });
   }, [token]);
 
   const langSwitcher = (

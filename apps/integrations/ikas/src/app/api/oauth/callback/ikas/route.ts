@@ -11,12 +11,27 @@ import {
   getStorefronts,
   getStorefrontDomain,
   registerWidgetScript,
+  removeWidgetScript,
   type Storefront,
 } from "@/lib/ikas-client";
 
+const CLEAR_SESSION_COOKIES = [
+  "__Secure-better-auth.session_token=; Max-Age=0; Path=/; Secure; SameSite=None",
+  "better-auth.session_token=; Max-Age=0; Path=/",
+];
+
+function clearSessionCookies(res: NextResponse) {
+  for (const cookie of CLEAR_SESSION_COOKIES) {
+    res.headers.append("Set-Cookie", cookie);
+  }
+  return res;
+}
+
 function fail(msg: string) {
-  return NextResponse.redirect(
-    `${env.deployUrl}?error=${encodeURIComponent(msg)}`,
+  return clearSessionCookies(
+    NextResponse.redirect(
+      `${env.deployUrl}?error=${encodeURIComponent(msg)}`,
+    ),
   );
 }
 
@@ -76,16 +91,41 @@ export async function GET(request: NextRequest) {
     ? getStorefrontDomain(storefront, merchantStoreName)
     : `${merchantStoreName}.myikas.com`;
 
-  // ── Reinstall (existing store) ──────────────────────────────────────
+  // ── Check for existing store ─────────────────────────────────────────
   const existing = await prisma.ikasStore.findUnique({
     where: { ikasStoreId: merchantId },
+    include: { site: true },
   });
 
-  if (existing) {
+  // If previously uninstalled, clean up stale records and do fresh install
+  if (existing?.uninstalledAt) {
+    console.log("[callback] cleaning up stale uninstalled store:", existing.id);
+    // Try to delete old script from ikas
+    if (existing.scriptId && storefront) {
+      try {
+        await removeWidgetScript(tokens.access_token, existing.scriptId);
+      } catch {
+        // Non-fatal
+      }
+    }
+    // Hard-delete stale records
+    try {
+      const siteId = existing.siteId;
+      const ownerId = existing.site.ownerId;
+      await prisma.ikasStore.delete({ where: { id: existing.id } });
+      await prisma.widgetConfig.deleteMany({ where: { siteId } });
+      await prisma.site.delete({ where: { id: siteId } });
+      await prisma.account.deleteMany({ where: { userId: ownerId } });
+      await prisma.user.delete({ where: { id: ownerId } }).catch(() => {});
+    } catch (err) {
+      console.error("[callback] stale cleanup failed:", err);
+    }
+    // Fall through to first install below
+  } else if (existing) {
+    // ── Active reinstall (store exists, not uninstalled) ─────────────
     const updateData: Record<string, unknown> = {
       accessToken: encrypt(tokens.access_token),
       tokenExpiresAt,
-      uninstalledAt: null,
     };
     if (tokens.refresh_token) {
       updateData.refreshToken = encrypt(tokens.refresh_token);
@@ -94,13 +134,14 @@ export async function GET(request: NextRequest) {
       updateData.storefrontId = storefront.id;
     }
 
-    // Re-register script if missing
-    if (!existing.scriptId && storefront) {
+    // Re-register script (delete old + create new)
+    if (storefront) {
       try {
         const scriptId = await registerWidgetScript(
           tokens.access_token,
           storefront.id,
           existing.siteId,
+          existing.scriptId,
         );
         if (scriptId) updateData.scriptId = scriptId;
       } catch {
@@ -118,7 +159,9 @@ export async function GET(request: NextRequest) {
       siteId: existing.siteId,
     });
 
-    return NextResponse.redirect(`${env.deployUrl}/dashboard?token=${jwt}`);
+    return clearSessionCookies(
+      NextResponse.redirect(`${env.deployUrl}/dashboard?token=${jwt}`),
+    );
   }
 
   // ── First install → redirect to setup page ──────────────────────────
@@ -137,5 +180,5 @@ export async function GET(request: NextRequest) {
     `${env.deployUrl}/setup?token=${setupToken}` +
     `&domain=${encodeURIComponent(domain)}`;
 
-  return NextResponse.redirect(setupUrl);
+  return clearSessionCookies(NextResponse.redirect(setupUrl));
 }
