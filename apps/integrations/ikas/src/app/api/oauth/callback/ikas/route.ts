@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { db as prisma } from "@inculva/db";
-import { signJWT } from "@/lib/auth";
+import { signJWT, signSetupJWT } from "@/lib/auth";
 import { encrypt } from "@/lib/crypto";
-import { detectLocale } from "@/lib/locale";
 import { env } from "@/lib/env";
 import {
   validateSignature,
@@ -122,73 +121,21 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${env.deployUrl}/dashboard?token=${jwt}`);
   }
 
-  // ── First install — auto-provision ──────────────────────────────────
-  const locale = await detectLocale();
-  const systemEmail = `${merchantStoreName}@ikas.inculva.com`;
-
-  // Create system user (or reuse if email exists)
-  const user = await prisma.user.upsert({
-    where: { email: systemEmail },
-    create: {
-      email: systemEmail,
-      name: merchantStoreName,
-      role: "user",
-      emailVerified: true,
-    },
-    update: {},
+  // ── First install → redirect to setup page ──────────────────────────
+  const setupToken = await signSetupJWT({
+    purpose: "setup",
+    merchantId,
+    storeName: merchantStoreName,
+    accessToken: tokens.access_token,
+    refreshToken: tokens.refresh_token ?? null,
+    expiresIn: tokens.expires_in,
+    storefrontId: storefront?.id ?? "",
+    defaultDomain: domain,
   });
 
-  // Create site
-  const site = await prisma.site.upsert({
-    where: { domain: domain },
-    create: { name: merchantStoreName, domain, ownerId: user.id },
-    update: { ownerId: user.id },
-  });
+  const setupUrl =
+    `${env.deployUrl}/setup?token=${setupToken}` +
+    `&domain=${encodeURIComponent(domain)}`;
 
-  // Create widget config with defaults
-  await prisma.widgetConfig.upsert({
-    where: { siteId: site.id },
-    create: {
-      siteId: site.id,
-      position: "bottom-right",
-      primaryColor: "#0066cc",
-      language: locale,
-      buttonSize: "medium",
-    },
-    update: {},
-  });
-
-  // Inject widget script
-  let scriptId: string | null = null;
-  if (storefront) {
-    try {
-      scriptId = await registerWidgetScript(
-        tokens.access_token,
-        storefront.id,
-        site.id,
-      );
-    } catch (err) {
-      console.error("[callback] script injection failed:", err);
-    }
-  }
-
-  // Create IkasStore
-  const ikasStore = await prisma.ikasStore.create({
-    data: {
-      siteId: site.id,
-      ikasStoreId: merchantId,
-      ikasStoreName: merchantStoreName,
-      accessToken: encrypt(tokens.access_token),
-      refreshToken: tokens.refresh_token
-        ? encrypt(tokens.refresh_token)
-        : null,
-      tokenExpiresAt,
-      storefrontId: storefront?.id ?? "",
-      scriptId,
-    },
-  });
-
-  const jwt = await signJWT({ storeId: ikasStore.id, siteId: site.id });
-
-  return NextResponse.redirect(`${env.deployUrl}/dashboard?token=${jwt}`);
+  return NextResponse.redirect(setupUrl);
 }
