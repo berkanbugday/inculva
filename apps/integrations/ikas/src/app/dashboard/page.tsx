@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ConfigForm from "./config-form";
+import TrialBanner from "./trial-banner";
 import { type WidgetConfig, labels } from "./config-form.types";
 
 type Locale = "tr" | "en";
@@ -71,9 +72,23 @@ export default function DashboardPage() {
       .catch(() => setError(true));
   }, [token]);
 
+  const langSwitcher = (
+    <div className="absolute right-4 top-4">
+      <select
+        value={uiLocale}
+        onChange={(e) => setLocale(e.target.value as Locale)}
+        className="rounded border bg-white px-2 py-1 text-sm text-gray-600"
+      >
+        <option value="en">English</option>
+        <option value="tr">Türkçe</option>
+      </select>
+    </div>
+  );
+
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center p-8">
+      <div className="relative flex min-h-screen items-center justify-center p-8">
+        {langSwitcher}
         <p className="text-center text-gray-500">{t.expired}</p>
       </div>
     );
@@ -81,7 +96,8 @@ export default function DashboardPage() {
 
   if (!config || !token) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="relative flex min-h-screen items-center justify-center">
+        {langSwitcher}
         <div className="text-center">
           <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
           <p className="text-sm text-gray-400">{t.loading}</p>
@@ -97,7 +113,11 @@ export default function DashboardPage() {
     <div className="mx-auto max-w-2xl px-6 py-8">
       <h1 className="mb-6 text-2xl font-bold">{t.dashboard}</h1>
 
-      <ConfigForm config={config} token={token} locale={uiLocale} />
+      <TrialBanner locale={uiLocale} manageUrl={inculvaAppUrl} />
+
+      <div className="mt-6">
+        <ConfigForm config={config} token={token} locale={uiLocale} />
+      </div>
 
       <div className="mt-8 border-t pt-6">
         <a

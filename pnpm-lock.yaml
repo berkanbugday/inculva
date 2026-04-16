@@ -82,7 +82,7 @@ importers:
         specifier: workspace:*
         version: link:../../../packages/types
       '@noble/hashes':
-        specifier: ^2.2.0
+        specifier: 2.2.0
         version: 2.2.0
       jose:
         specifier: 6.0.11
@@ -11513,14 +11513,14 @@ snapshots:
       '@remotion/studio-shared': 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       '@rspack/core': 1.7.6(@swc/helpers@0.5.15)
       '@rspack/plugin-react-refresh': 1.6.1(react-refresh@0.18.0)
-      css-loader: 5.2.7(webpack@5.105.0)
+      css-loader: 5.2.7(webpack@5.105.0(esbuild@0.25.0))
       esbuild: 0.25.0
       react: 18.3.0
       react-dom: 18.3.0(react@18.3.0)
       react-refresh: 0.18.0
       remotion: 4.0.438(react-dom@18.3.0(react@18.3.0))(react@18.3.0)
       source-map: 0.7.3
-      style-loader: 4.0.0(webpack@5.105.0)
+      style-loader: 4.0.0(webpack@5.105.0(esbuild@0.25.0))
       webpack: 5.105.0(esbuild@0.25.0)
     transitivePeerDependencies:
       - '@swc/core'
@@ -13686,7 +13686,7 @@ snapshots:
 
   css-color-keywords@1.0.0: {}
 
-  css-loader@5.2.7(webpack@5.105.0):
+  css-loader@5.2.7(webpack@5.105.0(esbuild@0.25.0)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.8)
       loader-utils: 2.0.4
@@ -18258,7 +18258,7 @@ snapshots:
       '@tokenizer/token': 0.3.0
       peek-readable: 5.4.2
 
-  style-loader@4.0.0(webpack@5.105.0):
+  style-loader@4.0.0(webpack@5.105.0(esbuild@0.25.0)):
     dependencies:
       webpack: 5.105.0(esbuild@0.25.0)
 

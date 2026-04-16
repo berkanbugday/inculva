@@ -39,21 +39,26 @@ function getLocale(): "tr" | "en" {
   return "en";
 }
 
+type Locale = "tr" | "en";
+
 export default function HomePage() {
   const router = useRouter();
   const [status, setStatus] = useState<"loading" | "error">("loading");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorKey, setErrorKey] = useState("default");
+  const [locale, setLocale] = useState<Locale>("en");
+
+  useEffect(() => {
+    setLocale(getLocale());
+  }, []);
 
   useEffect(() => {
     const init = async () => {
       const params = new URLSearchParams(window.location.search);
-      const locale = getLocale();
-      const msgs = errorMessages[locale]!;
 
       // Show error if redirected from failed callback
       const error = params.get("error");
       if (error) {
-        setErrorMsg(msgs[error] ?? msgs.default!);
+        setErrorKey(error);
         setStatus("error");
         return;
       }
@@ -96,10 +101,10 @@ export default function HomePage() {
         }
 
         // No context — show message
-        setErrorMsg(msgs.open_from_ikas!);
+        setErrorKey("open_from_ikas");
         setStatus("error");
       } catch {
-        setErrorMsg(msgs.default!);
+        setErrorKey("default");
         setStatus("error");
       }
     };
@@ -107,14 +112,26 @@ export default function HomePage() {
     init();
   }, [router]);
 
+  const msgs = errorMessages[locale]!;
+
   if (status === "error") {
     return (
-      <div className="flex min-h-screen items-center justify-center p-8">
+      <div className="relative flex min-h-screen items-center justify-center p-8">
+        <div className="absolute right-4 top-4">
+          <select
+            value={locale}
+            onChange={(e) => setLocale(e.target.value as Locale)}
+            className="rounded border bg-white px-2 py-1 text-sm text-gray-600"
+          >
+            <option value="en">English</option>
+            <option value="tr">Türkçe</option>
+          </select>
+        </div>
         <div className="max-w-md text-center">
           <h1 className="mb-4 text-2xl font-bold text-gray-900">
             inculva for ikas
           </h1>
-          <p className="text-gray-500">{errorMsg}</p>
+          <p className="text-gray-500">{msgs[errorKey] ?? msgs.default}</p>
         </div>
       </div>
     );

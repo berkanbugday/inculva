@@ -212,6 +212,7 @@ export async function registerWidgetScript(
   storefrontId: string,
   siteId: string,
 ): Promise<string | null> {
+  console.log("[ikas] registerWidgetScript siteId:", siteId, "storefrontId:", storefrontId);
   const scriptContent = `<script src="${env.widgetUrl}" data-site-id="${siteId}" defer></script>`;
 
   const data = await ikasGraphQL<{
