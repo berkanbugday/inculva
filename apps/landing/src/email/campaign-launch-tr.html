@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="tr" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>inculva ile tanışın — E-Ticaret için Web Erişilebilirliği</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:AllowPNG/>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+
+    body,
+    table,
+    td,
+    a {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    table,
+    td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    img {
+      -ms-interpolation-mode: bicubic;
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f5;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Layout */
+    .email-body {
+      background-color: #f4f4f5;
+      width: 100%;
+    }
+
+    .wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 32px 0;
+    }
+
+    .content-padding {
+      padding: 36px 40px;
+    }
+
+    /* Header */
+    .header-cell {
+      padding: 24px 36px;
+      border-bottom: 3px solid #0066cc;
+      background-color: #ffffff;
+    }
+
+    /* Typography */
+    .headline {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 28px;
+      font-weight: bold;
+      color: #002247;
+      line-height: 36px;
+      margin: 0 0 16px 0;
+    }
+
+    .subtext {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      color: #4b5563;
+      line-height: 26px;
+      margin: 0 0 32px 0;
+    }
+
+    /* Feature items */
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #ecfeff;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 40px;
+    }
+
+    .feature-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      color: #002247;
+      margin: 0 0 4px 0;
+    }
+
+    .feature-desc {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 22px;
+      margin: 0;
+    }
+
+    /* Trust strip */
+    .trust-strip {
+      background-color: #ecfeff;
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #0e7490;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    /* CTA */
+    .cta-btn {
+      display: inline-block;
+      background-color: #0066cc;
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 9999px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 0.2px;
+    }
+
+    /* Footer */
+    .footer-cell {
+      padding: 24px 36px;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 20px;
+    }
+
+    .footer-cell a {
+      color: #9ca3af;
+      text-decoration: underline;
+    }
+
+    .footer-social a {
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    /* ── Hero Animation ── */
+    .hero-scene {
+      width: 560px;
+      height: 315px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0e1a;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .hero-blob-1 {
+      width: 300px;
+      height: 300px;
+      background: #0066cc;
+      top: -100px;
+      right: -80px;
+      animation: heroBlobFloat 8s ease-in-out infinite;
+    }
+
+    .hero-blob-2 {
+      width: 250px;
+      height: 250px;
+      background: #06b6d4;
+      bottom: -80px;
+      left: -60px;
+      animation: heroBlobFloat 8s ease-in-out infinite reverse;
+    }
+
+    .hero-blob-3 {
+      width: 200px;
+      height: 200px;
+      background: #8b5cf6;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: heroBlobPulse 6s ease-in-out infinite;
+    }
+
+    @keyframes heroBlobFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(-20px, 15px);
+      }
+    }
+
+    @keyframes heroBlobPulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.5;
+      }
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 48px;
+      text-align: center;
+      opacity: 0;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .hero-progress-track {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #0066cc, #06b6d4);
+      animation: heroProgress 12s linear infinite;
+    }
+
+    @keyframes heroProgress {
+      0% {
+        width: 0%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    /* Slide 1: 0%–30% */
+    .hero-s1 {
+      animation: hs1 12s infinite;
+    }
+
+    @keyframes hs1 {
+      0% {
+        opacity: 0;
+      }
+
+      3%,
+      27% {
+        opacity: 1;
+      }
+
+      31%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-s1 .hero-big {
+      font-size: 64px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: hs1big 12s infinite;
+    }
+
+    @keyframes hs1big {
+
+      0%,
+      2% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      5%,
+      27% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      30%,
+      100% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+    }
+
+    .hero-s1 .hero-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.4;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: hs1label 12s infinite;
+    }
+
+    @keyframes hs1label {
+
+      0%,
+      4% {
+        opacity: 0;
+      }
+
+      7%,
+      27% {
+        opacity: 1;
+      }
+
+      30%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-s1 .hero-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      opacity: 0;
+      animation: hs1sub 12s infinite;
+    }
+
+    @keyframes hs1sub {
+
+      0%,
+      7% {
+        opacity: 0;
+      }
+
+      10%,
+      27% {
+        opacity: 1;
+      }
+
+      30%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-em {
+      color: #67e8f9;
+      font-weight: 700;
+    }
+
+    /* Slide 2: 31%–62% */
+    .hero-s2 {
+      animation: hs2 12s infinite;
+    }
+
+    @keyframes hs2 {
+
+      0%,
+      30% {
+        opacity: 0;
+      }
+
+      34%,
+      59% {
+        opacity: 1;
+      }
+
+      63%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-s2 .hero-qmark {
+      font-size: 48px;
+      color: #0066cc;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+      opacity: 0;
+      animation: hs2q 12s infinite;
+    }
+
+    @keyframes hs2q {
+
+      0%,
+      32% {
+        opacity: 0;
+      }
+
+      35%,
+      59% {
+        opacity: 1;
+      }
+
+      62%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-s2 .hero-quote {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      max-width: 420px;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: hs2qt 12s infinite;
+    }
+
+    @keyframes hs2qt {
+
+      0%,
+      34% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      37%,
+      59% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      62%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-s2 .hero-fine {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      opacity: 0;
+      animation: hs2f 12s infinite;
+    }
+
+    @keyframes hs2f {
+
+      0%,
+      38% {
+        opacity: 0;
+      }
+
+      41%,
+      59% {
+        opacity: 1;
+      }
+
+      62%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-hi {
+      color: #67e8f9;
+    }
+
+    /* Slide 3: 63%–100% */
+    .hero-s3 {
+      animation: hs3 12s infinite;
+    }
+
+    @keyframes hs3 {
+
+      0%,
+      62% {
+        opacity: 0;
+      }
+
+      66%,
+      95% {
+        opacity: 1;
+      }
+
+      99%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-s3 .hero-logo {
+      font-size: 38px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -2px;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: hs3logo 12s infinite;
+    }
+
+    @keyframes hs3logo {
+
+      0%,
+      63% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      67%,
+      95% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      99%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-pills {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: hs3pills 12s infinite;
+    }
+
+    @keyframes hs3pills {
+
+      0%,
+      66% {
+        opacity: 0;
+      }
+
+      70%,
+      95% {
+        opacity: 1;
+      }
+
+      99%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-pill {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-pill .hero-check {
+      color: #34d399;
+      font-size: 10px;
+    }
+
+    .hero-s3 .hero-tag {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.5;
+      max-width: 360px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: hs3tag 12s infinite;
+    }
+
+    @keyframes hs3tag {
+
+      0%,
+      68% {
+        opacity: 0;
+      }
+
+      72%,
+      95% {
+        opacity: 1;
+      }
+
+      99%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .hero-s3 .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0066cc;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 24px;
+      border-radius: 999px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: hs3cta 12s infinite;
+    }
+
+    @keyframes hs3cta {
+
+      0%,
+      71% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      75%,
+      95% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      99%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /* Mobile */
+    @media only screen and (max-width: 620px) {
+      .wrapper {
+        width: 100% !important;
+        padding: 0 16px !important;
+      }
+
+      .cta-btn {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+      }
+
+      .content-padding {
+        padding: 24px 20px !important;
+      }
+
+      .headline {
+        font-size: 24px !important;
+        line-height: 30px !important;
+      }
+
+      .feature-row td {
+        display: block !important;
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="email-body">
+
+  <!-- Preview text (hidden) -->
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+    E-ticaret için web erişilebilirliği. Otomatik widget + uzman desteği.
+    &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
+  </div>
+
+  <!-- Outer wrapper table -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="email-body">
+    <tr>
+      <td align="center" style="padding: 32px 0;">
+
+        <!-- 600px wrapper -->
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" class="wrapper"
+          style="max-width:600px;">
+
+          <!-- WHITE CARD -->
+          <tr>
+            <td style="border-radius:16px; overflow:hidden; background-color:#ffffff;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+                <!-- HEADER -->
+                <tr>
+                  <td class="header-cell" align="left"
+                    style="padding:24px 36px; border-bottom:3px solid #0066cc; background-color:#ffffff;">
+                    <img src="https://cdn.inculva.com/logos/logo-dark.png" alt="inculva" width="140"
+                      style="display:block; width:140px; height:auto; border:0;">
+                  </td>
+                </tr>
+
+                <!-- HERO ANIMATION (Outlook gets static fallback) -->
+                <tr>
+                  <td align="center" style="padding:0;">
+                    <!--[if mso]>
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" align="center">
+                    <tr><td width="560" height="315" align="center" valign="middle" style="background-color:#0a0e1a; color:#ffffff; font-family:Arial,Helvetica,sans-serif; text-align:center; padding:40px;">
+                      <p style="font-size:32px; font-weight:bold; margin:0 0 12px 0; color:#ffffff;">inculva</p>
+                      <p style="font-size:14px; margin:0 0 8px 0; color:#cccccc;">Mağazanızı her müşteri için erişilebilir hale getirin.</p>
+                      <p style="font-size:14px; margin:0; color:#cccccc;">Aylar değil, dakikalar içinde.</p>
+                    </td></tr>
+                    </table>
+                    <![endif]-->
+                    <!--[if !mso]><!-->
+                    <div class="hero-scene">
+                      <div class="hero-blob hero-blob-1"></div>
+                      <div class="hero-blob hero-blob-2"></div>
+                      <div class="hero-blob hero-blob-3"></div>
+                      <div class="hero-grid"></div>
+
+                      <div class="hero-slide hero-s1">
+                        <div class="hero-big">1,3 Milyar</div>
+                        <div class="hero-label">
+                          insan engelli olarak yaşıyor.<br>
+                          <span class="hero-em">Mağazanızdan alışveriş</span> yapabiliyorlar mı?
+                        </div>
+                        <div class="hero-sub">Bu, dünya nüfusunun %16'sı. Ve hepsi potansiyel müşterileriniz.</div>
+                      </div>
+
+                      <div class="hero-slide hero-s2">
+                        <div class="hero-qmark">&ldquo;</div>
+                        <div class="hero-quote">
+                          Erişilebilir olmayan web siteleri, yılda <span class="hero-hi">6,9 milyar $ gelir
+                            kaybediyor.</span> Bu gelir erişilebilir rakiplerine gidiyor.
+                        </div>
+                        <div class="hero-fine">EAA 2025 uyumluluk gerektiriyor. Cezalar 28 Haziran 2025'te başlıyor.
+                        </div>
+                      </div>
+
+                      <div class="hero-slide hero-s3">
+                        <div class="hero-logo">inculva</div>
+                        <div class="hero-pills">
+                          <div class="hero-pill"><span class="hero-check">&#x2713;</span> Tek satır kurulum</div>
+                          <div class="hero-pill"><span class="hero-check">&#x2713;</span> 25+ özellik</div>
+                          <div class="hero-pill"><span class="hero-check">&#x2713;</span> 7 küresel standart</div>
+                        </div>
+                        <div class="hero-tag">Mağazanızı her müşteri için erişilebilir hale getirin. Aylar değil,
+                          dakikalar içinde.</div>
+                        <div class="hero-cta">Ücretsiz deneyin <span>&rarr;</span></div>
+                      </div>
+
+                      <div class="hero-progress-track">
+                        <div class="hero-progress-bar"></div>
+                      </div>
+                    </div>
+                    <!--<![endif]-->
+                  </td>
+                </tr>
+
+                <!-- MAIN CONTENT -->
+                <tr>
+                  <td class="content-padding" style="padding:36px 40px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+                      <!-- Headline -->
+                      <tr>
+                        <td style="padding-bottom:16px;">
+                          <h1 class="headline"
+                            style="font-family:Arial,Helvetica,sans-serif; font-size:24px; font-weight:bold; color:#002247; line-height:36px; margin:0; padding:0;">
+                            Her müşteriniz mağazanızı kullanabilsin. Herkes eşit alışveriş yapsın.
+                          </h1>
+                        </td>
+                      </tr>
+
+                      <!-- Subtext -->
+                      <tr>
+                        <td style="padding-bottom:32px;">
+                          <p class="subtext"
+                            style="font-family:Arial,Helvetica,sans-serif; font-size:14px; color:#4b5563; line-height:26px; margin:0; padding:0;">
+                            Dünyada 1,3 milyar insan engelli. Mağazanız onlara kapılarını açıyor mu? <br>
+                            inculva ile tek satırda erişilebilir olun, gerisini biz halledelim.
+                          </p>
+                        </td>
+                      </tr>
+
+                      <!-- Features -->
+                      <!-- Feature 1: Tek satır kurulum -->
+                      <tr>
+                        <td style="padding-bottom:20px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr class="feature-row">
+                              <td width="52" valign="top" style="padding-right:16px; padding-bottom:8px;">
+                                <div class="feature-icon"
+                                  style="width:40px; height:40px; background-color:#ecfeff; border-radius:8px; text-align:center; font-size:20px; line-height:40px;">
+                                  &#x2699;&#xFE0F;
+                                </div>
+                              </td>
+                              <td valign="top">
+                                <p class="feature-title"
+                                  style="font-family:Arial,Helvetica,sans-serif; font-size:16px; font-weight:bold; color:#002247; margin:0 0 4px 0; padding:0;">
+                                  Tek satır kurulum</p>
+                                <p class="feature-desc"
+                                  style="font-family:Arial,Helvetica,sans-serif; font-size:14px; color:#4b5563; line-height:22px; margin:0; padding:0;">
+                                  Tek bir script etiketi ekleyin. Shopify, ikas ve tüm platformlarla çalışır.</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <!-- Feature 2: 25+ erişilebilirlik özelliği -->
+                      <tr>
+                        <td style="padding-bottom:20px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr class="feature-row">
+                              <td width="52" valign="top" style="padding-right:16px; padding-bottom:8px;">
+                                <div class="feature-icon"
+                                  style="width:40px; height:40px; background-color:#ecfeff; border-radius:8px; text-align:center; font-size:20px; line-height:40px;">
+                                  &#x2714;&#xFE0F;
+                                </div>
+                              </td>
+                              <td valign="top">
+                                <p class="feature-title"
+                                  style="font-family:Arial,Helvetica,sans-serif; font-size:16px; font-weight:bold; color:#002247; margin:0 0 4px 0; padding:0;">
+                                  25+ erişilebilirlik özelliği</p>
+                                <p class="feature-desc"
+                                  style="font-family:Arial,Helvetica,sans-serif; font-size:14px; color:#4b5563; line-height:22px; margin:0; padding:0;">
+                                  Metin boyutlandırma, kontrast modları, klavye navigasyonu, ekran okuyucu desteği ve
+                                  daha fazlası.</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <!-- Feature 3: 7 küresel standart -->
+                      <tr>
+                        <td style="padding-bottom:32px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr class="feature-row">
+                              <td width="52" valign="top" style="padding-right:16px; padding-bottom:8px;">
+                                <div class="feature-icon"
+                                  style="width:40px; height:40px; background-color:#ecfeff; border-radius:8px; text-align:center; font-size:20px; line-height:40px;">
+                                  &#x1F310;&#xFE0F;
+                                </div>
+                              </td>
+                              <td valign="top">
+                                <p class="feature-title"
+                                  style="font-family:Arial,Helvetica,sans-serif; font-size:16px; font-weight:bold; color:#002247; margin:0 0 4px 0; padding:0;">
+                                  7 küresel standart</p>
+                                <p class="feature-desc"
+                                  style="font-family:Arial,Helvetica,sans-serif; font-size:14px; color:#4b5563; line-height:22px; margin:0; padding:0;">
+                                  WCAG 2.0, 2.1 AA, 2.2 AA, EAA 2025, ADA, Section 508, EN 301 549.</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <!-- Trust strip -->
+                      <tr>
+                        <td style="padding-bottom:32px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td class="trust-strip"
+                                style="background-color:#ecfeff; border-radius:8px; padding:14px 20px; font-family:Arial,Helvetica,sans-serif; font-size:13px; color:#0e7490; text-align:center; line-height:20px;">
+                                <strong>Güvenilir uyumluluk:</strong> WCAG 2.0 &bull; WCAG 2.1 AA &bull; WCAG 2.2 AA
+                                &bull; EAA 2025 &bull; ADA &bull; Section 508 &bull; EN 301 549
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <!-- CTA button -->
+                      <tr>
+                        <td align="center" style="padding-bottom:8px;">
+                          <!--[if mso]>
+                          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+                            href="https://app.inculva.com/register"
+                            style="height:50px;v-text-anchor:middle;width:240px;"
+                            arcsize="50%"
+                            strokecolor="#0066cc"
+                            fillcolor="#0066cc">
+                            <w:anchorlock/>
+                            <center style="color:#ffffff;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;">
+                              Ücretsiz denemeye başlayın &rarr;
+                            </center>
+                          </v:roundrect>
+                          <![endif]-->
+                          <!--[if !mso]><!-->
+                          <a href="https://inculva.com/tr" target="_blank" class="cta-btn"
+                            style="display:inline-block; background-color:#0066cc; color:#ffffff !important; text-decoration:none; padding:14px 36px; border-radius:9999px; font-family:Arial,Helvetica,sans-serif; font-size:16px; font-weight:bold; letter-spacing:0.2px;">
+                            Ücretsiz denemeye başlayın &rarr;
+                          </a>
+                          <!--<![endif]-->
+                        </td>
+                      </tr>
+
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+          <!-- END WHITE CARD -->
+
+          <!-- FOOTER (outside card) -->
+          <tr>
+            <td class="footer-cell"
+              style="padding:24px 36px; text-align:center; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#9ca3af; line-height:20px;">
+
+              <p style="margin:0 0 8px 0;">
+                Sorularınız mı var?
+                <a href="mailto:bilgi@inculva.com"
+                  style="color:#9ca3af; text-decoration:underline;">bilgi@inculva.com</a>
+              </p>
+
+              <p style="margin:0 0 8px 0;">
+                &copy; 2026 inculva. Tüm hakları saklıdır.
+              </p>
+
+              <p style="margin:0 0 12px 0; color:#b3b9c4;">
+                Abdulhalik Renda Mahallesi, Ankara Caddesi, Merkez/&Ccedil;ank&#x131;r&#x131;, T&uuml;rkiye
+              </p>
+
+              <!-- Social links -->
+              <p class="footer-social" style="margin:0 0 12px 0;">
+                <a href="https://x.com/inculva"
+                  style="color:#6b7280; text-decoration:none; font-size:12px;">X&nbsp;(Twitter)</a>
+                &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                <a href="https://youtube.com/@inculva"
+                  style="color:#6b7280; text-decoration:none; font-size:12px;">YouTube</a>
+              </p>
+
+            </td>
+          </tr>
+
+        </table>
+        <!-- END 600px wrapper -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+
+</html>
