@@ -1,61 +1,114 @@
-import { db } from "@inculva/db";
-import { getSession } from "@/lib/session";
-import { redirect } from "next/navigation";
-import { env } from "@/lib/env";
-import { ConfigForm } from "./config-form";
+"use client";
 
-export default async function DashboardPage() {
-  const session = await getSession();
-  if (!session.siteId) redirect("/");
+import { useEffect, useState } from "react";
+import ConfigForm from "./config-form";
+import { type WidgetConfig, labels } from "./config-form.types";
 
-  const config = await db.widgetConfig.findUnique({
-    where: { siteId: session.siteId },
-  });
+type Locale = "tr" | "en";
 
-  if (!config) redirect("/");
+function getLocale(): Locale {
+  if (typeof navigator !== "undefined") {
+    return navigator.language.toLowerCase().startsWith("tr") ? "tr" : "en";
+  }
+  return "en";
+}
 
-  const initialConfig = {
-    position: config.position,
-    primaryColor: config.primaryColor,
-    language: config.language,
-    buttonSize: (config.buttonSize as string) ?? "medium",
-    textResizing: config.textResizing,
-    dyslexiaFont: config.dyslexiaFont,
-    cursorEnhancement: config.cursorEnhancement,
-    keyboardNavigation: config.keyboardNavigation,
-    readingGuide: config.readingGuide,
-    screenReader: config.screenReader,
-    pauseAnimations: config.pauseAnimations,
-    textSpacing: config.textSpacing,
-    highlightLinks: config.highlightLinks,
-    colorBlindMode: config.colorBlindMode,
-    focusHighlight: config.focusHighlight,
-    skipNavigation: config.skipNavigation,
-    darkMode: config.darkMode,
-    profileAdhd: config.profileAdhd,
-    profileBlind: config.profileBlind,
-    profileLowVision: config.profileLowVision,
-    profileColorBlind: config.profileColorBlind,
-    profileDyslexia: config.profileDyslexia,
-    profileMotorImpaired: config.profileMotorImpaired,
-  };
+export default function DashboardPage() {
+  const [token, setToken] = useState<string | null>(null);
+  const [config, setConfig] = useState<WidgetConfig | null>(null);
+  const [error, setError] = useState(false);
+  const [locale, setLocale] = useState<Locale>("en");
+
+  // Use config language if available, otherwise browser locale
+  const uiLocale: Locale =
+    config?.language === "tr" || config?.language === "en"
+      ? config.language
+      : locale;
+  const t = labels[uiLocale];
+
+  useEffect(() => {
+    setLocale(getLocale());
+  }, []);
+
+  // Get token from URL (OAuth callback) or sessionStorage (returning visit)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlToken = params.get("token");
+
+    if (urlToken) {
+      sessionStorage.setItem("ikas_token", urlToken);
+      window.history.replaceState({}, "", window.location.pathname);
+      setToken(urlToken);
+    } else {
+      const stored = sessionStorage.getItem("ikas_token");
+      if (stored) {
+        setToken(stored);
+      } else {
+        setError(true);
+      }
+    }
+  }, []);
+
+  // Fetch config once we have a token
+  useEffect(() => {
+    if (!token) return;
+
+    fetch("/api/config", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          sessionStorage.removeItem("ikas_token");
+          setError(true);
+          return null;
+        }
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then((data) => {
+        if (data) setConfig(data as WidgetConfig);
+      })
+      .catch(() => setError(true));
+  }, [token]);
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-8">
+        <p className="text-center text-gray-500">{t.expired}</p>
+      </div>
+    );
+  }
+
+  if (!config || !token) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
+          <p className="text-sm text-gray-400">{t.loading}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const inculvaAppUrl =
+    process.env.NEXT_PUBLIC_INCULVA_APP_URL ?? "https://app.inculva.com";
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-gray-900">
-          inculva widget settings
-        </h1>
+    <div className="mx-auto max-w-2xl px-6 py-8">
+      <h1 className="mb-6 text-2xl font-bold">{t.dashboard}</h1>
+
+      <ConfigForm config={config} token={token} locale={uiLocale} />
+
+      <div className="mt-8 border-t pt-6">
         <a
-          href={`${env.inculvaAppUrl}/dashboard/sites/${session.siteId}`}
+          href={inculvaAppUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-blue-600 hover:text-blue-800 underline"
+          className="text-sm text-blue-600 hover:underline"
         >
-          View scan reports &rarr;
+          {t.scanReports} &rarr;
         </a>
       </div>
-      <ConfigForm initialConfig={initialConfig} locale={config.language} />
     </div>
   );
 }

@@ -1,51 +1,47 @@
-import { NextRequest, NextResponse } from "next/server";
-import { db } from "@inculva/db";
-import { decrypt } from "@/lib/crypto";
-import { removeWidgetScript } from "@/lib/ikas-client";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { db as prisma } from "@inculva/db";
+import { getValidToken, removeWidgetScript } from "@/lib/ikas-client";
 
 export async function POST(request: NextRequest) {
+  let body: { store?: string };
   try {
-    const body = (await request.json()) as {
-      store?: string;
-      topic?: string;
-    };
-
-    const storeName = body.store;
-    if (!storeName) {
-      return NextResponse.json({ error: "Missing store" }, { status: 400 });
-    }
-
-    const ikasStore = await db.ikasStore.findUnique({
-      where: { ikasStoreId: storeName },
-    });
-
-    if (!ikasStore) {
-      return NextResponse.json({ ok: true });
-    }
-
-    if (ikasStore.scriptId) {
-      try {
-        const token = decrypt(ikasStore.accessToken);
-        await removeWidgetScript(token, ikasStore.scriptId);
-      } catch {
-        // Token may be revoked — continue with soft delete
-      }
-    }
-
-    await db.ikasStore.update({
-      where: { id: ikasStore.id },
-      data: {
-        uninstalledAt: new Date(),
-        scriptId: null,
-      },
-    });
-
+    body = await request.json();
+  } catch {
     return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("Uninstall webhook error:", error);
-    return NextResponse.json(
-      { error: "Internal error" },
-      { status: 500 },
-    );
   }
+
+  const storeName = body.store;
+  if (!storeName) {
+    return NextResponse.json({ ok: true });
+  }
+
+  const ikasStore = await prisma.ikasStore.findUnique({
+    where: { ikasStoreId: storeName },
+  });
+
+  if (!ikasStore) {
+    return NextResponse.json({ ok: true });
+  }
+
+  // Try to remove widget script
+  if (ikasStore.scriptId) {
+    try {
+      const token = await getValidToken(ikasStore);
+      await removeWidgetScript(token, ikasStore.scriptId);
+    } catch {
+      // Token likely revoked — continue with soft delete
+    }
+  }
+
+  // Soft delete
+  await prisma.ikasStore.update({
+    where: { id: ikasStore.id },
+    data: {
+      uninstalledAt: new Date(),
+      scriptId: null,
+    },
+  });
+
+  return NextResponse.json({ ok: true });
 }

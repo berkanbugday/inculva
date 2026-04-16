@@ -449,6 +449,7 @@ model IkasStore {
   ikasStoreName  String
   accessToken    String
   refreshToken   String?
+  tokenExpiresAt DateTime?
   storefrontId   String
   scriptId       String?
   installedAt    DateTime  @default(now())

@@ -83,6 +83,9 @@ export default function ContactForm({ labels }: Props) {
         body: JSON.stringify(data),
       });
       if (!response.ok) throw new Error(response.statusText);
+      if (typeof window !== 'undefined' && window.gdmEvents) {
+        window.gdmEvents.push('default-conversion');
+      }
       setStatus('success');
       reset();
     } catch {

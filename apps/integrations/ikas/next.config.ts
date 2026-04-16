@@ -20,12 +20,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/dashboard/:path*",
+        source: "/:path*",
         headers: [
-          { key: "X-Frame-Options", value: "ALLOWALL" },
           {
             key: "Content-Security-Policy",
-            value: "frame-ancestors https://*.myikas.com https://*.ikas.com",
+            value: "frame-ancestors https://*.myikas.com https://*.ikas.com https://*.ikas.shop",
           },
         ],
       },

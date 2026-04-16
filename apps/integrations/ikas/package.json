@@ -11,9 +11,9 @@
     "clean": "rm -rf .next"
   },
   "dependencies": {
+    "@ikas/app-helpers": "^1.0.10",
     "@inculva/db": "workspace:*",
     "@inculva/types": "workspace:*",
-    "iron-session": "8.0.4",
     "jose": "6.0.11",
     "next": "15.1.6",
     "react": "19.0.0",
