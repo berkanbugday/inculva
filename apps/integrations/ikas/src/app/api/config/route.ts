@@ -75,11 +75,25 @@ export async function PUT(request: NextRequest) {
 
   // Update domain if provided
   if (typeof body.domain === "string" && body.domain.trim()) {
-    const cleanDomain = body.domain.replace(/^https?:\/\//, "").replace(/\/+$/, "");
-    await prisma.site.update({
-      where: { id: auth.siteId },
-      data: { domain: cleanDomain },
+    const cleanDomain = body.domain
+      .replace(/^https?:\/\//, "")
+      .replace(/\/+$/, "");
+
+    // Check if domain is already taken by another site
+    const existing = await prisma.site.findUnique({
+      where: { domain: cleanDomain },
     });
+
+    if (existing && existing.id !== auth.siteId) {
+      return NextResponse.json({ error: "domain_taken" }, { status: 409 });
+    }
+
+    if (!existing || existing.id === auth.siteId) {
+      await prisma.site.update({
+        where: { id: auth.siteId },
+        data: { domain: cleanDomain },
+      });
+    }
   }
 
   return NextResponse.json({ success: true });

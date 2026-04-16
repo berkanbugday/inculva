@@ -38,10 +38,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "invalid_token" }, { status: 401 });
   }
 
+  const merchantId = merchant.id;
   const storeName = merchant.storeName;
 
   let ikasStore = await prisma.ikasStore.findUnique({
-    where: { ikasStoreId: storeName },
+    where: { ikasStoreId: merchantId },
   });
 
   // ── Auto-provision if store doesn't exist or was uninstalled ────────
@@ -125,7 +126,7 @@ export async function POST(request: NextRequest) {
         ikasStore = await prisma.ikasStore.create({
           data: {
             siteId: site.id,
-            ikasStoreId: storeName,
+            ikasStoreId: merchantId,
             ikasStoreName: storeName,
             accessToken: encrypt(accessToken),
             refreshToken: null,

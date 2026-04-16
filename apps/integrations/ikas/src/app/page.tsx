@@ -87,12 +87,10 @@ export default function HomePage() {
           const clientId = process.env.NEXT_PUBLIC_IKAS_CLIENT_ID;
           const deployUrl = process.env.NEXT_PUBLIC_DEPLOY_URL;
           const redirectUri = `${deployUrl}/api/oauth/callback/ikas`;
-          const scope =
-            "read_product write_product read_order write_order read_storefront write_storefront";
           const oauthUrl =
             `https://${storeName}.myikas.com/api/admin/oauth/authorize` +
             `?response_type=code&client_id=${clientId}` +
-            `&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}`;
+            `&redirect_uri=${encodeURIComponent(redirectUri)}`;
           window.location.replace(oauthUrl);
           return;
         }

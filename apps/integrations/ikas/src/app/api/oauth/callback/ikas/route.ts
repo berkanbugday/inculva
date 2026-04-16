@@ -61,6 +61,7 @@ export async function GET(request: NextRequest) {
     return fail("auth_failed");
   }
 
+  const merchantId = merchant.id;
   const merchantStoreName = merchant.storeName || storeName;
 
   // Fetch storefronts
@@ -78,7 +79,7 @@ export async function GET(request: NextRequest) {
 
   // ── Reinstall (existing store) ──────────────────────────────────────
   const existing = await prisma.ikasStore.findUnique({
-    where: { ikasStoreId: merchantStoreName },
+    where: { ikasStoreId: merchantId },
   });
 
   if (existing) {
@@ -175,7 +176,7 @@ export async function GET(request: NextRequest) {
   const ikasStore = await prisma.ikasStore.create({
     data: {
       siteId: site.id,
-      ikasStoreId: merchantStoreName,
+      ikasStoreId: merchantId,
       ikasStoreName: merchantStoreName,
       accessToken: encrypt(tokens.access_token),
       refreshToken: tokens.refresh_token
